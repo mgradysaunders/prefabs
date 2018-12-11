@@ -659,6 +659,8 @@ table.memberdecls {
         -webkit-border-bottom-left-radius: 4px;
         -webkit-border-bottom-right-radius: 4px;
         -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+        /* EDIT */
+        overflow-x: scroll;
 }
 
 dl.reflist dt {
