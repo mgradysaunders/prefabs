@@ -48,7 +48,7 @@
 namespace pr {
 
 /**
- * @addtogroup block_array Block arrays
+ * @defgroup block_array2 2-dimensional block array
  */
 /**@{*/
 

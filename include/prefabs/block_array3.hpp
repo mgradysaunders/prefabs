@@ -48,7 +48,7 @@
 namespace pr {
 
 /**
- * @addtogroup block_array Block arrays
+ * @addtogroup block_array3 3-dimensional block array
  */
 /**@{*/
 
