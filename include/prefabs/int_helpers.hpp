@@ -49,51 +49,51 @@ template <typename T, typename U = T>
 using enable_int = std::enable_if<std::is_integral<T>::value, U>;
 
 /**
- * @brief Least common multiple.
- */
-template <typename T> 
-constexpr typename enable_int<T>::type lcm(T p, T q)
-{
-    if (!p || !q)
-        return 0;
-    else
-        return p * q / gcd(p, q);
-}
-
-/**
  * @brief Greatest common divisor.
  */
 template <typename T> 
-constexpr typename enable_int<T>::type gcd(T p, T q)
+constexpr typename enable_int<T>::type gcd(T a, T b)
 {
-    T r = T();
-    while (p) {
-        r = q % p;
-        q = p;
-        p = r;
+    T r = 0;
+    while (a) {
+        r = b % a;
+        b = a;
+        a = r;
     }
-    return q;
+    return b;
 }
 
 /**
  * @brief Greatest common divisor with Bezout coefficients.
  */
 template <typename T> 
-constexpr typename enable_int<T>::type gcd_bezout(T p, T q, T* x, T* y)
+constexpr typename enable_int<T>::type gcd_bezout(T a, T b, T* x, T* y)
 {
-    T s = 0, sprev = 1;
-    T t = 1, tprev = 0;
-    T r = q, rprev = p;
-    while (r != 0) {
-        T m = rprev / r;
-        T n;
-        n = r, r = rprev - m * r, rprev = n;
-        n = s, s = sprev - m * s, sprev = n;
-        n = t, t = tprev - m * t, tprev = n;
+    T s1 = 0, s0 = 1;
+    T t1 = 1, t0 = 0;
+    T r1 = b, r0 = a;
+    while (r1 != 0) {
+        T q = r0 / r1;
+        T k;
+        k = r1, r1 = r0 - q * r1, r0 = k;
+        k = s1, s1 = s0 - q * s1, s0 = k;
+        k = t1, t1 = t0 - q * t1, t0 = k;
     }
-    if (x) *x = sprev;
-    if (y) *y = tprev;
-    return rprev;
+    if (x) *x = s0;
+    if (y) *y = t0;
+    return r0;
+}
+
+/**
+ * @brief Least common multiple.
+ */
+template <typename T> 
+constexpr typename enable_int<T>::type lcm(T a, T b)
+{
+    if (!a || !b)
+        return 0;
+    else
+        return a * b / gcd(a, b);
 }
 
 /**
