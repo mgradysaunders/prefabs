@@ -27,8 +27,8 @@
  */
 /*+-+*/
 #pragma once
-#ifndef PREFABS_BIT_HELPERS_HPP
-#define PREFABS_BIT_HELPERS_HPP
+#ifndef PREFABS_INT_HELPERS_HPP
+#define PREFABS_INT_HELPERS_HPP
 
 // for std::enable_if, std::is_integral
 #include <type_traits>
@@ -36,7 +36,7 @@
 namespace pr {
 
 /**
- * @defgroup bit_helpers Bit helpers
+ * @defgroup int_helpers Int helpers
  */
 /**@{*/
 
@@ -182,4 +182,4 @@ constexpr typename enable_int<T>::type rotr(T val, int rot)
 
 } // namespace pr
 
-#endif // #ifndef PREFABS_BIT_HELPERS_HPP
+#endif // #ifndef PREFABS_INT_HELPERS_HPP

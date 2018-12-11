@@ -37,7 +37,7 @@
 #include <vector>
 
 // for pr::first1, pr::roundpow2, ...
-#include <prefabs/bit_helpers.hpp>
+#include <prefabs/int_helpers.hpp>
 
 #if !DOXYGEN
 #ifndef L1_LINE
