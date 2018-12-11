@@ -254,7 +254,7 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:ae61758c9a7496f59a3fd9500adfa730c"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array2.html#a3e28e62c46d203d31114e45d6559b753">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array2.html#ae61758c9a7496f59a3fd9500adfa730c">block_size_log2</a> = <a class="el" href="group__bit__helpers.html#ga2a39f7b0281ef38a09a1df6ad35e53df">first1</a>(<a class="el" href="group__bit__helpers.html#gad5dc22f13087ef95ab80f9e52c8a2761">roundpow2</a>(L1_LINE / sizeof(T))) / 2</td></tr>
+<tr class="memitem:ae61758c9a7496f59a3fd9500adfa730c"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array2.html#a3e28e62c46d203d31114e45d6559b753">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array2.html#ae61758c9a7496f59a3fd9500adfa730c">block_size_log2</a> = <a class="el" href="group__int__helpers.html#ga2a39f7b0281ef38a09a1df6ad35e53df">first1</a>(<a class="el" href="group__int__helpers.html#gad5dc22f13087ef95ab80f9e52c8a2761">roundpow2</a>(L1_LINE / sizeof(T))) / 2</td></tr>
 <tr class="memdesc:ae61758c9a7496f59a3fd9500adfa730c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binary log of the block size \( \log_{2}{B} \).  <a href="#ae61758c9a7496f59a3fd9500adfa730c">More...</a><br /></td></tr>
 <tr class="separator:ae61758c9a7496f59a3fd9500adfa730c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1cc971719602e2cb79c549f660baec5"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array2.html#a3e28e62c46d203d31114e45d6559b753">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array2.html#af1cc971719602e2cb79c549f660baec5">block_size</a> = 1 &lt;&lt; <a class="el" href="classpr_1_1block__array2.html#ae61758c9a7496f59a3fd9500adfa730c">block_size_log2</a></td></tr>
@@ -1879,7 +1879,7 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1block__array2.html#a3e28e62c46d203d31114e45d6559b753">size_type</a> <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Alloc &gt;::block_size_log2 = <a class="el" href="group__bit__helpers.html#ga2a39f7b0281ef38a09a1df6ad35e53df">first1</a>(<a class="el" href="group__bit__helpers.html#gad5dc22f13087ef95ab80f9e52c8a2761">roundpow2</a>(L1_LINE / sizeof(T))) / 2</td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1block__array2.html#a3e28e62c46d203d31114e45d6559b753">size_type</a> <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Alloc &gt;::block_size_log2 = <a class="el" href="group__int__helpers.html#ga2a39f7b0281ef38a09a1df6ad35e53df">first1</a>(<a class="el" href="group__int__helpers.html#gad5dc22f13087ef95ab80f9e52c8a2761">roundpow2</a>(L1_LINE / sizeof(T))) / 2</td>
         </tr>
       </table>
   </td>
