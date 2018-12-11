@@ -95,7 +95,13 @@ inline typename enable_float<T>::type fclamp(T x, T a, T b)
 /**
  * @brief Repeat.
  *
+ * @image html frepeat.svg
+ *
  * Wrap value @f$ x @f$ in range @f$ [a, b) @f$.
+ *
+ * @note
+ * If @f$ a > b @f$, the implementation is equivalent to
+ * to @f$ \operatorname{frepeat}(-x; b, a) @f$.
  *
  * @param[in] x
  * Value.
@@ -125,7 +131,13 @@ inline typename enable_float<T>::type frepeat(T x, T a, T b)
 /**
  * @brief Mirror.
  *
+ * @image html fmirror.svg
+ *
  * Wrap value @f$ x @f$ in range @f$ [a, b) @f$, with mirroring.
+ *
+ * @note
+ * If @f$ a > b @f$, the implementation is equivalent
+ * to @f$ \operatorname{fmirror}(-x; b, a) @f$.
  *
  * @param[in] x
  * Value.
