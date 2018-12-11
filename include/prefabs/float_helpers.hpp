@@ -30,6 +30,9 @@
 #ifndef PREFABS_FLOAT_HELPERS_HPP
 #define PREFABS_FLOAT_HELPERS_HPP
 
+// for assert
+#include <cassert>
+
 // for std::remquo, std::nextafter, ...
 #include <cmath>
 
