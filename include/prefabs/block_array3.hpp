@@ -48,7 +48,9 @@
 namespace pr {
 
 /**
- * @addtogroup block_array3 3-dimensional block array
+ * @defgroup block_array3 3-dimensional block array
+ *
+ * `<prefabs/block_array3.hpp>`
  */
 /**@{*/
 

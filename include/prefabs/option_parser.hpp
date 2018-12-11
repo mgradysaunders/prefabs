@@ -55,6 +55,8 @@ namespace pr {
 
 /**
  * @defgroup option_parser Option parser
+ *
+ * `<prefabs/option_parser.hpp>`
  */
 /**@{*/
 

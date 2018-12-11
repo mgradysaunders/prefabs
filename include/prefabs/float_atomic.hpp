@@ -42,7 +42,9 @@
 namespace pr {
 
 /**
- * @defgroup float_atomic Floating point atomic
+ * @defgroup float_atomic Float atomic
+ *
+ * `<prefabs/float_atomic.hpp>`
  */
 /**@{*/
 

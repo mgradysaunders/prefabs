@@ -40,6 +40,8 @@ namespace pr {
 
 /**
  * @defgroup memory_arena Memory arena
+ *
+ * `<prefabs/memory_arena.hpp>`
  */
 /**@{*/
 

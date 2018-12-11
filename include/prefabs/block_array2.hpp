@@ -49,6 +49,8 @@ namespace pr {
 
 /**
  * @defgroup block_array2 2-dimensional block array
+ *
+ * `<prefabs/block_array2.hpp>`
  */
 /**@{*/
 

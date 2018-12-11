@@ -61,6 +61,8 @@ namespace pr {
 
 /**
  * @defgroup thread_pool Thread pool
+ *
+ * `<prefabs/thread_pool.hpp>`
  */
 /**@{*/
 

@@ -34,6 +34,8 @@ namespace pr {
 
 /**
  * @defgroup interp Interpolation
+ *
+ * `<prefabs/interp.hpp>`
  */
 /**@{*/
 
@@ -105,7 +107,7 @@ constexpr auto hermite(T t, const U& x, const U& u, const U& v, const U& y)
  * @param [in] y 
  * Value at @f$ t = 1 @f$.
  *
- * @param [in] w 
+ * @param [in] z
  * Subsequent value at @f$ t = 1 @f$.
  *
  * @see Wikipedia's article for [Cubic Hermite spline][1].

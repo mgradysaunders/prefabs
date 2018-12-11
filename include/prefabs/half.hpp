@@ -43,6 +43,8 @@ namespace pr {
 
 /**
  * @defgroup half Half-precision float
+ *
+ * `<prefabs/half.hpp>`
  */
 /**@{*/
 

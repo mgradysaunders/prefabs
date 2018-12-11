@@ -37,6 +37,8 @@ namespace pr {
 
 /**
  * @defgroup int_helpers Int helpers
+ *
+ * `<prefabs/int_helpers.hpp>`
  */
 /**@{*/
 

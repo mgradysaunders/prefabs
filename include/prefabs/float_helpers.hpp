@@ -46,6 +46,8 @@ namespace pr {
 
 /**
  * @defgroup float_helpers Float helpers
+ *
+ * `<prefabs/float_helpers.hpp>`
  */
 /**@{*/
 

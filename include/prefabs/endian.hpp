@@ -46,6 +46,8 @@ namespace pr {
 
 /**
  * @defgroup endian Endian
+ *
+ * `<prefabs/endian.hpp>`
  */
 /**@{*/
 

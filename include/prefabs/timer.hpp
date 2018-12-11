@@ -40,6 +40,8 @@ namespace pr {
 
 /**
  * @defgroup timer Timer
+ *
+ * `<prefabs/timer.hpp>`
  */
 /**@{*/
 
