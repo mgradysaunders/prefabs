@@ -43,6 +43,8 @@ namespace pr {
 
 /**
  * @defgroup math Math
+ *
+ * `<prefabs/math.hpp>`
  */
 /**@{*/
 

@@ -46,6 +46,8 @@ namespace pr {
 
 /**
  * @defgroup quadmath Quadmath
+ *
+ * `<prefabs/quadmath.hpp>`
  */
 /**@{*/
 
