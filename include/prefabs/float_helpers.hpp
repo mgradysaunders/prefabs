@@ -33,14 +33,10 @@
 // for assert
 #include <cassert>
 
-// for std::remquo, std::nextafter, ...
-#include <cmath>
-
-// for std::numeric_limits
-#include <limits>
-
 // for std::enable_if, std::is_floating_point
 #include <type_traits>
+
+#include <prefabs/math.hpp>
 
 namespace pr {
 
@@ -63,7 +59,7 @@ using enable_float = std::enable_if<std::is_floating_point<T>::value, U>;
 template <typename T>
 inline typename enable_float<T>::type finc(T x)
 {
-    return std::nextafter(x, +std::numeric_limits<T>::infinity());
+    return pr::nextafter(x, +pr::numeric_limits<T>::infinity());
 }
 
 /**
@@ -72,7 +68,7 @@ inline typename enable_float<T>::type finc(T x)
 template <typename T>
 inline typename enable_float<T>::type fdec(T x)
 {
-    return std::nextafter(x, -std::numeric_limits<T>::infinity());
+    return pr::nextafter(x, -pr::numeric_limits<T>::infinity());
 }
 
 /**
@@ -91,7 +87,7 @@ template <typename T>
 inline typename enable_float<T>::type fclamp(T x, T a, T b)
 {
     assert(a <= b);
-    return std::fmax(a, std::fmin(x, b));
+    return pr::fmax(a, pr::fmin(x, b));
 }
 
 /**
@@ -123,7 +119,7 @@ inline typename enable_float<T>::type frepeat(T x, T a, T b)
     }
     T x0 = x - a;
     T b0 = b - a;
-    T r0 = std::remainder(x0, b0);
+    T r0 = pr::remainder(x0, b0);
     if (r0 < T(0)) {
         r0 += b0;
     }
@@ -160,7 +156,7 @@ inline typename enable_float<T>::type fmirror(T x, T a, T b)
     T x0 = x - a;
     T b0 = b - a;
     int q0;
-    T r0 = std::remquo(x0, b0, &q0);
+    T r0 = pr::remquo(x0, b0, &q0);
     if (r0 < T(0)) {
         r0 += b0;
         q0++;
