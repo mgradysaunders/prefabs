@@ -63,6 +63,10 @@ funcs = [
 ]
 
 puts <<STR
+\#if !DOXYGEN
+\#define DECLTYPE(func, ...) -> decltype(std::func(__VA_ARGS__))
+\#endif // \#if !DOXYGEN
+
 /**
  * @addtogroup math
  */
@@ -93,11 +97,8 @@ for func in funcs
  * @brief Wrap `std::#{funcname}()`.
  */
 template <typename T>
-__attribute__((always_inline))
-inline auto #{funcname}(#{args1})
-\#if !DOXYGEN
-    -> decltype(std::#{funcname}(#{args2}))
-\#endif // \#if !DOXYGEN
+__attribute__((always_inline)) 
+inline auto #{funcname}(#{args1}) DECLTYPE(#{funcname}, #{args2})
 {
     return std::#{funcname}(#{args2});
 }
@@ -112,5 +113,9 @@ STR
 
 puts <<STR
 /**@}*/
+
+\#if !DOXYGEN
+\#undef DECLTYPE
+\#endif // \#if !DOXYGEN
 
 STR
