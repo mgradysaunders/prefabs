@@ -83,6 +83,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__arena.html">memory_arena</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory arena.  <a href="classpr_1_1memory__arena.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits.html">numeric_limits</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::numeric_limits</code>.  <a href="structpr_1_1numeric__limits.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html">numeric_limits&lt; __float128 &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialize <code>__float128</code>.  <a href="structpr_1_1numeric__limits_3_01____float128_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option.html">option</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option descriptor.  <a href="classpr_1_1option.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -106,6 +112,14 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga637428709e8093d4617794e8d76cf581"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a> = std::enable_if&lt; std::is_integral&lt; T &gt;::value, U &gt;</td></tr>
 <tr class="memdesc:ga637428709e8093d4617794e8d76cf581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable type <code>U</code> if type <code>T</code> is integral.  <a href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">More...</a><br /></td></tr>
 <tr class="separator:ga637428709e8093d4617794e8d76cf581"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga61abee71a7cdf80fbd1ea6ad26218dd1"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U  = T&gt; </td></tr>
+<tr class="memitem:ga61abee71a7cdf80fbd1ea6ad26218dd1"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a> = std::enable_if&lt; std::is_same&lt; T, __float128 &gt;::value, U &gt;</td></tr>
+<tr class="memdesc:ga61abee71a7cdf80fbd1ea6ad26218dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable type <code>U</code> if type <code>T</code> is <code>__float128</code>.  <a href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">More...</a><br /></td></tr>
+<tr class="separator:ga61abee71a7cdf80fbd1ea6ad26218dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8728d82691ddb6c959428f16df9ef4de"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U  = T&gt; </td></tr>
+<tr class="memitem:ga8728d82691ddb6c959428f16df9ef4de"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a> = std::enable_if&lt; std::is_same&lt; T, __complex128 &gt;::value, U &gt;</td></tr>
+<tr class="memdesc:ga8728d82691ddb6c959428f16df9ef4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable type <code>U</code> if type <code>T</code> is <code>__complex128</code>.  <a href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">More...</a><br /></td></tr>
+<tr class="separator:ga8728d82691ddb6c959428f16df9ef4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5238f8e4b8fc1331430f69cb8a77405a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__timer.html#ga5238f8e4b8fc1331430f69cb8a77405a">system_timer</a> = <a class="el" href="classpr_1_1timer.html">timer</a>&lt; std::chrono::system_clock &gt;</td></tr>
 <tr class="memdesc:ga5238f8e4b8fc1331430f69cb8a77405a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer for <code>std::chrono::system_clock</code>.  <a href="group__timer.html#ga5238f8e4b8fc1331430f69cb8a77405a">More...</a><br /></td></tr>
 <tr class="separator:ga5238f8e4b8fc1331430f69cb8a77405a"><td class="memSeparator" colspan="2">&#160;</td></tr>
