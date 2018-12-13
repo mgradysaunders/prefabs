@@ -374,7 +374,8 @@ public:
                 bool itfound = false;
                 for (auto it = groups_.begin(); 
                           it != groups_.end(); it++) {
-                    if (it->name && !std::strcmp(it->name, *argv)) {
+                    if (it != itgroup &&
+                        it->name && !std::strcmp(it->name, *argv)) {
                         itgroup = it;
                         itfound = true;
                         break;
