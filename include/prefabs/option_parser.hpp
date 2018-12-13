@@ -48,6 +48,15 @@
 // for std::string
 #include <string>
 
+// for std::stringstream
+#include <sstream>
+
+// for std::basic_ostream
+#include <ostream>
+
+// for std::quoted
+#include <iomanip>
+
 // for std::invalid_argument, std::runtime_error, ...
 #include <stdexcept>
 
@@ -132,8 +141,16 @@ public:
      */
     std::function<void(char**)> callback;
 
+    /**
+     * @brief Help stringstream.
+     */
+    std::stringstream help_ss;
+
 public:
 
+    /**
+     * @brief Form string from `name_abbrv` and `name`.
+     */
     operator std::string() const
     {
         std::string desc;
@@ -150,6 +167,29 @@ public:
 };
 
 /**
+ * @brief Option group.
+ */
+class option_group
+{
+public:
+
+    /**
+     * @brief Name.
+     */
+    const char* name;
+
+    /**
+     * @brief Option descriptors.
+     */
+    std::list<option> opts;
+
+    /**
+     * @brief Positional argument callback.
+     */
+    std::function<void(char*)> pos_callback;
+};
+
+/**
  * @brief Option parser.
  */
 class option_parser
@@ -157,9 +197,39 @@ class option_parser
 public:
 
     /**
-     * @brief Default constructor.
+     * @brief Constructor.
      */
-    option_parser() = default;
+    option_parser(const char* prog_usage) : prog_usage_(prog_usage)
+    {
+        groups_.emplace_back(option_group{
+            nullptr,
+            std::list<option>(),
+            std::function<void(char*)>(nullptr)
+        });
+    }
+
+    /**
+     * @brief Set in-group for subsequent options.
+     *
+     * @param[in] name
+     * Name.
+     */
+    void in_group(const char* name)
+    {
+        for (auto it = groups_.begin(); 
+                  it != groups_.end(); ++it) {
+            if ((!it->name && !name) ||
+                 (it->name && !std::strcmp(it->name, name))) {
+                groups_.splice(groups_.end(), groups_, it);
+                return;
+            }
+        }
+        groups_.emplace_back(option_group{
+            name,
+            std::list<option>(),
+            std::function<void(char*)>(nullptr)
+        });
+    }
 
     /**
      * @brief Add on-option callback.
@@ -176,7 +246,7 @@ public:
      * @param[in] callback
      * Callback.
      */
-    void on_option(
+    std::stringstream& on_option(
         const char* name_abbrv,
         const char* name,
         int argc,
@@ -189,12 +259,15 @@ public:
         assert(callback);
 
         // emplace
-        opts_.emplace_back(option{
+        groups_.back().opts.emplace_back(option{
             name_abbrv,
             name,
             argc,
-            callback
+            callback,
+            std::stringstream()
         });
+
+        return groups_.back().opts.back().help_ss;
     }
 
     /**
@@ -206,7 +279,7 @@ public:
     void on_positional(
             const std::function<void(char*)>& callback)
     {
-        pos_callback_ = callback;
+        groups_.back().pos_callback = callback;
     }
 
     /**
@@ -225,8 +298,12 @@ public:
     {
         assert(argc > 0);
         assert(argv);
+        prog_name_ = *argv;
         --argc;
         ++argv;
+
+        // group
+        std::list<option_group>::iterator itgroup = groups_.begin();
 
         while (argc > 0) {
 
@@ -241,7 +318,7 @@ public:
 
                 // process
                 bool opt_okay = false;
-                for (option& opt : opts_) {
+                for (option& opt : itgroup->opts) {
                     const char* name_abbrv = opt.name_abbrv;
                     const char* name = opt.name;
                     if ((name_abbrv && !std::strcmp(name_abbrv, *argv)) ||
@@ -293,9 +370,29 @@ public:
                     *eq = '=';
                 }
 
-                // positional
-                if (pos_callback_) {
-                    pos_callback_(*argv);
+                // find group?
+                bool itfound = false;
+                for (auto it = groups_.begin(); 
+                          it != groups_.end(); it++) {
+                    if (it->name && !std::strcmp(it->name, *argv)) {
+                        itgroup = it;
+                        itfound = true;
+                        break;
+                    }
+                }
+
+                if (!itfound) {
+
+                    // positional
+                    if (itgroup->pos_callback) {
+                        itgroup->pos_callback(*argv);
+                    }
+                    else {
+                        std::stringstream ss;
+                        ss << "unexpected positional argument ";
+                        ss << std::quoted(*argv);
+                        throw std::runtime_error(ss.str());
+                    }
                 }
 
                 // consume
@@ -305,17 +402,56 @@ public:
         }
     }
 
+    /**
+     * @brief Write help to `std::basic_ostream`.
+     */
+    template <typename Char, typename Traits>
+    friend
+    inline std::basic_ostream<Char, Traits>& operator<<(
+           std::basic_ostream<Char, Traits>& os, option_parser& opt_parse)
+    {
+        os << "Usage: ";
+        os << opt_parse.prog_name_ << ' ';
+        os << opt_parse.prog_usage_ << "\n\n";
+        for (option_group& group : opt_parse.groups_) {
+            if (group.name) {
+                os << '<' << group.name;
+                os << ">\n\n";
+            }
+            for (option& opt : group.opts) {
+                os << std::string(opt).c_str();
+                os << '{' << opt.argc << '}';
+                os << '\n';
+                os << '\t';
+                std::string str = opt.help_ss.str();
+                for (char ch : str) {
+                    os << ch;
+                    if (ch == '\n') {
+                        os << '\t';
+                    }
+                }
+                os << '\n';
+            }
+        }
+        return os;
+    }
+
 private:
 
     /**
-     * @brief Options.
+     * @brief Program name (from `argv[0]`).
      */
-    std::list<option> opts_;
+    const char* prog_name_;
 
     /**
-     * @brief Positional callback.
+     * @brief Program usage.
      */
-    std::function<void(char*)> pos_callback_;
+    const char* prog_usage_;
+
+    /**
+     * @brief Option groups.
+     */
+    std::list<option_group> groups_;
 };
 
 /**@}*/
