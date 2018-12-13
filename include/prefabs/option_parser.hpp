@@ -187,6 +187,21 @@ public:
      * @brief Positional argument callback.
      */
     std::function<void(char*)> pos_callback;
+
+public:
+
+    /**
+     * @brief Form string from `name`.
+     */
+    operator std::string() const
+    {
+        if (!name) {
+            return "";
+        }
+        else {
+            return std::string("<").append(name).append(">");
+        }
+    }
 };
 
 /**
@@ -358,10 +373,13 @@ public:
 
                 // unknown option?
                 if (!opt_okay) {
-                    throw 
-                        std::runtime_error(
-                        std::string("unknown option ")
-                            .append(*argv));
+                    std::stringstream ss;
+                    if (itgroup->name) {
+                        ss << std::string(*itgroup);
+                        ss << ' ';
+                    }
+                    ss << "unknown option " << *argv;
+                    throw std::runtime_error(ss.str());
                 }
             }
             else {
@@ -413,11 +431,13 @@ public:
     {
         os << "Usage: ";
         os << opt_parse.prog_name_ << ' ';
-        os << opt_parse.prog_usage_ << "\n\n";
+        os << opt_parse.prog_usage_ << '\n';
+        os << '\n';
         for (option_group& group : opt_parse.groups_) {
             if (group.name) {
-                os << '<' << group.name;
-                os << ">\n\n";
+                os << std::string(group).c_str();
+                os << '\n';
+                os << '\n';
             }
             for (option& opt : group.opts) {
                 os << std::string(opt).c_str();
