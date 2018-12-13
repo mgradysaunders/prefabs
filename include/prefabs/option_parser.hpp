@@ -352,12 +352,14 @@ public:
                         // not enough args?
                         if (argc < opt.argc ||
                                  (!opt.argc && eq)) { // or no args and eq?
-                            throw 
-                                std::runtime_error(
-                                std::string(opt)
-                                    .append(" expects ")
-                                    .append(std::to_string(opt.argc))
-                                    .append(" argument(s)"));
+                            std::stringstream ss;
+                            if (itgroup->name) {
+                                ss << std::string(*itgroup);
+                                ss << ' ';
+                            }
+                            ss << std::string(opt);
+                            ss << " expects " << opt.argc << " argument(s)";
+                            throw std::runtime_error(ss.str());
                         }
 
                         // delegate
@@ -378,7 +380,7 @@ public:
                         ss << std::string(*itgroup);
                         ss << ' ';
                     }
-                    ss << "unknown option " << *argv;
+                    ss << "Unknown option " << *argv;
                     throw std::runtime_error(ss.str());
                 }
             }
@@ -408,7 +410,11 @@ public:
                     }
                     else {
                         std::stringstream ss;
-                        ss << "unexpected positional argument ";
+                        if (itgroup->name) {
+                            ss << std::string(*itgroup);
+                            ss << ' ';
+                        }
+                        ss << "Unexpected positional argument ";
                         ss << std::quoted(*argv);
                         throw std::runtime_error(ss.str());
                     }
