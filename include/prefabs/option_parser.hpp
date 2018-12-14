@@ -184,7 +184,17 @@ public:
     std::list<option> opts;
 
     /**
-     * @brief Positional argument callback.
+     * @brief Begin callback.
+     */
+    std::function<void(void)> begin_callback;
+
+    /**
+     * @brief End callback.
+     */
+    std::function<void(void)> end_callback;
+
+    /**
+     * @brief Positional callback.
      */
     std::function<void(char*)> pos_callback;
 
@@ -219,6 +229,8 @@ public:
         groups_.emplace_back(option_group{
             nullptr,
             std::list<option>(),
+            std::function<void(void)>(nullptr),
+            std::function<void(void)>(nullptr),
             std::function<void(char*)>(nullptr)
         });
     }
@@ -242,8 +254,32 @@ public:
         groups_.emplace_back(option_group{
             name,
             std::list<option>(),
+            std::function<void(void)>(nullptr),
+            std::function<void(void)>(nullptr),
             std::function<void(char*)>(nullptr)
         });
+    }
+
+    /**
+     * @brief Set group on-begin callback.
+     *
+     * @param[in] callback
+     * Callback.
+     */
+    void on_begin(const std::function<void(void)>& callback)
+    {
+        groups_.back().begin_callback = callback;
+    }
+
+    /**
+     * @brief Set group on-end callback.
+     *
+     * @param[in] callback
+     * Callback.
+     */
+    void on_end(const std::function<void(void)>& callback)
+    {
+        groups_.back().end_callback = callback;
     }
 
     /**
@@ -320,6 +356,11 @@ public:
         // group
         std::list<option_group>::iterator itgroup = groups_.begin();
 
+        // begin
+        if (itgroup->begin_callback) {
+            itgroup->begin_callback();
+        }
+
         while (argc > 0) {
 
             // look for '=', if present, truncate *argv
@@ -394,10 +435,19 @@ public:
                 bool itfound = false;
                 for (auto it = groups_.begin(); 
                           it != groups_.end(); it++) {
-                    if (it != itgroup &&
-                        it->name && !std::strcmp(it->name, *argv)) {
-                        itgroup = it;
+                    if (it->name && !std::strcmp(it->name, *argv)) {
+                        // end
+                        if (itgroup->end_callback) {
+                            itgroup->end_callback();
+                        }
+
                         itfound = true;
+                        itgroup = it;
+
+                        // begin
+                        if (itgroup->begin_callback) {
+                            itgroup->begin_callback();
+                        }
                         break;
                     }
                 }
@@ -424,6 +474,11 @@ public:
                 --argc;
                 ++argv;
             }
+        }
+
+        // end
+        if (itgroup->end_callback) {
+            itgroup->end_callback();
         }
     }
 
