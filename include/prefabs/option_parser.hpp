@@ -144,7 +144,7 @@ public:
     /**
      * @brief Help stringstream.
      */
-    std::stringstream help_ss;
+    std::ostringstream help_oss;
 
 public:
 
@@ -236,7 +236,7 @@ public:
     }
 
     /**
-     * @brief Set in-group for subsequent options.
+     * @brief Set in-group for subsequent calls.
      *
      * @param[in] name
      * Name.
@@ -261,25 +261,39 @@ public:
     }
 
     /**
-     * @brief Set group on-begin callback.
+     * @brief Set on-begin callback.
      *
      * @param[in] callback
      * Callback.
      */
-    void on_begin(const std::function<void(void)>& callback)
+    void on_begin(
+            const std::function<void(void)>& callback)
     {
         groups_.back().begin_callback = callback;
     }
 
     /**
-     * @brief Set group on-end callback.
+     * @brief Set on-end callback.
      *
      * @param[in] callback
      * Callback.
      */
-    void on_end(const std::function<void(void)>& callback)
+    void on_end(
+            const std::function<void(void)>& callback)
     {
         groups_.back().end_callback = callback;
+    }
+
+    /**
+     * @brief Set on-positional callback.
+     *
+     * @param[in] callback
+     * Callback.
+     */
+    void on_positional(
+            const std::function<void(char*)>& callback)
+    {
+        groups_.back().pos_callback = callback;
     }
 
     /**
@@ -296,8 +310,10 @@ public:
      *
      * @param[in] callback
      * Callback.
+     *
+     * @returns Help stringstream.
      */
-    std::stringstream& on_option(
+    std::ostringstream& on_option(
         const char* name_abbrv,
         const char* name,
         int argc,
@@ -315,22 +331,10 @@ public:
             name,
             argc,
             callback,
-            std::stringstream()
+            std::ostringstream()
         });
 
-        return groups_.back().opts.back().help_ss;
-    }
-
-    /**
-     * @brief Set on-positional callback.
-     *
-     * @param[in] callback
-     * Callback.
-     */
-    void on_positional(
-            const std::function<void(char*)>& callback)
-    {
-        groups_.back().pos_callback = callback;
+        return groups_.back().opts.back().help_oss;
     }
 
     /**
@@ -505,7 +509,7 @@ public:
                 os << '{' << opt.argc << '}';
                 os << '\n';
                 os << '\t';
-                std::string str = opt.help_ss.str();
+                std::string str = opt.help_oss.str();
                 for (char ch : str) {
                     os << ch;
                     if (ch == '\n') {
