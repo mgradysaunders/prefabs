@@ -144,7 +144,7 @@ public:
     /**
      * @brief Help stringstream.
      */
-    std::ostringstream help_oss;
+    std::stringstream help_ss;
 
 public:
 
@@ -311,9 +311,9 @@ public:
      * @param[in] callback
      * Callback.
      *
-     * @returns Help stringstream.
+     * @returns Help stream.
      */
-    std::ostringstream& on_option(
+    std::ostream& on_option(
         const char* name_abbrv,
         const char* name,
         int argc,
@@ -331,10 +331,10 @@ public:
             name,
             argc,
             callback,
-            std::ostringstream()
+            std::stringstream()
         });
 
-        return groups_.back().opts.back().help_oss;
+        return groups_.back().opts.back().help_ss;
     }
 
     /**
@@ -509,7 +509,7 @@ public:
                 os << '{' << opt.argc << '}';
                 os << '\n';
                 os << '\t';
-                std::string str = opt.help_oss.str();
+                std::string str = opt.help_ss.str();
                 for (char ch : str) {
                     os << ch;
                     if (ch == '\n') {
