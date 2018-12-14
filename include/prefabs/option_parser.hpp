@@ -144,7 +144,7 @@ public:
     /**
      * @brief Help stringstream.
      */
-    std::stringstream help_ss;
+    std::stringstream help;
 
 public:
 
@@ -334,7 +334,7 @@ public:
             std::stringstream()
         });
 
-        return groups_.back().opts.back().help_ss;
+        return groups_.back().opts.back().help;
     }
 
     /**
@@ -509,7 +509,7 @@ public:
                 os << '{' << opt.argc << '}';
                 os << '\n';
                 os << '\t';
-                std::string str = opt.help_ss.str();
+                std::string str = opt.help.str();
                 for (char ch : str) {
                     os << ch;
                     if (ch == '\n') {
