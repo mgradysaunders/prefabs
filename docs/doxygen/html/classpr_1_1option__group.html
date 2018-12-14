@@ -86,8 +86,14 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a7f5f4012d69808b6d359e0cc23f3f1f6"><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="classpr_1_1option.html">option</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__group.html#a7f5f4012d69808b6d359e0cc23f3f1f6">opts</a></td></tr>
 <tr class="memdesc:a7f5f4012d69808b6d359e0cc23f3f1f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option descriptors.  <a href="#a7f5f4012d69808b6d359e0cc23f3f1f6">More...</a><br /></td></tr>
 <tr class="separator:a7f5f4012d69808b6d359e0cc23f3f1f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a333b9a1e6e677ddffd8e9d341f09da8f"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(void)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__group.html#a333b9a1e6e677ddffd8e9d341f09da8f">begin_callback</a></td></tr>
+<tr class="memdesc:a333b9a1e6e677ddffd8e9d341f09da8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin callback.  <a href="#a333b9a1e6e677ddffd8e9d341f09da8f">More...</a><br /></td></tr>
+<tr class="separator:a333b9a1e6e677ddffd8e9d341f09da8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d8a3c6a6f517126f5b7e4ac0489767d"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(void)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__group.html#a9d8a3c6a6f517126f5b7e4ac0489767d">end_callback</a></td></tr>
+<tr class="memdesc:a9d8a3c6a6f517126f5b7e4ac0489767d"><td class="mdescLeft">&#160;</td><td class="mdescRight">End callback.  <a href="#a9d8a3c6a6f517126f5b7e4ac0489767d">More...</a><br /></td></tr>
+<tr class="separator:a9d8a3c6a6f517126f5b7e4ac0489767d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cf779d2e21bcd57e8176a00ba04084a"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(char *)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__group.html#a9cf779d2e21bcd57e8176a00ba04084a">pos_callback</a></td></tr>
-<tr class="memdesc:a9cf779d2e21bcd57e8176a00ba04084a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positional argument callback.  <a href="#a9cf779d2e21bcd57e8176a00ba04084a">More...</a><br /></td></tr>
+<tr class="memdesc:a9cf779d2e21bcd57e8176a00ba04084a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positional callback.  <a href="#a9cf779d2e21bcd57e8176a00ba04084a">More...</a><br /></td></tr>
 <tr class="separator:a9cf779d2e21bcd57e8176a00ba04084a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -153,6 +159,38 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a333b9a1e6e677ddffd8e9d341f09da8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a333b9a1e6e677ddffd8e9d341f09da8f">&#9670;&nbsp;</a></span>begin_callback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt;void(void)&gt; pr::option_group::begin_callback</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Begin callback. </p>
+
+</div>
+</div>
+<a id="a9d8a3c6a6f517126f5b7e4ac0489767d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d8a3c6a6f517126f5b7e4ac0489767d">&#9670;&nbsp;</a></span>end_callback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt;void(void)&gt; pr::option_group::end_callback</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>End callback. </p>
+
+</div>
+</div>
 <a id="a9cf779d2e21bcd57e8176a00ba04084a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9cf779d2e21bcd57e8176a00ba04084a">&#9670;&nbsp;</a></span>pos_callback</h2>
 
@@ -165,7 +203,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Positional argument callback. </p>
+<p>Positional callback. </p>
 
 </div>
 </div>

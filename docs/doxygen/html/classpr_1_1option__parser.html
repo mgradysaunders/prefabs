@@ -81,6 +81,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adcf2c4d05191722e4dadb4ce8b854236"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__parser.html#adcf2c4d05191722e4dadb4ce8b854236">in_group</a> (const char *name)</td></tr>
 <tr class="memdesc:adcf2c4d05191722e4dadb4ce8b854236"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set in-group for subsequent options.  <a href="#adcf2c4d05191722e4dadb4ce8b854236">More...</a><br /></td></tr>
 <tr class="separator:adcf2c4d05191722e4dadb4ce8b854236"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd93af869bc89d9a4cc648d63e975ccd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__parser.html#afd93af869bc89d9a4cc648d63e975ccd">on_begin</a> (const std::function&lt; void(void)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:afd93af869bc89d9a4cc648d63e975ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set group on-begin callback.  <a href="#afd93af869bc89d9a4cc648d63e975ccd">More...</a><br /></td></tr>
+<tr class="separator:afd93af869bc89d9a4cc648d63e975ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17c04091eb7661270b2c52ae62a9b866"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__parser.html#a17c04091eb7661270b2c52ae62a9b866">on_end</a> (const std::function&lt; void(void)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:a17c04091eb7661270b2c52ae62a9b866"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set group on-end callback.  <a href="#a17c04091eb7661270b2c52ae62a9b866">More...</a><br /></td></tr>
+<tr class="separator:a17c04091eb7661270b2c52ae62a9b866"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70650e30de1f066efd0ef662505a502a"><td class="memItemLeft" align="right" valign="top">std::stringstream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__parser.html#a70650e30de1f066efd0ef662505a502a">on_option</a> (const char *name_abbrv, const char *name, int argc, const std::function&lt; void(char **)&gt; &amp;callback)</td></tr>
 <tr class="memdesc:a70650e30de1f066efd0ef662505a502a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add on-option callback.  <a href="#a70650e30de1f066efd0ef662505a502a">More...</a><br /></td></tr>
 <tr class="separator:a70650e30de1f066efd0ef662505a502a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,6 +176,74 @@ Friends</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Name. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afd93af869bc89d9a4cc648d63e975ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd93af869bc89d9a4cc648d63e975ccd">&#9670;&nbsp;</a></span>on_begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pr::option_parser::on_begin </td>
+          <td>(</td>
+          <td class="paramtype">const std::function&lt; void(void)&gt; &amp;&#160;</td>
+          <td class="paramname"><em>callback</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set group on-begin callback. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">callback</td><td>Callback. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a17c04091eb7661270b2c52ae62a9b866"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17c04091eb7661270b2c52ae62a9b866">&#9670;&nbsp;</a></span>on_end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pr::option_parser::on_end </td>
+          <td>(</td>
+          <td class="paramtype">const std::function&lt; void(void)&gt; &amp;&#160;</td>
+          <td class="paramname"><em>callback</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set group on-end callback. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">callback</td><td>Callback. </td></tr>
   </table>
   </dd>
 </dl>
