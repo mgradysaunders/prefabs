@@ -101,6 +101,9 @@ struct is_multi<multi<T, N...>> : std::true_type
 
 #endif // #if !DOXYGEN
 
+/**
+ * @brief Multi-dimensional array.
+ */
 template <typename T, std::size_t M, std::size_t... N>
 struct multi<T, M, N...>
 {
@@ -831,6 +834,14 @@ public:
     }
 
     /**@}*/
+
+    // TODO any
+
+    // TODO all
+
+    // TODO operator==
+
+    // TODO operator!=
 
 public:
 
