@@ -610,100 +610,91 @@ constexpr dualnum<T>& operator/=(dualnum<T>& x, const U& any)
 /**@{*/
 
 /**
- * @brief Real part.
- *
- * @f[
- *      \real(a + \varepsilon b) = a
- * @f]
+ * @brief Conjugate operator.
  */
-template <typename T> constexpr T real(const dualnum<T>& x)
+enum conj_op
 {
-    return x.real();
+    /**
+     * @brief Conjugate with respect to @f$ i @f$.
+     */
+    conj_imag,
+
+    /**
+     * @brief Conjugate with respect to @f$ \varepsilon @f$.
+     */
+    conj_dual
+};
+
+/**
+ * @brief Real part (with respect to given conjugate operator).
+ */
+template <conj_op op = conj_imag, typename T> 
+constexpr auto real(const dualnum<T>& x)
+{
+    if constexpr (op == conj_imag) {
+        return dualnum<T>{
+            pr::real(x.real()), 
+            pr::real(x.dual())
+        };
+    }
+    else {
+        return x.real();
+    }
 }
 
 /**
- * @brief Dual part.
- *
- * @f[
- *      \dual(a + \varepsilon b) = b
- * @f]
- */
-template <typename T> constexpr T dual(const dualnum<T>& x)
-{
-    return x.dual();
-}
-
-/**
- * @brief Imaginary part.
- *
- * @f[
- *      \imag(a + \varepsilon b) = \imag(a) + \varepsilon \imag(b)
- * @f]
+ * @brief Imag part.
  */
 template <typename T> 
-constexpr dualnum<decltype(pr::imag(T()))> imag(const dualnum<T>& x)
+constexpr auto imag(const dualnum<T>& x)
 {
-    return {
-        pr::imag(x.real()),
+    return dualnum<T>{
+        pr::imag(x.real()), 
         pr::imag(x.dual())
     };
 }
 
 /**
- * @brief Complex norm.
- *
- * @f[
- *      (a + \varepsilon b)
- *      (a + \varepsilon b)^* = aa^* + 2\varepsilon \real(ab^*)
- * @f]
+ * @brief Dual part.
  */
 template <typename T> 
-constexpr dualnum<decltype(pr::norm(T()))> norm(const dualnum<T>& x)
+constexpr auto dual(const dualnum<T>& x)
 {
-    return {
-        pr::norm(x.real()),
-        pr::real(x.real() * pr::conj(x.dual())) * 2
-    };
+    return x.dual();
 }
 
 /**
- * @brief Complex conjugate.
- *
- * @f[
- *      (a + \varepsilon b)^* = a^* + \varepsilon b^*
- * @f]
+ * @brief Conjugate.
  */
-template <typename T> constexpr dualnum<T> conj(const dualnum<T>& x)
+template <conj_op op = conj_imag, typename T> 
+constexpr auto conj(const dualnum<T>& x)
 {
-    return {
-        pr::conj(x.real()),
-        pr::conj(x.dual())
-    };
+    if constexpr (op == conj_imag) {
+        return dualnum<T>{
+            pr::conj(x.real()), 
+            pr::conj(x.dual())
+        };
+    }
+    else {
+        return dualnum<T>{x.real(), -x.dual()};
+    }
 }
 
 /**
- * @brief Dual norm.
- *
- * @f[
- *      (a + \varepsilon b)
- *      (a + \varepsilon b)^\dagger = a^2
- * @f]
+ * @brief Norm square.
  */
-template <typename T> constexpr T dualnorm(const dualnum<T>& x)
+template <conj_op op = conj_imag, typename T> 
+constexpr auto norm(const dualnum<T>& x)
 {
-    return x.real() * x.real();
-}
-
-/**
- * @brief Dual conjugate.
- *
- * @f[
- *      (a + \varepsilon b)^\dagger = a - \varepsilon b
- * @f]
- */
-template <typename T> constexpr dualnum<T> dualconj(const dualnum<T>& x)
-{
-    return {x.real(), -x.dual()};
+    if constexpr (op == conj_imag) {
+        return dualnum<decltype(pr::norm(T()))>{
+            pr::norm(x.real()),
+            pr::real(x.real() * pr::conj(x.dual())) * 2
+        };
+    }
+    else {
+        return x.real() * x.real();
+    }
 }
 
 /**@}*/
