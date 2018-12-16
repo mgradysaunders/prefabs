@@ -12,6 +12,7 @@
  * @brief Distribute `operator+`.
  */
 template <typename T, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(+T()), N...> 
                 operator+(const multi<T, N...>& arr)
 {
@@ -28,6 +29,7 @@ constexpr multi<decltype(+T()), N...>
  * @brief Distribute `operator-`.
  */
 template <typename T, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(-T()), N...> 
                 operator-(const multi<T, N...>& arr)
 {
@@ -44,6 +46,7 @@ constexpr multi<decltype(-T()), N...>
  * @brief Distribute `operator~`.
  */
 template <typename T, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(~T()), N...> 
                 operator~(const multi<T, N...>& arr)
 {
@@ -60,6 +63,7 @@ constexpr multi<decltype(~T()), N...>
  * @brief Distribute `operator!`.
  */
 template <typename T, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(!T()), N...> 
                 operator!(const multi<T, N...>& arr)
 {
@@ -83,6 +87,7 @@ constexpr multi<decltype(!T()), N...>
  * @brief Distribute `operator+`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(T() + U()), N...> 
                 operator+(
                     const multi<T, N...>& arr0, 
@@ -102,6 +107,7 @@ constexpr multi<decltype(T() + U()), N...>
  * @brief Distribute `operator-`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(T() - U()), N...> 
                 operator-(
                     const multi<T, N...>& arr0, 
@@ -121,6 +127,7 @@ constexpr multi<decltype(T() - U()), N...>
  * @brief Distribute `operator*`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(T() * U()), N...> 
                 operator*(
                     const multi<T, N...>& arr0, 
@@ -140,6 +147,7 @@ constexpr multi<decltype(T() * U()), N...>
  * @brief Distribute `operator/`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(T() / U()), N...> 
                 operator/(
                     const multi<T, N...>& arr0, 
@@ -159,6 +167,7 @@ constexpr multi<decltype(T() / U()), N...>
  * @brief Distribute `operator%`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(T() % U()), N...> 
                 operator%(
                     const multi<T, N...>& arr0, 
@@ -178,6 +187,7 @@ constexpr multi<decltype(T() % U()), N...>
  * @brief Distribute `operator&`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(T() & U()), N...> 
                 operator&(
                     const multi<T, N...>& arr0, 
@@ -197,6 +207,7 @@ constexpr multi<decltype(T() & U()), N...>
  * @brief Distribute `operator|`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(T() | U()), N...> 
                 operator|(
                     const multi<T, N...>& arr0, 
@@ -216,6 +227,7 @@ constexpr multi<decltype(T() | U()), N...>
  * @brief Distribute `operator^`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(T() ^ U()), N...> 
                 operator^(
                     const multi<T, N...>& arr0, 
@@ -235,6 +247,7 @@ constexpr multi<decltype(T() ^ U()), N...>
  * @brief Distribute `operator>>`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(T() >> U()), N...> 
                 operator>>(
                     const multi<T, N...>& arr0, 
@@ -254,6 +267,7 @@ constexpr multi<decltype(T() >> U()), N...>
  * @brief Distribute `operator<<`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<decltype(T() << U()), N...> 
                 operator<<(
                     const multi<T, N...>& arr0, 
@@ -273,6 +287,7 @@ constexpr multi<decltype(T() << U()), N...>
  * @brief Distribute `operator+=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<T, N...>& operator+=(
                     multi<T, N...>& arr, const multi<U, N...>& oth)
 {
@@ -288,6 +303,7 @@ constexpr multi<T, N...>& operator+=(
  * @brief Distribute `operator-=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<T, N...>& operator-=(
                     multi<T, N...>& arr, const multi<U, N...>& oth)
 {
@@ -303,6 +319,7 @@ constexpr multi<T, N...>& operator-=(
  * @brief Distribute `operator*=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<T, N...>& operator*=(
                     multi<T, N...>& arr, const multi<U, N...>& oth)
 {
@@ -318,6 +335,7 @@ constexpr multi<T, N...>& operator*=(
  * @brief Distribute `operator/=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<T, N...>& operator/=(
                     multi<T, N...>& arr, const multi<U, N...>& oth)
 {
@@ -333,6 +351,7 @@ constexpr multi<T, N...>& operator/=(
  * @brief Distribute `operator%=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<T, N...>& operator%=(
                     multi<T, N...>& arr, const multi<U, N...>& oth)
 {
@@ -348,6 +367,7 @@ constexpr multi<T, N...>& operator%=(
  * @brief Distribute `operator&=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<T, N...>& operator&=(
                     multi<T, N...>& arr, const multi<U, N...>& oth)
 {
@@ -363,6 +383,7 @@ constexpr multi<T, N...>& operator&=(
  * @brief Distribute `operator|=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<T, N...>& operator|=(
                     multi<T, N...>& arr, const multi<U, N...>& oth)
 {
@@ -378,6 +399,7 @@ constexpr multi<T, N...>& operator|=(
  * @brief Distribute `operator^=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<T, N...>& operator^=(
                     multi<T, N...>& arr, const multi<U, N...>& oth)
 {
@@ -393,6 +415,7 @@ constexpr multi<T, N...>& operator^=(
  * @brief Distribute `operator>>=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<T, N...>& operator>>=(
                     multi<T, N...>& arr, const multi<U, N...>& oth)
 {
@@ -408,6 +431,7 @@ constexpr multi<T, N...>& operator>>=(
  * @brief Distribute `operator<<=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr multi<T, N...>& operator<<=(
                     multi<T, N...>& arr, const multi<U, N...>& oth)
 {
@@ -430,6 +454,7 @@ constexpr multi<T, N...>& operator<<=(
  * @brief Distribute `operator+`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<decltype(T() + U()), N...>> operator+(
                         const multi<T, N...>& arr, const U& val) 
@@ -447,6 +472,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator-`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<decltype(T() - U()), N...>> operator-(
                         const multi<T, N...>& arr, const U& val) 
@@ -464,6 +490,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator*`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<decltype(T() * U()), N...>> operator*(
                         const multi<T, N...>& arr, const U& val) 
@@ -481,6 +508,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator/`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<decltype(T() / U()), N...>> operator/(
                         const multi<T, N...>& arr, const U& val) 
@@ -498,6 +526,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator%`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<decltype(T() % U()), N...>> operator%(
                         const multi<T, N...>& arr, const U& val) 
@@ -515,6 +544,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator&`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<decltype(T() & U()), N...>> operator&(
                         const multi<T, N...>& arr, const U& val) 
@@ -532,6 +562,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator|`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<decltype(T() | U()), N...>> operator|(
                         const multi<T, N...>& arr, const U& val) 
@@ -549,6 +580,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator^`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<decltype(T() ^ U()), N...>> operator^(
                         const multi<T, N...>& arr, const U& val) 
@@ -566,6 +598,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator>>`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<decltype(T() >> U()), N...>> operator>>(
                         const multi<T, N...>& arr, const U& val) 
@@ -583,6 +616,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator<<`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<decltype(T() << U()), N...>> operator<<(
                         const multi<T, N...>& arr, const U& val) 
@@ -600,6 +634,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator+=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<T, N...>&> operator+=(multi<T, N...>& arr, const U& val)
 {
@@ -614,6 +649,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator-=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<T, N...>&> operator-=(multi<T, N...>& arr, const U& val)
 {
@@ -628,6 +664,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator*=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<T, N...>&> operator*=(multi<T, N...>& arr, const U& val)
 {
@@ -642,6 +679,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator/=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<T, N...>&> operator/=(multi<T, N...>& arr, const U& val)
 {
@@ -656,6 +694,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator%=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<T, N...>&> operator%=(multi<T, N...>& arr, const U& val)
 {
@@ -670,6 +709,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator&=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<T, N...>&> operator&=(multi<T, N...>& arr, const U& val)
 {
@@ -684,6 +724,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator|=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<T, N...>&> operator|=(multi<T, N...>& arr, const U& val)
 {
@@ -698,6 +739,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator^=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<T, N...>&> operator^=(multi<T, N...>& arr, const U& val)
 {
@@ -712,6 +754,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator>>=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<T, N...>&> operator>>=(multi<T, N...>& arr, const U& val)
 {
@@ -726,6 +769,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator<<=`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<U>::value, 
     multi<T, N...>&> operator<<=(multi<T, N...>& arr, const U& val)
 {
@@ -747,6 +791,7 @@ constexpr std::enable_if_t<!is_multi<U>::value,
  * @brief Distribute `operator+`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<T>::value, 
     multi<decltype(T() + U()), N...>> operator+(
                         const T& val, const multi<U, N...>& arr) 
@@ -764,6 +809,7 @@ constexpr std::enable_if_t<!is_multi<T>::value,
  * @brief Distribute `operator-`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<T>::value, 
     multi<decltype(T() - U()), N...>> operator-(
                         const T& val, const multi<U, N...>& arr) 
@@ -781,6 +827,7 @@ constexpr std::enable_if_t<!is_multi<T>::value,
  * @brief Distribute `operator*`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<T>::value, 
     multi<decltype(T() * U()), N...>> operator*(
                         const T& val, const multi<U, N...>& arr) 
@@ -798,6 +845,7 @@ constexpr std::enable_if_t<!is_multi<T>::value,
  * @brief Distribute `operator/`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<T>::value, 
     multi<decltype(T() / U()), N...>> operator/(
                         const T& val, const multi<U, N...>& arr) 
@@ -815,6 +863,7 @@ constexpr std::enable_if_t<!is_multi<T>::value,
  * @brief Distribute `operator%`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<T>::value, 
     multi<decltype(T() % U()), N...>> operator%(
                         const T& val, const multi<U, N...>& arr) 
@@ -832,6 +881,7 @@ constexpr std::enable_if_t<!is_multi<T>::value,
  * @brief Distribute `operator&`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<T>::value, 
     multi<decltype(T() & U()), N...>> operator&(
                         const T& val, const multi<U, N...>& arr) 
@@ -849,6 +899,7 @@ constexpr std::enable_if_t<!is_multi<T>::value,
  * @brief Distribute `operator|`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<T>::value, 
     multi<decltype(T() | U()), N...>> operator|(
                         const T& val, const multi<U, N...>& arr) 
@@ -866,6 +917,7 @@ constexpr std::enable_if_t<!is_multi<T>::value,
  * @brief Distribute `operator^`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<T>::value, 
     multi<decltype(T() ^ U()), N...>> operator^(
                         const T& val, const multi<U, N...>& arr) 
@@ -883,6 +935,7 @@ constexpr std::enable_if_t<!is_multi<T>::value,
  * @brief Distribute `operator>>`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<T>::value, 
     multi<decltype(T() >> U()), N...>> operator>>(
                         const T& val, const multi<U, N...>& arr) 
@@ -900,6 +953,7 @@ constexpr std::enable_if_t<!is_multi<T>::value,
  * @brief Distribute `operator<<`.
  */
 template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
 constexpr std::enable_if_t<!is_multi<T>::value, 
     multi<decltype(T() << U()), N...>> operator<<(
                         const T& val, const multi<U, N...>& arr) 
