@@ -161,6 +161,22 @@ struct numeric_limits<__float128>
     }
 
     /**
+     * @brief For floating point types, machine echelon.
+     */
+    static constexpr __float128 machine_epsilon() noexcept
+    {
+        return epsilon() / 2;
+    }
+
+    /**
+     * @brief For floating point types, echelon.
+     */
+    static constexpr __float128 echelon(unsigned n) noexcept
+    {
+        return machine_epsilon() * n / (1 - machine_epsilon() * n);
+    }
+
+    /**
      * @brief Wrap `HUGE_VALQ`.
      */
     static __float128 infinity() noexcept

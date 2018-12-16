@@ -54,7 +54,73 @@ namespace pr {
 template <typename T>
 struct numeric_limits : public std::numeric_limits<T>
 {
+    /**
+     * @brief For floating point types, machine epsilon.
+     */
+    static constexpr T machine_epsilon() noexcept
+    {
+        return numeric_limits::epsilon() / 2;
+    }
+
+    /**
+     * @brief For floating point types, echelon.
+     */
+    static constexpr T echelon(unsigned n) noexcept
+    {
+        return machine_epsilon() * n / (1 - machine_epsilon() * n);
+    }
 };
+
+/**
+ * @brief Analogous to `std::real()`, except do not promote to floating point.
+ */
+template <typename T>
+constexpr std::enable_if_t<std::is_arithmetic<T>::value, T> real(T x)
+{
+    return x;
+}
+
+/**
+ * @brief Analogous to `std::imag()`, except do not promote to floating point.
+ */
+template <typename T>
+constexpr std::enable_if_t<std::is_arithmetic<T>::value, T> imag(T x)
+{
+    return 0;
+}
+
+/**
+ * @brief Analogous to `std::conj()`, except do not promote to `std::complex`.
+ */
+template <typename T>
+constexpr std::enable_if_t<std::is_arithmetic<T>::value, T> conj(T x)
+{
+    return x;
+}
+
+/**
+ * @brief Wrap `std::real()`.
+ */
+template <typename T> constexpr T real(const std::complex<T>& x)
+{
+    return std::real(x);
+}
+
+/**
+ * @brief Wrap `std::imag()`.
+ */
+template <typename T> constexpr T imag(const std::complex<T>& x)
+{
+    return std::imag(x);
+}
+
+/**
+ * @brief Analgous to `std:conj()`, except constexpr.
+ */
+template <typename T> constexpr std::complex<T> conj(const std::complex<T>& x)
+{
+    return {std::real(x), std::imag(x)};
+}
 
 /**@}*/
 

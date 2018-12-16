@@ -9,6 +9,46 @@
 /**@{*/
 
 /**
+ * @brief Wrap `std::abs()`.
+ */
+template <typename T>
+__attribute__((always_inline)) 
+inline auto abs(T x) -> decltype(std::abs(x))
+{
+    return std::abs(x);
+}
+
+/**
+ * @brief Wrap `std::arg()`.
+ */
+template <typename T>
+__attribute__((always_inline)) 
+inline auto arg(T x) -> decltype(std::arg(x))
+{
+    return std::arg(x);
+}
+
+/**
+ * @brief Wrap `std::min()`.
+ */
+template <typename T>
+__attribute__((always_inline)) 
+inline auto min(T x, T y) -> decltype(std::min(x, y))
+{
+    return std::min(x, y);
+}
+
+/**
+ * @brief Wrap `std::max()`.
+ */
+template <typename T>
+__attribute__((always_inline)) 
+inline auto max(T x, T y) -> decltype(std::max(x, y))
+{
+    return std::max(x, y);
+}
+
+/**
  * @brief Wrap `std::fabs()`.
  */
 template <typename T>
