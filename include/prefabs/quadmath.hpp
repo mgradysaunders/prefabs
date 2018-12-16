@@ -214,6 +214,125 @@ struct numeric_limits<__float128>
     }
 };
 
+/**
+ * @brief Specialize `__float128`.
+ */
+template <>
+struct numeric_constants<__float128>
+{
+    /**
+     * @brief Wrap `M_Eq`.
+     */
+    static constexpr __float128 M_e() noexcept
+    {
+        return M_Eq;
+    }
+
+    /**
+     * @brief Wrap `M_LOG2Eq`.
+     */
+    static constexpr __float128 M_log2e() noexcept
+    {
+        return M_LOG2Eq;
+    }
+
+    /**
+     * @brief Wrap `M_LOG10Eq`.
+     */
+    static constexpr __float128 M_log10e() noexcept
+    {
+        return M_LOG10Eq;
+    }
+
+    /**
+     * @brief Wrap `M_LN2q`.
+     */
+    static constexpr __float128 M_ln2() noexcept
+    {
+        return M_LN2q;
+    }
+
+    /**
+     * @brief Wrap `M_LN10q`.
+     */
+    static constexpr __float128 M_ln10() noexcept
+    {
+        return M_LN10q;
+    }
+
+    /**
+     * @brief Wrap `M_PIq`.
+     */
+    static constexpr __float128 M_pi() noexcept
+    {
+        return M_PIq;
+    }
+
+    /**
+     * @brief Wrap `M_PI_2q`.
+     */
+    static constexpr __float128 M_pi_2() noexcept
+    {
+        return M_PI_2q;
+    }
+
+    /**
+     * @brief Wrap `M_PI_4q`.
+     */
+    static constexpr __float128 M_pi_4() noexcept
+    {
+        return M_PI_4q;
+    }
+
+    /**
+     * @brief Wrap `M_1_PIq`.
+     */
+    static constexpr __float128 M_1_pi() noexcept
+    {
+        return M_1_PIq;
+    }
+
+    /**
+     * @brief Wrap `M_2_PIq`.
+     */
+    static constexpr __float128 M_2_pi() noexcept
+    {
+        return M_2_PIq;
+    }
+
+    /**
+     * @brief Wrap `M_2_SQRTPIq`.
+     */
+    static constexpr __float128 M_2_sqrtpi() noexcept
+    {
+        return M_2_SQRTPIq;
+    }
+
+    /**
+     * @brief Wrap `M_SQRT2q`.
+     */
+    static constexpr __float128 M_sqrt2() noexcept
+    {
+        return M_SQRT2q;
+    }
+
+    /**
+     * @brief Wrap `M_SQRT1_2q`.
+     */
+    static constexpr __float128 M_sqrt1_2() noexcept
+    {
+        return M_SQRT1_2q;
+    }
+};
+
+/**
+ * @brief Specialize `__complex128`.
+ */
+template <>
+struct numeric_constants<__complex128> : numeric_constants<__float128>
+{
+};
+
 /**@}*/
 
 } // namespace pr

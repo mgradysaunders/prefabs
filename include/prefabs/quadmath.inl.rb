@@ -186,6 +186,111 @@ puts <<STR
 
 STR
 
+
+funcs_trig_rcp = [
+['csc', 'sin'],
+['sec', 'cos'],
+['cot', 'tan'],
+['csch', 'sinh'],
+['sech', 'cosh'],
+['coth', 'tanh']
+]
+
+funcs_trig_rcp_inv = [
+['acsc', 'asin'],
+['asec', 'acos'],
+['acot', 'atan'],
+['acsch', 'asinh'],
+['asech', 'acosh'],
+['acoth', 'atanh']
+]
+
+puts <<STR
+/**
+ * @name Reciprocal trigonometric functions (`__float128`)
+ */
+/**@{*/
+
+STR
+
+for func in funcs_trig_rcp
+    puts <<STR
+/**
+ * @brief Reciprocal of `pr::#{func[1]}()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type #{func[0]}(T x)
+{
+    return T(1) / pr::#{func[1]}(x);
+}
+
+STR
+end
+
+for func in funcs_trig_rcp_inv
+    puts <<STR
+/**
+ * @brief Inverse of `pr::#{func[0][1..-1]}()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type #{func[0]}(T x)
+{
+    return pr::#{func[1]}(T(1) / x);
+}
+
+STR
+end
+
+puts <<STR
+/**@}*/
+
+STR
+
+puts <<STR
+/**
+ * @name Reciprocal trigonometric functions (`__complex128`)
+ */
+/**@{*/
+
+STR
+
+for func in funcs_trig_rcp
+    puts <<STR
+/**
+ * @brief Reciprocal of `pr::#{func[1]}()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type #{func[0]}(T x)
+{
+    return T(1) / pr::#{func[1]}(x);
+}
+
+STR
+end
+
+for func in funcs_trig_rcp_inv
+    puts <<STR
+/**
+ * @brief Inverse of `pr::#{func[0][1..-1]}()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type #{func[0]}(T x)
+{
+    return pr::#{func[1]}(T(1) / x);
+}
+
+STR
+end
+
+puts <<STR
+/**@}*/
+
+STR
+
 puts <<STR
 /**@}*/
 

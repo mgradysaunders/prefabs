@@ -660,5 +660,132 @@ inline auto atanh(T x) -> decltype(std::atanh(x))
 
 /**@}*/
 
+/**
+ * @name Reciprocal trigonometric functions
+ */
+/**@{*/
+
+/**
+ * @brief Reciprocal of `pr::sin()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto csc(T x) -> decltype(pr::sin(x))
+{
+    return static_cast<decltype(pr::sin(x))>(1) / pr::sin(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::cos()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto sec(T x) -> decltype(pr::cos(x))
+{
+    return static_cast<decltype(pr::cos(x))>(1) / pr::cos(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::tan()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto cot(T x) -> decltype(pr::tan(x))
+{
+    return static_cast<decltype(pr::tan(x))>(1) / pr::tan(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::sinh()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto csch(T x) -> decltype(pr::sinh(x))
+{
+    return static_cast<decltype(pr::sinh(x))>(1) / pr::sinh(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::cosh()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto sech(T x) -> decltype(pr::cosh(x))
+{
+    return static_cast<decltype(pr::cosh(x))>(1) / pr::cosh(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::tanh()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto coth(T x) -> decltype(pr::tanh(x))
+{
+    return static_cast<decltype(pr::tanh(x))>(1) / pr::tanh(x);
+}
+
+/**
+ * @brief Inverse of `pr::csc()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto acsc(T x) -> decltype(pr::asin(x))
+{
+    return pr::asin(static_cast<decltype(pr::asin(x))>(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::sec()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto asec(T x) -> decltype(pr::acos(x))
+{
+    return pr::acos(static_cast<decltype(pr::acos(x))>(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::cot()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto acot(T x) -> decltype(pr::atan(x))
+{
+    return pr::atan(static_cast<decltype(pr::atan(x))>(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::csch()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto acsch(T x) -> decltype(pr::asinh(x))
+{
+    return pr::asinh(static_cast<decltype(pr::asinh(x))>(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::sech()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto asech(T x) -> decltype(pr::acosh(x))
+{
+    return pr::acosh(static_cast<decltype(pr::acosh(x))>(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::coth()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto acoth(T x) -> decltype(pr::atanh(x))
+{
+    return pr::atanh(static_cast<decltype(pr::atanh(x))>(1) / x);
+}
+
+/**@}*/
+
 /**@}*/
 

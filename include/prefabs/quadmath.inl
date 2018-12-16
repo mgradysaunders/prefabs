@@ -827,5 +827,259 @@ inline typename enable_complex128<U>::type atanh(U x)
 
 /**@}*/
 
+/**
+ * @name Reciprocal trigonometric functions (`__float128`)
+ */
+/**@{*/
+
+/**
+ * @brief Reciprocal of `pr::sin()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type csc(T x)
+{
+    return T(1) / pr::sin(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::cos()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type sec(T x)
+{
+    return T(1) / pr::cos(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::tan()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type cot(T x)
+{
+    return T(1) / pr::tan(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::sinh()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type csch(T x)
+{
+    return T(1) / pr::sinh(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::cosh()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type sech(T x)
+{
+    return T(1) / pr::cosh(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::tanh()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type coth(T x)
+{
+    return T(1) / pr::tanh(x);
+}
+
+/**
+ * @brief Inverse of `pr::csc()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type acsc(T x)
+{
+    return pr::asin(T(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::sec()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type asec(T x)
+{
+    return pr::acos(T(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::cot()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type acot(T x)
+{
+    return pr::atan(T(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::csch()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type acsch(T x)
+{
+    return pr::asinh(T(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::sech()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type asech(T x)
+{
+    return pr::acosh(T(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::coth()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_float128<T>::type acoth(T x)
+{
+    return pr::atanh(T(1) / x);
+}
+
+/**@}*/
+
+/**
+ * @name Reciprocal trigonometric functions (`__complex128`)
+ */
+/**@{*/
+
+/**
+ * @brief Reciprocal of `pr::sin()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type csc(T x)
+{
+    return T(1) / pr::sin(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::cos()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type sec(T x)
+{
+    return T(1) / pr::cos(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::tan()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type cot(T x)
+{
+    return T(1) / pr::tan(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::sinh()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type csch(T x)
+{
+    return T(1) / pr::sinh(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::cosh()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type sech(T x)
+{
+    return T(1) / pr::cosh(x);
+}
+
+/**
+ * @brief Reciprocal of `pr::tanh()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type coth(T x)
+{
+    return T(1) / pr::tanh(x);
+}
+
+/**
+ * @brief Inverse of `pr::csc()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type acsc(T x)
+{
+    return pr::asin(T(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::sec()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type asec(T x)
+{
+    return pr::acos(T(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::cot()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type acot(T x)
+{
+    return pr::atan(T(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::csch()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type acsch(T x)
+{
+    return pr::asinh(T(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::sech()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type asech(T x)
+{
+    return pr::acosh(T(1) / x);
+}
+
+/**
+ * @brief Inverse of `pr::coth()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline typename enable_complex128<T>::type acoth(T x)
+{
+    return pr::atanh(T(1) / x);
+}
+
+/**@}*/
+
 /**@}*/
 

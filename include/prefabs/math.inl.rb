@@ -111,6 +111,67 @@ puts <<STR
 
 STR
 
+funcs_trig_rcp = [
+['csc', 'sin'],
+['sec', 'cos'],
+['cot', 'tan'],
+['csch', 'sinh'],
+['sech', 'cosh'],
+['coth', 'tanh']
+]
+
+funcs_trig_rcp_inv = [
+['acsc', 'asin'],
+['asec', 'acos'],
+['acot', 'atan'],
+['acsch', 'asinh'],
+['asech', 'acosh'],
+['acoth', 'atanh']
+]
+
+puts <<STR
+/**
+ * @name Reciprocal trigonometric functions
+ */
+/**@{*/
+
+STR
+
+for func in funcs_trig_rcp
+    puts <<STR
+/**
+ * @brief Reciprocal of `pr::#{func[1]}()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto #{func[0]}(T x) -> decltype(pr::#{func[1]}(x))
+{
+    return static_cast<decltype(pr::#{func[1]}(x))>(1) / pr::#{func[1]}(x);
+}
+
+STR
+end
+
+for func in funcs_trig_rcp_inv
+    puts <<STR
+/**
+ * @brief Inverse of `pr::#{func[0][1..-1]}()`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto #{func[0]}(T x) -> decltype(pr::#{func[1]}(x))
+{
+    return pr::#{func[1]}(static_cast<decltype(pr::#{func[1]}(x))>(1) / x);
+}
+
+STR
+end
+
+puts <<STR
+/**@}*/
+
+STR
+
 puts <<STR
 /**@}*/
 
