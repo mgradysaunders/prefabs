@@ -85,22 +85,25 @@ public:
     /**
      * @brief Default constructor.
      */
-    constexpr dualnum() noexcept = default;
+    constexpr dualnum() noexcept(noexcept(T())) = default;
 
     /**
      * @brief Default copy constructor.
      */
-    constexpr dualnum(const dualnum&) noexcept = default;
+    constexpr dualnum(const dualnum&) 
+                    noexcept(noexcept(T(std::declval<const T&>()))) = default;
 
     /**
      * @brief Default move constructor.
      */
-    constexpr dualnum(dualnum&&) noexcept = default;
+    constexpr dualnum(dualnum&&) 
+                    noexcept(noexcept(T(std::declval<T&&>()))) = default;
 
     /**
      * @brief Constructor.
      */
-    constexpr dualnum(T a, T b = T()) noexcept : a_(a), b_(b)
+    constexpr dualnum(T a, T b = T()) 
+                    noexcept(noexcept(T(T()))) : a_(a), b_(b)
     {
     }
 
@@ -597,6 +600,110 @@ __attribute__((always_inline))
 constexpr dualnum<T>& operator/=(dualnum<T>& x, const U& any)
 {
     return x = x / any;
+}
+
+/**@}*/
+
+/**
+ * @name Complex accessors (dualnum)
+ */
+/**@{*/
+
+/**
+ * @brief Real part.
+ *
+ * @f[
+ *      \real(a + \varepsilon b) = a
+ * @f]
+ */
+template <typename T> constexpr T real(const dualnum<T>& x)
+{
+    return x.real();
+}
+
+/**
+ * @brief Dual part.
+ *
+ * @f[
+ *      \dual(a + \varepsilon b) = b
+ * @f]
+ */
+template <typename T> constexpr T dual(const dualnum<T>& x)
+{
+    return x.dual();
+}
+
+/**
+ * @brief Imaginary part.
+ *
+ * @f[
+ *      \imag(a + \varepsilon b) = \imag(a) + \varepsilon \imag(b)
+ * @f]
+ */
+template <typename T> 
+constexpr dualnum<decltype(pr::imag(T()))> imag(const dualnum<T>& x)
+{
+    return {
+        pr::imag(x.real()),
+        pr::imag(x.dual())
+    };
+}
+
+/**
+ * @brief Complex norm.
+ *
+ * @f[
+ *      (a + \varepsilon b)
+ *      (a + \varepsilon b)^* = aa^* + 2\varepsilon \real(ab^*)
+ * @f]
+ */
+template <typename T> 
+constexpr dualnum<decltype(pr::norm(T()))> norm(const dualnum<T>& x)
+{
+    return {
+        pr::norm(x.real()),
+        pr::real(x.real() * pr::conj(x.dual())) * 2
+    };
+}
+
+/**
+ * @brief Complex conjugate.
+ *
+ * @f[
+ *      (a + \varepsilon b)^* = a^* + \varepsilon b^*
+ * @f]
+ */
+template <typename T> constexpr dualnum<T> conj(const dualnum<T>& x)
+{
+    return {
+        pr::conj(x.real()),
+        pr::conj(x.dual())
+    };
+}
+
+/**
+ * @brief Dual norm.
+ *
+ * @f[
+ *      (a + \varepsilon b)
+ *      (a + \varepsilon b)^\dagger = a^2
+ * @f]
+ */
+template <typename T> constexpr T dualnorm(const dualnum<T>& x)
+{
+    return x.real() * x.real();
+}
+
+/**
+ * @brief Dual conjugate.
+ *
+ * @f[
+ *      (a + \varepsilon b)^\dagger = a - \varepsilon b
+ * @f]
+ */
+template <typename T> constexpr dualnum<T> dualconj(const dualnum<T>& x)
+{
+    return {x.real(), -x.dual()};
 }
 
 /**@}*/

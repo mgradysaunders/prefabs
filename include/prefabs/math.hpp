@@ -268,7 +268,7 @@ template <typename T> constexpr T norm(const std::complex<T>& x)
  */
 template <typename T> constexpr std::complex<T> conj(const std::complex<T>& x)
 {
-    return {std::real(x), std::imag(x)};
+    return {std::real(x), -std::imag(x)};
 }
 
 /**@}*/
