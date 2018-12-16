@@ -802,39 +802,6 @@ public:
 
 public:
 
-    /**
-     * @name Transform
-     */
-    /**@{*/
-
-    /**
-     * @brief Apply unary function to entry.
-     */
-    template <typename F>
-    constexpr auto transform(F&& f) const
-                -> multi<decltype(std::forward<F>(f)(T())), M, N...> 
-    {
-        if constexpr (std::is_same<
-                        entry_type, 
-                        value_type>::value) {
-            multi<decltype(std::forward<F>(f)(T())), M, N...> res;
-            auto itr1 = begin();
-            auto itr2 = res.begin();
-            for (; itr2 < res.end(); ++itr1, ++itr2) {
-                *itr2 = std::forward<F>(f)(*itr1);
-            }
-            return res;
-        }
-        else {
-            // Flatten, transform, reshape.
-            return flatten()
-                        .transform(std::forward<F>(f))
-                        .template reshape<M, N...>();
-        }
-    }
-
-    /**@}*/
-
     // TODO any
 
     // TODO all
