@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -67,10 +70,13 @@ $(function() {
 <li>read()
 : <a class="el" href="classpr_1_1timer.html#af9598dd3f3b633ce873bf56bee2a3e1a">pr::timer&lt; T &gt;</a>
 </li>
+<li>real()
+: <a class="el" href="classpr_1_1dualnum.html#a4b1d2b3392acea1a909c3014c9532fb9">pr::dualnum&lt; T &gt;</a>
+</li>
 <li>rend()
 : <a class="el" href="classpr_1_1block__array2.html#a489ca839680f023c7d1cae0932e04c1f">pr::block_array2&lt; T, Alloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#aa3935fc4fbcd0e5744d27ec7abaa70cf">pr::block_array3&lt; T, Alloc &gt;</a>
-, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#adf5ad5ae26f9ab488391ae85d7275a1a">pr::multi&lt; T, M, N... &gt;</a>
+, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a0218886e4475dc63d37d7468c84919a7">pr::multi&lt; T, M, N... &gt;</a>
 </li>
 <li>reset()
 : <a class="el" href="classpr_1_1memory__arena.html#a3099e12d145bad4be9979bbeafa8d255">pr::memory_arena</a>

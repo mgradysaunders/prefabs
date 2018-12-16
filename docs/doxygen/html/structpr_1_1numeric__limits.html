@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -60,6 +63,9 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="structpr_1_1numeric__limits-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">pr::numeric_limits&lt; T &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__math.html">Math</a></div></div>  </div>
 </div><!--header-->
@@ -73,12 +79,82 @@ Inheritance diagram for pr::numeric_limits&lt; T &gt;:</div>
 <div class="center"><iframe scrolling="no" frameborder="0" src="structpr_1_1numeric__limits__inherit__graph.svg" width="175" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:abc7de6892dd7362e619054a0571c9ac2"><td class="memItemLeft" align="right" valign="top">static constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits.html#abc7de6892dd7362e619054a0571c9ac2">machine_epsilon</a> () noexcept</td></tr>
+<tr class="memdesc:abc7de6892dd7362e619054a0571c9ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">For floating point types, machine epsilon.  <a href="#abc7de6892dd7362e619054a0571c9ac2">More...</a><br /></td></tr>
+<tr class="separator:abc7de6892dd7362e619054a0571c9ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef99f4f2533212ab02476d6a80c2cdf3"><td class="memItemLeft" align="right" valign="top">static constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits.html#aef99f4f2533212ab02476d6a80c2cdf3">echelon</a> (unsigned n) noexcept</td></tr>
+<tr class="memdesc:aef99f4f2533212ab02476d6a80c2cdf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">For floating point types, echelon.  <a href="#aef99f4f2533212ab02476d6a80c2cdf3">More...</a><br /></td></tr>
+<tr class="separator:aef99f4f2533212ab02476d6a80c2cdf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 struct pr::numeric_limits&lt; T &gt;</h3>
 
 <p>Wrap <code>std::numeric_limits</code>. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="abc7de6892dd7362e619054a0571c9ac2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc7de6892dd7362e619054a0571c9ac2">&#9670;&nbsp;</a></span>machine_epsilon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static constexpr T <a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits</a>&lt; T &gt;::machine_epsilon </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>For floating point types, machine epsilon. </p>
+
+</div>
+</div>
+<a id="aef99f4f2533212ab02476d6a80c2cdf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef99f4f2533212ab02476d6a80c2cdf3">&#9670;&nbsp;</a></span>echelon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static constexpr T <a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits</a>&lt; T &gt;::echelon </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>For floating point types, echelon. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

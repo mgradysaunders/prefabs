@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -59,6 +62,62 @@ $(function() {
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_m"></a>- m -</h3><ul>
+<li>M_1_pi()
+: <a class="el" href="structpr_1_1numeric__constants.html#add89750629195572eeed534aaddf0d2c">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#a87dab4391667f10529e1e9ada8ad74dd">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_2_pi()
+: <a class="el" href="structpr_1_1numeric__constants.html#a30eddc4b9a3f6346206de8a0bd966e57">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#a4b89bc91b07dbaa2ee6e3677e4042b0f">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_2_sqrtpi()
+: <a class="el" href="structpr_1_1numeric__constants.html#adb8338171511c3c0d104d41c7bc4f46f">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#a2efcc4d4654a3ec409ca99ba24746c99">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_e()
+: <a class="el" href="structpr_1_1numeric__constants.html#a050e770a8be653f302fc435ae9cd04b7">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#a1a986ebbcda39fc3de88ea7d501aa601">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_ln10()
+: <a class="el" href="structpr_1_1numeric__constants.html#a5c34d2662f291fc38900b1f28a0e7e69">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#aa2fa827042af6188027330f47bcfab93">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_ln2()
+: <a class="el" href="structpr_1_1numeric__constants.html#ad2c28f09f48c0a5d2f895260cd0ff727">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#aec4a600d53965d31f444d70bb734b2f2">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_log10e()
+: <a class="el" href="structpr_1_1numeric__constants.html#a5ed3c3527317d6bf729531cf9209bfa0">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#aa02ae6d59ae21466ca3942ec9e3ccb44">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_log2e()
+: <a class="el" href="structpr_1_1numeric__constants.html#a20c9e5b715b49558f9803f8f132e8c91">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#a02b35eba34a8bd390bd3c97a7ddfde12">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_pi()
+: <a class="el" href="structpr_1_1numeric__constants.html#a26484f31be51f8d793134c93b033860c">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#a73e438f6a98889f4e64e8d067fd1641a">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_pi_2()
+: <a class="el" href="structpr_1_1numeric__constants.html#abf01600e29fa47b7ec7f15e60849d44f">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#af548f40fb0ed420c8a8001c2e84b49b5">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_pi_4()
+: <a class="el" href="structpr_1_1numeric__constants.html#aaf8447d0f4fe91d2cdac705bd3aa9f7f">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#a55655a7dada9a26d9c0c6fdac98ae3a2">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_sqrt1_2()
+: <a class="el" href="structpr_1_1numeric__constants.html#a7b91250485c941656619c7cef92aa8c7">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#a2359693b5dfed944c9fe1a6b11d45129">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>M_sqrt2()
+: <a class="el" href="structpr_1_1numeric__constants.html#a12edb1fd1060fe0f5f3c3fa8e210274f">pr::numeric_constants&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html#a041f20fd6e5b3e740116640e0ff630bc">pr::numeric_constants&lt; __float128 &gt;</a>
+</li>
+<li>machine_epsilon()
+: <a class="el" href="structpr_1_1numeric__limits.html#abc7de6892dd7362e619054a0571c9ac2">pr::numeric_limits&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#a3f8d9159cf8cf2ac4b9529ba33d6c5bc">pr::numeric_limits&lt; __float128 &gt;</a>
+</li>
 <li>max()
 : <a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#a505e91e9f262160d4f544a6e3bb904bd">pr::numeric_limits&lt; __float128 &gt;</a>
 </li>
@@ -72,7 +131,7 @@ $(function() {
 : <a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#a2866fe36c09106bf649d4c53542d1f80">pr::numeric_limits&lt; __float128 &gt;</a>
 </li>
 <li>memory_arena()
-: <a class="el" href="classpr_1_1memory__arena.html#af2773505769a6eee534db9646250534a">pr::memory_arena</a>
+: <a class="el" href="classpr_1_1memory__arena.html#a6097935c5f00efca89a59f2916b65872">pr::memory_arena</a>
 </li>
 <li>min()
 : <a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#a1b4bcbb0e9be0c1d93acea0b5a00fc06">pr::numeric_limits&lt; __float128 &gt;</a>

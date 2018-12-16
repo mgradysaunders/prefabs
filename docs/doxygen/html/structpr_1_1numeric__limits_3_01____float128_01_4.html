@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -83,6 +86,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a4aae2cf68390de8b7dde767cf7a4805c"><td class="memItemLeft" align="right" valign="top">static constexpr __float128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#a4aae2cf68390de8b7dde767cf7a4805c">epsilon</a> () noexcept</td></tr>
 <tr class="memdesc:a4aae2cf68390de8b7dde767cf7a4805c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>FLT128_EPSILON</code>.  <a href="#a4aae2cf68390de8b7dde767cf7a4805c">More...</a><br /></td></tr>
 <tr class="separator:a4aae2cf68390de8b7dde767cf7a4805c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f8d9159cf8cf2ac4b9529ba33d6c5bc"><td class="memItemLeft" align="right" valign="top">static constexpr __float128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#a3f8d9159cf8cf2ac4b9529ba33d6c5bc">machine_epsilon</a> () noexcept</td></tr>
+<tr class="memdesc:a3f8d9159cf8cf2ac4b9529ba33d6c5bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">For floating point types, machine echelon.  <a href="#a3f8d9159cf8cf2ac4b9529ba33d6c5bc">More...</a><br /></td></tr>
+<tr class="separator:a3f8d9159cf8cf2ac4b9529ba33d6c5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac408b82a8ab01143468135a20a3304c1"><td class="memItemLeft" align="right" valign="top">static constexpr __float128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#ac408b82a8ab01143468135a20a3304c1">echelon</a> (unsigned n) noexcept</td></tr>
+<tr class="memdesc:ac408b82a8ab01143468135a20a3304c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">For floating point types, echelon.  <a href="#ac408b82a8ab01143468135a20a3304c1">More...</a><br /></td></tr>
+<tr class="separator:ac408b82a8ab01143468135a20a3304c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a910d8000346c710ccf47d940edf39a01"><td class="memItemLeft" align="right" valign="top">static __float128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#a910d8000346c710ccf47d940edf39a01">infinity</a> () noexcept</td></tr>
 <tr class="memdesc:a910d8000346c710ccf47d940edf39a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>HUGE_VALQ</code>.  <a href="#a910d8000346c710ccf47d940edf39a01">More...</a><br /></td></tr>
 <tr class="separator:a910d8000346c710ccf47d940edf39a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,6 +225,61 @@ struct pr::numeric_limits&lt; __float128 &gt;</h3>
 </div><div class="memdoc">
 
 <p>Wrap <code>FLT128_EPSILON</code>. </p>
+
+</div>
+</div>
+<a id="a3f8d9159cf8cf2ac4b9529ba33d6c5bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f8d9159cf8cf2ac4b9529ba33d6c5bc">&#9670;&nbsp;</a></span>machine_epsilon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static constexpr __float128 <a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits</a>&lt; __float128 &gt;::machine_epsilon </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>For floating point types, machine echelon. </p>
+
+</div>
+</div>
+<a id="ac408b82a8ab01143468135a20a3304c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac408b82a8ab01143468135a20a3304c1">&#9670;&nbsp;</a></span>echelon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static constexpr __float128 <a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits</a>&lt; __float128 &gt;::echelon </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>For floating point types, echelon. </p>
 
 </div>
 </div>

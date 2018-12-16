@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -68,9 +71,76 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits&lt; T &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::numeric_limits</code>.  <a href="structpr_1_1numeric__limits.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__constants.html">pr::numeric_constants&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Useful numeric constants.  <a href="structpr_1_1numeric__constants.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__constants_3_01std_1_1complex_3_01T_01_4_01_4.html">pr::numeric_constants&lt; std::complex&lt; T &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialize <code>std::complex&lt;T&gt;</code>.  <a href="structpr_1_1numeric__constants_3_01std_1_1complex_3_01T_01_4_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Complex accessors (arithmetic)</h2></td></tr>
+<tr class="memitem:gaa98a2c291276bcb91ee202782a1a19f1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaa98a2c291276bcb91ee202782a1a19f1"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaa98a2c291276bcb91ee202782a1a19f1">pr::real</a> (T x)</td></tr>
+<tr class="memdesc:gaa98a2c291276bcb91ee202782a1a19f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analogous to <code>std::real()</code>, except do not promote to floating point.  <a href="group__math.html#gaa98a2c291276bcb91ee202782a1a19f1">More...</a><br /></td></tr>
+<tr class="separator:gaa98a2c291276bcb91ee202782a1a19f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19ffdfa6bd549b37ddafdc647f71f377"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga19ffdfa6bd549b37ddafdc647f71f377"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga19ffdfa6bd549b37ddafdc647f71f377">pr::imag</a> (T x)</td></tr>
+<tr class="memdesc:ga19ffdfa6bd549b37ddafdc647f71f377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analogous to <code>std::imag()</code>, except do not promote to floating point.  <a href="group__math.html#ga19ffdfa6bd549b37ddafdc647f71f377">More...</a><br /></td></tr>
+<tr class="separator:ga19ffdfa6bd549b37ddafdc647f71f377"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a52b97aed066f27a0ff01acab86b388"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga3a52b97aed066f27a0ff01acab86b388"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga3a52b97aed066f27a0ff01acab86b388">pr::norm</a> (T x)</td></tr>
+<tr class="memdesc:ga3a52b97aed066f27a0ff01acab86b388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analogous to <code>std::norm()</code>, except do not promote to floating point.  <a href="group__math.html#ga3a52b97aed066f27a0ff01acab86b388">More...</a><br /></td></tr>
+<tr class="separator:ga3a52b97aed066f27a0ff01acab86b388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga416f00c000bc194b8a9b0995d510bff7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga416f00c000bc194b8a9b0995d510bff7"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga416f00c000bc194b8a9b0995d510bff7">pr::conj</a> (T x)</td></tr>
+<tr class="memdesc:ga416f00c000bc194b8a9b0995d510bff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analogous to <code>std::conj()</code>, except do not promote to <code>std::complex</code>.  <a href="group__math.html#ga416f00c000bc194b8a9b0995d510bff7">More...</a><br /></td></tr>
+<tr class="separator:ga416f00c000bc194b8a9b0995d510bff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Complex accessors (complex)</h2></td></tr>
+<tr class="memitem:ga9a640331e3edaaad600fa3450b7980ca"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga9a640331e3edaaad600fa3450b7980ca"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga9a640331e3edaaad600fa3450b7980ca">pr::real</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga9a640331e3edaaad600fa3450b7980ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::real()</code>.  <a href="group__math.html#ga9a640331e3edaaad600fa3450b7980ca">More...</a><br /></td></tr>
+<tr class="separator:ga9a640331e3edaaad600fa3450b7980ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga555c1129c60865ee7c4532f8eb5f3439"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga555c1129c60865ee7c4532f8eb5f3439"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga555c1129c60865ee7c4532f8eb5f3439">pr::imag</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga555c1129c60865ee7c4532f8eb5f3439"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::imag()</code>.  <a href="group__math.html#ga555c1129c60865ee7c4532f8eb5f3439">More...</a><br /></td></tr>
+<tr class="separator:ga555c1129c60865ee7c4532f8eb5f3439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa03d22e3f7f3f4be7586e4cbca0f17d8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaa03d22e3f7f3f4be7586e4cbca0f17d8"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaa03d22e3f7f3f4be7586e4cbca0f17d8">pr::norm</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaa03d22e3f7f3f4be7586e4cbca0f17d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analgous to <code>std:norm()</code>, except constexpr.  <a href="group__math.html#gaa03d22e3f7f3f4be7586e4cbca0f17d8">More...</a><br /></td></tr>
+<tr class="separator:gaa03d22e3f7f3f4be7586e4cbca0f17d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::complex&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga700db03feb33c6e9cd7c8928aa083c4c">pr::conj</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analgous to <code>std:conj()</code>, except constexpr.  <a href="group__math.html#ga700db03feb33c6e9cd7c8928aa083c4c">More...</a><br /></td></tr>
+<tr class="separator:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Misc</h2></td></tr>
+<tr class="memitem:ga280d622de0885accb34df2421e05c6b1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga280d622de0885accb34df2421e05c6b1"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga280d622de0885accb34df2421e05c6b1">pr::nthpow</a> (T x, int n)</td></tr>
+<tr class="memdesc:ga280d622de0885accb34df2421e05c6b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raise to integer power.  <a href="group__math.html#ga280d622de0885accb34df2421e05c6b1">More...</a><br /></td></tr>
+<tr class="separator:ga280d622de0885accb34df2421e05c6b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math wrappers</h2></td></tr>
+<tr class="memitem:gad47d91f07600b39afd14832220fff0b2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad47d91f07600b39afd14832220fff0b2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gad47d91f07600b39afd14832220fff0b2">abs</a> (T x) -&gt; decltype(std::abs(x))</td></tr>
+<tr class="memdesc:gad47d91f07600b39afd14832220fff0b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::abs()</code>.  <a href="#gad47d91f07600b39afd14832220fff0b2">More...</a><br /></td></tr>
+<tr class="separator:gad47d91f07600b39afd14832220fff0b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga536486133586402a54d51a7f5da9a8e5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga536486133586402a54d51a7f5da9a8e5"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga536486133586402a54d51a7f5da9a8e5">arg</a> (T x) -&gt; decltype(std::arg(x))</td></tr>
+<tr class="memdesc:ga536486133586402a54d51a7f5da9a8e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::arg()</code>.  <a href="#ga536486133586402a54d51a7f5da9a8e5">More...</a><br /></td></tr>
+<tr class="separator:ga536486133586402a54d51a7f5da9a8e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0a0d7bd1ae91df0cd08466c7ceeda27e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga0a0d7bd1ae91df0cd08466c7ceeda27e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga0a0d7bd1ae91df0cd08466c7ceeda27e">min</a> (T x, T y) -&gt; decltype(std::min(x, y))</td></tr>
+<tr class="memdesc:ga0a0d7bd1ae91df0cd08466c7ceeda27e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::min()</code>.  <a href="#ga0a0d7bd1ae91df0cd08466c7ceeda27e">More...</a><br /></td></tr>
+<tr class="separator:ga0a0d7bd1ae91df0cd08466c7ceeda27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b81e2892bafa2f1a403fadb163db7bd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2b81e2892bafa2f1a403fadb163db7bd"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga2b81e2892bafa2f1a403fadb163db7bd">max</a> (T x, T y) -&gt; decltype(std::max(x, y))</td></tr>
+<tr class="memdesc:ga2b81e2892bafa2f1a403fadb163db7bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::max()</code>.  <a href="#ga2b81e2892bafa2f1a403fadb163db7bd">More...</a><br /></td></tr>
+<tr class="separator:ga2b81e2892bafa2f1a403fadb163db7bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga39ba3525ef9d29acef1b0aad084d1a3b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga39ba3525ef9d29acef1b0aad084d1a3b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga39ba3525ef9d29acef1b0aad084d1a3b">fabs</a> (T x) -&gt; decltype(std::fabs(x))</td></tr>
 <tr class="memdesc:ga39ba3525ef9d29acef1b0aad084d1a3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::fabs()</code>.  <a href="#ga39ba3525ef9d29acef1b0aad084d1a3b">More...</a><br /></td></tr>
@@ -315,10 +385,413 @@ Math wrappers</h2></td></tr>
 <tr class="memitem:gaf5c9407fd324eb5671b1fe256709d690"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaf5c9407fd324eb5671b1fe256709d690">atanh</a> (T x) -&gt; decltype(std::atanh(x))</td></tr>
 <tr class="memdesc:gaf5c9407fd324eb5671b1fe256709d690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::atanh()</code>.  <a href="#gaf5c9407fd324eb5671b1fe256709d690">More...</a><br /></td></tr>
 <tr class="separator:gaf5c9407fd324eb5671b1fe256709d690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Reciprocal trigonometric functions</h2></td></tr>
+<tr class="memitem:ga722b2d0454be6939b18547734053e562"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga722b2d0454be6939b18547734053e562"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga722b2d0454be6939b18547734053e562">csc</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#ga1f3c27e35b390569f9a036ff94a0abb9">pr::sin</a>(x))</td></tr>
+<tr class="memdesc:ga722b2d0454be6939b18547734053e562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sin()</code>.  <a href="#ga722b2d0454be6939b18547734053e562">More...</a><br /></td></tr>
+<tr class="separator:ga722b2d0454be6939b18547734053e562"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad6722e1f3cdcb6ad70b55cfd0d948233"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad6722e1f3cdcb6ad70b55cfd0d948233"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gad6722e1f3cdcb6ad70b55cfd0d948233">sec</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#ga293b86c981a63f49dbf8c6455aa475ab">pr::cos</a>(x))</td></tr>
+<tr class="memdesc:gad6722e1f3cdcb6ad70b55cfd0d948233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cos()</code>.  <a href="#gad6722e1f3cdcb6ad70b55cfd0d948233">More...</a><br /></td></tr>
+<tr class="separator:gad6722e1f3cdcb6ad70b55cfd0d948233"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga49d0be052e381e6290c7e7a32d62fdba"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga49d0be052e381e6290c7e7a32d62fdba"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga49d0be052e381e6290c7e7a32d62fdba">cot</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#ga5f33a13164f4375c875ef0dacb4d93f2">pr::tan</a>(x))</td></tr>
+<tr class="memdesc:ga49d0be052e381e6290c7e7a32d62fdba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tan()</code>.  <a href="#ga49d0be052e381e6290c7e7a32d62fdba">More...</a><br /></td></tr>
+<tr class="separator:ga49d0be052e381e6290c7e7a32d62fdba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae408ff1ea88fc13b87e056faee906567"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae408ff1ea88fc13b87e056faee906567"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gae408ff1ea88fc13b87e056faee906567">csch</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#ga49f53042f6708298608d3cd601203f75">pr::sinh</a>(x))</td></tr>
+<tr class="memdesc:gae408ff1ea88fc13b87e056faee906567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sinh()</code>.  <a href="#gae408ff1ea88fc13b87e056faee906567">More...</a><br /></td></tr>
+<tr class="separator:gae408ff1ea88fc13b87e056faee906567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5fb020241a2132a13a7f783412ac9a69"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5fb020241a2132a13a7f783412ac9a69"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga5fb020241a2132a13a7f783412ac9a69">sech</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#ga65249ed4bcd113120753beff55c949cc">pr::cosh</a>(x))</td></tr>
+<tr class="memdesc:ga5fb020241a2132a13a7f783412ac9a69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cosh()</code>.  <a href="#ga5fb020241a2132a13a7f783412ac9a69">More...</a><br /></td></tr>
+<tr class="separator:ga5fb020241a2132a13a7f783412ac9a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2c827d6ca4969b1e3391efb06ddfc359"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2c827d6ca4969b1e3391efb06ddfc359"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga2c827d6ca4969b1e3391efb06ddfc359">coth</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#ga5ad00309f70fe2834935d5488c98817b">pr::tanh</a>(x))</td></tr>
+<tr class="memdesc:ga2c827d6ca4969b1e3391efb06ddfc359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tanh()</code>.  <a href="#ga2c827d6ca4969b1e3391efb06ddfc359">More...</a><br /></td></tr>
+<tr class="separator:ga2c827d6ca4969b1e3391efb06ddfc359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ce007e869e0aae3ff92eae9c8a51e71"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5ce007e869e0aae3ff92eae9c8a51e71"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga5ce007e869e0aae3ff92eae9c8a51e71">acsc</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#gaf06dc47e1212e953063c47742527d106">pr::asin</a>(x))</td></tr>
+<tr class="memdesc:ga5ce007e869e0aae3ff92eae9c8a51e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csc()</code>.  <a href="#ga5ce007e869e0aae3ff92eae9c8a51e71">More...</a><br /></td></tr>
+<tr class="separator:ga5ce007e869e0aae3ff92eae9c8a51e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga343eabee74aa28cb8b8efb2d01863d65"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga343eabee74aa28cb8b8efb2d01863d65"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga343eabee74aa28cb8b8efb2d01863d65">asec</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#gaec516334387ac0a83a85859fd9239470">pr::acos</a>(x))</td></tr>
+<tr class="memdesc:ga343eabee74aa28cb8b8efb2d01863d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sec()</code>.  <a href="#ga343eabee74aa28cb8b8efb2d01863d65">More...</a><br /></td></tr>
+<tr class="separator:ga343eabee74aa28cb8b8efb2d01863d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac3132b3cf27164d758a96576483dedb6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac3132b3cf27164d758a96576483dedb6"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gac3132b3cf27164d758a96576483dedb6">acot</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#ga598033ce66b7e22d5eabcf82b168697b">pr::atan</a>(x))</td></tr>
+<tr class="memdesc:gac3132b3cf27164d758a96576483dedb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::cot()</code>.  <a href="#gac3132b3cf27164d758a96576483dedb6">More...</a><br /></td></tr>
+<tr class="separator:gac3132b3cf27164d758a96576483dedb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae65fca1f1821becef4ba9cb638b2510d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae65fca1f1821becef4ba9cb638b2510d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gae65fca1f1821becef4ba9cb638b2510d">acsch</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#gab435beccee314452ff9afbe1b833b7e5">pr::asinh</a>(x))</td></tr>
+<tr class="memdesc:gae65fca1f1821becef4ba9cb638b2510d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csch()</code>.  <a href="#gae65fca1f1821becef4ba9cb638b2510d">More...</a><br /></td></tr>
+<tr class="separator:gae65fca1f1821becef4ba9cb638b2510d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ee5f51b77f12b2998f8c353905a0b20"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5ee5f51b77f12b2998f8c353905a0b20"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga5ee5f51b77f12b2998f8c353905a0b20">asech</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#gab7422becdff7094fd37f22790edc887f">pr::acosh</a>(x))</td></tr>
+<tr class="memdesc:ga5ee5f51b77f12b2998f8c353905a0b20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sech()</code>.  <a href="#ga5ee5f51b77f12b2998f8c353905a0b20">More...</a><br /></td></tr>
+<tr class="separator:ga5ee5f51b77f12b2998f8c353905a0b20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaceefb2dbe15237c60e6b5c1e9020ab1e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaceefb2dbe15237c60e6b5c1e9020ab1e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaceefb2dbe15237c60e6b5c1e9020ab1e">acoth</a> (T x) -&gt; decltype(<a class="el" href="group__quadmath.html#ga818bfb3c769dd9c42433366b0b6c7f1c">pr::atanh</a>(x))</td></tr>
+<tr class="memdesc:gaceefb2dbe15237c60e6b5c1e9020ab1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::coth()</code>.  <a href="#gaceefb2dbe15237c60e6b5c1e9020ab1e">More...</a><br /></td></tr>
+<tr class="separator:gaceefb2dbe15237c60e6b5c1e9020ab1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;prefabs/math.hpp&gt;</code> </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gaa98a2c291276bcb91ee202782a1a19f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa98a2c291276bcb91ee202782a1a19f1">&#9670;&nbsp;</a></span>real() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;std::is_arithmetic&lt;T&gt;::value, T&gt; pr::real </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Analogous to <code>std::real()</code>, except do not promote to floating point. </p>
+
+</div>
+</div>
+<a id="ga19ffdfa6bd549b37ddafdc647f71f377"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga19ffdfa6bd549b37ddafdc647f71f377">&#9670;&nbsp;</a></span>imag() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;std::is_arithmetic&lt;T&gt;::value, T&gt; pr::imag </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Analogous to <code>std::imag()</code>, except do not promote to floating point. </p>
+
+</div>
+</div>
+<a id="ga3a52b97aed066f27a0ff01acab86b388"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3a52b97aed066f27a0ff01acab86b388">&#9670;&nbsp;</a></span>norm() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;std::is_arithmetic&lt;T&gt;::value, T&gt; pr::norm </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Analogous to <code>std::norm()</code>, except do not promote to floating point. </p>
+
+</div>
+</div>
+<a id="ga416f00c000bc194b8a9b0995d510bff7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga416f00c000bc194b8a9b0995d510bff7">&#9670;&nbsp;</a></span>conj() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;std::is_arithmetic&lt;T&gt;::value, T&gt; pr::conj </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Analogous to <code>std::conj()</code>, except do not promote to <code>std::complex</code>. </p>
+
+</div>
+</div>
+<a id="ga9a640331e3edaaad600fa3450b7980ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9a640331e3edaaad600fa3450b7980ca">&#9670;&nbsp;</a></span>real() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T pr::real </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wrap <code>std::real()</code>. </p>
+
+</div>
+</div>
+<a id="ga555c1129c60865ee7c4532f8eb5f3439"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga555c1129c60865ee7c4532f8eb5f3439">&#9670;&nbsp;</a></span>imag() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T pr::imag </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wrap <code>std::imag()</code>. </p>
+
+</div>
+</div>
+<a id="gaa03d22e3f7f3f4be7586e4cbca0f17d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa03d22e3f7f3f4be7586e4cbca0f17d8">&#9670;&nbsp;</a></span>norm() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T pr::norm </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Analgous to <code>std:norm()</code>, except constexpr. </p>
+
+</div>
+</div>
+<a id="ga700db03feb33c6e9cd7c8928aa083c4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga700db03feb33c6e9cd7c8928aa083c4c">&#9670;&nbsp;</a></span>conj() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::complex&lt;T&gt; pr::conj </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Analgous to <code>std:conj()</code>, except constexpr. </p>
+
+</div>
+</div>
+<a id="ga280d622de0885accb34df2421e05c6b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga280d622de0885accb34df2421e05c6b1">&#9670;&nbsp;</a></span>nthpow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T pr::nthpow </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Raise to integer power. </p>
+
+</div>
+</div>
+<a id="gad47d91f07600b39afd14832220fff0b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad47d91f07600b39afd14832220fff0b2">&#9670;&nbsp;</a></span>abs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto abs </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(std::abs(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wrap <code>std::abs()</code>. </p>
+
+</div>
+</div>
+<a id="ga536486133586402a54d51a7f5da9a8e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga536486133586402a54d51a7f5da9a8e5">&#9670;&nbsp;</a></span>arg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto arg </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(std::arg(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wrap <code>std::arg()</code>. </p>
+
+</div>
+</div>
+<a id="ga0a0d7bd1ae91df0cd08466c7ceeda27e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0a0d7bd1ae91df0cd08466c7ceeda27e">&#9670;&nbsp;</a></span>min()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto min </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; decltype(std::min(x, y))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wrap <code>std::min()</code>. </p>
+
+</div>
+</div>
+<a id="ga2b81e2892bafa2f1a403fadb163db7bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2b81e2892bafa2f1a403fadb163db7bd">&#9670;&nbsp;</a></span>max()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto max </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; decltype(std::max(x, y))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wrap <code>std::max()</code>. </p>
+
+</div>
+</div>
 <a id="ga39ba3525ef9d29acef1b0aad084d1a3b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga39ba3525ef9d29acef1b0aad084d1a3b">&#9670;&nbsp;</a></span>fabs()</h2>
 
@@ -2399,6 +2872,378 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Wrap <code>std::atanh()</code>. </p>
+
+</div>
+</div>
+<a id="ga722b2d0454be6939b18547734053e562"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga722b2d0454be6939b18547734053e562">&#9670;&nbsp;</a></span>csc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto csc </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#ga1f3c27e35b390569f9a036ff94a0abb9">pr::sin</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::sin()</code>. </p>
+
+</div>
+</div>
+<a id="gad6722e1f3cdcb6ad70b55cfd0d948233"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad6722e1f3cdcb6ad70b55cfd0d948233">&#9670;&nbsp;</a></span>sec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto sec </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#ga293b86c981a63f49dbf8c6455aa475ab">pr::cos</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::cos()</code>. </p>
+
+</div>
+</div>
+<a id="ga49d0be052e381e6290c7e7a32d62fdba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga49d0be052e381e6290c7e7a32d62fdba">&#9670;&nbsp;</a></span>cot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto cot </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#ga5f33a13164f4375c875ef0dacb4d93f2">pr::tan</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::tan()</code>. </p>
+
+</div>
+</div>
+<a id="gae408ff1ea88fc13b87e056faee906567"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae408ff1ea88fc13b87e056faee906567">&#9670;&nbsp;</a></span>csch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto csch </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#ga49f53042f6708298608d3cd601203f75">pr::sinh</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::sinh()</code>. </p>
+
+</div>
+</div>
+<a id="ga5fb020241a2132a13a7f783412ac9a69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5fb020241a2132a13a7f783412ac9a69">&#9670;&nbsp;</a></span>sech()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto sech </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#ga65249ed4bcd113120753beff55c949cc">pr::cosh</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::cosh()</code>. </p>
+
+</div>
+</div>
+<a id="ga2c827d6ca4969b1e3391efb06ddfc359"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2c827d6ca4969b1e3391efb06ddfc359">&#9670;&nbsp;</a></span>coth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto coth </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#ga5ad00309f70fe2834935d5488c98817b">pr::tanh</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::tanh()</code>. </p>
+
+</div>
+</div>
+<a id="ga5ce007e869e0aae3ff92eae9c8a51e71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5ce007e869e0aae3ff92eae9c8a51e71">&#9670;&nbsp;</a></span>acsc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto acsc </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#gaf06dc47e1212e953063c47742527d106">pr::asin</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::csc()</code>. </p>
+
+</div>
+</div>
+<a id="ga343eabee74aa28cb8b8efb2d01863d65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga343eabee74aa28cb8b8efb2d01863d65">&#9670;&nbsp;</a></span>asec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto asec </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#gaec516334387ac0a83a85859fd9239470">pr::acos</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::sec()</code>. </p>
+
+</div>
+</div>
+<a id="gac3132b3cf27164d758a96576483dedb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac3132b3cf27164d758a96576483dedb6">&#9670;&nbsp;</a></span>acot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto acot </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#ga598033ce66b7e22d5eabcf82b168697b">pr::atan</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::cot()</code>. </p>
+
+</div>
+</div>
+<a id="gae65fca1f1821becef4ba9cb638b2510d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae65fca1f1821becef4ba9cb638b2510d">&#9670;&nbsp;</a></span>acsch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto acsch </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#gab435beccee314452ff9afbe1b833b7e5">pr::asinh</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::csch()</code>. </p>
+
+</div>
+</div>
+<a id="ga5ee5f51b77f12b2998f8c353905a0b20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5ee5f51b77f12b2998f8c353905a0b20">&#9670;&nbsp;</a></span>asech()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto asech </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#gab7422becdff7094fd37f22790edc887f">pr::acosh</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::sech()</code>. </p>
+
+</div>
+</div>
+<a id="gaceefb2dbe15237c60e6b5c1e9020ab1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaceefb2dbe15237c60e6b5c1e9020ab1e">&#9670;&nbsp;</a></span>acoth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto acoth </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> -&gt; decltype(<a class="el" href="group__quadmath.html#ga818bfb3c769dd9c42433366b0b6c7f1c">pr::atanh</a>(x))
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::coth()</code>. </p>
 
 </div>
 </div>

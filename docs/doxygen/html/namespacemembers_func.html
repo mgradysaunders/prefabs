@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -56,13 +59,26 @@ $(function() {
 <div id="main-nav"></div>
 </div><!-- top -->
 <div class="contents">
-&#160;<ul>
+&#160;
+
+<h3><a id="index_c"></a>- c -</h3><ul>
 <li>catmull()
 : <a class="el" href="group__interp.html#ga71058653b59fba90e7ff00405c99d66d">pr</a>
 </li>
+<li>conj()
+: <a class="el" href="group__math.html#ga416f00c000bc194b8a9b0995d510bff7">pr</a>
+</li>
+</ul>
+
+
+<h3><a id="index_e"></a>- e -</h3><ul>
 <li>endian_format()
 : <a class="el" href="group__endian.html#ga52dc54e9c56092609c0bd5cabf9dfdfc">pr</a>
 </li>
+</ul>
+
+
+<h3><a id="index_f"></a>- f -</h3><ul>
 <li>fclamp()
 : <a class="el" href="group__float__helpers.html#gae518deab3abe27a6e0ba6f622fe17e2c">pr</a>
 </li>
@@ -81,17 +97,32 @@ $(function() {
 <li>frepeat()
 : <a class="el" href="group__float__helpers.html#gae0daa3423afaac29bd2bfd362d697a66">pr</a>
 </li>
+</ul>
+
+
+<h3><a id="index_g"></a>- g -</h3><ul>
 <li>gcd()
 : <a class="el" href="group__int__helpers.html#ga7fc14c272957f8afe87bcd2e1c95aefb">pr</a>
 </li>
 <li>gcd_bezout()
 : <a class="el" href="group__int__helpers.html#ga4735f2f066971d49b71b862d03669810">pr</a>
 </li>
+</ul>
+
+
+<h3><a id="index_h"></a>- h -</h3><ul>
 <li>hermite()
 : <a class="el" href="group__interp.html#ga24b8f43df577f63a9a4ea589339086cb">pr</a>
 </li>
 <li>host_endian()
 : <a class="el" href="group__endian.html#gab3a4a39f6716202507052ba68a9cb668">pr</a>
+</li>
+</ul>
+
+
+<h3><a id="index_i"></a>- i -</h3><ul>
+<li>imag()
+: <a class="el" href="group__math.html#ga19ffdfa6bd549b37ddafdc647f71f377">pr</a>
 </li>
 <li>iseven()
 : <a class="el" href="group__int__helpers.html#gabf4fb8dcd504a5d9dcf4f8e2680cc923">pr</a>
@@ -105,14 +136,63 @@ $(function() {
 <li>ispow2()
 : <a class="el" href="group__int__helpers.html#ga33143fdfb6fd948edafdc95f12e7c9b9">pr</a>
 </li>
+</ul>
+
+
+<h3><a id="index_l"></a>- l -</h3><ul>
 <li>lcm()
 : <a class="el" href="group__int__helpers.html#ga6ec7397fb73b755f776c29780a482a9e">pr</a>
 </li>
 <li>lerp()
 : <a class="el" href="group__interp.html#ga0689df9198a7179cf6e1efe9fa541549">pr</a>
 </li>
+</ul>
+
+
+<h3><a id="index_n"></a>- n -</h3><ul>
+<li>norm()
+: <a class="el" href="group__math.html#ga3a52b97aed066f27a0ff01acab86b388">pr</a>
+</li>
+<li>nthpow()
+: <a class="el" href="group__math.html#ga280d622de0885accb34df2421e05c6b1">pr</a>
+</li>
+</ul>
+
+
+<h3><a id="index_o"></a>- o -</h3><ul>
+<li>operator*()
+: <a class="el" href="group__dualnum.html#ga60922a8dd6d2e49450ccc42b6ec4d008">pr</a>
+</li>
+<li>operator*=()
+: <a class="el" href="group__dualnum.html#gafc87546e758d28b6efac28f2781a038a">pr</a>
+</li>
+<li>operator+()
+: <a class="el" href="group__dualnum.html#ga7f86983d2865867a57dac2ab077efb42">pr</a>
+</li>
+<li>operator+=()
+: <a class="el" href="group__dualnum.html#ga5c5e311fadad314a82753c3716a6fa42">pr</a>
+</li>
+<li>operator-()
+: <a class="el" href="group__dualnum.html#ga6770c88b59c3937b5859603e9f592a69">pr</a>
+</li>
+<li>operator-=()
+: <a class="el" href="group__dualnum.html#ga05dc41b298b2d24dd4caa16d0078f4d9">pr</a>
+</li>
+<li>operator/()
+: <a class="el" href="group__dualnum.html#ga5c97a637909d6a71420665ce2e3b15e3">pr</a>
+</li>
+<li>operator/=()
+: <a class="el" href="group__dualnum.html#ga4b83cd3adc3f91eb2bd9afceefae9ca4">pr</a>
+</li>
 <li>operator&lt;&lt;()
 : <a class="el" href="group__bash__format.html#gab29817b4e9518b0fea3dc02d9ec4a708">pr</a>
+</li>
+</ul>
+
+
+<h3><a id="index_r"></a>- r -</h3><ul>
+<li>real()
+: <a class="el" href="group__math.html#gaa98a2c291276bcb91ee202782a1a19f1">pr</a>
 </li>
 <li>rotl()
 : <a class="el" href="group__int__helpers.html#ga466a438840672b0cad43d48ccd5b4e2c">pr</a>

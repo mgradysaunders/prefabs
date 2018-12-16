@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -59,12 +62,16 @@ $(function() {
 &#160;
 
 <h3><a id="index_e"></a>- e -</h3><ul>
+<li>echelon()
+: <a class="el" href="structpr_1_1numeric__limits.html#aef99f4f2533212ab02476d6a80c2cdf3">pr::numeric_limits&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#ac408b82a8ab01143468135a20a3304c1">pr::numeric_limits&lt; __float128 &gt;</a>
+</li>
 <li>empty()
 : <a class="el" href="classpr_1_1thread__pool_1_1task__queue.html#a5289429a68bf7ab7393cbc403eb68570">pr::thread_pool::task_queue</a>
 </li>
 <li>end()
 : <a class="el" href="classpr_1_1block__array2.html#af90f4a1ca28630ccc58b29df0f2da704">pr::block_array2&lt; T, Alloc &gt;</a>
-, <a class="el" href="classpr_1_1block__array3.html#aea9bfa170f02bde24c3ee15157082b80">pr::block_array3&lt; T, Alloc &gt;</a>
+, <a class="el" href="classpr_1_1block__array3.html#af5e38994f72fc57a69903886fedab278">pr::block_array3&lt; T, Alloc &gt;</a>
 , <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ad67912b52c85af0616642f183929964b">pr::multi&lt; T, M, N... &gt;</a>
 </li>
 <li>epsilon()

@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -59,6 +62,10 @@ $(function() {
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_e"></a>- e -</h3><ul>
+<li>echelon()
+: <a class="el" href="structpr_1_1numeric__limits.html#aef99f4f2533212ab02476d6a80c2cdf3">pr::numeric_limits&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#ac408b82a8ab01143468135a20a3304c1">pr::numeric_limits&lt; __float128 &gt;</a>
+</li>
 <li>empty()
 : <a class="el" href="classpr_1_1thread__pool_1_1task__queue.html#a5289429a68bf7ab7393cbc403eb68570">pr::thread_pool::task_queue</a>
 </li>

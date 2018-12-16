@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -68,6 +71,12 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html">pr::numeric_limits&lt; __float128 &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialize <code>__float128</code>.  <a href="structpr_1_1numeric__limits_3_01____float128_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__constants_3_01____float128_01_4.html">pr::numeric_constants&lt; __float128 &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialize <code>__float128</code>.  <a href="structpr_1_1numeric__constants_3_01____float128_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__constants_3_01____complex128_01_4.html">pr::numeric_constants&lt; __complex128 &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialize <code>__complex128</code>.  <a href="structpr_1_1numeric__constants_3_01____complex128_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -410,6 +419,57 @@ Quadmath wrappers (`__complex128`)</h2></td></tr>
 <tr class="memitem:ga818bfb3c769dd9c42433366b0b6c7f1c"><td class="memTemplItemLeft" align="right" valign="top">enable_complex128&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga818bfb3c769dd9c42433366b0b6c7f1c">atanh</a> (U x)</td></tr>
 <tr class="memdesc:ga818bfb3c769dd9c42433366b0b6c7f1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>catanhq()</code>.  <a href="#ga818bfb3c769dd9c42433366b0b6c7f1c">More...</a><br /></td></tr>
 <tr class="separator:ga818bfb3c769dd9c42433366b0b6c7f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Reciprocal trigonometric functions (`__float128`)</h2></td></tr>
+<tr class="memitem:ga5ffd74b147f226f24df3c681c1abf1d5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5ffd74b147f226f24df3c681c1abf1d5"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga5ffd74b147f226f24df3c681c1abf1d5">csc</a> (T x)</td></tr>
+<tr class="memdesc:ga5ffd74b147f226f24df3c681c1abf1d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sin()</code>.  <a href="#ga5ffd74b147f226f24df3c681c1abf1d5">More...</a><br /></td></tr>
+<tr class="separator:ga5ffd74b147f226f24df3c681c1abf1d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaabf91c58b81aeb7870ef3bfc97c5541e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaabf91c58b81aeb7870ef3bfc97c5541e"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaabf91c58b81aeb7870ef3bfc97c5541e">sec</a> (T x)</td></tr>
+<tr class="memdesc:gaabf91c58b81aeb7870ef3bfc97c5541e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cos()</code>.  <a href="#gaabf91c58b81aeb7870ef3bfc97c5541e">More...</a><br /></td></tr>
+<tr class="separator:gaabf91c58b81aeb7870ef3bfc97c5541e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55b717fb1234f8a6ffa02c0f7687126b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga55b717fb1234f8a6ffa02c0f7687126b"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga55b717fb1234f8a6ffa02c0f7687126b">cot</a> (T x)</td></tr>
+<tr class="memdesc:ga55b717fb1234f8a6ffa02c0f7687126b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tan()</code>.  <a href="#ga55b717fb1234f8a6ffa02c0f7687126b">More...</a><br /></td></tr>
+<tr class="separator:ga55b717fb1234f8a6ffa02c0f7687126b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae09b7b29390ab7ff5d018330082185ef"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae09b7b29390ab7ff5d018330082185ef"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gae09b7b29390ab7ff5d018330082185ef">csch</a> (T x)</td></tr>
+<tr class="memdesc:gae09b7b29390ab7ff5d018330082185ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sinh()</code>.  <a href="#gae09b7b29390ab7ff5d018330082185ef">More...</a><br /></td></tr>
+<tr class="separator:gae09b7b29390ab7ff5d018330082185ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2443a6a2d3bfb9bd37f9eca4c680a888"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2443a6a2d3bfb9bd37f9eca4c680a888"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga2443a6a2d3bfb9bd37f9eca4c680a888">sech</a> (T x)</td></tr>
+<tr class="memdesc:ga2443a6a2d3bfb9bd37f9eca4c680a888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cosh()</code>.  <a href="#ga2443a6a2d3bfb9bd37f9eca4c680a888">More...</a><br /></td></tr>
+<tr class="separator:ga2443a6a2d3bfb9bd37f9eca4c680a888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed202a670092d6a27d86048dee32814e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaed202a670092d6a27d86048dee32814e"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaed202a670092d6a27d86048dee32814e">coth</a> (T x)</td></tr>
+<tr class="memdesc:gaed202a670092d6a27d86048dee32814e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tanh()</code>.  <a href="#gaed202a670092d6a27d86048dee32814e">More...</a><br /></td></tr>
+<tr class="separator:gaed202a670092d6a27d86048dee32814e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0d97eb4da9472cb388c1fdf2073f14ec"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga0d97eb4da9472cb388c1fdf2073f14ec"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga0d97eb4da9472cb388c1fdf2073f14ec">acsc</a> (T x)</td></tr>
+<tr class="memdesc:ga0d97eb4da9472cb388c1fdf2073f14ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csc()</code>.  <a href="#ga0d97eb4da9472cb388c1fdf2073f14ec">More...</a><br /></td></tr>
+<tr class="separator:ga0d97eb4da9472cb388c1fdf2073f14ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae1291b42a3bdfa3bca484937a078432b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae1291b42a3bdfa3bca484937a078432b"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gae1291b42a3bdfa3bca484937a078432b">asec</a> (T x)</td></tr>
+<tr class="memdesc:gae1291b42a3bdfa3bca484937a078432b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sec()</code>.  <a href="#gae1291b42a3bdfa3bca484937a078432b">More...</a><br /></td></tr>
+<tr class="separator:gae1291b42a3bdfa3bca484937a078432b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac883c4b0e6d2baf94609e265d327f391"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac883c4b0e6d2baf94609e265d327f391"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gac883c4b0e6d2baf94609e265d327f391">acot</a> (T x)</td></tr>
+<tr class="memdesc:gac883c4b0e6d2baf94609e265d327f391"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::cot()</code>.  <a href="#gac883c4b0e6d2baf94609e265d327f391">More...</a><br /></td></tr>
+<tr class="separator:gac883c4b0e6d2baf94609e265d327f391"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28d517e10bb9320349ae79df1a1ba17c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga28d517e10bb9320349ae79df1a1ba17c"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga28d517e10bb9320349ae79df1a1ba17c">acsch</a> (T x)</td></tr>
+<tr class="memdesc:ga28d517e10bb9320349ae79df1a1ba17c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csch()</code>.  <a href="#ga28d517e10bb9320349ae79df1a1ba17c">More...</a><br /></td></tr>
+<tr class="separator:ga28d517e10bb9320349ae79df1a1ba17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8bc676de342dd10ffa63fe02b8fa7f0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad8bc676de342dd10ffa63fe02b8fa7f0"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gad8bc676de342dd10ffa63fe02b8fa7f0">asech</a> (T x)</td></tr>
+<tr class="memdesc:gad8bc676de342dd10ffa63fe02b8fa7f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sech()</code>.  <a href="#gad8bc676de342dd10ffa63fe02b8fa7f0">More...</a><br /></td></tr>
+<tr class="separator:gad8bc676de342dd10ffa63fe02b8fa7f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga58c72f1ce8397d00d0710d66c17eb451"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga58c72f1ce8397d00d0710d66c17eb451"><td class="memTemplItemLeft" align="right" valign="top">enable_float128&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga58c72f1ce8397d00d0710d66c17eb451">acoth</a> (T x)</td></tr>
+<tr class="memdesc:ga58c72f1ce8397d00d0710d66c17eb451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::coth()</code>.  <a href="#ga58c72f1ce8397d00d0710d66c17eb451">More...</a><br /></td></tr>
+<tr class="separator:ga58c72f1ce8397d00d0710d66c17eb451"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;prefabs/quadmath.hpp&gt;</code> </p>
@@ -3070,6 +3130,366 @@ template&lt;typename U &gt; </div>
 </div><div class="memdoc">
 
 <p>Wrap <code>catanhq()</code>. </p>
+
+</div>
+</div>
+<a id="ga5ffd74b147f226f24df3c681c1abf1d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5ffd74b147f226f24df3c681c1abf1d5">&#9670;&nbsp;</a></span>csc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type csc </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::sin()</code>. </p>
+
+</div>
+</div>
+<a id="gaabf91c58b81aeb7870ef3bfc97c5541e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaabf91c58b81aeb7870ef3bfc97c5541e">&#9670;&nbsp;</a></span>sec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type sec </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::cos()</code>. </p>
+
+</div>
+</div>
+<a id="ga55b717fb1234f8a6ffa02c0f7687126b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga55b717fb1234f8a6ffa02c0f7687126b">&#9670;&nbsp;</a></span>cot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type cot </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::tan()</code>. </p>
+
+</div>
+</div>
+<a id="gae09b7b29390ab7ff5d018330082185ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae09b7b29390ab7ff5d018330082185ef">&#9670;&nbsp;</a></span>csch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type csch </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::sinh()</code>. </p>
+
+</div>
+</div>
+<a id="ga2443a6a2d3bfb9bd37f9eca4c680a888"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2443a6a2d3bfb9bd37f9eca4c680a888">&#9670;&nbsp;</a></span>sech()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type sech </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::cosh()</code>. </p>
+
+</div>
+</div>
+<a id="gaed202a670092d6a27d86048dee32814e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaed202a670092d6a27d86048dee32814e">&#9670;&nbsp;</a></span>coth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type coth </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::tanh()</code>. </p>
+
+</div>
+</div>
+<a id="ga0d97eb4da9472cb388c1fdf2073f14ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0d97eb4da9472cb388c1fdf2073f14ec">&#9670;&nbsp;</a></span>acsc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type acsc </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::csc()</code>. </p>
+
+</div>
+</div>
+<a id="gae1291b42a3bdfa3bca484937a078432b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae1291b42a3bdfa3bca484937a078432b">&#9670;&nbsp;</a></span>asec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type asec </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::sec()</code>. </p>
+
+</div>
+</div>
+<a id="gac883c4b0e6d2baf94609e265d327f391"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac883c4b0e6d2baf94609e265d327f391">&#9670;&nbsp;</a></span>acot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type acot </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::cot()</code>. </p>
+
+</div>
+</div>
+<a id="ga28d517e10bb9320349ae79df1a1ba17c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga28d517e10bb9320349ae79df1a1ba17c">&#9670;&nbsp;</a></span>acsch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type acsch </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::csch()</code>. </p>
+
+</div>
+</div>
+<a id="gad8bc676de342dd10ffa63fe02b8fa7f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad8bc676de342dd10ffa63fe02b8fa7f0">&#9670;&nbsp;</a></span>asech()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type asech </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::sech()</code>. </p>
+
+</div>
+</div>
+<a id="ga58c72f1ce8397d00d0710d66c17eb451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga58c72f1ce8397d00d0710d66c17eb451">&#9670;&nbsp;</a></span>acoth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enable_float128&lt;T&gt;::type acoth </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::coth()</code>. </p>
 
 </div>
 </div>

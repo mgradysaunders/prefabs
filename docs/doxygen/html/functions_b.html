@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -60,12 +63,13 @@ $(function() {
 
 <h3><a id="index_b"></a>- b -</h3><ul>
 <li>b_
-: <a class="el" href="classpr_1_1half.html#a02e2f97ddf15c48544fd0b44f3f32248">pr::half</a>
+: <a class="el" href="classpr_1_1dualnum.html#a828aec56724620cff2398e2ed93f6960">pr::dualnum&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1half.html#a02e2f97ddf15c48544fd0b44f3f32248">pr::half</a>
 </li>
 <li>back()
-: <a class="el" href="classpr_1_1block__array2.html#a37da527a79a923cf785fb2c7615abbad">pr::block_array2&lt; T, Alloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array2.html#a313592fe94351ff979ddd64a28ecaba3">pr::block_array2&lt; T, Alloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#a18f30d3fa0155c5e0bb8267e089c7c48">pr::block_array3&lt; T, Alloc &gt;</a>
-, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#aae1248490d8a2c600f988d357ef09d73">pr::multi&lt; T, M, N... &gt;</a>
+, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a61362339f6a64dea6bde460746fa1210">pr::multi&lt; T, M, N... &gt;</a>
 </li>
 <li>begin()
 : <a class="el" href="classpr_1_1block__array2.html#a9cda7a14edec84cd508bbd50a54645e4">pr::block_array2&lt; T, Alloc &gt;</a>
@@ -91,10 +95,10 @@ $(function() {
 , <a class="el" href="classpr_1_1block__array3.html#aff22154cf81872feba6f85ddb46c16a2">pr::block_array3&lt; T, Alloc &gt;</a>
 </li>
 <li>block_array2()
-: <a class="el" href="classpr_1_1block__array2.html#a40f131f33f5442a53da32bd189bc901a">pr::block_array2&lt; T, Alloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array2.html#a98a2a841d87c9d731e64cac35d68bcf6">pr::block_array2&lt; T, Alloc &gt;</a>
 </li>
 <li>block_array3()
-: <a class="el" href="classpr_1_1block__array3.html#affc2b1409c7774e04970d0410047690c">pr::block_array3&lt; T, Alloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array3.html#a94a6d21177229d2bce79de736d0fb504">pr::block_array3&lt; T, Alloc &gt;</a>
 </li>
 <li>block_size
 : <a class="el" href="classpr_1_1block__array2.html#af1cc971719602e2cb79c549f660baec5">pr::block_array2&lt; T, Alloc &gt;</a>

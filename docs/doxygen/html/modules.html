@@ -21,7 +21,10 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"]
     }
   }
 });
@@ -65,19 +68,20 @@ $(function() {
 <tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__block__array2.html" target="_self">2-dimensional block array</a></td><td class="desc"></td></tr>
 <tr id="row_1_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__block__array3.html" target="_self">3-dimensional block array</a></td><td class="desc"></td></tr>
 <tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__bash__format.html" target="_self">Bash formatting</a></td><td class="desc"></td></tr>
-<tr id="row_3_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__endian.html" target="_self">Endian</a></td><td class="desc"></td></tr>
-<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__float__atomic.html" target="_self">Float atomic</a></td><td class="desc"></td></tr>
-<tr id="row_5_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__float__helpers.html" target="_self">Float helpers</a></td><td class="desc"></td></tr>
-<tr id="row_6_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__half.html" target="_self">Half-precision float</a></td><td class="desc"></td></tr>
-<tr id="row_7_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__int__helpers.html" target="_self">Int helpers</a></td><td class="desc"></td></tr>
-<tr id="row_8_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__interp.html" target="_self">Interpolation</a></td><td class="desc"></td></tr>
-<tr id="row_9_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__math.html" target="_self">Math</a></td><td class="desc"></td></tr>
-<tr id="row_10_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__memory__arena.html" target="_self">Memory arena</a></td><td class="desc"></td></tr>
-<tr id="row_11_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__multi.html" target="_self">Multi-dimensional arrays</a></td><td class="desc"></td></tr>
-<tr id="row_12_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__option__parser.html" target="_self">Option parser</a></td><td class="desc"></td></tr>
-<tr id="row_13_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__quadmath.html" target="_self">Quadmath</a></td><td class="desc"></td></tr>
-<tr id="row_14_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__thread__pool.html" target="_self">Thread pool</a></td><td class="desc"></td></tr>
-<tr id="row_15_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__timer.html" target="_self">Timer</a></td><td class="desc"></td></tr>
+<tr id="row_3_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__dualnum.html" target="_self">Dual numbers</a></td><td class="desc"></td></tr>
+<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__endian.html" target="_self">Endian</a></td><td class="desc"></td></tr>
+<tr id="row_5_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__float__atomic.html" target="_self">Float atomic</a></td><td class="desc"></td></tr>
+<tr id="row_6_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__float__helpers.html" target="_self">Float helpers</a></td><td class="desc"></td></tr>
+<tr id="row_7_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__half.html" target="_self">Half-precision float</a></td><td class="desc"></td></tr>
+<tr id="row_8_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__int__helpers.html" target="_self">Int helpers</a></td><td class="desc"></td></tr>
+<tr id="row_9_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__interp.html" target="_self">Interpolation</a></td><td class="desc"></td></tr>
+<tr id="row_10_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__math.html" target="_self">Math</a></td><td class="desc"></td></tr>
+<tr id="row_11_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__memory__arena.html" target="_self">Memory arena</a></td><td class="desc"></td></tr>
+<tr id="row_12_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__multi.html" target="_self">Multi-dimensional arrays</a></td><td class="desc"></td></tr>
+<tr id="row_13_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__option__parser.html" target="_self">Option parser</a></td><td class="desc"></td></tr>
+<tr id="row_14_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__quadmath.html" target="_self">Quadmath</a></td><td class="desc"></td></tr>
+<tr id="row_15_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__thread__pool.html" target="_self">Thread pool</a></td><td class="desc"></td></tr>
+<tr id="row_16_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__timer.html" target="_self">Timer</a></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
