@@ -52,29 +52,6 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Enable type `U` if type `T` is `__float128`.
- */
-template <typename T, typename U = T>
-using enable_float128 = 
-            std::enable_if<std::is_same<T, __float128>::value, U>;
-
-/**
- * @brief Enable type `U` if type `T` is `__complex128`.
- */
-template <typename T, typename U = T>
-using enable_complex128 = 
-            std::enable_if<std::is_same<T, __complex128>::value, U>;
-
-/**@}*/
-
-#include "quadmath.inl"
-
-/**
- * @addtogroup quadmath
- */
-/**@{*/
-
-/**
  * @brief Specialize `__float128`.
  */
 template <>
@@ -334,6 +311,8 @@ struct numeric_constants<__complex128> : numeric_constants<__float128>
 };
 
 /**@}*/
+
+#include "quadmath.inl"
 
 } // namespace pr
 

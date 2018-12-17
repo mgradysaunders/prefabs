@@ -91,7 +91,7 @@ STR
 
 puts <<STR
 /**
- * @name Quadmath wrappers (`__float128`)
+ * @name Quadmath wrappers (__float128)
  */
 /**@{*/
 
@@ -102,11 +102,7 @@ for func in funcs
        func[1] == :f128_c128
         funcname = func[0]
         quadname = get_quadname funcname, :f128
-        if func[2] == 'T'
-            result = 'typename enable_float128<T>::type'
-        else
-            result = "typename enable_float128<T, #{func[2]}>::type"
-        end
+        result = "std::enable_if_t<std::is_same<T, __float128>::value, #{func[2]}>"
         args1 = []
         args2 = []
         for arg in func[3]
@@ -137,7 +133,7 @@ STR
 
 puts <<STR
 /**
- * @name Quadmath wrappers (`__complex128`)
+ * @name Quadmath wrappers (__complex128)
  */
 /**@{*/
 
@@ -149,9 +145,9 @@ for func in funcs
         funcname = func[0]
         quadname = get_quadname funcname, :c128
         if func[2] == 'T'
-            result = 'typename enable_complex128<U>::type'
+            result = "std::enable_if_t<std::is_same<U, __complex128>::value, U>"
         else
-            result = "typename enable_complex128<U, #{func[2]}>::type"
+            result = "std::enable_if_t<std::is_same<U, __complex128>::value, #{func[2]}>"
         end
         args1 = []
         args2 = []
@@ -207,7 +203,7 @@ funcs_trig_rcp_inv = [
 
 puts <<STR
 /**
- * @name Reciprocal trigonometric functions (`__float128`)
+ * @name Reciprocal trigonometric functions (__float128/__complex128)
  */
 /**@{*/
 
@@ -220,7 +216,9 @@ for func in funcs_trig_rcp
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type #{func[0]}(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> #{func[0]}(T x)
 {
     return T(1) / pr::#{func[1]}(x);
 }
@@ -235,50 +233,9 @@ for func in funcs_trig_rcp_inv
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type #{func[0]}(T x)
-{
-    return pr::#{func[1]}(T(1) / x);
-}
-
-STR
-end
-
-puts <<STR
-/**@}*/
-
-STR
-
-puts <<STR
-/**
- * @name Reciprocal trigonometric functions (`__complex128`)
- */
-/**@{*/
-
-STR
-
-for func in funcs_trig_rcp
-    puts <<STR
-/**
- * @brief Reciprocal of `pr::#{func[1]}()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type #{func[0]}(T x)
-{
-    return T(1) / pr::#{func[1]}(x);
-}
-
-STR
-end
-
-for func in funcs_trig_rcp_inv
-    puts <<STR
-/**
- * @brief Inverse of `pr::#{func[0][1..-1]}()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type #{func[0]}(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> #{func[0]}(T x)
 {
     return pr::#{func[1]}(T(1) / x);
 }

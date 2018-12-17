@@ -4,7 +4,7 @@
 /**@{*/
 
 /**
- * @name Quadmath wrappers (`__float128`)
+ * @name Quadmath wrappers (__float128)
  */
 /**@{*/
 
@@ -13,7 +13,7 @@
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type fabs(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> fabs(T x)
 {
     return ::fabsq(x);
 }
@@ -23,7 +23,7 @@ inline typename enable_float128<T>::type fabs(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type fma(T x, T y, T z)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> fma(T x, T y, T z)
 {
     return ::fmaq(x, y, z);
 }
@@ -33,7 +33,7 @@ inline typename enable_float128<T>::type fma(T x, T y, T z)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type fmin(T x, T y)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> fmin(T x, T y)
 {
     return ::fminq(x, y);
 }
@@ -43,7 +43,7 @@ inline typename enable_float128<T>::type fmin(T x, T y)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type fmax(T x, T y)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> fmax(T x, T y)
 {
     return ::fmaxq(x, y);
 }
@@ -53,7 +53,7 @@ inline typename enable_float128<T>::type fmax(T x, T y)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type fdim(T x, T y)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> fdim(T x, T y)
 {
     return ::fdimq(x, y);
 }
@@ -63,7 +63,7 @@ inline typename enable_float128<T>::type fdim(T x, T y)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type fmod(T x, T y)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> fmod(T x, T y)
 {
     return ::fmodq(x, y);
 }
@@ -73,7 +73,7 @@ inline typename enable_float128<T>::type fmod(T x, T y)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type remquo(T x, T y, int* q)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> remquo(T x, T y, int* q)
 {
     return ::remquoq(x, y, q);
 }
@@ -83,7 +83,7 @@ inline typename enable_float128<T>::type remquo(T x, T y, int* q)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type remainder(T x, T y)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> remainder(T x, T y)
 {
     return ::remainderq(x, y);
 }
@@ -93,7 +93,7 @@ inline typename enable_float128<T>::type remainder(T x, T y)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type nearbyint(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> nearbyint(T x)
 {
     return ::nearbyintq(x);
 }
@@ -103,7 +103,7 @@ inline typename enable_float128<T>::type nearbyint(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type floor(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> floor(T x)
 {
     return ::floorq(x);
 }
@@ -113,7 +113,7 @@ inline typename enable_float128<T>::type floor(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type ceil(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> ceil(T x)
 {
     return ::ceilq(x);
 }
@@ -123,7 +123,7 @@ inline typename enable_float128<T>::type ceil(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type trunc(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> trunc(T x)
 {
     return ::truncq(x);
 }
@@ -133,7 +133,7 @@ inline typename enable_float128<T>::type trunc(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type round(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> round(T x)
 {
     return ::roundq(x);
 }
@@ -143,7 +143,7 @@ inline typename enable_float128<T>::type round(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type rint(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> rint(T x)
 {
     return ::rintq(x);
 }
@@ -153,7 +153,7 @@ inline typename enable_float128<T>::type rint(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T, long>::type lrint(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, long> lrint(T x)
 {
     return ::lrintq(x);
 }
@@ -163,7 +163,7 @@ inline typename enable_float128<T, long>::type lrint(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T, long long>::type llrint(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, long long> llrint(T x)
 {
     return ::llrintq(x);
 }
@@ -173,7 +173,7 @@ inline typename enable_float128<T, long long>::type llrint(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T, long>::type lround(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, long> lround(T x)
 {
     return ::lroundq(x);
 }
@@ -183,7 +183,7 @@ inline typename enable_float128<T, long>::type lround(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T, long long>::type llround(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, long long> llround(T x)
 {
     return ::llroundq(x);
 }
@@ -193,7 +193,7 @@ inline typename enable_float128<T, long long>::type llround(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type frexp(T x, int* p)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> frexp(T x, int* p)
 {
     return ::frexpq(x, p);
 }
@@ -203,7 +203,7 @@ inline typename enable_float128<T>::type frexp(T x, int* p)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type ldexp(T x, int p)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> ldexp(T x, int p)
 {
     return ::ldexpq(x, p);
 }
@@ -213,7 +213,7 @@ inline typename enable_float128<T>::type ldexp(T x, int p)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type logb(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> logb(T x)
 {
     return ::logbq(x);
 }
@@ -223,7 +223,7 @@ inline typename enable_float128<T>::type logb(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T, int>::type ilogb(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, int> ilogb(T x)
 {
     return ::ilogbq(x);
 }
@@ -233,7 +233,7 @@ inline typename enable_float128<T, int>::type ilogb(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type scalbn(T x, int p)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> scalbn(T x, int p)
 {
     return ::scalbnq(x, p);
 }
@@ -243,7 +243,7 @@ inline typename enable_float128<T>::type scalbn(T x, int p)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type scalbln(T x, long p)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> scalbln(T x, long p)
 {
     return ::scalblnq(x, p);
 }
@@ -253,7 +253,7 @@ inline typename enable_float128<T>::type scalbln(T x, long p)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type modf(T x, T* p)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> modf(T x, T* p)
 {
     return ::modfq(x, p);
 }
@@ -263,7 +263,7 @@ inline typename enable_float128<T>::type modf(T x, T* p)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type nextafter(T x, T y)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> nextafter(T x, T y)
 {
     return ::nextafterq(x, y);
 }
@@ -273,7 +273,7 @@ inline typename enable_float128<T>::type nextafter(T x, T y)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type copysign(T x, T y)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> copysign(T x, T y)
 {
     return ::copysignq(x, y);
 }
@@ -283,7 +283,7 @@ inline typename enable_float128<T>::type copysign(T x, T y)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T, bool>::type signbit(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, bool> signbit(T x)
 {
     return ::signbitq(x);
 }
@@ -293,7 +293,7 @@ inline typename enable_float128<T, bool>::type signbit(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T, bool>::type isnan(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, bool> isnan(T x)
 {
     return ::isnanq(x);
 }
@@ -303,7 +303,7 @@ inline typename enable_float128<T, bool>::type isnan(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T, bool>::type isinf(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, bool> isinf(T x)
 {
     return ::isinfq(x);
 }
@@ -313,7 +313,7 @@ inline typename enable_float128<T, bool>::type isinf(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T, bool>::type isfinite(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, bool> isfinite(T x)
 {
     return ::finiteq(x);
 }
@@ -323,7 +323,7 @@ inline typename enable_float128<T, bool>::type isfinite(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type exp(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> exp(T x)
 {
     return ::expq(x);
 }
@@ -333,7 +333,7 @@ inline typename enable_float128<T>::type exp(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type log(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> log(T x)
 {
     return ::logq(x);
 }
@@ -343,7 +343,7 @@ inline typename enable_float128<T>::type log(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type log2(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> log2(T x)
 {
     return ::log2q(x);
 }
@@ -353,7 +353,7 @@ inline typename enable_float128<T>::type log2(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type log10(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> log10(T x)
 {
     return ::log10q(x);
 }
@@ -363,7 +363,7 @@ inline typename enable_float128<T>::type log10(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type expm1(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> expm1(T x)
 {
     return ::expm1q(x);
 }
@@ -373,7 +373,7 @@ inline typename enable_float128<T>::type expm1(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type log1p(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> log1p(T x)
 {
     return ::log1pq(x);
 }
@@ -383,7 +383,7 @@ inline typename enable_float128<T>::type log1p(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type pow(T x, T y)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> pow(T x, T y)
 {
     return ::powq(x, y);
 }
@@ -393,7 +393,7 @@ inline typename enable_float128<T>::type pow(T x, T y)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type sqrt(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> sqrt(T x)
 {
     return ::sqrtq(x);
 }
@@ -403,7 +403,7 @@ inline typename enable_float128<T>::type sqrt(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type cbrt(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> cbrt(T x)
 {
     return ::cbrtq(x);
 }
@@ -413,7 +413,7 @@ inline typename enable_float128<T>::type cbrt(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type hypot(T x, T y)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> hypot(T x, T y)
 {
     return ::hypotq(x, y);
 }
@@ -423,7 +423,7 @@ inline typename enable_float128<T>::type hypot(T x, T y)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type erf(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> erf(T x)
 {
     return ::erfq(x);
 }
@@ -433,7 +433,7 @@ inline typename enable_float128<T>::type erf(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type erfc(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> erfc(T x)
 {
     return ::erfcq(x);
 }
@@ -443,7 +443,7 @@ inline typename enable_float128<T>::type erfc(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type lgamma(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> lgamma(T x)
 {
     return ::lgammaq(x);
 }
@@ -453,7 +453,7 @@ inline typename enable_float128<T>::type lgamma(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type tgamma(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> tgamma(T x)
 {
     return ::tgammaq(x);
 }
@@ -463,7 +463,7 @@ inline typename enable_float128<T>::type tgamma(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type sin(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> sin(T x)
 {
     return ::sinq(x);
 }
@@ -473,7 +473,7 @@ inline typename enable_float128<T>::type sin(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type cos(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> cos(T x)
 {
     return ::cosq(x);
 }
@@ -483,7 +483,7 @@ inline typename enable_float128<T>::type cos(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type tan(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> tan(T x)
 {
     return ::tanq(x);
 }
@@ -493,7 +493,7 @@ inline typename enable_float128<T>::type tan(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type asin(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> asin(T x)
 {
     return ::asinq(x);
 }
@@ -503,7 +503,7 @@ inline typename enable_float128<T>::type asin(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type acos(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> acos(T x)
 {
     return ::acosq(x);
 }
@@ -513,7 +513,7 @@ inline typename enable_float128<T>::type acos(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type atan(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> atan(T x)
 {
     return ::atanq(x);
 }
@@ -523,7 +523,7 @@ inline typename enable_float128<T>::type atan(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type atan2(T y, T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> atan2(T y, T x)
 {
     return ::atan2q(y, x);
 }
@@ -533,7 +533,7 @@ inline typename enable_float128<T>::type atan2(T y, T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type sinh(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> sinh(T x)
 {
     return ::sinhq(x);
 }
@@ -543,7 +543,7 @@ inline typename enable_float128<T>::type sinh(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type cosh(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> cosh(T x)
 {
     return ::coshq(x);
 }
@@ -553,7 +553,7 @@ inline typename enable_float128<T>::type cosh(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type tanh(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> tanh(T x)
 {
     return ::tanhq(x);
 }
@@ -563,7 +563,7 @@ inline typename enable_float128<T>::type tanh(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type asinh(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> asinh(T x)
 {
     return ::asinhq(x);
 }
@@ -573,7 +573,7 @@ inline typename enable_float128<T>::type asinh(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type acosh(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> acosh(T x)
 {
     return ::acoshq(x);
 }
@@ -583,7 +583,7 @@ inline typename enable_float128<T>::type acosh(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type atanh(T x)
+inline std::enable_if_t<std::is_same<T, __float128>::value, T> atanh(T x)
 {
     return ::atanhq(x);
 }
@@ -591,7 +591,7 @@ inline typename enable_float128<T>::type atanh(T x)
 /**@}*/
 
 /**
- * @name Quadmath wrappers (`__complex128`)
+ * @name Quadmath wrappers (__complex128)
  */
 /**@{*/
 
@@ -600,7 +600,7 @@ inline typename enable_float128<T>::type atanh(T x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U, __float128>::type abs(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, __float128> abs(U x)
 {
     return ::cabsq(x);
 }
@@ -610,7 +610,7 @@ inline typename enable_complex128<U, __float128>::type abs(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U, __float128>::type arg(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, __float128> arg(U x)
 {
     return ::cargq(x);
 }
@@ -620,7 +620,7 @@ inline typename enable_complex128<U, __float128>::type arg(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U, __float128>::type real(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, __float128> real(U x)
 {
     return ::crealq(x);
 }
@@ -630,7 +630,7 @@ inline typename enable_complex128<U, __float128>::type real(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U, __float128>::type imag(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, __float128> imag(U x)
 {
     return ::cimagq(x);
 }
@@ -640,7 +640,7 @@ inline typename enable_complex128<U, __float128>::type imag(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type conj(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> conj(U x)
 {
     return ::conjq(x);
 }
@@ -650,7 +650,7 @@ inline typename enable_complex128<U>::type conj(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type proj(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> proj(U x)
 {
     return ::cprojq(x);
 }
@@ -660,7 +660,7 @@ inline typename enable_complex128<U>::type proj(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type exp(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> exp(U x)
 {
     return ::cexpq(x);
 }
@@ -670,7 +670,7 @@ inline typename enable_complex128<U>::type exp(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type log(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> log(U x)
 {
     return ::clogq(x);
 }
@@ -680,7 +680,7 @@ inline typename enable_complex128<U>::type log(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type log10(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> log10(U x)
 {
     return ::clog10q(x);
 }
@@ -690,7 +690,7 @@ inline typename enable_complex128<U>::type log10(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type pow(U x, U y)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> pow(U x, U y)
 {
     return ::cpowq(x, y);
 }
@@ -700,7 +700,7 @@ inline typename enable_complex128<U>::type pow(U x, U y)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type sqrt(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> sqrt(U x)
 {
     return ::csqrtq(x);
 }
@@ -710,7 +710,7 @@ inline typename enable_complex128<U>::type sqrt(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type sin(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> sin(U x)
 {
     return ::csinq(x);
 }
@@ -720,7 +720,7 @@ inline typename enable_complex128<U>::type sin(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type cos(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> cos(U x)
 {
     return ::ccosq(x);
 }
@@ -730,7 +730,7 @@ inline typename enable_complex128<U>::type cos(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type tan(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> tan(U x)
 {
     return ::ctanq(x);
 }
@@ -740,7 +740,7 @@ inline typename enable_complex128<U>::type tan(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type asin(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> asin(U x)
 {
     return ::casinq(x);
 }
@@ -750,7 +750,7 @@ inline typename enable_complex128<U>::type asin(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type acos(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> acos(U x)
 {
     return ::cacosq(x);
 }
@@ -760,7 +760,7 @@ inline typename enable_complex128<U>::type acos(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type atan(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> atan(U x)
 {
     return ::catanq(x);
 }
@@ -770,7 +770,7 @@ inline typename enable_complex128<U>::type atan(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type sinh(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> sinh(U x)
 {
     return ::csinhq(x);
 }
@@ -780,7 +780,7 @@ inline typename enable_complex128<U>::type sinh(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type cosh(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> cosh(U x)
 {
     return ::ccoshq(x);
 }
@@ -790,7 +790,7 @@ inline typename enable_complex128<U>::type cosh(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type tanh(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> tanh(U x)
 {
     return ::ctanhq(x);
 }
@@ -800,7 +800,7 @@ inline typename enable_complex128<U>::type tanh(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type asinh(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> asinh(U x)
 {
     return ::casinhq(x);
 }
@@ -810,7 +810,7 @@ inline typename enable_complex128<U>::type asinh(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type acosh(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> acosh(U x)
 {
     return ::cacoshq(x);
 }
@@ -820,7 +820,7 @@ inline typename enable_complex128<U>::type acosh(U x)
  */
 template <typename U>
 __attribute__((always_inline))
-inline typename enable_complex128<U>::type atanh(U x)
+inline std::enable_if_t<std::is_same<U, __complex128>::value, U> atanh(U x)
 {
     return ::catanhq(x);
 }
@@ -828,7 +828,7 @@ inline typename enable_complex128<U>::type atanh(U x)
 /**@}*/
 
 /**
- * @name Reciprocal trigonometric functions (`__float128`)
+ * @name Reciprocal trigonometric functions (__float128/__complex128)
  */
 /**@{*/
 
@@ -837,7 +837,9 @@ inline typename enable_complex128<U>::type atanh(U x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type csc(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> csc(T x)
 {
     return T(1) / pr::sin(x);
 }
@@ -847,7 +849,9 @@ inline typename enable_float128<T>::type csc(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type sec(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> sec(T x)
 {
     return T(1) / pr::cos(x);
 }
@@ -857,7 +861,9 @@ inline typename enable_float128<T>::type sec(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type cot(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> cot(T x)
 {
     return T(1) / pr::tan(x);
 }
@@ -867,7 +873,9 @@ inline typename enable_float128<T>::type cot(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type csch(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> csch(T x)
 {
     return T(1) / pr::sinh(x);
 }
@@ -877,7 +885,9 @@ inline typename enable_float128<T>::type csch(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type sech(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> sech(T x)
 {
     return T(1) / pr::cosh(x);
 }
@@ -887,7 +897,9 @@ inline typename enable_float128<T>::type sech(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type coth(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> coth(T x)
 {
     return T(1) / pr::tanh(x);
 }
@@ -897,7 +909,9 @@ inline typename enable_float128<T>::type coth(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type acsc(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> acsc(T x)
 {
     return pr::asin(T(1) / x);
 }
@@ -907,7 +921,9 @@ inline typename enable_float128<T>::type acsc(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type asec(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> asec(T x)
 {
     return pr::acos(T(1) / x);
 }
@@ -917,7 +933,9 @@ inline typename enable_float128<T>::type asec(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type acot(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> acot(T x)
 {
     return pr::atan(T(1) / x);
 }
@@ -927,7 +945,9 @@ inline typename enable_float128<T>::type acot(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type acsch(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> acsch(T x)
 {
     return pr::asinh(T(1) / x);
 }
@@ -937,7 +957,9 @@ inline typename enable_float128<T>::type acsch(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type asech(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> asech(T x)
 {
     return pr::acosh(T(1) / x);
 }
@@ -947,134 +969,9 @@ inline typename enable_float128<T>::type asech(T x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline typename enable_float128<T>::type acoth(T x)
-{
-    return pr::atanh(T(1) / x);
-}
-
-/**@}*/
-
-/**
- * @name Reciprocal trigonometric functions (`__complex128`)
- */
-/**@{*/
-
-/**
- * @brief Reciprocal of `pr::sin()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type csc(T x)
-{
-    return T(1) / pr::sin(x);
-}
-
-/**
- * @brief Reciprocal of `pr::cos()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type sec(T x)
-{
-    return T(1) / pr::cos(x);
-}
-
-/**
- * @brief Reciprocal of `pr::tan()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type cot(T x)
-{
-    return T(1) / pr::tan(x);
-}
-
-/**
- * @brief Reciprocal of `pr::sinh()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type csch(T x)
-{
-    return T(1) / pr::sinh(x);
-}
-
-/**
- * @brief Reciprocal of `pr::cosh()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type sech(T x)
-{
-    return T(1) / pr::cosh(x);
-}
-
-/**
- * @brief Reciprocal of `pr::tanh()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type coth(T x)
-{
-    return T(1) / pr::tanh(x);
-}
-
-/**
- * @brief Inverse of `pr::csc()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type acsc(T x)
-{
-    return pr::asin(T(1) / x);
-}
-
-/**
- * @brief Inverse of `pr::sec()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type asec(T x)
-{
-    return pr::acos(T(1) / x);
-}
-
-/**
- * @brief Inverse of `pr::cot()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type acot(T x)
-{
-    return pr::atan(T(1) / x);
-}
-
-/**
- * @brief Inverse of `pr::csch()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type acsch(T x)
-{
-    return pr::asinh(T(1) / x);
-}
-
-/**
- * @brief Inverse of `pr::sech()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type asech(T x)
-{
-    return pr::acosh(T(1) / x);
-}
-
-/**
- * @brief Inverse of `pr::coth()`.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename enable_complex128<T>::type acoth(T x)
+inline std::enable_if_t<
+                std::is_same<T, __float128>::value ||
+                std::is_same<T, __complex128>::value, T> acoth(T x)
 {
     return pr::atanh(T(1) / x);
 }
