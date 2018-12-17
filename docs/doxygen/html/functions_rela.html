@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -62,11 +64,13 @@ $(function() {
 &#160;<ul>
 <li>operator&lt;&lt;
 : <a class="el" href="classpr_1_1dualnum.html#af719b8c5e07bc19eadf24a48532c59ec">pr::dualnum&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1float__bounds.html#aec651cfa9a90ceb34a045bbabb66e1ef">pr::float_bounds&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a520812e7f3b42cb15a0b5de5ec616338">pr::multi&lt; T, M, N... &gt;</a>
 , <a class="el" href="classpr_1_1option__parser.html#a6ce90b539ee79814b49a8b845cdb2027">pr::option_parser</a>
 </li>
 <li>operator&gt;&gt;
 : <a class="el" href="classpr_1_1dualnum.html#a015cc04c95424c4beef482ae7da2d7da">pr::dualnum&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1float__bounds.html#ae0d40242b8637186fb1884b3f0f433d5">pr::float_bounds&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a858f08f925b2338fd9e81ab629550a2b">pr::multi&lt; T, M, N... &gt;</a>
 </li>
 </ul>

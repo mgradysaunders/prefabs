@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -141,6 +143,9 @@ $(function() {
 </li>
 <li>min_exponent10
 : <a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#af588f9ac64327a3f9b856fdf62944623">pr::numeric_limits&lt; __float128 &gt;</a>
+</li>
+<li>mu
+: <a class="el" href="structpr_1_1normal__distribution.html#a520148309becf2c63403f5d95ad1d695">pr::normal_distribution&lt; T &gt;</a>
 </li>
 <li>mutex_
 : <a class="el" href="classpr_1_1thread__pool_1_1task__queue.html#aa371bb8f8262037bcd3d35521ab49740">pr::thread_pool::task_queue</a>

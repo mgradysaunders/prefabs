@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -62,6 +64,9 @@ $(function() {
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>s_
+: <a class="el" href="classpr_1_1neumaier__sum.html#af01e1d747d73c3e56926faea50f4a547">pr::neumaier_sum&lt; T &gt;</a>
+</li>
 <li>shrink_to_fit()
 : <a class="el" href="classpr_1_1block__array2.html#acc7ae732cb70a4868ddef2d93be483b2">pr::block_array2&lt; T, Alloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#a68d302f19dd873374e847e3b869ddfe0">pr::block_array3&lt; T, Alloc &gt;</a>
@@ -71,6 +76,9 @@ $(function() {
 </li>
 <li>shutdown_
 : <a class="el" href="classpr_1_1thread__pool.html#aa0e3d6f84a065c6df9da70e4e0324b62">pr::thread_pool</a>
+</li>
+<li>sigma
+: <a class="el" href="structpr_1_1normal__distribution.html#a100e2f2e15f20cc16228d96540cec29c">pr::normal_distribution&lt; T &gt;</a>
 </li>
 <li>signaling_NaN()
 : <a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#a8d1980e4cd82ce437b9fa6fb6e41318f">pr::numeric_limits&lt; __float128 &gt;</a>
@@ -94,7 +102,7 @@ $(function() {
 : <a class="el" href="classpr_1_1timer.html#ac52730a80d2a4b5d66ac6286b6dae335">pr::timer&lt; T &gt;</a>
 </li>
 <li>store()
-: <a class="el" href="classpr_1_1float__atomic.html#aa33e5c7f9b8e691d9e2efb8b95067e9b">pr::float_atomic&lt; T, U &gt;</a>
+: <a class="el" href="classpr_1_1float__atomic.html#a9b6765409ece397269b37c8b7fdf4d08">pr::float_atomic&lt; T, U &gt;</a>
 </li>
 <li>storef()
 : <a class="el" href="classpr_1_1float__atomic.html#a5c446b393754425271c864626bda8741">pr::float_atomic&lt; T, U &gt;</a>

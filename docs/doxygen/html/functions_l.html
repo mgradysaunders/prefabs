@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -62,11 +64,17 @@ $(function() {
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_l"></a>- l -</h3><ul>
+<li>lambda
+: <a class="el" href="structpr_1_1exponential__distribution.html#afa43d170c7ca31812833053569f087fc">pr::exponential_distribution&lt; T &gt;</a>
+</li>
 <li>load()
 : <a class="el" href="classpr_1_1float__atomic.html#ae46fcf770dcee17ac02b51cb9393476a">pr::float_atomic&lt; T, U &gt;</a>
 </li>
 <li>loadf()
 : <a class="el" href="classpr_1_1float__atomic.html#adfaaa9df74b64ea46b952ed61ce6db57">pr::float_atomic&lt; T, U &gt;</a>
+</li>
+<li>lower_bound()
+: <a class="el" href="classpr_1_1float__bounds.html#a17145d7094e31333644b20c95bc6b1ed">pr::float_bounds&lt; T &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

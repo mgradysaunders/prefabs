@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -193,6 +195,156 @@ Math (dualnum)</h2></td></tr>
 \[ f(\real(x) + \varepsilon \dual(x)) = f(\real(x)) + \varepsilon f&#39;(\real(x)) \dual(x) \]
 </p>
  </td></tr>
+<tr class="memitem:gaa46c2b7b1c2776a75c91f74a705f8ac3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaa46c2b7b1c2776a75c91f74a705f8ac3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaa46c2b7b1c2776a75c91f74a705f8ac3">pr::exp</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaa46c2b7b1c2776a75c91f74a705f8ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::exp()</code>.  <a href="group__dualnum.html#gaa46c2b7b1c2776a75c91f74a705f8ac3">More...</a><br /></td></tr>
+<tr class="separator:gaa46c2b7b1c2776a75c91f74a705f8ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e28d307158b48db88559fcf73fd9503"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5e28d307158b48db88559fcf73fd9503"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga5e28d307158b48db88559fcf73fd9503">pr::log</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga5e28d307158b48db88559fcf73fd9503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::log()</code>.  <a href="group__dualnum.html#ga5e28d307158b48db88559fcf73fd9503">More...</a><br /></td></tr>
+<tr class="separator:ga5e28d307158b48db88559fcf73fd9503"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga64b99799ba221eab1fdc0531876c3280"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga64b99799ba221eab1fdc0531876c3280"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga64b99799ba221eab1fdc0531876c3280">pr::exp2</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga64b99799ba221eab1fdc0531876c3280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::exp2()</code>.  <a href="group__dualnum.html#ga64b99799ba221eab1fdc0531876c3280">More...</a><br /></td></tr>
+<tr class="separator:ga64b99799ba221eab1fdc0531876c3280"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae60c473b3ac296e88bf726869bb5ee2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaae60c473b3ac296e88bf726869bb5ee2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaae60c473b3ac296e88bf726869bb5ee2">pr::log2</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaae60c473b3ac296e88bf726869bb5ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::log2()</code>.  <a href="group__dualnum.html#gaae60c473b3ac296e88bf726869bb5ee2">More...</a><br /></td></tr>
+<tr class="separator:gaae60c473b3ac296e88bf726869bb5ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0081962e408bb5b521b1f8b74853d5b7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga0081962e408bb5b521b1f8b74853d5b7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga0081962e408bb5b521b1f8b74853d5b7">pr::log10</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga0081962e408bb5b521b1f8b74853d5b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::log10()</code>.  <a href="group__dualnum.html#ga0081962e408bb5b521b1f8b74853d5b7">More...</a><br /></td></tr>
+<tr class="separator:ga0081962e408bb5b521b1f8b74853d5b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae0851d2ea6bae6b07c3a69eead8bdc5c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae0851d2ea6bae6b07c3a69eead8bdc5c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gae0851d2ea6bae6b07c3a69eead8bdc5c">pr::expm1</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gae0851d2ea6bae6b07c3a69eead8bdc5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::expm1()</code>.  <a href="group__dualnum.html#gae0851d2ea6bae6b07c3a69eead8bdc5c">More...</a><br /></td></tr>
+<tr class="separator:gae0851d2ea6bae6b07c3a69eead8bdc5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9b13431f2e0528da626cdc077cd9766d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga9b13431f2e0528da626cdc077cd9766d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga9b13431f2e0528da626cdc077cd9766d">pr::log1p</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga9b13431f2e0528da626cdc077cd9766d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::log1p()</code>.  <a href="group__dualnum.html#ga9b13431f2e0528da626cdc077cd9766d">More...</a><br /></td></tr>
+<tr class="separator:ga9b13431f2e0528da626cdc077cd9766d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a4cad69c06164ee6b8c8a4b4805156e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2a4cad69c06164ee6b8c8a4b4805156e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga2a4cad69c06164ee6b8c8a4b4805156e">pr::sqrt</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga2a4cad69c06164ee6b8c8a4b4805156e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::sqrt()</code>.  <a href="group__dualnum.html#ga2a4cad69c06164ee6b8c8a4b4805156e">More...</a><br /></td></tr>
+<tr class="separator:ga2a4cad69c06164ee6b8c8a4b4805156e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabfa92592f4d7eb6c2a6a38961f5c3072"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gabfa92592f4d7eb6c2a6a38961f5c3072"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gabfa92592f4d7eb6c2a6a38961f5c3072">pr::cbrt</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gabfa92592f4d7eb6c2a6a38961f5c3072"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::cbrt()</code>.  <a href="group__dualnum.html#gabfa92592f4d7eb6c2a6a38961f5c3072">More...</a><br /></td></tr>
+<tr class="separator:gabfa92592f4d7eb6c2a6a38961f5c3072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad19da5f91c1631a3a5762f03d98a3f3f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad19da5f91c1631a3a5762f03d98a3f3f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gad19da5f91c1631a3a5762f03d98a3f3f">pr::erf</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gad19da5f91c1631a3a5762f03d98a3f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::erf()</code>.  <a href="group__dualnum.html#gad19da5f91c1631a3a5762f03d98a3f3f">More...</a><br /></td></tr>
+<tr class="separator:gad19da5f91c1631a3a5762f03d98a3f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga64932e5b504ced5f5ccd01f416ddfd47"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga64932e5b504ced5f5ccd01f416ddfd47"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga64932e5b504ced5f5ccd01f416ddfd47">pr::erfc</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga64932e5b504ced5f5ccd01f416ddfd47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::erfc()</code>.  <a href="group__dualnum.html#ga64932e5b504ced5f5ccd01f416ddfd47">More...</a><br /></td></tr>
+<tr class="separator:ga64932e5b504ced5f5ccd01f416ddfd47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac0212bbd33a88265b30661fe7014ba7d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac0212bbd33a88265b30661fe7014ba7d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gac0212bbd33a88265b30661fe7014ba7d">pr::sin</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gac0212bbd33a88265b30661fe7014ba7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::sin()</code>.  <a href="group__dualnum.html#gac0212bbd33a88265b30661fe7014ba7d">More...</a><br /></td></tr>
+<tr class="separator:gac0212bbd33a88265b30661fe7014ba7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74e5b651ad79a14fa87f1ee4376ee92f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga74e5b651ad79a14fa87f1ee4376ee92f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga74e5b651ad79a14fa87f1ee4376ee92f">pr::cos</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga74e5b651ad79a14fa87f1ee4376ee92f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::cos()</code>.  <a href="group__dualnum.html#ga74e5b651ad79a14fa87f1ee4376ee92f">More...</a><br /></td></tr>
+<tr class="separator:ga74e5b651ad79a14fa87f1ee4376ee92f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad90f46f6929707ef09af69434e606d40"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad90f46f6929707ef09af69434e606d40"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gad90f46f6929707ef09af69434e606d40">pr::tan</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gad90f46f6929707ef09af69434e606d40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::tan()</code>.  <a href="group__dualnum.html#gad90f46f6929707ef09af69434e606d40">More...</a><br /></td></tr>
+<tr class="separator:gad90f46f6929707ef09af69434e606d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga159d37e3d4cc113693aef3b3e4be0823"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga159d37e3d4cc113693aef3b3e4be0823"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga159d37e3d4cc113693aef3b3e4be0823">pr::asin</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga159d37e3d4cc113693aef3b3e4be0823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::asin()</code>.  <a href="group__dualnum.html#ga159d37e3d4cc113693aef3b3e4be0823">More...</a><br /></td></tr>
+<tr class="separator:ga159d37e3d4cc113693aef3b3e4be0823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf9aa66cbd57a0b19051eb42f61f3c638"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf9aa66cbd57a0b19051eb42f61f3c638"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaf9aa66cbd57a0b19051eb42f61f3c638">pr::acos</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaf9aa66cbd57a0b19051eb42f61f3c638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::acos()</code>.  <a href="group__dualnum.html#gaf9aa66cbd57a0b19051eb42f61f3c638">More...</a><br /></td></tr>
+<tr class="separator:gaf9aa66cbd57a0b19051eb42f61f3c638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga91fd8282c8556bbb6a40a4a69f1dd307"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga91fd8282c8556bbb6a40a4a69f1dd307"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga91fd8282c8556bbb6a40a4a69f1dd307">pr::atan</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga91fd8282c8556bbb6a40a4a69f1dd307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::atan()</code>.  <a href="group__dualnum.html#ga91fd8282c8556bbb6a40a4a69f1dd307">More...</a><br /></td></tr>
+<tr class="separator:ga91fd8282c8556bbb6a40a4a69f1dd307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga22705068e78078145e23482fbbdafcec"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga22705068e78078145e23482fbbdafcec"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga22705068e78078145e23482fbbdafcec">pr::sinh</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga22705068e78078145e23482fbbdafcec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::sinh()</code>.  <a href="group__dualnum.html#ga22705068e78078145e23482fbbdafcec">More...</a><br /></td></tr>
+<tr class="separator:ga22705068e78078145e23482fbbdafcec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeb16d5bca77a258d51ba4832a304a201"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaeb16d5bca77a258d51ba4832a304a201"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaeb16d5bca77a258d51ba4832a304a201">pr::cosh</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaeb16d5bca77a258d51ba4832a304a201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::cosh()</code>.  <a href="group__dualnum.html#gaeb16d5bca77a258d51ba4832a304a201">More...</a><br /></td></tr>
+<tr class="separator:gaeb16d5bca77a258d51ba4832a304a201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga95d0b629070b5ae53f28b4567310a783"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga95d0b629070b5ae53f28b4567310a783"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga95d0b629070b5ae53f28b4567310a783">pr::tanh</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga95d0b629070b5ae53f28b4567310a783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::tanh()</code>.  <a href="group__dualnum.html#ga95d0b629070b5ae53f28b4567310a783">More...</a><br /></td></tr>
+<tr class="separator:ga95d0b629070b5ae53f28b4567310a783"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaac2b50cb04cd8ffb0a3eadfb1a6f27d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaaac2b50cb04cd8ffb0a3eadfb1a6f27d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaaac2b50cb04cd8ffb0a3eadfb1a6f27d">pr::asinh</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaaac2b50cb04cd8ffb0a3eadfb1a6f27d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::asinh()</code>.  <a href="group__dualnum.html#gaaac2b50cb04cd8ffb0a3eadfb1a6f27d">More...</a><br /></td></tr>
+<tr class="separator:gaaac2b50cb04cd8ffb0a3eadfb1a6f27d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabfa287a193596cfdaa263e1b1394d363"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gabfa287a193596cfdaa263e1b1394d363"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gabfa287a193596cfdaa263e1b1394d363">pr::acosh</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gabfa287a193596cfdaa263e1b1394d363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::acosh()</code>.  <a href="group__dualnum.html#gabfa287a193596cfdaa263e1b1394d363">More...</a><br /></td></tr>
+<tr class="separator:gabfa287a193596cfdaa263e1b1394d363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44658ae5c526c1acf28f228f402b15b2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga44658ae5c526c1acf28f228f402b15b2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga44658ae5c526c1acf28f228f402b15b2">pr::atanh</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga44658ae5c526c1acf28f228f402b15b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::atanh()</code>.  <a href="group__dualnum.html#ga44658ae5c526c1acf28f228f402b15b2">More...</a><br /></td></tr>
+<tr class="separator:ga44658ae5c526c1acf28f228f402b15b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Reciprocal trigonometric functions (dualnum)</h2></td></tr>
+<tr class="memitem:ga4e50c891896f88f4e3f8360ca526a3aa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga4e50c891896f88f4e3f8360ca526a3aa"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga4e50c891896f88f4e3f8360ca526a3aa">pr::csc</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga4e50c891896f88f4e3f8360ca526a3aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sin()</code>.  <a href="group__dualnum.html#ga4e50c891896f88f4e3f8360ca526a3aa">More...</a><br /></td></tr>
+<tr class="separator:ga4e50c891896f88f4e3f8360ca526a3aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga233761a586a2fee2dc6de7405e11c60f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga233761a586a2fee2dc6de7405e11c60f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga233761a586a2fee2dc6de7405e11c60f">pr::sec</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga233761a586a2fee2dc6de7405e11c60f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cos()</code>.  <a href="group__dualnum.html#ga233761a586a2fee2dc6de7405e11c60f">More...</a><br /></td></tr>
+<tr class="separator:ga233761a586a2fee2dc6de7405e11c60f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga851f69f7f1c33da2f26435c2cd0c3cef"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga851f69f7f1c33da2f26435c2cd0c3cef"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga851f69f7f1c33da2f26435c2cd0c3cef">pr::cot</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga851f69f7f1c33da2f26435c2cd0c3cef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tan()</code>.  <a href="group__dualnum.html#ga851f69f7f1c33da2f26435c2cd0c3cef">More...</a><br /></td></tr>
+<tr class="separator:ga851f69f7f1c33da2f26435c2cd0c3cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac644250459810858b1e061e1f54d6a84"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac644250459810858b1e061e1f54d6a84"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gac644250459810858b1e061e1f54d6a84">pr::csch</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gac644250459810858b1e061e1f54d6a84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sinh()</code>.  <a href="group__dualnum.html#gac644250459810858b1e061e1f54d6a84">More...</a><br /></td></tr>
+<tr class="separator:gac644250459810858b1e061e1f54d6a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a0323a95398d892b49d8ae0e4dcce23"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga8a0323a95398d892b49d8ae0e4dcce23"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga8a0323a95398d892b49d8ae0e4dcce23">pr::sech</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga8a0323a95398d892b49d8ae0e4dcce23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cosh()</code>.  <a href="group__dualnum.html#ga8a0323a95398d892b49d8ae0e4dcce23">More...</a><br /></td></tr>
+<tr class="separator:ga8a0323a95398d892b49d8ae0e4dcce23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6c993b9e002cb685f12361affe2d713a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga6c993b9e002cb685f12361affe2d713a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga6c993b9e002cb685f12361affe2d713a">pr::coth</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga6c993b9e002cb685f12361affe2d713a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tanh()</code>.  <a href="group__dualnum.html#ga6c993b9e002cb685f12361affe2d713a">More...</a><br /></td></tr>
+<tr class="separator:ga6c993b9e002cb685f12361affe2d713a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaee2c0805e5bb51ddd5de658151cf875e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaee2c0805e5bb51ddd5de658151cf875e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaee2c0805e5bb51ddd5de658151cf875e">pr::acsc</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaee2c0805e5bb51ddd5de658151cf875e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csc()</code>.  <a href="group__dualnum.html#gaee2c0805e5bb51ddd5de658151cf875e">More...</a><br /></td></tr>
+<tr class="separator:gaee2c0805e5bb51ddd5de658151cf875e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga131aa092affe6c262184aeb19f48369c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga131aa092affe6c262184aeb19f48369c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga131aa092affe6c262184aeb19f48369c">pr::asec</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga131aa092affe6c262184aeb19f48369c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sec()</code>.  <a href="group__dualnum.html#ga131aa092affe6c262184aeb19f48369c">More...</a><br /></td></tr>
+<tr class="separator:ga131aa092affe6c262184aeb19f48369c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2b825e8f3410aa513430a33984c116d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae2b825e8f3410aa513430a33984c116d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gae2b825e8f3410aa513430a33984c116d">pr::acot</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gae2b825e8f3410aa513430a33984c116d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::cot()</code>.  <a href="group__dualnum.html#gae2b825e8f3410aa513430a33984c116d">More...</a><br /></td></tr>
+<tr class="separator:gae2b825e8f3410aa513430a33984c116d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga295683a44244821a41e387576b06cf72"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga295683a44244821a41e387576b06cf72"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga295683a44244821a41e387576b06cf72">pr::acsch</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga295683a44244821a41e387576b06cf72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csch()</code>.  <a href="group__dualnum.html#ga295683a44244821a41e387576b06cf72">More...</a><br /></td></tr>
+<tr class="separator:ga295683a44244821a41e387576b06cf72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafd933a4729a618de13110865001f08f7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gafd933a4729a618de13110865001f08f7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gafd933a4729a618de13110865001f08f7">pr::asech</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gafd933a4729a618de13110865001f08f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sech()</code>.  <a href="group__dualnum.html#gafd933a4729a618de13110865001f08f7">More...</a><br /></td></tr>
+<tr class="separator:gafd933a4729a618de13110865001f08f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaea51344d37fa785763203cdecc372260"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaea51344d37fa785763203cdecc372260"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaea51344d37fa785763203cdecc372260">pr::acoth</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaea51344d37fa785763203cdecc372260"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::coth()</code>.  <a href="group__dualnum.html#gaea51344d37fa785763203cdecc372260">More...</a><br /></td></tr>
+<tr class="separator:gaea51344d37fa785763203cdecc372260"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Math (dualnum)</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp36011988d2b668185367bdc7736e2b0d"></a> </p><p class="formulaDsp">
+\[ f(\real(x) + \varepsilon \dual(x)) = f(\real(x)) + \varepsilon f&#39;(\real(x)) \dual(x) \]
+</p>
+ </td></tr>
 <tr class="memitem:gaf7b6f52f596200068241ae1f89eeedd8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gaf7b6f52f596200068241ae1f89eeedd8"><td class="memTemplItemLeft" align="right" valign="top">dualnum&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaf7b6f52f596200068241ae1f89eeedd8">exp</a> (const dualnum&lt; T &gt; &amp;x)</td></tr>
 <tr class="memdesc:gaf7b6f52f596200068241ae1f89eeedd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number implementation of <code>pr::exp()</code>.  <a href="#gaf7b6f52f596200068241ae1f89eeedd8">More...</a><br /></td></tr>
@@ -338,6 +490,7 @@ Reciprocal trigonometric functions (dualnum)</h2></td></tr>
 <tr class="separator:gaa9f4b899436940f46242468770a5d0c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p><code>&lt;prefabs/dualnum.hpp&gt;</code> </p>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ga12cb07ce9b979f056d126171b6a486d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga12cb07ce9b979f056d126171b6a486d9">&#9670;&nbsp;</a></span>conj_op</h2>
@@ -1064,8 +1217,1058 @@ template&lt;conj_op op = conj_imag, typename T &gt; </div>
 
 </div>
 </div>
+<a id="gaa46c2b7b1c2776a75c91f74a705f8ac3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa46c2b7b1c2776a75c91f74a705f8ac3">&#9670;&nbsp;</a></span>exp() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::exp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::exp()</code>. </p>
+
+</div>
+</div>
+<a id="ga5e28d307158b48db88559fcf73fd9503"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5e28d307158b48db88559fcf73fd9503">&#9670;&nbsp;</a></span>log() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::log </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::log()</code>. </p>
+
+</div>
+</div>
+<a id="ga64b99799ba221eab1fdc0531876c3280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga64b99799ba221eab1fdc0531876c3280">&#9670;&nbsp;</a></span>exp2() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::exp2 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::exp2()</code>. </p>
+
+</div>
+</div>
+<a id="gaae60c473b3ac296e88bf726869bb5ee2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaae60c473b3ac296e88bf726869bb5ee2">&#9670;&nbsp;</a></span>log2() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::log2 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::log2()</code>. </p>
+
+</div>
+</div>
+<a id="ga0081962e408bb5b521b1f8b74853d5b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0081962e408bb5b521b1f8b74853d5b7">&#9670;&nbsp;</a></span>log10() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::log10 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::log10()</code>. </p>
+
+</div>
+</div>
+<a id="gae0851d2ea6bae6b07c3a69eead8bdc5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae0851d2ea6bae6b07c3a69eead8bdc5c">&#9670;&nbsp;</a></span>expm1() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::expm1 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::expm1()</code>. </p>
+
+</div>
+</div>
+<a id="ga9b13431f2e0528da626cdc077cd9766d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9b13431f2e0528da626cdc077cd9766d">&#9670;&nbsp;</a></span>log1p() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::log1p </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::log1p()</code>. </p>
+
+</div>
+</div>
+<a id="ga2a4cad69c06164ee6b8c8a4b4805156e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2a4cad69c06164ee6b8c8a4b4805156e">&#9670;&nbsp;</a></span>sqrt() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::sqrt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::sqrt()</code>. </p>
+
+</div>
+</div>
+<a id="gabfa92592f4d7eb6c2a6a38961f5c3072"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabfa92592f4d7eb6c2a6a38961f5c3072">&#9670;&nbsp;</a></span>cbrt() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::cbrt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::cbrt()</code>. </p>
+
+</div>
+</div>
+<a id="gad19da5f91c1631a3a5762f03d98a3f3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad19da5f91c1631a3a5762f03d98a3f3f">&#9670;&nbsp;</a></span>erf() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::erf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::erf()</code>. </p>
+
+</div>
+</div>
+<a id="ga64932e5b504ced5f5ccd01f416ddfd47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga64932e5b504ced5f5ccd01f416ddfd47">&#9670;&nbsp;</a></span>erfc() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::erfc </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::erfc()</code>. </p>
+
+</div>
+</div>
+<a id="gac0212bbd33a88265b30661fe7014ba7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac0212bbd33a88265b30661fe7014ba7d">&#9670;&nbsp;</a></span>sin() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::sin </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::sin()</code>. </p>
+
+</div>
+</div>
+<a id="ga74e5b651ad79a14fa87f1ee4376ee92f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga74e5b651ad79a14fa87f1ee4376ee92f">&#9670;&nbsp;</a></span>cos() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::cos </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::cos()</code>. </p>
+
+</div>
+</div>
+<a id="gad90f46f6929707ef09af69434e606d40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad90f46f6929707ef09af69434e606d40">&#9670;&nbsp;</a></span>tan() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::tan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::tan()</code>. </p>
+
+</div>
+</div>
+<a id="ga159d37e3d4cc113693aef3b3e4be0823"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga159d37e3d4cc113693aef3b3e4be0823">&#9670;&nbsp;</a></span>asin() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::asin </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::asin()</code>. </p>
+
+</div>
+</div>
+<a id="gaf9aa66cbd57a0b19051eb42f61f3c638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf9aa66cbd57a0b19051eb42f61f3c638">&#9670;&nbsp;</a></span>acos() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::acos </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::acos()</code>. </p>
+
+</div>
+</div>
+<a id="ga91fd8282c8556bbb6a40a4a69f1dd307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga91fd8282c8556bbb6a40a4a69f1dd307">&#9670;&nbsp;</a></span>atan() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::atan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::atan()</code>. </p>
+
+</div>
+</div>
+<a id="ga22705068e78078145e23482fbbdafcec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga22705068e78078145e23482fbbdafcec">&#9670;&nbsp;</a></span>sinh() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::sinh </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::sinh()</code>. </p>
+
+</div>
+</div>
+<a id="gaeb16d5bca77a258d51ba4832a304a201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeb16d5bca77a258d51ba4832a304a201">&#9670;&nbsp;</a></span>cosh() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::cosh </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::cosh()</code>. </p>
+
+</div>
+</div>
+<a id="ga95d0b629070b5ae53f28b4567310a783"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga95d0b629070b5ae53f28b4567310a783">&#9670;&nbsp;</a></span>tanh() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::tanh </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::tanh()</code>. </p>
+
+</div>
+</div>
+<a id="gaaac2b50cb04cd8ffb0a3eadfb1a6f27d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaac2b50cb04cd8ffb0a3eadfb1a6f27d">&#9670;&nbsp;</a></span>asinh() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::asinh </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::asinh()</code>. </p>
+
+</div>
+</div>
+<a id="gabfa287a193596cfdaa263e1b1394d363"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabfa287a193596cfdaa263e1b1394d363">&#9670;&nbsp;</a></span>acosh() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::acosh </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::acosh()</code>. </p>
+
+</div>
+</div>
+<a id="ga44658ae5c526c1acf28f228f402b15b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga44658ae5c526c1acf28f228f402b15b2">&#9670;&nbsp;</a></span>atanh() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::atanh </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dual number implementation of <code>pr::atanh()</code>. </p>
+
+</div>
+</div>
+<a id="ga4e50c891896f88f4e3f8360ca526a3aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4e50c891896f88f4e3f8360ca526a3aa">&#9670;&nbsp;</a></span>csc() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::csc </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::sin()</code>. </p>
+
+</div>
+</div>
+<a id="ga233761a586a2fee2dc6de7405e11c60f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga233761a586a2fee2dc6de7405e11c60f">&#9670;&nbsp;</a></span>sec() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::sec </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::cos()</code>. </p>
+
+</div>
+</div>
+<a id="ga851f69f7f1c33da2f26435c2cd0c3cef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga851f69f7f1c33da2f26435c2cd0c3cef">&#9670;&nbsp;</a></span>cot() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::cot </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::tan()</code>. </p>
+
+</div>
+</div>
+<a id="gac644250459810858b1e061e1f54d6a84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac644250459810858b1e061e1f54d6a84">&#9670;&nbsp;</a></span>csch() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::csch </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::sinh()</code>. </p>
+
+</div>
+</div>
+<a id="ga8a0323a95398d892b49d8ae0e4dcce23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8a0323a95398d892b49d8ae0e4dcce23">&#9670;&nbsp;</a></span>sech() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::sech </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::cosh()</code>. </p>
+
+</div>
+</div>
+<a id="ga6c993b9e002cb685f12361affe2d713a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6c993b9e002cb685f12361affe2d713a">&#9670;&nbsp;</a></span>coth() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::coth </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reciprocal of <code>pr::tanh()</code>. </p>
+
+</div>
+</div>
+<a id="gaee2c0805e5bb51ddd5de658151cf875e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaee2c0805e5bb51ddd5de658151cf875e">&#9670;&nbsp;</a></span>acsc() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::acsc </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::csc()</code>. </p>
+
+</div>
+</div>
+<a id="ga131aa092affe6c262184aeb19f48369c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga131aa092affe6c262184aeb19f48369c">&#9670;&nbsp;</a></span>asec() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::asec </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::sec()</code>. </p>
+
+</div>
+</div>
+<a id="gae2b825e8f3410aa513430a33984c116d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae2b825e8f3410aa513430a33984c116d">&#9670;&nbsp;</a></span>acot() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::acot </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::cot()</code>. </p>
+
+</div>
+</div>
+<a id="ga295683a44244821a41e387576b06cf72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga295683a44244821a41e387576b06cf72">&#9670;&nbsp;</a></span>acsch() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::acsch </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::csch()</code>. </p>
+
+</div>
+</div>
+<a id="gafd933a4729a618de13110865001f08f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafd933a4729a618de13110865001f08f7">&#9670;&nbsp;</a></span>asech() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::asech </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::sech()</code>. </p>
+
+</div>
+</div>
+<a id="gaea51344d37fa785763203cdecc372260"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaea51344d37fa785763203cdecc372260">&#9670;&nbsp;</a></span>acoth() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::acoth </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse of <code>pr::coth()</code>. </p>
+
+</div>
+</div>
 <a id="gaf7b6f52f596200068241ae1f89eeedd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf7b6f52f596200068241ae1f89eeedd8">&#9670;&nbsp;</a></span>exp()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf7b6f52f596200068241ae1f89eeedd8">&#9670;&nbsp;</a></span>exp() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1095,7 +2298,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga2f9d5ef32845831ca654cb2b97346c71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2f9d5ef32845831ca654cb2b97346c71">&#9670;&nbsp;</a></span>log()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f9d5ef32845831ca654cb2b97346c71">&#9670;&nbsp;</a></span>log() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1125,7 +2328,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gae9261900851d171143614bb40b697b95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae9261900851d171143614bb40b697b95">&#9670;&nbsp;</a></span>exp2()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gae9261900851d171143614bb40b697b95">&#9670;&nbsp;</a></span>exp2() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1155,7 +2358,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga47049570b4ede37ae5d567a7989fe8a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga47049570b4ede37ae5d567a7989fe8a9">&#9670;&nbsp;</a></span>log2()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga47049570b4ede37ae5d567a7989fe8a9">&#9670;&nbsp;</a></span>log2() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1185,7 +2388,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga504e12aaf711b93de26ba84083eabf34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga504e12aaf711b93de26ba84083eabf34">&#9670;&nbsp;</a></span>log10()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga504e12aaf711b93de26ba84083eabf34">&#9670;&nbsp;</a></span>log10() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1215,7 +2418,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gacbc3ebf53f36e9de0d873403ae806c1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacbc3ebf53f36e9de0d873403ae806c1b">&#9670;&nbsp;</a></span>expm1()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gacbc3ebf53f36e9de0d873403ae806c1b">&#9670;&nbsp;</a></span>expm1() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1245,7 +2448,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gaf9ae4983a46a291bb65e1d91ab18ff25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf9ae4983a46a291bb65e1d91ab18ff25">&#9670;&nbsp;</a></span>log1p()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf9ae4983a46a291bb65e1d91ab18ff25">&#9670;&nbsp;</a></span>log1p() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1275,7 +2478,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga66ecbe8b4396b64ba0777b8b4b40098c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga66ecbe8b4396b64ba0777b8b4b40098c">&#9670;&nbsp;</a></span>sqrt()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga66ecbe8b4396b64ba0777b8b4b40098c">&#9670;&nbsp;</a></span>sqrt() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1305,7 +2508,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gac33b6ce2084b3449adba23af87151686"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac33b6ce2084b3449adba23af87151686">&#9670;&nbsp;</a></span>cbrt()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gac33b6ce2084b3449adba23af87151686">&#9670;&nbsp;</a></span>cbrt() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1335,7 +2538,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gaa73af9edd1df903a0591826ce17a1b36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa73af9edd1df903a0591826ce17a1b36">&#9670;&nbsp;</a></span>erf()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa73af9edd1df903a0591826ce17a1b36">&#9670;&nbsp;</a></span>erf() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1365,7 +2568,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gad5293ecec54db59786affeff978020f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad5293ecec54db59786affeff978020f5">&#9670;&nbsp;</a></span>erfc()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gad5293ecec54db59786affeff978020f5">&#9670;&nbsp;</a></span>erfc() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1395,7 +2598,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gae54a70a8678be745f7d901d233d0067b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae54a70a8678be745f7d901d233d0067b">&#9670;&nbsp;</a></span>sin()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gae54a70a8678be745f7d901d233d0067b">&#9670;&nbsp;</a></span>sin() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1425,7 +2628,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gab99cbfa5d5e2405806547ccf6cee543e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab99cbfa5d5e2405806547ccf6cee543e">&#9670;&nbsp;</a></span>cos()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gab99cbfa5d5e2405806547ccf6cee543e">&#9670;&nbsp;</a></span>cos() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1455,7 +2658,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga83f6b4937d5ce7cc99779f06a0f74c7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga83f6b4937d5ce7cc99779f06a0f74c7c">&#9670;&nbsp;</a></span>tan()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga83f6b4937d5ce7cc99779f06a0f74c7c">&#9670;&nbsp;</a></span>tan() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1485,7 +2688,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gaefdcecd3fed53632c87741cfe9a34231"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaefdcecd3fed53632c87741cfe9a34231">&#9670;&nbsp;</a></span>asin()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gaefdcecd3fed53632c87741cfe9a34231">&#9670;&nbsp;</a></span>asin() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1515,7 +2718,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga2ecee2766f33de01e7888c1cf1bff4b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2ecee2766f33de01e7888c1cf1bff4b9">&#9670;&nbsp;</a></span>acos()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2ecee2766f33de01e7888c1cf1bff4b9">&#9670;&nbsp;</a></span>acos() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1545,7 +2748,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gaefce3c733573b0e4ba7eefa41459c66f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaefce3c733573b0e4ba7eefa41459c66f">&#9670;&nbsp;</a></span>atan()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gaefce3c733573b0e4ba7eefa41459c66f">&#9670;&nbsp;</a></span>atan() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1575,7 +2778,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga35dbe86c0b536a1ec779c1d35994007f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga35dbe86c0b536a1ec779c1d35994007f">&#9670;&nbsp;</a></span>sinh()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga35dbe86c0b536a1ec779c1d35994007f">&#9670;&nbsp;</a></span>sinh() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1605,7 +2808,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga87855a16578cfe4e3f332da552d9dc9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga87855a16578cfe4e3f332da552d9dc9f">&#9670;&nbsp;</a></span>cosh()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga87855a16578cfe4e3f332da552d9dc9f">&#9670;&nbsp;</a></span>cosh() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1635,7 +2838,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gad5f81afd63209636fb4fe57fe44db026"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad5f81afd63209636fb4fe57fe44db026">&#9670;&nbsp;</a></span>tanh()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gad5f81afd63209636fb4fe57fe44db026">&#9670;&nbsp;</a></span>tanh() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1665,7 +2868,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gaf2e422ed2fae1bbd12d9bbbd5e60d630"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf2e422ed2fae1bbd12d9bbbd5e60d630">&#9670;&nbsp;</a></span>asinh()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf2e422ed2fae1bbd12d9bbbd5e60d630">&#9670;&nbsp;</a></span>asinh() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1695,7 +2898,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga282b54e5600bd79e06eb892a7a687e7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga282b54e5600bd79e06eb892a7a687e7e">&#9670;&nbsp;</a></span>acosh()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga282b54e5600bd79e06eb892a7a687e7e">&#9670;&nbsp;</a></span>acosh() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1725,7 +2928,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga6f18ed0fbc301f10ca6fc7fcfde9af60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6f18ed0fbc301f10ca6fc7fcfde9af60">&#9670;&nbsp;</a></span>atanh()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6f18ed0fbc301f10ca6fc7fcfde9af60">&#9670;&nbsp;</a></span>atanh() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1755,7 +2958,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga9a0b87b6f9e0e62003b21716b002b260"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9a0b87b6f9e0e62003b21716b002b260">&#9670;&nbsp;</a></span>csc()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9a0b87b6f9e0e62003b21716b002b260">&#9670;&nbsp;</a></span>csc() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1785,7 +2988,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga5404a5410acc244dc71da7a511aa6d92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5404a5410acc244dc71da7a511aa6d92">&#9670;&nbsp;</a></span>sec()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5404a5410acc244dc71da7a511aa6d92">&#9670;&nbsp;</a></span>sec() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1815,7 +3018,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gacaecebd2d19d79419df97b4e2bb524ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacaecebd2d19d79419df97b4e2bb524ab">&#9670;&nbsp;</a></span>cot()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gacaecebd2d19d79419df97b4e2bb524ab">&#9670;&nbsp;</a></span>cot() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1845,7 +3048,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga270a37bfc11d5c9ebb11713b47cbbe09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga270a37bfc11d5c9ebb11713b47cbbe09">&#9670;&nbsp;</a></span>csch()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga270a37bfc11d5c9ebb11713b47cbbe09">&#9670;&nbsp;</a></span>csch() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1875,7 +3078,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gae1da4a2b0f6f52670b13b91d461e52ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae1da4a2b0f6f52670b13b91d461e52ee">&#9670;&nbsp;</a></span>sech()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gae1da4a2b0f6f52670b13b91d461e52ee">&#9670;&nbsp;</a></span>sech() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1905,7 +3108,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga22c1a3c7375d5380b60c4dc8ff005e05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga22c1a3c7375d5380b60c4dc8ff005e05">&#9670;&nbsp;</a></span>coth()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga22c1a3c7375d5380b60c4dc8ff005e05">&#9670;&nbsp;</a></span>coth() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1935,7 +3138,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga337944e75ed57a327e1ad6e91a661867"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga337944e75ed57a327e1ad6e91a661867">&#9670;&nbsp;</a></span>acsc()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga337944e75ed57a327e1ad6e91a661867">&#9670;&nbsp;</a></span>acsc() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1965,7 +3168,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga5e8b74ebbb3880773d1d8f8ad5e0dcd6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5e8b74ebbb3880773d1d8f8ad5e0dcd6">&#9670;&nbsp;</a></span>asec()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5e8b74ebbb3880773d1d8f8ad5e0dcd6">&#9670;&nbsp;</a></span>asec() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1995,7 +3198,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gab3defca5d5ba0bba371b26745d2114b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab3defca5d5ba0bba371b26745d2114b3">&#9670;&nbsp;</a></span>acot()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gab3defca5d5ba0bba371b26745d2114b3">&#9670;&nbsp;</a></span>acot() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2025,7 +3228,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gadb3185c9f32aa23c16347240d5b3b2ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadb3185c9f32aa23c16347240d5b3b2ff">&#9670;&nbsp;</a></span>acsch()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gadb3185c9f32aa23c16347240d5b3b2ff">&#9670;&nbsp;</a></span>acsch() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2055,7 +3258,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga088dbd0e3d5d3249af5d8cf340c8bdee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga088dbd0e3d5d3249af5d8cf340c8bdee">&#9670;&nbsp;</a></span>asech()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga088dbd0e3d5d3249af5d8cf340c8bdee">&#9670;&nbsp;</a></span>asech() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2085,7 +3288,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gaa9f4b899436940f46242468770a5d0c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa9f4b899436940f46242468770a5d0c4">&#9670;&nbsp;</a></span>acoth()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa9f4b899436940f46242468770a5d0c4">&#9670;&nbsp;</a></span>acoth() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -64,6 +66,12 @@ $(function() {
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>parse()
 : <a class="el" href="classpr_1_1option__parser.html#ae3bdc99213faa0ac5d5a511a930a43c6">pr::option_parser</a>
+</li>
+<li>pdf()
+: <a class="el" href="structpr_1_1exponential__distribution.html#af0efbc673106331168e6b944ffd55c95">pr::exponential_distribution&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1lognormal__distribution.html#a20ee7b2ab45c444aa12f77bc2bb2c60b">pr::lognormal_distribution&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1normal__distribution.html#abc17dbb96883e91d9a4b116498f0e881">pr::normal_distribution&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1uniform__distribution.html#a3c728c8d943043726d741eb2cc4c6fec">pr::uniform_distribution&lt; T &gt;</a>
 </li>
 <li>pointer
 : <a class="el" href="classpr_1_1block__array2.html#ab3f403eb5eac93bffa3ffc02a1480f68">pr::block_array2&lt; T, Alloc &gt;</a>

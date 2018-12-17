@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -84,18 +86,18 @@ Public Types</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Constructors</div></td></tr>
-<tr class="memitem:a2c4c472e98e786e184147910d350eeb8"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dualnum.html#a2c4c472e98e786e184147910d350eeb8">dualnum</a> () noexcept(noexcept(T()))=default</td></tr>
-<tr class="memdesc:a2c4c472e98e786e184147910d350eeb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a2c4c472e98e786e184147910d350eeb8">More...</a><br /></td></tr>
-<tr class="separator:a2c4c472e98e786e184147910d350eeb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a784945f1173da7fd04ea0186a9ba63a2"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dualnum.html#a784945f1173da7fd04ea0186a9ba63a2">dualnum</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a> &amp;) noexcept(noexcept(T(std::declval&lt; const T &amp;&gt;())))=default</td></tr>
-<tr class="memdesc:a784945f1173da7fd04ea0186a9ba63a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy constructor.  <a href="#a784945f1173da7fd04ea0186a9ba63a2">More...</a><br /></td></tr>
-<tr class="separator:a784945f1173da7fd04ea0186a9ba63a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dbe0ccd272474a461506b0fe8f2b641"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dualnum.html#a5dbe0ccd272474a461506b0fe8f2b641">dualnum</a> (<a class="el" href="classpr_1_1dualnum.html">dualnum</a> &amp;&amp;) noexcept(noexcept(T(std::declval&lt; T &amp;&amp;&gt;())))=default</td></tr>
-<tr class="memdesc:a5dbe0ccd272474a461506b0fe8f2b641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move constructor.  <a href="#a5dbe0ccd272474a461506b0fe8f2b641">More...</a><br /></td></tr>
-<tr class="separator:a5dbe0ccd272474a461506b0fe8f2b641"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59d639f9cd83c3ecc0c8f2370d7f885d"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dualnum.html#a59d639f9cd83c3ecc0c8f2370d7f885d">dualnum</a> (T a, T b=T()) noexcept(noexcept(T(T())))</td></tr>
-<tr class="memdesc:a59d639f9cd83c3ecc0c8f2370d7f885d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a59d639f9cd83c3ecc0c8f2370d7f885d">More...</a><br /></td></tr>
-<tr class="separator:a59d639f9cd83c3ecc0c8f2370d7f885d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17b25062ff67fcdef702504b43bb4254"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dualnum.html#a17b25062ff67fcdef702504b43bb4254">dualnum</a> ()=default</td></tr>
+<tr class="memdesc:a17b25062ff67fcdef702504b43bb4254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a17b25062ff67fcdef702504b43bb4254">More...</a><br /></td></tr>
+<tr class="separator:a17b25062ff67fcdef702504b43bb4254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac21046af2020e5cb50905ca432493cb5"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dualnum.html#ac21046af2020e5cb50905ca432493cb5">dualnum</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a> &amp;)=default</td></tr>
+<tr class="memdesc:ac21046af2020e5cb50905ca432493cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy constructor.  <a href="#ac21046af2020e5cb50905ca432493cb5">More...</a><br /></td></tr>
+<tr class="separator:ac21046af2020e5cb50905ca432493cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2874a8d09caf283b8b6563a6a38d696b"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dualnum.html#a2874a8d09caf283b8b6563a6a38d696b">dualnum</a> (<a class="el" href="classpr_1_1dualnum.html">dualnum</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a2874a8d09caf283b8b6563a6a38d696b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move constructor.  <a href="#a2874a8d09caf283b8b6563a6a38d696b">More...</a><br /></td></tr>
+<tr class="separator:a2874a8d09caf283b8b6563a6a38d696b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fb82a11531aa00fb772eddfca4fc39d"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dualnum.html#a7fb82a11531aa00fb772eddfca4fc39d">dualnum</a> (T a, T b=T())</td></tr>
+<tr class="memdesc:a7fb82a11531aa00fb772eddfca4fc39d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a7fb82a11531aa00fb772eddfca4fc39d">More...</a><br /></td></tr>
+<tr class="separator:a7fb82a11531aa00fb772eddfca4fc39d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Assign operators</div></td></tr>
 <tr class="memitem:a2dc0fd52fc6e09cc638f8fff689d15a7"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dualnum.html">dualnum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dualnum.html#a2dc0fd52fc6e09cc638f8fff689d15a7">operator=</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a> &amp;) noexcept=default</td></tr>
 <tr class="memdesc:a2dc0fd52fc6e09cc638f8fff689d15a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assign.  <a href="#a2dc0fd52fc6e09cc638f8fff689d15a7">More...</a><br /></td></tr>
@@ -166,8 +168,8 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2c4c472e98e786e184147910d350eeb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c4c472e98e786e184147910d350eeb8">&#9670;&nbsp;</a></span>dualnum() <span class="overload">[1/4]</span></h2>
+<a id="a17b25062ff67fcdef702504b43bb4254"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17b25062ff67fcdef702504b43bb4254">&#9670;&nbsp;</a></span>dualnum() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,7 +188,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -195,8 +197,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a784945f1173da7fd04ea0186a9ba63a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a784945f1173da7fd04ea0186a9ba63a2">&#9670;&nbsp;</a></span>dualnum() <span class="overload">[2/4]</span></h2>
+<a id="ac21046af2020e5cb50905ca432493cb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac21046af2020e5cb50905ca432493cb5">&#9670;&nbsp;</a></span>dualnum() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,12 +213,12 @@ template&lt;typename T &gt; </div>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
-          <td> const &amp;</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -225,8 +227,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a5dbe0ccd272474a461506b0fe8f2b641"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dbe0ccd272474a461506b0fe8f2b641">&#9670;&nbsp;</a></span>dualnum() <span class="overload">[3/4]</span></h2>
+<a id="a2874a8d09caf283b8b6563a6a38d696b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2874a8d09caf283b8b6563a6a38d696b">&#9670;&nbsp;</a></span>dualnum() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -241,12 +243,12 @@ template&lt;typename T &gt; </div>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
-          <td> &amp;&amp;</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -255,8 +257,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a59d639f9cd83c3ecc0c8f2370d7f885d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59d639f9cd83c3ecc0c8f2370d7f885d">&#9670;&nbsp;</a></span>dualnum() <span class="overload">[4/4]</span></h2>
+<a id="a7fb82a11531aa00fb772eddfca4fc39d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fb82a11531aa00fb772eddfca4fc39d">&#9670;&nbsp;</a></span>dualnum() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,7 +288,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -544,7 +546,7 @@ template&lt;typename Char , typename Traits &gt; </div>
 </div><div class="memdoc">
 
 <p>Parse from <code>std::basic_istream</code>. </p>
-<p>Format is <code>(a, b)</code>. Sets <code>std::ios_base::failbit</code> on error. </p>
+<p>Format is <code>(a,b)</code>. Sets <code>std::ios_base::failbit</code> on error. </p>
 
 </div>
 </div>
@@ -587,7 +589,7 @@ template&lt;typename Char , typename Traits &gt; </div>
 </div><div class="memdoc">
 
 <p>Write into <code>std::basic_ostream</code>. </p>
-<p>Format is <code>(a, b)</code>. </p>
+<p>Format is <code>(a,b)</code>. </p>
 
 </div>
 </div>

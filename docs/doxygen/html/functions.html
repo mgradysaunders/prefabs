@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -68,6 +70,9 @@ $(function() {
 <li>abs()
 : <a class="el" href="classpr_1_1half.html#a238d410df748e5a1c33c57ad172a0134">pr::half</a>
 </li>
+<li>abs_error()
+: <a class="el" href="classpr_1_1float__bounds.html#af6500a5889cbd7b0f01b42df61dbed30">pr::float_bounds&lt; T &gt;</a>
+</li>
 <li>accum_sum()
 : <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#aa60f07b8f87697123e72bb380360d3e0">pr::multi&lt; T, M, N... &gt;</a>
 </li>
@@ -90,8 +95,8 @@ $(function() {
 : <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a068525b585d26dd7c0f265b257f879c8">pr::multi&lt; T, M, N... &gt;</a>
 </li>
 <li>at()
-: <a class="el" href="classpr_1_1block__array2.html#abe4aaebf66f8c203d259346381b3ae34">pr::block_array2&lt; T, Alloc &gt;</a>
-, <a class="el" href="classpr_1_1block__array3.html#a5d1fd56f0e0add7d487058b895746068">pr::block_array3&lt; T, Alloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array2.html#afe88f2ca16479bb8d72527c5c0ed8ff2">pr::block_array2&lt; T, Alloc &gt;</a>
+, <a class="el" href="classpr_1_1block__array3.html#a6722682cd48990e16dce3a7d6b8bbcea">pr::block_array3&lt; T, Alloc &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

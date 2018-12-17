@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -1961,7 +1963,7 @@ template&lt;typename Char , typename Traits &gt; </div>
 </div><div class="memdoc">
 
 <p>Parse from <code>std::basic_istream</code>. </p>
-<p>Format is <code>[val1, val2, ...]</code>. Sets <code>std::ios_base::failbit</code> on error. </p>
+<p>Format is <code>[v0,v1,...]</code>. Sets <code>std::ios_base::failbit</code> on error. </p>
 
 </div>
 </div>
@@ -2004,7 +2006,7 @@ template&lt;typename Char , typename Traits &gt; </div>
 </div><div class="memdoc">
 
 <p>Write into <code>std::basic_ostream</code>. </p>
-<p>Format is <code>[val1, val2, ...]</code>. </p>
+<p>Format is <code>[v0,v1,...]</code>. </p>
 
 </div>
 </div>

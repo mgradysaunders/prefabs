@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -70,6 +72,18 @@ $(function() {
 , <a class="el" href="classpr_1_1block__array3.html#abe90ba80b45703a230552d7de54bf3b7">pr::block_array3&lt; T, Alloc &gt;</a>
 , <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ab497ef6a9fcc8f4afa0e95b3f1c61636">pr::multi&lt; T, M, N... &gt;</a>
 </li>
+<li>cdf()
+: <a class="el" href="structpr_1_1exponential__distribution.html#a6eddb559a8f374a43f2383cf5c2c4ae8">pr::exponential_distribution&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1lognormal__distribution.html#ae5ddc36f178454b29d09711ea8ddc452">pr::lognormal_distribution&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1normal__distribution.html#a46e4b0a267eb15d50a9d7ff0187aa81b">pr::normal_distribution&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1uniform__distribution.html#a76b5cf6fa6655b795c4cd98a358a3c67">pr::uniform_distribution&lt; T &gt;</a>
+</li>
+<li>cdfinv()
+: <a class="el" href="structpr_1_1exponential__distribution.html#a1ea9f8ac548cbd876a4a5802c455841c">pr::exponential_distribution&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1lognormal__distribution.html#a0d25e0b6a752031ffac4e08a8800a64c">pr::lognormal_distribution&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1normal__distribution.html#a0044a8f5fedda4c45e951716c891e0bd">pr::normal_distribution&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1uniform__distribution.html#a3bb15c463adb8add06be51216400f05a">pr::uniform_distribution&lt; T &gt;</a>
+</li>
 <li>cend()
 : <a class="el" href="classpr_1_1block__array2.html#a89dd05344727d3595d045ed66a7479ed">pr::block_array2&lt; T, Alloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#ab71be01f5c88238917b46c0f5704ebbc">pr::block_array3&lt; T, Alloc &gt;</a>
@@ -110,10 +124,16 @@ $(function() {
 : <a class="el" href="classpr_1_1block__array2.html#a1f8bc9ccb0c2a44d53453b8887b642fd">pr::block_array2&lt; T, Alloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#ab9009d7d2a645c20a9c86d3972cfba01">pr::block_array3&lt; T, Alloc &gt;</a>
 </li>
+<li>contains_exclusive()
+: <a class="el" href="classpr_1_1float__bounds.html#af7a61c44db1a120deed279d347972579">pr::float_bounds&lt; T &gt;</a>
+</li>
+<li>contains_inclusive()
+: <a class="el" href="classpr_1_1float__bounds.html#a240e2cb10a1caa7498b8db71609589a9">pr::float_bounds&lt; T &gt;</a>
+</li>
 <li>convert()
-: <a class="el" href="classpr_1_1block__array2.html#a80439872fbc627f048ae17f9074df91c">pr::block_array2&lt; T, Alloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array2.html#a391ca1c3e50c1182775755f478b341d4">pr::block_array2&lt; T, Alloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#a879f977c47c690ac973c789cbe8ad486">pr::block_array3&lt; T, Alloc &gt;</a>
-, <a class="el" href="classpr_1_1float__atomic.html#a72c04e24e942750dc46f7a3d0319eab9">pr::float_atomic&lt; T, U &gt;</a>
+, <a class="el" href="classpr_1_1float__atomic.html#ae5e6e80d8c6ce2725c52da12cb0cf609">pr::float_atomic&lt; T, U &gt;</a>
 </li>
 <li>crbegin()
 : <a class="el" href="classpr_1_1block__array2.html#a4a019778c4851c247aaffb597d4af5b1">pr::block_array2&lt; T, Alloc &gt;</a>

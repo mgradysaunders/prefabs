@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -74,10 +76,10 @@ $(function() {
   <tr><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a828aec56724620cff2398e2ed93f6960">b_</a></td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classpr_1_1dualnum.html#aa88111c97b9910dc90c98555eb111171">dual</a>() const noexcept</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a4309c1eef2b06c2a11d99b6cd7f42bb6">dual</a>(T val) noexcept</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a2c4c472e98e786e184147910d350eeb8">dualnum</a>() noexcept(noexcept(T()))=default</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a784945f1173da7fd04ea0186a9ba63a2">dualnum</a>(const dualnum &amp;) noexcept(noexcept(T(std::declval&lt; const T &amp;&gt;())))=default</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a5dbe0ccd272474a461506b0fe8f2b641">dualnum</a>(dualnum &amp;&amp;) noexcept(noexcept(T(std::declval&lt; T &amp;&amp;&gt;())))=default</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a59d639f9cd83c3ecc0c8f2370d7f885d">dualnum</a>(T a, T b=T()) noexcept(noexcept(T(T())))</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a17b25062ff67fcdef702504b43bb4254">dualnum</a>()=default</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classpr_1_1dualnum.html#ac21046af2020e5cb50905ca432493cb5">dualnum</a>(const dualnum &amp;)=default</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a2874a8d09caf283b8b6563a6a38d696b">dualnum</a>(dualnum &amp;&amp;)=default</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a7fb82a11531aa00fb772eddfca4fc39d">dualnum</a>(T a, T b=T())</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classpr_1_1dualnum.html#af719b8c5e07bc19eadf24a48532c59ec">operator&lt;&lt;</a>(std::basic_ostream&lt; Char, Traits &gt; &amp;os, const dualnum &amp;x)</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
   <tr><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a2dc0fd52fc6e09cc638f8fff689d15a7">operator=</a>(const dualnum &amp;) noexcept=default</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classpr_1_1dualnum.html#a611713e9aad0e787573b5a3d225a5f4e">operator=</a>(dualnum &amp;&amp;) noexcept=default</td><td class="entry"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td><td class="entry"></td></tr>

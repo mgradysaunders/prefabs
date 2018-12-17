@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -68,6 +70,9 @@ $(function() {
 </li>
 <li>name_abbrv
 : <a class="el" href="classpr_1_1option.html#a6651b7fc5683ccd9c4317fd102d46ee7">pr::option</a>
+</li>
+<li>neumaier_sum()
+: <a class="el" href="classpr_1_1neumaier__sum.html#a4145a9fa9b42c268ba19a183599a858d">pr::neumaier_sum&lt; T &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

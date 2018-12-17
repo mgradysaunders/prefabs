@@ -17,14 +17,16 @@ MathJax.Hub.Config({
   displayIndent: "2em",
   TeX: {
     Macros: {
+        real: ["\\operatorname{Re}"],
+        imag: ["\\operatorname{Im}"],
+        dual: ["\\operatorname{Du}"],
+        erf: ["\\operatorname{erf}"],
+        erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
-        real: ["\\operatorname{Re}"],
-        imag: ["\\operatorname{Im}"],
-        dual: ["\\operatorname{Du}"]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
     }
   }
 });
@@ -62,11 +64,14 @@ $(function() {
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_t"></a>- t -</h3><ul>
+<li>t_
+: <a class="el" href="classpr_1_1neumaier__sum.html#ad7573168500121426dab2c02b9f5fc58">pr::neumaier_sum&lt; T &gt;</a>
+</li>
 <li>task_func
 : <a class="el" href="classpr_1_1thread__pool.html#a423b216dde40adf0b0ea3a50f6c9f926">pr::thread_pool</a>
 </li>
 <li>task_queue()
-: <a class="el" href="classpr_1_1thread__pool_1_1task__queue.html#abc63ad536e75764c613ede599a7c0cb6">pr::thread_pool::task_queue</a>
+: <a class="el" href="classpr_1_1thread__pool_1_1task__queue.html#af8454b51015f9e02ed70ac30503b6ac3">pr::thread_pool::task_queue</a>
 </li>
 <li>thread_pool()
 : <a class="el" href="classpr_1_1thread__pool.html#ae189c047c5fe3ba0617a1089c1f1cc98">pr::thread_pool</a>
