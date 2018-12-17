@@ -156,14 +156,6 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga637428709e8093d4617794e8d76cf581"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a> = std::enable_if&lt; std::is_integral&lt; T &gt;::value, U &gt;</td></tr>
 <tr class="memdesc:ga637428709e8093d4617794e8d76cf581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable type <code>U</code> if type <code>T</code> is integral.  <a href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">More...</a><br /></td></tr>
 <tr class="separator:ga637428709e8093d4617794e8d76cf581"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga61abee71a7cdf80fbd1ea6ad26218dd1"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U  = T&gt; </td></tr>
-<tr class="memitem:ga61abee71a7cdf80fbd1ea6ad26218dd1"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a> = std::enable_if&lt; std::is_same&lt; T, __float128 &gt;::value, U &gt;</td></tr>
-<tr class="memdesc:ga61abee71a7cdf80fbd1ea6ad26218dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable type <code>U</code> if type <code>T</code> is <code>__float128</code>.  <a href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">More...</a><br /></td></tr>
-<tr class="separator:ga61abee71a7cdf80fbd1ea6ad26218dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8728d82691ddb6c959428f16df9ef4de"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U  = T&gt; </td></tr>
-<tr class="memitem:ga8728d82691ddb6c959428f16df9ef4de"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a> = std::enable_if&lt; std::is_same&lt; T, __complex128 &gt;::value, U &gt;</td></tr>
-<tr class="memdesc:ga8728d82691ddb6c959428f16df9ef4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable type <code>U</code> if type <code>T</code> is <code>__complex128</code>.  <a href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">More...</a><br /></td></tr>
-<tr class="separator:ga8728d82691ddb6c959428f16df9ef4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5238f8e4b8fc1331430f69cb8a77405a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__timer.html#ga5238f8e4b8fc1331430f69cb8a77405a">system_timer</a> = <a class="el" href="classpr_1_1timer.html">timer</a>&lt; std::chrono::system_clock &gt;</td></tr>
 <tr class="memdesc:ga5238f8e4b8fc1331430f69cb8a77405a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer for <code>std::chrono::system_clock</code>.  <a href="group__timer.html#ga5238f8e4b8fc1331430f69cb8a77405a">More...</a><br /></td></tr>
 <tr class="separator:ga5238f8e4b8fc1331430f69cb8a77405a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1257,430 +1249,381 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7d252258bbef2f1349d989528483b4a7"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T()&lt;&lt; U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga7d252258bbef2f1349d989528483b4a7">operator&lt;&lt;</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
 <tr class="memdesc:ga7d252258bbef2f1349d989528483b4a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="group__multi.html#ga7d252258bbef2f1349d989528483b4a7">More...</a><br /></td></tr>
 <tr class="separator:ga7d252258bbef2f1349d989528483b4a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Quadmath wrappers (`__float128`)</div></td></tr>
-<tr class="memitem:ga2255bd12653afa203d9762f0f92738a5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga2255bd12653afa203d9762f0f92738a5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga2255bd12653afa203d9762f0f92738a5">fabs</a> (T x)</td></tr>
-<tr class="memdesc:ga2255bd12653afa203d9762f0f92738a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fabsq()</code>.  <a href="group__quadmath.html#ga2255bd12653afa203d9762f0f92738a5">More...</a><br /></td></tr>
-<tr class="separator:ga2255bd12653afa203d9762f0f92738a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga409edb3526df627b370c23bd8ba68080"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga409edb3526df627b370c23bd8ba68080"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga409edb3526df627b370c23bd8ba68080">fma</a> (T x, T y, T z)</td></tr>
-<tr class="memdesc:ga409edb3526df627b370c23bd8ba68080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fmaq()</code>.  <a href="group__quadmath.html#ga409edb3526df627b370c23bd8ba68080">More...</a><br /></td></tr>
-<tr class="separator:ga409edb3526df627b370c23bd8ba68080"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeb2d384e5ce0800b7ef14403a65d2aec"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gaeb2d384e5ce0800b7ef14403a65d2aec"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaeb2d384e5ce0800b7ef14403a65d2aec">fmin</a> (T x, T y)</td></tr>
-<tr class="memdesc:gaeb2d384e5ce0800b7ef14403a65d2aec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fminq()</code>.  <a href="group__quadmath.html#gaeb2d384e5ce0800b7ef14403a65d2aec">More...</a><br /></td></tr>
-<tr class="separator:gaeb2d384e5ce0800b7ef14403a65d2aec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gace19ea91893c773106e140eed1880576"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gace19ea91893c773106e140eed1880576"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gace19ea91893c773106e140eed1880576">fmax</a> (T x, T y)</td></tr>
-<tr class="memdesc:gace19ea91893c773106e140eed1880576"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fmaxq()</code>.  <a href="group__quadmath.html#gace19ea91893c773106e140eed1880576">More...</a><br /></td></tr>
-<tr class="separator:gace19ea91893c773106e140eed1880576"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac181316c72c95da981260a714a512035"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gac181316c72c95da981260a714a512035"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gac181316c72c95da981260a714a512035">fdim</a> (T x, T y)</td></tr>
-<tr class="memdesc:gac181316c72c95da981260a714a512035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fdimq()</code>.  <a href="group__quadmath.html#gac181316c72c95da981260a714a512035">More...</a><br /></td></tr>
-<tr class="separator:gac181316c72c95da981260a714a512035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6710ffcb5f2d726b0e9587f9e26fd51e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga6710ffcb5f2d726b0e9587f9e26fd51e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga6710ffcb5f2d726b0e9587f9e26fd51e">fmod</a> (T x, T y)</td></tr>
-<tr class="memdesc:ga6710ffcb5f2d726b0e9587f9e26fd51e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fmodq()</code>.  <a href="group__quadmath.html#ga6710ffcb5f2d726b0e9587f9e26fd51e">More...</a><br /></td></tr>
-<tr class="separator:ga6710ffcb5f2d726b0e9587f9e26fd51e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab8508ed813cb0cbd1fc0b6f6f5e85a9e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gab8508ed813cb0cbd1fc0b6f6f5e85a9e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab8508ed813cb0cbd1fc0b6f6f5e85a9e">remquo</a> (T x, T y, int *q)</td></tr>
-<tr class="memdesc:gab8508ed813cb0cbd1fc0b6f6f5e85a9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>remquoq()</code>.  <a href="group__quadmath.html#gab8508ed813cb0cbd1fc0b6f6f5e85a9e">More...</a><br /></td></tr>
-<tr class="separator:gab8508ed813cb0cbd1fc0b6f6f5e85a9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga38401ead97c31b4975de9408855cc0f0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga38401ead97c31b4975de9408855cc0f0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga38401ead97c31b4975de9408855cc0f0">remainder</a> (T x, T y)</td></tr>
-<tr class="memdesc:ga38401ead97c31b4975de9408855cc0f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>remainderq()</code>.  <a href="group__quadmath.html#ga38401ead97c31b4975de9408855cc0f0">More...</a><br /></td></tr>
-<tr class="separator:ga38401ead97c31b4975de9408855cc0f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0ff75cbcde43e71b958a472199a2c7d1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga0ff75cbcde43e71b958a472199a2c7d1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga0ff75cbcde43e71b958a472199a2c7d1">nearbyint</a> (T x)</td></tr>
-<tr class="memdesc:ga0ff75cbcde43e71b958a472199a2c7d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>nearbyintq()</code>.  <a href="group__quadmath.html#ga0ff75cbcde43e71b958a472199a2c7d1">More...</a><br /></td></tr>
-<tr class="separator:ga0ff75cbcde43e71b958a472199a2c7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae874c8fedef5e882efa6d70775e3510d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gae874c8fedef5e882efa6d70775e3510d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gae874c8fedef5e882efa6d70775e3510d">floor</a> (T x)</td></tr>
-<tr class="memdesc:gae874c8fedef5e882efa6d70775e3510d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>floorq()</code>.  <a href="group__quadmath.html#gae874c8fedef5e882efa6d70775e3510d">More...</a><br /></td></tr>
-<tr class="separator:gae874c8fedef5e882efa6d70775e3510d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2f4f9c08867ba6b48f3b0b78a395ee74"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga2f4f9c08867ba6b48f3b0b78a395ee74"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga2f4f9c08867ba6b48f3b0b78a395ee74">ceil</a> (T x)</td></tr>
-<tr class="memdesc:ga2f4f9c08867ba6b48f3b0b78a395ee74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ceilq()</code>.  <a href="group__quadmath.html#ga2f4f9c08867ba6b48f3b0b78a395ee74">More...</a><br /></td></tr>
-<tr class="separator:ga2f4f9c08867ba6b48f3b0b78a395ee74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga64d839a9e0bb49ef89c914782dc43085"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga64d839a9e0bb49ef89c914782dc43085"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga64d839a9e0bb49ef89c914782dc43085">trunc</a> (T x)</td></tr>
-<tr class="memdesc:ga64d839a9e0bb49ef89c914782dc43085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>truncq()</code>.  <a href="group__quadmath.html#ga64d839a9e0bb49ef89c914782dc43085">More...</a><br /></td></tr>
-<tr class="separator:ga64d839a9e0bb49ef89c914782dc43085"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga54457341dbe7b2b09901ebb3e272c47f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga54457341dbe7b2b09901ebb3e272c47f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga54457341dbe7b2b09901ebb3e272c47f">round</a> (T x)</td></tr>
-<tr class="memdesc:ga54457341dbe7b2b09901ebb3e272c47f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>roundq()</code>.  <a href="group__quadmath.html#ga54457341dbe7b2b09901ebb3e272c47f">More...</a><br /></td></tr>
-<tr class="separator:ga54457341dbe7b2b09901ebb3e272c47f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga50dc9cfd5560a859c33fa0749fb44a12"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga50dc9cfd5560a859c33fa0749fb44a12"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga50dc9cfd5560a859c33fa0749fb44a12">rint</a> (T x)</td></tr>
-<tr class="memdesc:ga50dc9cfd5560a859c33fa0749fb44a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>rintq()</code>.  <a href="group__quadmath.html#ga50dc9cfd5560a859c33fa0749fb44a12">More...</a><br /></td></tr>
-<tr class="separator:ga50dc9cfd5560a859c33fa0749fb44a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2bc553dddb2df3f8a51cd603769603a8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga2bc553dddb2df3f8a51cd603769603a8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T, long &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga2bc553dddb2df3f8a51cd603769603a8">lrint</a> (T x)</td></tr>
-<tr class="memdesc:ga2bc553dddb2df3f8a51cd603769603a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>lrintq()</code>.  <a href="group__quadmath.html#ga2bc553dddb2df3f8a51cd603769603a8">More...</a><br /></td></tr>
-<tr class="separator:ga2bc553dddb2df3f8a51cd603769603a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga158f78c382b34c9a3c6cd131f2667141"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga158f78c382b34c9a3c6cd131f2667141"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T, long long &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga158f78c382b34c9a3c6cd131f2667141">llrint</a> (T x)</td></tr>
-<tr class="memdesc:ga158f78c382b34c9a3c6cd131f2667141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>llrintq()</code>.  <a href="group__quadmath.html#ga158f78c382b34c9a3c6cd131f2667141">More...</a><br /></td></tr>
-<tr class="separator:ga158f78c382b34c9a3c6cd131f2667141"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0bf640214260b10512ef86ddddac0c8c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga0bf640214260b10512ef86ddddac0c8c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T, long &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga0bf640214260b10512ef86ddddac0c8c">lround</a> (T x)</td></tr>
-<tr class="memdesc:ga0bf640214260b10512ef86ddddac0c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>lroundq()</code>.  <a href="group__quadmath.html#ga0bf640214260b10512ef86ddddac0c8c">More...</a><br /></td></tr>
-<tr class="separator:ga0bf640214260b10512ef86ddddac0c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1c4a7f486c6bdd8d68be22e49edd9d5e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga1c4a7f486c6bdd8d68be22e49edd9d5e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T, long long &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga1c4a7f486c6bdd8d68be22e49edd9d5e">llround</a> (T x)</td></tr>
-<tr class="memdesc:ga1c4a7f486c6bdd8d68be22e49edd9d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>llroundq()</code>.  <a href="group__quadmath.html#ga1c4a7f486c6bdd8d68be22e49edd9d5e">More...</a><br /></td></tr>
-<tr class="separator:ga1c4a7f486c6bdd8d68be22e49edd9d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga00c1355107095f94af79a05b366f695f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga00c1355107095f94af79a05b366f695f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga00c1355107095f94af79a05b366f695f">frexp</a> (T x, int *p)</td></tr>
-<tr class="memdesc:ga00c1355107095f94af79a05b366f695f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>frexpq()</code>.  <a href="group__quadmath.html#ga00c1355107095f94af79a05b366f695f">More...</a><br /></td></tr>
-<tr class="separator:ga00c1355107095f94af79a05b366f695f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga87ae368c8691e51c046c73879d398958"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga87ae368c8691e51c046c73879d398958"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga87ae368c8691e51c046c73879d398958">ldexp</a> (T x, int p)</td></tr>
-<tr class="memdesc:ga87ae368c8691e51c046c73879d398958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ldexpq()</code>.  <a href="group__quadmath.html#ga87ae368c8691e51c046c73879d398958">More...</a><br /></td></tr>
-<tr class="separator:ga87ae368c8691e51c046c73879d398958"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaddd588a25ce030dcf1ed7df80c12da11"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gaddd588a25ce030dcf1ed7df80c12da11"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaddd588a25ce030dcf1ed7df80c12da11">logb</a> (T x)</td></tr>
-<tr class="memdesc:gaddd588a25ce030dcf1ed7df80c12da11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>logbq()</code>.  <a href="group__quadmath.html#gaddd588a25ce030dcf1ed7df80c12da11">More...</a><br /></td></tr>
-<tr class="separator:gaddd588a25ce030dcf1ed7df80c12da11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3e208679bb3a449b56c459f98755cac2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga3e208679bb3a449b56c459f98755cac2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T, int &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga3e208679bb3a449b56c459f98755cac2">ilogb</a> (T x)</td></tr>
-<tr class="memdesc:ga3e208679bb3a449b56c459f98755cac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ilogbq()</code>.  <a href="group__quadmath.html#ga3e208679bb3a449b56c459f98755cac2">More...</a><br /></td></tr>
-<tr class="separator:ga3e208679bb3a449b56c459f98755cac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga351507ff90de716c06adbb2e5d59e389"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga351507ff90de716c06adbb2e5d59e389"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga351507ff90de716c06adbb2e5d59e389">scalbn</a> (T x, int p)</td></tr>
-<tr class="memdesc:ga351507ff90de716c06adbb2e5d59e389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>scalbnq()</code>.  <a href="group__quadmath.html#ga351507ff90de716c06adbb2e5d59e389">More...</a><br /></td></tr>
-<tr class="separator:ga351507ff90de716c06adbb2e5d59e389"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3c2c35085c7e8ccee25e89aa986c7963"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga3c2c35085c7e8ccee25e89aa986c7963"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga3c2c35085c7e8ccee25e89aa986c7963">scalbln</a> (T x, long p)</td></tr>
-<tr class="memdesc:ga3c2c35085c7e8ccee25e89aa986c7963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>scalblnq()</code>.  <a href="group__quadmath.html#ga3c2c35085c7e8ccee25e89aa986c7963">More...</a><br /></td></tr>
-<tr class="separator:ga3c2c35085c7e8ccee25e89aa986c7963"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7fa78eee30c8f55b453b9b2e466109cc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga7fa78eee30c8f55b453b9b2e466109cc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga7fa78eee30c8f55b453b9b2e466109cc">modf</a> (T x, T *p)</td></tr>
-<tr class="memdesc:ga7fa78eee30c8f55b453b9b2e466109cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>modfq()</code>.  <a href="group__quadmath.html#ga7fa78eee30c8f55b453b9b2e466109cc">More...</a><br /></td></tr>
-<tr class="separator:ga7fa78eee30c8f55b453b9b2e466109cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa2d0b0885a531b71352c36c22855ddee"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gaa2d0b0885a531b71352c36c22855ddee"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaa2d0b0885a531b71352c36c22855ddee">nextafter</a> (T x, T y)</td></tr>
-<tr class="memdesc:gaa2d0b0885a531b71352c36c22855ddee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>nextafterq()</code>.  <a href="group__quadmath.html#gaa2d0b0885a531b71352c36c22855ddee">More...</a><br /></td></tr>
-<tr class="separator:gaa2d0b0885a531b71352c36c22855ddee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab2528b253c3b85835117ed24234431cf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gab2528b253c3b85835117ed24234431cf"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab2528b253c3b85835117ed24234431cf">copysign</a> (T x, T y)</td></tr>
-<tr class="memdesc:gab2528b253c3b85835117ed24234431cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>copysignq()</code>.  <a href="group__quadmath.html#gab2528b253c3b85835117ed24234431cf">More...</a><br /></td></tr>
-<tr class="separator:gab2528b253c3b85835117ed24234431cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab63538bf267e54d941017c698a2ceafe"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gab63538bf267e54d941017c698a2ceafe"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab63538bf267e54d941017c698a2ceafe">signbit</a> (T x)</td></tr>
-<tr class="memdesc:gab63538bf267e54d941017c698a2ceafe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>signbitq()</code>.  <a href="group__quadmath.html#gab63538bf267e54d941017c698a2ceafe">More...</a><br /></td></tr>
-<tr class="separator:gab63538bf267e54d941017c698a2ceafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaacc7f0e1e4b41ab66cd20a2356123230"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gaacc7f0e1e4b41ab66cd20a2356123230"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaacc7f0e1e4b41ab66cd20a2356123230">isnan</a> (T x)</td></tr>
-<tr class="memdesc:gaacc7f0e1e4b41ab66cd20a2356123230"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>isnanq()</code>.  <a href="group__quadmath.html#gaacc7f0e1e4b41ab66cd20a2356123230">More...</a><br /></td></tr>
-<tr class="separator:gaacc7f0e1e4b41ab66cd20a2356123230"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga02b5b4b0e4bbd290369a649edad3bd54"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga02b5b4b0e4bbd290369a649edad3bd54"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga02b5b4b0e4bbd290369a649edad3bd54">isinf</a> (T x)</td></tr>
-<tr class="memdesc:ga02b5b4b0e4bbd290369a649edad3bd54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>isinfq()</code>.  <a href="group__quadmath.html#ga02b5b4b0e4bbd290369a649edad3bd54">More...</a><br /></td></tr>
-<tr class="separator:ga02b5b4b0e4bbd290369a649edad3bd54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab9ddcf2856d32bdf6327cf42b715c65f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gab9ddcf2856d32bdf6327cf42b715c65f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab9ddcf2856d32bdf6327cf42b715c65f">isfinite</a> (T x)</td></tr>
-<tr class="memdesc:gab9ddcf2856d32bdf6327cf42b715c65f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>finiteq()</code>.  <a href="group__quadmath.html#gab9ddcf2856d32bdf6327cf42b715c65f">More...</a><br /></td></tr>
-<tr class="separator:gab9ddcf2856d32bdf6327cf42b715c65f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac4ae098ba6faa997e1239a2fdc7db39c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gac4ae098ba6faa997e1239a2fdc7db39c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gac4ae098ba6faa997e1239a2fdc7db39c">exp</a> (T x)</td></tr>
-<tr class="memdesc:gac4ae098ba6faa997e1239a2fdc7db39c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>expq()</code>.  <a href="group__quadmath.html#gac4ae098ba6faa997e1239a2fdc7db39c">More...</a><br /></td></tr>
-<tr class="separator:gac4ae098ba6faa997e1239a2fdc7db39c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8780dcd338f1a364be7714d20b4f646a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga8780dcd338f1a364be7714d20b4f646a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga8780dcd338f1a364be7714d20b4f646a">log</a> (T x)</td></tr>
-<tr class="memdesc:ga8780dcd338f1a364be7714d20b4f646a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>logq()</code>.  <a href="group__quadmath.html#ga8780dcd338f1a364be7714d20b4f646a">More...</a><br /></td></tr>
-<tr class="separator:ga8780dcd338f1a364be7714d20b4f646a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab433cfc94026450455706ad8634d4768"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gab433cfc94026450455706ad8634d4768"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab433cfc94026450455706ad8634d4768">log2</a> (T x)</td></tr>
-<tr class="memdesc:gab433cfc94026450455706ad8634d4768"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>log2q()</code>.  <a href="group__quadmath.html#gab433cfc94026450455706ad8634d4768">More...</a><br /></td></tr>
-<tr class="separator:gab433cfc94026450455706ad8634d4768"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7c0d64d966382dbca06d53adc80174c3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga7c0d64d966382dbca06d53adc80174c3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga7c0d64d966382dbca06d53adc80174c3">log10</a> (T x)</td></tr>
-<tr class="memdesc:ga7c0d64d966382dbca06d53adc80174c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>log10q()</code>.  <a href="group__quadmath.html#ga7c0d64d966382dbca06d53adc80174c3">More...</a><br /></td></tr>
-<tr class="separator:ga7c0d64d966382dbca06d53adc80174c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1e53dcba9eca1737ca818ff570da0592"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga1e53dcba9eca1737ca818ff570da0592"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga1e53dcba9eca1737ca818ff570da0592">expm1</a> (T x)</td></tr>
-<tr class="memdesc:ga1e53dcba9eca1737ca818ff570da0592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>expm1q()</code>.  <a href="group__quadmath.html#ga1e53dcba9eca1737ca818ff570da0592">More...</a><br /></td></tr>
-<tr class="separator:ga1e53dcba9eca1737ca818ff570da0592"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga59d8c986babcb3b05255d5c7ba283c9e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga59d8c986babcb3b05255d5c7ba283c9e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga59d8c986babcb3b05255d5c7ba283c9e">log1p</a> (T x)</td></tr>
-<tr class="memdesc:ga59d8c986babcb3b05255d5c7ba283c9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>log1pq()</code>.  <a href="group__quadmath.html#ga59d8c986babcb3b05255d5c7ba283c9e">More...</a><br /></td></tr>
-<tr class="separator:ga59d8c986babcb3b05255d5c7ba283c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaee702f143cdfa05a0ed9501595ae4f3f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gaee702f143cdfa05a0ed9501595ae4f3f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaee702f143cdfa05a0ed9501595ae4f3f">pow</a> (T x, T y)</td></tr>
-<tr class="memdesc:gaee702f143cdfa05a0ed9501595ae4f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>powq()</code>.  <a href="group__quadmath.html#gaee702f143cdfa05a0ed9501595ae4f3f">More...</a><br /></td></tr>
-<tr class="separator:gaee702f143cdfa05a0ed9501595ae4f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga63f375bbf8769389409fda2a9b7be894"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga63f375bbf8769389409fda2a9b7be894"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga63f375bbf8769389409fda2a9b7be894">sqrt</a> (T x)</td></tr>
-<tr class="memdesc:ga63f375bbf8769389409fda2a9b7be894"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>sqrtq()</code>.  <a href="group__quadmath.html#ga63f375bbf8769389409fda2a9b7be894">More...</a><br /></td></tr>
-<tr class="separator:ga63f375bbf8769389409fda2a9b7be894"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf10afa04c48e6bf92d8809f049587f56"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gaf10afa04c48e6bf92d8809f049587f56"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaf10afa04c48e6bf92d8809f049587f56">cbrt</a> (T x)</td></tr>
-<tr class="memdesc:gaf10afa04c48e6bf92d8809f049587f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cbrtq()</code>.  <a href="group__quadmath.html#gaf10afa04c48e6bf92d8809f049587f56">More...</a><br /></td></tr>
-<tr class="separator:gaf10afa04c48e6bf92d8809f049587f56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga58b532acd714816e7a93adb0f002921e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga58b532acd714816e7a93adb0f002921e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga58b532acd714816e7a93adb0f002921e">hypot</a> (T x, T y)</td></tr>
-<tr class="memdesc:ga58b532acd714816e7a93adb0f002921e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>hypotq()</code>.  <a href="group__quadmath.html#ga58b532acd714816e7a93adb0f002921e">More...</a><br /></td></tr>
-<tr class="separator:ga58b532acd714816e7a93adb0f002921e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5a7c668bcbdf2421536f0983dfed9c6e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga5a7c668bcbdf2421536f0983dfed9c6e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga5a7c668bcbdf2421536f0983dfed9c6e">erf</a> (T x)</td></tr>
-<tr class="memdesc:ga5a7c668bcbdf2421536f0983dfed9c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>erfq()</code>.  <a href="group__quadmath.html#ga5a7c668bcbdf2421536f0983dfed9c6e">More...</a><br /></td></tr>
-<tr class="separator:ga5a7c668bcbdf2421536f0983dfed9c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad910e362a9a8aab49126a71610535cf1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gad910e362a9a8aab49126a71610535cf1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gad910e362a9a8aab49126a71610535cf1">erfc</a> (T x)</td></tr>
-<tr class="memdesc:gad910e362a9a8aab49126a71610535cf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>erfcq()</code>.  <a href="group__quadmath.html#gad910e362a9a8aab49126a71610535cf1">More...</a><br /></td></tr>
-<tr class="separator:gad910e362a9a8aab49126a71610535cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga034b76c37d4e7fed50542f4bc33b786d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga034b76c37d4e7fed50542f4bc33b786d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga034b76c37d4e7fed50542f4bc33b786d">lgamma</a> (T x)</td></tr>
-<tr class="memdesc:ga034b76c37d4e7fed50542f4bc33b786d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>lgammaq()</code>.  <a href="group__quadmath.html#ga034b76c37d4e7fed50542f4bc33b786d">More...</a><br /></td></tr>
-<tr class="separator:ga034b76c37d4e7fed50542f4bc33b786d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabe2cd459b465a3c04d7c73ea9ec92238"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gabe2cd459b465a3c04d7c73ea9ec92238"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gabe2cd459b465a3c04d7c73ea9ec92238">tgamma</a> (T x)</td></tr>
-<tr class="memdesc:gabe2cd459b465a3c04d7c73ea9ec92238"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>tgammaq()</code>.  <a href="group__quadmath.html#gabe2cd459b465a3c04d7c73ea9ec92238">More...</a><br /></td></tr>
-<tr class="separator:gabe2cd459b465a3c04d7c73ea9ec92238"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga81e36c4468f7166725a6fb005621cf84"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga81e36c4468f7166725a6fb005621cf84"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga81e36c4468f7166725a6fb005621cf84">sin</a> (T x)</td></tr>
-<tr class="memdesc:ga81e36c4468f7166725a6fb005621cf84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>sinq()</code>.  <a href="group__quadmath.html#ga81e36c4468f7166725a6fb005621cf84">More...</a><br /></td></tr>
-<tr class="separator:ga81e36c4468f7166725a6fb005621cf84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa08a61b69c1d1a2cc117e51bf58cd78a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gaa08a61b69c1d1a2cc117e51bf58cd78a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaa08a61b69c1d1a2cc117e51bf58cd78a">cos</a> (T x)</td></tr>
-<tr class="memdesc:gaa08a61b69c1d1a2cc117e51bf58cd78a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cosq()</code>.  <a href="group__quadmath.html#gaa08a61b69c1d1a2cc117e51bf58cd78a">More...</a><br /></td></tr>
-<tr class="separator:gaa08a61b69c1d1a2cc117e51bf58cd78a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6895776dc1597223844d9c10f3fc0fb4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga6895776dc1597223844d9c10f3fc0fb4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga6895776dc1597223844d9c10f3fc0fb4">tan</a> (T x)</td></tr>
-<tr class="memdesc:ga6895776dc1597223844d9c10f3fc0fb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>tanq()</code>.  <a href="group__quadmath.html#ga6895776dc1597223844d9c10f3fc0fb4">More...</a><br /></td></tr>
-<tr class="separator:ga6895776dc1597223844d9c10f3fc0fb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1a016006cfde573dd225fb679b530dea"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga1a016006cfde573dd225fb679b530dea"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga1a016006cfde573dd225fb679b530dea">asin</a> (T x)</td></tr>
-<tr class="memdesc:ga1a016006cfde573dd225fb679b530dea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>asinq()</code>.  <a href="group__quadmath.html#ga1a016006cfde573dd225fb679b530dea">More...</a><br /></td></tr>
-<tr class="separator:ga1a016006cfde573dd225fb679b530dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae8d5cbda276236db57ad7393cb602ea3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gae8d5cbda276236db57ad7393cb602ea3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gae8d5cbda276236db57ad7393cb602ea3">acos</a> (T x)</td></tr>
-<tr class="memdesc:gae8d5cbda276236db57ad7393cb602ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>acosq()</code>.  <a href="group__quadmath.html#gae8d5cbda276236db57ad7393cb602ea3">More...</a><br /></td></tr>
-<tr class="separator:gae8d5cbda276236db57ad7393cb602ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4e25f2e8c661f7a67bfeeb353bdfc641"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga4e25f2e8c661f7a67bfeeb353bdfc641"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4e25f2e8c661f7a67bfeeb353bdfc641">atan</a> (T x)</td></tr>
-<tr class="memdesc:ga4e25f2e8c661f7a67bfeeb353bdfc641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>atanq()</code>.  <a href="group__quadmath.html#ga4e25f2e8c661f7a67bfeeb353bdfc641">More...</a><br /></td></tr>
-<tr class="separator:ga4e25f2e8c661f7a67bfeeb353bdfc641"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa7882f2a80aea9a296be04dc69bd5f53"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gaa7882f2a80aea9a296be04dc69bd5f53"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaa7882f2a80aea9a296be04dc69bd5f53">atan2</a> (T y, T x)</td></tr>
-<tr class="memdesc:gaa7882f2a80aea9a296be04dc69bd5f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>atan2q()</code>.  <a href="group__quadmath.html#gaa7882f2a80aea9a296be04dc69bd5f53">More...</a><br /></td></tr>
-<tr class="separator:gaa7882f2a80aea9a296be04dc69bd5f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab92318a4a7100503a0811cee11eafcb9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gab92318a4a7100503a0811cee11eafcb9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab92318a4a7100503a0811cee11eafcb9">sinh</a> (T x)</td></tr>
-<tr class="memdesc:gab92318a4a7100503a0811cee11eafcb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>sinhq()</code>.  <a href="group__quadmath.html#gab92318a4a7100503a0811cee11eafcb9">More...</a><br /></td></tr>
-<tr class="separator:gab92318a4a7100503a0811cee11eafcb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga81e4dc1265cdb43ad6d46cd03c10b9f6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga81e4dc1265cdb43ad6d46cd03c10b9f6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga81e4dc1265cdb43ad6d46cd03c10b9f6">cosh</a> (T x)</td></tr>
-<tr class="memdesc:ga81e4dc1265cdb43ad6d46cd03c10b9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>coshq()</code>.  <a href="group__quadmath.html#ga81e4dc1265cdb43ad6d46cd03c10b9f6">More...</a><br /></td></tr>
-<tr class="separator:ga81e4dc1265cdb43ad6d46cd03c10b9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafaebdda95d1948e40ea072402e5a3f1b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gafaebdda95d1948e40ea072402e5a3f1b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gafaebdda95d1948e40ea072402e5a3f1b">tanh</a> (T x)</td></tr>
-<tr class="memdesc:gafaebdda95d1948e40ea072402e5a3f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>tanhq()</code>.  <a href="group__quadmath.html#gafaebdda95d1948e40ea072402e5a3f1b">More...</a><br /></td></tr>
-<tr class="separator:gafaebdda95d1948e40ea072402e5a3f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4b0e462df9560bd4e8a5ab43ee3a799b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga4b0e462df9560bd4e8a5ab43ee3a799b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4b0e462df9560bd4e8a5ab43ee3a799b">asinh</a> (T x)</td></tr>
-<tr class="memdesc:ga4b0e462df9560bd4e8a5ab43ee3a799b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>asinhq()</code>.  <a href="group__quadmath.html#ga4b0e462df9560bd4e8a5ab43ee3a799b">More...</a><br /></td></tr>
-<tr class="separator:ga4b0e462df9560bd4e8a5ab43ee3a799b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4c5e85001ad8d80c3922a31d01abf4ca"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga4c5e85001ad8d80c3922a31d01abf4ca"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4c5e85001ad8d80c3922a31d01abf4ca">acosh</a> (T x)</td></tr>
-<tr class="memdesc:ga4c5e85001ad8d80c3922a31d01abf4ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>acoshq()</code>.  <a href="group__quadmath.html#ga4c5e85001ad8d80c3922a31d01abf4ca">More...</a><br /></td></tr>
-<tr class="separator:ga4c5e85001ad8d80c3922a31d01abf4ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga88b00a4c6ade2ed27011859824bd86e5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga88b00a4c6ade2ed27011859824bd86e5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga88b00a4c6ade2ed27011859824bd86e5">atanh</a> (T x)</td></tr>
-<tr class="memdesc:ga88b00a4c6ade2ed27011859824bd86e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>atanhq()</code>.  <a href="group__quadmath.html#ga88b00a4c6ade2ed27011859824bd86e5">More...</a><br /></td></tr>
-<tr class="separator:ga88b00a4c6ade2ed27011859824bd86e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Quadmath wrappers (`__complex128`)</div></td></tr>
-<tr class="memitem:ga8f6cca4e8d8771f7084d5e03c78a4600"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga8f6cca4e8d8771f7084d5e03c78a4600"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U, __float128 &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga8f6cca4e8d8771f7084d5e03c78a4600">abs</a> (U x)</td></tr>
-<tr class="memdesc:ga8f6cca4e8d8771f7084d5e03c78a4600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cabsq()</code>.  <a href="group__quadmath.html#ga8f6cca4e8d8771f7084d5e03c78a4600">More...</a><br /></td></tr>
-<tr class="separator:ga8f6cca4e8d8771f7084d5e03c78a4600"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7846470cd2bbbfcb01172812daa04104"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga7846470cd2bbbfcb01172812daa04104"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U, __float128 &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga7846470cd2bbbfcb01172812daa04104">arg</a> (U x)</td></tr>
-<tr class="memdesc:ga7846470cd2bbbfcb01172812daa04104"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cargq()</code>.  <a href="group__quadmath.html#ga7846470cd2bbbfcb01172812daa04104">More...</a><br /></td></tr>
-<tr class="separator:ga7846470cd2bbbfcb01172812daa04104"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga13d19182db8ce8b27fd268084860458b"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga13d19182db8ce8b27fd268084860458b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U, __float128 &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga13d19182db8ce8b27fd268084860458b">real</a> (U x)</td></tr>
-<tr class="memdesc:ga13d19182db8ce8b27fd268084860458b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>crealq()</code>.  <a href="group__quadmath.html#ga13d19182db8ce8b27fd268084860458b">More...</a><br /></td></tr>
-<tr class="separator:ga13d19182db8ce8b27fd268084860458b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6d67bada1b3613ea518c4c6be93c44d3"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga6d67bada1b3613ea518c4c6be93c44d3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U, __float128 &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga6d67bada1b3613ea518c4c6be93c44d3">imag</a> (U x)</td></tr>
-<tr class="memdesc:ga6d67bada1b3613ea518c4c6be93c44d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cimagq()</code>.  <a href="group__quadmath.html#ga6d67bada1b3613ea518c4c6be93c44d3">More...</a><br /></td></tr>
-<tr class="separator:ga6d67bada1b3613ea518c4c6be93c44d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga379fb673e464f800b530d3b6914dda83"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga379fb673e464f800b530d3b6914dda83"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga379fb673e464f800b530d3b6914dda83">conj</a> (U x)</td></tr>
-<tr class="memdesc:ga379fb673e464f800b530d3b6914dda83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>conjq()</code>.  <a href="group__quadmath.html#ga379fb673e464f800b530d3b6914dda83">More...</a><br /></td></tr>
-<tr class="separator:ga379fb673e464f800b530d3b6914dda83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9e5facf52d9220d31b17f3baeeb1f546"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga9e5facf52d9220d31b17f3baeeb1f546"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga9e5facf52d9220d31b17f3baeeb1f546">proj</a> (U x)</td></tr>
-<tr class="memdesc:ga9e5facf52d9220d31b17f3baeeb1f546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cprojq()</code>.  <a href="group__quadmath.html#ga9e5facf52d9220d31b17f3baeeb1f546">More...</a><br /></td></tr>
-<tr class="separator:ga9e5facf52d9220d31b17f3baeeb1f546"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf6388c495e284db2ff0be3aa651dae94"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:gaf6388c495e284db2ff0be3aa651dae94"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaf6388c495e284db2ff0be3aa651dae94">exp</a> (U x)</td></tr>
-<tr class="memdesc:gaf6388c495e284db2ff0be3aa651dae94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cexpq()</code>.  <a href="group__quadmath.html#gaf6388c495e284db2ff0be3aa651dae94">More...</a><br /></td></tr>
-<tr class="separator:gaf6388c495e284db2ff0be3aa651dae94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1dcdf82609d73cea8849950aceed47e2"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga1dcdf82609d73cea8849950aceed47e2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga1dcdf82609d73cea8849950aceed47e2">log</a> (U x)</td></tr>
-<tr class="memdesc:ga1dcdf82609d73cea8849950aceed47e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>clogq()</code>.  <a href="group__quadmath.html#ga1dcdf82609d73cea8849950aceed47e2">More...</a><br /></td></tr>
-<tr class="separator:ga1dcdf82609d73cea8849950aceed47e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga02e22245a936cbdb75b36582a69cb42a"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga02e22245a936cbdb75b36582a69cb42a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga02e22245a936cbdb75b36582a69cb42a">log10</a> (U x)</td></tr>
-<tr class="memdesc:ga02e22245a936cbdb75b36582a69cb42a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>clog10q()</code>.  <a href="group__quadmath.html#ga02e22245a936cbdb75b36582a69cb42a">More...</a><br /></td></tr>
-<tr class="separator:ga02e22245a936cbdb75b36582a69cb42a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaef7fa8086dd3d51ba53de02ec7b7d53a"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:gaef7fa8086dd3d51ba53de02ec7b7d53a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaef7fa8086dd3d51ba53de02ec7b7d53a">pow</a> (U x, U y)</td></tr>
-<tr class="memdesc:gaef7fa8086dd3d51ba53de02ec7b7d53a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cpowq()</code>.  <a href="group__quadmath.html#gaef7fa8086dd3d51ba53de02ec7b7d53a">More...</a><br /></td></tr>
-<tr class="separator:gaef7fa8086dd3d51ba53de02ec7b7d53a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga28c9cd5f3af6e37285b52892a4c36374"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga28c9cd5f3af6e37285b52892a4c36374"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga28c9cd5f3af6e37285b52892a4c36374">sqrt</a> (U x)</td></tr>
-<tr class="memdesc:ga28c9cd5f3af6e37285b52892a4c36374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>csqrtq()</code>.  <a href="group__quadmath.html#ga28c9cd5f3af6e37285b52892a4c36374">More...</a><br /></td></tr>
-<tr class="separator:ga28c9cd5f3af6e37285b52892a4c36374"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad678e2afc7ca9091355491ffd75ee8a8"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:gad678e2afc7ca9091355491ffd75ee8a8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gad678e2afc7ca9091355491ffd75ee8a8">sin</a> (U x)</td></tr>
-<tr class="memdesc:gad678e2afc7ca9091355491ffd75ee8a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>csinq()</code>.  <a href="group__quadmath.html#gad678e2afc7ca9091355491ffd75ee8a8">More...</a><br /></td></tr>
-<tr class="separator:gad678e2afc7ca9091355491ffd75ee8a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa6f7deb6ad733d6e35534875198cd925"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:gaa6f7deb6ad733d6e35534875198cd925"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaa6f7deb6ad733d6e35534875198cd925">cos</a> (U x)</td></tr>
-<tr class="memdesc:gaa6f7deb6ad733d6e35534875198cd925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ccosq()</code>.  <a href="group__quadmath.html#gaa6f7deb6ad733d6e35534875198cd925">More...</a><br /></td></tr>
-<tr class="separator:gaa6f7deb6ad733d6e35534875198cd925"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9c8384047f738beaad78d773de7e92d1"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga9c8384047f738beaad78d773de7e92d1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga9c8384047f738beaad78d773de7e92d1">tan</a> (U x)</td></tr>
-<tr class="memdesc:ga9c8384047f738beaad78d773de7e92d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ctanq()</code>.  <a href="group__quadmath.html#ga9c8384047f738beaad78d773de7e92d1">More...</a><br /></td></tr>
-<tr class="separator:ga9c8384047f738beaad78d773de7e92d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6ee58ace3505ffc06e380e1cbf0b4873"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga6ee58ace3505ffc06e380e1cbf0b4873"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga6ee58ace3505ffc06e380e1cbf0b4873">asin</a> (U x)</td></tr>
-<tr class="memdesc:ga6ee58ace3505ffc06e380e1cbf0b4873"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>casinq()</code>.  <a href="group__quadmath.html#ga6ee58ace3505ffc06e380e1cbf0b4873">More...</a><br /></td></tr>
-<tr class="separator:ga6ee58ace3505ffc06e380e1cbf0b4873"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga09e622d8a70c2ed8158be7f068a51aa1"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga09e622d8a70c2ed8158be7f068a51aa1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga09e622d8a70c2ed8158be7f068a51aa1">acos</a> (U x)</td></tr>
-<tr class="memdesc:ga09e622d8a70c2ed8158be7f068a51aa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cacosq()</code>.  <a href="group__quadmath.html#ga09e622d8a70c2ed8158be7f068a51aa1">More...</a><br /></td></tr>
-<tr class="separator:ga09e622d8a70c2ed8158be7f068a51aa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa9c4db54b60c203e5aaa2576d941ecce"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:gaa9c4db54b60c203e5aaa2576d941ecce"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaa9c4db54b60c203e5aaa2576d941ecce">atan</a> (U x)</td></tr>
-<tr class="memdesc:gaa9c4db54b60c203e5aaa2576d941ecce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>catanq()</code>.  <a href="group__quadmath.html#gaa9c4db54b60c203e5aaa2576d941ecce">More...</a><br /></td></tr>
-<tr class="separator:gaa9c4db54b60c203e5aaa2576d941ecce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4080dccf7c0aab66a58bad14ed0596ff"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga4080dccf7c0aab66a58bad14ed0596ff"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4080dccf7c0aab66a58bad14ed0596ff">sinh</a> (U x)</td></tr>
-<tr class="memdesc:ga4080dccf7c0aab66a58bad14ed0596ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>csinhq()</code>.  <a href="group__quadmath.html#ga4080dccf7c0aab66a58bad14ed0596ff">More...</a><br /></td></tr>
-<tr class="separator:ga4080dccf7c0aab66a58bad14ed0596ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafa087ab92b1a8ad79f073fcf09c96d24"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:gafa087ab92b1a8ad79f073fcf09c96d24"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gafa087ab92b1a8ad79f073fcf09c96d24">cosh</a> (U x)</td></tr>
-<tr class="memdesc:gafa087ab92b1a8ad79f073fcf09c96d24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ccoshq()</code>.  <a href="group__quadmath.html#gafa087ab92b1a8ad79f073fcf09c96d24">More...</a><br /></td></tr>
-<tr class="separator:gafa087ab92b1a8ad79f073fcf09c96d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf4b6e8b5c0d72fb3f75b09e5aafe98d8"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:gaf4b6e8b5c0d72fb3f75b09e5aafe98d8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaf4b6e8b5c0d72fb3f75b09e5aafe98d8">tanh</a> (U x)</td></tr>
-<tr class="memdesc:gaf4b6e8b5c0d72fb3f75b09e5aafe98d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ctanhq()</code>.  <a href="group__quadmath.html#gaf4b6e8b5c0d72fb3f75b09e5aafe98d8">More...</a><br /></td></tr>
-<tr class="separator:gaf4b6e8b5c0d72fb3f75b09e5aafe98d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafb92586cef9a17210959ffc4e8188838"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:gafb92586cef9a17210959ffc4e8188838"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gafb92586cef9a17210959ffc4e8188838">asinh</a> (U x)</td></tr>
-<tr class="memdesc:gafb92586cef9a17210959ffc4e8188838"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>casinhq()</code>.  <a href="group__quadmath.html#gafb92586cef9a17210959ffc4e8188838">More...</a><br /></td></tr>
-<tr class="separator:gafb92586cef9a17210959ffc4e8188838"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9466962506e7b3b038ded024a29a9f7e"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:ga9466962506e7b3b038ded024a29a9f7e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga9466962506e7b3b038ded024a29a9f7e">acosh</a> (U x)</td></tr>
-<tr class="memdesc:ga9466962506e7b3b038ded024a29a9f7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cacoshq()</code>.  <a href="group__quadmath.html#ga9466962506e7b3b038ded024a29a9f7e">More...</a><br /></td></tr>
-<tr class="separator:ga9466962506e7b3b038ded024a29a9f7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaba4757cfa111b71486188234d2e1256f"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:gaba4757cfa111b71486188234d2e1256f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; U &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaba4757cfa111b71486188234d2e1256f">atanh</a> (U x)</td></tr>
-<tr class="memdesc:gaba4757cfa111b71486188234d2e1256f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>catanhq()</code>.  <a href="group__quadmath.html#gaba4757cfa111b71486188234d2e1256f">More...</a><br /></td></tr>
-<tr class="separator:gaba4757cfa111b71486188234d2e1256f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Reciprocal trigonometric functions (`__float128`)</div></td></tr>
-<tr class="memitem:gac451162390575f29aac150fafb5a2ffa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gac451162390575f29aac150fafb5a2ffa"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gac451162390575f29aac150fafb5a2ffa">csc</a> (T x)</td></tr>
-<tr class="memdesc:gac451162390575f29aac150fafb5a2ffa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sin()</code>.  <a href="group__quadmath.html#gac451162390575f29aac150fafb5a2ffa">More...</a><br /></td></tr>
-<tr class="separator:gac451162390575f29aac150fafb5a2ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga16b390b276b074062f3dd30df4aa37bd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga16b390b276b074062f3dd30df4aa37bd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga16b390b276b074062f3dd30df4aa37bd">sec</a> (T x)</td></tr>
-<tr class="memdesc:ga16b390b276b074062f3dd30df4aa37bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cos()</code>.  <a href="group__quadmath.html#ga16b390b276b074062f3dd30df4aa37bd">More...</a><br /></td></tr>
-<tr class="separator:ga16b390b276b074062f3dd30df4aa37bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga205f8ad6e347e42ff5f7e36c54397b82"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga205f8ad6e347e42ff5f7e36c54397b82"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga205f8ad6e347e42ff5f7e36c54397b82">cot</a> (T x)</td></tr>
-<tr class="memdesc:ga205f8ad6e347e42ff5f7e36c54397b82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tan()</code>.  <a href="group__quadmath.html#ga205f8ad6e347e42ff5f7e36c54397b82">More...</a><br /></td></tr>
-<tr class="separator:ga205f8ad6e347e42ff5f7e36c54397b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab8386b0bde60964baccb3b1f5f3ba343"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gab8386b0bde60964baccb3b1f5f3ba343"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab8386b0bde60964baccb3b1f5f3ba343">csch</a> (T x)</td></tr>
-<tr class="memdesc:gab8386b0bde60964baccb3b1f5f3ba343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sinh()</code>.  <a href="group__quadmath.html#gab8386b0bde60964baccb3b1f5f3ba343">More...</a><br /></td></tr>
-<tr class="separator:gab8386b0bde60964baccb3b1f5f3ba343"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac0f4750db26b93a2f0d785b644cc2b70"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gac0f4750db26b93a2f0d785b644cc2b70"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gac0f4750db26b93a2f0d785b644cc2b70">sech</a> (T x)</td></tr>
-<tr class="memdesc:gac0f4750db26b93a2f0d785b644cc2b70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cosh()</code>.  <a href="group__quadmath.html#gac0f4750db26b93a2f0d785b644cc2b70">More...</a><br /></td></tr>
-<tr class="separator:gac0f4750db26b93a2f0d785b644cc2b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab68e549e0bfc2f23aed7ad89065c74e8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gab68e549e0bfc2f23aed7ad89065c74e8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab68e549e0bfc2f23aed7ad89065c74e8">coth</a> (T x)</td></tr>
-<tr class="memdesc:gab68e549e0bfc2f23aed7ad89065c74e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tanh()</code>.  <a href="group__quadmath.html#gab68e549e0bfc2f23aed7ad89065c74e8">More...</a><br /></td></tr>
-<tr class="separator:gab68e549e0bfc2f23aed7ad89065c74e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga41d5122659e4322851d75ce0cdf8b8d6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga41d5122659e4322851d75ce0cdf8b8d6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga41d5122659e4322851d75ce0cdf8b8d6">acsc</a> (T x)</td></tr>
-<tr class="memdesc:ga41d5122659e4322851d75ce0cdf8b8d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csc()</code>.  <a href="group__quadmath.html#ga41d5122659e4322851d75ce0cdf8b8d6">More...</a><br /></td></tr>
-<tr class="separator:ga41d5122659e4322851d75ce0cdf8b8d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadc6b68e0ffa632d5bc5178c9ebd2eac0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gadc6b68e0ffa632d5bc5178c9ebd2eac0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gadc6b68e0ffa632d5bc5178c9ebd2eac0">asec</a> (T x)</td></tr>
-<tr class="memdesc:gadc6b68e0ffa632d5bc5178c9ebd2eac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sec()</code>.  <a href="group__quadmath.html#gadc6b68e0ffa632d5bc5178c9ebd2eac0">More...</a><br /></td></tr>
-<tr class="separator:gadc6b68e0ffa632d5bc5178c9ebd2eac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6fe6e3eff02b7255a31ccf071abae057"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga6fe6e3eff02b7255a31ccf071abae057"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga6fe6e3eff02b7255a31ccf071abae057">acot</a> (T x)</td></tr>
-<tr class="memdesc:ga6fe6e3eff02b7255a31ccf071abae057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::cot()</code>.  <a href="group__quadmath.html#ga6fe6e3eff02b7255a31ccf071abae057">More...</a><br /></td></tr>
-<tr class="separator:ga6fe6e3eff02b7255a31ccf071abae057"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga192278ace8a8678d2c7e7b31ca04cf90"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga192278ace8a8678d2c7e7b31ca04cf90"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga192278ace8a8678d2c7e7b31ca04cf90">acsch</a> (T x)</td></tr>
-<tr class="memdesc:ga192278ace8a8678d2c7e7b31ca04cf90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csch()</code>.  <a href="group__quadmath.html#ga192278ace8a8678d2c7e7b31ca04cf90">More...</a><br /></td></tr>
-<tr class="separator:ga192278ace8a8678d2c7e7b31ca04cf90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0d0b7f15d5c0e6998f29b7e5e3dd4796"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga0d0b7f15d5c0e6998f29b7e5e3dd4796"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga0d0b7f15d5c0e6998f29b7e5e3dd4796">asech</a> (T x)</td></tr>
-<tr class="memdesc:ga0d0b7f15d5c0e6998f29b7e5e3dd4796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sech()</code>.  <a href="group__quadmath.html#ga0d0b7f15d5c0e6998f29b7e5e3dd4796">More...</a><br /></td></tr>
-<tr class="separator:ga0d0b7f15d5c0e6998f29b7e5e3dd4796"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga513dc06b05820290569f139999209d90"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga513dc06b05820290569f139999209d90"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga61abee71a7cdf80fbd1ea6ad26218dd1">enable_float128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga513dc06b05820290569f139999209d90">acoth</a> (T x)</td></tr>
-<tr class="memdesc:ga513dc06b05820290569f139999209d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::coth()</code>.  <a href="group__quadmath.html#ga513dc06b05820290569f139999209d90">More...</a><br /></td></tr>
-<tr class="separator:ga513dc06b05820290569f139999209d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Reciprocal trigonometric functions (`__complex128`)</div></td></tr>
-<tr class="memitem:gac451162390575f29aac150fafb5a2ffa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gac451162390575f29aac150fafb5a2ffa"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#gac451162390575f29aac150fafb5a2ffa">csc</a> (T x)</td></tr>
-<tr class="memdesc:gac451162390575f29aac150fafb5a2ffa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sin()</code>.  <a href="#gac451162390575f29aac150fafb5a2ffa">More...</a><br /></td></tr>
-<tr class="separator:gac451162390575f29aac150fafb5a2ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga16b390b276b074062f3dd30df4aa37bd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga16b390b276b074062f3dd30df4aa37bd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#ga16b390b276b074062f3dd30df4aa37bd">sec</a> (T x)</td></tr>
-<tr class="memdesc:ga16b390b276b074062f3dd30df4aa37bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cos()</code>.  <a href="#ga16b390b276b074062f3dd30df4aa37bd">More...</a><br /></td></tr>
-<tr class="separator:ga16b390b276b074062f3dd30df4aa37bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga205f8ad6e347e42ff5f7e36c54397b82"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga205f8ad6e347e42ff5f7e36c54397b82"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#ga205f8ad6e347e42ff5f7e36c54397b82">cot</a> (T x)</td></tr>
-<tr class="memdesc:ga205f8ad6e347e42ff5f7e36c54397b82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tan()</code>.  <a href="#ga205f8ad6e347e42ff5f7e36c54397b82">More...</a><br /></td></tr>
-<tr class="separator:ga205f8ad6e347e42ff5f7e36c54397b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab8386b0bde60964baccb3b1f5f3ba343"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gab8386b0bde60964baccb3b1f5f3ba343"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#gab8386b0bde60964baccb3b1f5f3ba343">csch</a> (T x)</td></tr>
-<tr class="memdesc:gab8386b0bde60964baccb3b1f5f3ba343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sinh()</code>.  <a href="#gab8386b0bde60964baccb3b1f5f3ba343">More...</a><br /></td></tr>
-<tr class="separator:gab8386b0bde60964baccb3b1f5f3ba343"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac0f4750db26b93a2f0d785b644cc2b70"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gac0f4750db26b93a2f0d785b644cc2b70"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#gac0f4750db26b93a2f0d785b644cc2b70">sech</a> (T x)</td></tr>
-<tr class="memdesc:gac0f4750db26b93a2f0d785b644cc2b70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cosh()</code>.  <a href="#gac0f4750db26b93a2f0d785b644cc2b70">More...</a><br /></td></tr>
-<tr class="separator:gac0f4750db26b93a2f0d785b644cc2b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab68e549e0bfc2f23aed7ad89065c74e8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gab68e549e0bfc2f23aed7ad89065c74e8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#gab68e549e0bfc2f23aed7ad89065c74e8">coth</a> (T x)</td></tr>
-<tr class="memdesc:gab68e549e0bfc2f23aed7ad89065c74e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tanh()</code>.  <a href="#gab68e549e0bfc2f23aed7ad89065c74e8">More...</a><br /></td></tr>
-<tr class="separator:gab68e549e0bfc2f23aed7ad89065c74e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga41d5122659e4322851d75ce0cdf8b8d6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga41d5122659e4322851d75ce0cdf8b8d6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#ga41d5122659e4322851d75ce0cdf8b8d6">acsc</a> (T x)</td></tr>
-<tr class="memdesc:ga41d5122659e4322851d75ce0cdf8b8d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csc()</code>.  <a href="#ga41d5122659e4322851d75ce0cdf8b8d6">More...</a><br /></td></tr>
-<tr class="separator:ga41d5122659e4322851d75ce0cdf8b8d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadc6b68e0ffa632d5bc5178c9ebd2eac0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gadc6b68e0ffa632d5bc5178c9ebd2eac0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#gadc6b68e0ffa632d5bc5178c9ebd2eac0">asec</a> (T x)</td></tr>
-<tr class="memdesc:gadc6b68e0ffa632d5bc5178c9ebd2eac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sec()</code>.  <a href="#gadc6b68e0ffa632d5bc5178c9ebd2eac0">More...</a><br /></td></tr>
-<tr class="separator:gadc6b68e0ffa632d5bc5178c9ebd2eac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6fe6e3eff02b7255a31ccf071abae057"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga6fe6e3eff02b7255a31ccf071abae057"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#ga6fe6e3eff02b7255a31ccf071abae057">acot</a> (T x)</td></tr>
-<tr class="memdesc:ga6fe6e3eff02b7255a31ccf071abae057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::cot()</code>.  <a href="#ga6fe6e3eff02b7255a31ccf071abae057">More...</a><br /></td></tr>
-<tr class="separator:ga6fe6e3eff02b7255a31ccf071abae057"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga192278ace8a8678d2c7e7b31ca04cf90"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga192278ace8a8678d2c7e7b31ca04cf90"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#ga192278ace8a8678d2c7e7b31ca04cf90">acsch</a> (T x)</td></tr>
-<tr class="memdesc:ga192278ace8a8678d2c7e7b31ca04cf90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csch()</code>.  <a href="#ga192278ace8a8678d2c7e7b31ca04cf90">More...</a><br /></td></tr>
-<tr class="separator:ga192278ace8a8678d2c7e7b31ca04cf90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0d0b7f15d5c0e6998f29b7e5e3dd4796"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga0d0b7f15d5c0e6998f29b7e5e3dd4796"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#ga0d0b7f15d5c0e6998f29b7e5e3dd4796">asech</a> (T x)</td></tr>
-<tr class="memdesc:ga0d0b7f15d5c0e6998f29b7e5e3dd4796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sech()</code>.  <a href="#ga0d0b7f15d5c0e6998f29b7e5e3dd4796">More...</a><br /></td></tr>
-<tr class="separator:ga0d0b7f15d5c0e6998f29b7e5e3dd4796"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga513dc06b05820290569f139999209d90"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga513dc06b05820290569f139999209d90"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepr.html#ga513dc06b05820290569f139999209d90">acoth</a> (T x)</td></tr>
-<tr class="memdesc:ga513dc06b05820290569f139999209d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::coth()</code>.  <a href="#ga513dc06b05820290569f139999209d90">More...</a><br /></td></tr>
-<tr class="separator:ga513dc06b05820290569f139999209d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Quadmath wrappers (__float128)</div></td></tr>
+<tr class="memitem:ga4288d30b2377e9b696d241b94150c718"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga4288d30b2377e9b696d241b94150c718"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4288d30b2377e9b696d241b94150c718">fabs</a> (T x)</td></tr>
+<tr class="memdesc:ga4288d30b2377e9b696d241b94150c718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fabsq()</code>.  <a href="group__quadmath.html#ga4288d30b2377e9b696d241b94150c718">More...</a><br /></td></tr>
+<tr class="separator:ga4288d30b2377e9b696d241b94150c718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad86fad3755bbf9f42afac6ad774a2576"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad86fad3755bbf9f42afac6ad774a2576"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gad86fad3755bbf9f42afac6ad774a2576">fma</a> (T x, T y, T z)</td></tr>
+<tr class="memdesc:gad86fad3755bbf9f42afac6ad774a2576"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fmaq()</code>.  <a href="group__quadmath.html#gad86fad3755bbf9f42afac6ad774a2576">More...</a><br /></td></tr>
+<tr class="separator:gad86fad3755bbf9f42afac6ad774a2576"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b4562c6ebe8a39aeb6a49d3d163e4c4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2b4562c6ebe8a39aeb6a49d3d163e4c4"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga2b4562c6ebe8a39aeb6a49d3d163e4c4">fmin</a> (T x, T y)</td></tr>
+<tr class="memdesc:ga2b4562c6ebe8a39aeb6a49d3d163e4c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fminq()</code>.  <a href="group__quadmath.html#ga2b4562c6ebe8a39aeb6a49d3d163e4c4">More...</a><br /></td></tr>
+<tr class="separator:ga2b4562c6ebe8a39aeb6a49d3d163e4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga738bdacb85d39064512a35c056743078"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga738bdacb85d39064512a35c056743078"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga738bdacb85d39064512a35c056743078">fmax</a> (T x, T y)</td></tr>
+<tr class="memdesc:ga738bdacb85d39064512a35c056743078"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fmaxq()</code>.  <a href="group__quadmath.html#ga738bdacb85d39064512a35c056743078">More...</a><br /></td></tr>
+<tr class="separator:ga738bdacb85d39064512a35c056743078"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c08baa13cc68a5196ef73f86903b41a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga4c08baa13cc68a5196ef73f86903b41a"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4c08baa13cc68a5196ef73f86903b41a">fdim</a> (T x, T y)</td></tr>
+<tr class="memdesc:ga4c08baa13cc68a5196ef73f86903b41a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fdimq()</code>.  <a href="group__quadmath.html#ga4c08baa13cc68a5196ef73f86903b41a">More...</a><br /></td></tr>
+<tr class="separator:ga4c08baa13cc68a5196ef73f86903b41a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga77f28bfc8644883324d9b2d2242292c6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga77f28bfc8644883324d9b2d2242292c6"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga77f28bfc8644883324d9b2d2242292c6">fmod</a> (T x, T y)</td></tr>
+<tr class="memdesc:ga77f28bfc8644883324d9b2d2242292c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>fmodq()</code>.  <a href="group__quadmath.html#ga77f28bfc8644883324d9b2d2242292c6">More...</a><br /></td></tr>
+<tr class="separator:ga77f28bfc8644883324d9b2d2242292c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2c77d3cc2eadb7d47dade631f1a089ca"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2c77d3cc2eadb7d47dade631f1a089ca"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga2c77d3cc2eadb7d47dade631f1a089ca">remquo</a> (T x, T y, int *q)</td></tr>
+<tr class="memdesc:ga2c77d3cc2eadb7d47dade631f1a089ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>remquoq()</code>.  <a href="group__quadmath.html#ga2c77d3cc2eadb7d47dade631f1a089ca">More...</a><br /></td></tr>
+<tr class="separator:ga2c77d3cc2eadb7d47dade631f1a089ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9a917463752feb768012970269b173b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab9a917463752feb768012970269b173b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab9a917463752feb768012970269b173b">remainder</a> (T x, T y)</td></tr>
+<tr class="memdesc:gab9a917463752feb768012970269b173b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>remainderq()</code>.  <a href="group__quadmath.html#gab9a917463752feb768012970269b173b">More...</a><br /></td></tr>
+<tr class="separator:gab9a917463752feb768012970269b173b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa773647b19fb32edf6ff0d2af0fc3e09"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaa773647b19fb32edf6ff0d2af0fc3e09"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaa773647b19fb32edf6ff0d2af0fc3e09">nearbyint</a> (T x)</td></tr>
+<tr class="memdesc:gaa773647b19fb32edf6ff0d2af0fc3e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>nearbyintq()</code>.  <a href="group__quadmath.html#gaa773647b19fb32edf6ff0d2af0fc3e09">More...</a><br /></td></tr>
+<tr class="separator:gaa773647b19fb32edf6ff0d2af0fc3e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf9a7ca01a871271a4cc3daf6bd24fc71"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf9a7ca01a871271a4cc3daf6bd24fc71"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaf9a7ca01a871271a4cc3daf6bd24fc71">floor</a> (T x)</td></tr>
+<tr class="memdesc:gaf9a7ca01a871271a4cc3daf6bd24fc71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>floorq()</code>.  <a href="group__quadmath.html#gaf9a7ca01a871271a4cc3daf6bd24fc71">More...</a><br /></td></tr>
+<tr class="separator:gaf9a7ca01a871271a4cc3daf6bd24fc71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6a2ad496dfad5ce8a11de79f9a4e952a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga6a2ad496dfad5ce8a11de79f9a4e952a"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga6a2ad496dfad5ce8a11de79f9a4e952a">ceil</a> (T x)</td></tr>
+<tr class="memdesc:ga6a2ad496dfad5ce8a11de79f9a4e952a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ceilq()</code>.  <a href="group__quadmath.html#ga6a2ad496dfad5ce8a11de79f9a4e952a">More...</a><br /></td></tr>
+<tr class="separator:ga6a2ad496dfad5ce8a11de79f9a4e952a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadae656e69c5c9c0994b6f04ef904ae79"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gadae656e69c5c9c0994b6f04ef904ae79"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gadae656e69c5c9c0994b6f04ef904ae79">trunc</a> (T x)</td></tr>
+<tr class="memdesc:gadae656e69c5c9c0994b6f04ef904ae79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>truncq()</code>.  <a href="group__quadmath.html#gadae656e69c5c9c0994b6f04ef904ae79">More...</a><br /></td></tr>
+<tr class="separator:gadae656e69c5c9c0994b6f04ef904ae79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97374fc18932d6b1d4da4b0178d9e889"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga97374fc18932d6b1d4da4b0178d9e889"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga97374fc18932d6b1d4da4b0178d9e889">round</a> (T x)</td></tr>
+<tr class="memdesc:ga97374fc18932d6b1d4da4b0178d9e889"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>roundq()</code>.  <a href="group__quadmath.html#ga97374fc18932d6b1d4da4b0178d9e889">More...</a><br /></td></tr>
+<tr class="separator:ga97374fc18932d6b1d4da4b0178d9e889"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa8701ce26116d01f8d5eec1ba34109cc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaa8701ce26116d01f8d5eec1ba34109cc"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaa8701ce26116d01f8d5eec1ba34109cc">rint</a> (T x)</td></tr>
+<tr class="memdesc:gaa8701ce26116d01f8d5eec1ba34109cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>rintq()</code>.  <a href="group__quadmath.html#gaa8701ce26116d01f8d5eec1ba34109cc">More...</a><br /></td></tr>
+<tr class="separator:gaa8701ce26116d01f8d5eec1ba34109cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec9e0eeef9b320298c6a59eea465d1f6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaec9e0eeef9b320298c6a59eea465d1f6"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, long &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaec9e0eeef9b320298c6a59eea465d1f6">lrint</a> (T x)</td></tr>
+<tr class="memdesc:gaec9e0eeef9b320298c6a59eea465d1f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>lrintq()</code>.  <a href="group__quadmath.html#gaec9e0eeef9b320298c6a59eea465d1f6">More...</a><br /></td></tr>
+<tr class="separator:gaec9e0eeef9b320298c6a59eea465d1f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf4ab23393c83183844a6900a4d339bbd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf4ab23393c83183844a6900a4d339bbd"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, long long &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaf4ab23393c83183844a6900a4d339bbd">llrint</a> (T x)</td></tr>
+<tr class="memdesc:gaf4ab23393c83183844a6900a4d339bbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>llrintq()</code>.  <a href="group__quadmath.html#gaf4ab23393c83183844a6900a4d339bbd">More...</a><br /></td></tr>
+<tr class="separator:gaf4ab23393c83183844a6900a4d339bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c08fe610253d504c82859a7cfd45e5d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga0c08fe610253d504c82859a7cfd45e5d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, long &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga0c08fe610253d504c82859a7cfd45e5d">lround</a> (T x)</td></tr>
+<tr class="memdesc:ga0c08fe610253d504c82859a7cfd45e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>lroundq()</code>.  <a href="group__quadmath.html#ga0c08fe610253d504c82859a7cfd45e5d">More...</a><br /></td></tr>
+<tr class="separator:ga0c08fe610253d504c82859a7cfd45e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga45d41c5981073e6930f5d81b2b291d3b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga45d41c5981073e6930f5d81b2b291d3b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, long long &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga45d41c5981073e6930f5d81b2b291d3b">llround</a> (T x)</td></tr>
+<tr class="memdesc:ga45d41c5981073e6930f5d81b2b291d3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>llroundq()</code>.  <a href="group__quadmath.html#ga45d41c5981073e6930f5d81b2b291d3b">More...</a><br /></td></tr>
+<tr class="separator:ga45d41c5981073e6930f5d81b2b291d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga69707c6dfd28b5112585a4e8545e7254"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga69707c6dfd28b5112585a4e8545e7254"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga69707c6dfd28b5112585a4e8545e7254">frexp</a> (T x, int *p)</td></tr>
+<tr class="memdesc:ga69707c6dfd28b5112585a4e8545e7254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>frexpq()</code>.  <a href="group__quadmath.html#ga69707c6dfd28b5112585a4e8545e7254">More...</a><br /></td></tr>
+<tr class="separator:ga69707c6dfd28b5112585a4e8545e7254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga405bbf95051fcdc2e9098ff19a44fd41"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga405bbf95051fcdc2e9098ff19a44fd41"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga405bbf95051fcdc2e9098ff19a44fd41">ldexp</a> (T x, int p)</td></tr>
+<tr class="memdesc:ga405bbf95051fcdc2e9098ff19a44fd41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ldexpq()</code>.  <a href="group__quadmath.html#ga405bbf95051fcdc2e9098ff19a44fd41">More...</a><br /></td></tr>
+<tr class="separator:ga405bbf95051fcdc2e9098ff19a44fd41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga50aa151b9c84da8f7fc6dea48df24135"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga50aa151b9c84da8f7fc6dea48df24135"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga50aa151b9c84da8f7fc6dea48df24135">logb</a> (T x)</td></tr>
+<tr class="memdesc:ga50aa151b9c84da8f7fc6dea48df24135"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>logbq()</code>.  <a href="group__quadmath.html#ga50aa151b9c84da8f7fc6dea48df24135">More...</a><br /></td></tr>
+<tr class="separator:ga50aa151b9c84da8f7fc6dea48df24135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2fe45b9ca01ee9e07e9dd5674b60d83f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2fe45b9ca01ee9e07e9dd5674b60d83f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga2fe45b9ca01ee9e07e9dd5674b60d83f">ilogb</a> (T x)</td></tr>
+<tr class="memdesc:ga2fe45b9ca01ee9e07e9dd5674b60d83f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ilogbq()</code>.  <a href="group__quadmath.html#ga2fe45b9ca01ee9e07e9dd5674b60d83f">More...</a><br /></td></tr>
+<tr class="separator:ga2fe45b9ca01ee9e07e9dd5674b60d83f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0db600c0b5394d4464c16e75cdd17496"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga0db600c0b5394d4464c16e75cdd17496"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga0db600c0b5394d4464c16e75cdd17496">scalbn</a> (T x, int p)</td></tr>
+<tr class="memdesc:ga0db600c0b5394d4464c16e75cdd17496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>scalbnq()</code>.  <a href="group__quadmath.html#ga0db600c0b5394d4464c16e75cdd17496">More...</a><br /></td></tr>
+<tr class="separator:ga0db600c0b5394d4464c16e75cdd17496"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae845c14a8f965a013c32061dfa7fbf82"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae845c14a8f965a013c32061dfa7fbf82"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gae845c14a8f965a013c32061dfa7fbf82">scalbln</a> (T x, long p)</td></tr>
+<tr class="memdesc:gae845c14a8f965a013c32061dfa7fbf82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>scalblnq()</code>.  <a href="group__quadmath.html#gae845c14a8f965a013c32061dfa7fbf82">More...</a><br /></td></tr>
+<tr class="separator:gae845c14a8f965a013c32061dfa7fbf82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c022272cd352218e8df45fbf28231dd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5c022272cd352218e8df45fbf28231dd"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga5c022272cd352218e8df45fbf28231dd">modf</a> (T x, T *p)</td></tr>
+<tr class="memdesc:ga5c022272cd352218e8df45fbf28231dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>modfq()</code>.  <a href="group__quadmath.html#ga5c022272cd352218e8df45fbf28231dd">More...</a><br /></td></tr>
+<tr class="separator:ga5c022272cd352218e8df45fbf28231dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5d6e9d5a5e7be7cb81336305fed84d2c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5d6e9d5a5e7be7cb81336305fed84d2c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga5d6e9d5a5e7be7cb81336305fed84d2c">nextafter</a> (T x, T y)</td></tr>
+<tr class="memdesc:ga5d6e9d5a5e7be7cb81336305fed84d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>nextafterq()</code>.  <a href="group__quadmath.html#ga5d6e9d5a5e7be7cb81336305fed84d2c">More...</a><br /></td></tr>
+<tr class="separator:ga5d6e9d5a5e7be7cb81336305fed84d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga119bbfb04172fd72f45f7543574aba4b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga119bbfb04172fd72f45f7543574aba4b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga119bbfb04172fd72f45f7543574aba4b">copysign</a> (T x, T y)</td></tr>
+<tr class="memdesc:ga119bbfb04172fd72f45f7543574aba4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>copysignq()</code>.  <a href="group__quadmath.html#ga119bbfb04172fd72f45f7543574aba4b">More...</a><br /></td></tr>
+<tr class="separator:ga119bbfb04172fd72f45f7543574aba4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd1a6b8a01e35a3e8522a01d66645d1c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gadd1a6b8a01e35a3e8522a01d66645d1c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gadd1a6b8a01e35a3e8522a01d66645d1c">signbit</a> (T x)</td></tr>
+<tr class="memdesc:gadd1a6b8a01e35a3e8522a01d66645d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>signbitq()</code>.  <a href="group__quadmath.html#gadd1a6b8a01e35a3e8522a01d66645d1c">More...</a><br /></td></tr>
+<tr class="separator:gadd1a6b8a01e35a3e8522a01d66645d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f7901c89a25a7aa43049db51852e359"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5f7901c89a25a7aa43049db51852e359"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga5f7901c89a25a7aa43049db51852e359">isnan</a> (T x)</td></tr>
+<tr class="memdesc:ga5f7901c89a25a7aa43049db51852e359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>isnanq()</code>.  <a href="group__quadmath.html#ga5f7901c89a25a7aa43049db51852e359">More...</a><br /></td></tr>
+<tr class="separator:ga5f7901c89a25a7aa43049db51852e359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9f7b0ec4a30bc8ca578764a92582bf61"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga9f7b0ec4a30bc8ca578764a92582bf61"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga9f7b0ec4a30bc8ca578764a92582bf61">isinf</a> (T x)</td></tr>
+<tr class="memdesc:ga9f7b0ec4a30bc8ca578764a92582bf61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>isinfq()</code>.  <a href="group__quadmath.html#ga9f7b0ec4a30bc8ca578764a92582bf61">More...</a><br /></td></tr>
+<tr class="separator:ga9f7b0ec4a30bc8ca578764a92582bf61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaca2d166c1e7f143bcf69936f9a2a35ae"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaca2d166c1e7f143bcf69936f9a2a35ae"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaca2d166c1e7f143bcf69936f9a2a35ae">isfinite</a> (T x)</td></tr>
+<tr class="memdesc:gaca2d166c1e7f143bcf69936f9a2a35ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>finiteq()</code>.  <a href="group__quadmath.html#gaca2d166c1e7f143bcf69936f9a2a35ae">More...</a><br /></td></tr>
+<tr class="separator:gaca2d166c1e7f143bcf69936f9a2a35ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga682d82821d56693781b9b68adb45f307"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga682d82821d56693781b9b68adb45f307"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga682d82821d56693781b9b68adb45f307">exp</a> (T x)</td></tr>
+<tr class="memdesc:ga682d82821d56693781b9b68adb45f307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>expq()</code>.  <a href="group__quadmath.html#ga682d82821d56693781b9b68adb45f307">More...</a><br /></td></tr>
+<tr class="separator:ga682d82821d56693781b9b68adb45f307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga96a775c69ceaed6b26b25a42e419461c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga96a775c69ceaed6b26b25a42e419461c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga96a775c69ceaed6b26b25a42e419461c">log</a> (T x)</td></tr>
+<tr class="memdesc:ga96a775c69ceaed6b26b25a42e419461c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>logq()</code>.  <a href="group__quadmath.html#ga96a775c69ceaed6b26b25a42e419461c">More...</a><br /></td></tr>
+<tr class="separator:ga96a775c69ceaed6b26b25a42e419461c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabcbbe0fb598e0c6e4fd180e7e26f805a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gabcbbe0fb598e0c6e4fd180e7e26f805a"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gabcbbe0fb598e0c6e4fd180e7e26f805a">log2</a> (T x)</td></tr>
+<tr class="memdesc:gabcbbe0fb598e0c6e4fd180e7e26f805a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>log2q()</code>.  <a href="group__quadmath.html#gabcbbe0fb598e0c6e4fd180e7e26f805a">More...</a><br /></td></tr>
+<tr class="separator:gabcbbe0fb598e0c6e4fd180e7e26f805a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga154ba0d6a2288196c0bec11d3bb477a8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga154ba0d6a2288196c0bec11d3bb477a8"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga154ba0d6a2288196c0bec11d3bb477a8">log10</a> (T x)</td></tr>
+<tr class="memdesc:ga154ba0d6a2288196c0bec11d3bb477a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>log10q()</code>.  <a href="group__quadmath.html#ga154ba0d6a2288196c0bec11d3bb477a8">More...</a><br /></td></tr>
+<tr class="separator:ga154ba0d6a2288196c0bec11d3bb477a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0f0f7e710ca70c89ad074bec35c4e841"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga0f0f7e710ca70c89ad074bec35c4e841"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga0f0f7e710ca70c89ad074bec35c4e841">expm1</a> (T x)</td></tr>
+<tr class="memdesc:ga0f0f7e710ca70c89ad074bec35c4e841"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>expm1q()</code>.  <a href="group__quadmath.html#ga0f0f7e710ca70c89ad074bec35c4e841">More...</a><br /></td></tr>
+<tr class="separator:ga0f0f7e710ca70c89ad074bec35c4e841"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadaaf4252cabac5075b38f95aac74665d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gadaaf4252cabac5075b38f95aac74665d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gadaaf4252cabac5075b38f95aac74665d">log1p</a> (T x)</td></tr>
+<tr class="memdesc:gadaaf4252cabac5075b38f95aac74665d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>log1pq()</code>.  <a href="group__quadmath.html#gadaaf4252cabac5075b38f95aac74665d">More...</a><br /></td></tr>
+<tr class="separator:gadaaf4252cabac5075b38f95aac74665d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga48aedbae8552fc0c996c885f452bcd2c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga48aedbae8552fc0c996c885f452bcd2c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga48aedbae8552fc0c996c885f452bcd2c">pow</a> (T x, T y)</td></tr>
+<tr class="memdesc:ga48aedbae8552fc0c996c885f452bcd2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>powq()</code>.  <a href="group__quadmath.html#ga48aedbae8552fc0c996c885f452bcd2c">More...</a><br /></td></tr>
+<tr class="separator:ga48aedbae8552fc0c996c885f452bcd2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf359458a4f28f3eeb9e42e35cc33b831"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf359458a4f28f3eeb9e42e35cc33b831"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaf359458a4f28f3eeb9e42e35cc33b831">sqrt</a> (T x)</td></tr>
+<tr class="memdesc:gaf359458a4f28f3eeb9e42e35cc33b831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>sqrtq()</code>.  <a href="group__quadmath.html#gaf359458a4f28f3eeb9e42e35cc33b831">More...</a><br /></td></tr>
+<tr class="separator:gaf359458a4f28f3eeb9e42e35cc33b831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac59608150c539f1807ee1e36dc1197f6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac59608150c539f1807ee1e36dc1197f6"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gac59608150c539f1807ee1e36dc1197f6">cbrt</a> (T x)</td></tr>
+<tr class="memdesc:gac59608150c539f1807ee1e36dc1197f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cbrtq()</code>.  <a href="group__quadmath.html#gac59608150c539f1807ee1e36dc1197f6">More...</a><br /></td></tr>
+<tr class="separator:gac59608150c539f1807ee1e36dc1197f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab02ab8c1c651c61914c737d7fd510c28"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab02ab8c1c651c61914c737d7fd510c28"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab02ab8c1c651c61914c737d7fd510c28">hypot</a> (T x, T y)</td></tr>
+<tr class="memdesc:gab02ab8c1c651c61914c737d7fd510c28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>hypotq()</code>.  <a href="group__quadmath.html#gab02ab8c1c651c61914c737d7fd510c28">More...</a><br /></td></tr>
+<tr class="separator:gab02ab8c1c651c61914c737d7fd510c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga58dae04e675faa85e15c92a9ad4397c9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga58dae04e675faa85e15c92a9ad4397c9"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga58dae04e675faa85e15c92a9ad4397c9">erf</a> (T x)</td></tr>
+<tr class="memdesc:ga58dae04e675faa85e15c92a9ad4397c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>erfq()</code>.  <a href="group__quadmath.html#ga58dae04e675faa85e15c92a9ad4397c9">More...</a><br /></td></tr>
+<tr class="separator:ga58dae04e675faa85e15c92a9ad4397c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaf37412b5e25b8526380e1521bb888d5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaaf37412b5e25b8526380e1521bb888d5"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaaf37412b5e25b8526380e1521bb888d5">erfc</a> (T x)</td></tr>
+<tr class="memdesc:gaaf37412b5e25b8526380e1521bb888d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>erfcq()</code>.  <a href="group__quadmath.html#gaaf37412b5e25b8526380e1521bb888d5">More...</a><br /></td></tr>
+<tr class="separator:gaaf37412b5e25b8526380e1521bb888d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7fca994d3b6d34a9e107c4fb1fa6875c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga7fca994d3b6d34a9e107c4fb1fa6875c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga7fca994d3b6d34a9e107c4fb1fa6875c">lgamma</a> (T x)</td></tr>
+<tr class="memdesc:ga7fca994d3b6d34a9e107c4fb1fa6875c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>lgammaq()</code>.  <a href="group__quadmath.html#ga7fca994d3b6d34a9e107c4fb1fa6875c">More...</a><br /></td></tr>
+<tr class="separator:ga7fca994d3b6d34a9e107c4fb1fa6875c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad0663a4b757ab99c92f0b8d3206c837e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad0663a4b757ab99c92f0b8d3206c837e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gad0663a4b757ab99c92f0b8d3206c837e">tgamma</a> (T x)</td></tr>
+<tr class="memdesc:gad0663a4b757ab99c92f0b8d3206c837e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>tgammaq()</code>.  <a href="group__quadmath.html#gad0663a4b757ab99c92f0b8d3206c837e">More...</a><br /></td></tr>
+<tr class="separator:gad0663a4b757ab99c92f0b8d3206c837e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad0a1218eb83619281c07361b2345e88a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad0a1218eb83619281c07361b2345e88a"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gad0a1218eb83619281c07361b2345e88a">sin</a> (T x)</td></tr>
+<tr class="memdesc:gad0a1218eb83619281c07361b2345e88a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>sinq()</code>.  <a href="group__quadmath.html#gad0a1218eb83619281c07361b2345e88a">More...</a><br /></td></tr>
+<tr class="separator:gad0a1218eb83619281c07361b2345e88a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab17653c02de8974cea1d9705fc62001a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab17653c02de8974cea1d9705fc62001a"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab17653c02de8974cea1d9705fc62001a">cos</a> (T x)</td></tr>
+<tr class="memdesc:gab17653c02de8974cea1d9705fc62001a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cosq()</code>.  <a href="group__quadmath.html#gab17653c02de8974cea1d9705fc62001a">More...</a><br /></td></tr>
+<tr class="separator:gab17653c02de8974cea1d9705fc62001a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2148408aeb8974e252b2933012fee9e9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2148408aeb8974e252b2933012fee9e9"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga2148408aeb8974e252b2933012fee9e9">tan</a> (T x)</td></tr>
+<tr class="memdesc:ga2148408aeb8974e252b2933012fee9e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>tanq()</code>.  <a href="group__quadmath.html#ga2148408aeb8974e252b2933012fee9e9">More...</a><br /></td></tr>
+<tr class="separator:ga2148408aeb8974e252b2933012fee9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga345f830bd3049c55872bebd2e4a5208e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga345f830bd3049c55872bebd2e4a5208e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga345f830bd3049c55872bebd2e4a5208e">asin</a> (T x)</td></tr>
+<tr class="memdesc:ga345f830bd3049c55872bebd2e4a5208e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>asinq()</code>.  <a href="group__quadmath.html#ga345f830bd3049c55872bebd2e4a5208e">More...</a><br /></td></tr>
+<tr class="separator:ga345f830bd3049c55872bebd2e4a5208e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga477481aba0a6dafc18b517402e1f46cd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga477481aba0a6dafc18b517402e1f46cd"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga477481aba0a6dafc18b517402e1f46cd">acos</a> (T x)</td></tr>
+<tr class="memdesc:ga477481aba0a6dafc18b517402e1f46cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>acosq()</code>.  <a href="group__quadmath.html#ga477481aba0a6dafc18b517402e1f46cd">More...</a><br /></td></tr>
+<tr class="separator:ga477481aba0a6dafc18b517402e1f46cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga972a80e00f0f0a8624e5b03a508eae38"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga972a80e00f0f0a8624e5b03a508eae38"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga972a80e00f0f0a8624e5b03a508eae38">atan</a> (T x)</td></tr>
+<tr class="memdesc:ga972a80e00f0f0a8624e5b03a508eae38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>atanq()</code>.  <a href="group__quadmath.html#ga972a80e00f0f0a8624e5b03a508eae38">More...</a><br /></td></tr>
+<tr class="separator:ga972a80e00f0f0a8624e5b03a508eae38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga002e64354fc793fa65f6fd3beea10d53"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga002e64354fc793fa65f6fd3beea10d53"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga002e64354fc793fa65f6fd3beea10d53">atan2</a> (T y, T x)</td></tr>
+<tr class="memdesc:ga002e64354fc793fa65f6fd3beea10d53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>atan2q()</code>.  <a href="group__quadmath.html#ga002e64354fc793fa65f6fd3beea10d53">More...</a><br /></td></tr>
+<tr class="separator:ga002e64354fc793fa65f6fd3beea10d53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4bfab465f4b80d59020010ac604f1790"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga4bfab465f4b80d59020010ac604f1790"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4bfab465f4b80d59020010ac604f1790">sinh</a> (T x)</td></tr>
+<tr class="memdesc:ga4bfab465f4b80d59020010ac604f1790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>sinhq()</code>.  <a href="group__quadmath.html#ga4bfab465f4b80d59020010ac604f1790">More...</a><br /></td></tr>
+<tr class="separator:ga4bfab465f4b80d59020010ac604f1790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5418d0c8f05f2ddae4a2145b9b68ba3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad5418d0c8f05f2ddae4a2145b9b68ba3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gad5418d0c8f05f2ddae4a2145b9b68ba3">cosh</a> (T x)</td></tr>
+<tr class="memdesc:gad5418d0c8f05f2ddae4a2145b9b68ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>coshq()</code>.  <a href="group__quadmath.html#gad5418d0c8f05f2ddae4a2145b9b68ba3">More...</a><br /></td></tr>
+<tr class="separator:gad5418d0c8f05f2ddae4a2145b9b68ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae7574af2c1df0d777e8c48305c8dee85"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae7574af2c1df0d777e8c48305c8dee85"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gae7574af2c1df0d777e8c48305c8dee85">tanh</a> (T x)</td></tr>
+<tr class="memdesc:gae7574af2c1df0d777e8c48305c8dee85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>tanhq()</code>.  <a href="group__quadmath.html#gae7574af2c1df0d777e8c48305c8dee85">More...</a><br /></td></tr>
+<tr class="separator:gae7574af2c1df0d777e8c48305c8dee85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae1ed2dae7e226fa06ba7e9c7ba54d05a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae1ed2dae7e226fa06ba7e9c7ba54d05a"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gae1ed2dae7e226fa06ba7e9c7ba54d05a">asinh</a> (T x)</td></tr>
+<tr class="memdesc:gae1ed2dae7e226fa06ba7e9c7ba54d05a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>asinhq()</code>.  <a href="group__quadmath.html#gae1ed2dae7e226fa06ba7e9c7ba54d05a">More...</a><br /></td></tr>
+<tr class="separator:gae1ed2dae7e226fa06ba7e9c7ba54d05a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf3ac1732917a234b889d0a6b074fab1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gadf3ac1732917a234b889d0a6b074fab1"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gadf3ac1732917a234b889d0a6b074fab1">acosh</a> (T x)</td></tr>
+<tr class="memdesc:gadf3ac1732917a234b889d0a6b074fab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>acoshq()</code>.  <a href="group__quadmath.html#gadf3ac1732917a234b889d0a6b074fab1">More...</a><br /></td></tr>
+<tr class="separator:gadf3ac1732917a234b889d0a6b074fab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7747ec637117d6a54c2b7642f402815"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad7747ec637117d6a54c2b7642f402815"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gad7747ec637117d6a54c2b7642f402815">atanh</a> (T x)</td></tr>
+<tr class="memdesc:gad7747ec637117d6a54c2b7642f402815"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>atanhq()</code>.  <a href="group__quadmath.html#gad7747ec637117d6a54c2b7642f402815">More...</a><br /></td></tr>
+<tr class="separator:gad7747ec637117d6a54c2b7642f402815"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Quadmath wrappers (__complex128)</div></td></tr>
+<tr class="memitem:ga2ed599bcc8229e5cd3ce2e2fd8afb6f2"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga2ed599bcc8229e5cd3ce2e2fd8afb6f2"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, __float128 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga2ed599bcc8229e5cd3ce2e2fd8afb6f2">abs</a> (U x)</td></tr>
+<tr class="memdesc:ga2ed599bcc8229e5cd3ce2e2fd8afb6f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cabsq()</code>.  <a href="group__quadmath.html#ga2ed599bcc8229e5cd3ce2e2fd8afb6f2">More...</a><br /></td></tr>
+<tr class="separator:ga2ed599bcc8229e5cd3ce2e2fd8afb6f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e1acdb4ff245ecd69b3b195f0d49bbf"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga0e1acdb4ff245ecd69b3b195f0d49bbf"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, __float128 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga0e1acdb4ff245ecd69b3b195f0d49bbf">arg</a> (U x)</td></tr>
+<tr class="memdesc:ga0e1acdb4ff245ecd69b3b195f0d49bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cargq()</code>.  <a href="group__quadmath.html#ga0e1acdb4ff245ecd69b3b195f0d49bbf">More...</a><br /></td></tr>
+<tr class="separator:ga0e1acdb4ff245ecd69b3b195f0d49bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8029dd9d849d6143b56e82644389ee53"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga8029dd9d849d6143b56e82644389ee53"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, __float128 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga8029dd9d849d6143b56e82644389ee53">real</a> (U x)</td></tr>
+<tr class="memdesc:ga8029dd9d849d6143b56e82644389ee53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>crealq()</code>.  <a href="group__quadmath.html#ga8029dd9d849d6143b56e82644389ee53">More...</a><br /></td></tr>
+<tr class="separator:ga8029dd9d849d6143b56e82644389ee53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga477edf32144d63d668b32c68b9f52fba"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga477edf32144d63d668b32c68b9f52fba"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, __float128 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga477edf32144d63d668b32c68b9f52fba">imag</a> (U x)</td></tr>
+<tr class="memdesc:ga477edf32144d63d668b32c68b9f52fba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cimagq()</code>.  <a href="group__quadmath.html#ga477edf32144d63d668b32c68b9f52fba">More...</a><br /></td></tr>
+<tr class="separator:ga477edf32144d63d668b32c68b9f52fba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a90f06cc79860902bf73f1c44012210"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga3a90f06cc79860902bf73f1c44012210"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga3a90f06cc79860902bf73f1c44012210">conj</a> (U x)</td></tr>
+<tr class="memdesc:ga3a90f06cc79860902bf73f1c44012210"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>conjq()</code>.  <a href="group__quadmath.html#ga3a90f06cc79860902bf73f1c44012210">More...</a><br /></td></tr>
+<tr class="separator:ga3a90f06cc79860902bf73f1c44012210"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9ced2991e3da6c7bf10c43c36992918b"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga9ced2991e3da6c7bf10c43c36992918b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga9ced2991e3da6c7bf10c43c36992918b">proj</a> (U x)</td></tr>
+<tr class="memdesc:ga9ced2991e3da6c7bf10c43c36992918b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cprojq()</code>.  <a href="group__quadmath.html#ga9ced2991e3da6c7bf10c43c36992918b">More...</a><br /></td></tr>
+<tr class="separator:ga9ced2991e3da6c7bf10c43c36992918b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab815a0c73ab72771e85a6b704d1da09c"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:gab815a0c73ab72771e85a6b704d1da09c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab815a0c73ab72771e85a6b704d1da09c">exp</a> (U x)</td></tr>
+<tr class="memdesc:gab815a0c73ab72771e85a6b704d1da09c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cexpq()</code>.  <a href="group__quadmath.html#gab815a0c73ab72771e85a6b704d1da09c">More...</a><br /></td></tr>
+<tr class="separator:gab815a0c73ab72771e85a6b704d1da09c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga210625f456686b63f74a12f44924d1b4"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga210625f456686b63f74a12f44924d1b4"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga210625f456686b63f74a12f44924d1b4">log</a> (U x)</td></tr>
+<tr class="memdesc:ga210625f456686b63f74a12f44924d1b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>clogq()</code>.  <a href="group__quadmath.html#ga210625f456686b63f74a12f44924d1b4">More...</a><br /></td></tr>
+<tr class="separator:ga210625f456686b63f74a12f44924d1b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga85b3327874e6d985d2c27d3f4f8edc3d"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga85b3327874e6d985d2c27d3f4f8edc3d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga85b3327874e6d985d2c27d3f4f8edc3d">log10</a> (U x)</td></tr>
+<tr class="memdesc:ga85b3327874e6d985d2c27d3f4f8edc3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>clog10q()</code>.  <a href="group__quadmath.html#ga85b3327874e6d985d2c27d3f4f8edc3d">More...</a><br /></td></tr>
+<tr class="separator:ga85b3327874e6d985d2c27d3f4f8edc3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga873a0522b4be4764b26c73d6d858af5e"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga873a0522b4be4764b26c73d6d858af5e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga873a0522b4be4764b26c73d6d858af5e">pow</a> (U x, U y)</td></tr>
+<tr class="memdesc:ga873a0522b4be4764b26c73d6d858af5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cpowq()</code>.  <a href="group__quadmath.html#ga873a0522b4be4764b26c73d6d858af5e">More...</a><br /></td></tr>
+<tr class="separator:ga873a0522b4be4764b26c73d6d858af5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e170c216220ca490f2295f5111134bc"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga5e170c216220ca490f2295f5111134bc"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga5e170c216220ca490f2295f5111134bc">sqrt</a> (U x)</td></tr>
+<tr class="memdesc:ga5e170c216220ca490f2295f5111134bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>csqrtq()</code>.  <a href="group__quadmath.html#ga5e170c216220ca490f2295f5111134bc">More...</a><br /></td></tr>
+<tr class="separator:ga5e170c216220ca490f2295f5111134bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaefb467de83fa6e1ad376cab5fc8e1b1d"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:gaefb467de83fa6e1ad376cab5fc8e1b1d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaefb467de83fa6e1ad376cab5fc8e1b1d">sin</a> (U x)</td></tr>
+<tr class="memdesc:gaefb467de83fa6e1ad376cab5fc8e1b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>csinq()</code>.  <a href="group__quadmath.html#gaefb467de83fa6e1ad376cab5fc8e1b1d">More...</a><br /></td></tr>
+<tr class="separator:gaefb467de83fa6e1ad376cab5fc8e1b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga678ef4770364e21de7b72c5d21f88972"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga678ef4770364e21de7b72c5d21f88972"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga678ef4770364e21de7b72c5d21f88972">cos</a> (U x)</td></tr>
+<tr class="memdesc:ga678ef4770364e21de7b72c5d21f88972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ccosq()</code>.  <a href="group__quadmath.html#ga678ef4770364e21de7b72c5d21f88972">More...</a><br /></td></tr>
+<tr class="separator:ga678ef4770364e21de7b72c5d21f88972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1f8db8e220dfec17679b96996fa960d6"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga1f8db8e220dfec17679b96996fa960d6"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga1f8db8e220dfec17679b96996fa960d6">tan</a> (U x)</td></tr>
+<tr class="memdesc:ga1f8db8e220dfec17679b96996fa960d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ctanq()</code>.  <a href="group__quadmath.html#ga1f8db8e220dfec17679b96996fa960d6">More...</a><br /></td></tr>
+<tr class="separator:ga1f8db8e220dfec17679b96996fa960d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb4fcbd5ed5c6a5d58472a9050087ab6"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:gabb4fcbd5ed5c6a5d58472a9050087ab6"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gabb4fcbd5ed5c6a5d58472a9050087ab6">asin</a> (U x)</td></tr>
+<tr class="memdesc:gabb4fcbd5ed5c6a5d58472a9050087ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>casinq()</code>.  <a href="group__quadmath.html#gabb4fcbd5ed5c6a5d58472a9050087ab6">More...</a><br /></td></tr>
+<tr class="separator:gabb4fcbd5ed5c6a5d58472a9050087ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga595452c5b492e04fb1660ef84a03cf56"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga595452c5b492e04fb1660ef84a03cf56"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga595452c5b492e04fb1660ef84a03cf56">acos</a> (U x)</td></tr>
+<tr class="memdesc:ga595452c5b492e04fb1660ef84a03cf56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cacosq()</code>.  <a href="group__quadmath.html#ga595452c5b492e04fb1660ef84a03cf56">More...</a><br /></td></tr>
+<tr class="separator:ga595452c5b492e04fb1660ef84a03cf56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa9e3efb3c3b1f88eea9c4e11af885fe0"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:gaa9e3efb3c3b1f88eea9c4e11af885fe0"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaa9e3efb3c3b1f88eea9c4e11af885fe0">atan</a> (U x)</td></tr>
+<tr class="memdesc:gaa9e3efb3c3b1f88eea9c4e11af885fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>catanq()</code>.  <a href="group__quadmath.html#gaa9e3efb3c3b1f88eea9c4e11af885fe0">More...</a><br /></td></tr>
+<tr class="separator:gaa9e3efb3c3b1f88eea9c4e11af885fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga760bec0abb4646ab150ab7a07293374d"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga760bec0abb4646ab150ab7a07293374d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga760bec0abb4646ab150ab7a07293374d">sinh</a> (U x)</td></tr>
+<tr class="memdesc:ga760bec0abb4646ab150ab7a07293374d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>csinhq()</code>.  <a href="group__quadmath.html#ga760bec0abb4646ab150ab7a07293374d">More...</a><br /></td></tr>
+<tr class="separator:ga760bec0abb4646ab150ab7a07293374d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga37f032f733826e2449fbafbb87b8e93e"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga37f032f733826e2449fbafbb87b8e93e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga37f032f733826e2449fbafbb87b8e93e">cosh</a> (U x)</td></tr>
+<tr class="memdesc:ga37f032f733826e2449fbafbb87b8e93e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ccoshq()</code>.  <a href="group__quadmath.html#ga37f032f733826e2449fbafbb87b8e93e">More...</a><br /></td></tr>
+<tr class="separator:ga37f032f733826e2449fbafbb87b8e93e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga24ae267fd0c10742cf46c83334580e03"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga24ae267fd0c10742cf46c83334580e03"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga24ae267fd0c10742cf46c83334580e03">tanh</a> (U x)</td></tr>
+<tr class="memdesc:ga24ae267fd0c10742cf46c83334580e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>ctanhq()</code>.  <a href="group__quadmath.html#ga24ae267fd0c10742cf46c83334580e03">More...</a><br /></td></tr>
+<tr class="separator:ga24ae267fd0c10742cf46c83334580e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8698840815c578334f2393795dd6a1f"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:gad8698840815c578334f2393795dd6a1f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gad8698840815c578334f2393795dd6a1f">asinh</a> (U x)</td></tr>
+<tr class="memdesc:gad8698840815c578334f2393795dd6a1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>casinhq()</code>.  <a href="group__quadmath.html#gad8698840815c578334f2393795dd6a1f">More...</a><br /></td></tr>
+<tr class="separator:gad8698840815c578334f2393795dd6a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4ca81a217755adc160054fcdb0818739"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga4ca81a217755adc160054fcdb0818739"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4ca81a217755adc160054fcdb0818739">acosh</a> (U x)</td></tr>
+<tr class="memdesc:ga4ca81a217755adc160054fcdb0818739"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>cacoshq()</code>.  <a href="group__quadmath.html#ga4ca81a217755adc160054fcdb0818739">More...</a><br /></td></tr>
+<tr class="separator:ga4ca81a217755adc160054fcdb0818739"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2306180c552010abc08a7f071c4ee2ed"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ga2306180c552010abc08a7f071c4ee2ed"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; U, __complex128 &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga2306180c552010abc08a7f071c4ee2ed">atanh</a> (U x)</td></tr>
+<tr class="memdesc:ga2306180c552010abc08a7f071c4ee2ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>catanhq()</code>.  <a href="group__quadmath.html#ga2306180c552010abc08a7f071c4ee2ed">More...</a><br /></td></tr>
+<tr class="separator:ga2306180c552010abc08a7f071c4ee2ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Reciprocal trigonometric functions (__float128/__complex128)</div></td></tr>
+<tr class="memitem:gaaa6eca9a4ce9afcf54ccb6f0b6317ef5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaaa6eca9a4ce9afcf54ccb6f0b6317ef5"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gaaa6eca9a4ce9afcf54ccb6f0b6317ef5">csc</a> (T x)</td></tr>
+<tr class="memdesc:gaaa6eca9a4ce9afcf54ccb6f0b6317ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sin()</code>.  <a href="group__quadmath.html#gaaa6eca9a4ce9afcf54ccb6f0b6317ef5">More...</a><br /></td></tr>
+<tr class="separator:gaaa6eca9a4ce9afcf54ccb6f0b6317ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0930cae0a9decbd9d948e4c86a7b5e89"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga0930cae0a9decbd9d948e4c86a7b5e89"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga0930cae0a9decbd9d948e4c86a7b5e89">sec</a> (T x)</td></tr>
+<tr class="memdesc:ga0930cae0a9decbd9d948e4c86a7b5e89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cos()</code>.  <a href="group__quadmath.html#ga0930cae0a9decbd9d948e4c86a7b5e89">More...</a><br /></td></tr>
+<tr class="separator:ga0930cae0a9decbd9d948e4c86a7b5e89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga48bb3ec8f723f18c182a5436c9270b5b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga48bb3ec8f723f18c182a5436c9270b5b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga48bb3ec8f723f18c182a5436c9270b5b">cot</a> (T x)</td></tr>
+<tr class="memdesc:ga48bb3ec8f723f18c182a5436c9270b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tan()</code>.  <a href="group__quadmath.html#ga48bb3ec8f723f18c182a5436c9270b5b">More...</a><br /></td></tr>
+<tr class="separator:ga48bb3ec8f723f18c182a5436c9270b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8013a0593aab5414c6747edd146e7ab"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae8013a0593aab5414c6747edd146e7ab"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gae8013a0593aab5414c6747edd146e7ab">csch</a> (T x)</td></tr>
+<tr class="memdesc:gae8013a0593aab5414c6747edd146e7ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::sinh()</code>.  <a href="group__quadmath.html#gae8013a0593aab5414c6747edd146e7ab">More...</a><br /></td></tr>
+<tr class="separator:gae8013a0593aab5414c6747edd146e7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga86c1058cc1a09b9e4d93b89bd4b81482"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga86c1058cc1a09b9e4d93b89bd4b81482"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga86c1058cc1a09b9e4d93b89bd4b81482">sech</a> (T x)</td></tr>
+<tr class="memdesc:ga86c1058cc1a09b9e4d93b89bd4b81482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::cosh()</code>.  <a href="group__quadmath.html#ga86c1058cc1a09b9e4d93b89bd4b81482">More...</a><br /></td></tr>
+<tr class="separator:ga86c1058cc1a09b9e4d93b89bd4b81482"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbaf59977f430bd51ff5932b03ec7781"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gabbaf59977f430bd51ff5932b03ec7781"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gabbaf59977f430bd51ff5932b03ec7781">coth</a> (T x)</td></tr>
+<tr class="memdesc:gabbaf59977f430bd51ff5932b03ec7781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reciprocal of <code>pr::tanh()</code>.  <a href="group__quadmath.html#gabbaf59977f430bd51ff5932b03ec7781">More...</a><br /></td></tr>
+<tr class="separator:gabbaf59977f430bd51ff5932b03ec7781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc32f6f4bab155c761be129aab1fa174"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gabc32f6f4bab155c761be129aab1fa174"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gabc32f6f4bab155c761be129aab1fa174">acsc</a> (T x)</td></tr>
+<tr class="memdesc:gabc32f6f4bab155c761be129aab1fa174"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csc()</code>.  <a href="group__quadmath.html#gabc32f6f4bab155c761be129aab1fa174">More...</a><br /></td></tr>
+<tr class="separator:gabc32f6f4bab155c761be129aab1fa174"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81b1556ca431107fd2fb96ecacfb1e0e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga81b1556ca431107fd2fb96ecacfb1e0e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga81b1556ca431107fd2fb96ecacfb1e0e">asec</a> (T x)</td></tr>
+<tr class="memdesc:ga81b1556ca431107fd2fb96ecacfb1e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sec()</code>.  <a href="group__quadmath.html#ga81b1556ca431107fd2fb96ecacfb1e0e">More...</a><br /></td></tr>
+<tr class="separator:ga81b1556ca431107fd2fb96ecacfb1e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga51d74ef0dbdd88ef2267616a3343d3b2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga51d74ef0dbdd88ef2267616a3343d3b2"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga51d74ef0dbdd88ef2267616a3343d3b2">acot</a> (T x)</td></tr>
+<tr class="memdesc:ga51d74ef0dbdd88ef2267616a3343d3b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::cot()</code>.  <a href="group__quadmath.html#ga51d74ef0dbdd88ef2267616a3343d3b2">More...</a><br /></td></tr>
+<tr class="separator:ga51d74ef0dbdd88ef2267616a3343d3b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab38bb8cd56dc4ce05e3f078c824f0d9f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab38bb8cd56dc4ce05e3f078c824f0d9f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gab38bb8cd56dc4ce05e3f078c824f0d9f">acsch</a> (T x)</td></tr>
+<tr class="memdesc:gab38bb8cd56dc4ce05e3f078c824f0d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::csch()</code>.  <a href="group__quadmath.html#gab38bb8cd56dc4ce05e3f078c824f0d9f">More...</a><br /></td></tr>
+<tr class="separator:gab38bb8cd56dc4ce05e3f078c824f0d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac66956ae9563d93e4e5059f0c5f9fc3a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac66956ae9563d93e4e5059f0c5f9fc3a"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#gac66956ae9563d93e4e5059f0c5f9fc3a">asech</a> (T x)</td></tr>
+<tr class="memdesc:gac66956ae9563d93e4e5059f0c5f9fc3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::sech()</code>.  <a href="group__quadmath.html#gac66956ae9563d93e4e5059f0c5f9fc3a">More...</a><br /></td></tr>
+<tr class="separator:gac66956ae9563d93e4e5059f0c5f9fc3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c23ec9826d095a0aa4ffa941ddba4a3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga7c23ec9826d095a0aa4ffa941ddba4a3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value||std::is_same&lt; T, __complex128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga7c23ec9826d095a0aa4ffa941ddba4a3">acoth</a> (T x)</td></tr>
+<tr class="memdesc:ga7c23ec9826d095a0aa4ffa941ddba4a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse of <code>pr::coth()</code>.  <a href="group__quadmath.html#ga7c23ec9826d095a0aa4ffa941ddba4a3">More...</a><br /></td></tr>
+<tr class="separator:ga7c23ec9826d095a0aa4ffa941ddba4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Complex accessors (dualnum)</h2></td></tr>
@@ -1713,367 +1656,6 @@ Complex accessors (dualnum)</h2></td></tr>
 <tr class="memdesc:ga5651748b3dd64a14987cb0f67780b020"><td class="mdescLeft">&#160;</td><td class="mdescRight">Norm square.  <a href="group__dualnum.html#ga5651748b3dd64a14987cb0f67780b020">More...</a><br /></td></tr>
 <tr class="separator:ga5651748b3dd64a14987cb0f67780b020"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="gac451162390575f29aac150fafb5a2ffa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac451162390575f29aac150fafb5a2ffa">&#9670;&nbsp;</a></span>csc()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::csc </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reciprocal of <code>pr::sin()</code>. </p>
-
-</div>
-</div>
-<a id="ga16b390b276b074062f3dd30df4aa37bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga16b390b276b074062f3dd30df4aa37bd">&#9670;&nbsp;</a></span>sec()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::sec </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reciprocal of <code>pr::cos()</code>. </p>
-
-</div>
-</div>
-<a id="ga205f8ad6e347e42ff5f7e36c54397b82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga205f8ad6e347e42ff5f7e36c54397b82">&#9670;&nbsp;</a></span>cot()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::cot </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reciprocal of <code>pr::tan()</code>. </p>
-
-</div>
-</div>
-<a id="gab8386b0bde60964baccb3b1f5f3ba343"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab8386b0bde60964baccb3b1f5f3ba343">&#9670;&nbsp;</a></span>csch()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::csch </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reciprocal of <code>pr::sinh()</code>. </p>
-
-</div>
-</div>
-<a id="gac0f4750db26b93a2f0d785b644cc2b70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac0f4750db26b93a2f0d785b644cc2b70">&#9670;&nbsp;</a></span>sech()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::sech </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reciprocal of <code>pr::cosh()</code>. </p>
-
-</div>
-</div>
-<a id="gab68e549e0bfc2f23aed7ad89065c74e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab68e549e0bfc2f23aed7ad89065c74e8">&#9670;&nbsp;</a></span>coth()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::coth </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reciprocal of <code>pr::tanh()</code>. </p>
-
-</div>
-</div>
-<a id="ga41d5122659e4322851d75ce0cdf8b8d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga41d5122659e4322851d75ce0cdf8b8d6">&#9670;&nbsp;</a></span>acsc()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::acsc </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Inverse of <code>pr::csc()</code>. </p>
-
-</div>
-</div>
-<a id="gadc6b68e0ffa632d5bc5178c9ebd2eac0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadc6b68e0ffa632d5bc5178c9ebd2eac0">&#9670;&nbsp;</a></span>asec()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::asec </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Inverse of <code>pr::sec()</code>. </p>
-
-</div>
-</div>
-<a id="ga6fe6e3eff02b7255a31ccf071abae057"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6fe6e3eff02b7255a31ccf071abae057">&#9670;&nbsp;</a></span>acot()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::acot </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Inverse of <code>pr::cot()</code>. </p>
-
-</div>
-</div>
-<a id="ga192278ace8a8678d2c7e7b31ca04cf90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga192278ace8a8678d2c7e7b31ca04cf90">&#9670;&nbsp;</a></span>acsch()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::acsch </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Inverse of <code>pr::csch()</code>. </p>
-
-</div>
-</div>
-<a id="ga0d0b7f15d5c0e6998f29b7e5e3dd4796"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0d0b7f15d5c0e6998f29b7e5e3dd4796">&#9670;&nbsp;</a></span>asech()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::asech </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Inverse of <code>pr::sech()</code>. </p>
-
-</div>
-</div>
-<a id="ga513dc06b05820290569f139999209d90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga513dc06b05820290569f139999209d90">&#9670;&nbsp;</a></span>acoth()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__quadmath.html#ga8728d82691ddb6c959428f16df9ef4de">enable_complex128</a>&lt;T&gt;::type pr::acoth </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Inverse of <code>pr::coth()</code>. </p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
