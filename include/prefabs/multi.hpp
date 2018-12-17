@@ -57,6 +57,8 @@ namespace pr {
 
 /**
  * @defgroup multi Multi-dimensional arrays
+ *
+ * `<prefabs/multi.hpp>`
  */
 /**@{*/
 
@@ -820,7 +822,7 @@ public:
     /**
      * @brief Parse from `std::basic_istream`.
      *
-     * Format is `[val1, val2, ...]`.
+     * Format is `[v0,v1,...]`.
      * Sets `std::ios_base::failbit` on error.
      */
     template <typename Char, typename Traits>
@@ -858,7 +860,7 @@ public:
     /**
      * @brief Write into `std::basic_ostream`.
      *
-     * Format is `[val1, val2, ...]`.
+     * Format is `[v0,v1,...]`.
      */
     template <typename Char, typename Traits>
     friend
@@ -870,7 +872,6 @@ public:
         os << *itr++;
         while (itr < arr.end()) {
             os << ',';
-            os << ' ';
             os << *itr++;
         }
         os << ']'; 
@@ -882,7 +883,7 @@ public:
 
 /**@}*/
 
-#include <prefabs/multi.inl>
+#include "multi.inl"
 
 } // namespace pr
 

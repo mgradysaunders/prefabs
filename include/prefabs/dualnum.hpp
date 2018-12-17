@@ -30,6 +30,11 @@
 #ifndef PREFABS_DUALNUM_HPP
 #define PREFABS_DUALNUM_HPP
 
+// use c++17
+#if !(__cplusplus >= 201703L) 
+#error "prefabs/dualnum.hpp requires C++17"
+#endif // #if !(__cplusplus >= 201703L) 
+
 // for std::basic_istream
 #include <istream>
 
@@ -42,6 +47,8 @@ namespace pr {
 
 /**
  * @defgroup dualnum Dual numbers
+ *
+ * `<prefabs/dualnum.hpp>`
  */
 /**@{*/
 
@@ -85,25 +92,22 @@ public:
     /**
      * @brief Default constructor.
      */
-    constexpr dualnum() noexcept(noexcept(T())) = default;
+    constexpr dualnum() = default;
 
     /**
      * @brief Default copy constructor.
      */
-    constexpr dualnum(const dualnum&) 
-                    noexcept(noexcept(T(std::declval<const T&>()))) = default;
+    constexpr dualnum(const dualnum&) = default;
 
     /**
      * @brief Default move constructor.
      */
-    constexpr dualnum(dualnum&&) 
-                    noexcept(noexcept(T(std::declval<T&&>()))) = default;
+    constexpr dualnum(dualnum&&) = default;
 
     /**
      * @brief Constructor.
      */
-    constexpr dualnum(T a, T b = T()) 
-                    noexcept(noexcept(T(T()))) : a_(a), b_(b)
+    constexpr dualnum(T a, T b = T()) : a_(a), b_(b)
     {
     }
 
@@ -199,7 +203,7 @@ public:
     /**
      * @brief Parse from `std::basic_istream`.
      *
-     * Format is `(a, b)`. Sets `std::ios_base::failbit` on error.
+     * Format is `(a,b)`. Sets `std::ios_base::failbit` on error.
      */
     template <typename Char, typename Traits>
     friend
@@ -233,7 +237,7 @@ public:
     /**
      * @brief Write into `std::basic_ostream`.
      *
-     * Format is `(a, b)`.
+     * Format is `(a,b)`.
      */
     template <typename Char, typename Traits>
     friend
@@ -241,7 +245,7 @@ public:
            std::basic_ostream<Char, Traits>& os, const dualnum& x)
     {
         os << '(';
-        os << x.a_ << ',' << ' ';
+        os << x.a_ << ',';
         os << x.b_ << ')';
         return os;
     }
@@ -701,7 +705,7 @@ constexpr auto norm(const dualnum<T>& x)
 
 /**@}*/
 
-#include <prefabs/dualnum.inl>
+#include "dualnum.inl"
 
 } // namespace pr
 
