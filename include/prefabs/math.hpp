@@ -166,7 +166,7 @@ struct numeric_constants
     }
 
     /**
-     * @brief @f$ sqrt{2} @f$.
+     * @brief @f$ \sqrt{2} @f$.
      */
     static constexpr T M_sqrt2() noexcept
     {
@@ -174,7 +174,7 @@ struct numeric_constants
     }
 
     /**
-     * @brief @f$ sqrt{1/2} @f$.
+     * @brief @f$ \sqrt{1/2} @f$.
      */
     static constexpr T M_sqrt1_2() noexcept
     {
@@ -298,7 +298,7 @@ constexpr T nthpow(T x, int n)
 
 /**@}*/
 
-#include <prefabs/math.inl>
+#include "math.inl"
 
 } // namespace pr
 

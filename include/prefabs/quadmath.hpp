@@ -67,7 +67,7 @@ using enable_complex128 =
 
 /**@}*/
 
-#include <prefabs/quadmath.inl>
+#include "quadmath.inl"
 
 /**
  * @addtogroup quadmath
