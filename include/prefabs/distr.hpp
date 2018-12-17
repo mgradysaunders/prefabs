@@ -248,7 +248,7 @@ struct exponential_distribution
 };
 
 /**
- * @brief Approximate error function inverse.
+ * @brief Error function inverse.
  */
 template <typename T>
 inline std::enable_if_t<std::is_floating_point<T>::value, T> erfinv(T y)
