@@ -1094,6 +1094,46 @@ constexpr multi<decltype(T() >= U()), N...>
     return res;
 }
 
+/**
+ * @brief Distribute `operator&&`.
+ */
+template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
+constexpr multi<decltype(T() && U()), N...> 
+                operator&&(
+                    const multi<T, N...>& arr0, 
+                    const multi<U, N...>& arr1)
+{
+    multi<decltype(T() && U()), N...> res;
+    auto itrarr0 = arr0.begin();
+    auto itrarr1 = arr1.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrarr0, ++itrarr1, ++itrres) {
+        *itrres = *itrarr0 && *itrarr1;
+    }
+    return res;
+}
+
+/**
+ * @brief Distribute `operator||`.
+ */
+template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
+constexpr multi<decltype(T() || U()), N...> 
+                operator||(
+                    const multi<T, N...>& arr0, 
+                    const multi<U, N...>& arr1)
+{
+    multi<decltype(T() || U()), N...> res;
+    auto itrarr0 = arr0.begin();
+    auto itrarr1 = arr1.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrarr0, ++itrarr1, ++itrres) {
+        *itrres = *itrarr0 || *itrarr1;
+    }
+    return res;
+}
+
 /**@}*/
 
 /**
@@ -1209,6 +1249,42 @@ constexpr std::enable_if_t<!is_multi<U>::value,
     return res;
 }
 
+/**
+ * @brief Distribute `operator<<`.
+ */
+template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
+constexpr std::enable_if_t<!is_multi<U>::value, 
+    multi<decltype(T() && U()), N...>> operator&&(
+                        const multi<T, N...>& arr, const U& val) 
+{
+    multi<decltype(T() && U()), N...> res;
+    auto itrarr = arr.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrarr, ++itrres) {
+        *itrres = *itrarr && val;
+    }
+    return res;
+}
+
+/**
+ * @brief Distribute `operator<<`.
+ */
+template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
+constexpr std::enable_if_t<!is_multi<U>::value, 
+    multi<decltype(T() || U()), N...>> operator||(
+                        const multi<T, N...>& arr, const U& val) 
+{
+    multi<decltype(T() || U()), N...> res;
+    auto itrarr = arr.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrarr, ++itrres) {
+        *itrres = *itrarr || val;
+    }
+    return res;
+}
+
 /**@}*/
 
 /**
@@ -1320,6 +1396,42 @@ constexpr std::enable_if_t<!is_multi<T>::value,
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrarr, ++itrres) {
         *itrres = val >= *itrarr;
+    }
+    return res;
+}
+
+/**
+ * @brief Distribute `operator&&`.
+ */
+template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
+constexpr std::enable_if_t<!is_multi<T>::value, 
+    multi<decltype(T() && U()), N...>> operator&&(
+                        const T& val, const multi<U, N...>& arr) 
+{
+    multi<decltype(T() && U()), N...> res;
+    auto itrarr = arr.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrarr, ++itrres) {
+        *itrres = val && *itrarr;
+    }
+    return res;
+}
+
+/**
+ * @brief Distribute `operator||`.
+ */
+template <typename T, typename U, std::size_t... N>
+__attribute__((always_inline))
+constexpr std::enable_if_t<!is_multi<T>::value, 
+    multi<decltype(T() || U()), N...>> operator||(
+                        const T& val, const multi<U, N...>& arr) 
+{
+    multi<decltype(T() || U()), N...> res;
+    auto itrarr = arr.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrarr, ++itrres) {
+        *itrres = val || *itrarr;
     }
     return res;
 }
