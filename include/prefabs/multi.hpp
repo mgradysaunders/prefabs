@@ -179,6 +179,11 @@ public:
     typedef T entry_type;
 
     /**
+     * @brief Flatten type.
+     */
+    typedef multi<T, (M * ... * N)> flatten_type;
+
+    /**
      * @brief Rebind entry type.
      */
     template <typename U>
@@ -705,15 +710,15 @@ public:
     /**
      * @brief Entry initializer.
      */
-    static constexpr multi value(const entry_type& val)
+    static constexpr multi value(const T& ent)
     {
-        return multi().fill(val);
+        return multi().fill(ent);
     }
 
     /**
      * @brief Entry array initializer.
      */
-    static constexpr multi array(const entry_type* pos)
+    static constexpr multi array(const T* pos)
     {
         return multi().fill(pos);
     }
@@ -721,26 +726,17 @@ public:
     /**
      * @brief Flatten.
      */
-    constexpr multi<T, total_size()> flatten() const
+    constexpr flatten_type flatten() const
     {
-        if constexpr (
-                    sizeof(multi<T, M, N...>) == sizeof(T) * total_size() &&
-                    sizeof(multi<T, M, N...>) ==
-                    sizeof(multi<T, total_size()>)) {
-            // Memory layouts must be identical.
-            return reinterpret_cast<const multi<T, total_size()>&>(*this);
-        }
-        else {
-            multi<T, total_size()> res;
-            do_flatten(&res[0]);
-            return res;
-        }
+        flatten_type res; 
+        flatten_into(&res[0]); 
+        return res;
     }
 
 #if !DOXYGEN
 
-    // Helper for flatten.
-    constexpr void do_flatten(entry_type* pos) const
+    // Flatten into array.
+    constexpr void flatten_into(entry_type* pos) const
     {
         for (const value_type& val : *this) {
             if constexpr (std::is_same<
@@ -749,7 +745,7 @@ public:
                 *pos++ = val;
             }
             else {
-                val.do_flatten(pos);
+                val.flatten_into(pos);
                 pos += value_type::total_size();
             }
         }
@@ -763,23 +759,19 @@ public:
     template <std::size_t... K>
     constexpr multi<T, K...> reshape() const
     {
-        if constexpr (
-                    sizeof(multi<T, M, N...>) == sizeof(T) * total_size() &&
-                    sizeof(multi<T, M, N...>) ==
-                    sizeof(multi<T, K...>)) {
-            // Memory layouts must be identical.
-            return reinterpret_cast<const multi<T, K...>&>(*this);
+        if constexpr (sizeof...(K) == 1) {
+            return flatten();
         }
         else {
             multi<T, K...> res;
             multi<T, total_size()> tmp = flatten();
             res.fill(&tmp[0]);
             return res;
-
-            // Sanity check.
-            static_assert(total_size() ==
-                            multi<T, K...>::total_size());
         }
+
+        // Sanity check.
+        static_assert(total_size() ==
+                        multi<T, K...>::total_size());
     }
 
     /**
@@ -804,13 +796,56 @@ public:
 
 public:
 
-    // TODO any
+    /**
+     * @brief Tests
+     */
+    /**@{*/
 
-    // TODO all
+    /**
+     * @brief Any entries true?
+     */
+    constexpr bool any() const
+    {
+        for (const value_type& val : *this) {
+            if constexpr (std::is_same<
+                            entry_type,
+                            value_type>::value) {
+                if (val) {
+                    return true;
+                }
+            }
+            else {
+                if (val.any()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-    // TODO operator==
+    /**
+     * @brief All entries true?
+     */
+    constexpr bool all() const
+    {
+        for (const value_type& val : *this) {
+            if constexpr (std::is_same<
+                            entry_type, 
+                            value_type>::value) {
+                if (!val) {
+                    return false;
+                }
+            }
+            else {
+                if (!val.all()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
-    // TODO operator!=
+    /**@}*/
 
 public:
 
