@@ -102,7 +102,7 @@ for func in funcs
     incrs = []
     decls = []
     for arg in func[1]
-        if arg[0][-1] != '*'
+        if arg[0][-1] != '*' 
             args1 << "const multi<#{arg[0]}, N...>& #{arg[1]}"
             decls << "auto itr#{arg[1]} = #{arg[1]}.begin();"
             args3 << "*itr#{arg[1]}"
@@ -124,7 +124,7 @@ for func in funcs
     incrs << "++itrres"
     incrs = incrs.join ", "
     decls = decls.join "\n    "
-    restype = "multi<decltype(pr::#{funcname}(#{args2})), N...>"
+    restype = "multi<std::decay_t<decltype(pr::#{funcname}(#{args2}))>, N...>"
     puts <<STR
 /**
  * @brief Wrap `pr::#{funcname}()`.
