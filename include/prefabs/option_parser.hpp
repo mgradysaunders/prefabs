@@ -114,6 +114,7 @@ inline bool isoptstr(const char* s)
     return *s == '\0';
 }
 
+// TODO relocate under option_parser
 /**
  * @brief Option descriptor.
  */
@@ -166,6 +167,7 @@ public:
     }
 };
 
+// TODO relocate under option_parser
 /**
  * @brief Option group.
  */

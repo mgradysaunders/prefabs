@@ -154,6 +154,8 @@ public:
         return T(2) * a;
     }
 
+    // TODO lerp
+
 public:
 
     /**
@@ -319,7 +321,7 @@ constexpr aabb<T, N> operator&(const multi<T, N>& arr, const aabb<T, N>& box)
 /**@{*/
 
 /**
- * @brief In-place set union.
+ * @brief Generic `operator|=`.
  */
 template <
     typename T, std::size_t N, 
@@ -331,7 +333,7 @@ constexpr aabb<T, N>& operator|=(aabb<T, N>& box, const U& any)
 }
 
 /**
- * @brief In-place set intersection.
+ * @brief Generic `operator&=`.
  */
 template <
     typename T, std::size_t N, 
