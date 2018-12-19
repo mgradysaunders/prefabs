@@ -123,6 +123,9 @@ Public Types</h2></td></tr>
 <tr class="memitem:ab75f7fbf4cd7464035adf098c961d6a1"><td class="memItemLeft" align="right" valign="top">typedef T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ab75f7fbf4cd7464035adf098c961d6a1">entry_type</a></td></tr>
 <tr class="memdesc:ab75f7fbf4cd7464035adf098c961d6a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bottom-level entry type.  <a href="#ab75f7fbf4cd7464035adf098c961d6a1">More...</a><br /></td></tr>
 <tr class="separator:ab75f7fbf4cd7464035adf098c961d6a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a943a04224de403782462b9555f364e89"><td class="memItemLeft" align="right" valign="top">typedef multi&lt; T,(M *... *N)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a943a04224de403782462b9555f364e89">flatten_type</a></td></tr>
+<tr class="memdesc:a943a04224de403782462b9555f364e89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten type.  <a href="#a943a04224de403782462b9555f364e89">More...</a><br /></td></tr>
+<tr class="separator:a943a04224de403782462b9555f364e89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -194,6 +197,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae2406f6a1ab13ac1502cf2ae771a1893"><td class="memItemLeft" align="right" valign="top">constexpr multi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ae2406f6a1ab13ac1502cf2ae771a1893">adjacent_difference</a> ()</td></tr>
 <tr class="memdesc:ae2406f6a1ab13ac1502cf2ae771a1893"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjacent difference.  <a href="#ae2406f6a1ab13ac1502cf2ae771a1893">More...</a><br /></td></tr>
 <tr class="separator:ae2406f6a1ab13ac1502cf2ae771a1893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:ab6b314c5ece2a3672b72626fec694ac4"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ab6b314c5ece2a3672b72626fec694ac4">any</a> () const</td></tr>
+<tr class="memdesc:ab6b314c5ece2a3672b72626fec694ac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests.  <a href="#ab6b314c5ece2a3672b72626fec694ac4">More...</a><br /></td></tr>
+<tr class="separator:ab6b314c5ece2a3672b72626fec694ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad92bc528fa68500c2409c8b520800253"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ad92bc528fa68500c2409c8b520800253">all</a> () const</td></tr>
+<tr class="memdesc:ad92bc528fa68500c2409c8b520800253"><td class="mdescLeft">&#160;</td><td class="mdescRight">All entries true?  <a href="#ad92bc528fa68500c2409c8b520800253">More...</a><br /></td></tr>
+<tr class="separator:ad92bc528fa68500c2409c8b520800253"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -278,21 +288,21 @@ Container interface</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Reshaping</h2></td></tr>
-<tr class="memitem:af6d2cc8a9b736f00d71eb6a6c2757103"><td class="memItemLeft" align="right" valign="top">static constexpr multi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#af6d2cc8a9b736f00d71eb6a6c2757103">value</a> (const <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ab75f7fbf4cd7464035adf098c961d6a1">entry_type</a> &amp;val)</td></tr>
-<tr class="memdesc:af6d2cc8a9b736f00d71eb6a6c2757103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry initializer.  <a href="#af6d2cc8a9b736f00d71eb6a6c2757103">More...</a><br /></td></tr>
-<tr class="separator:af6d2cc8a9b736f00d71eb6a6c2757103"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a068525b585d26dd7c0f265b257f879c8"><td class="memItemLeft" align="right" valign="top">static constexpr multi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a068525b585d26dd7c0f265b257f879c8">array</a> (const <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ab75f7fbf4cd7464035adf098c961d6a1">entry_type</a> *pos)</td></tr>
-<tr class="memdesc:a068525b585d26dd7c0f265b257f879c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry array initializer.  <a href="#a068525b585d26dd7c0f265b257f879c8">More...</a><br /></td></tr>
-<tr class="separator:a068525b585d26dd7c0f265b257f879c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac836c2fb5368b2e84d8bd9a873e74e26"><td class="memItemLeft" align="right" valign="top">static constexpr multi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ac836c2fb5368b2e84d8bd9a873e74e26">value</a> (const T &amp;ent)</td></tr>
+<tr class="memdesc:ac836c2fb5368b2e84d8bd9a873e74e26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry initializer.  <a href="#ac836c2fb5368b2e84d8bd9a873e74e26">More...</a><br /></td></tr>
+<tr class="separator:ac836c2fb5368b2e84d8bd9a873e74e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6d82aab2da5d4be72b59490292f6cd3"><td class="memItemLeft" align="right" valign="top">static constexpr multi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ad6d82aab2da5d4be72b59490292f6cd3">array</a> (const T *pos)</td></tr>
+<tr class="memdesc:ad6d82aab2da5d4be72b59490292f6cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry array initializer.  <a href="#ad6d82aab2da5d4be72b59490292f6cd3">More...</a><br /></td></tr>
+<tr class="separator:ad6d82aab2da5d4be72b59490292f6cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3d2372eaad212cb5be3ecc09152024f"><td class="memItemLeft" align="right" valign="top">constexpr multi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#aa3d2372eaad212cb5be3ecc09152024f">fill</a> (const <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ab75f7fbf4cd7464035adf098c961d6a1">entry_type</a> &amp;ent)</td></tr>
 <tr class="memdesc:aa3d2372eaad212cb5be3ecc09152024f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill from entry.  <a href="#aa3d2372eaad212cb5be3ecc09152024f">More...</a><br /></td></tr>
 <tr class="separator:aa3d2372eaad212cb5be3ecc09152024f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa495ef086751bc639cc12fb8546de78"><td class="memItemLeft" align="right" valign="top">constexpr multi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#aaa495ef086751bc639cc12fb8546de78">fill</a> (const <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ab75f7fbf4cd7464035adf098c961d6a1">entry_type</a> *pos)</td></tr>
 <tr class="memdesc:aaa495ef086751bc639cc12fb8546de78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill from entry array.  <a href="#aaa495ef086751bc639cc12fb8546de78">More...</a><br /></td></tr>
 <tr class="separator:aaa495ef086751bc639cc12fb8546de78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac56d27cf9d0c5fd6af3a24095a95cfb8"><td class="memItemLeft" align="right" valign="top">constexpr multi&lt; T, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a05f8192f7534efdadeea3a0b1d821887">total_size</a>()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ac56d27cf9d0c5fd6af3a24095a95cfb8">flatten</a> () const</td></tr>
-<tr class="memdesc:ac56d27cf9d0c5fd6af3a24095a95cfb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten.  <a href="#ac56d27cf9d0c5fd6af3a24095a95cfb8">More...</a><br /></td></tr>
-<tr class="separator:ac56d27cf9d0c5fd6af3a24095a95cfb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add2b1e85e749f81025365a93155e605d"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a943a04224de403782462b9555f364e89">flatten_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#add2b1e85e749f81025365a93155e605d">flatten</a> () const</td></tr>
+<tr class="memdesc:add2b1e85e749f81025365a93155e605d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten.  <a href="#add2b1e85e749f81025365a93155e605d">More...</a><br /></td></tr>
+<tr class="separator:add2b1e85e749f81025365a93155e605d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5614175e74154723e6da3bdae4f2b42"><td class="memTemplParams" colspan="2">template&lt;std::size_t... K&gt; </td></tr>
 <tr class="memitem:ae5614175e74154723e6da3bdae4f2b42"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; T, K... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ae5614175e74154723e6da3bdae4f2b42">reshape</a> () const</td></tr>
 <tr class="memdesc:ae5614175e74154723e6da3bdae4f2b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reshape.  <a href="#ae5614175e74154723e6da3bdae4f2b42">More...</a><br /></td></tr>
@@ -521,6 +531,24 @@ template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
 </div><div class="memdoc">
 
 <p>Bottom-level entry type. </p>
+
+</div>
+</div>
+<a id="a943a04224de403782462b9555f364e89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a943a04224de403782462b9555f364e89">&#9670;&nbsp;</a></span>flatten_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef multi&lt;T, (M * ... * N)&gt; pr::multi&lt; T, M, N... &gt;::<a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a943a04224de403782462b9555f364e89">flatten_type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flatten type. </p>
 
 </div>
 </div>
@@ -1772,8 +1800,8 @@ template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
 
 </div>
 </div>
-<a id="af6d2cc8a9b736f00d71eb6a6c2757103"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6d2cc8a9b736f00d71eb6a6c2757103">&#9670;&nbsp;</a></span>value()</h2>
+<a id="ac836c2fb5368b2e84d8bd9a873e74e26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac836c2fb5368b2e84d8bd9a873e74e26">&#9670;&nbsp;</a></span>value()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1786,8 +1814,8 @@ template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
         <tr>
           <td class="memname">static constexpr multi pr::multi&lt; T, M, N... &gt;::value </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ab75f7fbf4cd7464035adf098c961d6a1">entry_type</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>ent</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1802,8 +1830,8 @@ template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
 
 </div>
 </div>
-<a id="a068525b585d26dd7c0f265b257f879c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a068525b585d26dd7c0f265b257f879c8">&#9670;&nbsp;</a></span>array()</h2>
+<a id="ad6d82aab2da5d4be72b59490292f6cd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6d82aab2da5d4be72b59490292f6cd3">&#9670;&nbsp;</a></span>array()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1816,7 +1844,7 @@ template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
         <tr>
           <td class="memname">static constexpr multi pr::multi&lt; T, M, N... &gt;::array </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ab75f7fbf4cd7464035adf098c961d6a1">entry_type</a> *&#160;</td>
+          <td class="paramtype">const T *&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1832,8 +1860,8 @@ template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
 
 </div>
 </div>
-<a id="ac56d27cf9d0c5fd6af3a24095a95cfb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac56d27cf9d0c5fd6af3a24095a95cfb8">&#9670;&nbsp;</a></span>flatten()</h2>
+<a id="add2b1e85e749f81025365a93155e605d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add2b1e85e749f81025365a93155e605d">&#9670;&nbsp;</a></span>flatten()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1844,7 +1872,7 @@ template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr multi&lt;T, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a05f8192f7534efdadeea3a0b1d821887">total_size</a>()&gt; pr::multi&lt; T, M, N... &gt;::flatten </td>
+          <td class="memname">constexpr <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a943a04224de403782462b9555f364e89">flatten_type</a> pr::multi&lt; T, M, N... &gt;::flatten </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1920,6 +1948,65 @@ template&lt;typename U , std::size_t... K&gt; </div>
 </div><div class="memdoc">
 
 <p>Cast operator. </p>
+
+</div>
+</div>
+<a id="ab6b314c5ece2a3672b72626fec694ac4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6b314c5ece2a3672b72626fec694ac4">&#9670;&nbsp;</a></span>any()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool pr::multi&lt; T, M, N... &gt;::any </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tests. </p>
+<p>Any entries true? </p>
+
+</div>
+</div>
+<a id="ad92bc528fa68500c2409c8b520800253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad92bc528fa68500c2409c8b520800253">&#9670;&nbsp;</a></span>all()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool pr::multi&lt; T, M, N... &gt;::all </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>All entries true? </p>
 
 </div>
 </div>

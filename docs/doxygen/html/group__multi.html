@@ -75,6 +75,13 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Bool array conversion</h2></td></tr>
+<tr class="memitem:ga10ad0cee9a141cb53d4a67631c4ffab7"><td class="memTemplParams" colspan="2">template&lt;std::size_t N&gt; </td></tr>
+<tr class="memitem:ga10ad0cee9a141cb53d4a67631c4ffab7"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga10ad0cee9a141cb53d4a67631c4ffab7">pr::multitoindex</a> (const multi&lt; bool, N &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga10ad0cee9a141cb53d4a67631c4ffab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bool array to binary number.  <a href="group__multi.html#ga10ad0cee9a141cb53d4a67631c4ffab7">More...</a><br /></td></tr>
+<tr class="separator:ga10ad0cee9a141cb53d4a67631c4ffab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Unary operators (multi)</h2></td></tr>
 <tr class="memitem:ga891bd3ba5dcb3c9928d2a081bdbd540d"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t... N&gt; </td></tr>
 <tr class="memitem:ga891bd3ba5dcb3c9928d2a081bdbd540d"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(+T()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga891bd3ba5dcb3c9928d2a081bdbd540d">pr::operator+</a> (const multi&lt; T, N... &gt; &amp;arr)</td></tr>
@@ -303,6 +310,111 @@ Binary operators (entry/multi)</h2></td></tr>
 <tr class="separator:ga7d252258bbef2f1349d989528483b4a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Comparison operators (multi/multi)</h2></td></tr>
+<tr class="memitem:gabc4f80350a0ca41bd78d58beab703486"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gabc4f80350a0ca41bd78d58beab703486"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T()==U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gabc4f80350a0ca41bd78d58beab703486">pr::operator==</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gabc4f80350a0ca41bd78d58beab703486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator==</code>.  <a href="group__multi.html#gabc4f80350a0ca41bd78d58beab703486">More...</a><br /></td></tr>
+<tr class="separator:gabc4f80350a0ca41bd78d58beab703486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacab56963765dcd66a1112542fc7e01bb"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gacab56963765dcd66a1112542fc7e01bb"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() !=U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gacab56963765dcd66a1112542fc7e01bb">pr::operator!=</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gacab56963765dcd66a1112542fc7e01bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator!=</code>.  <a href="group__multi.html#gacab56963765dcd66a1112542fc7e01bb">More...</a><br /></td></tr>
+<tr class="separator:gacab56963765dcd66a1112542fc7e01bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab2799f5c0ca0dea9fb9f2e2bf97e47ad"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gab2799f5c0ca0dea9fb9f2e2bf97e47ad"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T()&lt; U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gab2799f5c0ca0dea9fb9f2e2bf97e47ad">pr::operator&lt;</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gab2799f5c0ca0dea9fb9f2e2bf97e47ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;</code>.  <a href="group__multi.html#gab2799f5c0ca0dea9fb9f2e2bf97e47ad">More...</a><br /></td></tr>
+<tr class="separator:gab2799f5c0ca0dea9fb9f2e2bf97e47ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga64bd4e70c885a4b95811f7f1a848c082"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga64bd4e70c885a4b95811f7f1a848c082"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() &gt; U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga64bd4e70c885a4b95811f7f1a848c082">pr::operator&gt;</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:ga64bd4e70c885a4b95811f7f1a848c082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&gt;</code>.  <a href="group__multi.html#ga64bd4e70c885a4b95811f7f1a848c082">More...</a><br /></td></tr>
+<tr class="separator:ga64bd4e70c885a4b95811f7f1a848c082"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd164a1b78ed476562ce34fe389c3790"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gacd164a1b78ed476562ce34fe389c3790"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T()&lt;=U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gacd164a1b78ed476562ce34fe389c3790">pr::operator&lt;=</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gacd164a1b78ed476562ce34fe389c3790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;=</code>.  <a href="group__multi.html#gacd164a1b78ed476562ce34fe389c3790">More...</a><br /></td></tr>
+<tr class="separator:gacd164a1b78ed476562ce34fe389c3790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gade80d8b0c12ecbf72bf25108c94dea15"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gade80d8b0c12ecbf72bf25108c94dea15"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() &gt;=U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gade80d8b0c12ecbf72bf25108c94dea15">pr::operator&gt;=</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gade80d8b0c12ecbf72bf25108c94dea15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&gt;=</code>.  <a href="group__multi.html#gade80d8b0c12ecbf72bf25108c94dea15">More...</a><br /></td></tr>
+<tr class="separator:gade80d8b0c12ecbf72bf25108c94dea15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacee6ea8314185a303495c2587b013bca"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gacee6ea8314185a303495c2587b013bca"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() &amp;&amp;U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gacee6ea8314185a303495c2587b013bca">pr::operator &amp;&amp;</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gacee6ea8314185a303495c2587b013bca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&amp;&amp;</code>.  <a href="group__multi.html#gacee6ea8314185a303495c2587b013bca">More...</a><br /></td></tr>
+<tr class="separator:gacee6ea8314185a303495c2587b013bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac1e0818648dc2aae6cee9bc7f164a779"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gac1e0818648dc2aae6cee9bc7f164a779"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T()||U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gac1e0818648dc2aae6cee9bc7f164a779">pr::operator||</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gac1e0818648dc2aae6cee9bc7f164a779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator||</code>.  <a href="group__multi.html#gac1e0818648dc2aae6cee9bc7f164a779">More...</a><br /></td></tr>
+<tr class="separator:gac1e0818648dc2aae6cee9bc7f164a779"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Comparison operators (multi/entry)</h2></td></tr>
+<tr class="memitem:gab7fc169c6f936143196f347732815663"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gab7fc169c6f936143196f347732815663"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T()==U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gab7fc169c6f936143196f347732815663">pr::operator==</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:gab7fc169c6f936143196f347732815663"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="group__multi.html#gab7fc169c6f936143196f347732815663">More...</a><br /></td></tr>
+<tr class="separator:gab7fc169c6f936143196f347732815663"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae6592a6b928a4b645d742209e2505d6f"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gae6592a6b928a4b645d742209e2505d6f"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T() !=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gae6592a6b928a4b645d742209e2505d6f">pr::operator!=</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:gae6592a6b928a4b645d742209e2505d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="group__multi.html#gae6592a6b928a4b645d742209e2505d6f">More...</a><br /></td></tr>
+<tr class="separator:gae6592a6b928a4b645d742209e2505d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e199392207b5b2cc56d1a39455a47ce"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga0e199392207b5b2cc56d1a39455a47ce"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T()&lt; U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga0e199392207b5b2cc56d1a39455a47ce">pr::operator&lt;</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:ga0e199392207b5b2cc56d1a39455a47ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="group__multi.html#ga0e199392207b5b2cc56d1a39455a47ce">More...</a><br /></td></tr>
+<tr class="separator:ga0e199392207b5b2cc56d1a39455a47ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d64b12c8453aa563e7bc2c561e78e25"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga4d64b12c8453aa563e7bc2c561e78e25"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T() &gt; U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga4d64b12c8453aa563e7bc2c561e78e25">pr::operator&gt;</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:ga4d64b12c8453aa563e7bc2c561e78e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="group__multi.html#ga4d64b12c8453aa563e7bc2c561e78e25">More...</a><br /></td></tr>
+<tr class="separator:ga4d64b12c8453aa563e7bc2c561e78e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae19af530986d481589736fd5003224d6"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gae19af530986d481589736fd5003224d6"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T()&lt;=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gae19af530986d481589736fd5003224d6">pr::operator&lt;=</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:gae19af530986d481589736fd5003224d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="group__multi.html#gae19af530986d481589736fd5003224d6">More...</a><br /></td></tr>
+<tr class="separator:gae19af530986d481589736fd5003224d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a49507599a4d573ffeb528ef09391fc"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga9a49507599a4d573ffeb528ef09391fc"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T() &gt;=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga9a49507599a4d573ffeb528ef09391fc">pr::operator&gt;=</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:ga9a49507599a4d573ffeb528ef09391fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="group__multi.html#ga9a49507599a4d573ffeb528ef09391fc">More...</a><br /></td></tr>
+<tr class="separator:ga9a49507599a4d573ffeb528ef09391fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga31dc06e88fb0d01311b8c0c5da6186bf"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga31dc06e88fb0d01311b8c0c5da6186bf"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T() &amp;&amp;U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga31dc06e88fb0d01311b8c0c5da6186bf">pr::operator &amp;&amp;</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:ga31dc06e88fb0d01311b8c0c5da6186bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="group__multi.html#ga31dc06e88fb0d01311b8c0c5da6186bf">More...</a><br /></td></tr>
+<tr class="separator:ga31dc06e88fb0d01311b8c0c5da6186bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaacfa500ed79799b5c4a2515c256e72b3"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gaacfa500ed79799b5c4a2515c256e72b3"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T()||U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gaacfa500ed79799b5c4a2515c256e72b3">pr::operator||</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:gaacfa500ed79799b5c4a2515c256e72b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="group__multi.html#gaacfa500ed79799b5c4a2515c256e72b3">More...</a><br /></td></tr>
+<tr class="separator:gaacfa500ed79799b5c4a2515c256e72b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Comparison operators (entry/multi)</h2></td></tr>
+<tr class="memitem:gaa9fecb271f8ed108732518109b3b3cce"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gaa9fecb271f8ed108732518109b3b3cce"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T()==U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gaa9fecb271f8ed108732518109b3b3cce">pr::operator==</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:gaa9fecb271f8ed108732518109b3b3cce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator==</code>.  <a href="group__multi.html#gaa9fecb271f8ed108732518109b3b3cce">More...</a><br /></td></tr>
+<tr class="separator:gaa9fecb271f8ed108732518109b3b3cce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4add7a868f0bec396d24e10458189740"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga4add7a868f0bec396d24e10458189740"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T() !=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga4add7a868f0bec396d24e10458189740">pr::operator!=</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga4add7a868f0bec396d24e10458189740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator!=</code>.  <a href="group__multi.html#ga4add7a868f0bec396d24e10458189740">More...</a><br /></td></tr>
+<tr class="separator:ga4add7a868f0bec396d24e10458189740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5de498b363a5ace99bfefb99c58cf241"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga5de498b363a5ace99bfefb99c58cf241"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T()&lt; U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga5de498b363a5ace99bfefb99c58cf241">pr::operator&lt;</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga5de498b363a5ace99bfefb99c58cf241"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;</code>.  <a href="group__multi.html#ga5de498b363a5ace99bfefb99c58cf241">More...</a><br /></td></tr>
+<tr class="separator:ga5de498b363a5ace99bfefb99c58cf241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga786072c917791d50b500e862929f7f1d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga786072c917791d50b500e862929f7f1d"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T() &gt; U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga786072c917791d50b500e862929f7f1d">pr::operator&gt;</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga786072c917791d50b500e862929f7f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&gt;</code>.  <a href="group__multi.html#ga786072c917791d50b500e862929f7f1d">More...</a><br /></td></tr>
+<tr class="separator:ga786072c917791d50b500e862929f7f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c6bbfbc945eb358799656b37455a05c"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga9c6bbfbc945eb358799656b37455a05c"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T()&lt;=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga9c6bbfbc945eb358799656b37455a05c">pr::operator&lt;=</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga9c6bbfbc945eb358799656b37455a05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;=</code>.  <a href="group__multi.html#ga9c6bbfbc945eb358799656b37455a05c">More...</a><br /></td></tr>
+<tr class="separator:ga9c6bbfbc945eb358799656b37455a05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadfcb3a67ae544b7feedc8384ec31e200"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gadfcb3a67ae544b7feedc8384ec31e200"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T() &gt;=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gadfcb3a67ae544b7feedc8384ec31e200">pr::operator&gt;=</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:gadfcb3a67ae544b7feedc8384ec31e200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&gt;=</code>.  <a href="group__multi.html#gadfcb3a67ae544b7feedc8384ec31e200">More...</a><br /></td></tr>
+<tr class="separator:gadfcb3a67ae544b7feedc8384ec31e200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44bbbef373dbaf3cecb96252cc1e53c3"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga44bbbef373dbaf3cecb96252cc1e53c3"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T() &amp;&amp;U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga44bbbef373dbaf3cecb96252cc1e53c3">pr::operator &amp;&amp;</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga44bbbef373dbaf3cecb96252cc1e53c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&amp;&amp;</code>.  <a href="group__multi.html#ga44bbbef373dbaf3cecb96252cc1e53c3">More...</a><br /></td></tr>
+<tr class="separator:ga44bbbef373dbaf3cecb96252cc1e53c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e5f2512a930650cc88c021ce30cf0ae"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga5e5f2512a930650cc88c021ce30cf0ae"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T()||U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga5e5f2512a930650cc88c021ce30cf0ae">pr::operator||</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga5e5f2512a930650cc88c021ce30cf0ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator||</code>.  <a href="group__multi.html#ga5e5f2512a930650cc88c021ce30cf0ae">More...</a><br /></td></tr>
+<tr class="separator:ga5e5f2512a930650cc88c021ce30cf0ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Unary operators (multi)</h2></td></tr>
 <tr class="memitem:ga7a9f0cf600e673bdca8010af016c5637"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t... N&gt; </td></tr>
 <tr class="memitem:ga7a9f0cf600e673bdca8010af016c5637"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(+T()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga7a9f0cf600e673bdca8010af016c5637">operator+</a> (const multi&lt; T, N... &gt; &amp;arr)</td></tr>
@@ -529,10 +641,137 @@ Binary operators (entry/multi)</h2></td></tr>
 <tr class="memitem:ga147f93370ecc9cdf6b677ebaa93b813f"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T()&lt;&lt; U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga147f93370ecc9cdf6b677ebaa93b813f">operator&lt;&lt;</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
 <tr class="memdesc:ga147f93370ecc9cdf6b677ebaa93b813f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="#ga147f93370ecc9cdf6b677ebaa93b813f">More...</a><br /></td></tr>
 <tr class="separator:ga147f93370ecc9cdf6b677ebaa93b813f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Comparison operators (multi/multi)</h2></td></tr>
+<tr class="memitem:gabdb09ed27638b95558789f81cc5210fa"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gabdb09ed27638b95558789f81cc5210fa"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T()==U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gabdb09ed27638b95558789f81cc5210fa">operator==</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gabdb09ed27638b95558789f81cc5210fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator==</code>.  <a href="#gabdb09ed27638b95558789f81cc5210fa">More...</a><br /></td></tr>
+<tr class="separator:gabdb09ed27638b95558789f81cc5210fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac9987da78ba24358f7b031c616dde620"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gac9987da78ba24358f7b031c616dde620"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() !=U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gac9987da78ba24358f7b031c616dde620">operator!=</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gac9987da78ba24358f7b031c616dde620"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator!=</code>.  <a href="#gac9987da78ba24358f7b031c616dde620">More...</a><br /></td></tr>
+<tr class="separator:gac9987da78ba24358f7b031c616dde620"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga174ce786fea500bf0e572eca19176fb5"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga174ce786fea500bf0e572eca19176fb5"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T()&lt; U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga174ce786fea500bf0e572eca19176fb5">operator&lt;</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:ga174ce786fea500bf0e572eca19176fb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;</code>.  <a href="#ga174ce786fea500bf0e572eca19176fb5">More...</a><br /></td></tr>
+<tr class="separator:ga174ce786fea500bf0e572eca19176fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga515eb37e6c7a131e9108d50160f67cd1"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga515eb37e6c7a131e9108d50160f67cd1"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() &gt; U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga515eb37e6c7a131e9108d50160f67cd1">operator&gt;</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:ga515eb37e6c7a131e9108d50160f67cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&gt;</code>.  <a href="#ga515eb37e6c7a131e9108d50160f67cd1">More...</a><br /></td></tr>
+<tr class="separator:ga515eb37e6c7a131e9108d50160f67cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9745fafd3a28922be73a5eae815ddcc9"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga9745fafd3a28922be73a5eae815ddcc9"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T()&lt;=U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga9745fafd3a28922be73a5eae815ddcc9">operator&lt;=</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:ga9745fafd3a28922be73a5eae815ddcc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;=</code>.  <a href="#ga9745fafd3a28922be73a5eae815ddcc9">More...</a><br /></td></tr>
+<tr class="separator:ga9745fafd3a28922be73a5eae815ddcc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga689faae26427d2ea7102c8749b448f36"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga689faae26427d2ea7102c8749b448f36"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() &gt;=U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga689faae26427d2ea7102c8749b448f36">operator&gt;=</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:ga689faae26427d2ea7102c8749b448f36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&gt;=</code>.  <a href="#ga689faae26427d2ea7102c8749b448f36">More...</a><br /></td></tr>
+<tr class="separator:ga689faae26427d2ea7102c8749b448f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga17b6ae2a573ac33d52af2b976d2fa992"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga17b6ae2a573ac33d52af2b976d2fa992"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() &amp;&amp;U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga17b6ae2a573ac33d52af2b976d2fa992">operator &amp;&amp;</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:ga17b6ae2a573ac33d52af2b976d2fa992"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&amp;&amp;</code>.  <a href="#ga17b6ae2a573ac33d52af2b976d2fa992">More...</a><br /></td></tr>
+<tr class="separator:ga17b6ae2a573ac33d52af2b976d2fa992"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae733eab733b33f384ea2cc56f7d19c7"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gaae733eab733b33f384ea2cc56f7d19c7"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T()||U()), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gaae733eab733b33f384ea2cc56f7d19c7">operator||</a> (const multi&lt; T, N... &gt; &amp;arr0, const multi&lt; U, N... &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gaae733eab733b33f384ea2cc56f7d19c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator||</code>.  <a href="#gaae733eab733b33f384ea2cc56f7d19c7">More...</a><br /></td></tr>
+<tr class="separator:gaae733eab733b33f384ea2cc56f7d19c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Comparison operators (multi/entry)</h2></td></tr>
+<tr class="memitem:gaaf3af930d8d2d7fba3c1d2b99e005401"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gaaf3af930d8d2d7fba3c1d2b99e005401"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T()==U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gaaf3af930d8d2d7fba3c1d2b99e005401">operator==</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:gaaf3af930d8d2d7fba3c1d2b99e005401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="#gaaf3af930d8d2d7fba3c1d2b99e005401">More...</a><br /></td></tr>
+<tr class="separator:gaaf3af930d8d2d7fba3c1d2b99e005401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac9deb724cbd41d33d8960e1d4fb60869"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gac9deb724cbd41d33d8960e1d4fb60869"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T() !=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gac9deb724cbd41d33d8960e1d4fb60869">operator!=</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:gac9deb724cbd41d33d8960e1d4fb60869"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="#gac9deb724cbd41d33d8960e1d4fb60869">More...</a><br /></td></tr>
+<tr class="separator:gac9deb724cbd41d33d8960e1d4fb60869"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbad5cfb4afd05a34a6cef99d0856d64"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gacbad5cfb4afd05a34a6cef99d0856d64"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T()&lt; U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gacbad5cfb4afd05a34a6cef99d0856d64">operator&lt;</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:gacbad5cfb4afd05a34a6cef99d0856d64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="#gacbad5cfb4afd05a34a6cef99d0856d64">More...</a><br /></td></tr>
+<tr class="separator:gacbad5cfb4afd05a34a6cef99d0856d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2ba3c16e6cc22ca4dd9dad0f4942eb7f"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga2ba3c16e6cc22ca4dd9dad0f4942eb7f"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T() &gt; U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga2ba3c16e6cc22ca4dd9dad0f4942eb7f">operator&gt;</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:ga2ba3c16e6cc22ca4dd9dad0f4942eb7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="#ga2ba3c16e6cc22ca4dd9dad0f4942eb7f">More...</a><br /></td></tr>
+<tr class="separator:ga2ba3c16e6cc22ca4dd9dad0f4942eb7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga15302a5a2aca7cbe1aedea5dd93b86c7"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga15302a5a2aca7cbe1aedea5dd93b86c7"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T()&lt;=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga15302a5a2aca7cbe1aedea5dd93b86c7">operator&lt;=</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:ga15302a5a2aca7cbe1aedea5dd93b86c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="#ga15302a5a2aca7cbe1aedea5dd93b86c7">More...</a><br /></td></tr>
+<tr class="separator:ga15302a5a2aca7cbe1aedea5dd93b86c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5a1d2da619a6961ad48839a2bd24328f"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga5a1d2da619a6961ad48839a2bd24328f"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T() &gt;=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga5a1d2da619a6961ad48839a2bd24328f">operator&gt;=</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:ga5a1d2da619a6961ad48839a2bd24328f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="#ga5a1d2da619a6961ad48839a2bd24328f">More...</a><br /></td></tr>
+<tr class="separator:ga5a1d2da619a6961ad48839a2bd24328f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b114c79c6f7186cde938e2a28ba6101"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga2b114c79c6f7186cde938e2a28ba6101"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T() &amp;&amp;U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga2b114c79c6f7186cde938e2a28ba6101">operator &amp;&amp;</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:ga2b114c79c6f7186cde938e2a28ba6101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="#ga2b114c79c6f7186cde938e2a28ba6101">More...</a><br /></td></tr>
+<tr class="separator:ga2b114c79c6f7186cde938e2a28ba6101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed10bbee42a87b44472cd6a6b4e42161"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gaed10bbee42a87b44472cd6a6b4e42161"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; U &gt;::value, multi&lt; decltype(T()||U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gaed10bbee42a87b44472cd6a6b4e42161">operator||</a> (const multi&lt; T, N... &gt; &amp;arr, const U &amp;val)</td></tr>
+<tr class="memdesc:gaed10bbee42a87b44472cd6a6b4e42161"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;&lt;</code>.  <a href="#gaed10bbee42a87b44472cd6a6b4e42161">More...</a><br /></td></tr>
+<tr class="separator:gaed10bbee42a87b44472cd6a6b4e42161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Comparison operators (entry/multi)</h2></td></tr>
+<tr class="memitem:ga75e1058dcb6ecddb0e8400f8cb11a327"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga75e1058dcb6ecddb0e8400f8cb11a327"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T()==U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga75e1058dcb6ecddb0e8400f8cb11a327">operator==</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga75e1058dcb6ecddb0e8400f8cb11a327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator==</code>.  <a href="#ga75e1058dcb6ecddb0e8400f8cb11a327">More...</a><br /></td></tr>
+<tr class="separator:ga75e1058dcb6ecddb0e8400f8cb11a327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8af8bd5c02bf68f8025e2db374403940"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga8af8bd5c02bf68f8025e2db374403940"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T() !=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga8af8bd5c02bf68f8025e2db374403940">operator!=</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga8af8bd5c02bf68f8025e2db374403940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator!=</code>.  <a href="#ga8af8bd5c02bf68f8025e2db374403940">More...</a><br /></td></tr>
+<tr class="separator:ga8af8bd5c02bf68f8025e2db374403940"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga85a0f7bcb9b7931b5d21e343a2b01c44"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga85a0f7bcb9b7931b5d21e343a2b01c44"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T()&lt; U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga85a0f7bcb9b7931b5d21e343a2b01c44">operator&lt;</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga85a0f7bcb9b7931b5d21e343a2b01c44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;</code>.  <a href="#ga85a0f7bcb9b7931b5d21e343a2b01c44">More...</a><br /></td></tr>
+<tr class="separator:ga85a0f7bcb9b7931b5d21e343a2b01c44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga659f0dc78c279907be9873639ee9b776"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga659f0dc78c279907be9873639ee9b776"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T() &gt; U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga659f0dc78c279907be9873639ee9b776">operator&gt;</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga659f0dc78c279907be9873639ee9b776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&gt;</code>.  <a href="#ga659f0dc78c279907be9873639ee9b776">More...</a><br /></td></tr>
+<tr class="separator:ga659f0dc78c279907be9873639ee9b776"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga63a5ddda65781fb75aa4cb4f107840a1"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga63a5ddda65781fb75aa4cb4f107840a1"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T()&lt;=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga63a5ddda65781fb75aa4cb4f107840a1">operator&lt;=</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga63a5ddda65781fb75aa4cb4f107840a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&lt;=</code>.  <a href="#ga63a5ddda65781fb75aa4cb4f107840a1">More...</a><br /></td></tr>
+<tr class="separator:ga63a5ddda65781fb75aa4cb4f107840a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf2823f8faf70385c5fd587bce755301e"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gaf2823f8faf70385c5fd587bce755301e"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T() &gt;=U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gaf2823f8faf70385c5fd587bce755301e">operator&gt;=</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:gaf2823f8faf70385c5fd587bce755301e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&gt;=</code>.  <a href="#gaf2823f8faf70385c5fd587bce755301e">More...</a><br /></td></tr>
+<tr class="separator:gaf2823f8faf70385c5fd587bce755301e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08fcfff9a4ff2e6eb3ba35b1e8e09e3a"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:ga08fcfff9a4ff2e6eb3ba35b1e8e09e3a"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T() &amp;&amp;U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#ga08fcfff9a4ff2e6eb3ba35b1e8e09e3a">operator &amp;&amp;</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:ga08fcfff9a4ff2e6eb3ba35b1e8e09e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator&amp;&amp;</code>.  <a href="#ga08fcfff9a4ff2e6eb3ba35b1e8e09e3a">More...</a><br /></td></tr>
+<tr class="separator:ga08fcfff9a4ff2e6eb3ba35b1e8e09e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf639549ae9d3d8fad64e365924c42ee3"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t... N&gt; </td></tr>
+<tr class="memitem:gaf639549ae9d3d8fad64e365924c42ee3"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt;!is_multi&lt; T &gt;::value, multi&lt; decltype(T()||U()), N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi.html#gaf639549ae9d3d8fad64e365924c42ee3">operator||</a> (const T &amp;val, const multi&lt; U, N... &gt; &amp;arr)</td></tr>
+<tr class="memdesc:gaf639549ae9d3d8fad64e365924c42ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator||</code>.  <a href="#gaf639549ae9d3d8fad64e365924c42ee3">More...</a><br /></td></tr>
+<tr class="separator:gaf639549ae9d3d8fad64e365924c42ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;prefabs/multi.hpp&gt;</code> </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga10ad0cee9a141cb53d4a67631c4ffab7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga10ad0cee9a141cb53d4a67631c4ffab7">&#9670;&nbsp;</a></span>multitoindex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::size_t pr::multitoindex </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; bool, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bool array to binary number. </p>
+
+</div>
+</div>
 <a id="ga891bd3ba5dcb3c9928d2a081bdbd540d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga891bd3ba5dcb3c9928d2a081bdbd540d">&#9670;&nbsp;</a></span>operator+() <span class="overload">[1/8]</span></h2>
 
@@ -2221,6 +2460,774 @@ template&lt;typename T , typename U , std::size_t... N&gt; </div>
 
 </div>
 </div>
+<a id="gabc4f80350a0ca41bd78d58beab703486"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc4f80350a0ca41bd78d58beab703486">&#9670;&nbsp;</a></span>operator==() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() == U()), N...&gt; pr::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator==</code>. </p>
+
+</div>
+</div>
+<a id="gacab56963765dcd66a1112542fc7e01bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacab56963765dcd66a1112542fc7e01bb">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() != U()), N...&gt; <a class="el" href="group__multi.html#ga53f17c1dbb0a4d9179119eb0739bd0db">pr::operator!</a>= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator!=</code>. </p>
+
+</div>
+</div>
+<a id="gab2799f5c0ca0dea9fb9f2e2bf97e47ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab2799f5c0ca0dea9fb9f2e2bf97e47ad">&#9670;&nbsp;</a></span>operator<() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() &lt; U()), N...&gt; pr::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga64bd4e70c885a4b95811f7f1a848c082"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga64bd4e70c885a4b95811f7f1a848c082">&#9670;&nbsp;</a></span>operator>() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() &gt; U()), N...&gt; pr::operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&gt;</code>. </p>
+
+</div>
+</div>
+<a id="gacd164a1b78ed476562ce34fe389c3790"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacd164a1b78ed476562ce34fe389c3790">&#9670;&nbsp;</a></span>operator<=() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() &lt;= U()), N...&gt; pr::operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;=</code>. </p>
+
+</div>
+</div>
+<a id="gade80d8b0c12ecbf72bf25108c94dea15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gade80d8b0c12ecbf72bf25108c94dea15">&#9670;&nbsp;</a></span>operator>=() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() &gt;= U()), N...&gt; pr::operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&gt;=</code>. </p>
+
+</div>
+</div>
+<a id="gacee6ea8314185a303495c2587b013bca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacee6ea8314185a303495c2587b013bca">&#9670;&nbsp;</a></span>operator &&() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() &amp;&amp; U()), N...&gt; pr::operator&amp;&amp; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&amp;&amp;</code>. </p>
+
+</div>
+</div>
+<a id="gac1e0818648dc2aae6cee9bc7f164a779"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac1e0818648dc2aae6cee9bc7f164a779">&#9670;&nbsp;</a></span>operator||() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() || U()), N...&gt; pr::operator|| </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator||</code>. </p>
+
+</div>
+</div>
+<a id="gab7fc169c6f936143196f347732815663"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab7fc169c6f936143196f347732815663">&#9670;&nbsp;</a></span>operator==() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() == U()), N...&gt; &gt; pr::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="gae6592a6b928a4b645d742209e2505d6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae6592a6b928a4b645d742209e2505d6f">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() != U()), N...&gt; &gt; <a class="el" href="group__multi.html#ga53f17c1dbb0a4d9179119eb0739bd0db">pr::operator!</a>= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga0e199392207b5b2cc56d1a39455a47ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0e199392207b5b2cc56d1a39455a47ce">&#9670;&nbsp;</a></span>operator<() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() &lt; U()), N...&gt; &gt; pr::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga4d64b12c8453aa563e7bc2c561e78e25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4d64b12c8453aa563e7bc2c561e78e25">&#9670;&nbsp;</a></span>operator>() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() &gt; U()), N...&gt; &gt; pr::operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="gae19af530986d481589736fd5003224d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae19af530986d481589736fd5003224d6">&#9670;&nbsp;</a></span>operator<=() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() &lt;= U()), N...&gt; &gt; pr::operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga9a49507599a4d573ffeb528ef09391fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9a49507599a4d573ffeb528ef09391fc">&#9670;&nbsp;</a></span>operator>=() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() &gt;= U()), N...&gt; &gt; pr::operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga31dc06e88fb0d01311b8c0c5da6186bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga31dc06e88fb0d01311b8c0c5da6186bf">&#9670;&nbsp;</a></span>operator &&() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() &amp;&amp; U()), N...&gt; &gt; pr::operator&amp;&amp; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="gaacfa500ed79799b5c4a2515c256e72b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaacfa500ed79799b5c4a2515c256e72b3">&#9670;&nbsp;</a></span>operator||() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() || U()), N...&gt; &gt; pr::operator|| </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="gaa9fecb271f8ed108732518109b3b3cce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa9fecb271f8ed108732518109b3b3cce">&#9670;&nbsp;</a></span>operator==() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() == U()), N...&gt; &gt; pr::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator==</code>. </p>
+
+</div>
+</div>
+<a id="ga4add7a868f0bec396d24e10458189740"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4add7a868f0bec396d24e10458189740">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() != U()), N...&gt; &gt; <a class="el" href="group__multi.html#ga53f17c1dbb0a4d9179119eb0739bd0db">pr::operator!</a>= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator!=</code>. </p>
+
+</div>
+</div>
+<a id="ga5de498b363a5ace99bfefb99c58cf241"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5de498b363a5ace99bfefb99c58cf241">&#9670;&nbsp;</a></span>operator<() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() &lt; U()), N...&gt; &gt; pr::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga786072c917791d50b500e862929f7f1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga786072c917791d50b500e862929f7f1d">&#9670;&nbsp;</a></span>operator>() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() &gt; U()), N...&gt; &gt; pr::operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&gt;</code>. </p>
+
+</div>
+</div>
+<a id="ga9c6bbfbc945eb358799656b37455a05c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9c6bbfbc945eb358799656b37455a05c">&#9670;&nbsp;</a></span>operator<=() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() &lt;= U()), N...&gt; &gt; pr::operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;=</code>. </p>
+
+</div>
+</div>
+<a id="gadfcb3a67ae544b7feedc8384ec31e200"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadfcb3a67ae544b7feedc8384ec31e200">&#9670;&nbsp;</a></span>operator>=() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() &gt;= U()), N...&gt; &gt; pr::operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&gt;=</code>. </p>
+
+</div>
+</div>
+<a id="ga44bbbef373dbaf3cecb96252cc1e53c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga44bbbef373dbaf3cecb96252cc1e53c3">&#9670;&nbsp;</a></span>operator &&() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() &amp;&amp; U()), N...&gt; &gt; pr::operator&amp;&amp; </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&amp;&amp;</code>. </p>
+
+</div>
+</div>
+<a id="ga5e5f2512a930650cc88c021ce30cf0ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5e5f2512a930650cc88c021ce30cf0ae">&#9670;&nbsp;</a></span>operator||() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() || U()), N...&gt; &gt; pr::operator|| </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator||</code>. </p>
+
+</div>
+</div>
 <a id="ga7a9f0cf600e673bdca8010af016c5637"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga7a9f0cf600e673bdca8010af016c5637">&#9670;&nbsp;</a></span>operator+() <span class="overload">[5/8]</span></h2>
 
@@ -3906,6 +4913,774 @@ template&lt;typename T , typename U , std::size_t... N&gt; </div>
 </div><div class="memdoc">
 
 <p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="gabdb09ed27638b95558789f81cc5210fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabdb09ed27638b95558789f81cc5210fa">&#9670;&nbsp;</a></span>operator==() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() == U()), N...&gt; operator== </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator==</code>. </p>
+
+</div>
+</div>
+<a id="gac9987da78ba24358f7b031c616dde620"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac9987da78ba24358f7b031c616dde620">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() != U()), N...&gt; <a class="el" href="group__multi.html#gaea656f0046859395199994c88064717b">operator!</a>= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator!=</code>. </p>
+
+</div>
+</div>
+<a id="ga174ce786fea500bf0e572eca19176fb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga174ce786fea500bf0e572eca19176fb5">&#9670;&nbsp;</a></span>operator<() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() &lt; U()), N...&gt; operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga515eb37e6c7a131e9108d50160f67cd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga515eb37e6c7a131e9108d50160f67cd1">&#9670;&nbsp;</a></span>operator>() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() &gt; U()), N...&gt; operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&gt;</code>. </p>
+
+</div>
+</div>
+<a id="ga9745fafd3a28922be73a5eae815ddcc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9745fafd3a28922be73a5eae815ddcc9">&#9670;&nbsp;</a></span>operator<=() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() &lt;= U()), N...&gt; operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;=</code>. </p>
+
+</div>
+</div>
+<a id="ga689faae26427d2ea7102c8749b448f36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga689faae26427d2ea7102c8749b448f36">&#9670;&nbsp;</a></span>operator>=() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() &gt;= U()), N...&gt; operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&gt;=</code>. </p>
+
+</div>
+</div>
+<a id="ga17b6ae2a573ac33d52af2b976d2fa992"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga17b6ae2a573ac33d52af2b976d2fa992">&#9670;&nbsp;</a></span>operator &&() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() &amp;&amp; U()), N...&gt; operator&amp;&amp; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&amp;&amp;</code>. </p>
+
+</div>
+</div>
+<a id="gaae733eab733b33f384ea2cc56f7d19c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaae733eab733b33f384ea2cc56f7d19c7">&#9670;&nbsp;</a></span>operator||() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() || U()), N...&gt; operator|| </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator||</code>. </p>
+
+</div>
+</div>
+<a id="gaaf3af930d8d2d7fba3c1d2b99e005401"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaf3af930d8d2d7fba3c1d2b99e005401">&#9670;&nbsp;</a></span>operator==() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() == U()), N...&gt; &gt; operator== </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="gac9deb724cbd41d33d8960e1d4fb60869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac9deb724cbd41d33d8960e1d4fb60869">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() != U()), N...&gt; &gt; <a class="el" href="group__multi.html#gaea656f0046859395199994c88064717b">operator!</a>= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="gacbad5cfb4afd05a34a6cef99d0856d64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacbad5cfb4afd05a34a6cef99d0856d64">&#9670;&nbsp;</a></span>operator<() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() &lt; U()), N...&gt; &gt; operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga2ba3c16e6cc22ca4dd9dad0f4942eb7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2ba3c16e6cc22ca4dd9dad0f4942eb7f">&#9670;&nbsp;</a></span>operator>() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() &gt; U()), N...&gt; &gt; operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga15302a5a2aca7cbe1aedea5dd93b86c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga15302a5a2aca7cbe1aedea5dd93b86c7">&#9670;&nbsp;</a></span>operator<=() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() &lt;= U()), N...&gt; &gt; operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga5a1d2da619a6961ad48839a2bd24328f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5a1d2da619a6961ad48839a2bd24328f">&#9670;&nbsp;</a></span>operator>=() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() &gt;= U()), N...&gt; &gt; operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga2b114c79c6f7186cde938e2a28ba6101"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2b114c79c6f7186cde938e2a28ba6101">&#9670;&nbsp;</a></span>operator &&() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() &amp;&amp; U()), N...&gt; &gt; operator&amp;&amp; </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="gaed10bbee42a87b44472cd6a6b4e42161"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaed10bbee42a87b44472cd6a6b4e42161">&#9670;&nbsp;</a></span>operator||() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;U&gt;::value, multi&lt;decltype(T() || U()), N...&gt; &gt; operator|| </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga75e1058dcb6ecddb0e8400f8cb11a327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga75e1058dcb6ecddb0e8400f8cb11a327">&#9670;&nbsp;</a></span>operator==() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() == U()), N...&gt; &gt; operator== </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator==</code>. </p>
+
+</div>
+</div>
+<a id="ga8af8bd5c02bf68f8025e2db374403940"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8af8bd5c02bf68f8025e2db374403940">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() != U()), N...&gt; &gt; <a class="el" href="group__multi.html#gaea656f0046859395199994c88064717b">operator!</a>= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator!=</code>. </p>
+
+</div>
+</div>
+<a id="ga85a0f7bcb9b7931b5d21e343a2b01c44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga85a0f7bcb9b7931b5d21e343a2b01c44">&#9670;&nbsp;</a></span>operator<() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() &lt; U()), N...&gt; &gt; operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;</code>. </p>
+
+</div>
+</div>
+<a id="ga659f0dc78c279907be9873639ee9b776"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga659f0dc78c279907be9873639ee9b776">&#9670;&nbsp;</a></span>operator>() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() &gt; U()), N...&gt; &gt; operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&gt;</code>. </p>
+
+</div>
+</div>
+<a id="ga63a5ddda65781fb75aa4cb4f107840a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga63a5ddda65781fb75aa4cb4f107840a1">&#9670;&nbsp;</a></span>operator<=() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() &lt;= U()), N...&gt; &gt; operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&lt;=</code>. </p>
+
+</div>
+</div>
+<a id="gaf2823f8faf70385c5fd587bce755301e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf2823f8faf70385c5fd587bce755301e">&#9670;&nbsp;</a></span>operator>=() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() &gt;= U()), N...&gt; &gt; operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&gt;=</code>. </p>
+
+</div>
+</div>
+<a id="ga08fcfff9a4ff2e6eb3ba35b1e8e09e3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga08fcfff9a4ff2e6eb3ba35b1e8e09e3a">&#9670;&nbsp;</a></span>operator &&() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() &amp;&amp; U()), N...&gt; &gt; operator&amp;&amp; </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator&amp;&amp;</code>. </p>
+
+</div>
+</div>
+<a id="gaf639549ae9d3d8fad64e365924c42ee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf639549ae9d3d8fad64e365924c42ee3">&#9670;&nbsp;</a></span>operator||() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t... N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt;!is_multi&lt;T&gt;::value, multi&lt;decltype(T() || U()), N...&gt; &gt; operator|| </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, N... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distribute <code>operator||</code>. </p>
 
 </div>
 </div>
