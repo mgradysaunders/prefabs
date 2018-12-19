@@ -124,11 +124,6 @@ public:
 public:
 
     /**
-     * @name Constructors
-     */
-    /**@{*/
-
-    /**
      * @brief Constructor.
      *
      * @param[in] box
@@ -214,8 +209,6 @@ public:
         }
     }
 
-    /**@}*/
-
 public:
 
     /**
@@ -254,7 +247,7 @@ public:
      * ~~~~~~~~~~~~~~~~~~~~~~~
      */
     template <typename Fun>
-    void query(aabb_type reg, Fun&& fun) const
+    void query(const aabb_type& reg, Fun&& fun) const
     {
         root_->query(reg, std::forward<Fun>(fun));
     }
