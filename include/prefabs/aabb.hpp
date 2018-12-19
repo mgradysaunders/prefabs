@@ -154,7 +154,22 @@ public:
         return T(2) * a;
     }
 
-    // TODO lerp
+    /**
+     * @brief Center.
+     */
+    constexpr multi<T, N> center() const
+    {
+        return (arr_[0] + arr_[1]) / T(2);
+    }
+
+    /**
+     * @brief Lerp minimum and maximum coordinates.
+     */
+    template <typename U>
+    constexpr multi<T, N> lerp(const U& u) const
+    {
+        return (1 - u) * arr_[0] + u * arr_[1];
+    }
 
 public:
 
@@ -166,15 +181,30 @@ public:
     /**
      * @brief Overlaps other?
      */
-    template <bool inclusive = true>
+    template <
+        bool inclusive0 = true, 
+        bool inclusive1 = false
+        >
     constexpr bool overlaps(const aabb<T, N>& oth) const
     {
-        if constexpr (inclusive) {
-            return (arr_[0] <= oth.arr_[1] &&
+        if constexpr (inclusive0 && inclusive1) {
+            // Both inclusive.
+            return (arr_[0] <= oth.arr_[1] && 
+                    arr_[1] >= oth.arr_[0]).all();
+        }
+        else if constexpr (inclusive0 && !inclusive1) {
+            // First inclusive, second exclusive.
+            return (arr_[0] <= oth.arr_[1] && 
+                    arr_[1] > oth.arr_[0]).all();
+        }
+        else if constexpr (!inclusive0 && inclusive1) {
+            // First exclusive, second inclusive.
+            return (arr_[0] < oth.arr_[1] && 
                     arr_[1] >= oth.arr_[0]).all();
         }
         else {
-            return (arr_[0] < oth.arr_[1] &&
+            // Both exclusive.
+            return (arr_[0] < oth.arr_[1] && 
                     arr_[1] > oth.arr_[0]).all();
         }
     }
@@ -182,15 +212,30 @@ public:
     /**
      * @brief Contains other?
      */
-    template <bool inclusive = true>
+    template <
+        bool inclusive0 = true,
+        bool inclusive1 = false
+        >
     constexpr bool contains(const aabb<T, N>& oth) const
     {
-        if constexpr (inclusive) {
-            return (arr_[0] <= oth.arr_[0] &&
+        if constexpr (inclusive0 && inclusive1) {
+            // Both inclusive.
+            return (arr_[0] <= oth.arr_[0] && 
+                    arr_[1] >= oth.arr_[1]).all();
+        }
+        else if constexpr (inclusive0 && !inclusive1) {
+            // First inclusive, second exclusive.
+            return (arr_[0] <= oth.arr_[0] && 
+                    arr_[1] > oth.arr_[1]).all();
+        }
+        else if constexpr (!inclusive0 && inclusive1) {
+            // First exclusive, second inclusive.
+            return (arr_[0] < oth.arr_[0] && 
                     arr_[1] >= oth.arr_[1]).all();
         }
         else {
-            return (arr_[0] < oth.arr_[0] &&
+            // Both exclusive.
+            return (arr_[0] < oth.arr_[0] && 
                     arr_[1] > oth.arr_[1]).all();
         }
     }
@@ -198,19 +243,25 @@ public:
     /**
      * @brief Overlaps array?
      */
-    template <bool inclusive = true>
+    template <
+        bool inclusive0 = true,
+        bool inclusive1 = false
+        >
     constexpr bool overlaps(const multi<T, N>& arr) const
     {
-        return overlaps<inclusive>(aabb<T, N>(arr));
+        return overlaps<inclusive0, inclusive1>(aabb<T, N>(arr));
     }
 
     /**
      * @brief Contains array?
      */
-    template <bool inclusive = true>
+    template <
+        bool inclusive0 = true,
+        bool inclusive1 = false
+        >
     constexpr bool contains(const multi<T, N>& arr) const
     {
-        return contains<inclusive>(aabb<T, N>(arr));
+        return contains<inclusive0, inclusive1>(aabb<T, N>(arr));
     }
 
     /**

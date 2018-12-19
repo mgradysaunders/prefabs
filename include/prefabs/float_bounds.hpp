@@ -168,59 +168,65 @@ public:
     /**@{*/
 
     /**
-     * @brief Overlaps other float bounds?
-     *
-     * @f[
-     *      (b_{00} < b_{11}) \land
-     *      (b_{01} > b_{10})
-     * @f]
+     * @brief Overlaps other?
      */
-    bool overlaps_exclusive(const float_bounds& b) const
+    template <
+        bool inclusive0 = true,
+        bool inclusive1 = false
+        >
+    bool overlaps(const float_bounds& oth) const
     {
-        return lower_bound() < b.upper_bound() &&
-               upper_bound() > b.lower_bound();
+        if constexpr (inclusive0 && inclusive1) {
+            // Both inclusive.
+            return lower_bound() <= oth.upper_bound() && 
+                   upper_bound() >= oth.lower_bound();
+        }
+        else if constexpr (inclusive0 && !inclusive1) {
+            // First inclusive, second exclusive.
+            return lower_bound() <= oth.upper_bound() && 
+                   upper_bound() > oth.lower_bound();
+        }
+        else if constexpr (!inclusive0 && inclusive1) {
+            // First exclusive, second inclusive.
+            return lower_bound() < oth.upper_bound() && 
+                   upper_bound() >= oth.lower_bound();
+        }
+        else {
+            // Both exclusive.
+            return lower_bound() < oth.upper_bound() && 
+                   upper_bound() > oth.lower_bound();
+        }
     }
 
     /**
-     * @brief Overlaps other float bounds?
-     *
-     * @f[
-     *      (b_{00} \le b_{11}) \land
-     *      (b_{01} \ge b_{10})
-     * @f]
+     * @brief Contains other?
      */
-    bool overlaps_inclusive(const float_bounds& b) const
+    template <
+        bool inclusive0 = true,
+        bool inclusive1 = false
+        >
+    bool contains(const float_bounds& oth) const
     {
-        return lower_bound() <= b.upper_bound() &&
-               upper_bound() >= b.lower_bound();
-    }
-
-    /**
-     * @brief Contains other float bounds?
-     *
-     * @f[
-     *      (b_{00} < b_{10}) \land
-     *      (b_{01} > b_{11})
-     * @f]
-     */
-    bool contains_exclusive(const float_bounds& b) const
-    {
-        return lower_bound() < b.lower_bound() &&
-               upper_bound() > b.upper_bound();
-    }
-
-    /**
-     * @brief Contains other float bounds?
-     *
-     * @f[
-     *      (b_{00} \le b_{10}) \land
-     *      (b_{01} \ge b_{11})
-     * @f]
-     */
-    bool contains_inclusive(const float_bounds& b) const
-    {
-        return lower_bound() <= b.lower_bound() &&
-               upper_bound() >= b.upper_bound();
+        if constexpr (inclusive0 && inclusive1) {
+            // Both inclusive.
+            return lower_bound() <= oth.lower_bound() && 
+                   upper_bound() >= oth.upper_bound();
+        }
+        else if constexpr (inclusive0 && !inclusive1) {
+            // First inclusive, second exclusive.
+            return lower_bound() <= oth.lower_bound() && 
+                   upper_bound() > oth.upper_bound();
+        }
+        else if constexpr (!inclusive0 && inclusive1) {
+            // First exclusive, second inclusive.
+            return lower_bound() < oth.lower_bound() && 
+                   upper_bound() >= oth.upper_bound();
+        }
+        else {
+            // Both exclusive.
+            return lower_bound() < oth.lower_bound() && 
+                   upper_bound() > oth.upper_bound();
+        }
     }
 
     /**@}*/
