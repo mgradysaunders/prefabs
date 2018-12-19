@@ -47,6 +47,18 @@ namespace pr {
 
 #include "multi_math.inl"
 
+// TODO dot
+// TODO kron
+// TODO outer
+// TODO cross
+// TODO reflect
+// TODO refract
+// TODO length
+// TODO normalize
+// TODO trace
+// TODO transpose
+// TODO adjoint
+
 } // namespace pr
 
 #endif // #ifndef PREFABS_MULTI_MATH_HPP
