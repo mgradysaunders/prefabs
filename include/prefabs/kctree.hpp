@@ -142,20 +142,9 @@ public:
         size_type cell_capacity = 4,
         const cell_allocator_type& cell_alloc =
               cell_allocator_type()) :
-                    cell_alloc_(cell_alloc)
+                    cell_alloc_(cell_alloc),
+                    root_(box, cell_capacity, cell_alloc_)
     {
-        // Allocate.
-        root_ = 
-        cell_allocator_traits::allocate(
-        cell_alloc_, 1);
-
-        // Construct.
-        cell_allocator_traits::construct(
-        cell_alloc_, 
-        root_, 
-            box, 
-            cell_capacity,
-            cell_alloc_);
     }
 
     /**
@@ -174,42 +163,15 @@ public:
         aabb_type box,
         size_type cell_capacity,
         cell_allocator_type&& cell_alloc) :
-                    cell_alloc_(std::move(cell_alloc))
+                    cell_alloc_(std::move(cell_alloc)),
+                    root_(box, cell_capacity, cell_alloc_)
     {
-        // Allocate.
-        root_ = 
-        cell_allocator_traits::allocate(
-        cell_alloc_, 1);
-
-        // Construct.
-        cell_allocator_traits::construct(
-        cell_alloc_, 
-        root_, 
-            box, 
-            cell_capacity,
-            cell_alloc_);
     }
 
     /**
      * @brief Non-copyable.
      */
     kctree(const kctree&) = delete;
-
-    /**
-     * @brief Destructor.
-     */
-    ~kctree()
-    {
-        if (root_) {
-            // Destroy.
-            cell_allocator_traits::destroy(
-            cell_alloc_, root_);
-
-            // Deallocate.
-            cell_allocator_traits::deallocate(
-            cell_alloc_, root_, 1);
-        }
-    }
 
 public:
 
@@ -229,7 +191,7 @@ public:
             const multi_type& loc, 
             const value_data_type& val_data)
     {
-        root_->insert(std::make_pair(loc, val_data));
+        root_.insert(std::make_pair(loc, val_data));
     }
 
     /**
@@ -251,7 +213,7 @@ public:
     template <typename Fun>
     void query(const aabb_type& reg, Fun&& fun) const
     {
-        root_->query(reg, std::forward<Fun>(fun));
+        root_.query(reg, std::forward<Fun>(fun));
     }
 
 public:
@@ -468,7 +430,7 @@ private:
     /**
      * @brief Root.
      */
-    cell_type* root_ = nullptr;
+    cell_type root_;
 };
 
 /**@}*/
