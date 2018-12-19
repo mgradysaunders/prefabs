@@ -52,6 +52,8 @@ namespace pr {
 
 /**
  * @defgroup kctree Kc-tree
+ *
+ * `<prefabs/kctree.hpp>`
  */
 /**@{*/
 
