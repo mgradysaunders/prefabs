@@ -304,6 +304,7 @@ public:
 
     public:
 
+#if 0
         /**
          * @brief Is leaf?
          */
@@ -311,6 +312,7 @@ public:
         {
             return cells_ == nullptr;
         }
+#endif
 
         /**
          * @brief Insert value.
