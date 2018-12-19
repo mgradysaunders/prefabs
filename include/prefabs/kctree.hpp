@@ -219,7 +219,7 @@ public:
 public:
 
     /**
-     * @brief Insert value.
+     * @brief Insert.
      *
      * @param[in] loc
      * Location.
@@ -244,7 +244,14 @@ public:
      * Region.
      *
      * @param[in] fun
-     * Function with signature `void(const value_type&)`.
+     * Function.
+     *
+     * @note 
+     * Function must have signature 
+     * equivalent to 
+     * ~~~~~~~~~~~~~~~~~~~~~~~{cpp}
+     * void(const value_type&)
+     * ~~~~~~~~~~~~~~~~~~~~~~~
      */
     template <typename Fun>
     void query(aabb_type reg, Fun&& fun) const
@@ -315,7 +322,7 @@ public:
 #endif
 
         /**
-         * @brief Insert value.
+         * @brief Insert.
          */
         void insert(const value_type& val)
         {
@@ -384,7 +391,14 @@ public:
          * Region.
          *
          * @param[in] fun
-         * Function with signature `void(const value_type&)`.
+         * Function.
+         *
+         * @note 
+         * Function must have signature 
+         * equivalent to 
+         * ~~~~~~~~~~~~~~~~~~~~~~~{cpp}
+         * void(const value_type&)
+         * ~~~~~~~~~~~~~~~~~~~~~~~
          */
         template <typename Fun>
         void query(const aabb_type& reg, Fun&& fun) const
