@@ -228,7 +228,7 @@ public:
      * Value data.
      *
      * @throw std::invalid_argument
-     * If `loc` is outside the root cell.
+     * If `loc` is outside root cell.
      */
     void insert(
             const multi_type& loc, 
