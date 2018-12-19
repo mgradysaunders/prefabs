@@ -112,7 +112,7 @@ Public Types</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa28019a4eb74e247e464973efa9d5b29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#aa28019a4eb74e247e464973efa9d5b29">insert</a> (const <a class="el" href="classpr_1_1kctree.html#a957dda06016f263271af3dd2372282de">multi_type</a> &amp;loc, const <a class="el" href="classpr_1_1kctree.html#a5e23a9e9851ee09a05d2ef2c7abe3ad4">value_data_type</a> &amp;val_data)</td></tr>
-<tr class="memdesc:aa28019a4eb74e247e464973efa9d5b29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert value.  <a href="#aa28019a4eb74e247e464973efa9d5b29">More...</a><br /></td></tr>
+<tr class="memdesc:aa28019a4eb74e247e464973efa9d5b29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert.  <a href="#aa28019a4eb74e247e464973efa9d5b29">More...</a><br /></td></tr>
 <tr class="separator:aa28019a4eb74e247e464973efa9d5b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e4fea61c927788fd16d9f6312d3ba7d"><td class="memTemplParams" colspan="2">template&lt;typename Fun &gt; </td></tr>
 <tr class="memitem:a2e4fea61c927788fd16d9f6312d3ba7d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a2e4fea61c927788fd16d9f6312d3ba7d">query</a> (<a class="el" href="classpr_1_1kctree.html#afa72f45c601d2feb599c4dace1cc1fdf">aabb_type</a> reg, Fun &amp;&amp;fun) const</td></tr>
@@ -478,7 +478,7 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 </table>
 </div><div class="memdoc">
 
-<p>Insert value. </p>
+<p>Insert. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">loc</td><td>Location.</td></tr>
@@ -537,10 +537,11 @@ template&lt;typename Fun &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">reg</td><td>Region.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">fun</td><td>Function with signature <code>void(const value_type&amp;)</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fun</td><td>Function.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line">void(<span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#aa443fee11f2270dc2c1d1fc4df7f05bf" title="Value type. ">value_type</a>&amp;)</div></div><!-- fragment --> </dd></dl>
 
 </div>
 </div>
