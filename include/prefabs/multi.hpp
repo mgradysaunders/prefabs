@@ -916,6 +916,28 @@ public:
     /**@}*/
 };
 
+/**
+ * @name Bool array conversion
+ */
+/**@{*/
+
+/**
+ * @brief Bool array to binary number.
+ */
+template <std::size_t N>
+constexpr std::size_t multitoindex(const multi<bool, N>& arr)
+{
+    std::size_t num = 0;
+    std::size_t bit = 0;
+    for (auto itrarr = arr.begin(); 
+              itrarr < arr.end(); ++itrarr, ++bit) {
+        num |= (std::size_t(*itrarr) << bit);
+    }
+    return num;
+}
+
+/**@}*/
+
 /**@}*/
 
 #include "multi.inl"
