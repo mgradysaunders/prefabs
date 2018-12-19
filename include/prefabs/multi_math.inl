@@ -41,6 +41,70 @@ inline multi<std::decay_t<decltype(pr::arg(T()))>, N...> arg(const multi<T, N...
 }
 
 /**
+ * @brief Wrap `pr::real()`.
+ */
+template <typename T, std::size_t... N>
+__attribute__((always_inline))
+inline multi<std::decay_t<decltype(pr::real(T()))>, N...> real(const multi<T, N...>& x)
+{
+    multi<std::decay_t<decltype(pr::real(T()))>, N...> res;
+    auto itrx = x.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrx, ++itrres) {
+        *itrres = pr::real(*itrx);
+    }
+    return res;
+}
+
+/**
+ * @brief Wrap `pr::imag()`.
+ */
+template <typename T, std::size_t... N>
+__attribute__((always_inline))
+inline multi<std::decay_t<decltype(pr::imag(T()))>, N...> imag(const multi<T, N...>& x)
+{
+    multi<std::decay_t<decltype(pr::imag(T()))>, N...> res;
+    auto itrx = x.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrx, ++itrres) {
+        *itrres = pr::imag(*itrx);
+    }
+    return res;
+}
+
+/**
+ * @brief Wrap `pr::conj()`.
+ */
+template <typename T, std::size_t... N>
+__attribute__((always_inline))
+inline multi<std::decay_t<decltype(pr::conj(T()))>, N...> conj(const multi<T, N...>& x)
+{
+    multi<std::decay_t<decltype(pr::conj(T()))>, N...> res;
+    auto itrx = x.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrx, ++itrres) {
+        *itrres = pr::conj(*itrx);
+    }
+    return res;
+}
+
+/**
+ * @brief Wrap `pr::norm()`.
+ */
+template <typename T, std::size_t... N>
+__attribute__((always_inline))
+inline multi<std::decay_t<decltype(pr::norm(T()))>, N...> norm(const multi<T, N...>& x)
+{
+    multi<std::decay_t<decltype(pr::norm(T()))>, N...> res;
+    auto itrx = x.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrx, ++itrres) {
+        *itrres = pr::norm(*itrx);
+    }
+    return res;
+}
+
+/**
  * @brief Wrap `pr::min()`.
  */
 template <typename T, std::size_t... N>
