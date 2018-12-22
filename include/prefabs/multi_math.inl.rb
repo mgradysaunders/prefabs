@@ -108,12 +108,12 @@ for func in funcs
     for arg in func[1]
         if arg[0][-1] != '*' 
             args1 << "const multi<#{arg[0]}, N...>& #{arg[1]}"
-            decls << "auto itr#{arg[1]} = #{arg[1]}.begin();"
             args3 << "*itr#{arg[1]}"
+            decls << "auto itr#{arg[1]} = #{arg[1]}.begin();"
         else
-            args1 << "multi<#{arg[0].chop}, N...>* #{arg[1]}"
-            decls << "auto itr#{arg[1]} = #{arg[1]}->begin();"
+            args1 << "multi<#{arg[0].slice(0..-2)}, N...>* #{arg[1]}"
             args3 << "&(*itr#{arg[1]})"
+            decls << "auto itr#{arg[1]} = #{arg[1]}->begin();"
         end
         if arg[0] == 'T'
             args2 << 'T()'

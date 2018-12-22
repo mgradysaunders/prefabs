@@ -30,8 +30,10 @@
 #ifndef PREFABS_MULTI_MATH_HPP
 #define PREFABS_MULTI_MATH_HPP
 
+// for pr::fabs, pr::fmin, ...
 #include <prefabs/math.hpp>
 
+// for pr::multi
 #include <prefabs/multi.hpp>
 
 namespace pr {
