@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>prefabs: pr::kctree&lt; T, N, U, Alloc &gt; Class Template Reference</title>
+<title>prefabs: pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpr_1_1kctree-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::kctree&lt; T, N, U, Alloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__kctree.html">Kc-tree</a></div></div>  </div>
+<div class="title">pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__kctree.html">Kc-tree</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -87,72 +87,82 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Container typedefs</div></td></tr>
-<tr class="memitem:afa72f45c601d2feb599c4dace1cc1fdf"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#afa72f45c601d2feb599c4dace1cc1fdf">aabb_type</a></td></tr>
-<tr class="memdesc:afa72f45c601d2feb599c4dace1cc1fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axis-aligned bounding box type.  <a href="#afa72f45c601d2feb599c4dace1cc1fdf">More...</a><br /></td></tr>
-<tr class="separator:afa72f45c601d2feb599c4dace1cc1fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a957dda06016f263271af3dd2372282de"><td class="memItemLeft" align="right" valign="top">typedef multi&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a957dda06016f263271af3dd2372282de">multi_type</a></td></tr>
-<tr class="memdesc:a957dda06016f263271af3dd2372282de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi type.  <a href="#a957dda06016f263271af3dd2372282de">More...</a><br /></td></tr>
-<tr class="separator:a957dda06016f263271af3dd2372282de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e23a9e9851ee09a05d2ef2c7abe3ad4"><td class="memItemLeft" align="right" valign="top">typedef U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a5e23a9e9851ee09a05d2ef2c7abe3ad4">value_data_type</a></td></tr>
-<tr class="memdesc:a5e23a9e9851ee09a05d2ef2c7abe3ad4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value data type.  <a href="#a5e23a9e9851ee09a05d2ef2c7abe3ad4">More...</a><br /></td></tr>
-<tr class="separator:a5e23a9e9851ee09a05d2ef2c7abe3ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa443fee11f2270dc2c1d1fc4df7f05bf"><td class="memItemLeft" align="right" valign="top">typedef std::pair&lt; <a class="el" href="classpr_1_1kctree.html#a957dda06016f263271af3dd2372282de">multi_type</a>, <a class="el" href="classpr_1_1kctree.html#a5e23a9e9851ee09a05d2ef2c7abe3ad4">value_data_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#aa443fee11f2270dc2c1d1fc4df7f05bf">value_type</a></td></tr>
-<tr class="memdesc:aa443fee11f2270dc2c1d1fc4df7f05bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value type.  <a href="#aa443fee11f2270dc2c1d1fc4df7f05bf">More...</a><br /></td></tr>
-<tr class="separator:aa443fee11f2270dc2c1d1fc4df7f05bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55e5d12229327c0cee3a1786a79b847d"><td class="memItemLeft" align="right" valign="top">typedef std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a55e5d12229327c0cee3a1786a79b847d">size_type</a></td></tr>
-<tr class="memdesc:a55e5d12229327c0cee3a1786a79b847d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size type.  <a href="#a55e5d12229327c0cee3a1786a79b847d">More...</a><br /></td></tr>
-<tr class="separator:a55e5d12229327c0cee3a1786a79b847d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9aa90e7e195b378bfc330127c8b46470"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; Alloc &gt;::template rebind_alloc&lt; <a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a></td></tr>
-<tr class="memdesc:a9aa90e7e195b378bfc330127c8b46470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cell allocator type.  <a href="#a9aa90e7e195b378bfc330127c8b46470">More...</a><br /></td></tr>
-<tr class="separator:a9aa90e7e195b378bfc330127c8b46470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65baa101f920a1174a9a72445b0c19ac"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; <a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a65baa101f920a1174a9a72445b0c19ac">cell_allocator_traits</a></td></tr>
-<tr class="memdesc:a65baa101f920a1174a9a72445b0c19ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cell allocator traits.  <a href="#a65baa101f920a1174a9a72445b0c19ac">More...</a><br /></td></tr>
-<tr class="separator:a65baa101f920a1174a9a72445b0c19ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adedd269dc0ee884e16a49d6d0f05f0d0"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#adedd269dc0ee884e16a49d6d0f05f0d0">aabb_type</a></td></tr>
+<tr class="memdesc:adedd269dc0ee884e16a49d6d0f05f0d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axis-aligned bounding box type.  <a href="#adedd269dc0ee884e16a49d6d0f05f0d0">More...</a><br /></td></tr>
+<tr class="separator:adedd269dc0ee884e16a49d6d0f05f0d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abec663c28344749eaa91390e9c06e338"><td class="memItemLeft" align="right" valign="top">typedef multi&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#abec663c28344749eaa91390e9c06e338">multi_type</a></td></tr>
+<tr class="memdesc:abec663c28344749eaa91390e9c06e338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi type.  <a href="#abec663c28344749eaa91390e9c06e338">More...</a><br /></td></tr>
+<tr class="separator:abec663c28344749eaa91390e9c06e338"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a816fa6fb459137feaada70fef55d3fc4"><td class="memItemLeft" align="right" valign="top">typedef T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a816fa6fb459137feaada70fef55d3fc4">float_type</a></td></tr>
+<tr class="memdesc:a816fa6fb459137feaada70fef55d3fc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Float type.  <a href="#a816fa6fb459137feaada70fef55d3fc4">More...</a><br /></td></tr>
+<tr class="separator:a816fa6fb459137feaada70fef55d3fc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad628804ee8519c73e4a21ba46ed930ce"><td class="memItemLeft" align="right" valign="top">typedef U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#ad628804ee8519c73e4a21ba46ed930ce">value_data_type</a></td></tr>
+<tr class="memdesc:ad628804ee8519c73e4a21ba46ed930ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value data type.  <a href="#ad628804ee8519c73e4a21ba46ed930ce">More...</a><br /></td></tr>
+<tr class="separator:ad628804ee8519c73e4a21ba46ed930ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a992fefd6c2aa4ed7f9aa12c0614acf55"><td class="memItemLeft" align="right" valign="top">typedef std::pair&lt; <a class="el" href="classpr_1_1kctree.html#abec663c28344749eaa91390e9c06e338">multi_type</a>, <a class="el" href="classpr_1_1kctree.html#ad628804ee8519c73e4a21ba46ed930ce">value_data_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a992fefd6c2aa4ed7f9aa12c0614acf55">value_type</a></td></tr>
+<tr class="memdesc:a992fefd6c2aa4ed7f9aa12c0614acf55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value type.  <a href="#a992fefd6c2aa4ed7f9aa12c0614acf55">More...</a><br /></td></tr>
+<tr class="separator:a992fefd6c2aa4ed7f9aa12c0614acf55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bdaa23af1d793227dd6d2621da6561f"><td class="memItemLeft" align="right" valign="top">typedef std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a6bdaa23af1d793227dd6d2621da6561f">size_type</a></td></tr>
+<tr class="memdesc:a6bdaa23af1d793227dd6d2621da6561f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size type.  <a href="#a6bdaa23af1d793227dd6d2621da6561f">More...</a><br /></td></tr>
+<tr class="separator:a6bdaa23af1d793227dd6d2621da6561f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff2a141a3696ee962835a42d196081ba"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; CellAlloc &gt;::template rebind_alloc&lt; <a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#aff2a141a3696ee962835a42d196081ba">cell_allocator_type</a></td></tr>
+<tr class="memdesc:aff2a141a3696ee962835a42d196081ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cell allocator type.  <a href="#aff2a141a3696ee962835a42d196081ba">More...</a><br /></td></tr>
+<tr class="separator:aff2a141a3696ee962835a42d196081ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5413fa81dbb2f3aa27d6e9980098cf3e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a5413fa81dbb2f3aa27d6e9980098cf3e">kctree</a> (<a class="el" href="classpr_1_1kctree.html#afa72f45c601d2feb599c4dace1cc1fdf">aabb_type</a> box, <a class="el" href="classpr_1_1kctree.html#a55e5d12229327c0cee3a1786a79b847d">size_type</a> cell_capacity=4, const <a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a> &amp;cell_alloc=<a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a>())</td></tr>
-<tr class="memdesc:a5413fa81dbb2f3aa27d6e9980098cf3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a5413fa81dbb2f3aa27d6e9980098cf3e">More...</a><br /></td></tr>
-<tr class="separator:a5413fa81dbb2f3aa27d6e9980098cf3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99370d9fbff91bc6fff0a53b4912057d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a99370d9fbff91bc6fff0a53b4912057d">kctree</a> (<a class="el" href="classpr_1_1kctree.html#afa72f45c601d2feb599c4dace1cc1fdf">aabb_type</a> box, <a class="el" href="classpr_1_1kctree.html#a55e5d12229327c0cee3a1786a79b847d">size_type</a> cell_capacity, <a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a> &amp;&amp;cell_alloc)</td></tr>
-<tr class="memdesc:a99370d9fbff91bc6fff0a53b4912057d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a99370d9fbff91bc6fff0a53b4912057d">More...</a><br /></td></tr>
-<tr class="separator:a99370d9fbff91bc6fff0a53b4912057d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3b5b2f76e505d36413227ca5f37b3e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#af3b5b2f76e505d36413227ca5f37b3e3">kctree</a> (const <a class="el" href="classpr_1_1kctree.html">kctree</a> &amp;)=delete</td></tr>
-<tr class="memdesc:af3b5b2f76e505d36413227ca5f37b3e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-copyable.  <a href="#af3b5b2f76e505d36413227ca5f37b3e3">More...</a><br /></td></tr>
-<tr class="separator:af3b5b2f76e505d36413227ca5f37b3e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa28019a4eb74e247e464973efa9d5b29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#aa28019a4eb74e247e464973efa9d5b29">insert</a> (const <a class="el" href="classpr_1_1kctree.html#a957dda06016f263271af3dd2372282de">multi_type</a> &amp;loc, const <a class="el" href="classpr_1_1kctree.html#a5e23a9e9851ee09a05d2ef2c7abe3ad4">value_data_type</a> &amp;val_data)</td></tr>
-<tr class="memdesc:aa28019a4eb74e247e464973efa9d5b29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert.  <a href="#aa28019a4eb74e247e464973efa9d5b29">More...</a><br /></td></tr>
-<tr class="separator:aa28019a4eb74e247e464973efa9d5b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c18a2e6134144344220bdf6efaad14d"><td class="memTemplParams" colspan="2">template&lt;typename Fun &gt; </td></tr>
-<tr class="memitem:a3c18a2e6134144344220bdf6efaad14d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a3c18a2e6134144344220bdf6efaad14d">query</a> (const <a class="el" href="classpr_1_1kctree.html#afa72f45c601d2feb599c4dace1cc1fdf">aabb_type</a> &amp;reg, Fun &amp;&amp;fun) const</td></tr>
-<tr class="memdesc:a3c18a2e6134144344220bdf6efaad14d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query region.  <a href="#a3c18a2e6134144344220bdf6efaad14d">More...</a><br /></td></tr>
-<tr class="separator:a3c18a2e6134144344220bdf6efaad14d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4edc8e631c883998542c3f1361a61719"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a4edc8e631c883998542c3f1361a61719">kctree</a> (const <a class="el" href="classpr_1_1kctree.html#adedd269dc0ee884e16a49d6d0f05f0d0">aabb_type</a> &amp;box, const <a class="el" href="classpr_1_1kctree.html#aff2a141a3696ee962835a42d196081ba">cell_allocator_type</a> &amp;cell_alloc=<a class="el" href="classpr_1_1kctree.html#aff2a141a3696ee962835a42d196081ba">cell_allocator_type</a>())</td></tr>
+<tr class="memdesc:a4edc8e631c883998542c3f1361a61719"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a4edc8e631c883998542c3f1361a61719">More...</a><br /></td></tr>
+<tr class="separator:a4edc8e631c883998542c3f1361a61719"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac51af3c255c55c53b8799b2ea271c69b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#ac51af3c255c55c53b8799b2ea271c69b">kctree</a> (const <a class="el" href="classpr_1_1kctree.html#adedd269dc0ee884e16a49d6d0f05f0d0">aabb_type</a> &amp;box, <a class="el" href="classpr_1_1kctree.html#aff2a141a3696ee962835a42d196081ba">cell_allocator_type</a> &amp;&amp;cell_alloc)</td></tr>
+<tr class="memdesc:ac51af3c255c55c53b8799b2ea271c69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ac51af3c255c55c53b8799b2ea271c69b">More...</a><br /></td></tr>
+<tr class="separator:ac51af3c255c55c53b8799b2ea271c69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8724ed7dc44797ba6d3841a6a6709032"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a8724ed7dc44797ba6d3841a6a6709032">kctree</a> (const <a class="el" href="classpr_1_1kctree.html">kctree</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a8724ed7dc44797ba6d3841a6a6709032"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-copyable.  <a href="#a8724ed7dc44797ba6d3841a6a6709032">More...</a><br /></td></tr>
+<tr class="separator:a8724ed7dc44797ba6d3841a6a6709032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42c36610ecb0cd7d9972965fe2017fd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a42c36610ecb0cd7d9972965fe2017fd2">insert</a> (const <a class="el" href="classpr_1_1kctree.html#abec663c28344749eaa91390e9c06e338">multi_type</a> &amp;loc, const <a class="el" href="classpr_1_1kctree.html#ad628804ee8519c73e4a21ba46ed930ce">value_data_type</a> &amp;val_data)</td></tr>
+<tr class="memdesc:a42c36610ecb0cd7d9972965fe2017fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert.  <a href="#a42c36610ecb0cd7d9972965fe2017fd2">More...</a><br /></td></tr>
+<tr class="separator:a42c36610ecb0cd7d9972965fe2017fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64a1a2bb38dd30c6c602907abffba3c5"><td class="memTemplParams" colspan="2">template&lt;typename Fun &gt; </td></tr>
+<tr class="memitem:a64a1a2bb38dd30c6c602907abffba3c5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a64a1a2bb38dd30c6c602907abffba3c5">query</a> (const <a class="el" href="classpr_1_1kctree.html#adedd269dc0ee884e16a49d6d0f05f0d0">aabb_type</a> &amp;reg, Fun &amp;&amp;fun) const</td></tr>
+<tr class="memdesc:a64a1a2bb38dd30c6c602907abffba3c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query region.  <a href="#a64a1a2bb38dd30c6c602907abffba3c5">More...</a><br /></td></tr>
+<tr class="separator:a64a1a2bb38dd30c6c602907abffba3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a5c76d3d60dc09b81ca2211674fa7743d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a5c76d3d60dc09b81ca2211674fa7743d">cell_alloc_</a></td></tr>
-<tr class="memdesc:a5c76d3d60dc09b81ca2211674fa7743d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cell allocator.  <a href="#a5c76d3d60dc09b81ca2211674fa7743d">More...</a><br /></td></tr>
-<tr class="separator:a5c76d3d60dc09b81ca2211674fa7743d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34e071d001132b986f44e0cb91b9e449"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a34e071d001132b986f44e0cb91b9e449">root_</a></td></tr>
-<tr class="memdesc:a34e071d001132b986f44e0cb91b9e449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root.  <a href="#a34e071d001132b986f44e0cb91b9e449">More...</a><br /></td></tr>
-<tr class="separator:a34e071d001132b986f44e0cb91b9e449"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30cdba5c7fe077314611f6e36753546c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1kctree.html#aff2a141a3696ee962835a42d196081ba">cell_allocator_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a30cdba5c7fe077314611f6e36753546c">cell_alloc_</a></td></tr>
+<tr class="memdesc:a30cdba5c7fe077314611f6e36753546c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cell allocator.  <a href="#a30cdba5c7fe077314611f6e36753546c">More...</a><br /></td></tr>
+<tr class="separator:a30cdba5c7fe077314611f6e36753546c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c999e6aede880228cb54c3684643626"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a2c999e6aede880228cb54c3684643626">root_</a></td></tr>
+<tr class="memdesc:a2c999e6aede880228cb54c3684643626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root.  <a href="#a2c999e6aede880228cb54c3684643626">More...</a><br /></td></tr>
+<tr class="separator:a2c999e6aede880228cb54c3684643626"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, std::size_t N, typename U, typename Alloc = std::allocator&lt;char&gt;&gt;<br />
-class pr::kctree&lt; T, N, U, Alloc &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, std::size_t N, typename U, typename CellAlloc = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt;<br />
+class pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt;</h3>
 
 <p>Kc-tree. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Multi floating point type.</td></tr>
+    <tr><td class="paramname">N</td><td>Multi dimension.</td></tr>
+    <tr><td class="paramname">U</td><td>Value data type.</td></tr>
+    <tr><td class="paramname">CellAlloc</td><td>Cell allocator type.</td></tr>
+    <tr><td class="paramname">CellCapacity</td><td>Cell capacity. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="afa72f45c601d2feb599c4dace1cc1fdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa72f45c601d2feb599c4dace1cc1fdf">&#9670;&nbsp;</a></span>aabb_type</h2>
+<a id="adedd269dc0ee884e16a49d6d0f05f0d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adedd269dc0ee884e16a49d6d0f05f0d0">&#9670;&nbsp;</a></span>aabb_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt;T, N&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::<a class="el" href="classpr_1_1kctree.html#afa72f45c601d2feb599c4dace1cc1fdf">aabb_type</a></td>
+          <td class="memname">typedef <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt;T, N&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::<a class="el" href="classpr_1_1kctree.html#adedd269dc0ee884e16a49d6d0f05f0d0">aabb_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -161,16 +171,16 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 
 </div>
 </div>
-<a id="a957dda06016f263271af3dd2372282de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a957dda06016f263271af3dd2372282de">&#9670;&nbsp;</a></span>multi_type</h2>
+<a id="abec663c28344749eaa91390e9c06e338"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abec663c28344749eaa91390e9c06e338">&#9670;&nbsp;</a></span>multi_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef multi&lt;T, N&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::<a class="el" href="classpr_1_1kctree.html#a957dda06016f263271af3dd2372282de">multi_type</a></td>
+          <td class="memname">typedef multi&lt;T, N&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::<a class="el" href="classpr_1_1kctree.html#abec663c28344749eaa91390e9c06e338">multi_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -179,16 +189,34 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 
 </div>
 </div>
-<a id="a5e23a9e9851ee09a05d2ef2c7abe3ad4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e23a9e9851ee09a05d2ef2c7abe3ad4">&#9670;&nbsp;</a></span>value_data_type</h2>
+<a id="a816fa6fb459137feaada70fef55d3fc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a816fa6fb459137feaada70fef55d3fc4">&#9670;&nbsp;</a></span>float_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef U <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::<a class="el" href="classpr_1_1kctree.html#a5e23a9e9851ee09a05d2ef2c7abe3ad4">value_data_type</a></td>
+          <td class="memname">typedef T <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::<a class="el" href="classpr_1_1kctree.html#a816fa6fb459137feaada70fef55d3fc4">float_type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Float type. </p>
+
+</div>
+</div>
+<a id="ad628804ee8519c73e4a21ba46ed930ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad628804ee8519c73e4a21ba46ed930ce">&#9670;&nbsp;</a></span>value_data_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef U <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::<a class="el" href="classpr_1_1kctree.html#ad628804ee8519c73e4a21ba46ed930ce">value_data_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -197,16 +225,16 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 
 </div>
 </div>
-<a id="aa443fee11f2270dc2c1d1fc4df7f05bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa443fee11f2270dc2c1d1fc4df7f05bf">&#9670;&nbsp;</a></span>value_type</h2>
+<a id="a992fefd6c2aa4ed7f9aa12c0614acf55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a992fefd6c2aa4ed7f9aa12c0614acf55">&#9670;&nbsp;</a></span>value_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::pair&lt;<a class="el" href="classpr_1_1kctree.html#a957dda06016f263271af3dd2372282de">multi_type</a>, <a class="el" href="classpr_1_1kctree.html#a5e23a9e9851ee09a05d2ef2c7abe3ad4">value_data_type</a>&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::<a class="el" href="classpr_1_1kctree.html#aa443fee11f2270dc2c1d1fc4df7f05bf">value_type</a></td>
+          <td class="memname">typedef std::pair&lt; <a class="el" href="classpr_1_1kctree.html#abec663c28344749eaa91390e9c06e338">multi_type</a>, <a class="el" href="classpr_1_1kctree.html#ad628804ee8519c73e4a21ba46ed930ce">value_data_type</a>&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::<a class="el" href="classpr_1_1kctree.html#a992fefd6c2aa4ed7f9aa12c0614acf55">value_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -215,16 +243,16 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 
 </div>
 </div>
-<a id="a55e5d12229327c0cee3a1786a79b847d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55e5d12229327c0cee3a1786a79b847d">&#9670;&nbsp;</a></span>size_type</h2>
+<a id="a6bdaa23af1d793227dd6d2621da6561f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bdaa23af1d793227dd6d2621da6561f">&#9670;&nbsp;</a></span>size_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::size_t <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::<a class="el" href="classpr_1_1kctree.html#a55e5d12229327c0cee3a1786a79b847d">size_type</a></td>
+          <td class="memname">typedef std::size_t <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::<a class="el" href="classpr_1_1kctree.html#a6bdaa23af1d793227dd6d2621da6561f">size_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -233,16 +261,16 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 
 </div>
 </div>
-<a id="a9aa90e7e195b378bfc330127c8b46470"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9aa90e7e195b378bfc330127c8b46470">&#9670;&nbsp;</a></span>cell_allocator_type</h2>
+<a id="aff2a141a3696ee962835a42d196081ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff2a141a3696ee962835a42d196081ba">&#9670;&nbsp;</a></span>cell_allocator_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::allocator_traits&lt;Alloc&gt;:: template rebind_alloc&lt;<a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a>&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::<a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a></td>
+          <td class="memname">typedef std::allocator_traits&lt;CellAlloc&gt;:: template rebind_alloc&lt;<a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a>&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::<a class="el" href="classpr_1_1kctree.html#aff2a141a3696ee962835a42d196081ba">cell_allocator_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -251,53 +279,29 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 
 </div>
 </div>
-<a id="a65baa101f920a1174a9a72445b0c19ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65baa101f920a1174a9a72445b0c19ac">&#9670;&nbsp;</a></span>cell_allocator_traits</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::allocator_traits&lt;<a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a>&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::<a class="el" href="classpr_1_1kctree.html#a65baa101f920a1174a9a72445b0c19ac">cell_allocator_traits</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Cell allocator traits. </p>
-
-</div>
-</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5413fa81dbb2f3aa27d6e9980098cf3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5413fa81dbb2f3aa27d6e9980098cf3e">&#9670;&nbsp;</a></span>kctree() <span class="overload">[1/3]</span></h2>
+<a id="a4edc8e631c883998542c3f1361a61719"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4edc8e631c883998542c3f1361a61719">&#9670;&nbsp;</a></span>kctree() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::<a class="el" href="classpr_1_1kctree.html">kctree</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::<a class="el" href="classpr_1_1kctree.html">kctree</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1kctree.html#afa72f45c601d2feb599c4dace1cc1fdf">aabb_type</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html#adedd269dc0ee884e16a49d6d0f05f0d0">aabb_type</a> &amp;&#160;</td>
           <td class="paramname"><em>box</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpr_1_1kctree.html#a55e5d12229327c0cee3a1786a79b847d">size_type</a>&#160;</td>
-          <td class="paramname"><em>cell_capacity</em> = <code>4</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a> &amp;&#160;</td>
-          <td class="paramname"><em>cell_alloc</em> = <code><a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a>()</code>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html#aff2a141a3696ee962835a42d196081ba">cell_allocator_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>cell_alloc</em> = <code><a class="el" href="classpr_1_1kctree.html#aff2a141a3696ee962835a42d196081ba">cell_allocator_type</a>()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -316,7 +320,6 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">box</td><td>Box.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cell_capacity</td><td>Cell capacity.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">cell_alloc</td><td>Cell allocator. </td></tr>
   </table>
   </dd>
@@ -324,33 +327,27 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 
 </div>
 </div>
-<a id="a99370d9fbff91bc6fff0a53b4912057d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99370d9fbff91bc6fff0a53b4912057d">&#9670;&nbsp;</a></span>kctree() <span class="overload">[2/3]</span></h2>
+<a id="ac51af3c255c55c53b8799b2ea271c69b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac51af3c255c55c53b8799b2ea271c69b">&#9670;&nbsp;</a></span>kctree() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::<a class="el" href="classpr_1_1kctree.html">kctree</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::<a class="el" href="classpr_1_1kctree.html">kctree</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1kctree.html#afa72f45c601d2feb599c4dace1cc1fdf">aabb_type</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html#adedd269dc0ee884e16a49d6d0f05f0d0">aabb_type</a> &amp;&#160;</td>
           <td class="paramname"><em>box</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpr_1_1kctree.html#a55e5d12229327c0cee3a1786a79b847d">size_type</a>&#160;</td>
-          <td class="paramname"><em>cell_capacity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1kctree.html#aff2a141a3696ee962835a42d196081ba">cell_allocator_type</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>cell_alloc</em>&#160;</td>
         </tr>
         <tr>
@@ -370,7 +367,6 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">box</td><td>Box.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cell_capacity</td><td>Cell capacity.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">cell_alloc</td><td>Cell allocator. </td></tr>
   </table>
   </dd>
@@ -378,21 +374,21 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 
 </div>
 </div>
-<a id="af3b5b2f76e505d36413227ca5f37b3e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3b5b2f76e505d36413227ca5f37b3e3">&#9670;&nbsp;</a></span>kctree() <span class="overload">[3/3]</span></h2>
+<a id="a8724ed7dc44797ba6d3841a6a6709032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8724ed7dc44797ba6d3841a6a6709032">&#9670;&nbsp;</a></span>kctree() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::<a class="el" href="classpr_1_1kctree.html">kctree</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::<a class="el" href="classpr_1_1kctree.html">kctree</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html">kctree</a>&lt; T, N, U, Alloc &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html">kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt; &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -409,27 +405,27 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa28019a4eb74e247e464973efa9d5b29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa28019a4eb74e247e464973efa9d5b29">&#9670;&nbsp;</a></span>insert()</h2>
+<a id="a42c36610ecb0cd7d9972965fe2017fd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42c36610ecb0cd7d9972965fe2017fd2">&#9670;&nbsp;</a></span>insert()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::insert </td>
+          <td class="memname">void <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::insert </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html#a957dda06016f263271af3dd2372282de">multi_type</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html#abec663c28344749eaa91390e9c06e338">multi_type</a> &amp;&#160;</td>
           <td class="paramname"><em>loc</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html#a5e23a9e9851ee09a05d2ef2c7abe3ad4">value_data_type</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html#ad628804ee8519c73e4a21ba46ed930ce">value_data_type</a> &amp;&#160;</td>
           <td class="paramname"><em>val_data</em>&#160;</td>
         </tr>
         <tr>
@@ -462,13 +458,13 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 
 </div>
 </div>
-<a id="a3c18a2e6134144344220bdf6efaad14d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c18a2e6134144344220bdf6efaad14d">&#9670;&nbsp;</a></span>query()</h2>
+<a id="a64a1a2bb38dd30c6c602907abffba3c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64a1a2bb38dd30c6c602907abffba3c5">&#9670;&nbsp;</a></span>query()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
 <div class="memtemplate">
 template&lt;typename Fun &gt; </div>
 <table class="mlabels">
@@ -476,9 +472,9 @@ template&lt;typename Fun &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::query </td>
+          <td class="memname">void <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::query </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html#afa72f45c601d2feb599c4dace1cc1fdf">aabb_type</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1kctree.html#adedd269dc0ee884e16a49d6d0f05f0d0">aabb_type</a> &amp;&#160;</td>
           <td class="paramname"><em>reg</em>, </td>
         </tr>
         <tr>
@@ -508,24 +504,24 @@ template&lt;typename Fun &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line">void(<span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#aa443fee11f2270dc2c1d1fc4df7f05bf" title="Value type. ">value_type</a>&amp;)</div></div><!-- fragment --> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line">void(<span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#abec663c28344749eaa91390e9c06e338" title="Multi type. ">multi_type</a>&amp;, <span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#ad628804ee8519c73e4a21ba46ed930ce" title="Value data type. ">value_data_type</a>&amp;)</div></div><!-- fragment --> </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a5c76d3d60dc09b81ca2211674fa7743d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c76d3d60dc09b81ca2211674fa7743d">&#9670;&nbsp;</a></span>cell_alloc_</h2>
+<a id="a30cdba5c7fe077314611f6e36753546c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30cdba5c7fe077314611f6e36753546c">&#9670;&nbsp;</a></span>cell_alloc_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1kctree.html#a9aa90e7e195b378bfc330127c8b46470">cell_allocator_type</a> <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::cell_alloc_</td>
+          <td class="memname"><a class="el" href="classpr_1_1kctree.html#aff2a141a3696ee962835a42d196081ba">cell_allocator_type</a> <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::cell_alloc_</td>
         </tr>
       </table>
   </td>
@@ -539,19 +535,19 @@ template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allo
 
 </div>
 </div>
-<a id="a34e071d001132b986f44e0cb91b9e449"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34e071d001132b986f44e0cb91b9e449">&#9670;&nbsp;</a></span>root_</h2>
+<a id="a2c999e6aede880228cb54c3684643626"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c999e6aede880228cb54c3684643626">&#9670;&nbsp;</a></span>root_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N, typename U , typename Alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename T , std::size_t N, typename U , typename CellAlloc  = std::allocator&lt;char&gt;, std::size_t CellCapacity = 4&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a> <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, Alloc &gt;::root_</td>
+          <td class="memname"><a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a> <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; T, N, U, CellAlloc, CellCapacity &gt;::root_</td>
         </tr>
       </table>
   </td>

@@ -70,6 +70,9 @@ $(function() {
 <li>allocator_
 : <a class="el" href="classpr_1_1memory__arena.html#a105b6687848d2d08ef7fe9efd62702cf">pr::memory_arena</a>
 </li>
+<li>arena_
+: <a class="el" href="classpr_1_1memory__arena__allocator.html#a77460e3f718d38953d225b794f97c9db">pr::memory_arena_allocator&lt; T &gt;</a>
+</li>
 <li>argc
 : <a class="el" href="classpr_1_1option.html#a74ab2cdef0bbf89b0fa32b636cfa431f">pr::option</a>
 </li>
@@ -116,10 +119,10 @@ $(function() {
 , <a class="el" href="classpr_1_1block__array3.html#a3cda7dadaf7bca08340abbca88779e19">pr::block_array3&lt; T, Alloc &gt;</a>
 </li>
 <li>box_
-: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#afeb155d80b1eaa7d5e7c2591f91cc24f">pr::kctree&lt; T, N, U, Alloc &gt;::cell_type</a>
+: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a703b15e661b058b33cc57d9382c376c4">pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt;::cell_type</a>
 </li>
 <li>box_center_
-: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a8eea9c1bf488ed9b652154952ab30f81">pr::kctree&lt; T, N, U, Alloc &gt;::cell_type</a>
+: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a8533d3e2e51129215f7c3a7b85e6e92b">pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt;::cell_type</a>
 </li>
 </ul>
 
@@ -129,14 +132,11 @@ $(function() {
 : <a class="el" href="classpr_1_1option.html#ab67628af0adafecc6ef3ceb5d8df3557">pr::option</a>
 </li>
 <li>cell_alloc_
-: <a class="el" href="classpr_1_1kctree.html#a5c76d3d60dc09b81ca2211674fa7743d">pr::kctree&lt; T, N, U, Alloc &gt;</a>
-, <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a8e62caa2373fc4ae78b419e1faa47e03">pr::kctree&lt; T, N, U, Alloc &gt;::cell_type</a>
-</li>
-<li>cell_capacity_
-: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a6e380fc658820d8d27075f93999735ed">pr::kctree&lt; T, N, U, Alloc &gt;::cell_type</a>
+: <a class="el" href="classpr_1_1kctree.html#a30cdba5c7fe077314611f6e36753546c">pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt;</a>
+, <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a200863985e06623619c85045ae0e01c0">pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt;::cell_type</a>
 </li>
 <li>cells_
-: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a423b3187779a11cde58786bdfcb57a2b">pr::kctree&lt; T, N, U, Alloc &gt;::cell_type</a>
+: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#af1ccbb1ff0abd2d29be6bf43ed812319">pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt;::cell_type</a>
 </li>
 <li>cv_
 : <a class="el" href="classpr_1_1thread__pool.html#a2dbfc3897e8b35683119cff6ab88b63b">pr::thread_pool</a>
@@ -153,8 +153,8 @@ $(function() {
 , <a class="el" href="classpr_1_1block__array3.html#a0fd3242a89187673480f2199e3bbc4ec">pr::block_array3&lt; T, Alloc &gt;</a>
 </li>
 <li>data_size_
-: <a class="el" href="classpr_1_1block__array2.html#a2330fcb93165bf9f3771ffe38970f3bd">pr::block_array2&lt; T, Alloc &gt;</a>
-, <a class="el" href="classpr_1_1block__array3.html#a99a5ef40ffcdf987196a09bc369d2a6a">pr::block_array3&lt; T, Alloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array2.html#a617607a117c41121b69b7f3d6025c8ca">pr::block_array2&lt; T, Alloc &gt;</a>
+, <a class="el" href="classpr_1_1block__array3.html#ac13190a921f2e1d97ba0d6bbaa885b72">pr::block_array3&lt; T, Alloc &gt;</a>
 </li>
 <li>digits
 : <a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#adc79556c8100130ec59296b40dfa0bb1">pr::numeric_limits&lt; __float128 &gt;</a>
@@ -287,7 +287,7 @@ $(function() {
 
 <h3><a id="index_r"></a>- r -</h3><ul>
 <li>root_
-: <a class="el" href="classpr_1_1kctree.html#a34e071d001132b986f44e0cb91b9e449">pr::kctree&lt; T, N, U, Alloc &gt;</a>
+: <a class="el" href="classpr_1_1kctree.html#a2c999e6aede880228cb54c3684643626">pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt;</a>
 </li>
 </ul>
 
@@ -304,6 +304,12 @@ $(function() {
 </li>
 <li>size
 : <a class="el" href="structpr_1_1memory__arena_1_1block.html#af470bf363de6e9e9be86f891cfd12c19">pr::memory_arena::block</a>
+</li>
+<li>stack_
+: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a82a3a980bd5a4bc248b372fd370232c7">pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt;::cell_type</a>
+</li>
+<li>stack_top_
+: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a5209a080996a9b6a5b727b4009397715">pr::kctree&lt; T, N, U, CellAlloc, CellCapacity &gt;::cell_type</a>
 </li>
 <li>start_
 : <a class="el" href="classpr_1_1timer.html#ac52730a80d2a4b5d66ac6286b6dae335">pr::timer&lt; T &gt;</a>
@@ -323,8 +329,8 @@ $(function() {
 
 <h3><a id="index_u"></a>- u -</h3><ul>
 <li>user_size_
-: <a class="el" href="classpr_1_1block__array2.html#ae39142f79bbf8c9cf1454cdeb452e6ba">pr::block_array2&lt; T, Alloc &gt;</a>
-, <a class="el" href="classpr_1_1block__array3.html#aa9391a8e5a93f2ebe4bc2cfffa0468f9">pr::block_array3&lt; T, Alloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array2.html#af6c438316e25f069a094a857c96dfb24">pr::block_array2&lt; T, Alloc &gt;</a>
+, <a class="el" href="classpr_1_1block__array3.html#abe210119780539caa6867c3ab8af5b82">pr::block_array3&lt; T, Alloc &gt;</a>
 </li>
 </ul>
 
@@ -332,9 +338,6 @@ $(function() {
 <h3><a id="index_v"></a>- v -</h3><ul>
 <li>v_
 : <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a33ee356d52371fb71a2c2c7f838c6522">pr::multi&lt; T, M, N... &gt;</a>
-</li>
-<li>values_
-: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#aac84e3e0549b3dd954140e219ea055a1">pr::kctree&lt; T, N, U, Alloc &gt;::cell_type</a>
 </li>
 </ul>
 
