@@ -33,16 +33,22 @@
 // for assert
 #include <cassert>
 
-// for std::forward, std::pair, ...
-#include <utility>
-
 // for std::allocator, std::allocator_traits
 #include <memory>
+
+// for std::vector
+#include <vector>
+
+// for std::forward, std::pair, ...
+#include <utility>
 
 // for std::logic_error, std::invalid_argument
 #include <stdexcept>
 
-// for pr::aabb, pr::multi
+// for pr::multi
+#include <prefabs/multi.hpp>
+
+// for pr::aabb
 #include <prefabs/aabb.hpp>
 
 namespace pr {
@@ -114,6 +120,11 @@ public:
     typedef multi<T, N> multi_type;
 
     /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
      * @brief Value data type.
      */
     typedef U value_data_type;
@@ -121,7 +132,9 @@ public:
     /**
      * @brief Value type.
      */
-    typedef std::pair<multi_type, value_data_type> value_type;
+    typedef std::pair<
+                multi_type, 
+                value_data_type> value_type;
     
     /**
      * @brief Size type.
@@ -153,7 +166,7 @@ public:
      * Cell allocator.
      */
     kctree(
-        aabb_type box,
+        const aabb_type& box,
         const cell_allocator_type& cell_alloc = 
               cell_allocator_type()) :
                     cell_alloc_(cell_alloc),
@@ -171,7 +184,7 @@ public:
      * Cell allocator.
      */
     kctree(
-        aabb_type box,
+        const aabb_type& box,
         cell_allocator_type&& cell_alloc) :
                     cell_alloc_(std::move(cell_alloc)),
                     root_(box, cell_alloc_)
@@ -245,7 +258,7 @@ public:
          * Cell allocator.
          */
         cell_type(
-                aabb_type box,
+                const aabb_type& box,
                 cell_allocator_type& cell_alloc) :
             box_(box),
             box_center_(box.center()),
