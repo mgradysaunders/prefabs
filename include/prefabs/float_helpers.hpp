@@ -48,16 +48,11 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Enable type `U` if type `T` is floating point.
- */
-template <typename T, typename U = T>
-using enable_float = std::enable_if<std::is_floating_point<T>::value, U>;
-
-/**
  * @brief Increment to next representable value.
  */
 template <typename T>
-inline typename enable_float<T>::type finc(T x)
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> finc(T x)
 {
     return pr::nextafter(x, +pr::numeric_limits<T>::infinity());
 }
@@ -66,7 +61,8 @@ inline typename enable_float<T>::type finc(T x)
  * @brief Decrement to next representable value.
  */
 template <typename T>
-inline typename enable_float<T>::type fdec(T x)
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> fdec(T x)
 {
     return pr::nextafter(x, -pr::numeric_limits<T>::infinity());
 }
@@ -84,10 +80,14 @@ inline typename enable_float<T>::type fdec(T x)
  * Maximum value.
  */
 template <typename T>
-inline typename enable_float<T>::type fclamp(T x, T a, T b)
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> fclamp(T x, T a, T b)
 {
-    assert(a <= b);
-    return pr::fmax(a, pr::fmin(x, b));
+    if (a > b) {
+        std::swap(a, b);
+    }
+    return pr::fmax(a, 
+           pr::fmin(x, b));
 }
 
 /**
@@ -111,7 +111,8 @@ inline typename enable_float<T>::type fclamp(T x, T a, T b)
  * Maximum value.
  */
 template <typename T>
-inline typename enable_float<T>::type frepeat(T x, T a, T b)
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> frepeat(T x, T a, T b)
 {
     if (a > b) {
         std::swap(a, b);
@@ -147,7 +148,8 @@ inline typename enable_float<T>::type frepeat(T x, T a, T b)
  * Maximum value.
  */
 template <typename T>
-inline typename enable_float<T>::type fmirror(T x, T a, T b)
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> fmirror(T x, T a, T b)
 {
     if (a > b) {
         std::swap(a, b);
@@ -165,6 +167,118 @@ inline typename enable_float<T>::type fmirror(T x, T a, T b)
         r0 = b0 - r0;
     }
     return r0 + a;
+}
+
+/**
+ * @brief Cycle mode.
+ */
+enum class cycle_mode
+{
+    /**
+     * @brief Use `fclamp()`.
+     */
+    clamp,
+
+    /**
+     * @brief Use `frepeat()`.
+     */
+    repeat,
+
+    /**
+     * @brief Use `fmirror()`.
+     */
+    mirror
+};
+
+/**
+ * @brief Cycle.
+ *
+ * @param[in] x
+ * Value
+ *
+ * @param[in] a
+ * Minimum value.
+ *
+ * @param[in] b
+ * Maximum value.
+ *
+ * @param[in] mode
+ * Cycle mode.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> fcycle(T x, T a, T b,
+                                             cycle_mode mode)
+{
+    switch (mode) {
+        default:
+        case cycle_mode::clamp: return fclamp(x, a, b);
+        case cycle_mode::repeat: return frepeat(x, a, b);
+        case cycle_mode::mirror: return fmirror(x, a, b);
+    }
+
+    // Unreachable.
+    return T();
+}
+
+/**
+ * @brief Stretch floating point values to signed/unsigned 
+ * normalized integer values.
+ */
+template <typename U, typename T>
+inline std::enable_if_t<
+       std::is_arithmetic<T>::value &&
+       std::is_arithmetic<U>::value, U> fstretch(T x)
+{
+    if constexpr (std::is_floating_point<T>::value &&
+                  std::is_floating_point<U>::value) {
+        // Float -> Float.
+        return static_cast<U>(x);
+    }
+    else if constexpr (std::is_floating_point<T>::value &&
+                       std::is_unsigned<U>::value) {
+        // Float -> Unorm.
+        return 
+            static_cast<U>(
+            static_cast<double>(pr::numeric_limits<U>::max()) * 
+            static_cast<double>(pr::fclamp(x, T(0), T(1))));
+    }
+    else if constexpr (std::is_floating_point<T>::value &&
+                       std::is_integral<U>::value) {
+        // Float -> Snorm.
+        return
+            static_cast<U>(
+            static_cast<double>(pr::numeric_limits<U>::max()) * 
+            static_cast<double>(pr::fclamp(x, T(-1), T(1) - 
+                                pr::numeric_limits<T>::machine_epsilon())));
+    }
+    else if constexpr (std::is_unsigned<T>::value &&
+                       std::is_floating_point<U>::value) {
+        // Unorm -> Float.
+        return
+            static_cast<U>(
+            static_cast<double>(x) /
+            static_cast<double>(pr::numeric_limits<T>::max()));
+    }
+    else if constexpr (std::is_integral<T>::value &&
+                       std::is_floating_point<U>::value) {
+        // Snorm -> Float.
+        return
+            static_cast<U>(
+            static_cast<double>(x) /
+            static_cast<double>(pr::numeric_limits<T>::max()));
+    }
+    else if constexpr (std::is_integral<T>::value &&
+                       std::is_integral<U>::value) {
+        // Xnorm -> Xnorm.
+        return 
+            fstretch<double, U>(
+            fstretch<T, double>(x));
+    }
+    else {
+        // Unreachable.
+        return U();
+    }
 }
 
 /**@}*/
