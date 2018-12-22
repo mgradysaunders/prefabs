@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>prefabs: pr::block_array3&lt; T, Alloc &gt; Class Template Reference</title>
+<title>prefabs: pr::block_array3&lt; T, Talloc &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,10 +68,10 @@ $(function() {
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classpr_1_1block__array3-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::block_array3&lt; T, Alloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__block__array3.html">3-dimensional block array</a></div></div>  </div>
+<div class="title">pr::block_array3&lt; T, Talloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__block__array3.html">3-dimensional block array</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -81,227 +81,227 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Container typedefs</div></td></tr>
-<tr class="memitem:ab9009d7d2a645c20a9c86d3972cfba01"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; T, Alloc &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ab9009d7d2a645c20a9c86d3972cfba01">container</a></td></tr>
-<tr class="memdesc:ab9009d7d2a645c20a9c86d3972cfba01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal container.  <a href="#ab9009d7d2a645c20a9c86d3972cfba01">More...</a><br /></td></tr>
-<tr class="separator:ab9009d7d2a645c20a9c86d3972cfba01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62148c83f407bb77c68b20d9d31c16aa"><td class="memItemLeft" align="right" valign="top">typedef container::size_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a></td></tr>
-<tr class="memdesc:a62148c83f407bb77c68b20d9d31c16aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size type.  <a href="#a62148c83f407bb77c68b20d9d31c16aa">More...</a><br /></td></tr>
-<tr class="separator:a62148c83f407bb77c68b20d9d31c16aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dbb9af41569b70de999dfb209b568e7"><td class="memItemLeft" align="right" valign="top">typedef container::difference_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a7dbb9af41569b70de999dfb209b568e7">difference_type</a></td></tr>
-<tr class="memdesc:a7dbb9af41569b70de999dfb209b568e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Difference type.  <a href="#a7dbb9af41569b70de999dfb209b568e7">More...</a><br /></td></tr>
-<tr class="separator:a7dbb9af41569b70de999dfb209b568e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca71e1eabedd79cec1f871c46ff2a54d"><td class="memItemLeft" align="right" valign="top">typedef container::value_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aca71e1eabedd79cec1f871c46ff2a54d">value_type</a></td></tr>
-<tr class="memdesc:aca71e1eabedd79cec1f871c46ff2a54d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value type.  <a href="#aca71e1eabedd79cec1f871c46ff2a54d">More...</a><br /></td></tr>
-<tr class="separator:aca71e1eabedd79cec1f871c46ff2a54d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0be73e8288309f2d8b2ea2a6715e6737"><td class="memItemLeft" align="right" valign="top">typedef container::reference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a></td></tr>
-<tr class="memdesc:a0be73e8288309f2d8b2ea2a6715e6737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference.  <a href="#a0be73e8288309f2d8b2ea2a6715e6737">More...</a><br /></td></tr>
-<tr class="separator:a0be73e8288309f2d8b2ea2a6715e6737"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a402ceb8f6a2600a1c1db3512d959fdeb"><td class="memItemLeft" align="right" valign="top">typedef container::pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a402ceb8f6a2600a1c1db3512d959fdeb">pointer</a></td></tr>
-<tr class="memdesc:a402ceb8f6a2600a1c1db3512d959fdeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer.  <a href="#a402ceb8f6a2600a1c1db3512d959fdeb">More...</a><br /></td></tr>
-<tr class="separator:a402ceb8f6a2600a1c1db3512d959fdeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeab96deb324e0562f92298b1bd0637c7"><td class="memItemLeft" align="right" valign="top">typedef container::const_reference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a></td></tr>
-<tr class="memdesc:aeab96deb324e0562f92298b1bd0637c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const reference.  <a href="#aeab96deb324e0562f92298b1bd0637c7">More...</a><br /></td></tr>
-<tr class="separator:aeab96deb324e0562f92298b1bd0637c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a976038801ea76f77ada1603579161e4b"><td class="memItemLeft" align="right" valign="top">typedef container::const_pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a976038801ea76f77ada1603579161e4b">const_pointer</a></td></tr>
-<tr class="memdesc:a976038801ea76f77ada1603579161e4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const pointer.  <a href="#a976038801ea76f77ada1603579161e4b">More...</a><br /></td></tr>
-<tr class="separator:a976038801ea76f77ada1603579161e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7551152edb7ea439c6dc61c28582133a"><td class="memItemLeft" align="right" valign="top">typedef container::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a7551152edb7ea439c6dc61c28582133a">iterator</a></td></tr>
-<tr class="memdesc:a7551152edb7ea439c6dc61c28582133a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward iterator.  <a href="#a7551152edb7ea439c6dc61c28582133a">More...</a><br /></td></tr>
-<tr class="separator:a7551152edb7ea439c6dc61c28582133a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab8c147e9b1139bc6d7d0208f28556bd"><td class="memItemLeft" align="right" valign="top">typedef container::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aab8c147e9b1139bc6d7d0208f28556bd">const_iterator</a></td></tr>
-<tr class="memdesc:aab8c147e9b1139bc6d7d0208f28556bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward const iterator.  <a href="#aab8c147e9b1139bc6d7d0208f28556bd">More...</a><br /></td></tr>
-<tr class="separator:aab8c147e9b1139bc6d7d0208f28556bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd3beba1fe0c09467e4dde19828802ae"><td class="memItemLeft" align="right" valign="top">typedef container::reverse_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#afd3beba1fe0c09467e4dde19828802ae">reverse_iterator</a></td></tr>
-<tr class="memdesc:afd3beba1fe0c09467e4dde19828802ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse iterator.  <a href="#afd3beba1fe0c09467e4dde19828802ae">More...</a><br /></td></tr>
-<tr class="separator:afd3beba1fe0c09467e4dde19828802ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0ed8c3bae7b7fe98deca405f8f7f563"><td class="memItemLeft" align="right" valign="top">typedef container::const_reverse_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ac0ed8c3bae7b7fe98deca405f8f7f563">const_reverse_iterator</a></td></tr>
-<tr class="memdesc:ac0ed8c3bae7b7fe98deca405f8f7f563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse const iterator.  <a href="#ac0ed8c3bae7b7fe98deca405f8f7f563">More...</a><br /></td></tr>
-<tr class="separator:ac0ed8c3bae7b7fe98deca405f8f7f563"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2171d8609225405246498a478c7173d7"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; T, Talloc &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a2171d8609225405246498a478c7173d7">container</a></td></tr>
+<tr class="memdesc:a2171d8609225405246498a478c7173d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal container.  <a href="#a2171d8609225405246498a478c7173d7">More...</a><br /></td></tr>
+<tr class="separator:a2171d8609225405246498a478c7173d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf99be811f242c6a389c3dc2c7271e7e"><td class="memItemLeft" align="right" valign="top">typedef container::size_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a></td></tr>
+<tr class="memdesc:acf99be811f242c6a389c3dc2c7271e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size type.  <a href="#acf99be811f242c6a389c3dc2c7271e7e">More...</a><br /></td></tr>
+<tr class="separator:acf99be811f242c6a389c3dc2c7271e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2fa866bb874375e9512393a6b51c688"><td class="memItemLeft" align="right" valign="top">typedef container::difference_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aa2fa866bb874375e9512393a6b51c688">difference_type</a></td></tr>
+<tr class="memdesc:aa2fa866bb874375e9512393a6b51c688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Difference type.  <a href="#aa2fa866bb874375e9512393a6b51c688">More...</a><br /></td></tr>
+<tr class="separator:aa2fa866bb874375e9512393a6b51c688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1427d20a54a0d8369f6ef35e0d1eef75"><td class="memItemLeft" align="right" valign="top">typedef container::value_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a1427d20a54a0d8369f6ef35e0d1eef75">value_type</a></td></tr>
+<tr class="memdesc:a1427d20a54a0d8369f6ef35e0d1eef75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value type.  <a href="#a1427d20a54a0d8369f6ef35e0d1eef75">More...</a><br /></td></tr>
+<tr class="separator:a1427d20a54a0d8369f6ef35e0d1eef75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6f52b9ae77f77142c67b6ed01875118"><td class="memItemLeft" align="right" valign="top">typedef container::reference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a></td></tr>
+<tr class="memdesc:af6f52b9ae77f77142c67b6ed01875118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference.  <a href="#af6f52b9ae77f77142c67b6ed01875118">More...</a><br /></td></tr>
+<tr class="separator:af6f52b9ae77f77142c67b6ed01875118"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f332cbde8d585aface67022b372f690"><td class="memItemLeft" align="right" valign="top">typedef container::pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a6f332cbde8d585aface67022b372f690">pointer</a></td></tr>
+<tr class="memdesc:a6f332cbde8d585aface67022b372f690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer.  <a href="#a6f332cbde8d585aface67022b372f690">More...</a><br /></td></tr>
+<tr class="separator:a6f332cbde8d585aface67022b372f690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a483dddbfd42e14623df56b1e7c88d499"><td class="memItemLeft" align="right" valign="top">typedef container::const_reference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a></td></tr>
+<tr class="memdesc:a483dddbfd42e14623df56b1e7c88d499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const reference.  <a href="#a483dddbfd42e14623df56b1e7c88d499">More...</a><br /></td></tr>
+<tr class="separator:a483dddbfd42e14623df56b1e7c88d499"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a4af572c3234fb1c32be8be4b0ae1bb"><td class="memItemLeft" align="right" valign="top">typedef container::const_pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a2a4af572c3234fb1c32be8be4b0ae1bb">const_pointer</a></td></tr>
+<tr class="memdesc:a2a4af572c3234fb1c32be8be4b0ae1bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const pointer.  <a href="#a2a4af572c3234fb1c32be8be4b0ae1bb">More...</a><br /></td></tr>
+<tr class="separator:a2a4af572c3234fb1c32be8be4b0ae1bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a20efb2116f617d965be983ad472e10"><td class="memItemLeft" align="right" valign="top">typedef container::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a1a20efb2116f617d965be983ad472e10">iterator</a></td></tr>
+<tr class="memdesc:a1a20efb2116f617d965be983ad472e10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward iterator.  <a href="#a1a20efb2116f617d965be983ad472e10">More...</a><br /></td></tr>
+<tr class="separator:a1a20efb2116f617d965be983ad472e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88491c60fb343181e44a35b03ec86a74"><td class="memItemLeft" align="right" valign="top">typedef container::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a88491c60fb343181e44a35b03ec86a74">const_iterator</a></td></tr>
+<tr class="memdesc:a88491c60fb343181e44a35b03ec86a74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward const iterator.  <a href="#a88491c60fb343181e44a35b03ec86a74">More...</a><br /></td></tr>
+<tr class="separator:a88491c60fb343181e44a35b03ec86a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a505e45aa2566c68798fd7dfe408f9c75"><td class="memItemLeft" align="right" valign="top">typedef container::reverse_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a505e45aa2566c68798fd7dfe408f9c75">reverse_iterator</a></td></tr>
+<tr class="memdesc:a505e45aa2566c68798fd7dfe408f9c75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse iterator.  <a href="#a505e45aa2566c68798fd7dfe408f9c75">More...</a><br /></td></tr>
+<tr class="separator:a505e45aa2566c68798fd7dfe408f9c75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6efc7f1a0a1c2d7a512386319886ec3d"><td class="memItemLeft" align="right" valign="top">typedef container::const_reverse_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a6efc7f1a0a1c2d7a512386319886ec3d">const_reverse_iterator</a></td></tr>
+<tr class="memdesc:a6efc7f1a0a1c2d7a512386319886ec3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse const iterator.  <a href="#a6efc7f1a0a1c2d7a512386319886ec3d">More...</a><br /></td></tr>
+<tr class="separator:a6efc7f1a0a1c2d7a512386319886ec3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Constructors</div></td></tr>
-<tr class="memitem:aa8e0e949d3ff927dfdee21ec76539e18"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aa8e0e949d3ff927dfdee21ec76539e18">block_array3</a> () noexcept(noexcept(Alloc()))=default</td></tr>
-<tr class="memdesc:aa8e0e949d3ff927dfdee21ec76539e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#aa8e0e949d3ff927dfdee21ec76539e18">More...</a><br /></td></tr>
-<tr class="separator:aa8e0e949d3ff927dfdee21ec76539e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48f487ff5e8b997d06c3aea40f2ea38c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a48f487ff5e8b997d06c3aea40f2ea38c">block_array3</a> (const Alloc &amp;alloc) noexcept</td></tr>
-<tr class="memdesc:a48f487ff5e8b997d06c3aea40f2ea38c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor with allocator.  <a href="#a48f487ff5e8b997d06c3aea40f2ea38c">More...</a><br /></td></tr>
-<tr class="separator:a48f487ff5e8b997d06c3aea40f2ea38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6b217a3eef9e368179397d9f322f399"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ac6b217a3eef9e368179397d9f322f399">block_array3</a> (const <a class="el" href="classpr_1_1block__array3.html">block_array3</a> &amp;other)</td></tr>
-<tr class="memdesc:ac6b217a3eef9e368179397d9f322f399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#ac6b217a3eef9e368179397d9f322f399">More...</a><br /></td></tr>
-<tr class="separator:ac6b217a3eef9e368179397d9f322f399"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a653cc244bf3954125bf7e6b9b82ff8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a1a653cc244bf3954125bf7e6b9b82ff8">block_array3</a> (const <a class="el" href="classpr_1_1block__array3.html">block_array3</a> &amp;other, const Alloc &amp;alloc)</td></tr>
-<tr class="memdesc:a1a653cc244bf3954125bf7e6b9b82ff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor with allocator.  <a href="#a1a653cc244bf3954125bf7e6b9b82ff8">More...</a><br /></td></tr>
-<tr class="separator:a1a653cc244bf3954125bf7e6b9b82ff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e46570abf0363780972e2363ac08a12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a2e46570abf0363780972e2363ac08a12">block_array3</a> (<a class="el" href="classpr_1_1block__array3.html">block_array3</a> &amp;&amp;other) noexcept</td></tr>
-<tr class="memdesc:a2e46570abf0363780972e2363ac08a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor.  <a href="#a2e46570abf0363780972e2363ac08a12">More...</a><br /></td></tr>
-<tr class="separator:a2e46570abf0363780972e2363ac08a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94a6d21177229d2bce79de736d0fb504"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a94a6d21177229d2bce79de736d0fb504">block_array3</a> (<a class="el" href="classpr_1_1block__array3.html">block_array3</a> &amp;&amp;other, const Alloc &amp;alloc)</td></tr>
-<tr class="memdesc:a94a6d21177229d2bce79de736d0fb504"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor with allocator.  <a href="#a94a6d21177229d2bce79de736d0fb504">More...</a><br /></td></tr>
-<tr class="separator:a94a6d21177229d2bce79de736d0fb504"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbb581227bfe88fb66df2406d17ca0b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#adbb581227bfe88fb66df2406d17ca0b8">block_array3</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt; count, const T &amp;value=T(), const Alloc &amp;alloc=Alloc())</td></tr>
-<tr class="memdesc:adbb581227bfe88fb66df2406d17ca0b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct from <code>count</code> copies of <code>value</code>.  <a href="#adbb581227bfe88fb66df2406d17ca0b8">More...</a><br /></td></tr>
-<tr class="separator:adbb581227bfe88fb66df2406d17ca0b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8b6d6ed8f4176ab79930f7ad43e1b0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ab8b6d6ed8f4176ab79930f7ad43e1b0a">block_array3</a> () noexcept(noexcept(Talloc()))=default</td></tr>
+<tr class="memdesc:ab8b6d6ed8f4176ab79930f7ad43e1b0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#ab8b6d6ed8f4176ab79930f7ad43e1b0a">More...</a><br /></td></tr>
+<tr class="separator:ab8b6d6ed8f4176ab79930f7ad43e1b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace607b560c985214c3dd98109cfb6ab8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ace607b560c985214c3dd98109cfb6ab8">block_array3</a> (const Talloc &amp;alloc) noexcept</td></tr>
+<tr class="memdesc:ace607b560c985214c3dd98109cfb6ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor with allocator.  <a href="#ace607b560c985214c3dd98109cfb6ab8">More...</a><br /></td></tr>
+<tr class="separator:ace607b560c985214c3dd98109cfb6ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a951b62c14dcdda72c1d78f1ce7297df1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a951b62c14dcdda72c1d78f1ce7297df1">block_array3</a> (const <a class="el" href="classpr_1_1block__array3.html">block_array3</a> &amp;other)</td></tr>
+<tr class="memdesc:a951b62c14dcdda72c1d78f1ce7297df1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a951b62c14dcdda72c1d78f1ce7297df1">More...</a><br /></td></tr>
+<tr class="separator:a951b62c14dcdda72c1d78f1ce7297df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb55104c0fec6fb12b8a20f40ab4f936"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aeb55104c0fec6fb12b8a20f40ab4f936">block_array3</a> (const <a class="el" href="classpr_1_1block__array3.html">block_array3</a> &amp;other, const Talloc &amp;alloc)</td></tr>
+<tr class="memdesc:aeb55104c0fec6fb12b8a20f40ab4f936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor with allocator.  <a href="#aeb55104c0fec6fb12b8a20f40ab4f936">More...</a><br /></td></tr>
+<tr class="separator:aeb55104c0fec6fb12b8a20f40ab4f936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade24d59811098eed50cc909646645d5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ade24d59811098eed50cc909646645d5d">block_array3</a> (<a class="el" href="classpr_1_1block__array3.html">block_array3</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="memdesc:ade24d59811098eed50cc909646645d5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor.  <a href="#ade24d59811098eed50cc909646645d5d">More...</a><br /></td></tr>
+<tr class="separator:ade24d59811098eed50cc909646645d5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a609190b15490e80d6c84a11420b146b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a609190b15490e80d6c84a11420b146b0">block_array3</a> (<a class="el" href="classpr_1_1block__array3.html">block_array3</a> &amp;&amp;other, const Talloc &amp;alloc)</td></tr>
+<tr class="memdesc:a609190b15490e80d6c84a11420b146b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor with allocator.  <a href="#a609190b15490e80d6c84a11420b146b0">More...</a><br /></td></tr>
+<tr class="separator:a609190b15490e80d6c84a11420b146b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1229deebbccfb716a6d1f562481aade"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ad1229deebbccfb716a6d1f562481aade">block_array3</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; count, const T &amp;value=T(), const Talloc &amp;alloc=Talloc())</td></tr>
+<tr class="memdesc:ad1229deebbccfb716a6d1f562481aade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct from <code>count</code> copies of <code>value</code>.  <a href="#ad1229deebbccfb716a6d1f562481aade">More...</a><br /></td></tr>
+<tr class="separator:ad1229deebbccfb716a6d1f562481aade"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Container interface</div></td></tr>
-<tr class="memitem:a07e65d12377a17af6bfc48a21c7190db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a07e65d12377a17af6bfc48a21c7190db">resize</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt; count)</td></tr>
-<tr class="memdesc:a07e65d12377a17af6bfc48a21c7190db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resize array.  <a href="#a07e65d12377a17af6bfc48a21c7190db">More...</a><br /></td></tr>
-<tr class="separator:a07e65d12377a17af6bfc48a21c7190db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ba22c64aad173693c6e7fe2574ce473"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a8ba22c64aad173693c6e7fe2574ce473">clear</a> ()</td></tr>
-<tr class="memdesc:a8ba22c64aad173693c6e7fe2574ce473"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear contents.  <a href="#a8ba22c64aad173693c6e7fe2574ce473">More...</a><br /></td></tr>
-<tr class="separator:a8ba22c64aad173693c6e7fe2574ce473"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68d302f19dd873374e847e3b869ddfe0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a68d302f19dd873374e847e3b869ddfe0">shrink_to_fit</a> ()</td></tr>
-<tr class="memdesc:a68d302f19dd873374e847e3b869ddfe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shrink allocation to fit contents.  <a href="#a68d302f19dd873374e847e3b869ddfe0">More...</a><br /></td></tr>
-<tr class="separator:a68d302f19dd873374e847e3b869ddfe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a964fa44bab8490e428c1041b22f21215"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a964fa44bab8490e428c1041b22f21215">size</a> () noexcept</td></tr>
-<tr class="memdesc:a964fa44bab8490e428c1041b22f21215"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size.  <a href="#a964fa44bab8490e428c1041b22f21215">More...</a><br /></td></tr>
-<tr class="separator:a964fa44bab8490e428c1041b22f21215"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85e597916a059cc33ce6b6de40dc81d0"><td class="memItemLeft" align="right" valign="top">const multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a85e597916a059cc33ce6b6de40dc81d0">user_size</a> () const noexcept</td></tr>
-<tr class="memdesc:a85e597916a059cc33ce6b6de40dc81d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">User size.  <a href="#a85e597916a059cc33ce6b6de40dc81d0">More...</a><br /></td></tr>
-<tr class="separator:a85e597916a059cc33ce6b6de40dc81d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3577239e7342100c2d9a8c9fee034f1"><td class="memItemLeft" align="right" valign="top">const multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ac3577239e7342100c2d9a8c9fee034f1">data_size</a> () const noexcept</td></tr>
-<tr class="memdesc:ac3577239e7342100c2d9a8c9fee034f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">User size after rounding.  <a href="#ac3577239e7342100c2d9a8c9fee034f1">More...</a><br /></td></tr>
-<tr class="separator:ac3577239e7342100c2d9a8c9fee034f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7c398202b63bcb4208b97ee2bd03c76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a7551152edb7ea439c6dc61c28582133a">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ac7c398202b63bcb4208b97ee2bd03c76">begin</a> () noexcept</td></tr>
-<tr class="memdesc:ac7c398202b63bcb4208b97ee2bd03c76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward begin iterator.  <a href="#ac7c398202b63bcb4208b97ee2bd03c76">More...</a><br /></td></tr>
-<tr class="separator:ac7c398202b63bcb4208b97ee2bd03c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8dec0296115f909165278fa0188e5bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aab8c147e9b1139bc6d7d0208f28556bd">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#af8dec0296115f909165278fa0188e5bd">begin</a> () const noexcept</td></tr>
-<tr class="memdesc:af8dec0296115f909165278fa0188e5bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward begin iterator, const variant.  <a href="#af8dec0296115f909165278fa0188e5bd">More...</a><br /></td></tr>
-<tr class="separator:af8dec0296115f909165278fa0188e5bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe90ba80b45703a230552d7de54bf3b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aab8c147e9b1139bc6d7d0208f28556bd">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#abe90ba80b45703a230552d7de54bf3b7">cbegin</a> () const noexcept</td></tr>
-<tr class="memdesc:abe90ba80b45703a230552d7de54bf3b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward begin iterator, force const variant.  <a href="#abe90ba80b45703a230552d7de54bf3b7">More...</a><br /></td></tr>
-<tr class="separator:abe90ba80b45703a230552d7de54bf3b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea9bfa170f02bde24c3ee15157082b80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a7551152edb7ea439c6dc61c28582133a">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aea9bfa170f02bde24c3ee15157082b80">end</a> () noexcept</td></tr>
-<tr class="memdesc:aea9bfa170f02bde24c3ee15157082b80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward end iterator.  <a href="#aea9bfa170f02bde24c3ee15157082b80">More...</a><br /></td></tr>
-<tr class="separator:aea9bfa170f02bde24c3ee15157082b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5e38994f72fc57a69903886fedab278"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aab8c147e9b1139bc6d7d0208f28556bd">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#af5e38994f72fc57a69903886fedab278">end</a> () const noexcept</td></tr>
-<tr class="memdesc:af5e38994f72fc57a69903886fedab278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward end iterator, const variant.  <a href="#af5e38994f72fc57a69903886fedab278">More...</a><br /></td></tr>
-<tr class="separator:af5e38994f72fc57a69903886fedab278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab71be01f5c88238917b46c0f5704ebbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aab8c147e9b1139bc6d7d0208f28556bd">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ab71be01f5c88238917b46c0f5704ebbc">cend</a> () const noexcept</td></tr>
-<tr class="memdesc:ab71be01f5c88238917b46c0f5704ebbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward end iterator, force const variant.  <a href="#ab71be01f5c88238917b46c0f5704ebbc">More...</a><br /></td></tr>
-<tr class="separator:ab71be01f5c88238917b46c0f5704ebbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1701d6e2ef1ec49307659e8b712c5636"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#afd3beba1fe0c09467e4dde19828802ae">reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a1701d6e2ef1ec49307659e8b712c5636">rbegin</a> () noexcept</td></tr>
-<tr class="memdesc:a1701d6e2ef1ec49307659e8b712c5636"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse begin iterator.  <a href="#a1701d6e2ef1ec49307659e8b712c5636">More...</a><br /></td></tr>
-<tr class="separator:a1701d6e2ef1ec49307659e8b712c5636"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ecb94a210bfc704876c35c630ecfeba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#ac0ed8c3bae7b7fe98deca405f8f7f563">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a8ecb94a210bfc704876c35c630ecfeba">rbegin</a> () const noexcept</td></tr>
-<tr class="memdesc:a8ecb94a210bfc704876c35c630ecfeba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse begin iterator, const variant.  <a href="#a8ecb94a210bfc704876c35c630ecfeba">More...</a><br /></td></tr>
-<tr class="separator:a8ecb94a210bfc704876c35c630ecfeba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef7d08a89a23e7dd15ae757a5fe06679"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#ac0ed8c3bae7b7fe98deca405f8f7f563">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aef7d08a89a23e7dd15ae757a5fe06679">crbegin</a> () const noexcept</td></tr>
-<tr class="memdesc:aef7d08a89a23e7dd15ae757a5fe06679"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse begin iterator, force const variant.  <a href="#aef7d08a89a23e7dd15ae757a5fe06679">More...</a><br /></td></tr>
-<tr class="separator:aef7d08a89a23e7dd15ae757a5fe06679"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3935fc4fbcd0e5744d27ec7abaa70cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#afd3beba1fe0c09467e4dde19828802ae">reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aa3935fc4fbcd0e5744d27ec7abaa70cf">rend</a> () noexcept</td></tr>
-<tr class="memdesc:aa3935fc4fbcd0e5744d27ec7abaa70cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse end iterator.  <a href="#aa3935fc4fbcd0e5744d27ec7abaa70cf">More...</a><br /></td></tr>
-<tr class="separator:aa3935fc4fbcd0e5744d27ec7abaa70cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7913514877a441f32d70cb7bb8967f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#ac0ed8c3bae7b7fe98deca405f8f7f563">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#af7913514877a441f32d70cb7bb8967f2">rend</a> () const noexcept</td></tr>
-<tr class="memdesc:af7913514877a441f32d70cb7bb8967f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse end iterator, const variant.  <a href="#af7913514877a441f32d70cb7bb8967f2">More...</a><br /></td></tr>
-<tr class="separator:af7913514877a441f32d70cb7bb8967f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73d3a24b78b777793ccc9ce26b565626"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#ac0ed8c3bae7b7fe98deca405f8f7f563">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a73d3a24b78b777793ccc9ce26b565626">crend</a> () const noexcept</td></tr>
-<tr class="memdesc:a73d3a24b78b777793ccc9ce26b565626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse end iterator, force const variant.  <a href="#a73d3a24b78b777793ccc9ce26b565626">More...</a><br /></td></tr>
-<tr class="separator:a73d3a24b78b777793ccc9ce26b565626"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9985a4b3450a7e111210973ee6a35097"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a9985a4b3450a7e111210973ee6a35097">front</a> () noexcept</td></tr>
-<tr class="memdesc:a9985a4b3450a7e111210973ee6a35097"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front element.  <a href="#a9985a4b3450a7e111210973ee6a35097">More...</a><br /></td></tr>
-<tr class="separator:a9985a4b3450a7e111210973ee6a35097"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b8ef56df323ca6620ecd5e63d7fbdec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a7b8ef56df323ca6620ecd5e63d7fbdec">front</a> () const noexcept</td></tr>
-<tr class="memdesc:a7b8ef56df323ca6620ecd5e63d7fbdec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front element, const variant.  <a href="#a7b8ef56df323ca6620ecd5e63d7fbdec">More...</a><br /></td></tr>
-<tr class="separator:a7b8ef56df323ca6620ecd5e63d7fbdec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18f30d3fa0155c5e0bb8267e089c7c48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a18f30d3fa0155c5e0bb8267e089c7c48">back</a> () noexcept</td></tr>
-<tr class="memdesc:a18f30d3fa0155c5e0bb8267e089c7c48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Back element.  <a href="#a18f30d3fa0155c5e0bb8267e089c7c48">More...</a><br /></td></tr>
-<tr class="separator:a18f30d3fa0155c5e0bb8267e089c7c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af31541ac052d128943d57edfbe9d6f36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#af31541ac052d128943d57edfbe9d6f36">back</a> () const noexcept</td></tr>
-<tr class="memdesc:af31541ac052d128943d57edfbe9d6f36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Back element, const variant.  <a href="#af31541ac052d128943d57edfbe9d6f36">More...</a><br /></td></tr>
-<tr class="separator:af31541ac052d128943d57edfbe9d6f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc5518264b2e7b1f4daa54ed60fb5e97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#abc5518264b2e7b1f4daa54ed60fb5e97">resize</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; count)</td></tr>
+<tr class="memdesc:abc5518264b2e7b1f4daa54ed60fb5e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resize array.  <a href="#abc5518264b2e7b1f4daa54ed60fb5e97">More...</a><br /></td></tr>
+<tr class="separator:abc5518264b2e7b1f4daa54ed60fb5e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af36fff6e7419ad1522299a147d1e124d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#af36fff6e7419ad1522299a147d1e124d">clear</a> ()</td></tr>
+<tr class="memdesc:af36fff6e7419ad1522299a147d1e124d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear contents.  <a href="#af36fff6e7419ad1522299a147d1e124d">More...</a><br /></td></tr>
+<tr class="separator:af36fff6e7419ad1522299a147d1e124d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9699adc64597afbfd91c019df6b8384d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a9699adc64597afbfd91c019df6b8384d">shrink_to_fit</a> ()</td></tr>
+<tr class="memdesc:a9699adc64597afbfd91c019df6b8384d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shrink allocation to fit contents.  <a href="#a9699adc64597afbfd91c019df6b8384d">More...</a><br /></td></tr>
+<tr class="separator:a9699adc64597afbfd91c019df6b8384d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a284616f35e5cf2c93caa93bd1fec11ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a284616f35e5cf2c93caa93bd1fec11ff">size</a> () noexcept</td></tr>
+<tr class="memdesc:a284616f35e5cf2c93caa93bd1fec11ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size.  <a href="#a284616f35e5cf2c93caa93bd1fec11ff">More...</a><br /></td></tr>
+<tr class="separator:a284616f35e5cf2c93caa93bd1fec11ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56550d8c9f9428331d0e25cf6df67f6b"><td class="memItemLeft" align="right" valign="top">const multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a56550d8c9f9428331d0e25cf6df67f6b">user_size</a> () const noexcept</td></tr>
+<tr class="memdesc:a56550d8c9f9428331d0e25cf6df67f6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">User size.  <a href="#a56550d8c9f9428331d0e25cf6df67f6b">More...</a><br /></td></tr>
+<tr class="separator:a56550d8c9f9428331d0e25cf6df67f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43caaddb2d18de839a79fac2eaa18929"><td class="memItemLeft" align="right" valign="top">const multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a43caaddb2d18de839a79fac2eaa18929">data_size</a> () const noexcept</td></tr>
+<tr class="memdesc:a43caaddb2d18de839a79fac2eaa18929"><td class="mdescLeft">&#160;</td><td class="mdescRight">User size after rounding.  <a href="#a43caaddb2d18de839a79fac2eaa18929">More...</a><br /></td></tr>
+<tr class="separator:a43caaddb2d18de839a79fac2eaa18929"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d88159536cd2d20a144dfa8dddc5ff0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a1a20efb2116f617d965be983ad472e10">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a4d88159536cd2d20a144dfa8dddc5ff0">begin</a> () noexcept</td></tr>
+<tr class="memdesc:a4d88159536cd2d20a144dfa8dddc5ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward begin iterator.  <a href="#a4d88159536cd2d20a144dfa8dddc5ff0">More...</a><br /></td></tr>
+<tr class="separator:a4d88159536cd2d20a144dfa8dddc5ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72c63d40e235e1a7e3a9170fa1810262"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a88491c60fb343181e44a35b03ec86a74">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a72c63d40e235e1a7e3a9170fa1810262">begin</a> () const noexcept</td></tr>
+<tr class="memdesc:a72c63d40e235e1a7e3a9170fa1810262"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward begin iterator, const variant.  <a href="#a72c63d40e235e1a7e3a9170fa1810262">More...</a><br /></td></tr>
+<tr class="separator:a72c63d40e235e1a7e3a9170fa1810262"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d6023f7ceb19aa858b0ba4457e09c36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a88491c60fb343181e44a35b03ec86a74">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a1d6023f7ceb19aa858b0ba4457e09c36">cbegin</a> () const noexcept</td></tr>
+<tr class="memdesc:a1d6023f7ceb19aa858b0ba4457e09c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward begin iterator, force const variant.  <a href="#a1d6023f7ceb19aa858b0ba4457e09c36">More...</a><br /></td></tr>
+<tr class="separator:a1d6023f7ceb19aa858b0ba4457e09c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acac062642d568aa6accbb0732fb34364"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a1a20efb2116f617d965be983ad472e10">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#acac062642d568aa6accbb0732fb34364">end</a> () noexcept</td></tr>
+<tr class="memdesc:acac062642d568aa6accbb0732fb34364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward end iterator.  <a href="#acac062642d568aa6accbb0732fb34364">More...</a><br /></td></tr>
+<tr class="separator:acac062642d568aa6accbb0732fb34364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affd91748431e285488bcffa7a30598c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a88491c60fb343181e44a35b03ec86a74">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#affd91748431e285488bcffa7a30598c9">end</a> () const noexcept</td></tr>
+<tr class="memdesc:affd91748431e285488bcffa7a30598c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward end iterator, const variant.  <a href="#affd91748431e285488bcffa7a30598c9">More...</a><br /></td></tr>
+<tr class="separator:affd91748431e285488bcffa7a30598c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7dca18bbcd0b3db0d43edaf048464aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a88491c60fb343181e44a35b03ec86a74">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#af7dca18bbcd0b3db0d43edaf048464aa">cend</a> () const noexcept</td></tr>
+<tr class="memdesc:af7dca18bbcd0b3db0d43edaf048464aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward end iterator, force const variant.  <a href="#af7dca18bbcd0b3db0d43edaf048464aa">More...</a><br /></td></tr>
+<tr class="separator:af7dca18bbcd0b3db0d43edaf048464aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f7059e74c53bd19f225e9018ecec501"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a505e45aa2566c68798fd7dfe408f9c75">reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a1f7059e74c53bd19f225e9018ecec501">rbegin</a> () noexcept</td></tr>
+<tr class="memdesc:a1f7059e74c53bd19f225e9018ecec501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse begin iterator.  <a href="#a1f7059e74c53bd19f225e9018ecec501">More...</a><br /></td></tr>
+<tr class="separator:a1f7059e74c53bd19f225e9018ecec501"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f39a01ff900a486920659f68f9664c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a6efc7f1a0a1c2d7a512386319886ec3d">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a9f39a01ff900a486920659f68f9664c9">rbegin</a> () const noexcept</td></tr>
+<tr class="memdesc:a9f39a01ff900a486920659f68f9664c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse begin iterator, const variant.  <a href="#a9f39a01ff900a486920659f68f9664c9">More...</a><br /></td></tr>
+<tr class="separator:a9f39a01ff900a486920659f68f9664c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05c1e3fa14eaf66b544a0be608632e47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a6efc7f1a0a1c2d7a512386319886ec3d">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a05c1e3fa14eaf66b544a0be608632e47">crbegin</a> () const noexcept</td></tr>
+<tr class="memdesc:a05c1e3fa14eaf66b544a0be608632e47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse begin iterator, force const variant.  <a href="#a05c1e3fa14eaf66b544a0be608632e47">More...</a><br /></td></tr>
+<tr class="separator:a05c1e3fa14eaf66b544a0be608632e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7c13baa0290f65e1dfd150ae9ac1e1e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a505e45aa2566c68798fd7dfe408f9c75">reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ac7c13baa0290f65e1dfd150ae9ac1e1e">rend</a> () noexcept</td></tr>
+<tr class="memdesc:ac7c13baa0290f65e1dfd150ae9ac1e1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse end iterator.  <a href="#ac7c13baa0290f65e1dfd150ae9ac1e1e">More...</a><br /></td></tr>
+<tr class="separator:ac7c13baa0290f65e1dfd150ae9ac1e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96b5602563cbdd74c89768f365d9bea4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a6efc7f1a0a1c2d7a512386319886ec3d">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a96b5602563cbdd74c89768f365d9bea4">rend</a> () const noexcept</td></tr>
+<tr class="memdesc:a96b5602563cbdd74c89768f365d9bea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse end iterator, const variant.  <a href="#a96b5602563cbdd74c89768f365d9bea4">More...</a><br /></td></tr>
+<tr class="separator:a96b5602563cbdd74c89768f365d9bea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a708a54d009eaca088b9dcd441becd4fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a6efc7f1a0a1c2d7a512386319886ec3d">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a708a54d009eaca088b9dcd441becd4fe">crend</a> () const noexcept</td></tr>
+<tr class="memdesc:a708a54d009eaca088b9dcd441becd4fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse end iterator, force const variant.  <a href="#a708a54d009eaca088b9dcd441becd4fe">More...</a><br /></td></tr>
+<tr class="separator:a708a54d009eaca088b9dcd441becd4fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab89a12cdb510c1b37830148ea5e07859"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ab89a12cdb510c1b37830148ea5e07859">front</a> () noexcept</td></tr>
+<tr class="memdesc:ab89a12cdb510c1b37830148ea5e07859"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front element.  <a href="#ab89a12cdb510c1b37830148ea5e07859">More...</a><br /></td></tr>
+<tr class="separator:ab89a12cdb510c1b37830148ea5e07859"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50d5e2e75b7d1f07ca32c4541fa91269"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a50d5e2e75b7d1f07ca32c4541fa91269">front</a> () const noexcept</td></tr>
+<tr class="memdesc:a50d5e2e75b7d1f07ca32c4541fa91269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front element, const variant.  <a href="#a50d5e2e75b7d1f07ca32c4541fa91269">More...</a><br /></td></tr>
+<tr class="separator:a50d5e2e75b7d1f07ca32c4541fa91269"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50a13af28d15e476241e9650bd817884"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a50a13af28d15e476241e9650bd817884">back</a> () noexcept</td></tr>
+<tr class="memdesc:a50a13af28d15e476241e9650bd817884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Back element.  <a href="#a50a13af28d15e476241e9650bd817884">More...</a><br /></td></tr>
+<tr class="separator:a50a13af28d15e476241e9650bd817884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3dcc95c63538c902e44118d7347ca2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ac3dcc95c63538c902e44118d7347ca2c">back</a> () const noexcept</td></tr>
+<tr class="memdesc:ac3dcc95c63538c902e44118d7347ca2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Back element, const variant.  <a href="#ac3dcc95c63538c902e44118d7347ca2c">More...</a><br /></td></tr>
+<tr class="separator:ac3dcc95c63538c902e44118d7347ca2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Indexing</div></td></tr>
-<tr class="memitem:a4d8ee82d3ee4abf635330bcec2ef0724"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a4d8ee82d3ee4abf635330bcec2ef0724">convert</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt; loc) const noexcept</td></tr>
-<tr class="memdesc:a4d8ee82d3ee4abf635330bcec2ef0724"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional index to 1-dimensional index.  <a href="#a4d8ee82d3ee4abf635330bcec2ef0724">More...</a><br /></td></tr>
-<tr class="separator:a4d8ee82d3ee4abf635330bcec2ef0724"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd5a4b36e63a4c831b88f3201e0d79e8"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#acd5a4b36e63a4c831b88f3201e0d79e8">convert</a> (<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> pos) const noexcept</td></tr>
-<tr class="memdesc:acd5a4b36e63a4c831b88f3201e0d79e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-dimensional index to 3-dimensional index.  <a href="#acd5a4b36e63a4c831b88f3201e0d79e8">More...</a><br /></td></tr>
-<tr class="separator:acd5a4b36e63a4c831b88f3201e0d79e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae917fd6bd34a81bfcab02fe36711462c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ae917fd6bd34a81bfcab02fe36711462c">convert</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; loc) const noexcept</td></tr>
+<tr class="memdesc:ae917fd6bd34a81bfcab02fe36711462c"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional index to 1-dimensional index.  <a href="#ae917fd6bd34a81bfcab02fe36711462c">More...</a><br /></td></tr>
+<tr class="separator:ae917fd6bd34a81bfcab02fe36711462c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5f6b4a9af10a9c922766c87b42fcc8e"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ac5f6b4a9af10a9c922766c87b42fcc8e">convert</a> (<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> pos) const noexcept</td></tr>
+<tr class="memdesc:ac5f6b4a9af10a9c922766c87b42fcc8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-dimensional index to 3-dimensional index.  <a href="#ac5f6b4a9af10a9c922766c87b42fcc8e">More...</a><br /></td></tr>
+<tr class="separator:ac5f6b4a9af10a9c922766c87b42fcc8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Access operators</div></td></tr>
-<tr class="memitem:a967436eb3b1f5d8642e02222579c7fe1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a967436eb3b1f5d8642e02222579c7fe1">operator[]</a> (<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> pos)</td></tr>
-<tr class="memdesc:a967436eb3b1f5d8642e02222579c7fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-dimensional accessor.  <a href="#a967436eb3b1f5d8642e02222579c7fe1">More...</a><br /></td></tr>
-<tr class="separator:a967436eb3b1f5d8642e02222579c7fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a188c8527c8a372afb256730ab5d1f453"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a188c8527c8a372afb256730ab5d1f453">operator[]</a> (<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> pos) const</td></tr>
-<tr class="memdesc:a188c8527c8a372afb256730ab5d1f453"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-dimensional accessor, const variant.  <a href="#a188c8527c8a372afb256730ab5d1f453">More...</a><br /></td></tr>
-<tr class="separator:a188c8527c8a372afb256730ab5d1f453"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d1fd56f0e0add7d487058b895746068"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a5d1fd56f0e0add7d487058b895746068">at</a> (<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> pos)</td></tr>
-<tr class="memdesc:a5d1fd56f0e0add7d487058b895746068"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-dimensional accessor with range check.  <a href="#a5d1fd56f0e0add7d487058b895746068">More...</a><br /></td></tr>
-<tr class="separator:a5d1fd56f0e0add7d487058b895746068"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6722682cd48990e16dce3a7d6b8bbcea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a6722682cd48990e16dce3a7d6b8bbcea">at</a> (<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> pos) const</td></tr>
-<tr class="memdesc:a6722682cd48990e16dce3a7d6b8bbcea"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-dimensional accessor with range check, const variant.  <a href="#a6722682cd48990e16dce3a7d6b8bbcea">More...</a><br /></td></tr>
-<tr class="separator:a6722682cd48990e16dce3a7d6b8bbcea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4627e9d89eebeef854dafca9b62de2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ae4627e9d89eebeef854dafca9b62de2b">operator[]</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt; loc)</td></tr>
-<tr class="memdesc:ae4627e9d89eebeef854dafca9b62de2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor.  <a href="#ae4627e9d89eebeef854dafca9b62de2b">More...</a><br /></td></tr>
-<tr class="separator:ae4627e9d89eebeef854dafca9b62de2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2567fb010e7f4f168cd8dcaae41bdb4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ae2567fb010e7f4f168cd8dcaae41bdb4">operator[]</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt; loc) const</td></tr>
-<tr class="memdesc:ae2567fb010e7f4f168cd8dcaae41bdb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor, const variant.  <a href="#ae2567fb010e7f4f168cd8dcaae41bdb4">More...</a><br /></td></tr>
-<tr class="separator:ae2567fb010e7f4f168cd8dcaae41bdb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3398cedcd62266f3b1c1324f0b839cb3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a3398cedcd62266f3b1c1324f0b839cb3">operator()</a> (<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> k0, <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> k1, <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> k2)</td></tr>
-<tr class="memdesc:a3398cedcd62266f3b1c1324f0b839cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor.  <a href="#a3398cedcd62266f3b1c1324f0b839cb3">More...</a><br /></td></tr>
-<tr class="separator:a3398cedcd62266f3b1c1324f0b839cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68a1a4f07a96f5e313eecc986b6dea76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a68a1a4f07a96f5e313eecc986b6dea76">operator()</a> (<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> k0, <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> k1, <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> k2) const</td></tr>
-<tr class="memdesc:a68a1a4f07a96f5e313eecc986b6dea76"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor, const variant.  <a href="#a68a1a4f07a96f5e313eecc986b6dea76">More...</a><br /></td></tr>
-<tr class="separator:a68a1a4f07a96f5e313eecc986b6dea76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af43a2e098bd0b3cccc5415ff6469b06f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#af43a2e098bd0b3cccc5415ff6469b06f">at</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt; loc)</td></tr>
-<tr class="memdesc:af43a2e098bd0b3cccc5415ff6469b06f"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor with range check.  <a href="#af43a2e098bd0b3cccc5415ff6469b06f">More...</a><br /></td></tr>
-<tr class="separator:af43a2e098bd0b3cccc5415ff6469b06f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af781626232d0d4d4497406e1d94cd7d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#af781626232d0d4d4497406e1d94cd7d3">at</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt; loc) const</td></tr>
-<tr class="memdesc:af781626232d0d4d4497406e1d94cd7d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor with range check, const variant.  <a href="#af781626232d0d4d4497406e1d94cd7d3">More...</a><br /></td></tr>
-<tr class="separator:af781626232d0d4d4497406e1d94cd7d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96a669ab1a02d12d03f9fdd14ece7d98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a96a669ab1a02d12d03f9fdd14ece7d98">operator[]</a> (<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> pos)</td></tr>
+<tr class="memdesc:a96a669ab1a02d12d03f9fdd14ece7d98"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-dimensional accessor.  <a href="#a96a669ab1a02d12d03f9fdd14ece7d98">More...</a><br /></td></tr>
+<tr class="separator:a96a669ab1a02d12d03f9fdd14ece7d98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71674ded1fc5ace07e3f33847a49982e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a71674ded1fc5ace07e3f33847a49982e">operator[]</a> (<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> pos) const</td></tr>
+<tr class="memdesc:a71674ded1fc5ace07e3f33847a49982e"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-dimensional accessor, const variant.  <a href="#a71674ded1fc5ace07e3f33847a49982e">More...</a><br /></td></tr>
+<tr class="separator:a71674ded1fc5ace07e3f33847a49982e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed2ddc97dd0f8d838b42dc9ab64711d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aed2ddc97dd0f8d838b42dc9ab64711d7">at</a> (<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> pos)</td></tr>
+<tr class="memdesc:aed2ddc97dd0f8d838b42dc9ab64711d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-dimensional accessor with range check.  <a href="#aed2ddc97dd0f8d838b42dc9ab64711d7">More...</a><br /></td></tr>
+<tr class="separator:aed2ddc97dd0f8d838b42dc9ab64711d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63e567578dfdb0f4e5528ef817d507a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a63e567578dfdb0f4e5528ef817d507a4">at</a> (<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> pos) const</td></tr>
+<tr class="memdesc:a63e567578dfdb0f4e5528ef817d507a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-dimensional accessor with range check, const variant.  <a href="#a63e567578dfdb0f4e5528ef817d507a4">More...</a><br /></td></tr>
+<tr class="separator:a63e567578dfdb0f4e5528ef817d507a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9e7ea8dd3df0b64df91d79f36095397"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ab9e7ea8dd3df0b64df91d79f36095397">operator[]</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; loc)</td></tr>
+<tr class="memdesc:ab9e7ea8dd3df0b64df91d79f36095397"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor.  <a href="#ab9e7ea8dd3df0b64df91d79f36095397">More...</a><br /></td></tr>
+<tr class="separator:ab9e7ea8dd3df0b64df91d79f36095397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab011ba8535d123347105585952af563d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ab011ba8535d123347105585952af563d">operator[]</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; loc) const</td></tr>
+<tr class="memdesc:ab011ba8535d123347105585952af563d"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor, const variant.  <a href="#ab011ba8535d123347105585952af563d">More...</a><br /></td></tr>
+<tr class="separator:ab011ba8535d123347105585952af563d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a195a9a46246653ffe01fc87507e76bf6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a195a9a46246653ffe01fc87507e76bf6">operator()</a> (<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> k0, <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> k1, <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> k2)</td></tr>
+<tr class="memdesc:a195a9a46246653ffe01fc87507e76bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor.  <a href="#a195a9a46246653ffe01fc87507e76bf6">More...</a><br /></td></tr>
+<tr class="separator:a195a9a46246653ffe01fc87507e76bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf4b4d3bb720a46fc38ec7551ea845d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#abf4b4d3bb720a46fc38ec7551ea845d0">operator()</a> (<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> k0, <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> k1, <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> k2) const</td></tr>
+<tr class="memdesc:abf4b4d3bb720a46fc38ec7551ea845d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor, const variant.  <a href="#abf4b4d3bb720a46fc38ec7551ea845d0">More...</a><br /></td></tr>
+<tr class="separator:abf4b4d3bb720a46fc38ec7551ea845d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa056ec8b9ddd9e5c22367640b0739dac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aa056ec8b9ddd9e5c22367640b0739dac">at</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; loc)</td></tr>
+<tr class="memdesc:aa056ec8b9ddd9e5c22367640b0739dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor with range check.  <a href="#aa056ec8b9ddd9e5c22367640b0739dac">More...</a><br /></td></tr>
+<tr class="separator:aa056ec8b9ddd9e5c22367640b0739dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7781de497d61a95643466d7c40a1dd5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ab7781de497d61a95643466d7c40a1dd5">at</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; loc) const</td></tr>
+<tr class="memdesc:ab7781de497d61a95643466d7c40a1dd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional accessor with range check, const variant.  <a href="#ab7781de497d61a95643466d7c40a1dd5">More...</a><br /></td></tr>
+<tr class="separator:ab7781de497d61a95643466d7c40a1dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a71a6648026ff598bb8f0de0f1c1e91f9"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a71a6648026ff598bb8f0de0f1c1e91f9">round_size</a> (<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> num) noexcept</td></tr>
-<tr class="memdesc:a71a6648026ff598bb8f0de0f1c1e91f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Round <code>num</code> up to multiple of <code>block_size</code>.  <a href="#a71a6648026ff598bb8f0de0f1c1e91f9">More...</a><br /></td></tr>
-<tr class="separator:a71a6648026ff598bb8f0de0f1c1e91f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a061e2e8e49b752fdeb9149715742781d"><td class="memItemLeft" align="right" valign="top">static constexpr multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a061e2e8e49b752fdeb9149715742781d">round_size</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt; num) noexcept</td></tr>
-<tr class="memdesc:a061e2e8e49b752fdeb9149715742781d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Round <code>num</code> up to multiple of <code>block_size</code>.  <a href="#a061e2e8e49b752fdeb9149715742781d">More...</a><br /></td></tr>
-<tr class="separator:a061e2e8e49b752fdeb9149715742781d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab32535ac2920f08c5972aa146827dba8"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ab32535ac2920f08c5972aa146827dba8">round_size</a> (<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> num) noexcept</td></tr>
+<tr class="memdesc:ab32535ac2920f08c5972aa146827dba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Round <code>num</code> up to multiple of <code>block_size</code>.  <a href="#ab32535ac2920f08c5972aa146827dba8">More...</a><br /></td></tr>
+<tr class="separator:ab32535ac2920f08c5972aa146827dba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d5912d17f2a23fcfd0056807c2ab32"><td class="memItemLeft" align="right" valign="top">static constexpr multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a77d5912d17f2a23fcfd0056807c2ab32">round_size</a> (multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; num) noexcept</td></tr>
+<tr class="memdesc:a77d5912d17f2a23fcfd0056807c2ab32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Round <code>num</code> up to multiple of <code>block_size</code>.  <a href="#a77d5912d17f2a23fcfd0056807c2ab32">More...</a><br /></td></tr>
+<tr class="separator:a77d5912d17f2a23fcfd0056807c2ab32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a3cda7dadaf7bca08340abbca88779e19"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a3cda7dadaf7bca08340abbca88779e19">block_size_log2</a> = <a class="el" href="group__int__helpers.html#ga2a39f7b0281ef38a09a1df6ad35e53df">first1</a>(<a class="el" href="group__int__helpers.html#gad5dc22f13087ef95ab80f9e52c8a2761">roundpow2</a>(L1_LINE / sizeof(T))) / 2</td></tr>
-<tr class="memdesc:a3cda7dadaf7bca08340abbca88779e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binary log of the block size \( \log_{2}{B} \).  <a href="#a3cda7dadaf7bca08340abbca88779e19">More...</a><br /></td></tr>
-<tr class="separator:a3cda7dadaf7bca08340abbca88779e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28c46901ea03709458f436a04b4bb3c4"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a28c46901ea03709458f436a04b4bb3c4">block_size</a> = 1 &lt;&lt; <a class="el" href="classpr_1_1block__array3.html#a3cda7dadaf7bca08340abbca88779e19">block_size_log2</a></td></tr>
-<tr class="memdesc:a28c46901ea03709458f436a04b4bb3c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block size \( B \).  <a href="#a28c46901ea03709458f436a04b4bb3c4">More...</a><br /></td></tr>
-<tr class="separator:a28c46901ea03709458f436a04b4bb3c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff22154cf81872feba6f85ddb46c16a2"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aff22154cf81872feba6f85ddb46c16a2">block_area_log2</a> = <a class="el" href="classpr_1_1block__array3.html#a3cda7dadaf7bca08340abbca88779e19">block_size_log2</a> * 2</td></tr>
-<tr class="memdesc:aff22154cf81872feba6f85ddb46c16a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binary log of the block area \( \log_{2}{B^{2}} \).  <a href="#aff22154cf81872feba6f85ddb46c16a2">More...</a><br /></td></tr>
-<tr class="separator:aff22154cf81872feba6f85ddb46c16a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a310ad676c0bde0fd1952f728fc1a44f7"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a310ad676c0bde0fd1952f728fc1a44f7">block_area</a> = 1 &lt;&lt; <a class="el" href="classpr_1_1block__array3.html#aff22154cf81872feba6f85ddb46c16a2">block_area_log2</a></td></tr>
-<tr class="memdesc:a310ad676c0bde0fd1952f728fc1a44f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block area \( B^2 \).  <a href="#a310ad676c0bde0fd1952f728fc1a44f7">More...</a><br /></td></tr>
-<tr class="separator:a310ad676c0bde0fd1952f728fc1a44f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b37dcb2c60e627c34df02e058926ccc"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a7b37dcb2c60e627c34df02e058926ccc">block_size_log2</a> = <a class="el" href="group__int__helpers.html#ga2a39f7b0281ef38a09a1df6ad35e53df">first1</a>(<a class="el" href="group__int__helpers.html#gad5dc22f13087ef95ab80f9e52c8a2761">roundpow2</a>(L1_LINE / sizeof(T))) / 2</td></tr>
+<tr class="memdesc:a7b37dcb2c60e627c34df02e058926ccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binary log of the block size \( \log_{2}{B} \).  <a href="#a7b37dcb2c60e627c34df02e058926ccc">More...</a><br /></td></tr>
+<tr class="separator:a7b37dcb2c60e627c34df02e058926ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5bef76d54dcc1599e6e62051464190d"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#af5bef76d54dcc1599e6e62051464190d">block_size</a> = 1 &lt;&lt; <a class="el" href="classpr_1_1block__array3.html#a7b37dcb2c60e627c34df02e058926ccc">block_size_log2</a></td></tr>
+<tr class="memdesc:af5bef76d54dcc1599e6e62051464190d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block size \( B \).  <a href="#af5bef76d54dcc1599e6e62051464190d">More...</a><br /></td></tr>
+<tr class="separator:af5bef76d54dcc1599e6e62051464190d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb734ea7f461f0ffae6af687cddc720"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aadb734ea7f461f0ffae6af687cddc720">block_area_log2</a> = <a class="el" href="classpr_1_1block__array3.html#a7b37dcb2c60e627c34df02e058926ccc">block_size_log2</a> * 2</td></tr>
+<tr class="memdesc:aadb734ea7f461f0ffae6af687cddc720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binary log of the block area \( \log_{2}{B^{2}} \).  <a href="#aadb734ea7f461f0ffae6af687cddc720">More...</a><br /></td></tr>
+<tr class="separator:aadb734ea7f461f0ffae6af687cddc720"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff5c62b12e67587243031daf94f076e8"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#aff5c62b12e67587243031daf94f076e8">block_area</a> = 1 &lt;&lt; <a class="el" href="classpr_1_1block__array3.html#aadb734ea7f461f0ffae6af687cddc720">block_area_log2</a></td></tr>
+<tr class="memdesc:aff5c62b12e67587243031daf94f076e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block area \( B^2 \).  <a href="#aff5c62b12e67587243031daf94f076e8">More...</a><br /></td></tr>
+<tr class="separator:aff5c62b12e67587243031daf94f076e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:abe210119780539caa6867c3ab8af5b82"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#abe210119780539caa6867c3ab8af5b82">user_size_</a></td></tr>
-<tr class="memdesc:abe210119780539caa6867c3ab8af5b82"><td class="mdescLeft">&#160;</td><td class="mdescRight">User size.  <a href="#abe210119780539caa6867c3ab8af5b82">More...</a><br /></td></tr>
-<tr class="separator:abe210119780539caa6867c3ab8af5b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac13190a921f2e1d97ba0d6bbaa885b72"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#ac13190a921f2e1d97ba0d6bbaa885b72">data_size_</a></td></tr>
-<tr class="memdesc:ac13190a921f2e1d97ba0d6bbaa885b72"><td class="mdescLeft">&#160;</td><td class="mdescRight">User size after rounding.  <a href="#ac13190a921f2e1d97ba0d6bbaa885b72">More...</a><br /></td></tr>
-<tr class="separator:ac13190a921f2e1d97ba0d6bbaa885b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fd3242a89187673480f2199e3bbc4ec"><td class="memItemLeft" align="right" valign="top">std::vector&lt; T, Alloc &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a0fd3242a89187673480f2199e3bbc4ec">data_</a></td></tr>
-<tr class="memdesc:a0fd3242a89187673480f2199e3bbc4ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data array.  <a href="#a0fd3242a89187673480f2199e3bbc4ec">More...</a><br /></td></tr>
-<tr class="separator:a0fd3242a89187673480f2199e3bbc4ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a90f907506b6f7c425099d6745fda59ca"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a90f907506b6f7c425099d6745fda59ca">user_size_</a></td></tr>
+<tr class="memdesc:a90f907506b6f7c425099d6745fda59ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">User size.  <a href="#a90f907506b6f7c425099d6745fda59ca">More...</a><br /></td></tr>
+<tr class="separator:a90f907506b6f7c425099d6745fda59ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47d5e423ec35803496d5843b16e78a0d"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a47d5e423ec35803496d5843b16e78a0d">data_size_</a></td></tr>
+<tr class="memdesc:a47d5e423ec35803496d5843b16e78a0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">User size after rounding.  <a href="#a47d5e423ec35803496d5843b16e78a0d">More...</a><br /></td></tr>
+<tr class="separator:a47d5e423ec35803496d5843b16e78a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57869a0c2f3dbbf5454d1dd0ead8476e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; T, Talloc &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array3.html#a57869a0c2f3dbbf5454d1dd0ead8476e">data_</a></td></tr>
+<tr class="memdesc:a57869a0c2f3dbbf5454d1dd0ead8476e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data array.  <a href="#a57869a0c2f3dbbf5454d1dd0ead8476e">More...</a><br /></td></tr>
+<tr class="separator:a57869a0c2f3dbbf5454d1dd0ead8476e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, typename Alloc = std::allocator&lt;T&gt;&gt;<br />
-class pr::block_array3&lt; T, Alloc &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt;<br />
+class pr::block_array3&lt; T, Talloc &gt;</h3>
 
 <p>3-dimensional block array. </p>
 <p>3-dimensional block array with block size \( B = 2^k \) for an integer \( k &gt; 0 \), which is chosen to promote cache performance. Specifically, \( k \) is chosen such that each \( B^2 \) block fits on an L1 cache line which, by default, the implementation assumes to be 64 bytes. To change this assumption, define <code>L1_LINE</code> to the appropriate size before including the data structure.</p>
 <dl class="section note"><dt>Note</dt><dd>The implementation blocks <em>only</em> the 0th and 1st dimensions. As a result, the addresses of adjacent locations in the 2nd dimension are usually far apart. </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ab9009d7d2a645c20a9c86d3972cfba01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9009d7d2a645c20a9c86d3972cfba01">&#9670;&nbsp;</a></span>container</h2>
+<a id="a2171d8609225405246498a478c7173d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2171d8609225405246498a478c7173d7">&#9670;&nbsp;</a></span>container</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::vector&lt;T, Alloc&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#ab9009d7d2a645c20a9c86d3972cfba01">container</a></td>
+          <td class="memname">typedef std::vector&lt;T, Talloc&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a2171d8609225405246498a478c7173d7">container</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -310,16 +310,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a62148c83f407bb77c68b20d9d31c16aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62148c83f407bb77c68b20d9d31c16aa">&#9670;&nbsp;</a></span>size_type</h2>
+<a id="acf99be811f242c6a389c3dc2c7271e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf99be811f242c6a389c3dc2c7271e7e">&#9670;&nbsp;</a></span>size_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::size_type <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a></td>
+          <td class="memname">typedef container::size_type <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -328,16 +328,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a7dbb9af41569b70de999dfb209b568e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dbb9af41569b70de999dfb209b568e7">&#9670;&nbsp;</a></span>difference_type</h2>
+<a id="aa2fa866bb874375e9512393a6b51c688"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2fa866bb874375e9512393a6b51c688">&#9670;&nbsp;</a></span>difference_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::difference_type <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a7dbb9af41569b70de999dfb209b568e7">difference_type</a></td>
+          <td class="memname">typedef container::difference_type <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#aa2fa866bb874375e9512393a6b51c688">difference_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -346,16 +346,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="aca71e1eabedd79cec1f871c46ff2a54d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca71e1eabedd79cec1f871c46ff2a54d">&#9670;&nbsp;</a></span>value_type</h2>
+<a id="a1427d20a54a0d8369f6ef35e0d1eef75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1427d20a54a0d8369f6ef35e0d1eef75">&#9670;&nbsp;</a></span>value_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::value_type <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#aca71e1eabedd79cec1f871c46ff2a54d">value_type</a></td>
+          <td class="memname">typedef container::value_type <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a1427d20a54a0d8369f6ef35e0d1eef75">value_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -364,16 +364,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a0be73e8288309f2d8b2ea2a6715e6737"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0be73e8288309f2d8b2ea2a6715e6737">&#9670;&nbsp;</a></span>reference</h2>
+<a id="af6f52b9ae77f77142c67b6ed01875118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6f52b9ae77f77142c67b6ed01875118">&#9670;&nbsp;</a></span>reference</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::reference <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a></td>
+          <td class="memname">typedef container::reference <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -382,16 +382,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a402ceb8f6a2600a1c1db3512d959fdeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a402ceb8f6a2600a1c1db3512d959fdeb">&#9670;&nbsp;</a></span>pointer</h2>
+<a id="a6f332cbde8d585aface67022b372f690"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f332cbde8d585aface67022b372f690">&#9670;&nbsp;</a></span>pointer</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::pointer <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a402ceb8f6a2600a1c1db3512d959fdeb">pointer</a></td>
+          <td class="memname">typedef container::pointer <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a6f332cbde8d585aface67022b372f690">pointer</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -400,16 +400,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="aeab96deb324e0562f92298b1bd0637c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeab96deb324e0562f92298b1bd0637c7">&#9670;&nbsp;</a></span>const_reference</h2>
+<a id="a483dddbfd42e14623df56b1e7c88d499"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a483dddbfd42e14623df56b1e7c88d499">&#9670;&nbsp;</a></span>const_reference</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::const_reference <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a></td>
+          <td class="memname">typedef container::const_reference <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -418,16 +418,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a976038801ea76f77ada1603579161e4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a976038801ea76f77ada1603579161e4b">&#9670;&nbsp;</a></span>const_pointer</h2>
+<a id="a2a4af572c3234fb1c32be8be4b0ae1bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a4af572c3234fb1c32be8be4b0ae1bb">&#9670;&nbsp;</a></span>const_pointer</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::const_pointer <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a976038801ea76f77ada1603579161e4b">const_pointer</a></td>
+          <td class="memname">typedef container::const_pointer <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a2a4af572c3234fb1c32be8be4b0ae1bb">const_pointer</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -436,16 +436,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a7551152edb7ea439c6dc61c28582133a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7551152edb7ea439c6dc61c28582133a">&#9670;&nbsp;</a></span>iterator</h2>
+<a id="a1a20efb2116f617d965be983ad472e10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a20efb2116f617d965be983ad472e10">&#9670;&nbsp;</a></span>iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::iterator <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a7551152edb7ea439c6dc61c28582133a">iterator</a></td>
+          <td class="memname">typedef container::iterator <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a1a20efb2116f617d965be983ad472e10">iterator</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -454,16 +454,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="aab8c147e9b1139bc6d7d0208f28556bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab8c147e9b1139bc6d7d0208f28556bd">&#9670;&nbsp;</a></span>const_iterator</h2>
+<a id="a88491c60fb343181e44a35b03ec86a74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88491c60fb343181e44a35b03ec86a74">&#9670;&nbsp;</a></span>const_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::const_iterator <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#aab8c147e9b1139bc6d7d0208f28556bd">const_iterator</a></td>
+          <td class="memname">typedef container::const_iterator <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a88491c60fb343181e44a35b03ec86a74">const_iterator</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -472,16 +472,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="afd3beba1fe0c09467e4dde19828802ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd3beba1fe0c09467e4dde19828802ae">&#9670;&nbsp;</a></span>reverse_iterator</h2>
+<a id="a505e45aa2566c68798fd7dfe408f9c75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a505e45aa2566c68798fd7dfe408f9c75">&#9670;&nbsp;</a></span>reverse_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::reverse_iterator <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#afd3beba1fe0c09467e4dde19828802ae">reverse_iterator</a></td>
+          <td class="memname">typedef container::reverse_iterator <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a505e45aa2566c68798fd7dfe408f9c75">reverse_iterator</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -490,16 +490,16 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ac0ed8c3bae7b7fe98deca405f8f7f563"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0ed8c3bae7b7fe98deca405f8f7f563">&#9670;&nbsp;</a></span>const_reverse_iterator</h2>
+<a id="a6efc7f1a0a1c2d7a512386319886ec3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6efc7f1a0a1c2d7a512386319886ec3d">&#9670;&nbsp;</a></span>const_reverse_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef container::const_reverse_iterator <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html#ac0ed8c3bae7b7fe98deca405f8f7f563">const_reverse_iterator</a></td>
+          <td class="memname">typedef container::const_reverse_iterator <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html#a6efc7f1a0a1c2d7a512386319886ec3d">const_reverse_iterator</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -509,19 +509,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa8e0e949d3ff927dfdee21ec76539e18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8e0e949d3ff927dfdee21ec76539e18">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[1/7]</span></h2>
+<a id="ab8b6d6ed8f4176ab79930f7ad43e1b0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8b6d6ed8f4176ab79930f7ad43e1b0a">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -538,21 +538,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a48f487ff5e8b997d06c3aea40f2ea38c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48f487ff5e8b997d06c3aea40f2ea38c">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[2/7]</span></h2>
+<a id="ace607b560c985214c3dd98109cfb6ab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace607b560c985214c3dd98109cfb6ab8">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
           <td>(</td>
-          <td class="paramtype">const Alloc &amp;&#160;</td>
+          <td class="paramtype">const Talloc &amp;&#160;</td>
           <td class="paramname"><em>alloc</em></td><td>)</td>
           <td></td>
         </tr>
@@ -568,21 +568,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ac6b217a3eef9e368179397d9f322f399"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6b217a3eef9e368179397d9f322f399">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[3/7]</span></h2>
+<a id="a951b62c14dcdda72c1d78f1ce7297df1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a951b62c14dcdda72c1d78f1ce7297df1">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classpr_1_1block__array3.html">block_array3</a>&lt; T, Alloc &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1block__array3.html">block_array3</a>&lt; T, Talloc &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -598,27 +598,27 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a1a653cc244bf3954125bf7e6b9b82ff8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a653cc244bf3954125bf7e6b9b82ff8">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[4/7]</span></h2>
+<a id="aeb55104c0fec6fb12b8a20f40ab4f936"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb55104c0fec6fb12b8a20f40ab4f936">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classpr_1_1block__array3.html">block_array3</a>&lt; T, Alloc &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1block__array3.html">block_array3</a>&lt; T, Talloc &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Alloc &amp;&#160;</td>
+          <td class="paramtype">const Talloc &amp;&#160;</td>
           <td class="paramname"><em>alloc</em>&#160;</td>
         </tr>
         <tr>
@@ -638,21 +638,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a2e46570abf0363780972e2363ac08a12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e46570abf0363780972e2363ac08a12">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[5/7]</span></h2>
+<a id="ade24d59811098eed50cc909646645d5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade24d59811098eed50cc909646645d5d">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html">block_array3</a>&lt; T, Alloc &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html">block_array3</a>&lt; T, Talloc &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -668,27 +668,27 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a94a6d21177229d2bce79de736d0fb504"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94a6d21177229d2bce79de736d0fb504">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[6/7]</span></h2>
+<a id="a609190b15490e80d6c84a11420b146b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a609190b15490e80d6c84a11420b146b0">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html">block_array3</a>&lt; T, Alloc &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html">block_array3</a>&lt; T, Talloc &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Alloc &amp;&#160;</td>
+          <td class="paramtype">const Talloc &amp;&#160;</td>
           <td class="paramname"><em>alloc</em>&#160;</td>
         </tr>
         <tr>
@@ -708,21 +708,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="adbb581227bfe88fb66df2406d17ca0b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbb581227bfe88fb66df2406d17ca0b8">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[7/7]</span></h2>
+<a id="ad1229deebbccfb716a6d1f562481aade"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1229deebbccfb716a6d1f562481aade">&#9670;&nbsp;</a></span>block_array3() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array3.html">block_array3</a> </td>
           <td>(</td>
-          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td>
           <td class="paramname"><em>count</em>, </td>
         </tr>
         <tr>
@@ -734,8 +734,8 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Alloc &amp;&#160;</td>
-          <td class="paramname"><em>alloc</em> = <code>Alloc()</code>&#160;</td>
+          <td class="paramtype">const Talloc &amp;&#160;</td>
+          <td class="paramname"><em>alloc</em> = <code>Talloc()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -755,21 +755,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a71a6648026ff598bb8f0de0f1c1e91f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71a6648026ff598bb8f0de0f1c1e91f9">&#9670;&nbsp;</a></span>round_size() <span class="overload">[1/2]</span></h2>
+<a id="ab32535ac2920f08c5972aa146827dba8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab32535ac2920f08c5972aa146827dba8">&#9670;&nbsp;</a></span>round_size() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static constexpr <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::round_size </td>
+          <td class="memname">static constexpr <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::round_size </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>num</em></td><td>)</td>
           <td></td>
         </tr>
@@ -785,21 +785,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a061e2e8e49b752fdeb9149715742781d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a061e2e8e49b752fdeb9149715742781d">&#9670;&nbsp;</a></span>round_size() <span class="overload">[2/2]</span></h2>
+<a id="a77d5912d17f2a23fcfd0056807c2ab32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d5912d17f2a23fcfd0056807c2ab32">&#9670;&nbsp;</a></span>round_size() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static constexpr multi&lt;<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::round_size </td>
+          <td class="memname">static constexpr multi&lt;<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::round_size </td>
           <td>(</td>
-          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td>
           <td class="paramname"><em>num</em></td><td>)</td>
           <td></td>
         </tr>
@@ -815,21 +815,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a07e65d12377a17af6bfc48a21c7190db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07e65d12377a17af6bfc48a21c7190db">&#9670;&nbsp;</a></span>resize()</h2>
+<a id="abc5518264b2e7b1f4daa54ed60fb5e97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc5518264b2e7b1f4daa54ed60fb5e97">&#9670;&nbsp;</a></span>resize()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::resize </td>
+          <td class="memname">void <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::resize </td>
           <td>(</td>
-          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td>
           <td class="paramname"><em>count</em></td><td>)</td>
           <td></td>
         </tr>
@@ -845,19 +845,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a8ba22c64aad173693c6e7fe2574ce473"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ba22c64aad173693c6e7fe2574ce473">&#9670;&nbsp;</a></span>clear()</h2>
+<a id="af36fff6e7419ad1522299a147d1e124d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af36fff6e7419ad1522299a147d1e124d">&#9670;&nbsp;</a></span>clear()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::clear </td>
+          <td class="memname">void <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::clear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -874,19 +874,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a68d302f19dd873374e847e3b869ddfe0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68d302f19dd873374e847e3b869ddfe0">&#9670;&nbsp;</a></span>shrink_to_fit()</h2>
+<a id="a9699adc64597afbfd91c019df6b8384d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9699adc64597afbfd91c019df6b8384d">&#9670;&nbsp;</a></span>shrink_to_fit()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::shrink_to_fit </td>
+          <td class="memname">void <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::shrink_to_fit </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -903,19 +903,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a964fa44bab8490e428c1041b22f21215"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a964fa44bab8490e428c1041b22f21215">&#9670;&nbsp;</a></span>size()</h2>
+<a id="a284616f35e5cf2c93caa93bd1fec11ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a284616f35e5cf2c93caa93bd1fec11ff">&#9670;&nbsp;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::size </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -932,19 +932,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a85e597916a059cc33ce6b6de40dc81d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85e597916a059cc33ce6b6de40dc81d0">&#9670;&nbsp;</a></span>user_size()</h2>
+<a id="a56550d8c9f9428331d0e25cf6df67f6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56550d8c9f9428331d0e25cf6df67f6b">&#9670;&nbsp;</a></span>user_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const multi&lt;<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3&gt;&amp; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::user_size </td>
+          <td class="memname">const multi&lt;<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3&gt;&amp; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::user_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -961,19 +961,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ac3577239e7342100c2d9a8c9fee034f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3577239e7342100c2d9a8c9fee034f1">&#9670;&nbsp;</a></span>data_size()</h2>
+<a id="a43caaddb2d18de839a79fac2eaa18929"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43caaddb2d18de839a79fac2eaa18929">&#9670;&nbsp;</a></span>data_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const multi&lt;<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3&gt;&amp; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::data_size </td>
+          <td class="memname">const multi&lt;<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3&gt;&amp; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::data_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -990,19 +990,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ac7c398202b63bcb4208b97ee2bd03c76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7c398202b63bcb4208b97ee2bd03c76">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
+<a id="a4d88159536cd2d20a144dfa8dddc5ff0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d88159536cd2d20a144dfa8dddc5ff0">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a7551152edb7ea439c6dc61c28582133a">iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::begin </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a1a20efb2116f617d965be983ad472e10">iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::begin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1019,19 +1019,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="af8dec0296115f909165278fa0188e5bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8dec0296115f909165278fa0188e5bd">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
+<a id="a72c63d40e235e1a7e3a9170fa1810262"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72c63d40e235e1a7e3a9170fa1810262">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aab8c147e9b1139bc6d7d0208f28556bd">const_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::begin </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a88491c60fb343181e44a35b03ec86a74">const_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::begin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1048,19 +1048,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="abe90ba80b45703a230552d7de54bf3b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe90ba80b45703a230552d7de54bf3b7">&#9670;&nbsp;</a></span>cbegin()</h2>
+<a id="a1d6023f7ceb19aa858b0ba4457e09c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d6023f7ceb19aa858b0ba4457e09c36">&#9670;&nbsp;</a></span>cbegin()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aab8c147e9b1139bc6d7d0208f28556bd">const_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::cbegin </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a88491c60fb343181e44a35b03ec86a74">const_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::cbegin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1077,19 +1077,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="aea9bfa170f02bde24c3ee15157082b80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea9bfa170f02bde24c3ee15157082b80">&#9670;&nbsp;</a></span>end() <span class="overload">[1/2]</span></h2>
+<a id="acac062642d568aa6accbb0732fb34364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acac062642d568aa6accbb0732fb34364">&#9670;&nbsp;</a></span>end() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a7551152edb7ea439c6dc61c28582133a">iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::end </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a1a20efb2116f617d965be983ad472e10">iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::end </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1106,19 +1106,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="af5e38994f72fc57a69903886fedab278"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5e38994f72fc57a69903886fedab278">&#9670;&nbsp;</a></span>end() <span class="overload">[2/2]</span></h2>
+<a id="affd91748431e285488bcffa7a30598c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affd91748431e285488bcffa7a30598c9">&#9670;&nbsp;</a></span>end() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aab8c147e9b1139bc6d7d0208f28556bd">const_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::end </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a88491c60fb343181e44a35b03ec86a74">const_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::end </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1135,19 +1135,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ab71be01f5c88238917b46c0f5704ebbc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab71be01f5c88238917b46c0f5704ebbc">&#9670;&nbsp;</a></span>cend()</h2>
+<a id="af7dca18bbcd0b3db0d43edaf048464aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7dca18bbcd0b3db0d43edaf048464aa">&#9670;&nbsp;</a></span>cend()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aab8c147e9b1139bc6d7d0208f28556bd">const_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::cend </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a88491c60fb343181e44a35b03ec86a74">const_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::cend </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1164,19 +1164,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a1701d6e2ef1ec49307659e8b712c5636"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1701d6e2ef1ec49307659e8b712c5636">&#9670;&nbsp;</a></span>rbegin() <span class="overload">[1/2]</span></h2>
+<a id="a1f7059e74c53bd19f225e9018ecec501"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f7059e74c53bd19f225e9018ecec501">&#9670;&nbsp;</a></span>rbegin() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#afd3beba1fe0c09467e4dde19828802ae">reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::rbegin </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a505e45aa2566c68798fd7dfe408f9c75">reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::rbegin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1193,19 +1193,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a8ecb94a210bfc704876c35c630ecfeba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ecb94a210bfc704876c35c630ecfeba">&#9670;&nbsp;</a></span>rbegin() <span class="overload">[2/2]</span></h2>
+<a id="a9f39a01ff900a486920659f68f9664c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f39a01ff900a486920659f68f9664c9">&#9670;&nbsp;</a></span>rbegin() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#ac0ed8c3bae7b7fe98deca405f8f7f563">const_reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::rbegin </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a6efc7f1a0a1c2d7a512386319886ec3d">const_reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::rbegin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1222,19 +1222,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="aef7d08a89a23e7dd15ae757a5fe06679"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef7d08a89a23e7dd15ae757a5fe06679">&#9670;&nbsp;</a></span>crbegin()</h2>
+<a id="a05c1e3fa14eaf66b544a0be608632e47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05c1e3fa14eaf66b544a0be608632e47">&#9670;&nbsp;</a></span>crbegin()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#ac0ed8c3bae7b7fe98deca405f8f7f563">const_reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::crbegin </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a6efc7f1a0a1c2d7a512386319886ec3d">const_reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::crbegin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1251,19 +1251,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="aa3935fc4fbcd0e5744d27ec7abaa70cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3935fc4fbcd0e5744d27ec7abaa70cf">&#9670;&nbsp;</a></span>rend() <span class="overload">[1/2]</span></h2>
+<a id="ac7c13baa0290f65e1dfd150ae9ac1e1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7c13baa0290f65e1dfd150ae9ac1e1e">&#9670;&nbsp;</a></span>rend() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#afd3beba1fe0c09467e4dde19828802ae">reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::rend </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a505e45aa2566c68798fd7dfe408f9c75">reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::rend </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1280,19 +1280,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="af7913514877a441f32d70cb7bb8967f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7913514877a441f32d70cb7bb8967f2">&#9670;&nbsp;</a></span>rend() <span class="overload">[2/2]</span></h2>
+<a id="a96b5602563cbdd74c89768f365d9bea4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96b5602563cbdd74c89768f365d9bea4">&#9670;&nbsp;</a></span>rend() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#ac0ed8c3bae7b7fe98deca405f8f7f563">const_reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::rend </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a6efc7f1a0a1c2d7a512386319886ec3d">const_reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::rend </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1309,19 +1309,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a73d3a24b78b777793ccc9ce26b565626"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73d3a24b78b777793ccc9ce26b565626">&#9670;&nbsp;</a></span>crend()</h2>
+<a id="a708a54d009eaca088b9dcd441becd4fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a708a54d009eaca088b9dcd441becd4fe">&#9670;&nbsp;</a></span>crend()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#ac0ed8c3bae7b7fe98deca405f8f7f563">const_reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::crend </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a6efc7f1a0a1c2d7a512386319886ec3d">const_reverse_iterator</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::crend </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1338,19 +1338,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a9985a4b3450a7e111210973ee6a35097"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9985a4b3450a7e111210973ee6a35097">&#9670;&nbsp;</a></span>front() <span class="overload">[1/2]</span></h2>
+<a id="ab89a12cdb510c1b37830148ea5e07859"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab89a12cdb510c1b37830148ea5e07859">&#9670;&nbsp;</a></span>front() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::front </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::front </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1367,19 +1367,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a7b8ef56df323ca6620ecd5e63d7fbdec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b8ef56df323ca6620ecd5e63d7fbdec">&#9670;&nbsp;</a></span>front() <span class="overload">[2/2]</span></h2>
+<a id="a50d5e2e75b7d1f07ca32c4541fa91269"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50d5e2e75b7d1f07ca32c4541fa91269">&#9670;&nbsp;</a></span>front() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::front </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::front </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1396,19 +1396,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a18f30d3fa0155c5e0bb8267e089c7c48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18f30d3fa0155c5e0bb8267e089c7c48">&#9670;&nbsp;</a></span>back() <span class="overload">[1/2]</span></h2>
+<a id="a50a13af28d15e476241e9650bd817884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50a13af28d15e476241e9650bd817884">&#9670;&nbsp;</a></span>back() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::back </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::back </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1425,19 +1425,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="af31541ac052d128943d57edfbe9d6f36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af31541ac052d128943d57edfbe9d6f36">&#9670;&nbsp;</a></span>back() <span class="overload">[2/2]</span></h2>
+<a id="ac3dcc95c63538c902e44118d7347ca2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3dcc95c63538c902e44118d7347ca2c">&#9670;&nbsp;</a></span>back() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::back </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::back </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1454,21 +1454,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a4d8ee82d3ee4abf635330bcec2ef0724"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d8ee82d3ee4abf635330bcec2ef0724">&#9670;&nbsp;</a></span>convert() <span class="overload">[1/2]</span></h2>
+<a id="ae917fd6bd34a81bfcab02fe36711462c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae917fd6bd34a81bfcab02fe36711462c">&#9670;&nbsp;</a></span>convert() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::convert </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::convert </td>
           <td>(</td>
-          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td>
           <td class="paramname"><em>loc</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1488,21 +1488,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="acd5a4b36e63a4c831b88f3201e0d79e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd5a4b36e63a4c831b88f3201e0d79e8">&#9670;&nbsp;</a></span>convert() <span class="overload">[2/2]</span></h2>
+<a id="ac5f6b4a9af10a9c922766c87b42fcc8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5f6b4a9af10a9c922766c87b42fcc8e">&#9670;&nbsp;</a></span>convert() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">multi&lt;<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::convert </td>
+          <td class="memname">multi&lt;<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::convert </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1529,21 +1529,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a967436eb3b1f5d8642e02222579c7fe1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a967436eb3b1f5d8642e02222579c7fe1">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/4]</span></h2>
+<a id="a96a669ab1a02d12d03f9fdd14ece7d98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96a669ab1a02d12d03f9fdd14ece7d98">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::operator[] </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::operator[] </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1559,21 +1559,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a188c8527c8a372afb256730ab5d1f453"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a188c8527c8a372afb256730ab5d1f453">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/4]</span></h2>
+<a id="a71674ded1fc5ace07e3f33847a49982e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71674ded1fc5ace07e3f33847a49982e">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::operator[] </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::operator[] </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1589,21 +1589,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a5d1fd56f0e0add7d487058b895746068"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d1fd56f0e0add7d487058b895746068">&#9670;&nbsp;</a></span>at() <span class="overload">[1/4]</span></h2>
+<a id="aed2ddc97dd0f8d838b42dc9ab64711d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed2ddc97dd0f8d838b42dc9ab64711d7">&#9670;&nbsp;</a></span>at() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::at </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::at </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1625,21 +1625,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a6722682cd48990e16dce3a7d6b8bbcea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6722682cd48990e16dce3a7d6b8bbcea">&#9670;&nbsp;</a></span>at() <span class="overload">[2/4]</span></h2>
+<a id="a63e567578dfdb0f4e5528ef817d507a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63e567578dfdb0f4e5528ef817d507a4">&#9670;&nbsp;</a></span>at() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::at </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::at </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1661,21 +1661,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ae4627e9d89eebeef854dafca9b62de2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4627e9d89eebeef854dafca9b62de2b">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[3/4]</span></h2>
+<a id="ab9e7ea8dd3df0b64df91d79f36095397"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9e7ea8dd3df0b64df91d79f36095397">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::operator[] </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::operator[] </td>
           <td>(</td>
-          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td>
           <td class="paramname"><em>loc</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1691,21 +1691,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ae2567fb010e7f4f168cd8dcaae41bdb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2567fb010e7f4f168cd8dcaae41bdb4">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[4/4]</span></h2>
+<a id="ab011ba8535d123347105585952af563d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab011ba8535d123347105585952af563d">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::operator[] </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::operator[] </td>
           <td>(</td>
-          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td>
           <td class="paramname"><em>loc</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1721,33 +1721,33 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a3398cedcd62266f3b1c1324f0b839cb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3398cedcd62266f3b1c1324f0b839cb3">&#9670;&nbsp;</a></span>operator()() <span class="overload">[1/2]</span></h2>
+<a id="a195a9a46246653ffe01fc87507e76bf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a195a9a46246653ffe01fc87507e76bf6">&#9670;&nbsp;</a></span>operator()() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::operator() </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::operator() </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>k0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>k1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>k2</em>&#160;</td>
         </tr>
         <tr>
@@ -1767,33 +1767,33 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a68a1a4f07a96f5e313eecc986b6dea76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68a1a4f07a96f5e313eecc986b6dea76">&#9670;&nbsp;</a></span>operator()() <span class="overload">[2/2]</span></h2>
+<a id="abf4b4d3bb720a46fc38ec7551ea845d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf4b4d3bb720a46fc38ec7551ea845d0">&#9670;&nbsp;</a></span>operator()() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::operator() </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::operator() </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>k0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>k1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>&#160;</td>
           <td class="paramname"><em>k2</em>&#160;</td>
         </tr>
         <tr>
@@ -1813,21 +1813,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="af43a2e098bd0b3cccc5415ff6469b06f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af43a2e098bd0b3cccc5415ff6469b06f">&#9670;&nbsp;</a></span>at() <span class="overload">[3/4]</span></h2>
+<a id="aa056ec8b9ddd9e5c22367640b0739dac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa056ec8b9ddd9e5c22367640b0739dac">&#9670;&nbsp;</a></span>at() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a0be73e8288309f2d8b2ea2a6715e6737">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::at </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::at </td>
           <td>(</td>
-          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td>
           <td class="paramname"><em>loc</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1849,21 +1849,21 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="af781626232d0d4d4497406e1d94cd7d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af781626232d0d4d4497406e1d94cd7d3">&#9670;&nbsp;</a></span>at() <span class="overload">[4/4]</span></h2>
+<a id="ab7781de497d61a95643466d7c40a1dd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7781de497d61a95643466d7c40a1dd5">&#9670;&nbsp;</a></span>at() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#aeab96deb324e0562f92298b1bd0637c7">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::at </td>
+          <td class="memname"><a class="el" href="classpr_1_1block__array3.html#a483dddbfd42e14623df56b1e7c88d499">const_reference</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::at </td>
           <td>(</td>
-          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3 &gt;&#160;</td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt;&#160;</td>
           <td class="paramname"><em>loc</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1886,19 +1886,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3cda7dadaf7bca08340abbca88779e19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cda7dadaf7bca08340abbca88779e19">&#9670;&nbsp;</a></span>block_size_log2</h2>
+<a id="a7b37dcb2c60e627c34df02e058926ccc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b37dcb2c60e627c34df02e058926ccc">&#9670;&nbsp;</a></span>block_size_log2</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::block_size_log2 = <a class="el" href="group__int__helpers.html#ga2a39f7b0281ef38a09a1df6ad35e53df">first1</a>(<a class="el" href="group__int__helpers.html#gad5dc22f13087ef95ab80f9e52c8a2761">roundpow2</a>(L1_LINE / sizeof(T))) / 2</td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::block_size_log2 = <a class="el" href="group__int__helpers.html#ga2a39f7b0281ef38a09a1df6ad35e53df">first1</a>(<a class="el" href="group__int__helpers.html#gad5dc22f13087ef95ab80f9e52c8a2761">roundpow2</a>(L1_LINE / sizeof(T))) / 2</td>
         </tr>
       </table>
   </td>
@@ -1912,19 +1912,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a28c46901ea03709458f436a04b4bb3c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28c46901ea03709458f436a04b4bb3c4">&#9670;&nbsp;</a></span>block_size</h2>
+<a id="af5bef76d54dcc1599e6e62051464190d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5bef76d54dcc1599e6e62051464190d">&#9670;&nbsp;</a></span>block_size</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::block_size = 1 &lt;&lt; <a class="el" href="classpr_1_1block__array3.html#a3cda7dadaf7bca08340abbca88779e19">block_size_log2</a></td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::block_size = 1 &lt;&lt; <a class="el" href="classpr_1_1block__array3.html#a7b37dcb2c60e627c34df02e058926ccc">block_size_log2</a></td>
         </tr>
       </table>
   </td>
@@ -1938,19 +1938,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="aff22154cf81872feba6f85ddb46c16a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff22154cf81872feba6f85ddb46c16a2">&#9670;&nbsp;</a></span>block_area_log2</h2>
+<a id="aadb734ea7f461f0ffae6af687cddc720"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadb734ea7f461f0ffae6af687cddc720">&#9670;&nbsp;</a></span>block_area_log2</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::block_area_log2 = <a class="el" href="classpr_1_1block__array3.html#a3cda7dadaf7bca08340abbca88779e19">block_size_log2</a> * 2</td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::block_area_log2 = <a class="el" href="classpr_1_1block__array3.html#a7b37dcb2c60e627c34df02e058926ccc">block_size_log2</a> * 2</td>
         </tr>
       </table>
   </td>
@@ -1964,19 +1964,19 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a310ad676c0bde0fd1952f728fc1a44f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a310ad676c0bde0fd1952f728fc1a44f7">&#9670;&nbsp;</a></span>block_area</h2>
+<a id="aff5c62b12e67587243031daf94f076e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff5c62b12e67587243031daf94f076e8">&#9670;&nbsp;</a></span>block_area</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::block_area = 1 &lt;&lt; <a class="el" href="classpr_1_1block__array3.html#aff22154cf81872feba6f85ddb46c16a2">block_area_log2</a></td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a> <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::block_area = 1 &lt;&lt; <a class="el" href="classpr_1_1block__array3.html#aadb734ea7f461f0ffae6af687cddc720">block_area_log2</a></td>
         </tr>
       </table>
   </td>
@@ -1990,24 +1990,24 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="abe210119780539caa6867c3ab8af5b82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe210119780539caa6867c3ab8af5b82">&#9670;&nbsp;</a></span>user_size_</h2>
+<a id="a90f907506b6f7c425099d6745fda59ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90f907506b6f7c425099d6745fda59ca">&#9670;&nbsp;</a></span>user_size_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">multi&lt;<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::user_size_</td>
+          <td class="memname">multi&lt;<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::user_size_</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2016,24 +2016,24 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ac13190a921f2e1d97ba0d6bbaa885b72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac13190a921f2e1d97ba0d6bbaa885b72">&#9670;&nbsp;</a></span>data_size_</h2>
+<a id="a47d5e423ec35803496d5843b16e78a0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47d5e423ec35803496d5843b16e78a0d">&#9670;&nbsp;</a></span>data_size_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">multi&lt;<a class="el" href="classpr_1_1block__array3.html#a62148c83f407bb77c68b20d9d31c16aa">size_type</a>, 3&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::data_size_</td>
+          <td class="memname">multi&lt;<a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::data_size_</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2042,24 +2042,24 @@ template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a0fd3242a89187673480f2199e3bbc4ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fd3242a89187673480f2199e3bbc4ec">&#9670;&nbsp;</a></span>data_</h2>
+<a id="a57869a0c2f3dbbf5454d1dd0ead8476e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57869a0c2f3dbbf5454d1dd0ead8476e">&#9670;&nbsp;</a></span>data_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;T, Alloc&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Alloc &gt;::data_</td>
+          <td class="memname">std::vector&lt;T, Talloc&gt; <a class="el" href="classpr_1_1block__array3.html">pr::block_array3</a>&lt; T, Talloc &gt;::data_</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
