@@ -30,11 +30,11 @@
 #ifndef PREFABS_BLOCK_ARRAY3_HPP
 #define PREFABS_BLOCK_ARRAY3_HPP
 
-// for std::array
-#include <array>
-
 // for std::vector
 #include <vector>
+
+// for pr::multi
+#include <prefabs/multi.hpp>
 
 // for pr::first1, pr::roundpow2, ...
 #include <prefabs/int_helpers.hpp>
@@ -183,7 +183,7 @@ public:
      * @brief Round `num` up to multiple of `block_size`.
      */
     static constexpr
-    std::array<size_type, 3> round_size(std::array<size_type, 3> num) noexcept
+    multi<size_type, 3> round_size(multi<size_type, 3> num) noexcept
     {
         return {
             round_size(num[0]),
@@ -256,13 +256,11 @@ public:
      * @brief Construct from `count` copies of `value`.
      */
     block_array3(
-            std::array<size_type, 3> count, 
+            multi<size_type, 3> count, 
             const T& value = T(), const Alloc& alloc = Alloc()) :
           user_size_{count},
           data_size_{round_size(count)},
-          data_(data_size_[0] *
-                data_size_[1] *
-                data_size_[2], value, alloc)
+          data_(data_size_.prod(), value, alloc)
     {
     }
 
@@ -278,13 +276,11 @@ public:
     /**
      * @brief Resize array.
      */
-    void resize(std::array<size_type, 3> count)
+    void resize(multi<size_type, 3> count)
     {
         user_size_ = count;
         data_size_ = round_size(count);
-        data_.resize(data_size_[0] *
-                     data_size_[1] * 
-                     data_size_[2]);
+        data_.resize(data_size_.prod());
     }
 
     /**
@@ -316,7 +312,7 @@ public:
     /**
      * @brief User size.
      */
-    const std::array<size_type, 3>& user_size() const noexcept
+    const multi<size_type, 3>& user_size() const noexcept
     {
         return user_size_;
     }
@@ -324,7 +320,7 @@ public:
     /**
      * @brief User size after rounding.
      */
-    const std::array<size_type, 3>& data_size() const noexcept
+    const multi<size_type, 3>& data_size() const noexcept
     {
         return data_size_;
     }
@@ -477,17 +473,11 @@ public:
      * where the @f$ q_k, r_k @f$ denote the quotients and 
      * remainders of the @f$ l_k / B @f$ respectively.
      */
-    size_type convert(std::array<size_type, 3> loc) const noexcept
+    size_type convert(multi<size_type, 3> loc) const noexcept
     {
         // Quotient and remainder with respect to block size.
-        std::array<size_type, 2> loc_quo = {
-            loc[0] >> block_size_log2,
-            loc[1] >> block_size_log2
-        };
-        std::array<size_type, 2> loc_rem = {
-            loc[0] & (block_size - 1),
-            loc[1] & (block_size - 1)
-        };
+        multi<size_type, 2> loc_quo = loc >> block_size_log2;
+        multi<size_type, 2> loc_rem = loc & (block_size - 1);
 
         // Multipliers.
         loc_quo[0] <<= block_area_log2;
@@ -525,7 +515,7 @@ public:
      * - @f$ s @f$ and @f$ t @f$ denote the _quotient and remainder_ of 
      *   @f$ j / (n_0 n_1) @f$ respectively.
      */
-    std::array<size_type, 3> convert(size_type pos) const noexcept
+    multi<size_type, 3> convert(size_type pos) const noexcept
     {
         // Quotient and remainder with respect to sheet area.
         size_type pos_quo = pos / (data_size_[0] * data_size_[1]);
@@ -539,11 +529,11 @@ public:
         size_type num = data_size_[0] >> block_size_log2;
 
         // Recover index.
-        return {
+        return {{
             (tmp_quo % num) << block_size_log2 | (tmp_rem & (block_size - 1)),
             (tmp_quo / num) << block_size_log2 | (tmp_rem >> block_size_log2),
              pos_quo
-        };
+        }};
     }
 
     /**@}*/
@@ -574,7 +564,8 @@ public:
     /**
      * @brief 1-dimensional accessor with range check.
      *
-     * @throw std::out_of_range If `pos >= size()`.
+     * @throw std::out_of_range
+     * If `pos` is out of range.
      */
     reference at(size_type pos)
     {
@@ -584,7 +575,8 @@ public:
     /**
      * @brief 1-dimensional accessor with range check, const variant.
      *
-     * @throw std::out_of_range If `pos >= size()`.
+     * @throw std::out_of_range
+     * If `pos` is out of range.
      */
     const_reference at(size_type pos) const
     {
@@ -594,7 +586,7 @@ public:
     /**
      * @brief 3-dimensional accessor.
      */
-    reference operator[](std::array<size_type, 3> loc)
+    reference operator[](multi<size_type, 3> loc)
     {
         return data_[convert(loc)];
     }
@@ -602,7 +594,7 @@ public:
     /**
      * @brief 3-dimensional accessor, const variant.
      */
-    const_reference operator[](std::array<size_type, 3> loc) const
+    const_reference operator[](multi<size_type, 3> loc) const
     {
         return data_[convert(loc)];
     }
@@ -626,13 +618,10 @@ public:
     /**
      * @brief 3-dimensional accessor with range check.
      *
-     * @throw std::out_of_range If `loc[0] >= data_size()[0]`.
-     *
-     * @throw std::out_of_range If `loc[1] >= data_size()[1]`.
-     *
-     * @throw std::out_of_range If `loc[2] >= data_size()[2]`.
+     * @throw std::out_of_range 
+     * If `loc` is out of range.
      */
-    reference at(std::array<size_type, 3> loc)
+    reference at(multi<size_type, 3> loc)
     {
         if (loc[0] >= data_size_[0] ||
             loc[1] >= data_size_[1] ||
@@ -645,13 +634,10 @@ public:
     /**
      * @brief 3-dimensional accessor with range check, const variant.
      *
-     * @throw std::out_of_range If `loc[0] >= data_size()[0]`.
-     *
-     * @throw std::out_of_range If `loc[1] >= data_size()[1]`.
-     *
-     * @throw std::out_of_range If `loc[2] >= data_size()[2]`.
+     * @throw std::out_of_range 
+     * If `loc` is out of range.
      */
-    const_reference at(std::array<size_type, 3> loc) const
+    const_reference at(multi<size_type, 3> loc) const
     {
         if (loc[0] >= data_size_[0] ||
             loc[1] >= data_size_[1] ||
@@ -668,12 +654,12 @@ private:
     /**
      * @brief User size.
      */
-    std::array<size_type, 3> user_size_;
+    multi<size_type, 3> user_size_;
 
     /**
      * @brief User size after rounding.
      */
-    std::array<size_type, 3> data_size_;
+    multi<size_type, 3> data_size_;
 
     /**
      * @brief Data array.
