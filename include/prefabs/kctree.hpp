@@ -59,24 +59,45 @@ namespace pr {
 
 /**
  * @brief Kc-tree.
+ *
+ * @tparam T 
+ * Multi floating point type.
+ *
+ * @tparam N 
+ * Multi dimension.
+ *
+ * @tparam U 
+ * Value data type.
+ *
+ * @tparam CellAlloc 
+ * Cell allocator type.
+ *
+ * @tparam CellCapacity 
+ * Cell capacity.
  */
 template <
     typename T, std::size_t N,
     typename U,
-    typename Alloc = std::allocator<char>
+    typename CellAlloc = std::allocator<char>,
+    std::size_t CellCapacity = 4
     >
 class kctree
 {
 public:
     
     // Sanity check.
-    static_assert(std::is_floating_point<T>::value,
-                                        "T must be floating point");
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
 
-#if !DOXYGEN
-    // prototype
-    class cell_type;
-#endif // #if !DOXYGEN
+    // Sanity check.
+    static_assert(
+        std::is_default_constructible<U>::value &&
+        std::is_copy_assignable<U>::value, 
+        "U must be default constructible and copy assignable");
+
+    // Sanity check.
+    static_assert(CellCapacity > 0, "CellCapacity must be positive");
 
 public:
 
@@ -110,16 +131,16 @@ public:
      */
     typedef std::size_t size_type;
 
+#if !DOXYGEN
+    // prototype
+    class cell_type;
+#endif // #if !DOXYGEN
+
     /**
      * @brief Cell allocator type.
      */
-    typedef typename std::allocator_traits<Alloc>::
+    typedef typename std::allocator_traits<CellAlloc>::
             template rebind_alloc<cell_type> cell_allocator_type;
-
-    /**
-     * @brief Cell allocator traits.
-     */
-    typedef std::allocator_traits<cell_allocator_type> cell_allocator_traits;
 
     /**@}*/
 
@@ -131,19 +152,15 @@ public:
      * @param[in] box
      * Box.
      *
-     * @param[in] cell_capacity
-     * Cell capacity.
-     *
      * @param[in] cell_alloc
      * Cell allocator.
      */
     kctree(
         aabb_type box,
-        size_type cell_capacity = 4,
-        const cell_allocator_type& cell_alloc =
+        const cell_allocator_type& cell_alloc = 
               cell_allocator_type()) :
                     cell_alloc_(cell_alloc),
-                    root_(box, cell_capacity, cell_alloc_)
+                    root_(box, cell_alloc_)
     {
     }
 
@@ -153,18 +170,14 @@ public:
      * @param[in] box
      * Box.
      *
-     * @param[in] cell_capacity
-     * Cell capacity.
-     *
      * @param[in] cell_alloc
      * Cell allocator.
      */
     kctree(
         aabb_type box,
-        size_type cell_capacity,
         cell_allocator_type&& cell_alloc) :
                     cell_alloc_(std::move(cell_alloc)),
-                    root_(box, cell_capacity, cell_alloc_)
+                    root_(box, cell_alloc_)
     {
     }
 
@@ -206,9 +219,9 @@ public:
      * @note 
      * Function must have signature 
      * equivalent to 
-     * ~~~~~~~~~~~~~~~~~~~~~~~{cpp}
-     * void(const value_type&)
-     * ~~~~~~~~~~~~~~~~~~~~~~~
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
+     * void(const multi_type&, const value_data_type&)
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
     template <typename Fun>
     void query(const aabb_type& reg, Fun&& fun) const
@@ -231,19 +244,14 @@ public:
          * @param[in] box
          * Box.
          *
-         * @param[in] cell_capacity
-         * Cell capacity.
-         *
          * @param[in] cell_alloc
          * Cell allocator.
          */
         cell_type(
                 aabb_type box,
-                size_type cell_capacity,
-                cell_allocator_type& cell_alloc) : 
+                cell_allocator_type& cell_alloc) :
             box_(box),
             box_center_(box.center()),
-            cell_capacity_(cell_capacity),
             cell_alloc_(cell_alloc)
         {
         }
@@ -256,27 +264,17 @@ public:
             if (cells_) {
                 // Destroy.
                 for (size_type k = 0; k < 1 << N; k++) {
-                    cell_allocator_traits::destroy(
+                    std::allocator_traits<cell_allocator_type>::destroy(
                     cell_alloc_, cells_ + k);
                 }
 
                 // Deallocate.
-                cell_allocator_traits::deallocate(
+                std::allocator_traits<cell_allocator_type>::deallocate(
                 cell_alloc_, cells_, 1 << N);
             }
         }
 
     public:
-
-#if 0
-        /**
-         * @brief Is leaf?
-         */
-        bool isleaf() const
-        {
-            return cells_ == nullptr;
-        }
-#endif
 
         /**
          * @brief Insert.
@@ -294,11 +292,11 @@ public:
             else {
 
                 // Is leaf full?
-                if (values_.size() >= cell_capacity_) {
+                if (stack_top_ >= CellCapacity) {
 
                     // Allocate.
                     cells_ =
-                    cell_allocator_traits::allocate(
+                    std::allocator_traits<cell_allocator_type>::allocate(
                     cell_alloc_, 1 << N);
 
                     for (size_type k = 0; k < 1 << N; k++) {
@@ -317,11 +315,10 @@ public:
                         }
 
                         // Construct.
-                        cell_allocator_traits::construct(
+                        std::allocator_traits<cell_allocator_type>::construct(
                         cell_alloc_, 
                         cells_ + k,
                             box, 
-                            cell_capacity_,
                             cell_alloc_);
                     }
 
@@ -330,13 +327,9 @@ public:
                 }
                 else {
 
-                    // Reserve.
-                    if (values_.empty()) {
-                        values_.reserve(cell_capacity_);
-                    }
-
                     // Push value.
-                    values_.push_back(val);
+                    stack_[
+                    stack_top_++] = val;
                 }
             }
         }
@@ -353,18 +346,18 @@ public:
          * @note 
          * Function must have signature 
          * equivalent to 
-         * ~~~~~~~~~~~~~~~~~~~~~~~{cpp}
-         * void(const value_type&)
-         * ~~~~~~~~~~~~~~~~~~~~~~~
+         * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
+         * void(const multi_type&, const value_data_type&)
+         * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          */
         template <typename Fun>
         void query(const aabb_type& reg, Fun&& fun) const
         {
             if (box_.overlaps(reg)) {
-                for (auto itval = values_.begin();
-                          itval < values_.end(); ++itval) {
+                for (auto itval = &stack_[0];
+                          itval < &stack_[0] + stack_top_; ++itval) {
                     if (reg.contains(itval->first)) {
-                        std::forward<Fun>(fun)(*itval);
+                        std::forward<Fun>(fun)(itval->first, itval->second);
                     }
                 }
 
@@ -389,11 +382,6 @@ public:
         multi_type box_center_;
 
         /**
-         * @brief Cell capacity.
-         */
-        size_type cell_capacity_;
-
-        /**
          * @brief If tree, cell allocator.
          */
         cell_allocator_type& cell_alloc_;
@@ -404,9 +392,14 @@ public:
         cell_type* cells_ = nullptr;
 
         /**
-         * @brief Values.
+         * @brief Value stack.
          */
-        std::vector<value_type> values_;
+        value_type stack_[CellCapacity] = {};
+
+        /**
+         * @brief Value stack top.
+         */
+        size_type stack_top_ = 0;
 
     private:
 
