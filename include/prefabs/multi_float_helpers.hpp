@@ -45,7 +45,9 @@ namespace pr {
 
 /**@}*/
 
+#if !DOXYGEN
 #include "multi_float_helpers.inl"
+#endif // #if !DOXYGEN
 
 } // namespace pr
 

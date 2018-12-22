@@ -298,7 +298,9 @@ constexpr T nthpow(T x, int n)
 
 /**@}*/
 
+#if !DOXYGEN
 #include "math.inl"
+#endif // #if !DOXYGEN
 
 } // namespace pr
 

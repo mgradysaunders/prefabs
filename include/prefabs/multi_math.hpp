@@ -39,7 +39,7 @@
 namespace pr {
 
 /**
- * @defgroup multi_math Multi-dimensional arrays (math)
+ * @defgroup multi_math Multi-dimensional array (math)
  *
  * `<prefabs/multi_math.hpp>`
  */
@@ -47,7 +47,9 @@ namespace pr {
 
 /**@}*/
 
+#if !DOXYGEN
 #include "multi_math.inl"
+#endif // #if !DOXYGEN
 
 // TODO dot
 // TODO kron
