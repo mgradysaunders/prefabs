@@ -44,10 +44,10 @@ namespace pr {
 /**
  * @brief Generate canonical random number.
  */
-template <typename T, typename Gen>
+template <typename T, typename Tgen>
 inline std::enable_if_t<
                 std::is_floating_point<T>::value, T> 
-                        generate_canonical(Gen& gen) 
+                        generate_canonical(Tgen& gen) 
 {
     long double r = 
                 static_cast<long double>(gen.max()) - 
@@ -77,8 +77,9 @@ template <typename T = double>
 struct uniform_distribution
 {
     // Sanity check.
-    static_assert(std::is_floating_point<T>::value, 
-                                        "T must be floating point");
+    static_assert(
+        std::is_floating_point<T>::value, 
+        "T must be floating point");
 
     /**
      * @brief @f$ x_0 @f$, lower bound.
@@ -152,8 +153,8 @@ struct uniform_distribution
     /**
      * @brief Generate number.
      */
-    template <typename Gen> 
-    T operator()(Gen& gen) const
+    template <typename Tgen> 
+    T operator()(Tgen& gen) const
     {
         return cdfinv(pr::generate_canonical<T>(gen));
     }
@@ -166,8 +167,9 @@ template <typename T = double>
 struct exponential_distribution
 {
     // Sanity check.
-    static_assert(std::is_floating_point<T>::value, 
-                                        "T must be floating point");
+    static_assert(
+        std::is_floating_point<T>::value, 
+        "T must be floating point");
 
     /**
      * @brief @f$ \lambda @f$, rate.
@@ -240,8 +242,8 @@ struct exponential_distribution
     /**
      * @brief Generate number.
      */
-    template <typename Gen> 
-    T operator()(Gen& gen) const
+    template <typename Tgen> 
+    T operator()(Tgen& gen) const
     {
         return cdfinv(pr::generate_canonical<T>(gen));
     }
@@ -288,6 +290,11 @@ inline std::enable_if_t<std::is_floating_point<T>::value, T> erfinv(T y)
 template <typename T = double>
 struct normal_distribution
 {
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value, 
+        "T must be floating point");
+
     /**
      * @brief @f$ \mu @f$, mean.
      */
@@ -357,8 +364,8 @@ struct normal_distribution
     /**
      * @brief Generate number.
      */
-    template <typename Gen> 
-    T operator()(Gen& gen) const
+    template <typename Tgen> 
+    T operator()(Tgen& gen) const
     {
         return cdfinv(pr::generate_canonical<T>(gen));
     }
@@ -371,8 +378,9 @@ template <typename T = double>
 struct lognormal_distribution : normal_distribution<T> 
 {
     // Sanity check.
-    static_assert(std::is_floating_point<T>::value, 
-                                        "T must be floating point");
+    static_assert(
+        std::is_floating_point<T>::value, 
+        "T must be floating point");
 
     /**
      * @brief Probability density function.
@@ -422,8 +430,8 @@ struct lognormal_distribution : normal_distribution<T>
     /**
      * @brief Generate number.
      */
-    template <typename Gen> 
-    T operator()(Gen& gen) const
+    template <typename Tgen> 
+    T operator()(Tgen& gen) const
     {
         return cdfinv(pr::generate_canonical<T>(gen));
     }

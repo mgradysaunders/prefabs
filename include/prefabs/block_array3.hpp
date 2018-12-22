@@ -70,7 +70,7 @@ namespace pr {
  */
 template <
     typename T, 
-    typename Alloc = std::allocator<T>
+    typename Talloc = std::allocator<T>
     >
 class block_array3
 {
@@ -84,7 +84,7 @@ public:
     /**
      * @brief Internal container.
      */
-    typedef std::vector<T, Alloc> container;
+    typedef std::vector<T, Talloc> container;
 
     /**
      * @brief Size type.
@@ -202,13 +202,13 @@ public:
     /**
      * @brief Default constructor.
      */
-    block_array3() noexcept(noexcept(Alloc())) = default;
+    block_array3() noexcept(noexcept(Talloc())) = default;
 
     /**
      * @brief Default constructor with allocator.
      */
     explicit 
-    block_array3(const Alloc& alloc) noexcept : data_(alloc)
+    block_array3(const Talloc& alloc) noexcept : data_(alloc)
     {
     }
 
@@ -225,7 +225,7 @@ public:
     /**
      * @brief Copy constructor with allocator.
      */
-    block_array3(const block_array3& other, const Alloc& alloc) :
+    block_array3(const block_array3& other, const Talloc& alloc) :
         user_size_(other.user_size_),
         data_size_(other.data_size_),
         data_(other.data_, alloc)
@@ -245,7 +245,7 @@ public:
     /**
      * @brief Move constructor with allocator.
      */
-    block_array3(block_array3&& other, const Alloc& alloc) :
+    block_array3(block_array3&& other, const Talloc& alloc) :
         user_size_(std::move(other.user_size_)),
         data_size_(std::move(other.data_size_)),
         data_(std::move(other.data_), alloc)
@@ -257,7 +257,7 @@ public:
      */
     block_array3(
             multi<size_type, 3> count, 
-            const T& value = T(), const Alloc& alloc = Alloc()) :
+            const T& value = T(), const Talloc& alloc = Talloc()) :
           user_size_{count},
           data_size_{round_size(count)},
           data_(data_size_.prod(), value, alloc)
@@ -649,7 +649,7 @@ public:
 
     /**@}*/
 
-private:
+protected:
 
     /**
      * @brief User size.
@@ -664,7 +664,7 @@ private:
     /**
      * @brief Data array.
      */
-    std::vector<T, Alloc> data_;
+    std::vector<T, Talloc> data_;
 };
 
 /**@}*/

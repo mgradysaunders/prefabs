@@ -62,27 +62,12 @@ namespace pr {
 
 /**
  * @brief Kc-tree.
- *
- * @tparam T 
- * Multi floating point type.
- *
- * @tparam N 
- * Multi dimension.
- *
- * @tparam U 
- * Value data type.
- *
- * @tparam CellAlloc 
- * Cell allocator type.
- *
- * @tparam CellCapacity 
- * Cell capacity.
  */
 template <
-    typename T, std::size_t N,
-    typename U,
-    typename CellAlloc = std::allocator<char>,
-    std::size_t CellCapacity = 4
+    typename Tfloat, std::size_t N,
+    typename Tvalue_data,
+    typename Tcell_alloc = std::allocator<char>,
+    std::size_t Ncell_capacity = 4
     >
 class kctree
 {
@@ -90,17 +75,19 @@ public:
     
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     // Sanity check.
     static_assert(
-        std::is_default_constructible<U>::value &&
-        std::is_copy_assignable<U>::value, 
-        "U must be default constructible and copy assignable");
+        std::is_default_constructible<Tvalue_data>::value &&
+        std::is_copy_assignable<Tvalue_data>::value, 
+        "Tvalue_data must be default constructible and copy assignable");
 
     // Sanity check.
-    static_assert(CellCapacity > 0, "CellCapacity must be positive");
+    static_assert(
+        Ncell_capacity > 0, 
+        "Ncell_capacity must be positive");
 
 public:
 
@@ -112,22 +99,22 @@ public:
     /**
      * @brief Axis-aligned bounding box type.
      */
-    typedef aabb<T, N> aabb_type;
+    typedef aabb<Tfloat, N> aabb_type;
 
     /**
      * @brief Multi type.
      */
-    typedef multi<T, N> multi_type;
+    typedef multi<Tfloat, N> multi_type;
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Value data type.
      */
-    typedef U value_data_type;
+    typedef Tvalue_data value_data_type;
 
     /**
      * @brief Value type.
@@ -149,7 +136,7 @@ public:
     /**
      * @brief Cell allocator type.
      */
-    typedef typename std::allocator_traits<CellAlloc>::
+    typedef typename std::allocator_traits<Tcell_alloc>::
             template rebind_alloc<cell_type> cell_allocator_type;
 
     /**@}*/
@@ -302,7 +289,7 @@ public:
             else {
 
                 // Is leaf full?
-                if (stack_top_ >= CellCapacity) {
+                if (stack_top_ >= Ncell_capacity) {
 
                     // Allocate.
                     cells_ =
@@ -404,7 +391,7 @@ public:
         /**
          * @brief Value stack.
          */
-        value_type stack_[CellCapacity] = {};
+        value_type stack_[Ncell_capacity] = {};
 
         /**
          * @brief Value stack top.
