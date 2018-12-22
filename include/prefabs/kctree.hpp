@@ -33,14 +33,11 @@
 // for assert
 #include <cassert>
 
-// for std::allocator, std::allocator_traits
-#include <memory>
-
-// for std::vector
-#include <vector>
-
 // for std::forward, std::pair, ...
 #include <utility>
+
+// for std::allocator, std::allocator_traits
+#include <memory>
 
 // for std::logic_error, std::invalid_argument
 #include <stdexcept>
