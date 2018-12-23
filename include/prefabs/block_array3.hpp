@@ -657,6 +657,39 @@ public:
 
     /**@}*/
 
+public:
+
+    /**
+     * @name Flattening
+     */
+    /**@{*/
+
+    /**
+     * @brief Flatten to linear array.
+     */
+    template <typename Tforward_itr>
+    void flatten(Tforward_itr pos) const
+    {
+        for (size_type k = 0; k < user_size_[2]; k++) // Sheets.
+        for (size_type i = 0; i < user_size_[0]; i++)
+        for (size_type j = 0; j < user_size_[1]; j++) {
+            *pos++ = (*this)(i, j, k);
+        }
+    }
+
+    /**
+     * @brief Flatten to linear array.
+     */
+    std::vector<T, Talloc> flatten() const
+    {
+        std::vector<T, Talloc> res;
+        res.resize(user_size_.prod());
+        flatten(res.begin());
+        return res;
+    }
+
+    /**@}*/
+
 protected:
 
     /**
