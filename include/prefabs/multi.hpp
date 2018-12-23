@@ -56,7 +56,7 @@
 namespace pr {
 
 /**
- * @defgroup multi Multi-dimensional arrays
+ * @defgroup multi Multi-dimensional array
  *
  * `<prefabs/multi.hpp>`
  */
@@ -940,7 +940,9 @@ constexpr std::size_t multitoindex(const multi<bool, N>& arr)
 
 /**@}*/
 
+#if !DOXYGEN
 #include "multi.inl"
+#endif // #if !DOXYGEN
 
 } // namespace pr
 
