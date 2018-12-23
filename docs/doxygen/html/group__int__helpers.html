@@ -62,87 +62,60 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Int helpers</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga637428709e8093d4617794e8d76cf581"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U  = T&gt; </td></tr>
-<tr class="memitem:ga637428709e8093d4617794e8d76cf581"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">pr::enable_int</a> = std::enable_if&lt; std::is_integral&lt; T &gt;::value, U &gt;</td></tr>
-<tr class="memdesc:ga637428709e8093d4617794e8d76cf581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable type <code>U</code> if type <code>T</code> is integral.  <a href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">More...</a><br /></td></tr>
-<tr class="separator:ga637428709e8093d4617794e8d76cf581"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga7fc14c272957f8afe87bcd2e1c95aefb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga7fc14c272957f8afe87bcd2e1c95aefb"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga7fc14c272957f8afe87bcd2e1c95aefb">pr::gcd</a> (T a, T b)</td></tr>
-<tr class="memdesc:ga7fc14c272957f8afe87bcd2e1c95aefb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Greatest common divisor.  <a href="group__int__helpers.html#ga7fc14c272957f8afe87bcd2e1c95aefb">More...</a><br /></td></tr>
-<tr class="separator:ga7fc14c272957f8afe87bcd2e1c95aefb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4735f2f066971d49b71b862d03669810"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga4735f2f066971d49b71b862d03669810"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga4735f2f066971d49b71b862d03669810">pr::gcd_bezout</a> (T a, T b, T *x, T *y)</td></tr>
-<tr class="memdesc:ga4735f2f066971d49b71b862d03669810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Greatest common divisor with Bezout coefficients.  <a href="group__int__helpers.html#ga4735f2f066971d49b71b862d03669810">More...</a><br /></td></tr>
-<tr class="separator:ga4735f2f066971d49b71b862d03669810"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6ec7397fb73b755f776c29780a482a9e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga6ec7397fb73b755f776c29780a482a9e"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga6ec7397fb73b755f776c29780a482a9e">pr::lcm</a> (T a, T b)</td></tr>
-<tr class="memdesc:ga6ec7397fb73b755f776c29780a482a9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Least common multiple.  <a href="group__int__helpers.html#ga6ec7397fb73b755f776c29780a482a9e">More...</a><br /></td></tr>
-<tr class="separator:ga6ec7397fb73b755f776c29780a482a9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga416bbd0d3ff6b5ea5a4242a7076c4908"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga416bbd0d3ff6b5ea5a4242a7076c4908"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt; T, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga416bbd0d3ff6b5ea5a4242a7076c4908">pr::isodd</a> (T n)</td></tr>
-<tr class="memdesc:ga416bbd0d3ff6b5ea5a4242a7076c4908"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is odd?  <a href="group__int__helpers.html#ga416bbd0d3ff6b5ea5a4242a7076c4908">More...</a><br /></td></tr>
-<tr class="separator:ga416bbd0d3ff6b5ea5a4242a7076c4908"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabf4fb8dcd504a5d9dcf4f8e2680cc923"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gabf4fb8dcd504a5d9dcf4f8e2680cc923"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt; T, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gabf4fb8dcd504a5d9dcf4f8e2680cc923">pr::iseven</a> (T n)</td></tr>
-<tr class="memdesc:gabf4fb8dcd504a5d9dcf4f8e2680cc923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is even?  <a href="group__int__helpers.html#gabf4fb8dcd504a5d9dcf4f8e2680cc923">More...</a><br /></td></tr>
-<tr class="separator:gabf4fb8dcd504a5d9dcf4f8e2680cc923"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga33143fdfb6fd948edafdc95f12e7c9b9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga33143fdfb6fd948edafdc95f12e7c9b9"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt; T, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga33143fdfb6fd948edafdc95f12e7c9b9">pr::ispow2</a> (T n)</td></tr>
-<tr class="memdesc:ga33143fdfb6fd948edafdc95f12e7c9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is power of 2?  <a href="group__int__helpers.html#ga33143fdfb6fd948edafdc95f12e7c9b9">More...</a><br /></td></tr>
-<tr class="separator:ga33143fdfb6fd948edafdc95f12e7c9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad5dc22f13087ef95ab80f9e52c8a2761"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gad5dc22f13087ef95ab80f9e52c8a2761"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gad5dc22f13087ef95ab80f9e52c8a2761">pr::roundpow2</a> (T n)</td></tr>
-<tr class="memdesc:gad5dc22f13087ef95ab80f9e52c8a2761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Round up to nearest power of 2.  <a href="group__int__helpers.html#gad5dc22f13087ef95ab80f9e52c8a2761">More...</a><br /></td></tr>
-<tr class="separator:gad5dc22f13087ef95ab80f9e52c8a2761"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2a39f7b0281ef38a09a1df6ad35e53df"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga2a39f7b0281ef38a09a1df6ad35e53df"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga2a39f7b0281ef38a09a1df6ad35e53df">pr::first1</a> (T n)</td></tr>
-<tr class="memdesc:ga2a39f7b0281ef38a09a1df6ad35e53df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find first bit equal to 1.  <a href="group__int__helpers.html#ga2a39f7b0281ef38a09a1df6ad35e53df">More...</a><br /></td></tr>
-<tr class="separator:ga2a39f7b0281ef38a09a1df6ad35e53df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga466a438840672b0cad43d48ccd5b4e2c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga466a438840672b0cad43d48ccd5b4e2c"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga466a438840672b0cad43d48ccd5b4e2c">pr::rotl</a> (T val, int rot)</td></tr>
-<tr class="memdesc:ga466a438840672b0cad43d48ccd5b4e2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cyclical bit rotate left.  <a href="group__int__helpers.html#ga466a438840672b0cad43d48ccd5b4e2c">More...</a><br /></td></tr>
-<tr class="separator:ga466a438840672b0cad43d48ccd5b4e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5b6a7b510fb5ec55521dd8001f73e6b4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga5b6a7b510fb5ec55521dd8001f73e6b4"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga5b6a7b510fb5ec55521dd8001f73e6b4">pr::rotr</a> (T val, int rot)</td></tr>
-<tr class="memdesc:ga5b6a7b510fb5ec55521dd8001f73e6b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cyclical bit rotate right.  <a href="group__int__helpers.html#ga5b6a7b510fb5ec55521dd8001f73e6b4">More...</a><br /></td></tr>
-<tr class="separator:ga5b6a7b510fb5ec55521dd8001f73e6b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4de2750425e3fdd4d7dc8f442f8c8842"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga4de2750425e3fdd4d7dc8f442f8c8842"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga4de2750425e3fdd4d7dc8f442f8c8842">pr::gcd</a> (T a, T b)</td></tr>
+<tr class="memdesc:ga4de2750425e3fdd4d7dc8f442f8c8842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Greatest common divisor.  <a href="group__int__helpers.html#ga4de2750425e3fdd4d7dc8f442f8c8842">More...</a><br /></td></tr>
+<tr class="separator:ga4de2750425e3fdd4d7dc8f442f8c8842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84969089bcba083d1ac1d9a14b13c62c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga84969089bcba083d1ac1d9a14b13c62c"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga84969089bcba083d1ac1d9a14b13c62c">pr::gcd_bezout</a> (T a, T b, T *x, T *y)</td></tr>
+<tr class="memdesc:ga84969089bcba083d1ac1d9a14b13c62c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Greatest common divisor with Bezout coefficients.  <a href="group__int__helpers.html#ga84969089bcba083d1ac1d9a14b13c62c">More...</a><br /></td></tr>
+<tr class="separator:ga84969089bcba083d1ac1d9a14b13c62c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga190ac701f5cb1e16a4a7ccad1ff9f77c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga190ac701f5cb1e16a4a7ccad1ff9f77c"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga190ac701f5cb1e16a4a7ccad1ff9f77c">pr::lcm</a> (T a, T b)</td></tr>
+<tr class="memdesc:ga190ac701f5cb1e16a4a7ccad1ff9f77c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Least common multiple.  <a href="group__int__helpers.html#ga190ac701f5cb1e16a4a7ccad1ff9f77c">More...</a><br /></td></tr>
+<tr class="separator:ga190ac701f5cb1e16a4a7ccad1ff9f77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa8710ed4bcf380c6ca70242007884dfa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaa8710ed4bcf380c6ca70242007884dfa"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gaa8710ed4bcf380c6ca70242007884dfa">pr::isodd</a> (T n)</td></tr>
+<tr class="memdesc:gaa8710ed4bcf380c6ca70242007884dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is odd?  <a href="group__int__helpers.html#gaa8710ed4bcf380c6ca70242007884dfa">More...</a><br /></td></tr>
+<tr class="separator:gaa8710ed4bcf380c6ca70242007884dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8fcd0bbbdc77269c38252c3cfc2d8f96"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga8fcd0bbbdc77269c38252c3cfc2d8f96"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga8fcd0bbbdc77269c38252c3cfc2d8f96">pr::iseven</a> (T n)</td></tr>
+<tr class="memdesc:ga8fcd0bbbdc77269c38252c3cfc2d8f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is even?  <a href="group__int__helpers.html#ga8fcd0bbbdc77269c38252c3cfc2d8f96">More...</a><br /></td></tr>
+<tr class="separator:ga8fcd0bbbdc77269c38252c3cfc2d8f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga79c7d575519aa49d3960d1e0e0ac6904"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga79c7d575519aa49d3960d1e0e0ac6904"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga79c7d575519aa49d3960d1e0e0ac6904">pr::ispow2</a> (T n)</td></tr>
+<tr class="memdesc:ga79c7d575519aa49d3960d1e0e0ac6904"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is power of 2?  <a href="group__int__helpers.html#ga79c7d575519aa49d3960d1e0e0ac6904">More...</a><br /></td></tr>
+<tr class="separator:ga79c7d575519aa49d3960d1e0e0ac6904"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb2ec172349b1d89bcd69530faf87fa1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gadb2ec172349b1d89bcd69530faf87fa1"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gadb2ec172349b1d89bcd69530faf87fa1">pr::roundpow2</a> (T n)</td></tr>
+<tr class="memdesc:gadb2ec172349b1d89bcd69530faf87fa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Round up to power of 2.  <a href="group__int__helpers.html#gadb2ec172349b1d89bcd69530faf87fa1">More...</a><br /></td></tr>
+<tr class="separator:gadb2ec172349b1d89bcd69530faf87fa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa25ebe042416f681121e1ba16928309f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaa25ebe042416f681121e1ba16928309f"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gaa25ebe042416f681121e1ba16928309f">pr::first1</a> (T n)</td></tr>
+<tr class="memdesc:gaa25ebe042416f681121e1ba16928309f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find first bit equal to 1.  <a href="group__int__helpers.html#gaa25ebe042416f681121e1ba16928309f">More...</a><br /></td></tr>
+<tr class="separator:gaa25ebe042416f681121e1ba16928309f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c752c77199aedc9420ed9c6304c0d75"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga7c752c77199aedc9420ed9c6304c0d75"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga7c752c77199aedc9420ed9c6304c0d75">pr::rotl</a> (T val, int rot)</td></tr>
+<tr class="memdesc:ga7c752c77199aedc9420ed9c6304c0d75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cyclical bit rotate left.  <a href="group__int__helpers.html#ga7c752c77199aedc9420ed9c6304c0d75">More...</a><br /></td></tr>
+<tr class="separator:ga7c752c77199aedc9420ed9c6304c0d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae45c092c6abdafe86875ae8f0c9c1b14"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae45c092c6abdafe86875ae8f0c9c1b14"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gae45c092c6abdafe86875ae8f0c9c1b14">pr::rotr</a> (T val, int rot)</td></tr>
+<tr class="memdesc:gae45c092c6abdafe86875ae8f0c9c1b14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cyclical bit rotate right.  <a href="group__int__helpers.html#gae45c092c6abdafe86875ae8f0c9c1b14">More...</a><br /></td></tr>
+<tr class="separator:gae45c092c6abdafe86875ae8f0c9c1b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;prefabs/int_helpers.hpp&gt;</code> </p>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="ga637428709e8093d4617794e8d76cf581"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga637428709e8093d4617794e8d76cf581">&#9670;&nbsp;</a></span>enable_int</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename U  = T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">pr::enable_int</a> = typedef std::enable_if&lt;std::is_integral&lt;T&gt;::value, U&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Enable type <code>U</code> if type <code>T</code> is integral. </p>
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga7fc14c272957f8afe87bcd2e1c95aefb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7fc14c272957f8afe87bcd2e1c95aefb">&#9670;&nbsp;</a></span>gcd()</h2>
+<a id="ga4de2750425e3fdd4d7dc8f442f8c8842"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4de2750425e3fdd4d7dc8f442f8c8842">&#9670;&nbsp;</a></span>gcd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -150,7 +123,7 @@ template&lt;typename T , typename U  = T&gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt;T&gt;::type pr::gcd </td>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, T&gt; pr::gcd </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>a</em>, </td>
@@ -173,8 +146,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga4735f2f066971d49b71b862d03669810"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4735f2f066971d49b71b862d03669810">&#9670;&nbsp;</a></span>gcd_bezout()</h2>
+<a id="ga84969089bcba083d1ac1d9a14b13c62c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga84969089bcba083d1ac1d9a14b13c62c">&#9670;&nbsp;</a></span>gcd_bezout()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,7 +155,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt;T&gt;::type pr::gcd_bezout </td>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, T&gt; pr::gcd_bezout </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>a</em>, </td>
@@ -217,8 +190,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga6ec7397fb73b755f776c29780a482a9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6ec7397fb73b755f776c29780a482a9e">&#9670;&nbsp;</a></span>lcm()</h2>
+<a id="ga190ac701f5cb1e16a4a7ccad1ff9f77c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga190ac701f5cb1e16a4a7ccad1ff9f77c">&#9670;&nbsp;</a></span>lcm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,7 +199,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt;T&gt;::type pr::lcm </td>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, T&gt; pr::lcm </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>a</em>, </td>
@@ -249,8 +222,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga416bbd0d3ff6b5ea5a4242a7076c4908"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga416bbd0d3ff6b5ea5a4242a7076c4908">&#9670;&nbsp;</a></span>isodd()</h2>
+<a id="gaa8710ed4bcf380c6ca70242007884dfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa8710ed4bcf380c6ca70242007884dfa">&#9670;&nbsp;</a></span>isodd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +231,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt;T, bool&gt;::type pr::isodd </td>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, bool&gt; pr::isodd </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
@@ -271,8 +244,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="gabf4fb8dcd504a5d9dcf4f8e2680cc923"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gabf4fb8dcd504a5d9dcf4f8e2680cc923">&#9670;&nbsp;</a></span>iseven()</h2>
+<a id="ga8fcd0bbbdc77269c38252c3cfc2d8f96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8fcd0bbbdc77269c38252c3cfc2d8f96">&#9670;&nbsp;</a></span>iseven()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -280,7 +253,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt;T, bool&gt;::type pr::iseven </td>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, bool&gt; pr::iseven </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
@@ -293,8 +266,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga33143fdfb6fd948edafdc95f12e7c9b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga33143fdfb6fd948edafdc95f12e7c9b9">&#9670;&nbsp;</a></span>ispow2()</h2>
+<a id="ga79c7d575519aa49d3960d1e0e0ac6904"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga79c7d575519aa49d3960d1e0e0ac6904">&#9670;&nbsp;</a></span>ispow2()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -302,7 +275,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt;T, bool&gt;::type pr::ispow2 </td>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, bool&gt; pr::ispow2 </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
@@ -315,8 +288,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="gad5dc22f13087ef95ab80f9e52c8a2761"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad5dc22f13087ef95ab80f9e52c8a2761">&#9670;&nbsp;</a></span>roundpow2()</h2>
+<a id="gadb2ec172349b1d89bcd69530faf87fa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadb2ec172349b1d89bcd69530faf87fa1">&#9670;&nbsp;</a></span>roundpow2()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -324,7 +297,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt;T&gt;::type pr::roundpow2 </td>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, T&gt; pr::roundpow2 </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
@@ -333,12 +306,12 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Round up to nearest power of 2. </p>
+<p>Round up to power of 2. </p>
 
 </div>
 </div>
-<a id="ga2a39f7b0281ef38a09a1df6ad35e53df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2a39f7b0281ef38a09a1df6ad35e53df">&#9670;&nbsp;</a></span>first1()</h2>
+<a id="gaa25ebe042416f681121e1ba16928309f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa25ebe042416f681121e1ba16928309f">&#9670;&nbsp;</a></span>first1()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -346,7 +319,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt;T&gt;::type pr::first1 </td>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, T&gt; pr::first1 </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
@@ -362,8 +335,8 @@ Uses <a href="https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html"><code>__bu
 
 </div>
 </div>
-<a id="ga466a438840672b0cad43d48ccd5b4e2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga466a438840672b0cad43d48ccd5b4e2c">&#9670;&nbsp;</a></span>rotl()</h2>
+<a id="ga7c752c77199aedc9420ed9c6304c0d75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7c752c77199aedc9420ed9c6304c0d75">&#9670;&nbsp;</a></span>rotl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -371,7 +344,7 @@ Uses <a href="https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html"><code>__bu
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt;T&gt;::type pr::rotl </td>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, T&gt; pr::rotl </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>val</em>, </td>
@@ -394,8 +367,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga5b6a7b510fb5ec55521dd8001f73e6b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5b6a7b510fb5ec55521dd8001f73e6b4">&#9670;&nbsp;</a></span>rotr()</h2>
+<a id="gae45c092c6abdafe86875ae8f0c9c1b14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae45c092c6abdafe86875ae8f0c9c1b14">&#9670;&nbsp;</a></span>rotr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -403,7 +376,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="group__int__helpers.html#ga637428709e8093d4617794e8d76cf581">enable_int</a>&lt;T&gt;::type pr::rotr </td>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, T&gt; pr::rotr </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>val</em>, </td>
