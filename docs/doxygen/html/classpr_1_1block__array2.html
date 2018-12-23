@@ -77,6 +77,12 @@ $(function() {
 
 <p>2-dimensional block array.  
  <a href="classpr_1_1block__array2.html#details">More...</a></p>
+<div class="dynheader">
+Inheritance diagram for pr::block_array2&lt; T, Talloc &gt;:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classpr_1_1block__array2__inherit__graph.svg" width="100%" height="379"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -161,6 +167,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a711eef32a31b35ac96bf905ca935500e"><td class="memItemLeft" align="right" valign="top">const multi&lt; <a class="el" href="classpr_1_1block__array2.html#aedc69fe9ffc2a7e87e421faf38442be4">size_type</a>, 2 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array2.html#a711eef32a31b35ac96bf905ca935500e">data_size</a> () const noexcept</td></tr>
 <tr class="memdesc:a711eef32a31b35ac96bf905ca935500e"><td class="mdescLeft">&#160;</td><td class="mdescRight">User size after rounding.  <a href="#a711eef32a31b35ac96bf905ca935500e">More...</a><br /></td></tr>
 <tr class="separator:a711eef32a31b35ac96bf905ca935500e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19f8844e14df8e5183872f7abc592c28"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array2.html#a19f8844e14df8e5183872f7abc592c28">empty</a> () const noexcept</td></tr>
+<tr class="memdesc:a19f8844e14df8e5183872f7abc592c28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty?  <a href="#a19f8844e14df8e5183872f7abc592c28">More...</a><br /></td></tr>
+<tr class="separator:a19f8844e14df8e5183872f7abc592c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01daa56cc2be0732a47ce6d3464cbc92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array2.html#a5bf57ac3f4f5968413ce7eec01d08109">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array2.html#a01daa56cc2be0732a47ce6d3464cbc92">begin</a> () noexcept</td></tr>
 <tr class="memdesc:a01daa56cc2be0732a47ce6d3464cbc92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward begin iterator.  <a href="#a01daa56cc2be0732a47ce6d3464cbc92">More...</a><br /></td></tr>
 <tr class="separator:a01daa56cc2be0732a47ce6d3464cbc92"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -247,6 +256,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abfa86f18e291ae8083ef028eba1408f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1block__array2.html#a5bef8ee7a8455417e4def4a5a9d6db7c">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array2.html#abfa86f18e291ae8083ef028eba1408f9">at</a> (multi&lt; <a class="el" href="classpr_1_1block__array2.html#aedc69fe9ffc2a7e87e421faf38442be4">size_type</a>, 2 &gt; loc) const</td></tr>
 <tr class="memdesc:abfa86f18e291ae8083ef028eba1408f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">2-dimensional accessor with range check, const variant.  <a href="#abfa86f18e291ae8083ef028eba1408f9">More...</a><br /></td></tr>
 <tr class="separator:abfa86f18e291ae8083ef028eba1408f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Flattening</div></td></tr>
+<tr class="memitem:a23c74d00a62ef9fba42ea0e9eebf4c3b"><td class="memTemplParams" colspan="2">template&lt;typename Tforward_itr &gt; </td></tr>
+<tr class="memitem:a23c74d00a62ef9fba42ea0e9eebf4c3b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array2.html#a23c74d00a62ef9fba42ea0e9eebf4c3b">flatten</a> (Tforward_itr pos) const</td></tr>
+<tr class="memdesc:a23c74d00a62ef9fba42ea0e9eebf4c3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten to linear array.  <a href="#a23c74d00a62ef9fba42ea0e9eebf4c3b">More...</a><br /></td></tr>
+<tr class="separator:a23c74d00a62ef9fba42ea0e9eebf4c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefd94b4373fc0face6f07a7272ceb7c5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; T, Talloc &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array2.html#aefd94b4373fc0face6f07a7272ceb7c5">flatten</a> () const</td></tr>
+<tr class="memdesc:aefd94b4373fc0face6f07a7272ceb7c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten to linear array.  <a href="#aefd94b4373fc0face6f07a7272ceb7c5">More...</a><br /></td></tr>
+<tr class="separator:aefd94b4373fc0face6f07a7272ceb7c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -297,7 +314,7 @@ class pr::block_array2&lt; T, Talloc &gt;</h3>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef std::vector&lt;T, Talloc&gt; <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#adeb4d9796c23cc3794dc3463d74c5da1">container</a></td>
@@ -315,7 +332,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::size_type <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#aedc69fe9ffc2a7e87e421faf38442be4">size_type</a></td>
@@ -333,7 +350,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::difference_type <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#aa38b14bb513ce7e98803d7e046bd0419">difference_type</a></td>
@@ -351,7 +368,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::value_type <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#a38319095f15d40ec71fa6718f757006f">value_type</a></td>
@@ -369,7 +386,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::reference <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#af07dcb4f8e308b643e3132eb1e9c2235">reference</a></td>
@@ -387,7 +404,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::pointer <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#aa0a3667aff4616cf8558ceb0049fb9d8">pointer</a></td>
@@ -405,7 +422,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::const_reference <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#a5bef8ee7a8455417e4def4a5a9d6db7c">const_reference</a></td>
@@ -423,7 +440,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::const_pointer <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#aa755b37cddd3cd13252493c59fab9dd7">const_pointer</a></td>
@@ -441,7 +458,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::iterator <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#a5bf57ac3f4f5968413ce7eec01d08109">iterator</a></td>
@@ -459,7 +476,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::const_iterator <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#ac65677f39339334796cd7051ccbf9187">const_iterator</a></td>
@@ -477,7 +494,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::reverse_iterator <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#ad95a3016144800f144706ef6cb03f861">reverse_iterator</a></td>
@@ -495,7 +512,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef container::const_reverse_iterator <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::<a class="el" href="classpr_1_1block__array2.html#a39d14ee300542cf771b4caaf323aaaeb">const_reverse_iterator</a></td>
@@ -514,7 +531,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -543,7 +560,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -573,7 +590,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -603,7 +620,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -643,7 +660,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -673,7 +690,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -713,7 +730,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -760,7 +777,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -790,7 +807,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -820,7 +837,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -850,7 +867,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -879,7 +896,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -908,7 +925,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -937,7 +954,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -966,7 +983,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -989,13 +1006,42 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
+<a id="a19f8844e14df8e5183872f7abc592c28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19f8844e14df8e5183872f7abc592c28">&#9670;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Empty? </p>
+
+</div>
+</div>
 <a id="a01daa56cc2be0732a47ce6d3464cbc92"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a01daa56cc2be0732a47ce6d3464cbc92">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1024,7 +1070,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1053,7 +1099,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1082,7 +1128,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1111,7 +1157,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1140,7 +1186,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1169,7 +1215,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1198,7 +1244,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1227,7 +1273,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1256,7 +1302,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1285,7 +1331,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1314,7 +1360,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1343,7 +1389,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1372,7 +1418,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1401,7 +1447,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1430,7 +1476,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1459,7 +1505,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1493,7 +1539,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1531,7 +1577,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1561,7 +1607,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1591,7 +1637,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1627,7 +1673,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1663,7 +1709,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1693,7 +1739,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1723,7 +1769,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1763,7 +1809,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1803,7 +1849,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1839,7 +1885,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1869,6 +1915,67 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 
 </div>
 </div>
+<a id="a23c74d00a62ef9fba42ea0e9eebf4c3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c74d00a62ef9fba42ea0e9eebf4c3b">&#9670;&nbsp;</a></span>flatten() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;typename Tforward_itr &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::flatten </td>
+          <td>(</td>
+          <td class="paramtype">Tforward_itr&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flatten to linear array. </p>
+
+</div>
+</div>
+<a id="aefd94b4373fc0face6f07a7272ceb7c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefd94b4373fc0face6f07a7272ceb7c5">&#9670;&nbsp;</a></span>flatten() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;T, Talloc&gt; <a class="el" href="classpr_1_1block__array2.html">pr::block_array2</a>&lt; T, Talloc &gt;::flatten </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flatten to linear array. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a4dc7a11393ae74438a11a9b24014f963"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4dc7a11393ae74438a11a9b24014f963">&#9670;&nbsp;</a></span>block_size_log2</h2>
@@ -1876,7 +1983,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1902,7 +2009,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1928,7 +2035,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1954,7 +2061,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1980,7 +2087,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -2006,7 +2113,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -2032,7 +2139,7 @@ template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
