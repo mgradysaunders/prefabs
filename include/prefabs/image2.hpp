@@ -110,6 +110,62 @@ public:
     /**@{*/
 
     /**
+     * @brief Average.
+     *
+     * @param[in] locmin
+     * Location minimum in index coordinates.
+     *
+     * @param[in] locmax
+     * Location maximum in index coordinates.
+     *
+     * @param[in] cyc_mode
+     * Cycle modes.
+     */
+    multi<float_type, N> average(
+            multi<float_type, 2> locmin,
+            multi<float_type, 2> locmax,
+            multi<cycle_mode, 2> cyc_mode = 
+            multi<cycle_mode, 2>::value(cycle_mode::clamp)) const
+    {
+        if (this->empty()) {
+            return {};
+        }
+        else if ((locmin == locmax).all()) {
+            return sample0(locmin, cyc_mode);
+        }
+        else {
+
+            // Shift.
+            locmin -= float_type(0.5);
+            locmax -= float_type(0.5);
+            if (locmin[0] > locmax[0]) std::swap(locmin[0], locmax[0]);
+            if (locmin[1] > locmax[1]) std::swap(locmin[1], locmax[1]);
+
+            // Floor.
+            multi<float_type, 2> loc0 = pr::floor(locmin);
+            multi<float_type, 2> loc1 = pr::floor(locmax) + 1;
+
+            // Integrate.
+            multi<float_type, N> numer = {};
+            float_type denom = 0;
+            for (int i = int(loc0[0]); i < int(loc1[0]); i++)
+            for (int j = int(loc0[1]); j < int(loc1[1]); j++) {
+                multi<float_type, 2> cur = {{
+                    float_type(i),
+                    float_type(j)
+                }};
+                multi<float_type, 2> cur0 = pr::fmax(locmin, cur);
+                multi<float_type, 2> cur1 = pr::fmin(locmax, cur + 1);
+                numer += (cur1 - cur0).prod() * lookup(cur, cyc_mode);
+                denom += (cur1 - cur0).prod();
+            }
+
+            // Average.
+            return numer / denom;
+        }
+    }
+
+    /**
      * @brief Sample, no interpolation.
      *
      * @param[in] loc
@@ -264,62 +320,6 @@ public:
 
         // Unreachable.
         return {};
-    }
-
-    /**
-     * @brief Average.
-     *
-     * @param[in] locmin
-     * Location minimum in pixel coordinates.
-     *
-     * @param[in] locmax
-     * Location maximum in pixel coordinates.
-     *
-     * @param[in] cyc_mode
-     * Cycle modes.
-     */
-    multi<float_type, N> average(
-            multi<float_type, 2> locmin,
-            multi<float_type, 2> locmax,
-            multi<cycle_mode, 2> cyc_mode = 
-            multi<cycle_mode, 2>::value(cycle_mode::clamp)) const
-    {
-        if (this->empty()) {
-            return {};
-        }
-        else if ((locmin == locmax).all()) {
-            return sample0(locmin, cyc_mode);
-        }
-        else {
-
-            // Shift.
-            locmin -= float_type(0.5);
-            locmax -= float_type(0.5);
-            if (locmin[0] > locmax[0]) std::swap(locmin[0], locmax[0]);
-            if (locmin[1] > locmax[1]) std::swap(locmin[1], locmax[1]);
-
-            // Floor.
-            multi<float_type, 2> loc0 = pr::floor(locmin);
-            multi<float_type, 2> loc1 = pr::floor(locmax) + 1;
-
-            // Integrate.
-            multi<float_type, N> numer = {};
-            float_type denom = 0;
-            for (int i = int(loc0[0]); i < int(loc1[0]); i++)
-            for (int j = int(loc0[1]); j < int(loc1[1]); j++) {
-                multi<float_type, 2> cur = {{
-                    float_type(i),
-                    float_type(j)
-                }};
-                multi<float_type, 2> cur0 = pr::fmax(locmin, cur);
-                multi<float_type, 2> cur1 = pr::fmin(locmax, cur + 1);
-                numer += (cur1 - cur0).prod() * lookup(cur, cyc_mode);
-                denom += (cur1 - cur0).prod();
-            }
-
-            // Average.
-            return numer / denom;
-        }
     }
 
     /**
