@@ -43,16 +43,11 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Enable type `U` if type `T` is integral.
- */
-template <typename T, typename U = T>
-using enable_int = std::enable_if<std::is_integral<T>::value, U>;
-
-/**
  * @brief Greatest common divisor.
  */
 template <typename T> 
-constexpr typename enable_int<T>::type gcd(T a, T b)
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> gcd(T a, T b)
 {
     T r = 0;
     while (a) {
@@ -67,7 +62,8 @@ constexpr typename enable_int<T>::type gcd(T a, T b)
  * @brief Greatest common divisor with Bezout coefficients.
  */
 template <typename T> 
-constexpr typename enable_int<T>::type gcd_bezout(T a, T b, T* x, T* y)
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> gcd_bezout(T a, T b, T* x, T* y)
 {
     T s1 = 0, s0 = 1;
     T t1 = 1, t0 = 0;
@@ -88,7 +84,8 @@ constexpr typename enable_int<T>::type gcd_bezout(T a, T b, T* x, T* y)
  * @brief Least common multiple.
  */
 template <typename T> 
-constexpr typename enable_int<T>::type lcm(T a, T b)
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> lcm(T a, T b)
 {
     if (!a || !b)
         return 0;
@@ -100,7 +97,8 @@ constexpr typename enable_int<T>::type lcm(T a, T b)
  * @brief Is odd?
  */
 template <typename T> 
-constexpr typename enable_int<T, bool>::type isodd(T n)
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, bool> isodd(T n)
 {
     return (n & 1) != 0;
 }
@@ -109,7 +107,8 @@ constexpr typename enable_int<T, bool>::type isodd(T n)
  * @brief Is even?
  */
 template <typename T>
-constexpr typename enable_int<T, bool>::type iseven(T n)
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, bool> iseven(T n)
 {
     return (n & 1) == 0;
 }
@@ -118,16 +117,18 @@ constexpr typename enable_int<T, bool>::type iseven(T n)
  * @brief Is power of 2?
  */
 template <typename T> 
-constexpr typename enable_int<T, bool>::type ispow2(T n)
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, bool> ispow2(T n)
 {
     return n > 0 && (n & (n - 1)) == 0;
 }
 
 /**
- * @brief Round up to nearest power of 2.
+ * @brief Round up to power of 2.
  */
 template <typename T> 
-constexpr typename enable_int<T>::type roundpow2(T n)
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> roundpow2(T n)
 {
     if (n <= 0)
         return 1;
@@ -151,7 +152,8 @@ constexpr typename enable_int<T>::type roundpow2(T n)
  * [1]: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
  */
 template <typename T> 
-constexpr typename enable_int<T>::type first1(T n)
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> first1(T n)
 {
 #if __GNUC__
     if (n == 0)
@@ -183,7 +185,8 @@ constexpr typename enable_int<T>::type first1(T n)
  * @brief Cyclical bit rotate left.
  */
 template <typename T> 
-constexpr typename enable_int<T>::type rotl(T val, int rot)
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> rotl(T val, int rot)
 {
     return (val << rot) | (val >> ((-rot) & (sizeof(T) * 8 - 1)));
 }
@@ -192,7 +195,8 @@ constexpr typename enable_int<T>::type rotl(T val, int rot)
  * @brief Cyclical bit rotate right.
  */
 template <typename T> 
-constexpr typename enable_int<T>::type rotr(T val, int rot)
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> rotr(T val, int rot)
 {
     return (val >> rot) | (val << ((-rot) & (sizeof(T) * 8 - 1)));
 }
