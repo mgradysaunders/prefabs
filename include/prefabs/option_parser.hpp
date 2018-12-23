@@ -70,153 +70,6 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Is option string?
- *
- * An option string is `/^--?[a-zA-Z](?:-?[a-zA-Z0-9]+)*$/`.
- */
-inline bool isoptstr(const char* s)
-{
-    // [-]+
-    if (!s || 
-        *s != '-') {
-        return false;
-    }
-    ++s;
-    if (*s == '-') {
-        ++s;
-    }
-
-    // [a-zA-Z]
-    if (!std::isalpha(static_cast<unsigned char>(*s))) {
-        return false;
-    }
-    ++s;
-
-    // (?:-?[a-zA-Z0-9]+)
-    for (const char* t = s; true; 
-                     s = t) {
-        // -?
-        if (*t == '-') {
-            ++t;
-        }
-        // [a-zA-Z0-9]
-        if (!std::isalpha(static_cast<unsigned char>(*t)) &&
-            !std::isdigit(static_cast<unsigned char>(*t))) {
-            break;
-        }
-        // [a-zA-Z0-9]*
-        while (std::isalpha(static_cast<unsigned char>(*t)) ||
-               std::isdigit(static_cast<unsigned char>(*t))) {
-            ++t;
-        }
-    }
-
-    return *s == '\0';
-}
-
-// TODO relocate under option_parser
-/**
- * @brief Option descriptor.
- */
-class option
-{
-public:
-
-    /**
-     * @brief Name abbreviation.
-     */
-    const char* name_abbrv;
-
-    /**
-     * @brief Name. 
-     */
-    const char* name;
-
-    /**
-     * @brief Argument count.
-     */
-    int argc;
-
-    /**
-     * @brief Callback.
-     */
-    std::function<void(char**)> callback;
-
-    /**
-     * @brief Help stringstream.
-     */
-    std::stringstream help;
-
-public:
-
-    /**
-     * @brief Form string from `name_abbrv` and `name`.
-     */
-    operator std::string() const
-    {
-        std::string desc;
-        if (name_abbrv && 
-            name) {
-            desc.append(name_abbrv).append("/")
-                .append(name);
-        }
-        else {
-            desc.append(name_abbrv ? name_abbrv : name);
-        }
-        return desc;
-    }
-};
-
-// TODO relocate under option_parser
-/**
- * @brief Option group.
- */
-class option_group
-{
-public:
-
-    /**
-     * @brief Name.
-     */
-    const char* name;
-
-    /**
-     * @brief Option descriptors.
-     */
-    std::list<option> opts;
-
-    /**
-     * @brief Begin callback.
-     */
-    std::function<void(void)> begin_callback;
-
-    /**
-     * @brief End callback.
-     */
-    std::function<void(void)> end_callback;
-
-    /**
-     * @brief Positional callback.
-     */
-    std::function<void(char*)> pos_callback;
-
-public:
-
-    /**
-     * @brief Form string from `name`.
-     */
-    operator std::string() const
-    {
-        if (!name) {
-            return "";
-        }
-        else {
-            return std::string("<").append(name).append(">");
-        }
-    }
-};
-
-/**
  * @brief Option parser.
  */
 class option_parser
@@ -228,11 +81,11 @@ public:
      */
     option_parser(const char* prog_usage) : prog_usage_(prog_usage)
     {
-        groups_.emplace_back(option_group{
+        opt_groups_.emplace_back(option_group{
             nullptr,
             std::list<option>(),
-            std::function<void(void)>(nullptr),
-            std::function<void(void)>(nullptr),
+            std::function<void()>(nullptr),
+            std::function<void()>(nullptr),
             std::function<void(char*)>(nullptr)
         });
     }
@@ -245,19 +98,20 @@ public:
      */
     void in_group(const char* name)
     {
-        for (auto it = groups_.begin(); 
-                  it != groups_.end(); ++it) {
-            if ((!it->name && !name) ||
-                 (it->name && !std::strcmp(it->name, name))) {
-                groups_.splice(groups_.end(), groups_, it);
+        for (auto itr = opt_groups_.begin(); 
+                  itr != opt_groups_.end(); ++itr) {
+            if ((!itr->name && !name) ||
+                 (itr->name && !std::strcmp(itr->name, name))) {
+                opt_groups_.splice(
+                opt_groups_.end(), opt_groups_, itr);
                 return;
             }
         }
-        groups_.emplace_back(option_group{
+        opt_groups_.emplace_back(option_group{
             name,
             std::list<option>(),
-            std::function<void(void)>(nullptr),
-            std::function<void(void)>(nullptr),
+            std::function<void()>(nullptr),
+            std::function<void()>(nullptr),
             std::function<void(char*)>(nullptr)
         });
     }
@@ -269,9 +123,9 @@ public:
      * Callback.
      */
     void on_begin(
-            const std::function<void(void)>& callback)
+            const std::function<void()>& callback)
     {
-        groups_.back().begin_callback = callback;
+        opt_groups_.back().begin_callback = callback;
     }
 
     /**
@@ -281,9 +135,9 @@ public:
      * Callback.
      */
     void on_end(
-            const std::function<void(void)>& callback)
+            const std::function<void()>& callback)
     {
-        groups_.back().end_callback = callback;
+        opt_groups_.back().end_callback = callback;
     }
 
     /**
@@ -295,7 +149,7 @@ public:
     void on_positional(
             const std::function<void(char*)>& callback)
     {
-        groups_.back().pos_callback = callback;
+        opt_groups_.back().pos_callback = callback;
     }
 
     /**
@@ -328,7 +182,7 @@ public:
         assert(callback);
 
         // emplace
-        groups_.back().opts.emplace_back(option{
+        opt_groups_.back().opts.emplace_back(option{
             name_abbrv,
             name,
             argc,
@@ -336,7 +190,7 @@ public:
             std::stringstream()
         });
 
-        return groups_.back().opts.back().help;
+        return opt_groups_.back().opts.back().help;
     }
 
     /**
@@ -360,11 +214,11 @@ public:
         ++argv;
 
         // group
-        std::list<option_group>::iterator itgroup = groups_.begin();
+        std::list<option_group>::iterator itropt_group = opt_groups_.begin();
 
         // begin
-        if (itgroup->begin_callback) {
-            itgroup->begin_callback();
+        if (itropt_group->begin_callback) {
+            itropt_group->begin_callback();
         }
 
         while (argc > 0) {
@@ -380,7 +234,7 @@ public:
 
                 // process
                 bool opt_okay = false;
-                for (option& opt : itgroup->opts) {
+                for (option& opt : itropt_group->opts) {
                     const char* name_abbrv = opt.name_abbrv;
                     const char* name = opt.name;
                     if ((name_abbrv && !std::strcmp(name_abbrv, *argv)) ||
@@ -400,8 +254,8 @@ public:
                         if (argc < opt.argc ||
                                  (!opt.argc && eq)) { // or no args and eq?
                             std::stringstream ss;
-                            if (itgroup->name) {
-                                ss << std::string(*itgroup);
+                            if (itropt_group->name) {
+                                ss << std::string(*itropt_group);
                                 ss << ' ';
                             }
                             ss << std::string(opt);
@@ -423,8 +277,8 @@ public:
                 // unknown option?
                 if (!opt_okay) {
                     std::stringstream ss;
-                    if (itgroup->name) {
-                        ss << std::string(*itgroup);
+                    if (itropt_group->name) {
+                        ss << std::string(*itropt_group);
                         ss << ' ';
                     }
                     ss << "Unknown option " << *argv;
@@ -438,36 +292,36 @@ public:
                 }
 
                 // find group?
-                bool itfound = false;
-                for (auto it = groups_.begin(); 
-                          it != groups_.end(); it++) {
-                    if (it->name && !std::strcmp(it->name, *argv)) {
+                bool itrfound = false;
+                for (auto itr = opt_groups_.begin(); 
+                          itr != opt_groups_.end(); ++itr) {
+                    if (itr->name && !std::strcmp(itr->name, *argv)) {
                         // end
-                        if (itgroup->end_callback) {
-                            itgroup->end_callback();
+                        if (itropt_group->end_callback) {
+                            itropt_group->end_callback();
                         }
 
-                        itfound = true;
-                        itgroup = it;
+                        itrfound = true;
+                        itropt_group = itr;
 
                         // begin
-                        if (itgroup->begin_callback) {
-                            itgroup->begin_callback();
+                        if (itropt_group->begin_callback) {
+                            itropt_group->begin_callback();
                         }
                         break;
                     }
                 }
 
-                if (!itfound) {
+                if (!itrfound) {
 
                     // positional
-                    if (itgroup->pos_callback) {
-                        itgroup->pos_callback(*argv);
+                    if (itropt_group->pos_callback) {
+                        itropt_group->pos_callback(*argv);
                     }
                     else {
                         std::stringstream ss;
-                        if (itgroup->name) {
-                            ss << std::string(*itgroup);
+                        if (itropt_group->name) {
+                            ss << std::string(*itropt_group);
                             ss << ' ';
                         }
                         ss << "Unexpected positional argument ";
@@ -483,8 +337,8 @@ public:
         }
 
         // end
-        if (itgroup->end_callback) {
-            itgroup->end_callback();
+        if (itropt_group->end_callback) {
+            itropt_group->end_callback();
         }
     }
 
@@ -500,13 +354,13 @@ public:
         os << opt_parse.prog_name_ << ' ';
         os << opt_parse.prog_usage_ << '\n';
         os << '\n';
-        for (option_group& group : opt_parse.groups_) {
-            if (group.name) {
-                os << std::string(group).c_str();
+        for (option_group& opt_group : opt_parse.opt_groups_) {
+            if (opt_group.name) {
+                os << std::string(opt_group).c_str();
                 os << '\n';
                 os << '\n';
             }
-            for (option& opt : group.opts) {
+            for (option& opt : opt_group.opts) {
                 os << std::string(opt).c_str();
                 os << '{' << opt.argc << '}';
                 os << '\n';
@@ -527,6 +381,151 @@ public:
 private:
 
     /**
+     * @brief Is option string?
+     *
+     * An option string is `/^--?[a-zA-Z](?:-?[a-zA-Z0-9]+)*$/`.
+     */
+    static bool isoptstr(const char* s)
+    {
+        // [-]+
+        if (!s || 
+            *s != '-') {
+            return false;
+        }
+        ++s;
+        if (*s == '-') {
+            ++s;
+        }
+
+        // [a-zA-Z]
+        if (!std::isalpha(static_cast<unsigned char>(*s))) {
+            return false;
+        }
+        ++s;
+
+        // (?:-?[a-zA-Z0-9]+)
+        for (const char* t = s; true; 
+                         s = t) {
+            // -?
+            if (*t == '-') {
+                ++t;
+            }
+            // [a-zA-Z0-9]
+            if (!std::isalpha(static_cast<unsigned char>(*t)) &&
+                !std::isdigit(static_cast<unsigned char>(*t))) {
+                break;
+            }
+            // [a-zA-Z0-9]*
+            while (std::isalpha(static_cast<unsigned char>(*t)) ||
+                   std::isdigit(static_cast<unsigned char>(*t))) {
+                ++t;
+            }
+        }
+
+        return *s == '\0';
+    }
+
+    /**
+     * @brief Option.
+     */
+    class option
+    {
+    public:
+
+        /**
+         * @brief Name abbreviation.
+         */
+        const char* name_abbrv;
+
+        /**
+         * @brief Name. 
+         */
+        const char* name;
+
+        /**
+         * @brief Argument count.
+         */
+        int argc;
+
+        /**
+         * @brief Callback.
+         */
+        std::function<void(char**)> callback;
+
+        /**
+         * @brief Help stringstream.
+         */
+        std::stringstream help;
+
+    public:
+
+        /**
+         * @brief Form string from `name_abbrv` and `name`.
+         */
+        operator std::string() const
+        {
+            std::string desc;
+            if (name_abbrv && 
+                name) {
+                desc.append(name_abbrv).append("/")
+                    .append(name);
+            }
+            else {
+                desc.append(name_abbrv ? name_abbrv : name);
+            }
+            return desc;
+        }
+    };
+
+    /**
+     * @brief Option group.
+     */
+    class option_group
+    {
+    public:
+
+        /**
+         * @brief Name.
+         */
+        const char* name;
+
+        /**
+         * @brief Options.
+         */
+        std::list<option> opts;
+
+        /**
+         * @brief Begin callback.
+         */
+        std::function<void()> begin_callback;
+
+        /**
+         * @brief End callback.
+         */
+        std::function<void()> end_callback;
+
+        /**
+         * @brief Positional callback.
+         */
+        std::function<void(char*)> pos_callback;
+
+    public:
+
+        /**
+         * @brief Form string from `name`.
+         */
+        operator std::string() const
+        {
+            if (!name) {
+                return "";
+            }
+            else {
+                return std::string("<").append(name).append(">");
+            }
+        }
+    };
+
+    /**
      * @brief Program name (from `argv[0]`).
      */
     const char* prog_name_;
@@ -539,7 +538,7 @@ private:
     /**
      * @brief Option groups.
      */
-    std::list<option_group> groups_;
+    std::list<option_group> opt_groups_;
 };
 
 /**@}*/
