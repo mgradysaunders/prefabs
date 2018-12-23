@@ -320,6 +320,14 @@ public:
     }
 
     /**
+     * @brief Empty?
+     */
+    bool empty() const noexcept
+    {
+        return data_.empty();
+    }
+
+    /**
      * @brief Forward begin iterator.
      */
     iterator begin() noexcept
@@ -621,6 +629,38 @@ public:
             throw std::out_of_range(__func__);
 
         return data_[convert(loc)];
+    }
+
+    /**@}*/
+
+public:
+
+    /**
+     * @name Flattening
+     */
+    /**@{*/
+
+    /**
+     * @brief Flatten to linear array.
+     */
+    template <typename Tforward_itr>
+    void flatten(Tforward_itr pos) const
+    {
+        for (size_type i = 0; i < user_size_[0]; i++)
+        for (size_type j = 0; j < user_size_[1]; j++) {
+            *pos++ = (*this)(i, j);
+        }
+    }
+
+    /**
+     * @brief Flatten to linear array.
+     */
+    std::vector<T, Talloc> flatten() const
+    {
+        std::vector<T, Talloc> res;
+        res.resize(user_size_.prod());
+        flatten(res.begin());
+        return res;
     }
 
     /**@}*/

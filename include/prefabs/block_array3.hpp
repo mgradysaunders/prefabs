@@ -326,6 +326,14 @@ public:
     }
 
     /**
+     * @brief Empty?
+     */
+    bool empty() const noexcept
+    {
+        return data_.empty();
+    }
+
+    /**
      * @brief Forward begin iterator.
      */
     iterator begin() noexcept
