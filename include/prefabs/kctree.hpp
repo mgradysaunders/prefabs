@@ -45,6 +45,9 @@
 // for std::logic_error, std::invalid_argument
 #include <stdexcept>
 
+// for pr::range
+#include <prefabs/range.hpp>
+
 // for pr::multi
 #include <prefabs/multi.hpp>
 
@@ -54,14 +57,14 @@
 namespace pr {
 
 /**
- * @defgroup kctree Kc-tree
+ * @defgroup kctree k-c tree
  *
  * `<prefabs/kctree.hpp>`
  */
 /**@{*/
 
 /**
- * @brief Kc-tree.
+ * @brief k-c tree.
  */
 template <
     typename Tfloat, std::size_t N,
@@ -102,12 +105,12 @@ public:
     typedef aabb<Tfloat, N> aabb_type;
 
     /**
-     * @brief Multi type.
+     * @brief Multi-dimensional array type.
      */
     typedef multi<Tfloat, N> multi_type;
 
     /**
-     * @brief Float type.
+     * @brief Floating point type.
      */
     typedef Tfloat float_type;
 
@@ -224,6 +227,14 @@ public:
     void query(const aabb_type& reg, Fun&& fun) const
     {
         root_.query(reg, std::forward<Fun>(fun));
+    }
+
+    /**
+     * @brief Root cell.
+     */
+    const cell_type& root() const
+    {
+        return root_;
     }
 
 public:
@@ -365,6 +376,74 @@ public:
                 }
             }
         }
+
+    public:
+
+        /**
+         * @name Traversal
+         */
+        /**@{*/
+
+        /**
+         * @brief Box.
+         */
+        const aabb_type& box() const
+        {
+            return box_;
+        }
+
+        /**
+         * @brief Box center.
+         */
+        const multi_type& box_center() const
+        {
+            return box_center_;
+        }
+
+        /**
+         * @brief Is leaf?
+         */
+        bool isleaf() const
+        {
+            return cells_ == nullptr;
+        }
+
+        /**
+         * @brief Is tree?
+         */
+        bool istree() const
+        {
+            return cells_ != nullptr;
+        }
+
+        /**
+         * @brief Iterable range of cells.
+         */
+        range<const cell_type*> cells() const
+        {
+            if (cells_) {
+                return {
+                    &cells_[0], 
+                    &cells_[0] + (1 << N)
+                };
+            }
+            else {
+                return {};
+            }
+        }
+
+        /**
+         * @brief Iterable range of values.
+         */
+        range<const value_type*> values() const
+        {
+            return {
+                &stack_[0], 
+                &stack_[0] + stack_top_
+            };
+        }
+
+        /**@}*/
 
     private:
 
