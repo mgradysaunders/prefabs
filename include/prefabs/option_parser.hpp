@@ -86,7 +86,8 @@ public:
             std::list<option>(),
             std::function<void()>(nullptr),
             std::function<void()>(nullptr),
-            std::function<void(char*)>(nullptr)
+            std::function<void(char*)>(nullptr),
+            std::stringstream()
         });
     }
 
@@ -96,7 +97,7 @@ public:
      * @param[in] name
      * Name.
      */
-    void in_group(const char* name)
+    std::ostream& in_group(const char* name)
     {
         for (auto itr = opt_groups_.begin(); 
                   itr != opt_groups_.end(); ++itr) {
@@ -104,7 +105,7 @@ public:
                  (itr->name && !std::strcmp(itr->name, name))) {
                 opt_groups_.splice(
                 opt_groups_.end(), opt_groups_, itr);
-                return;
+                return opt_groups_.back().help;
             }
         }
         opt_groups_.emplace_back(option_group{
@@ -112,8 +113,11 @@ public:
             std::list<option>(),
             std::function<void()>(nullptr),
             std::function<void()>(nullptr),
-            std::function<void(char*)>(nullptr)
+            std::function<void(char*)>(nullptr),
+            std::stringstream()
         });
+
+        return opt_groups_.back().help;
     }
 
     /**
@@ -122,10 +126,9 @@ public:
      * @param[in] callback
      * Callback.
      */
-    void on_begin(
-            const std::function<void()>& callback)
+    void on_begin(const std::function<void()>& callback)
     {
-        opt_groups_.back().begin_callback = callback;
+        opt_groups_.back().on_begin = callback;
     }
 
     /**
@@ -134,10 +137,9 @@ public:
      * @param[in] callback
      * Callback.
      */
-    void on_end(
-            const std::function<void()>& callback)
+    void on_end(const std::function<void()>& callback)
     {
-        opt_groups_.back().end_callback = callback;
+        opt_groups_.back().on_end = callback;
     }
 
     /**
@@ -146,10 +148,9 @@ public:
      * @param[in] callback
      * Callback.
      */
-    void on_positional(
-            const std::function<void(char*)>& callback)
+    void on_positional(const std::function<void(char*)>& callback)
     {
-        opt_groups_.back().pos_callback = callback;
+        opt_groups_.back().on_positional = callback;
     }
 
     /**
@@ -213,12 +214,12 @@ public:
         --argc;
         ++argv;
 
-        // group
+        // Group.
         std::list<option_group>::iterator itropt_group = opt_groups_.begin();
 
-        // begin
-        if (itropt_group->begin_callback) {
-            itropt_group->begin_callback();
+        // On begin.
+        if (itropt_group->on_begin) {
+            itropt_group->on_begin();
         }
 
         while (argc > 0) {
@@ -264,7 +265,7 @@ public:
                         }
 
                         // delegate
-                        opt.callback(argv);
+                        opt.on_option(argv);
                         opt_okay = true;
 
                         // consume
@@ -297,16 +298,16 @@ public:
                           itr != opt_groups_.end(); ++itr) {
                     if (itr->name && !std::strcmp(itr->name, *argv)) {
                         // end
-                        if (itropt_group->end_callback) {
-                            itropt_group->end_callback();
+                        if (itropt_group->on_end) {
+                            itropt_group->on_end();
                         }
 
                         itrfound = true;
                         itropt_group = itr;
 
                         // begin
-                        if (itropt_group->begin_callback) {
-                            itropt_group->begin_callback();
+                        if (itropt_group->on_begin) {
+                            itropt_group->on_begin();
                         }
                         break;
                     }
@@ -315,8 +316,8 @@ public:
                 if (!itrfound) {
 
                     // positional
-                    if (itropt_group->pos_callback) {
-                        itropt_group->pos_callback(*argv);
+                    if (itropt_group->on_positional) {
+                        itropt_group->on_positional(*argv);
                     }
                     else {
                         std::stringstream ss;
@@ -337,8 +338,8 @@ public:
         }
 
         // end
-        if (itropt_group->end_callback) {
-            itropt_group->end_callback();
+        if (itropt_group->on_end) {
+            itropt_group->on_end();
         }
     }
 
@@ -356,8 +357,8 @@ public:
         os << '\n';
         for (option_group& opt_group : opt_parse.opt_groups_) {
             if (opt_group.name) {
-                os << std::string(opt_group).c_str();
-                os << '\n';
+                os << std::string(opt_group).c_str() << '\n';
+                os << opt_group.help.str().c_str();
                 os << '\n';
             }
             for (option& opt : opt_group.opts) {
@@ -450,7 +451,7 @@ private:
         /**
          * @brief Callback.
          */
-        std::function<void(char**)> callback;
+        std::function<void(char**)> on_option;
 
         /**
          * @brief Help stringstream.
@@ -495,19 +496,24 @@ private:
         std::list<option> opts;
 
         /**
-         * @brief Begin callback.
+         * @brief On-begin callback.
          */
-        std::function<void()> begin_callback;
+        std::function<void()> on_begin;
 
         /**
-         * @brief End callback.
+         * @brief On-end callback.
          */
-        std::function<void()> end_callback;
+        std::function<void()> on_end;
 
         /**
-         * @brief Positional callback.
+         * @brief On-positional callback.
          */
-        std::function<void(char*)> pos_callback;
+        std::function<void(char*)> on_positional;
+
+        /**
+         * @brief Help stringstream.
+         */
+        std::stringstream help;
 
     public:
 
