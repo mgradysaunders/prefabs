@@ -35,6 +35,9 @@
 #error "prefabs/multi.hpp requires C++17"
 #endif // #if !(__cplusplus >= 201703L) 
 
+// for std::max_element, std::min_element
+#include <algorithm>
+
 // for std::max_align_t
 #include <cstddef>
 
@@ -843,6 +846,24 @@ public:
             }
         }
         return true;
+    }
+
+    /**
+     * @brief Index of minimum element.
+     */
+    constexpr size_type argmin() const
+    {
+        static_assert(sizeof...(N) == 0, "argmin() for vectors only");
+        return std::min_element(begin(), end()) - begin();
+    }
+
+    /**
+     * @brief Index of maximum element.
+     */
+    constexpr size_type argmax() const
+    {
+        static_assert(sizeof...(N) == 0, "argmax() for vectors only");
+        return std::max_element(begin(), end()) - begin();
     }
 
     /**@}*/
