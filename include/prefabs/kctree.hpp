@@ -409,7 +409,7 @@ public:
         /**
          * @brief Is leaf?
          */
-        bool isleaf() const
+        bool is_leaf() const
         {
             return cells_ == nullptr;
         }
@@ -417,7 +417,7 @@ public:
         /**
          * @brief Is tree?
          */
-        bool istree() const
+        bool is_tree() const
         {
             return cells_ != nullptr;
         }
