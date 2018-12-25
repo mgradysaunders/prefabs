@@ -490,13 +490,13 @@ public:
      *      + @f$ k \gets k + 1 @f$
      * - Return @f$ x @f$
      */
-    template <typename F>
-    constexpr value_type foldl(F&& f) const
+    template <typename Tfunc>
+    constexpr value_type foldl(Tfunc&& func) const
     {
         auto itr = begin();
         auto val = value_type(*itr++);
         while (itr < end()) {
-            val = std::forward<F>(f)(val, *itr++);
+            val = std::forward<Tfunc>(func)(val, *itr++);
         }
         return val;
     }
@@ -512,13 +512,13 @@ public:
      *      + @f$ k \gets k - 1 @f$
      * - Return @f$ x @f$
      */
-    template <typename F>
-    constexpr value_type foldr(F&& f) const
+    template <typename Tfunc>
+    constexpr value_type foldr(Tfunc&& func) const
     {
         auto itr = rbegin();
         auto val = value_type(*itr++);
         while (itr < rend()) {
-            val = std::forward<F>(f)(val, *itr++);
+            val = std::forward<Tfunc>(func)(val, *itr++);
         }
         return val;
     }
@@ -532,13 +532,13 @@ public:
      *      + @f$ v_{k + 1} \gets f(v_{k + 1}, v_k) @f$
      *      + @f$ k \gets k + 1 @f$
      */
-    template <typename F>
-    constexpr multi& foldl_accum(F&& f)
+    template <typename Tfunc>
+    constexpr multi& foldl_accum(Tfunc&& func)
     {
         auto itr1 = begin();
         auto itr2 = itr1 + 1;
         while (itr2 < end()) {
-            *itr2 = std::forward<F>(f)(*itr2, *itr1);
+            *itr2 = std::forward<Tfunc>(func)(*itr2, *itr1);
             ++itr1;
             ++itr2;
         }
@@ -554,13 +554,13 @@ public:
      *      + @f$ v_{k - 1} \gets f(v_{k - 1}, v_k) @f$
      *      + @f$ k \gets k - 1 @f$
      */
-    template <typename F>
-    constexpr multi& foldr_accum(F&& f)
+    template <typename Tfunc>
+    constexpr multi& foldr_accum(Tfunc&& func)
     {
         auto itr1 = rbegin();
         auto itr2 = itr1 + 1;
         while (itr2 < rend()) {
-            *itr2 = std::forward<F>(f)(*itr2, *itr1);
+            *itr2 = std::forward<Tfunc>(func)(*itr2, *itr1);
             ++itr1;
             ++itr2;
         }
@@ -576,13 +576,13 @@ public:
      *      + @f$ v_k \gets f(v_k, v_{k + 1}) @f$
      *      + @f$ k \gets k + 1 @f$
      */
-    template <typename F>
-    constexpr multi& foldl_adjacent(F&& f)
+    template <typename Tfunc>
+    constexpr multi& foldl_adjacent(Tfunc&& func)
     {
         auto itr1 = begin();
         auto itr2 = itr1 + 1;
         while (itr2 < end()) {
-            *itr1 = std::forward<F>(f)(*itr1, *itr2);
+            *itr1 = std::forward<Tfunc>(func)(*itr1, *itr2);
             ++itr1;
             ++itr2;
         }
@@ -598,13 +598,13 @@ public:
      *      + @f$ v_k \gets f(v_k, v_{k - 1}) @f$
      *      + @f$ k \gets k - 1 @f$
      */
-    template <typename F>
-    constexpr multi& foldr_adjacent(F&& f)
+    template <typename Tfunc>
+    constexpr multi& foldr_adjacent(Tfunc&& func)
     {
         auto itr1 = rbegin();
         auto itr2 = itr1 + 1;
         while (itr2 < rend()) {
-            *itr1 = std::forward<F>(f)(*itr1, *itr2);
+            *itr1 = std::forward<Tfunc>(func)(*itr1, *itr2);
             ++itr1;
             ++itr2;
         }
