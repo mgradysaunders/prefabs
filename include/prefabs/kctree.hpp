@@ -135,12 +135,18 @@ public:
     // prototype
     class cell_type;
 #endif // #if !DOXYGEN
-
+    
     /**
      * @brief Cell allocator type.
      */
     typedef typename std::allocator_traits<Tcell_alloc>::
             template rebind_alloc<cell_type> cell_allocator_type;
+
+    /**
+     * @brief Cell allocator traits.
+     */
+    typedef typename std::allocator_traits<Tcell_alloc>::
+            template rebind_traits<cell_type> cell_allocator_traits;
 
     /**@}*/
 
@@ -272,12 +278,12 @@ public:
             if (cells_) {
                 // Destroy.
                 for (size_type k = 0; k < 1 << N; k++) {
-                    std::allocator_traits<cell_allocator_type>::destroy(
+                    cell_allocator_traits::destroy(
                     cell_alloc_, cells_ + k);
                 }
 
                 // Deallocate.
-                std::allocator_traits<cell_allocator_type>::deallocate(
+                cell_allocator_traits::deallocate(
                 cell_alloc_, cells_, 1 << N);
             }
         }
@@ -304,7 +310,7 @@ public:
 
                     // Allocate.
                     cells_ =
-                    std::allocator_traits<cell_allocator_type>::allocate(
+                    cell_allocator_traits::allocate(
                     cell_alloc_, 1 << N);
 
                     for (size_type k = 0; k < 1 << N; k++) {
@@ -323,7 +329,7 @@ public:
                         }
 
                         // Construct.
-                        std::allocator_traits<cell_allocator_type>::construct(
+                        cell_allocator_traits::construct(
                         cell_alloc_, 
                         cells_ + k,
                             box, 
