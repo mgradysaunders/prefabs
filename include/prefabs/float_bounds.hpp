@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "prefabs/float_bounds.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_FLOAT_BOUNDS_HPP
 #define PREFABS_FLOAT_BOUNDS_HPP
@@ -51,6 +56,8 @@ namespace pr {
  * @defgroup float_bounds Float bounds
  *
  * `<prefabs/float_bounds.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 
@@ -63,8 +70,9 @@ class float_bounds
 public:
 
     // Sanity check.
-    static_assert(std::is_floating_point<T>::value,
-                                        "T must be floating point");
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
 
     /**
      * @name Constructors

@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "prefabs/block_array2.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_BLOCK_ARRAY2_HPP
 #define PREFABS_BLOCK_ARRAY2_HPP
@@ -51,6 +56,8 @@ namespace pr {
  * @defgroup block_array2 2-dimensional block array
  *
  * `<prefabs/block_array2.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 

@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "prefabs/distr.hpp requires >=C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_DISTR_HPP
 #define PREFABS_DISTR_HPP
@@ -38,6 +43,8 @@ namespace pr {
  * @defgroup distr Distributions
  *
  * `<prefabs/distr.hpp>`
+ *
+ * __C++ version__: >=C++14
  */
 /**@{*/
 

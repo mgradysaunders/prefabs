@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "prefabs/kctree.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_KCTREE_HPP
 #define PREFABS_KCTREE_HPP
@@ -60,6 +65,8 @@ namespace pr {
  * @defgroup kctree k-c tree
  *
  * `<prefabs/kctree.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 

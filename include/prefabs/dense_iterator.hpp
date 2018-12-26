@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "prefabs/dense_iterator.hpp requires >=C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_DENSE_ITERATOR_HPP
 #define PREFABS_DENSE_ITERATOR_HPP
@@ -42,6 +47,8 @@ namespace pr {
  * @defgroup dense_iterator Dense iterator
  *
  * `<prefabs/dense_iterator.hpp>`
+ *
+ * __C++ version__: >=C++14
  */
 /**@{*/
 

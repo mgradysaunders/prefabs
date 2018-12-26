@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201103L)
+#error "prefabs/aabb.hpp requires >=C++11"
+#endif // #if !(__cplusplus >= 201103L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_MEMORY_ARENA_HPP
 #define PREFABS_MEMORY_ARENA_HPP
@@ -42,6 +47,8 @@ namespace pr {
  * @defgroup memory_arena Memory arena
  *
  * `<prefabs/memory_arena.hpp>`
+ *
+ * __C++ version__: >=C++11
  */
 /**@{*/
 

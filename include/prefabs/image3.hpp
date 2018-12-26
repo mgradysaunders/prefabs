@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "prefabs/image3.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_IMAGE3_HPP
 #define PREFABS_IMAGE3_HPP
@@ -48,6 +53,8 @@ namespace pr {
  * @defgroup image3 3-dimensional image
  *
  * `<prefabs/image3.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 

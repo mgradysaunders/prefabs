@@ -26,14 +26,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "prefabs/dualnum.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_DUALNUM_HPP
 #define PREFABS_DUALNUM_HPP
-
-// use c++17
-#if !(__cplusplus >= 201703L) 
-#error "prefabs/dualnum.hpp requires C++17"
-#endif // #if !(__cplusplus >= 201703L) 
 
 // for std::basic_istream
 #include <istream>
@@ -49,6 +49,8 @@ namespace pr {
  * @defgroup dualnum Dual numbers
  *
  * `<prefabs/dualnum.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 

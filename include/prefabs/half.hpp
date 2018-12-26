@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "prefabs/half.hpp requires >=C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_HALF_HPP
 #define PREFABS_HALF_HPP
@@ -45,6 +50,8 @@ namespace pr {
  * @defgroup half Half-precision float
  *
  * `<prefabs/half.hpp>`
+ *
+ * __C++ version__: >=C++14
  */
 /**@{*/
 
@@ -68,22 +75,22 @@ public:
     /**
      * @brief Default constructor.
      */
-    constexpr half() noexcept = default;
+    constexpr half() = default;
 
     /**
      * @brief Default copy constructor.
      */
-    constexpr half(const half&) noexcept = default;
+    constexpr half(const half&) = default;
 
     /**
      * @brief Default move constructor.
      */
-    constexpr half(half&&) noexcept = default;
+    constexpr half(half&&) = default;
 
     /**
      * @brief Constructor.
      */
-    half(float f) noexcept;
+    half(float f);
 
     /**@}*/
 
@@ -97,17 +104,18 @@ public:
     /**
      * @brief Default copy assign.
      */
-    constexpr half& operator=(const half&) noexcept = default;
+    constexpr half& operator=(const half&) = default;
 
     /**
      * @brief Default move assign.
      */
-    constexpr half& operator=(half&&) noexcept = default;
+    constexpr half& operator=(half&&) = default;
 
     /**
      * @brief Assign float.
      */
-    half& operator=(float f) noexcept {
+    half& operator=(float f)
+    {
         return *this = half(f);
     }
 
@@ -118,12 +126,12 @@ public:
     /**
      * @brief Cast to float.
      */
-    operator float() const noexcept;
+    operator float() const;
 
     /**
      * @brief Cast to bit pattern.
      */
-    explicit operator std::uint16_t&() noexcept
+    explicit operator std::uint16_t&()
     {
         return b_;
     }
@@ -131,7 +139,7 @@ public:
     /**
      * @brief Cast to bit pattern.
      */
-    explicit operator const std::uint16_t&() const noexcept
+    explicit operator const std::uint16_t&() const
     {
         return b_;
     }
@@ -250,7 +258,7 @@ private:
 
 #if !DOXYGEN
 
-inline half::half(float f) noexcept
+inline half::half(float f)
 {
     std::uint32_t u; std::memcpy(&u, &f, sizeof(f));
     if (f == 0) {
@@ -318,7 +326,7 @@ inline half::half(float f) noexcept
     }
 }
 
-inline half::operator float() const noexcept
+inline half::operator float() const
 {
     float f;
     std::uint32_t u;

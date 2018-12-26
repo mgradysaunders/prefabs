@@ -26,14 +26,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "prefabs/multi.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_MULTI_HPP
 #define PREFABS_MULTI_HPP
-
-// use c++17
-#if !(__cplusplus >= 201703L) 
-#error "prefabs/multi.hpp requires C++17"
-#endif // #if !(__cplusplus >= 201703L) 
 
 // for std::max_element, std::min_element
 #include <algorithm>
@@ -62,6 +62,8 @@ namespace pr {
  * @defgroup multi Multi-dimensional array
  *
  * `<prefabs/multi.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 

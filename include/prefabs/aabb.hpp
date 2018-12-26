@@ -26,12 +26,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "prefabs/aabb.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_AABB_HPP
 #define PREFABS_AABB_HPP
 
+// for pr::multi
 #include <prefabs/multi.hpp>
 
+// for pr::multi math wrappers
 #include <prefabs/multi_math.hpp>
 
 namespace pr {
@@ -40,6 +47,8 @@ namespace pr {
  * @defgroup aabb Axis-aligned bounding box
  *
  * `<prefabs/aabb.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 

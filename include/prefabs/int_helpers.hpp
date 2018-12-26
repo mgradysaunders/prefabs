@@ -26,11 +26,16 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "prefabs/int_helpers.hpp requires >=C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_INT_HELPERS_HPP
 #define PREFABS_INT_HELPERS_HPP
 
-// for std::enable_if, std::is_integral
+// for std::enable_if_t, std::is_integral
 #include <type_traits>
 
 namespace pr {
@@ -39,6 +44,8 @@ namespace pr {
  * @defgroup int_helpers Int helpers
  *
  * `<prefabs/int_helpers.hpp>`
+ *
+ * __C++ version__: >=C++14
  */
 /**@{*/
 

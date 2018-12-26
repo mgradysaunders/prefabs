@@ -26,13 +26,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "prefabs/quadmath.hpp requires >=C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#if !(__GNUC__ && !__clang__)
+#error "prefabs/quadmath.hpp requires GCC"
+#endif // #if !(__GNUC__ && !__clang__)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_QUADMATH_HPP
 #define PREFABS_QUADMATH_HPP
-
-#if !(__GNUC__ && !__clang__)
-#error "GCC necessary for quadmath"
-#endif // #if !(__GNUC__ && !__clang__)
 
 // for std::memcpy
 #include <cstring>
@@ -48,6 +52,8 @@ namespace pr {
  * @defgroup quadmath Quadmath
  *
  * `<prefabs/quadmath.hpp>`
+ *
+ * __C++ version__: >=C++14 (`-std=gnu++14`, `-lquadmath`)
  */
 /**@{*/
 

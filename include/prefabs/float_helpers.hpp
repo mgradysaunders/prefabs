@@ -26,12 +26,20 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "prefabs/float_helpers.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_FLOAT_HELPERS_HPP
 #define PREFABS_FLOAT_HELPERS_HPP
 
 // for assert
 #include <cassert>
+
+// for std::swap
+#include <utility>
 
 // for std::enable_if, std::is_floating_point
 #include <type_traits>
@@ -44,6 +52,8 @@ namespace pr {
  * @defgroup float_helpers Float helpers
  *
  * `<prefabs/float_helpers.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 

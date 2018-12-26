@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "prefabs/aabb.hpp requires >=C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_OPTION_PARSER_HPP
 #define PREFABS_OPTION_PARSER_HPP
@@ -66,6 +71,8 @@ namespace pr {
  * @defgroup option_parser Option parser
  *
  * `<prefabs/option_parser.hpp>`
+ *
+ * __C++ version__: >=C++14
  */
 /**@{*/
 

@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "prefabs/aabbtree.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_AABBTREE_HPP
 #define PREFABS_AABBTREE_HPP
@@ -54,6 +59,8 @@ namespace pr {
  * @defgroup aabbtree Axis-aligned bounding box tree
  *
  * `<prefabs/aabbtree.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 

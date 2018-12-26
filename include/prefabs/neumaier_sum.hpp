@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "prefabs/neumaier_sum.hpp requires >=C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_NEUMAIER_SUM_HPP
 #define PREFABS_NEUMAIER_SUM_HPP
@@ -38,6 +43,8 @@ namespace pr {
  * @defgroup neumaier_sum Neumaier sum
  *
  * `<prefabs/neumaier_sum.hpp>`
+ *
+ * __C++ version__: >=C++14
  */
 /**@{*/
 
@@ -50,7 +57,9 @@ class neumaier_sum
 public:
 
     // Sanity check.
-    static_assert(std::is_floating_point<T>::value, "invalid type");
+    static_assert(
+        std::is_floating_point<T>::value, 
+        "T must be floating point");
 
     /**
      * @name Constructors

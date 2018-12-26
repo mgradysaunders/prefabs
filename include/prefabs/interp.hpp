@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "prefabs/interp.hpp requires >=C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_INTERP_HPP
 #define PREFABS_INTERP_HPP
@@ -36,6 +41,8 @@ namespace pr {
  * @defgroup interp Interpolation
  *
  * `<prefabs/interp.hpp>`
+ *
+ * __C++ version__: >=C++14
  */
 /**@{*/
 

@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "prefabs/multi_float_helpers.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_MULTI_FLOAT_HELPERS_HPP
 #define PREFABS_MULTI_FLOAT_HELPERS_HPP
@@ -40,6 +45,8 @@ namespace pr {
  * @defgroup multi_float_helpers Multi-dimensional array (float helpers)
  *
  * `<prefabs/multi_float_helpers.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 

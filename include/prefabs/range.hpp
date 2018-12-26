@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "prefabs/range.hpp requires >=C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_RANGE_HPP
 #define PREFABS_RANGE_HPP
@@ -39,6 +44,8 @@ namespace pr {
  * @defgroup range Range
  * 
  * `<prefabs/range.hpp>`
+ *
+ * __C++ version__: >=C++14
  */
 /**@{*/
 

@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "prefabs/endian.hpp requires >=C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_ENDIAN_HPP
 #define PREFABS_ENDIAN_HPP
@@ -48,6 +53,8 @@ namespace pr {
  * @defgroup endian Endian
  *
  * `<prefabs/endian.hpp>`
+ *
+ * __C++ version__: >=C++14
  */
 /**@{*/
 

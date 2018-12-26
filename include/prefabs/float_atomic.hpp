@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201103L)
+#error "prefabs/float_atomic.hpp requires >=C++11"
+#endif // #if !(__cplusplus >= 201103L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFABS_FLOAT_ATOMIC_HPP
 #define PREFABS_FLOAT_ATOMIC_HPP
@@ -45,6 +50,8 @@ namespace pr {
  * @defgroup float_atomic Float atomic
  *
  * `<prefabs/float_atomic.hpp>`
+ *
+ * __C++ version__: >=C++11
  */
 /**@{*/
 
