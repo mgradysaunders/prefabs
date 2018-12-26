@@ -890,8 +890,8 @@ public:
     {
         C ch;
         if (!(is >> ch) ||
-            !Traits::eq(ch,
-             Traits::to_char_type('['))) {
+            !Ctraits::eq(ch,
+             Ctraits::to_char_type('['))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
@@ -899,16 +899,16 @@ public:
         is >> *itr++;
         while (itr < arr.end()) {
             if (!(is >> ch) ||
-                !Traits::eq(ch,
-                 Traits::to_char_type(','))) {
+                !Ctraits::eq(ch,
+                 Ctraits::to_char_type(','))) {
                 is.setstate(std::ios_base::failbit);
                 return is;
             }
             is >> *itr++;
         }
         if (!(is >> ch) ||
-            !Traits::eq(ch,
-             Traits::to_char_type(']'))) {
+            !Ctraits::eq(ch,
+             Ctraits::to_char_type(']'))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
