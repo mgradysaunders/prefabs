@@ -28,7 +28,7 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201402L)
-#error "prefabs/aabb.hpp requires >=C++14"
+#error "prefabs/option_parser.hpp requires >=C++14"
 #endif // #if !(__cplusplus >= 201402L)
 #endif // #if !DOXYGEN
 #pragma once
