@@ -80,7 +80,7 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae5b3ddb9b4204d379338b07415f40fc0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree_1_1cell__type.html#ae5b3ddb9b4204d379338b07415f40fc0">cell_type</a> (const <a class="el" href="classpr_1_1kctree.html#ac4d3d93e449aa071e00530aa91c852fc">aabb_type</a> &amp;box, <a class="el" href="classpr_1_1kctree.html#a2230e207862a199e8d068579893cc685">cell_allocator_type</a> &amp;cell_alloc)</td></tr>
+<tr class="memitem:ae5b3ddb9b4204d379338b07415f40fc0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree_1_1cell__type.html#ae5b3ddb9b4204d379338b07415f40fc0">cell_type</a> (const <a class="el" href="classpr_1_1kctree.html#ac4d3d93e449aa071e00530aa91c852fc">aabb_type</a> &amp;<a class="el" href="classpr_1_1kctree_1_1cell__type.html#a2711bc0c312b7de3314a484beb0163e8">box</a>, <a class="el" href="classpr_1_1kctree.html#a2230e207862a199e8d068579893cc685">cell_allocator_type</a> &amp;cell_alloc)</td></tr>
 <tr class="memdesc:ae5b3ddb9b4204d379338b07415f40fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ae5b3ddb9b4204d379338b07415f40fc0">More...</a><br /></td></tr>
 <tr class="separator:ae5b3ddb9b4204d379338b07415f40fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab363d28990c9fcafe05bbad87cc664bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree_1_1cell__type.html#ab363d28990c9fcafe05bbad87cc664bb">~cell_type</a> ()</td></tr>
@@ -93,6 +93,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac83511532afd009c66ba4335772ace92"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree_1_1cell__type.html#ac83511532afd009c66ba4335772ace92">query</a> (const <a class="el" href="classpr_1_1kctree.html#ac4d3d93e449aa071e00530aa91c852fc">aabb_type</a> &amp;reg, Fun &amp;&amp;fun) const</td></tr>
 <tr class="memdesc:ac83511532afd009c66ba4335772ace92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query region.  <a href="#ac83511532afd009c66ba4335772ace92">More...</a><br /></td></tr>
 <tr class="separator:ac83511532afd009c66ba4335772ace92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Traversal</div></td></tr>
+<tr class="memitem:a2711bc0c312b7de3314a484beb0163e8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classpr_1_1kctree.html#ac4d3d93e449aa071e00530aa91c852fc">aabb_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree_1_1cell__type.html#a2711bc0c312b7de3314a484beb0163e8">box</a> () const</td></tr>
+<tr class="memdesc:a2711bc0c312b7de3314a484beb0163e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Box.  <a href="#a2711bc0c312b7de3314a484beb0163e8">More...</a><br /></td></tr>
+<tr class="separator:a2711bc0c312b7de3314a484beb0163e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42479d5a7d8c9c4b97c87dbe6f0da635"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classpr_1_1kctree.html#a8d90882cd6a819796f9f98fb7e314cf2">multi_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree_1_1cell__type.html#a42479d5a7d8c9c4b97c87dbe6f0da635">box_center</a> () const</td></tr>
+<tr class="memdesc:a42479d5a7d8c9c4b97c87dbe6f0da635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Box center.  <a href="#a42479d5a7d8c9c4b97c87dbe6f0da635">More...</a><br /></td></tr>
+<tr class="separator:a42479d5a7d8c9c4b97c87dbe6f0da635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a1c0a9f9ab50333599a560dc4a5921c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree_1_1cell__type.html#a2a1c0a9f9ab50333599a560dc4a5921c">is_leaf</a> () const</td></tr>
+<tr class="memdesc:a2a1c0a9f9ab50333599a560dc4a5921c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is leaf?  <a href="#a2a1c0a9f9ab50333599a560dc4a5921c">More...</a><br /></td></tr>
+<tr class="separator:a2a1c0a9f9ab50333599a560dc4a5921c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a553f951b2bc02835bb2b79fd7799e556"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree_1_1cell__type.html#a553f951b2bc02835bb2b79fd7799e556">is_tree</a> () const</td></tr>
+<tr class="memdesc:a553f951b2bc02835bb2b79fd7799e556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is tree?  <a href="#a553f951b2bc02835bb2b79fd7799e556">More...</a><br /></td></tr>
+<tr class="separator:a553f951b2bc02835bb2b79fd7799e556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f208a78d08d6eec6ce6f88e1e19dad0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1range.html">range</a>&lt; const <a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree_1_1cell__type.html#a1f208a78d08d6eec6ce6f88e1e19dad0">cells</a> () const</td></tr>
+<tr class="memdesc:a1f208a78d08d6eec6ce6f88e1e19dad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterable range of cells.  <a href="#a1f208a78d08d6eec6ce6f88e1e19dad0">More...</a><br /></td></tr>
+<tr class="separator:a1f208a78d08d6eec6ce6f88e1e19dad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefcd5f8372df9da8db2e9748a9fd453a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1range.html">range</a>&lt; const <a class="el" href="classpr_1_1kctree.html#a9281da912c2f9f48106dee5ddabcd5ce">value_type</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree_1_1cell__type.html#aefcd5f8372df9da8db2e9748a9fd453a">values</a> () const</td></tr>
+<tr class="memdesc:aefcd5f8372df9da8db2e9748a9fd453a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterable range of values.  <a href="#aefcd5f8372df9da8db2e9748a9fd453a">More...</a><br /></td></tr>
+<tr class="separator:aefcd5f8372df9da8db2e9748a9fd453a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -280,7 +299,181 @@ template&lt;typename Fun &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line">void(<span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#a8d90882cd6a819796f9f98fb7e314cf2" title="Multi type. ">multi_type</a>&amp;, <span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#a52735c74481272b8a65451d2b5ea2ca5" title="Value data type. ">value_data_type</a>&amp;)</div></div><!-- fragment --> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line">void(<span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#a8d90882cd6a819796f9f98fb7e314cf2" title="Multi-dimensional array type. ">multi_type</a>&amp;, <span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#a52735c74481272b8a65451d2b5ea2ca5" title="Value data type. ">value_data_type</a>&amp;)</div></div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="a2711bc0c312b7de3314a484beb0163e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2711bc0c312b7de3314a484beb0163e8">&#9670;&nbsp;</a></span>box()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tcell_alloc  = std::allocator&lt;char&gt;, std::size_t Ncell_capacity = 4&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classpr_1_1kctree.html#ac4d3d93e449aa071e00530aa91c852fc">aabb_type</a>&amp; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type::box </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Box. </p>
+
+</div>
+</div>
+<a id="a42479d5a7d8c9c4b97c87dbe6f0da635"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42479d5a7d8c9c4b97c87dbe6f0da635">&#9670;&nbsp;</a></span>box_center()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tcell_alloc  = std::allocator&lt;char&gt;, std::size_t Ncell_capacity = 4&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classpr_1_1kctree.html#a8d90882cd6a819796f9f98fb7e314cf2">multi_type</a>&amp; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type::box_center </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Box center. </p>
+
+</div>
+</div>
+<a id="a2a1c0a9f9ab50333599a560dc4a5921c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a1c0a9f9ab50333599a560dc4a5921c">&#9670;&nbsp;</a></span>is_leaf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tcell_alloc  = std::allocator&lt;char&gt;, std::size_t Ncell_capacity = 4&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type::is_leaf </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Is leaf? </p>
+
+</div>
+</div>
+<a id="a553f951b2bc02835bb2b79fd7799e556"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a553f951b2bc02835bb2b79fd7799e556">&#9670;&nbsp;</a></span>is_tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tcell_alloc  = std::allocator&lt;char&gt;, std::size_t Ncell_capacity = 4&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type::is_tree </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Is tree? </p>
+
+</div>
+</div>
+<a id="a1f208a78d08d6eec6ce6f88e1e19dad0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f208a78d08d6eec6ce6f88e1e19dad0">&#9670;&nbsp;</a></span>cells()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tcell_alloc  = std::allocator&lt;char&gt;, std::size_t Ncell_capacity = 4&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1range.html">range</a>&lt;const <a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a>*&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type::cells </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Iterable range of cells. </p>
+
+</div>
+</div>
+<a id="aefcd5f8372df9da8db2e9748a9fd453a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefcd5f8372df9da8db2e9748a9fd453a">&#9670;&nbsp;</a></span>values()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tcell_alloc  = std::allocator&lt;char&gt;, std::size_t Ncell_capacity = 4&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1range.html">range</a>&lt;const <a class="el" href="classpr_1_1kctree.html#a9281da912c2f9f48106dee5ddabcd5ce">value_type</a>*&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type::values </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Iterable range of values. </p>
 
 </div>
 </div>

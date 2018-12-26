@@ -71,11 +71,11 @@ $(function() {
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpr_1_1kctree-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__kctree.html">Kc-tree</a></div></div>  </div>
+<div class="title">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__kctree.html">k-c tree</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Kc-tree.  
+<p>k-c tree.  
  <a href="classpr_1_1kctree.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -91,10 +91,10 @@ Public Types</h2></td></tr>
 <tr class="memdesc:ac4d3d93e449aa071e00530aa91c852fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axis-aligned bounding box type.  <a href="#ac4d3d93e449aa071e00530aa91c852fc">More...</a><br /></td></tr>
 <tr class="separator:ac4d3d93e449aa071e00530aa91c852fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d90882cd6a819796f9f98fb7e314cf2"><td class="memItemLeft" align="right" valign="top">typedef multi&lt; Tfloat, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a8d90882cd6a819796f9f98fb7e314cf2">multi_type</a></td></tr>
-<tr class="memdesc:a8d90882cd6a819796f9f98fb7e314cf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi type.  <a href="#a8d90882cd6a819796f9f98fb7e314cf2">More...</a><br /></td></tr>
+<tr class="memdesc:a8d90882cd6a819796f9f98fb7e314cf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-dimensional array type.  <a href="#a8d90882cd6a819796f9f98fb7e314cf2">More...</a><br /></td></tr>
 <tr class="separator:a8d90882cd6a819796f9f98fb7e314cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac58bda4b91f88d4cb7ef377108d23721"><td class="memItemLeft" align="right" valign="top">typedef Tfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#ac58bda4b91f88d4cb7ef377108d23721">float_type</a></td></tr>
-<tr class="memdesc:ac58bda4b91f88d4cb7ef377108d23721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Float type.  <a href="#ac58bda4b91f88d4cb7ef377108d23721">More...</a><br /></td></tr>
+<tr class="memdesc:ac58bda4b91f88d4cb7ef377108d23721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Floating point type.  <a href="#ac58bda4b91f88d4cb7ef377108d23721">More...</a><br /></td></tr>
 <tr class="separator:ac58bda4b91f88d4cb7ef377108d23721"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52735c74481272b8a65451d2b5ea2ca5"><td class="memItemLeft" align="right" valign="top">typedef Tvalue_data&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a52735c74481272b8a65451d2b5ea2ca5">value_data_type</a></td></tr>
 <tr class="memdesc:a52735c74481272b8a65451d2b5ea2ca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value data type.  <a href="#a52735c74481272b8a65451d2b5ea2ca5">More...</a><br /></td></tr>
@@ -108,6 +108,9 @@ Public Types</h2></td></tr>
 <tr class="memitem:a2230e207862a199e8d068579893cc685"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; Tcell_alloc &gt;::template rebind_alloc&lt; <a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a2230e207862a199e8d068579893cc685">cell_allocator_type</a></td></tr>
 <tr class="memdesc:a2230e207862a199e8d068579893cc685"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cell allocator type.  <a href="#a2230e207862a199e8d068579893cc685">More...</a><br /></td></tr>
 <tr class="separator:a2230e207862a199e8d068579893cc685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb95f3c284f4cf7bf59b751798944207"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; Tcell_alloc &gt;::template rebind_traits&lt; <a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#aeb95f3c284f4cf7bf59b751798944207">cell_allocator_traits</a></td></tr>
+<tr class="memdesc:aeb95f3c284f4cf7bf59b751798944207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cell allocator traits.  <a href="#aeb95f3c284f4cf7bf59b751798944207">More...</a><br /></td></tr>
+<tr class="separator:aeb95f3c284f4cf7bf59b751798944207"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -127,6 +130,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a27042e7b2d8105eb80e8179ae3fa52e6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#a27042e7b2d8105eb80e8179ae3fa52e6">query</a> (const <a class="el" href="classpr_1_1kctree.html#ac4d3d93e449aa071e00530aa91c852fc">aabb_type</a> &amp;reg, Fun &amp;&amp;fun) const</td></tr>
 <tr class="memdesc:a27042e7b2d8105eb80e8179ae3fa52e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query region.  <a href="#a27042e7b2d8105eb80e8179ae3fa52e6">More...</a><br /></td></tr>
 <tr class="separator:a27042e7b2d8105eb80e8179ae3fa52e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4e54941e7af2dfc95ce5eaf9bddba8b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kctree.html#ad4e54941e7af2dfc95ce5eaf9bddba8b">root</a> () const</td></tr>
+<tr class="memdesc:ad4e54941e7af2dfc95ce5eaf9bddba8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root cell.  <a href="#ad4e54941e7af2dfc95ce5eaf9bddba8b">More...</a><br /></td></tr>
+<tr class="separator:ad4e54941e7af2dfc95ce5eaf9bddba8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -141,7 +147,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><h3>template&lt;typename Tfloat, std::size_t N, typename Tvalue_data, typename Tcell_alloc = std::allocator&lt;char&gt;, std::size_t Ncell_capacity = 4&gt;<br />
 class pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;</h3>
 
-<p>Kc-tree. </p>
+<p>k-c tree. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ac4d3d93e449aa071e00530aa91c852fc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac4d3d93e449aa071e00530aa91c852fc">&#9670;&nbsp;</a></span>aabb_type</h2>
@@ -175,7 +181,7 @@ template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tce
       </table>
 </div><div class="memdoc">
 
-<p>Multi type. </p>
+<p>Multi-dimensional array type. </p>
 
 </div>
 </div>
@@ -193,7 +199,7 @@ template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tce
       </table>
 </div><div class="memdoc">
 
-<p>Float type. </p>
+<p>Floating point type. </p>
 
 </div>
 </div>
@@ -266,6 +272,24 @@ template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tce
 </div><div class="memdoc">
 
 <p>Cell allocator type. </p>
+
+</div>
+</div>
+<a id="aeb95f3c284f4cf7bf59b751798944207"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb95f3c284f4cf7bf59b751798944207">&#9670;&nbsp;</a></span>cell_allocator_traits</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tcell_alloc  = std::allocator&lt;char&gt;, std::size_t Ncell_capacity = 4&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::allocator_traits&lt;Tcell_alloc&gt;:: template rebind_traits&lt;<a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a>&gt; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::<a class="el" href="classpr_1_1kctree.html#aeb95f3c284f4cf7bf59b751798944207">cell_allocator_traits</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cell allocator traits. </p>
 
 </div>
 </div>
@@ -494,7 +518,36 @@ template&lt;typename Fun &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line">void(<span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#a8d90882cd6a819796f9f98fb7e314cf2" title="Multi type. ">multi_type</a>&amp;, <span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#a52735c74481272b8a65451d2b5ea2ca5" title="Value data type. ">value_data_type</a>&amp;)</div></div><!-- fragment --> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line">void(<span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#a8d90882cd6a819796f9f98fb7e314cf2" title="Multi-dimensional array type. ">multi_type</a>&amp;, <span class="keyword">const</span> <a class="code" href="classpr_1_1kctree.html#a52735c74481272b8a65451d2b5ea2ca5" title="Value data type. ">value_data_type</a>&amp;)</div></div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="ad4e54941e7af2dfc95ce5eaf9bddba8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4e54941e7af2dfc95ce5eaf9bddba8b">&#9670;&nbsp;</a></span>root()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue_data , typename Tcell_alloc  = std::allocator&lt;char&gt;, std::size_t Ncell_capacity = 4&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classpr_1_1kctree_1_1cell__type.html">cell_type</a>&amp; <a class="el" href="classpr_1_1kctree.html">pr::kctree</a>&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::root </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Root cell. </p>
 
 </div>
 </div>

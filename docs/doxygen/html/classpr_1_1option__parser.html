@@ -94,9 +94,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3a87c71344583972ba4b1800adc9a81b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__parser.html#a3a87c71344583972ba4b1800adc9a81b">option_parser</a> (const char *prog_usage)</td></tr>
 <tr class="memdesc:a3a87c71344583972ba4b1800adc9a81b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a3a87c71344583972ba4b1800adc9a81b">More...</a><br /></td></tr>
 <tr class="separator:a3a87c71344583972ba4b1800adc9a81b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcf2c4d05191722e4dadb4ce8b854236"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__parser.html#adcf2c4d05191722e4dadb4ce8b854236">in_group</a> (const char *name)</td></tr>
-<tr class="memdesc:adcf2c4d05191722e4dadb4ce8b854236"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set in-group for subsequent calls.  <a href="#adcf2c4d05191722e4dadb4ce8b854236">More...</a><br /></td></tr>
-<tr class="separator:adcf2c4d05191722e4dadb4ce8b854236"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a986819571b32d32d03fd6e014a569e88"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__parser.html#a986819571b32d32d03fd6e014a569e88">in_group</a> (const char *name)</td></tr>
+<tr class="memdesc:a986819571b32d32d03fd6e014a569e88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set in-group for subsequent calls.  <a href="#a986819571b32d32d03fd6e014a569e88">More...</a><br /></td></tr>
+<tr class="separator:a986819571b32d32d03fd6e014a569e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36cb3339a58ff8477e4d9a7b0a5bd61c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1option__parser.html#a36cb3339a58ff8477e4d9a7b0a5bd61c">on_begin</a> (const std::function&lt; void()&gt; &amp;callback)</td></tr>
 <tr class="memdesc:a36cb3339a58ff8477e4d9a7b0a5bd61c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set on-begin callback.  <a href="#a36cb3339a58ff8477e4d9a7b0a5bd61c">More...</a><br /></td></tr>
 <tr class="separator:a36cb3339a58ff8477e4d9a7b0a5bd61c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,10 +133,10 @@ Private Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a6ce90b539ee79814b49a8b845cdb2027"><td class="memTemplParams" colspan="2">template&lt;typename Char , typename Traits &gt; </td></tr>
-<tr class="memitem:a6ce90b539ee79814b49a8b845cdb2027"><td class="memTemplItemLeft" align="right" valign="top">std::basic_ostream&lt; Char, Traits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1option__parser.html#a6ce90b539ee79814b49a8b845cdb2027">operator&lt;&lt;</a> (std::basic_ostream&lt; Char, Traits &gt; &amp;os, <a class="el" href="classpr_1_1option__parser.html">option_parser</a> &amp;opt_parse)</td></tr>
-<tr class="memdesc:a6ce90b539ee79814b49a8b845cdb2027"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write help to <code>std::basic_ostream</code>.  <a href="#a6ce90b539ee79814b49a8b845cdb2027">More...</a><br /></td></tr>
-<tr class="separator:a6ce90b539ee79814b49a8b845cdb2027"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ed57c91cc602d2bac04a35d838401c3"><td class="memTemplParams" colspan="2">template&lt;typename C , typename Ctraits &gt; </td></tr>
+<tr class="memitem:a9ed57c91cc602d2bac04a35d838401c3"><td class="memTemplItemLeft" align="right" valign="top">std::basic_ostream&lt; C, Ctraits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1option__parser.html#a9ed57c91cc602d2bac04a35d838401c3">operator&lt;&lt;</a> (std::basic_ostream&lt; C, Ctraits &gt; &amp;os, <a class="el" href="classpr_1_1option__parser.html">option_parser</a> &amp;opt_parse)</td></tr>
+<tr class="memdesc:a9ed57c91cc602d2bac04a35d838401c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write help to <code>std::basic_ostream</code>.  <a href="#a9ed57c91cc602d2bac04a35d838401c3">More...</a><br /></td></tr>
+<tr class="separator:a9ed57c91cc602d2bac04a35d838401c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Option parser. </p>
@@ -170,8 +170,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="adcf2c4d05191722e4dadb4ce8b854236"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcf2c4d05191722e4dadb4ce8b854236">&#9670;&nbsp;</a></span>in_group()</h2>
+<a id="a986819571b32d32d03fd6e014a569e88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a986819571b32d32d03fd6e014a569e88">&#9670;&nbsp;</a></span>in_group()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +180,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void pr::option_parser::in_group </td>
+          <td class="memname">std::ostream&amp; pr::option_parser::in_group </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
@@ -447,21 +447,21 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a6ce90b539ee79814b49a8b845cdb2027"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ce90b539ee79814b49a8b845cdb2027">&#9670;&nbsp;</a></span>operator<<</h2>
+<a id="a9ed57c91cc602d2bac04a35d838401c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ed57c91cc602d2bac04a35d838401c3">&#9670;&nbsp;</a></span>operator<<</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Char , typename Traits &gt; </div>
+template&lt;typename C , typename Ctraits &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::basic_ostream&lt;Char, Traits&gt;&amp; operator&lt;&lt; </td>
+          <td class="memname">std::basic_ostream&lt;C, Ctraits&gt;&amp; operator&lt;&lt; </td>
           <td>(</td>
-          <td class="paramtype">std::basic_ostream&lt; Char, Traits &gt; &amp;&#160;</td>
+          <td class="paramtype">std::basic_ostream&lt; C, Ctraits &gt; &amp;&#160;</td>
           <td class="paramname"><em>os</em>, </td>
         </tr>
         <tr>

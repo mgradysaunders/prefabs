@@ -90,8 +90,8 @@ $(function() {
 <li>begin
 : <a class="el" href="structpr_1_1memory__arena_1_1block.html#a26dcddd963da5e9ded6ef1435f31b575">pr::memory_arena::block</a>
 </li>
-<li>begin_callback
-: <a class="el" href="classpr_1_1option__parser_1_1option__group.html#af5b9b5b9e7801d98e508c10ea87bf892">pr::option_parser::option_group</a>
+<li>begin_
+: <a class="el" href="classpr_1_1range.html#a51de222945373424c32ae50460f6986f">pr::range&lt; T &gt;</a>
 </li>
 <li>bits_
 : <a class="el" href="classpr_1_1float__atomic.html#abbddee84c7cba29867d6e38071248817">pr::float_atomic&lt; Tfloat, Tfloat_bits &gt;</a>
@@ -118,8 +118,15 @@ $(function() {
 : <a class="el" href="classpr_1_1block__array2.html#a4dc7a11393ae74438a11a9b24014f963">pr::block_array2&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#a7b37dcb2c60e627c34df02e058926ccc">pr::block_array3&lt; T, Talloc &gt;</a>
 </li>
+<li>box
+: <a class="el" href="classpr_1_1aabbtree_1_1proxy__type.html#a58c3ae62953acf9465b557fdeaadbdf0">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;::proxy_type</a>
+</li>
 <li>box_
-: <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a9104ce719bb8c1bf28a0f7cc6bf77917">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type</a>
+: <a class="el" href="classpr_1_1aabbtree_1_1node__type.html#a79cd5b98a84f8164d706710d7d651493">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;::node_type</a>
+, <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a9104ce719bb8c1bf28a0f7cc6bf77917">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type</a>
+</li>
+<li>box_center
+: <a class="el" href="classpr_1_1aabbtree_1_1proxy__type.html#a812e8eb059d048945eba781ec02ad201">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;::proxy_type</a>
 </li>
 <li>box_center_
 : <a class="el" href="classpr_1_1kctree_1_1cell__type.html#a745ad86aebd3868c2964ad8a45ca5056">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type</a>
@@ -128,15 +135,15 @@ $(function() {
 
 
 <h3><a id="index_c"></a>- c -</h3><ul>
-<li>callback
-: <a class="el" href="classpr_1_1option__parser_1_1option.html#a6bf9ecec3f870e5ce658ff66ac06235d">pr::option_parser::option</a>
-</li>
 <li>cell_alloc_
 : <a class="el" href="classpr_1_1kctree.html#ac3fc0c2ef1d9f3f8d2f03316d8c37f49">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;</a>
 , <a class="el" href="classpr_1_1kctree_1_1cell__type.html#adac80be2cf64a680055656b3becf88aa">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type</a>
 </li>
 <li>cells_
 : <a class="el" href="classpr_1_1kctree_1_1cell__type.html#aba2742e6ff02a4963fa47eaf83e81c4f">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type</a>
+</li>
+<li>count_
+: <a class="el" href="classpr_1_1aabbtree_1_1node__type.html#adb24eac7ec79b5b0ca9b695b8f7a7a3d">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;::node_type</a>
 </li>
 <li>cv_
 : <a class="el" href="classpr_1_1thread__pool.html#a2dbfc3897e8b35683119cff6ab88b63b">pr::thread_pool</a>
@@ -166,13 +173,16 @@ $(function() {
 
 
 <h3><a id="index_e"></a>- e -</h3><ul>
-<li>end_callback
-: <a class="el" href="classpr_1_1option__parser_1_1option__group.html#a216878b175ac7297c44422f77b131835">pr::option_parser::option_group</a>
+<li>end_
+: <a class="el" href="classpr_1_1range.html#a896d37ccf16adf20a91d0c15f63d97b6">pr::range&lt; T &gt;</a>
 </li>
 </ul>
 
 
 <h3><a id="index_f"></a>- f -</h3><ul>
+<li>first_index_
+: <a class="el" href="classpr_1_1aabbtree_1_1node__type.html#ac24b9e88b5114b66bccec8189f568e8c">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;::node_type</a>
+</li>
 <li>free_blocks_
 : <a class="el" href="classpr_1_1memory__arena.html#ad894e48a118f0a0bf8f5b8133a2d549b">pr::memory_arena</a>
 </li>
@@ -197,6 +207,7 @@ $(function() {
 </li>
 <li>help
 : <a class="el" href="classpr_1_1option__parser_1_1option.html#ac07db5b83138b38b3bfc140a00bf9fec">pr::option_parser::option</a>
+, <a class="el" href="classpr_1_1option__parser_1_1option__group.html#a1f7e3dfd3590b445e2c8437c2db7e182">pr::option_parser::option_group</a>
 </li>
 </ul>
 
@@ -204,6 +215,9 @@ $(function() {
 <h3><a id="index_l"></a>- l -</h3><ul>
 <li>lambda
 : <a class="el" href="structpr_1_1exponential__distribution.html#afa43d170c7ca31812833053569f087fc">pr::exponential_distribution&lt; T &gt;</a>
+</li>
+<li>leaf_max_
+: <a class="el" href="classpr_1_1aabbtree.html#a3c2376cec4ec1c958f98a99b7e483b25">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;</a>
 </li>
 </ul>
 
@@ -241,12 +255,31 @@ $(function() {
 <li>name_abbrv
 : <a class="el" href="classpr_1_1option__parser_1_1option.html#ab9b0ef6ce6fb4e86419872d29d931eb4">pr::option_parser::option</a>
 </li>
+<li>node_alloc_
+: <a class="el" href="classpr_1_1aabbtree.html#a9dbc66842057114af25dea8937c08204">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;</a>
+, <a class="el" href="classpr_1_1aabbtree_1_1node__type.html#ae52501d90fc2560b7a5ccef2d91ac639">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;::node_type</a>
+</li>
+<li>nodes_
+: <a class="el" href="classpr_1_1aabbtree_1_1node__type.html#a76900e2cd3809c26b44d9a482be6c78c">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;::node_type</a>
+</li>
 </ul>
 
 
 <h3><a id="index_o"></a>- o -</h3><ul>
 <li>offset
 : <a class="el" href="structpr_1_1memory__arena_1_1block.html#a5ad0b918e0123490fbcc95e13b2bef3d">pr::memory_arena::block</a>
+</li>
+<li>on_begin
+: <a class="el" href="classpr_1_1option__parser_1_1option__group.html#a08dd224a835f10a7ac16374a646d9025">pr::option_parser::option_group</a>
+</li>
+<li>on_end
+: <a class="el" href="classpr_1_1option__parser_1_1option__group.html#a5cf774cd4b1a2698bc48fc7a2946912c">pr::option_parser::option_group</a>
+</li>
+<li>on_option
+: <a class="el" href="classpr_1_1option__parser_1_1option.html#a39f5b07562da20d610947b6dd240424f">pr::option_parser::option</a>
+</li>
+<li>on_positional
+: <a class="el" href="classpr_1_1option__parser_1_1option__group.html#a8bd29609a2352a5366e4631f6cdc3aad">pr::option_parser::option_group</a>
 </li>
 <li>opt_groups_
 : <a class="el" href="classpr_1_1option__parser.html#a6a29d2f6c1f344fa0319f623f6546d33">pr::option_parser</a>
@@ -261,14 +294,17 @@ $(function() {
 <li>pool_
 : <a class="el" href="classpr_1_1thread__pool_1_1worker.html#ae9597046e18b2cb3f1b7399e003f2fb1">pr::thread_pool::worker</a>
 </li>
-<li>pos_callback
-: <a class="el" href="classpr_1_1option__parser_1_1option__group.html#a6f6ed1768dc7b32c6ffda88316fe3d67">pr::option_parser::option_group</a>
+<li>pos_
+: <a class="el" href="classpr_1_1dense__iterator.html#a11ce47e73cac3d12e56701fea2ab18d2">pr::dense_iterator&lt; T &gt;</a>
 </li>
 <li>prog_name_
 : <a class="el" href="classpr_1_1option__parser.html#a29db12365297f2ad98b50a8c7e7d5de1">pr::option_parser</a>
 </li>
 <li>prog_usage_
 : <a class="el" href="classpr_1_1option__parser.html#ae464529e8bd2805cd88b652b9447a4b6">pr::option_parser</a>
+</li>
+<li>proxies_
+: <a class="el" href="classpr_1_1aabbtree.html#a689f5f5a022b566f79fe4c9f999237c3">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;</a>
 </li>
 </ul>
 
@@ -283,7 +319,8 @@ $(function() {
 
 <h3><a id="index_r"></a>- r -</h3><ul>
 <li>root_
-: <a class="el" href="classpr_1_1kctree.html#a8e51d03dfa06ef0e22b37e1bad697d44">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;</a>
+: <a class="el" href="classpr_1_1aabbtree.html#a636e31fb4e5df49ecb48ed38205ce646">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;</a>
+, <a class="el" href="classpr_1_1kctree.html#a8e51d03dfa06ef0e22b37e1bad697d44">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;</a>
 </li>
 </ul>
 
@@ -301,6 +338,12 @@ $(function() {
 <li>size
 : <a class="el" href="structpr_1_1memory__arena_1_1block.html#af470bf363de6e9e9be86f891cfd12c19">pr::memory_arena::block</a>
 </li>
+<li>split_dim_
+: <a class="el" href="classpr_1_1aabbtree_1_1node__type.html#a37c471ff7e47a5d94934c3c2b8920db1">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;::node_type</a>
+</li>
+<li>split_mode_
+: <a class="el" href="classpr_1_1aabbtree.html#abb12344f20680fc0ee28a8ad8009b754">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;</a>
+</li>
 <li>stack_
 : <a class="el" href="classpr_1_1kctree_1_1cell__type.html#adf1f6c18419c25cfde9bcffceeb2d252">pr::kctree&lt; Tfloat, N, Tvalue_data, Tcell_alloc, Ncell_capacity &gt;::cell_type</a>
 </li>
@@ -309,6 +352,9 @@ $(function() {
 </li>
 <li>start_
 : <a class="el" href="classpr_1_1timer.html#ac52730a80d2a4b5d66ac6286b6dae335">pr::timer&lt; T &gt;</a>
+</li>
+<li>stride_
+: <a class="el" href="classpr_1_1dense__iterator.html#a42746bd04ab8c6de838a5fd8f6a098ce">pr::dense_iterator&lt; T &gt;</a>
 </li>
 </ul>
 
@@ -334,6 +380,9 @@ $(function() {
 <h3><a id="index_v"></a>- v -</h3><ul>
 <li>v_
 : <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a33ee356d52371fb71a2c2c7f838c6522">pr::multi&lt; T, M, N... &gt;</a>
+</li>
+<li>value_index
+: <a class="el" href="classpr_1_1aabbtree_1_1proxy__type.html#aa62de290b003699ecabc73fe38f28ff6">pr::aabbtree&lt; Tfloat, N, Tnode_alloc &gt;::proxy_type</a>
 </li>
 </ul>
 
