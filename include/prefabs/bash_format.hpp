@@ -285,11 +285,11 @@ enum class bash_format : int
 
 
 /**
- * @brief Write to `std::basic_ostream`.
+ * @brief Write into `std::basic_ostream`.
  */
-template <typename Char, typename Traits>
-inline std::basic_ostream<Char, Traits>& operator<<(
-       std::basic_ostream<Char, Traits>& os, bash_format fmt)
+template <typename C, typename Ctraits>
+inline std::basic_ostream<C, Ctraits>& operator<<(
+       std::basic_ostream<C, Ctraits>& os, bash_format fmt)
 {
 #if __linux__
     return os << "\e[" << int(fmt) << "m";

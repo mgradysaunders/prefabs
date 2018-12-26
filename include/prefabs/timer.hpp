@@ -47,8 +47,6 @@ namespace pr {
 
 /**
  * @brief Timer.
- *
- * @tparam T Clock type.
  */
 template <typename T>
 class timer
@@ -64,15 +62,13 @@ public:
 
     /**
      * @brief Read.
-     *
-     * @tparam U Ratio type.
      */
-    template <typename U>
+    template <typename R>
     std::int64_t read() const
     {
         return 
             std::chrono::duration_cast<
-            std::chrono::duration<std::int64_t, U>>(
+            std::chrono::duration<std::int64_t, R>>(
                                     T::now() - start_).count();
     }
 

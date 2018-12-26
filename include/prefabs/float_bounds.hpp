@@ -260,15 +260,15 @@ public:
      *
      * Format is `(x,[x0,x1])` or `x`. Sets `std::ios_base::failbit` on error.
      */
-    template <typename Char, typename Traits>
+    template <typename C, typename Ctraits>
     friend
-    inline std::basic_istream<Char, Traits>& operator>>(
-           std::basic_istream<Char, Traits>& is, float_bounds& b)
+    inline std::basic_istream<C, Ctraits>& operator>>(
+           std::basic_istream<C, Ctraits>& is, float_bounds& b)
     {
-        Char ch;
+        C ch;
         if (!(is >> ch) ||
-            !Traits::eq(ch,
-             Traits::to_char_type('('))) {
+            !Ctraits::eq(ch,
+             Ctraits::to_char_type('('))) {
             T x;
             if (!(is >> x)) {
                 is.setstate(std::ios_base::failbit);
@@ -280,36 +280,36 @@ public:
         T x;
         is >> x;
         if (!(is >> ch) ||
-            !Traits::eq(ch,
-             Traits::to_char_type(','))) {
+            !Ctraits::eq(ch,
+             Ctraits::to_char_type(','))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         if (!(is >> ch) ||
-            !Traits::eq(ch,
-             Traits::to_char_type('['))) {
+            !Ctraits::eq(ch,
+             Ctraits::to_char_type('['))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         T x0;
         is >> x0;
         if (!(is >> ch) ||
-            !Traits::eq(ch,
-             Traits::to_char_type(','))) {
+            !Ctraits::eq(ch,
+             Ctraits::to_char_type(','))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         T x1;
         is >> x1;
         if (!(is >> ch) ||
-            !Traits::eq(ch,
-             Traits::to_char_type(']'))) {
+            !Ctraits::eq(ch,
+             Ctraits::to_char_type(']'))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         if (!(is >> ch) ||
-            !Traits::eq(ch,
-             Traits::to_char_type(')'))) {
+            !Ctraits::eq(ch,
+             Ctraits::to_char_type(')'))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
@@ -322,10 +322,10 @@ public:
      *
      * Format is `(x,[x0,x1])`.
      */
-    template <typename Char, typename Traits>
+    template <typename C, typename Ctraits>
     friend
-    inline std::basic_ostream<Char, Traits>& operator<<(
-           std::basic_ostream<Char, Traits>& os, const float_bounds& b)
+    inline std::basic_ostream<C, Ctraits>& operator<<(
+           std::basic_ostream<C, Ctraits>& os, const float_bounds& b)
     {
         os << '(' << b.x_ << ',';
         os << '[' << b.x0_ << ',' << b.x1_ << ']';

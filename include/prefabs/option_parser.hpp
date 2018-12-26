@@ -346,10 +346,10 @@ public:
     /**
      * @brief Write help to `std::basic_ostream`.
      */
-    template <typename Char, typename Traits>
+    template <typename C, typename Ctraits>
     friend
-    inline std::basic_ostream<Char, Traits>& operator<<(
-           std::basic_ostream<Char, Traits>& os, option_parser& opt_parse)
+    inline std::basic_ostream<C, Ctraits>& operator<<(
+           std::basic_ostream<C, Ctraits>& os, option_parser& opt_parse)
     {
         os << "Usage: ";
         os << opt_parse.prog_name_ << ' ';

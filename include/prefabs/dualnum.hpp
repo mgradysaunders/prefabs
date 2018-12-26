@@ -205,12 +205,12 @@ public:
      *
      * Format is `(a,b)`. Sets `std::ios_base::failbit` on error.
      */
-    template <typename Char, typename Traits>
+    template <typename C, typename Ctraits>
     friend
-    inline std::basic_istream<Char, Traits>& operator>>(
-           std::basic_istream<Char, Traits>& is, dualnum& x)
+    inline std::basic_istream<C, Ctraits>& operator>>(
+           std::basic_istream<C, Ctraits>& is, dualnum& x)
     {
-        Char ch;
+        C ch;
         if (!(is >> ch) ||
             !Traits::eq(ch, 
              Traits::to_char_type('('))) {
@@ -239,10 +239,10 @@ public:
      *
      * Format is `(a,b)`.
      */
-    template <typename Char, typename Traits>
+    template <typename C, typename Ctraits>
     friend
-    inline std::basic_ostream<Char, Traits>& operator<<(
-           std::basic_ostream<Char, Traits>& os, const dualnum& x)
+    inline std::basic_ostream<C, Ctraits>& operator<<(
+           std::basic_ostream<C, Ctraits>& os, const dualnum& x)
     {
         os << '(';
         os << x.a_ << ',';
