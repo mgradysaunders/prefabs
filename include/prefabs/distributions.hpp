@@ -28,7 +28,7 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201402L)
-#error "prefabs/distr.hpp requires >=C++14"
+#error "prefabs/distributions.hpp requires >=C++14"
 #endif // #if !(__cplusplus >= 201402L)
 #endif // #if !DOXYGEN
 #pragma once
