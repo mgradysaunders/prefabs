@@ -33,6 +33,9 @@
 // for std::iterator_traits, std::random_access_iterator_tag
 #include <iterator>
 
+// for std::is_base_of
+#include <type_traits>
+
 namespace pr {
 
 /**
