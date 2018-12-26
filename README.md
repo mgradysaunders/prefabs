@@ -2,4 +2,4 @@
 
 _Header-only utilities._
 
-Personal C++14 header-only utilities.
+Personal C++11/14/17 header-only utilities.
