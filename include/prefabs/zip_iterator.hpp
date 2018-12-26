@@ -28,7 +28,7 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201703L)
-#error "prefabs/zip_iterator.hpp requires C++17"
+#error "prefabs/zip_iterator.hpp requires >=C++17"
 #endif // #if !(__cplusplus >= 201703L)
 #endif // #if !DOXYGEN
 #pragma once
