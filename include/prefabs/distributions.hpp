@@ -32,17 +32,17 @@
 #endif // #if !(__cplusplus >= 201402L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFABS_DISTR_HPP
-#define PREFABS_DISTR_HPP
+#ifndef PREFABS_DISTRIBUTIONS_HPP
+#define PREFABS_DISTRIBUTIONS_HPP
 
 #include <prefabs/math.hpp>
 
 namespace pr {
 
 /**
- * @defgroup distr Distributions
+ * @defgroup distributions Distributions
  *
- * `<prefabs/distr.hpp>`
+ * `<prefabs/distributions.hpp>`
  *
  * __C++ version__: >=C++14
  */
@@ -452,4 +452,4 @@ struct lognormal_distribution : normal_distribution<T>
 
 } // namespace pr
 
-#endif // #ifndef PREFABS_DISTR_HPP
+#endif // #ifndef PREFABS_DISTRIBUTIONS_HPP
