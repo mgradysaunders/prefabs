@@ -109,7 +109,7 @@ public:
     /**
      * @brief Pre-increment.
      */
-    constexpr dense_iterator& operator++() noexcept
+    constexpr dense_iterator& operator++()
     {
         pos_ += stride_; return *this;
     }
@@ -117,7 +117,7 @@ public:
     /**
      * @brief Pre-decrement.
      */
-    constexpr dense_iterator& operator--() noexcept
+    constexpr dense_iterator& operator--()
     {
         pos_ -= stride_; return *this;
     }
@@ -125,7 +125,7 @@ public:
     /**
      * @brief Post-increment.
      */
-    constexpr dense_iterator operator++(int) noexcept
+    constexpr dense_iterator operator++(int)
     {
         dense_iterator res = *this; operator++(); return res;
     }
@@ -133,7 +133,7 @@ public:
     /**
      * @brief Post-decrement.
      */
-    constexpr dense_iterator operator--(int) noexcept
+    constexpr dense_iterator operator--(int)
     {
         dense_iterator res = *this; operator--(); return res;
     }
@@ -141,7 +141,7 @@ public:
     /**
      * @brief Dereference.
      */
-    constexpr reference operator*() noexcept
+    constexpr reference operator*()
     {
         return *pos_;
     }
@@ -149,7 +149,7 @@ public:
     /**
      * @brief Pointer access.
      */
-    constexpr pointer operator->() noexcept
+    constexpr pointer operator->()
     {
         return pos_;
     }
@@ -157,7 +157,7 @@ public:
     /**
      * @brief Arbitrary access.
      */
-    constexpr reference operator[](difference_type n) noexcept
+    constexpr reference operator[](difference_type n)
     {
         return *(pos_ + stride_ * n);
     }
@@ -165,7 +165,7 @@ public:
     /**
      * @brief Arbitrary increment.
      */
-    constexpr dense_iterator& operator+=(difference_type n) noexcept
+    constexpr dense_iterator& operator+=(difference_type n)
     {
         pos_ += stride_ * n; return *this;
     }
@@ -173,7 +173,7 @@ public:
     /**
      * @brief Arbitrary increment.
      */
-    constexpr dense_iterator operator+(difference_type n) const noexcept
+    constexpr dense_iterator operator+(difference_type n) const
     {
         return {pos_ + stride_ * n, stride_};
     }
@@ -183,15 +183,15 @@ public:
      */
     friend
     constexpr dense_iterator operator+(difference_type n, 
-              dense_iterator it) noexcept
+              dense_iterator itr)
     {
-        return it + n;
+        return itr + n;
     }
 
     /**
      * @brief Arbitrary decrement.
      */
-    constexpr dense_iterator& operator-=(difference_type n) noexcept
+    constexpr dense_iterator& operator-=(difference_type n)
     {
         pos_ -= stride_ * n; return *this;
     }
@@ -199,7 +199,7 @@ public:
     /**
      * @brief Arbitrary decrement.
      */
-    constexpr dense_iterator operator-(difference_type n) const noexcept
+    constexpr dense_iterator operator-(difference_type n) const
     {
         return {pos_ - stride_ * n, stride_};
     }
@@ -207,7 +207,7 @@ public:
     /**
      * @brief Distance.
      */
-    constexpr difference_type operator-(dense_iterator other) const noexcept
+    constexpr difference_type operator-(dense_iterator other) const
     {
         return (pos_ - other.pos_) / other.stride_;
     }
@@ -215,25 +215,25 @@ public:
 public:
 
     /**
-     * @brief Wrap pointer `operator==`.
+     * @brief Compare equal.
      */
-    constexpr bool operator==(dense_iterator other) const noexcept
+    constexpr bool operator==(dense_iterator other) const
     {
         return pos_ == other.pos_;
     }
 
     /**
-     * @brief Wrap pointer `operator!=`.
+     * @brief Compare not equal.
      */
-    constexpr bool operator!=(dense_iterator other) const noexcept
+    constexpr bool operator!=(dense_iterator other) const
     {
         return pos_ != other.pos_;
     }
 
     /**
-     * @brief Wrap pointer `operator<`.
+     * @brief Compare less.
      */
-    constexpr bool operator<(dense_iterator other) const noexcept 
+    constexpr bool operator<(dense_iterator other) const
     {
         if (stride_ > 0) {
             return pos_ < other.pos_;
@@ -244,9 +244,9 @@ public:
     }
 
     /**
-     * @brief Wrap pointer `operator>`.
+     * @brief Compare greater.
      */
-    constexpr bool operator>(dense_iterator other) const noexcept
+    constexpr bool operator>(dense_iterator other) const
     {
         if (stride_ > 0) {
             return pos_ > other.pos_;
@@ -257,9 +257,9 @@ public:
     }
 
     /**
-     * @brief Wrap pointer `operator<=`.
+     * @brief Compare less equal. 
      */
-    constexpr bool operator<=(dense_iterator other) const noexcept
+    constexpr bool operator<=(dense_iterator other) const
     {
         if (stride_ > 0) {
             return pos_ <= other.pos_;
@@ -270,9 +270,9 @@ public:
     }
 
     /**
-     * @brief Wrap pointer `operator>=`.
+     * @brief Compare greater equal. 
      */
-    constexpr bool operator>=(dense_iterator other) const noexcept
+    constexpr bool operator>=(dense_iterator other) const
     {
         if (stride_ > 0) {
             return pos_ >= other.pos_;
