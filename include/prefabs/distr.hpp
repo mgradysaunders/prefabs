@@ -44,10 +44,10 @@ namespace pr {
 /**
  * @brief Generate canonical random number.
  */
-template <typename T, typename Tgen>
+template <typename T, typename G>
 inline std::enable_if_t<
                 std::is_floating_point<T>::value, T> 
-                        generate_canonical(Tgen& gen) 
+                        generate_canonical(G& gen) 
 {
     long double r = 
                 static_cast<long double>(gen.max()) - 
@@ -153,8 +153,8 @@ struct uniform_distribution
     /**
      * @brief Generate number.
      */
-    template <typename Tgen> 
-    T operator()(Tgen& gen) const
+    template <typename G> 
+    T operator()(G& gen) const
     {
         return cdfinv(pr::generate_canonical<T>(gen));
     }
@@ -242,8 +242,8 @@ struct exponential_distribution
     /**
      * @brief Generate number.
      */
-    template <typename Tgen> 
-    T operator()(Tgen& gen) const
+    template <typename G> 
+    T operator()(G& gen) const
     {
         return cdfinv(pr::generate_canonical<T>(gen));
     }
@@ -364,8 +364,8 @@ struct normal_distribution
     /**
      * @brief Generate number.
      */
-    template <typename Tgen> 
-    T operator()(Tgen& gen) const
+    template <typename G> 
+    T operator()(G& gen) const
     {
         return cdfinv(pr::generate_canonical<T>(gen));
     }
@@ -430,8 +430,8 @@ struct lognormal_distribution : normal_distribution<T>
     /**
      * @brief Generate number.
      */
-    template <typename Tgen> 
-    T operator()(Tgen& gen) const
+    template <typename G> 
+    T operator()(G& gen) const
     {
         return cdfinv(pr::generate_canonical<T>(gen));
     }
