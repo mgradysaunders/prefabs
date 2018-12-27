@@ -54,9 +54,36 @@ namespace pr {
 
 /**@}*/
 
+} // namespace pr
+
 #if !DOXYGEN
 #include "multi_math.inl"
 #endif // #if !DOXYGEN
+
+namespace pr {
+
+/**
+ * @addtogroup multi_math
+ */
+/**@{*/
+
+/**
+ * @brief Dot product.
+ */
+template <typename T, typename U, std::size_t N>
+constexpr decltype(T() * U()) dot(
+                        const multi<T, N>& arr0,
+                        const multi<T, N>& arr1)
+{
+    auto itrarr0 = arr0.begin();
+    auto itrarr1 = arr1.begin();
+    decltype(T() * U()) res = *itrarr0 * *itrarr1;
+    ++itrarr0;
+    ++itrarr1;
+    for (; itrarr1 < arr1.end(); ++itrarr0, ++itrarr1) {
+        res += *itrarr0 * *itrarr1;
+    }
+}
 
 // TODO dot
 // TODO kron
@@ -69,6 +96,8 @@ namespace pr {
 // TODO trace
 // TODO transpose
 // TODO adjoint
+
+/**@}*/
 
 } // namespace pr
 

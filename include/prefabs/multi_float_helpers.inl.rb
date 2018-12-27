@@ -8,6 +8,8 @@ funcs = [
 ]
 
 puts <<STR
+namespace pr {
+
 /**
  * @addtogroup multi_float_helpers
  */
@@ -100,5 +102,7 @@ STR
 
 puts <<STR
 /**@}*/
+
+} // namespace pr
 
 STR

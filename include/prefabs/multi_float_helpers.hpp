@@ -52,10 +52,10 @@ namespace pr {
 
 /**@}*/
 
+} // namespace pr
+
 #if !DOXYGEN
 #include "multi_float_helpers.inl"
 #endif // #if !DOXYGEN
-
-} // namespace pr
 
 #endif // #ifndef PREFABS_MULTI_FLOAT_HELPERS_HPP

@@ -214,22 +214,22 @@ public:
     {
         C ch;
         if (!(is >> ch) ||
-            !Traits::eq(ch, 
-             Traits::to_char_type('('))) {
+            !Ctraits::eq(ch, 
+             Ctraits::to_char_type('('))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         is >> x.a_;
         if (!(is >> ch) ||
-            !Traits::eq(ch, 
-             Traits::to_char_type(','))) {
+            !Ctraits::eq(ch, 
+             Ctraits::to_char_type(','))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         is >> x.b_;
         if (!(is >> ch) ||
-            !Traits::eq(ch, 
-             Traits::to_char_type(')'))) {
+            !Ctraits::eq(ch, 
+             Ctraits::to_char_type(')'))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
@@ -707,8 +707,10 @@ constexpr auto norm(const dualnum<T>& x)
 
 /**@}*/
 
-#include "dualnum.inl"
-
 } // namespace pr
+
+#if !DOXYGEN
+#include "dualnum.inl"
+#endif // #if !DOXYGEN
 
 #endif // #ifndef PREFABS_DUALNUM_HPP

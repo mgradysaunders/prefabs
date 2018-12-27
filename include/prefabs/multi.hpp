@@ -963,10 +963,10 @@ constexpr std::size_t multitoindex(const multi<bool, N>& arr)
 
 /**@}*/
 
+} // namespace pr
+
 #if !DOXYGEN
 #include "multi.inl"
 #endif // #if !DOXYGEN
-
-} // namespace pr
 
 #endif // #ifndef PREFABS_MULTI_HPP

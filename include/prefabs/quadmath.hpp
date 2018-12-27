@@ -318,8 +318,10 @@ struct numeric_constants<__complex128> : numeric_constants<__float128>
 
 /**@}*/
 
-#include "quadmath.inl"
-
 } // namespace pr
+
+#if !DOXYGEN
+#include "quadmath.inl"
+#endif // #if !DOXYGEN
 
 #endif // #ifndef PREFABS_QUADMATH_HPP

@@ -1,3 +1,5 @@
+namespace pr {
+
 /**
  * @addtogroup multi_math
  */
@@ -1329,4 +1331,6 @@ inline multi<std::decay_t<decltype(pr::acoth(T()))>, N...> acoth(const multi<T, 
 /**@}*/
 
 /**@}*/
+
+} // namespace pr
 

@@ -1,3 +1,5 @@
+namespace pr {
+
 /**
  * @addtogroup quadmath
  */
@@ -979,4 +981,6 @@ inline std::enable_if_t<
 /**@}*/
 
 /**@}*/
+
+} // namespace pr
 

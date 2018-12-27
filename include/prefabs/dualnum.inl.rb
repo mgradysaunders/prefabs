@@ -25,6 +25,8 @@ funcs = [
 ]
 
 puts <<STR
+namespace pr {
+
 /**
  * @addtogroup dualnum
  */
@@ -137,5 +139,7 @@ STR
 
 puts <<STR
 /**@}*/
+
+} // namespace pr
 
 STR

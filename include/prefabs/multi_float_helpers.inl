@@ -1,3 +1,5 @@
+namespace pr {
+
 /**
  * @addtogroup multi_float_helpers
  */
@@ -132,4 +134,6 @@ inline multi<std::decay_t<decltype(pr::fstretch<U>(T()))>, N...> fstretch(const 
 /**@}*/
 
 /**@}*/
+
+} // namespace pr
 

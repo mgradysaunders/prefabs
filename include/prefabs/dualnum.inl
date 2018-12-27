@@ -1,3 +1,5 @@
+namespace pr {
+
 /**
  * @addtogroup dualnum
  */
@@ -442,4 +444,6 @@ inline dualnum<T> acoth(const dualnum<T>& x)
 /**@}*/
 
 /**@}*/
+
+} // namespace pr
 

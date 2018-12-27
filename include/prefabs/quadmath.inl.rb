@@ -82,6 +82,8 @@ def get_quadname funcname, category
 end
 
 puts <<STR
+namespace pr {
+
 /**
  * @addtogroup quadmath
  */
@@ -250,5 +252,7 @@ STR
 
 puts <<STR
 /**@}*/
+
+} // namespace pr
 
 STR

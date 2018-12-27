@@ -1,3 +1,5 @@
+namespace pr {
+
 /**
  * @addtogroup multi
  */
@@ -1439,4 +1441,6 @@ constexpr std::enable_if_t<!is_multi<T>::value,
 /**@}*/
 
 /**@}*/
+
+} // namespace pr
 
