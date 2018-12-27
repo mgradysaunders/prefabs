@@ -1,3 +1,5 @@
+namespace pr {
+
 /**
  * @addtogroup math
  */
@@ -788,4 +790,6 @@ inline auto acoth(T x) -> decltype(pr::atanh(x))
 /**@}*/
 
 /**@}*/
+
+} // namespace pr
 

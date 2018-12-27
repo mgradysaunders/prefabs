@@ -67,6 +67,8 @@ funcs = [
 ]
 
 puts <<STR
+namespace pr {
+
 /**
  * @addtogroup math
  */
@@ -174,5 +176,7 @@ STR
 
 puts <<STR
 /**@}*/
+
+} // namespace pr
 
 STR

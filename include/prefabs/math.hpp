@@ -305,10 +305,10 @@ constexpr T nthpow(T x, int n)
 
 /**@}*/
 
+} // namespace pr
+
 #if !DOXYGEN
 #include "math.inl"
 #endif // #if !DOXYGEN
-
-} // namespace pr
 
 #endif // #ifndef PREFABS_MATH_HPP
