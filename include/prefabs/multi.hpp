@@ -72,35 +72,23 @@ namespace pr {
 template <typename, std::size_t...> 
 struct multi;
 
-/**
- * @brief Multi value type helper.
- */
 template <typename T, std::size_t... N>
 struct multi_value_type
 {
     using type = multi<T, N...>;
 };
 
-/**
- * @brief Multi value type helper, base case.
- */
 template <typename T>
 struct multi_value_type<T>
 {
     using type = T;
 };
 
-/**
- * @brief Multi type trait.
- */
 template <typename T>
 struct is_multi : std::false_type
 {
 };
 
-/**
- * @brief Multi type trait, truth case.
- */
 template <typename T, std::size_t... N>
 struct is_multi<multi<T, N...>> : std::true_type
 {
@@ -112,7 +100,7 @@ struct is_multi<multi<T, N...>> : std::true_type
  * @brief Multi-dimensional array.
  */
 template <typename T, std::size_t M, std::size_t... N>
-struct multi<T, M, N...>
+struct __attribute__((packed)) multi<T, M, N...>
 {
 public:
 
@@ -194,7 +182,7 @@ public:
     template <typename U>
     struct rebind 
     {
-        using type = multi<U, M, N...>;
+        typedef multi<U, M, N...> other;
     };
 
     /**@}*/
