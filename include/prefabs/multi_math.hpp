@@ -143,9 +143,81 @@ constexpr multi<decltype(T() * U()), M, P> dot(
     return res;
 }
 
-// TODO kron
-// TODO outer
-// TODO cross
+/**
+ * @brief Outer product.
+ */
+template <
+    typename T, 
+    typename U, 
+    std::size_t M, 
+    std::size_t P
+    >
+constexpr multi<decltype(T() * U()), M, P> outer(
+                        const multi<T, M>& arr0,
+                        const multi<U, P>& arr1)
+{
+    multi<decltype(T() * U()), M, P> res;
+    for (std::size_t i = 0; i < M; i++)
+    for (std::size_t j = 0; j < P; j++) {
+        res[i][j] = arr0[i] * arr1[j];
+    }
+    return res;
+}
+
+/**
+ * @brief 2-dimensional cross product.
+ */
+template <
+    typename T,
+    typename U
+    >
+constexpr decltype(T() * U()) cross(
+                        const multi<T, 2>& arr0,
+                        const multi<U, 2>& arr1)
+{
+    return arr0[0] * arr1[1] - arr0[1] * arr1[0];
+}
+
+/**
+ * @brief 3-dimensional cross product.
+ */
+template <
+    typename T,
+    typename U
+    >
+constexpr multi<decltype(T() * U()), 3> cross(
+                        const multi<T, 3>& arr0,
+                        const multi<U, 3>& arr1)
+{
+    return {{
+        arr0[1] * arr1[2] - arr0[2] * arr1[1],
+        arr0[2] * arr1[0] - arr0[0] * arr1[2],
+        arr0[0] * arr1[1] - arr0[1] * arr1[0]
+    }};
+}
+
+/**
+ * @brief Kronecker product.
+ */
+template <
+    typename T,
+    typename U,
+    std::size_t M, std::size_t N,
+    std::size_t P, std::size_t Q
+    >
+constexpr multi<decltype(T() * U()), M * P, N * Q> kron(
+                        const multi<T, M, N>& arr0,
+                        const multi<T, P, Q>& arr1)
+{
+    multi<decltype(T() * U()), M * P, N * Q> res;
+    for (std::size_t i = 0; i < M * P; i++)
+    for (std::size_t j = 0; j < N * Q; j++) {
+        res[i][j] = arr0[i / P][j / Q] *
+                    arr1[i % P][j % Q];
+    }
+    return res;
+}
+
 // TODO reflect
 // TODO refract
 // TODO length
