@@ -63,7 +63,9 @@ namespace pr {
 namespace pr {
 
 /**
- * @addtogroup multi_math
+ * @defgroup multi_math_geometry Multi-dimensional array (math, geometry)
+ * 
+ * `<prefabs/multi_math.hpp>`
  */
 /**@{*/
 
@@ -366,7 +368,8 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
  * @brief Normalize.
  *
  * @f[
- *      \mathbf{x} / \lVert\mathbf{x}\rVert
+ *      \mathbf{x} / 
+ *      \lVert\mathbf{x}\rVert
  * @f]
  */
 template <typename T, std::size_t N>
