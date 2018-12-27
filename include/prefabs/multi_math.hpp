@@ -69,6 +69,10 @@ namespace pr {
 
 /**
  * @brief Dot product.
+ *
+ * @f[
+ *      \sum_k x_{0[k]} x_{1[k]}
+ * @f]
  */
 template <typename T, typename U, std::size_t N>
 constexpr decltype(T() * U()) dot(
@@ -80,6 +84,10 @@ constexpr decltype(T() * U()) dot(
 
 /**
  * @brief Dot product.
+ *
+ * @f[
+ *      \sum_k x_{0[i,k]} x_{1[k]}
+ * @f]
  */
 template <
     typename T, 
@@ -101,6 +109,10 @@ constexpr multi<decltype(T() * U()), M> dot(
 
 /**
  * @brief Dot product.
+ *
+ * @f[
+ *      \sum_k x_{0[k]} x_{1[k,j]}
+ * @f]
  */
 template <
     typename T, 
@@ -122,6 +134,10 @@ constexpr multi<decltype(T() * U()), P> dot(
 
 /**
  * @brief Dot product.
+ *
+ * @f[
+ *      \sum_k x_{0[i,k]} x_{1[k,j]}
+ * @f]
  */
 template <
     typename T, 
@@ -145,6 +161,10 @@ constexpr multi<decltype(T() * U()), M, P> dot(
 
 /**
  * @brief Outer product.
+ *
+ * @f[
+ *      x_{0[i]} x_{1[j]}
+ * @f]
  */
 template <
     typename T, 
@@ -166,6 +186,26 @@ constexpr multi<decltype(T() * U()), M, P> outer(
 
 /**
  * @brief 2-dimensional cross product.
+ *
+ * @f[
+ *      \sum_j \varepsilon_{[i,j]} x_{[j]}
+ * @f]
+ */
+template <
+    typename T,
+    typename U
+    >
+constexpr multi<T, 2> cross(const multi<T, 2>& arr)
+{
+    return {{arr[1], -arr[0]}};
+}
+
+/**
+ * @brief 2-dimensional cross product.
+ *
+ * @f[
+ *      \sum_{i,j} \varepsilon_{[i,j]} x_{0[i]} x_{1[j]}
+ * @f]
  */
 template <
     typename T,
@@ -175,20 +215,39 @@ constexpr decltype(T() * U()) cross(
                         const multi<T, 2>& arr0,
                         const multi<U, 2>& arr1)
 {
-    return arr0[0] * arr1[1] - arr0[1] * arr1[0];
+    return dot(arr0, cross(arr1));
 }
 
 /**
  * @brief 3-dimensional cross product.
+ *
+ * @f[
+ *      \sum_k \varepsilon_{[i,j,k]} x_{[k]}
+ * @f]
  */
-template <
-    typename T,
-    typename U
-    >
+template <typename T>
+constexpr multi<T, 3, 3> cross(const multi<T, 3>& arr)
+{
+    return {{
+        {{T(), -arr[2], +arr[1]}},
+        {{+arr[2], T(), -arr[0]}},
+        {{-arr[1], +arr[0], T()}}
+    }};
+}
+
+/**
+ * @brief 3-dimensional cross product.
+ *
+ * @f[
+ *      \sum_{j,k} \varepsilon_{[i,j,k]} x_{0[j]} x_{1[k]}
+ * @f]
+ */
+template <typename T, typename U>
 constexpr multi<decltype(T() * U()), 3> cross(
                         const multi<T, 3>& arr0,
                         const multi<U, 3>& arr1)
 {
+//  return dot(arr0, cross(arr1));
     return {{
         arr0[1] * arr1[2] - arr0[2] * arr1[1],
         arr0[2] * arr1[0] - arr0[0] * arr1[2],
@@ -197,7 +256,27 @@ constexpr multi<decltype(T() * U()), 3> cross(
 }
 
 /**
+ * @brief 3-dimensional cross product.
+ *
+ * @f[
+ *      \sum_{i,j,k} \varepsilon_{[i,j,k]} x_{0[i]} x_{1[j]} x_{2[k]}
+ * @f]
+ */
+template <typename T, typename U, typename V>
+constexpr decltype(T() * U() * V()) cross(
+                        const multi<T, 3>& arr0,
+                        const multi<U, 3>& arr1,
+                        const multi<V, 3>& arr2)
+{
+    return dot(arr0, cross(arr1, arr2));
+}
+
+/**
  * @brief Kronecker product.
+ *
+ * @f[
+ *      x_{0[i/P,j/Q]} x_{1[i\%P,j\%Q]}
+ * @f]
  */
 template <
     typename T,
@@ -205,7 +284,8 @@ template <
     std::size_t M, std::size_t N,
     std::size_t P, std::size_t Q
     >
-constexpr multi<decltype(T() * U()), M * P, N * Q> kron(
+constexpr multi<decltype(T() * U()), 
+                M * P, N * Q> kron(
                         const multi<T, M, N>& arr0,
                         const multi<T, P, Q>& arr1)
 {
@@ -218,10 +298,98 @@ constexpr multi<decltype(T() * U()), M * P, N * Q> kron(
     return res;
 }
 
-// TODO reflect
+/**
+ * @brief Reflect.
+ *
+ * @f[
+ *      2 (\mathbf{x}_0 \cdot \mathbf{x}_1) \mathbf{x}_1 - \mathbf{x}_0
+ * @f]
+ */
+template <typename T, typename U, std::size_t N>
+constexpr multi<decltype(T() * U()), N> reflect(
+                        const multi<T, N>& arr0,
+                        const multi<U, N>& arr1)
+{
+    decltype(T() * U()) fac = 
+    decltype(T() * U())(2) * dot(arr0, arr1);
+    return fac * arr1 - arr0;
+}
+
 // TODO refract
-// TODO length
-// TODO normalize
+
+/**
+ * @brief Length.
+ *
+ * @f[
+ *      \sqrt{\sum_k |x_{[k]}|^2}
+ * @f]
+ */
+template <typename T, std::size_t N>
+inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
+{
+    if constexpr (N == 1) {
+        // Delegate.
+        return pr::abs(arr[0]);
+    }
+    else if constexpr (N == 2) {
+        // Delegate.
+        return pr::hypot(
+                    pr::abs(arr[0]), 
+                    pr::abs(arr[1]));
+    }
+    else {
+
+        // Deduce floating point type.
+        typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
+
+        // Reduce to floating point absolutes values.
+        multi<float_type, N> tmp = 
+        multi<float_type, N>(pr::abs(arr));
+
+        // Factor out greatest absolute value.
+        float_type fac = tmp[tmp.argmax()];
+        if (fac >= pr::numeric_limits<float_type>::min_invertible()) {
+            tmp *= float_type(1) / fac;
+        }
+        else {
+            tmp /= fac; // Inverse overflows.
+        }
+
+        // Length.
+        float_type len = pr::sqrt(pr::dot(tmp, tmp));
+        len *= fac;
+        return len;
+    }
+}
+
+/**
+ * @brief Normalize.
+ *
+ * @f[
+ *      \mathbf{x} / \lVert\mathbf{x}\rVert
+ * @f]
+ */
+template <typename T, std::size_t N>
+inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N> 
+                                    normalize(const multi<T, N>& arr)
+{
+    // Deduce floating point type.
+    typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
+
+    // Normalize.
+    multi<decltype(T()/pr::sqrt(pr::abs(T()))), N> res =
+    multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>(arr);
+    float_type len = length(res);
+    if (len >= pr::numeric_limits<float_type>::min_invertible()) {
+        res *= float_type(1) / len;
+    }
+    else if (len != 0) {
+        res /= len; // Inverse overflows.
+    }
+
+    return res;
+}
+
 // TODO trace
 // TODO transpose
 // TODO adjoint
