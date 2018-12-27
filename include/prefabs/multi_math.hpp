@@ -73,19 +73,76 @@ namespace pr {
 template <typename T, typename U, std::size_t N>
 constexpr decltype(T() * U()) dot(
                         const multi<T, N>& arr0,
-                        const multi<T, N>& arr1)
+                        const multi<U, N>& arr1)
 {
-    auto itrarr0 = arr0.begin();
-    auto itrarr1 = arr1.begin();
-    decltype(T() * U()) res = *itrarr0 * *itrarr1;
-    ++itrarr0;
-    ++itrarr1;
-    for (; itrarr1 < arr1.end(); ++itrarr0, ++itrarr1) {
-        res += *itrarr0 * *itrarr1;
-    }
+    return (arr0 * arr1).sum();
 }
 
-// TODO dot
+/**
+ * @brief Dot product.
+ */
+template <
+    typename T, 
+    typename U, 
+    std::size_t M, 
+    std::size_t N
+    >
+constexpr multi<decltype(T() * U()), M> dot(
+                        const multi<T, M, N>& arr0,
+                        const multi<U, N>& arr1)
+{
+    multi<decltype(T() * U()), M> res;
+    for (std::size_t i = 0; i < M; i++)
+    for (std::size_t k = 0; k < N; k++) {
+        res[i] += arr0[i][k] * arr1[k];
+    }
+    return res;
+}
+
+/**
+ * @brief Dot product.
+ */
+template <
+    typename T, 
+    typename U, 
+    std::size_t N, 
+    std::size_t P
+    >
+constexpr multi<decltype(T() * U()), P> dot(
+                        const multi<T, N>& arr0,
+                        const multi<U, N, P>& arr1)
+{
+    multi<decltype(T() * U()), P> res;
+    for (std::size_t j = 0; j < P; j++)
+    for (std::size_t k = 0; k < N; k++) {
+        res[j] += arr0[k] * arr1[k][j];
+    }
+    return res;
+}
+
+/**
+ * @brief Dot product.
+ */
+template <
+    typename T, 
+    typename U, 
+    std::size_t M, 
+    std::size_t N, 
+    std::size_t P
+    >
+constexpr multi<decltype(T() * U()), M, P> dot(
+                        const multi<T, M, N>& arr0,
+                        const multi<U, N, P>& arr1)
+{
+    multi<decltype(T() * U()), M, P> res;
+    for (std::size_t i = 0; i < M; i++)
+    for (std::size_t j = 0; j < P; j++)
+    for (std::size_t k = 0; k < N; k++) {
+        res[i][j] += arr0[i][k] * arr1[k][j];
+    }
+    return res;
+}
+
 // TODO kron
 // TODO outer
 // TODO cross
