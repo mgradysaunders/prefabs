@@ -84,12 +84,18 @@ Inheritance diagram for pr::numeric_limits&lt; T &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:abc7de6892dd7362e619054a0571c9ac2"><td class="memItemLeft" align="right" valign="top">static constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits.html#abc7de6892dd7362e619054a0571c9ac2">machine_epsilon</a> () noexcept</td></tr>
-<tr class="memdesc:abc7de6892dd7362e619054a0571c9ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">For floating point types, machine epsilon.  <a href="#abc7de6892dd7362e619054a0571c9ac2">More...</a><br /></td></tr>
-<tr class="separator:abc7de6892dd7362e619054a0571c9ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef99f4f2533212ab02476d6a80c2cdf3"><td class="memItemLeft" align="right" valign="top">static constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits.html#aef99f4f2533212ab02476d6a80c2cdf3">echelon</a> (unsigned n) noexcept</td></tr>
-<tr class="memdesc:aef99f4f2533212ab02476d6a80c2cdf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">For floating point types, echelon.  <a href="#aef99f4f2533212ab02476d6a80c2cdf3">More...</a><br /></td></tr>
-<tr class="separator:aef99f4f2533212ab02476d6a80c2cdf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73435e2e07751d03c2db771fbc110efd"><td class="memTemplParams" colspan="2">template&lt;bool B = numeric_limits::has_denorm == std::denorm_present&gt; </td></tr>
+<tr class="memitem:a73435e2e07751d03c2db771fbc110efd"><td class="memTemplItemLeft" align="right" valign="top">static constexpr std::enable_if_t&lt; B, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits.html#a73435e2e07751d03c2db771fbc110efd">min_invertible</a> () noexcept</td></tr>
+<tr class="memdesc:a73435e2e07751d03c2db771fbc110efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">For floating point types, minimum invertible value.  <a href="#a73435e2e07751d03c2db771fbc110efd">More...</a><br /></td></tr>
+<tr class="separator:a73435e2e07751d03c2db771fbc110efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f06c9103de421cf6559ab0abbcf17f1"><td class="memTemplParams" colspan="2">template&lt;bool B = !numeric_limits::is_exact&gt; </td></tr>
+<tr class="memitem:a3f06c9103de421cf6559ab0abbcf17f1"><td class="memTemplItemLeft" align="right" valign="top">static constexpr std::enable_if_t&lt; B, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits.html#a3f06c9103de421cf6559ab0abbcf17f1">machine_epsilon</a> () noexcept</td></tr>
+<tr class="memdesc:a3f06c9103de421cf6559ab0abbcf17f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">For floating point types, machine epsilon.  <a href="#a3f06c9103de421cf6559ab0abbcf17f1">More...</a><br /></td></tr>
+<tr class="separator:a3f06c9103de421cf6559ab0abbcf17f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fba5b28c38b88f66cde85f25a4e17db"><td class="memTemplParams" colspan="2">template&lt;bool B = !numeric_limits::is_exact&gt; </td></tr>
+<tr class="memitem:a5fba5b28c38b88f66cde85f25a4e17db"><td class="memTemplItemLeft" align="right" valign="top">static constexpr std::enable_if_t&lt; B, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__limits.html#a5fba5b28c38b88f66cde85f25a4e17db">echelon</a> (unsigned n) noexcept</td></tr>
+<tr class="memdesc:a5fba5b28c38b88f66cde85f25a4e17db"><td class="mdescLeft">&#160;</td><td class="mdescRight">For floating point types, echelon.  <a href="#a5fba5b28c38b88f66cde85f25a4e17db">More...</a><br /></td></tr>
+<tr class="separator:a5fba5b28c38b88f66cde85f25a4e17db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
@@ -97,19 +103,54 @@ struct pr::numeric_limits&lt; T &gt;</h3>
 
 <p>Wrap <code>std::numeric_limits</code>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="abc7de6892dd7362e619054a0571c9ac2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc7de6892dd7362e619054a0571c9ac2">&#9670;&nbsp;</a></span>machine_epsilon()</h2>
+<a id="a73435e2e07751d03c2db771fbc110efd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73435e2e07751d03c2db771fbc110efd">&#9670;&nbsp;</a></span>min_invertible()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;bool B = numeric_limits::has_denorm == std::denorm_present&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static constexpr T <a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits</a>&lt; T &gt;::machine_epsilon </td>
+          <td class="memname">static constexpr std::enable_if_t&lt;B, T&gt; <a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits</a>&lt; T &gt;::min_invertible </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>For floating point types, minimum invertible value. </p>
+<p>The minimum invertible value \( \varepsilon_{\text{inv}} \) is the minimum positive floating point value satisfying \( 1 \oslash x &lt; \infty \).</p>
+<p>For IEEE floating point types (and possibly others?), \( \varepsilon_{\text{inv}} = \varepsilon_{\text{min}} / 4 + \Delta_{\text{denormal}} \) where \( \varepsilon_{\text{min}} \) is the minimum positive normal value and \( \Delta_{\text{denormal}} \) is the denormal spacing. </p>
+
+</div>
+</div>
+<a id="a3f06c9103de421cf6559ab0abbcf17f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f06c9103de421cf6559ab0abbcf17f1">&#9670;&nbsp;</a></span>machine_epsilon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;bool B = !numeric_limits::is_exact&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static constexpr std::enable_if_t&lt;B, T&gt; <a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits</a>&lt; T &gt;::machine_epsilon </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -123,22 +164,26 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>For floating point types, machine epsilon. </p>
+<p>Machine epsilon \( \varepsilon_{\mathrm{m}} \), also known as unit roundoff, is the maximum representable value satisfying \( 1 \oplus x = 1 \).</p>
+<p>For IEEE floating point types (and possibly others?), \( \varepsilon_{\text{m}} = \varepsilon_{\text{std}} / 2 \) where \( \varepsilon_{\text{std}} \) is standard epsilon, the difference between 1 and the next representable value. </p>
 
 </div>
 </div>
-<a id="aef99f4f2533212ab02476d6a80c2cdf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef99f4f2533212ab02476d6a80c2cdf3">&#9670;&nbsp;</a></span>echelon()</h2>
+<a id="a5fba5b28c38b88f66cde85f25a4e17db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fba5b28c38b88f66cde85f25a4e17db">&#9670;&nbsp;</a></span>echelon()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;bool B = !numeric_limits::is_exact&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static constexpr T <a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits</a>&lt; T &gt;::echelon </td>
+          <td class="memname">static constexpr std::enable_if_t&lt;B, T&gt; <a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits</a>&lt; T &gt;::echelon </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
