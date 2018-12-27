@@ -100,7 +100,7 @@ struct is_multi<multi<T, N...>> : std::true_type
  * @brief Multi-dimensional array.
  */
 template <typename T, std::size_t M, std::size_t... N>
-struct __attribute__((packed)) multi<T, M, N...>
+struct multi<T, M, N...>
 {
 public:
 
