@@ -62,9 +62,45 @@ template <typename T>
 struct numeric_limits : std::numeric_limits<T>
 {
     /**
-     * @brief For floating point types, machine epsilon.
+     * @brief For floating point types, minimum invertible value.
+     *
+     * The minimum invertible value @f$ \varepsilon_{\text{inv}} @f$ is
+     * the minimum positive floating point value satisfying 
+     * @f$ 1 \oslash x < \infty @f$.
+     *
+     * For IEEE floating point types (and possibly others?),  
+     * @f$ \varepsilon_{\text{inv}} =
+     *     \varepsilon_{\text{min}} / 4 + \Delta_{\text{denormal}} @f$
+     * where @f$ \varepsilon_{\text{min}} @f$ is the minimum 
+     * positive normal value and @f$ \Delta_{\text{denormal}} @f$ is 
+     * the denormal spacing.
      */
-    static constexpr T machine_epsilon() noexcept
+    template <
+        bool B = 
+            numeric_limits::has_denorm ==
+            std::denorm_present
+        >
+    static constexpr std::enable_if_t<B, T> min_invertible() noexcept
+    {
+        return numeric_limits::min() / 4 + 
+               numeric_limits::denorm_min();
+    }
+
+    /**
+     * @brief For floating point types, machine epsilon.
+     *
+     * Machine epsilon @f$ \varepsilon_{\mathrm{m}} @f$, also known 
+     * as unit roundoff, is the maximum representable value satisfying 
+     * @f$ 1 \oplus x = 1 @f$.
+     *
+     * For IEEE floating point types (and possibly others?),
+     * @f$ \varepsilon_{\text{m}} =
+     *     \varepsilon_{\text{std}} / 2 @f$
+     * where @f$ \varepsilon_{\text{std}} @f$ is standard epsilon, the
+     * difference between 1 and the next representable value.
+     */
+    template <bool B = !numeric_limits::is_exact>
+    static constexpr std::enable_if_t<B, T> machine_epsilon() noexcept
     {
         return numeric_limits::epsilon() / 2;
     }
@@ -72,7 +108,8 @@ struct numeric_limits : std::numeric_limits<T>
     /**
      * @brief For floating point types, echelon.
      */
-    static constexpr T echelon(unsigned n) noexcept
+    template <bool B = !numeric_limits::is_exact>
+    static constexpr std::enable_if_t<B, T> echelon(unsigned n) noexcept
     {
         return machine_epsilon() * n / (1 - machine_epsilon() * n);
     }

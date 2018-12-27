@@ -120,6 +120,14 @@ struct numeric_limits<__float128>
     static constexpr int max_digits10 = 36;
 
     /**
+     * @brief Wrap `FLT128_MIN / 4 + FLT128_DENORM_MIN`.
+     */
+    static constexpr __float128 min_invertible() noexcept
+    {
+        return FLT128_MIN / 4 + FLT128_DENORM_MIN;
+    }
+
+    /**
      * @brief Wrap `FLT128_MIN`.
      */
     static constexpr __float128 min() noexcept
