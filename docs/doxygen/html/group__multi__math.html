@@ -86,6 +86,22 @@ Functions</h2></td></tr>
 <tr class="memitem:ga534cfc0f7e117048699d8156b1759429"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() *U()), M, P &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math.html#ga534cfc0f7e117048699d8156b1759429">pr::dot</a> (const multi&lt; T, M, N &gt; &amp;arr0, const multi&lt; U, N, P &gt; &amp;arr1)</td></tr>
 <tr class="memdesc:ga534cfc0f7e117048699d8156b1759429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dot product.  <a href="group__multi__math.html#ga534cfc0f7e117048699d8156b1759429">More...</a><br /></td></tr>
 <tr class="separator:ga534cfc0f7e117048699d8156b1759429"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b61b95526ea13444fb011a4c18ab588"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t M, std::size_t P&gt; </td></tr>
+<tr class="memitem:ga8b61b95526ea13444fb011a4c18ab588"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() *U()), M, P &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math.html#ga8b61b95526ea13444fb011a4c18ab588">pr::outer</a> (const multi&lt; T, M &gt; &amp;arr0, const multi&lt; U, P &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:ga8b61b95526ea13444fb011a4c18ab588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outer product.  <a href="group__multi__math.html#ga8b61b95526ea13444fb011a4c18ab588">More...</a><br /></td></tr>
+<tr class="separator:ga8b61b95526ea13444fb011a4c18ab588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4cccc4678c5ded51e7857b8a99beabff"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga4cccc4678c5ded51e7857b8a99beabff"><td class="memTemplItemLeft" align="right" valign="top">decltype(T() *U()) constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math.html#ga4cccc4678c5ded51e7857b8a99beabff">pr::cross</a> (const multi&lt; T, 2 &gt; &amp;arr0, const multi&lt; U, 2 &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:ga4cccc4678c5ded51e7857b8a99beabff"><td class="mdescLeft">&#160;</td><td class="mdescRight">2-dimensional cross product.  <a href="group__multi__math.html#ga4cccc4678c5ded51e7857b8a99beabff">More...</a><br /></td></tr>
+<tr class="separator:ga4cccc4678c5ded51e7857b8a99beabff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b3e111551f6078503b7e6c9712c98b2"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga1b3e111551f6078503b7e6c9712c98b2"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() *U()), 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math.html#ga1b3e111551f6078503b7e6c9712c98b2">pr::cross</a> (const multi&lt; T, 3 &gt; &amp;arr0, const multi&lt; U, 3 &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:ga1b3e111551f6078503b7e6c9712c98b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-dimensional cross product.  <a href="group__multi__math.html#ga1b3e111551f6078503b7e6c9712c98b2">More...</a><br /></td></tr>
+<tr class="separator:ga1b3e111551f6078503b7e6c9712c98b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2b67ffdd582b88945e0047b159139b6"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U , std::size_t M, std::size_t N, std::size_t P, std::size_t Q&gt; </td></tr>
+<tr class="memitem:gae2b67ffdd582b88945e0047b159139b6"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; decltype(T() *U()), M *P, N *Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math.html#gae2b67ffdd582b88945e0047b159139b6">pr::kron</a> (const multi&lt; T, M, N &gt; &amp;arr0, const multi&lt; T, P, Q &gt; &amp;arr1)</td></tr>
+<tr class="memdesc:gae2b67ffdd582b88945e0047b159139b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kronecker product.  <a href="group__multi__math.html#gae2b67ffdd582b88945e0047b159139b6">More...</a><br /></td></tr>
+<tr class="separator:gae2b67ffdd582b88945e0047b159139b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math wrappers (multi)</h2></td></tr>
@@ -543,6 +559,134 @@ template&lt;typename T , typename U , std::size_t M, std::size_t N, std::size_t 
 </div><div class="memdoc">
 
 <p>Dot product. </p>
+
+</div>
+</div>
+<a id="ga8b61b95526ea13444fb011a4c18ab588"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8b61b95526ea13444fb011a4c18ab588">&#9670;&nbsp;</a></span>outer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t M, std::size_t P&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() * U()), M, P&gt; pr::outer </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, M &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, P &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Outer product. </p>
+
+</div>
+</div>
+<a id="ga4cccc4678c5ded51e7857b8a99beabff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4cccc4678c5ded51e7857b8a99beabff">&#9670;&nbsp;</a></span>cross() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">decltype(T() * U()) constexpr pr::cross </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, 2 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, 2 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>2-dimensional cross product. </p>
+
+</div>
+</div>
+<a id="ga1b3e111551f6078503b7e6c9712c98b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1b3e111551f6078503b7e6c9712c98b2">&#9670;&nbsp;</a></span>cross() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() * U()), 3&gt; pr::cross </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; U, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3-dimensional cross product. </p>
+
+</div>
+</div>
+<a id="gae2b67ffdd582b88945e0047b159139b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae2b67ffdd582b88945e0047b159139b6">&#9670;&nbsp;</a></span>kron()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U , std::size_t M, std::size_t N, std::size_t P, std::size_t Q&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;decltype(T() * U()), M * P, N * Q&gt; pr::kron </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, M, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; T, P, Q &gt; &amp;&#160;</td>
+          <td class="paramname"><em>arr1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Kronecker product. </p>
 
 </div>
 </div>
