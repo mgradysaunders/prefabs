@@ -65,22 +65,22 @@ public:
     /**
      * @brief Value type.
      */
-    typedef typename std::iterator_traits<iterator>::value_type value_type;
+    typedef typename std::iterator_traits<T>::value_type value_type;
 
     /**
      * @brief Pointer.
      */
-    typedef typename std::iterator_traits<iterator>::pointer pointer;
+    typedef typename std::iterator_traits<T>::pointer pointer;
 
     /**
      * @brief Reference.
      */
-    typedef typename std::iterator_traits<iterator>::reference reference;
+    typedef typename std::iterator_traits<T>::reference reference;
 
     /**
      * @brief Difference type.
      */
-    typedef typename std::iterator_traits<iterator>::difference_type 
+    typedef typename std::iterator_traits<T>::difference_type 
             difference_type;
 
 public:
