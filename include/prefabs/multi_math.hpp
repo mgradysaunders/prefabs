@@ -348,19 +348,61 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
         multi<float_type, N> tmp = 
         multi<float_type, N>(pr::abs(arr));
 
-        // Factor out greatest absolute value.
-        float_type fac = tmp[tmp.argmax()];
-        if (fac >= pr::numeric_limits<float_type>::min_invertible()) {
-            tmp *= float_type(1) / fac;
-        }
-        else {
-            tmp /= fac; // Inverse overflows.
+        // Determine extremal values.
+        float_type tmpmin = pr::numeric_limits<float_type>::max();
+        float_type tmpmax = 0;
+        for (float_type tmpval : tmp) {
+            if (tmpval != 0) {
+                tmpmin = pr::fmin(tmpmin, tmpval);
+                tmpmax = pr::fmax(tmpmax, tmpval);
+            }
         }
 
+        // Impending overflow or underflow?
+        if (tmpmax * 
+            tmpmax >= pr::numeric_limits<float_type>::max() / N ||
+            tmpmin <= pr::numeric_limits<float_type>::min_squarable()) {
+            // Factor out maximum.
+            if (tmpmax >= pr::numeric_limits<float_type>::min_invertible()) {
+                tmp *= 1 / tmpmax;
+            }
+            else {
+                tmp /= tmpmax; // Inverse overflows.
+            }
+            // Length.
+            return pr::sqrt((tmp * tmp).sum()) * tmpmax;
+        }
+        else {
+            // Length.
+            return pr::sqrt((tmp * tmp).sum());
+        }
+    }
+}
+
+/**
+ * @brief Length, fast (and somewhat unsafe) variant.
+ *
+ * @f[
+ *      \sqrt{\sum_k |x_{[k]}|^2}
+ * @f]
+ *
+ * _Fast_ means the implementation
+ * - assumes no overflow/underflow,
+ * - does _not_ calculate the absolute values of complex numbers
+ * separately.
+ */
+template <typename T, std::size_t N>
+__attribute__((always_inline))
+inline decltype(pr::sqrt(pr::abs(T()))) fast_length(const multi<T, N>& arr)
+{
+    if constexpr (N == 1) {
+        // Delegate.
+        return pr::abs(arr[0]);
+    }
+    else {
+
         // Length.
-        float_type len = pr::sqrt(pr::dot(tmp, tmp));
-        len *= fac;
-        return len;
+        return pr::sqrt(pr::norm(arr).sum());
     }
 }
 
@@ -368,9 +410,11 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
  * @brief Normalize.
  *
  * @f[
- *      \mathbf{x} / 
- *      \lVert\mathbf{x}\rVert
+ *      \mathbf{x} / \lVert\mathbf{x}\rVert
  * @f]
+ *
+ * @note
+ * If length is zero, returns the zero vector.
  */
 template <typename T, std::size_t N>
 inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N> 
@@ -379,23 +423,98 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
     // Deduce floating point type.
     typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
 
+    // Length.
+    float_type len = length(arr);
+    if (len == 0) {
+        return {}; // Zero vector.
+    }
+
     // Normalize.
     multi<decltype(T()/pr::sqrt(pr::abs(T()))), N> res =
     multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>(arr);
-    float_type len = length(res);
     if (len >= pr::numeric_limits<float_type>::min_invertible()) {
-        res *= float_type(1) / len;
+        res *= 1 / len;
     }
-    else if (len != 0) {
+    else {
         res /= len; // Inverse overflows.
     }
 
     return res;
 }
 
-// TODO trace
-// TODO transpose
-// TODO adjoint
+/**
+ * @brief Normalize, fast (and somewhat unsafe) variant.
+ *
+ * @f[
+ *      \mathbf{x} / \lVert\mathbf{x}\rVert
+ * @f]
+ *
+ * _Fast_ means the implementation
+ * - assumes no overflow/underflow in length calculation,
+ * - assumes length is positive (and greater than or equal to 
+ * minimum invertible value).
+ */
+template <typename T, std::size_t N>
+__attribute__((always_inline))
+inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N> 
+                                    fast_normalize(const multi<T, N>& arr)
+{
+    // Normalize.
+    return arr * (1 / fast_length(arr));
+}
+
+/**
+ * @brief Trace.
+ *
+ * @f[
+ *      \sum_k x_{[k, k]}
+ * @f]
+ */
+template <typename T, std::size_t M, std::size_t N>
+constexpr T trace(const multi<T, M, N>& arr)
+{
+    T res = arr[0][0];
+    for (std::size_t i = 1; i < std::min(M, N); i++) {
+        res += arr[i][i];
+    }
+    return res;
+}
+
+/**
+ * @brief Transpose.
+ *
+ * @f[
+ *      x_{[j,i]}
+ * @f]
+ */
+template <typename T, std::size_t M, std::size_t N>
+constexpr multi<T, N, M> transpose(const multi<T, M, N>& arr)
+{
+    multi<T, N, M> res;
+    for (std::size_t i = 0; i < N; i++)
+    for (std::size_t j = 0; j < M; j++) {
+        res[i][j] = arr[j][i];
+    }
+    return res;
+}
+
+/**
+ * @brief Adjoint.
+ *
+ * @f[
+ *      x_{[j,i]}^*
+ * @f]
+ */
+template <typename T, std::size_t M, std::size_t N>
+constexpr multi<T, N, M> adjoint(const multi<T, M, N>& arr)
+{
+    multi<T, N, M> res;
+    for (std::size_t i = 0; i < N; i++)
+    for (std::size_t j = 0; j < M; j++) {
+        res[i][j] = pr::conj(arr[j][i]);
+    }
+    return res;
+}
 
 /**@}*/
 
