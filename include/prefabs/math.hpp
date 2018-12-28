@@ -55,18 +55,67 @@ namespace pr {
  */
 /**@{*/
 
+#if !DOXYGEN
+
+template <typename T>
+struct numeric_limits_min_squarable;
+
+template <>
+struct numeric_limits_min_squarable<float> 
+{
+    static constexpr float min_squarable() noexcept
+    {
+        // 2^(-75)
+        return 0x1.000002p-75f;
+    }
+};
+
+template <>
+struct numeric_limits_min_squarable<double> 
+{
+    static constexpr double min_squarable() noexcept
+    {
+        // 2^(-537.5)
+        return 0x1.6a09e667f3bcdp-538;
+    }
+};
+
+template <>
+struct numeric_limits_min_squarable<long double> 
+{
+    static constexpr long double min_squarable() noexcept
+    {
+        // 2^(-8223)
+        return 0x8.000000000000001p-8226L;
+    }
+};
+
+#endif // #if !DOXYGEN
+
 /**
  * @brief Wrap `std::numeric_limits`.
  */
 template <typename T>
 struct numeric_limits : std::numeric_limits<T>
 {
+
+    /**
+     * @brief For floating point types, minimum squarable value.
+     *
+     * The minimum squarable value @f$ \varepsilon_{\text{sqr}} @f$ is
+     * the minimum positive value satisfying @f$ x \otimes x > 0 @f$.
+     */
+    template <bool B = numeric_limits::is_iec559>
+    static constexpr std::enable_if_t<B, T> min_squarable() noexcept
+    {
+        return numeric_limits_min_squarable<T>::min_squarable();
+    }
+
     /**
      * @brief For floating point types, minimum invertible value.
      *
      * The minimum invertible value @f$ \varepsilon_{\text{inv}} @f$ is
-     * the minimum positive floating point value satisfying 
-     * @f$ 1 \oslash x < \infty @f$.
+     * the minimum positive value satisfying @f$ 1 \oslash x < \infty @f$.
      *
      * For IEEE floating point types (and possibly others?),  
      * @f$ \varepsilon_{\text{inv}} =
@@ -75,11 +124,7 @@ struct numeric_limits : std::numeric_limits<T>
      * positive normal value and @f$ \Delta_{\text{denormal}} @f$ is 
      * the denormal spacing.
      */
-    template <
-        bool B = 
-            numeric_limits::has_denorm ==
-            std::denorm_present
-        >
+    template <bool B = numeric_limits::is_iec559>
     static constexpr std::enable_if_t<B, T> min_invertible() noexcept
     {
         return numeric_limits::min() / 4 + 
@@ -99,7 +144,7 @@ struct numeric_limits : std::numeric_limits<T>
      * where @f$ \varepsilon_{\text{std}} @f$ is standard epsilon, the
      * difference between 1 and the next representable value.
      */
-    template <bool B = !numeric_limits::is_exact>
+    template <bool B = numeric_limits::is_iec559>
     static constexpr std::enable_if_t<B, T> machine_epsilon() noexcept
     {
         return numeric_limits::epsilon() / 2;
@@ -108,7 +153,7 @@ struct numeric_limits : std::numeric_limits<T>
     /**
      * @brief For floating point types, echelon.
      */
-    template <bool B = !numeric_limits::is_exact>
+    template <bool B = numeric_limits::is_iec559>
     static constexpr std::enable_if_t<B, T> echelon(unsigned n) noexcept
     {
         return machine_epsilon() * n / (1 - machine_epsilon() * n);

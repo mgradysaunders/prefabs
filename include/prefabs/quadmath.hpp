@@ -120,7 +120,16 @@ struct numeric_limits<__float128>
     static constexpr int max_digits10 = 36;
 
     /**
-     * @brief Wrap `FLT128_MIN / 4 + FLT128_DENORM_MIN`.
+     * @brief Analogous to `pr::numeric_limits::min_squarable()`.
+     */
+    static constexpr __float128 min_squarable() noexcept
+    {
+        // 2^(-8247.5)
+        return 0x1.6a09e667f3bcc908b2fb1366ea96p-8248q;
+    }
+
+    /**
+     * @brief Analogous to `pr::numeric_limits::min_invertible()`.
      */
     static constexpr __float128 min_invertible() noexcept
     {
