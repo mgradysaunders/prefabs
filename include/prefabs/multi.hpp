@@ -104,7 +104,7 @@ struct multi<T, M, N...>
 {
 public:
 
-    static_assert(M > 0, "invalid dimension");
+    static_assert(M > 0, "M must be positive");
 
     /**
      * @name Container typedefs
@@ -377,6 +377,7 @@ public:
      * @brief Index accessor.
      */
     template <typename P>
+    __attribute__((always_inline))
     constexpr decltype(auto) operator[](P p) noexcept
     {
         return (v_[p]);
@@ -386,15 +387,17 @@ public:
      * @brief Index accessor, const variant.
      */
     template <typename P>
+    __attribute__((always_inline))
     constexpr decltype(auto) operator[](P p) const noexcept
     {
         return (v_[p]);
     }
 
     /**
-     * @brief Multi-index accessor.
+     * @brief Multiple-index accessor.
      */
     template <typename P, typename... Q>
+    __attribute__((always_inline))
     constexpr decltype(auto) operator()(P p, Q&&... q) noexcept
     {
         if constexpr (sizeof...(Q) == 0) {
@@ -406,9 +409,10 @@ public:
     }
 
     /**
-     * @brief Multi-index accessor, const variant.
+     * @brief Multiple-index accessor, const variant.
      */
     template <typename P, typename... Q>
+    __attribute__((always_inline))
     constexpr decltype(auto) operator()(P p, Q&&... q) const noexcept
     {
         if constexpr (sizeof...(Q) == 0) {
@@ -416,6 +420,64 @@ public:
         }
         else {
             return operator[](p).operator()(std::forward<Q>(q)...);
+        }
+    }
+
+    /**
+     * @brief Multi-index accessor.
+     */
+    template <typename P, std::size_t K>
+    __attribute__((always_inline))
+    constexpr decltype(auto) operator[](const multi<P, K>& p) noexcept
+    {
+        if constexpr (K == 1) {
+            return operator[](*p.begin());
+        }
+        else {
+            multi<P, K - 1> q;
+            std::copy(
+                p.begin() + 1, p.end(),
+                q.begin());
+            return operator[](*p.begin()).operator[](q);
+        }
+    }
+
+    /**
+     * @brief Multi-index accessor, const variant.
+     */
+    template <typename P, std::size_t K>
+    __attribute__((always_inline))
+    constexpr decltype(auto) operator[](const multi<P, K>& p) const noexcept
+    {
+        if constexpr (K == 1) {
+            return operator[](*p.begin());
+        }
+        else {
+            multi<P, K - 1> q;
+            std::copy(
+                p.begin() + 1, p.end(),
+                q.begin());
+            return operator[](*p.begin()).operator[](q);
+        }
+    }
+
+    /**
+     * @brief Next index.
+     */
+    template <typename P>
+    static constexpr void next_index(multi<P, 1 + sizeof...(N)>& pos)
+    {
+        multi<P, 1 + sizeof...(N)> dim = {{P(M), P(N)...}};
+        auto itrdim = dim.rbegin();
+        auto itrpos = pos.rbegin();
+        for (; itrpos < pos.rend(); ++itrdim, ++itrpos) {
+            (*itrpos)++;
+            if (*itrpos >= *itrdim) {
+                *itrpos = 0;
+            }
+            else {
+                return;
+            }
         }
     }
 
