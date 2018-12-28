@@ -15,9 +15,12 @@ namespace pr {
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::abs(T()))>, N...> abs(const multi<T, N...>& x)
+inline auto abs(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::abs(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::abs(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -31,9 +34,12 @@ inline multi<std::decay_t<decltype(pr::abs(T()))>, N...> abs(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::arg(T()))>, N...> arg(const multi<T, N...>& x)
+inline auto arg(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::arg(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::arg(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -47,9 +53,12 @@ inline multi<std::decay_t<decltype(pr::arg(T()))>, N...> arg(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::real(T()))>, N...> real(const multi<T, N...>& x)
+inline auto real(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::real(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::real(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -63,9 +72,12 @@ inline multi<std::decay_t<decltype(pr::real(T()))>, N...> real(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::imag(T()))>, N...> imag(const multi<T, N...>& x)
+inline auto imag(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::imag(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::imag(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -79,9 +91,12 @@ inline multi<std::decay_t<decltype(pr::imag(T()))>, N...> imag(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::conj(T()))>, N...> conj(const multi<T, N...>& x)
+inline auto conj(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::conj(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::conj(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -95,9 +110,12 @@ inline multi<std::decay_t<decltype(pr::conj(T()))>, N...> conj(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::norm(T()))>, N...> norm(const multi<T, N...>& x)
+inline auto norm(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::norm(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::norm(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -111,9 +129,14 @@ inline multi<std::decay_t<decltype(pr::norm(T()))>, N...> norm(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::min(T(), T()))>, N...> min(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto min(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::min(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::min(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -128,9 +151,14 @@ inline multi<std::decay_t<decltype(pr::min(T(), T()))>, N...> min(const multi<T,
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::max(T(), T()))>, N...> max(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto max(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::max(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::max(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -145,9 +173,12 @@ inline multi<std::decay_t<decltype(pr::max(T(), T()))>, N...> max(const multi<T,
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fabs(T()))>, N...> fabs(const multi<T, N...>& x)
+inline auto fabs(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::fabs(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fabs(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -161,9 +192,16 @@ inline multi<std::decay_t<decltype(pr::fabs(T()))>, N...> fabs(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fma(T(), T(), T()))>, N...> fma(const multi<T, N...>& x, const multi<T, N...>& y, const multi<T, N...>& z)
+inline auto fma(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y,
+            const multi<T, N...>& z)
 {
-    multi<std::decay_t<decltype(pr::fma(T(), T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fma(
+        std::declval<T>(),
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrz = z.begin();
@@ -179,9 +217,14 @@ inline multi<std::decay_t<decltype(pr::fma(T(), T(), T()))>, N...> fma(const mul
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fmin(T(), T()))>, N...> fmin(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto fmin(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::fmin(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fmin(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -196,9 +239,14 @@ inline multi<std::decay_t<decltype(pr::fmin(T(), T()))>, N...> fmin(const multi<
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fmax(T(), T()))>, N...> fmax(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto fmax(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::fmax(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fmax(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -213,9 +261,14 @@ inline multi<std::decay_t<decltype(pr::fmax(T(), T()))>, N...> fmax(const multi<
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fdim(T(), T()))>, N...> fdim(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto fdim(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::fdim(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fdim(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -230,9 +283,14 @@ inline multi<std::decay_t<decltype(pr::fdim(T(), T()))>, N...> fdim(const multi<
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fmod(T(), T()))>, N...> fmod(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto fmod(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::fmod(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fmod(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -247,9 +305,16 @@ inline multi<std::decay_t<decltype(pr::fmod(T(), T()))>, N...> fmod(const multi<
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::remquo(T(), T(), std::declval<int*>()))>, N...> remquo(const multi<T, N...>& x, const multi<T, N...>& y, multi<int, N...>* q)
+inline auto remquo(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y,
+            multi<int, N...>* q)
 {
-    multi<std::decay_t<decltype(pr::remquo(T(), T(), std::declval<int*>()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::remquo(
+        std::declval<T>(),
+        std::declval<T>(),
+        std::declval<int*>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrq = q->begin();
@@ -265,9 +330,14 @@ inline multi<std::decay_t<decltype(pr::remquo(T(), T(), std::declval<int*>()))>,
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::remainder(T(), T()))>, N...> remainder(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto remainder(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::remainder(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::remainder(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -282,9 +352,12 @@ inline multi<std::decay_t<decltype(pr::remainder(T(), T()))>, N...> remainder(co
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::nearbyint(T()))>, N...> nearbyint(const multi<T, N...>& x)
+inline auto nearbyint(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::nearbyint(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::nearbyint(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -298,9 +371,12 @@ inline multi<std::decay_t<decltype(pr::nearbyint(T()))>, N...> nearbyint(const m
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::floor(T()))>, N...> floor(const multi<T, N...>& x)
+inline auto floor(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::floor(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::floor(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -314,9 +390,12 @@ inline multi<std::decay_t<decltype(pr::floor(T()))>, N...> floor(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::ceil(T()))>, N...> ceil(const multi<T, N...>& x)
+inline auto ceil(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::ceil(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::ceil(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -330,9 +409,12 @@ inline multi<std::decay_t<decltype(pr::ceil(T()))>, N...> ceil(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::trunc(T()))>, N...> trunc(const multi<T, N...>& x)
+inline auto trunc(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::trunc(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::trunc(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -346,9 +428,12 @@ inline multi<std::decay_t<decltype(pr::trunc(T()))>, N...> trunc(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::round(T()))>, N...> round(const multi<T, N...>& x)
+inline auto round(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::round(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::round(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -362,9 +447,12 @@ inline multi<std::decay_t<decltype(pr::round(T()))>, N...> round(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::rint(T()))>, N...> rint(const multi<T, N...>& x)
+inline auto rint(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::rint(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::rint(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -378,9 +466,12 @@ inline multi<std::decay_t<decltype(pr::rint(T()))>, N...> rint(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::lrint(T()))>, N...> lrint(const multi<T, N...>& x)
+inline auto lrint(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::lrint(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::lrint(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -394,9 +485,12 @@ inline multi<std::decay_t<decltype(pr::lrint(T()))>, N...> lrint(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::llrint(T()))>, N...> llrint(const multi<T, N...>& x)
+inline auto llrint(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::llrint(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::llrint(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -410,9 +504,12 @@ inline multi<std::decay_t<decltype(pr::llrint(T()))>, N...> llrint(const multi<T
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::lround(T()))>, N...> lround(const multi<T, N...>& x)
+inline auto lround(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::lround(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::lround(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -426,9 +523,12 @@ inline multi<std::decay_t<decltype(pr::lround(T()))>, N...> lround(const multi<T
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::llround(T()))>, N...> llround(const multi<T, N...>& x)
+inline auto llround(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::llround(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::llround(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -442,9 +542,14 @@ inline multi<std::decay_t<decltype(pr::llround(T()))>, N...> llround(const multi
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::frexp(T(), std::declval<int*>()))>, N...> frexp(const multi<T, N...>& x, multi<int, N...>* p)
+inline auto frexp(
+            const multi<T, N...>& x,
+            multi<int, N...>* p)
 {
-    multi<std::decay_t<decltype(pr::frexp(T(), std::declval<int*>()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::frexp(
+        std::declval<T>(),
+        std::declval<int*>()))>, N...> res;
     auto itrx = x.begin();
     auto itrp = p->begin();
     auto itrres = res.begin();
@@ -459,9 +564,14 @@ inline multi<std::decay_t<decltype(pr::frexp(T(), std::declval<int*>()))>, N...>
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::ldexp(T(), std::declval<int>()))>, N...> ldexp(const multi<T, N...>& x, const multi<int, N...>& p)
+inline auto ldexp(
+            const multi<T, N...>& x,
+            const multi<int, N...>& p)
 {
-    multi<std::decay_t<decltype(pr::ldexp(T(), std::declval<int>()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::ldexp(
+        std::declval<T>(),
+        std::declval<int>()))>, N...> res;
     auto itrx = x.begin();
     auto itrp = p.begin();
     auto itrres = res.begin();
@@ -476,9 +586,12 @@ inline multi<std::decay_t<decltype(pr::ldexp(T(), std::declval<int>()))>, N...> 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::logb(T()))>, N...> logb(const multi<T, N...>& x)
+inline auto logb(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::logb(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::logb(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -492,9 +605,12 @@ inline multi<std::decay_t<decltype(pr::logb(T()))>, N...> logb(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::ilogb(T()))>, N...> ilogb(const multi<T, N...>& x)
+inline auto ilogb(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::ilogb(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::ilogb(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -508,9 +624,14 @@ inline multi<std::decay_t<decltype(pr::ilogb(T()))>, N...> ilogb(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::scalbn(T(), std::declval<int>()))>, N...> scalbn(const multi<T, N...>& x, const multi<int, N...>& p)
+inline auto scalbn(
+            const multi<T, N...>& x,
+            const multi<int, N...>& p)
 {
-    multi<std::decay_t<decltype(pr::scalbn(T(), std::declval<int>()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::scalbn(
+        std::declval<T>(),
+        std::declval<int>()))>, N...> res;
     auto itrx = x.begin();
     auto itrp = p.begin();
     auto itrres = res.begin();
@@ -525,9 +646,14 @@ inline multi<std::decay_t<decltype(pr::scalbn(T(), std::declval<int>()))>, N...>
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::scalbln(T(), std::declval<long>()))>, N...> scalbln(const multi<T, N...>& x, const multi<long, N...>& p)
+inline auto scalbln(
+            const multi<T, N...>& x,
+            const multi<long, N...>& p)
 {
-    multi<std::decay_t<decltype(pr::scalbln(T(), std::declval<long>()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::scalbln(
+        std::declval<T>(),
+        std::declval<long>()))>, N...> res;
     auto itrx = x.begin();
     auto itrp = p.begin();
     auto itrres = res.begin();
@@ -542,9 +668,14 @@ inline multi<std::decay_t<decltype(pr::scalbln(T(), std::declval<long>()))>, N..
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::modf(T(), std::declval<T*>()))>, N...> modf(const multi<T, N...>& x, multi<T, N...>* p)
+inline auto modf(
+            const multi<T, N...>& x,
+            multi<T, N...>* p)
 {
-    multi<std::decay_t<decltype(pr::modf(T(), std::declval<T*>()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::modf(
+        std::declval<T>(),
+        std::declval<T*>()))>, N...> res;
     auto itrx = x.begin();
     auto itrp = p->begin();
     auto itrres = res.begin();
@@ -559,9 +690,14 @@ inline multi<std::decay_t<decltype(pr::modf(T(), std::declval<T*>()))>, N...> mo
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::nextafter(T(), T()))>, N...> nextafter(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto nextafter(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::nextafter(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::nextafter(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -576,9 +712,14 @@ inline multi<std::decay_t<decltype(pr::nextafter(T(), T()))>, N...> nextafter(co
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::nexttoward(T(), std::declval<long double>()))>, N...> nexttoward(const multi<T, N...>& x, const multi<long double, N...>& y)
+inline auto nexttoward(
+            const multi<T, N...>& x,
+            const multi<long double, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::nexttoward(T(), std::declval<long double>()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::nexttoward(
+        std::declval<T>(),
+        std::declval<long double>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -593,9 +734,14 @@ inline multi<std::decay_t<decltype(pr::nexttoward(T(), std::declval<long double>
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::copysign(T(), T()))>, N...> copysign(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto copysign(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::copysign(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::copysign(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -610,9 +756,12 @@ inline multi<std::decay_t<decltype(pr::copysign(T(), T()))>, N...> copysign(cons
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::signbit(T()))>, N...> signbit(const multi<T, N...>& x)
+inline auto signbit(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::signbit(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::signbit(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -626,9 +775,12 @@ inline multi<std::decay_t<decltype(pr::signbit(T()))>, N...> signbit(const multi
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::isnan(T()))>, N...> isnan(const multi<T, N...>& x)
+inline auto isnan(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::isnan(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::isnan(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -642,9 +794,12 @@ inline multi<std::decay_t<decltype(pr::isnan(T()))>, N...> isnan(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::isinf(T()))>, N...> isinf(const multi<T, N...>& x)
+inline auto isinf(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::isinf(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::isinf(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -658,9 +813,12 @@ inline multi<std::decay_t<decltype(pr::isinf(T()))>, N...> isinf(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::isfinite(T()))>, N...> isfinite(const multi<T, N...>& x)
+inline auto isfinite(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::isfinite(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::isfinite(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -674,9 +832,12 @@ inline multi<std::decay_t<decltype(pr::isfinite(T()))>, N...> isfinite(const mul
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::isnormal(T()))>, N...> isnormal(const multi<T, N...>& x)
+inline auto isnormal(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::isnormal(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::isnormal(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -690,9 +851,12 @@ inline multi<std::decay_t<decltype(pr::isnormal(T()))>, N...> isnormal(const mul
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::exp(T()))>, N...> exp(const multi<T, N...>& x)
+inline auto exp(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::exp(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::exp(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -706,9 +870,12 @@ inline multi<std::decay_t<decltype(pr::exp(T()))>, N...> exp(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::log(T()))>, N...> log(const multi<T, N...>& x)
+inline auto log(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::log(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::log(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -722,9 +889,12 @@ inline multi<std::decay_t<decltype(pr::log(T()))>, N...> log(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::exp2(T()))>, N...> exp2(const multi<T, N...>& x)
+inline auto exp2(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::exp2(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::exp2(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -738,9 +908,12 @@ inline multi<std::decay_t<decltype(pr::exp2(T()))>, N...> exp2(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::log2(T()))>, N...> log2(const multi<T, N...>& x)
+inline auto log2(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::log2(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::log2(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -754,9 +927,12 @@ inline multi<std::decay_t<decltype(pr::log2(T()))>, N...> log2(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::log10(T()))>, N...> log10(const multi<T, N...>& x)
+inline auto log10(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::log10(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::log10(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -770,9 +946,12 @@ inline multi<std::decay_t<decltype(pr::log10(T()))>, N...> log10(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::expm1(T()))>, N...> expm1(const multi<T, N...>& x)
+inline auto expm1(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::expm1(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::expm1(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -786,9 +965,12 @@ inline multi<std::decay_t<decltype(pr::expm1(T()))>, N...> expm1(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::log1p(T()))>, N...> log1p(const multi<T, N...>& x)
+inline auto log1p(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::log1p(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::log1p(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -802,9 +984,14 @@ inline multi<std::decay_t<decltype(pr::log1p(T()))>, N...> log1p(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::pow(T(), T()))>, N...> pow(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto pow(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::pow(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::pow(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -819,9 +1006,12 @@ inline multi<std::decay_t<decltype(pr::pow(T(), T()))>, N...> pow(const multi<T,
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::sqrt(T()))>, N...> sqrt(const multi<T, N...>& x)
+inline auto sqrt(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::sqrt(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::sqrt(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -835,9 +1025,12 @@ inline multi<std::decay_t<decltype(pr::sqrt(T()))>, N...> sqrt(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::cbrt(T()))>, N...> cbrt(const multi<T, N...>& x)
+inline auto cbrt(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::cbrt(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::cbrt(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -851,9 +1044,14 @@ inline multi<std::decay_t<decltype(pr::cbrt(T()))>, N...> cbrt(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::hypot(T(), T()))>, N...> hypot(const multi<T, N...>& x, const multi<T, N...>& y)
+inline auto hypot(
+            const multi<T, N...>& x,
+            const multi<T, N...>& y)
 {
-    multi<std::decay_t<decltype(pr::hypot(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::hypot(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itry = y.begin();
     auto itrres = res.begin();
@@ -868,9 +1066,12 @@ inline multi<std::decay_t<decltype(pr::hypot(T(), T()))>, N...> hypot(const mult
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::erf(T()))>, N...> erf(const multi<T, N...>& x)
+inline auto erf(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::erf(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::erf(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -884,9 +1085,12 @@ inline multi<std::decay_t<decltype(pr::erf(T()))>, N...> erf(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::erfc(T()))>, N...> erfc(const multi<T, N...>& x)
+inline auto erfc(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::erfc(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::erfc(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -900,9 +1104,12 @@ inline multi<std::decay_t<decltype(pr::erfc(T()))>, N...> erfc(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::lgamma(T()))>, N...> lgamma(const multi<T, N...>& x)
+inline auto lgamma(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::lgamma(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::lgamma(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -916,9 +1123,12 @@ inline multi<std::decay_t<decltype(pr::lgamma(T()))>, N...> lgamma(const multi<T
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::tgamma(T()))>, N...> tgamma(const multi<T, N...>& x)
+inline auto tgamma(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::tgamma(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::tgamma(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -932,9 +1142,12 @@ inline multi<std::decay_t<decltype(pr::tgamma(T()))>, N...> tgamma(const multi<T
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::sin(T()))>, N...> sin(const multi<T, N...>& x)
+inline auto sin(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::sin(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::sin(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -948,9 +1161,12 @@ inline multi<std::decay_t<decltype(pr::sin(T()))>, N...> sin(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::cos(T()))>, N...> cos(const multi<T, N...>& x)
+inline auto cos(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::cos(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::cos(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -964,9 +1180,12 @@ inline multi<std::decay_t<decltype(pr::cos(T()))>, N...> cos(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::tan(T()))>, N...> tan(const multi<T, N...>& x)
+inline auto tan(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::tan(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::tan(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -980,9 +1199,12 @@ inline multi<std::decay_t<decltype(pr::tan(T()))>, N...> tan(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::asin(T()))>, N...> asin(const multi<T, N...>& x)
+inline auto asin(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::asin(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::asin(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -996,9 +1218,12 @@ inline multi<std::decay_t<decltype(pr::asin(T()))>, N...> asin(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::acos(T()))>, N...> acos(const multi<T, N...>& x)
+inline auto acos(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::acos(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::acos(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1012,9 +1237,12 @@ inline multi<std::decay_t<decltype(pr::acos(T()))>, N...> acos(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::atan(T()))>, N...> atan(const multi<T, N...>& x)
+inline auto atan(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::atan(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::atan(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1028,9 +1256,14 @@ inline multi<std::decay_t<decltype(pr::atan(T()))>, N...> atan(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::atan2(T(), T()))>, N...> atan2(const multi<T, N...>& y, const multi<T, N...>& x)
+inline auto atan2(
+            const multi<T, N...>& y,
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::atan2(T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::atan2(
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itry = y.begin();
     auto itrx = x.begin();
     auto itrres = res.begin();
@@ -1045,9 +1278,12 @@ inline multi<std::decay_t<decltype(pr::atan2(T(), T()))>, N...> atan2(const mult
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::sinh(T()))>, N...> sinh(const multi<T, N...>& x)
+inline auto sinh(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::sinh(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::sinh(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1061,9 +1297,12 @@ inline multi<std::decay_t<decltype(pr::sinh(T()))>, N...> sinh(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::cosh(T()))>, N...> cosh(const multi<T, N...>& x)
+inline auto cosh(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::cosh(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::cosh(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1077,9 +1316,12 @@ inline multi<std::decay_t<decltype(pr::cosh(T()))>, N...> cosh(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::tanh(T()))>, N...> tanh(const multi<T, N...>& x)
+inline auto tanh(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::tanh(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::tanh(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1093,9 +1335,12 @@ inline multi<std::decay_t<decltype(pr::tanh(T()))>, N...> tanh(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::asinh(T()))>, N...> asinh(const multi<T, N...>& x)
+inline auto asinh(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::asinh(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::asinh(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1109,9 +1354,12 @@ inline multi<std::decay_t<decltype(pr::asinh(T()))>, N...> asinh(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::acosh(T()))>, N...> acosh(const multi<T, N...>& x)
+inline auto acosh(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::acosh(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::acosh(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1125,9 +1373,12 @@ inline multi<std::decay_t<decltype(pr::acosh(T()))>, N...> acosh(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::atanh(T()))>, N...> atanh(const multi<T, N...>& x)
+inline auto atanh(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::atanh(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::atanh(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1141,9 +1392,12 @@ inline multi<std::decay_t<decltype(pr::atanh(T()))>, N...> atanh(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::csc(T()))>, N...> csc(const multi<T, N...>& x)
+inline auto csc(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::csc(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::csc(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1157,9 +1411,12 @@ inline multi<std::decay_t<decltype(pr::csc(T()))>, N...> csc(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::sec(T()))>, N...> sec(const multi<T, N...>& x)
+inline auto sec(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::sec(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::sec(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1173,9 +1430,12 @@ inline multi<std::decay_t<decltype(pr::sec(T()))>, N...> sec(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::cot(T()))>, N...> cot(const multi<T, N...>& x)
+inline auto cot(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::cot(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::cot(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1189,9 +1449,12 @@ inline multi<std::decay_t<decltype(pr::cot(T()))>, N...> cot(const multi<T, N...
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::csch(T()))>, N...> csch(const multi<T, N...>& x)
+inline auto csch(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::csch(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::csch(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1205,9 +1468,12 @@ inline multi<std::decay_t<decltype(pr::csch(T()))>, N...> csch(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::sech(T()))>, N...> sech(const multi<T, N...>& x)
+inline auto sech(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::sech(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::sech(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1221,9 +1487,12 @@ inline multi<std::decay_t<decltype(pr::sech(T()))>, N...> sech(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::coth(T()))>, N...> coth(const multi<T, N...>& x)
+inline auto coth(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::coth(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::coth(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1237,9 +1506,12 @@ inline multi<std::decay_t<decltype(pr::coth(T()))>, N...> coth(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::acsc(T()))>, N...> acsc(const multi<T, N...>& x)
+inline auto acsc(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::acsc(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::acsc(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1253,9 +1525,12 @@ inline multi<std::decay_t<decltype(pr::acsc(T()))>, N...> acsc(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::asec(T()))>, N...> asec(const multi<T, N...>& x)
+inline auto asec(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::asec(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::asec(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1269,9 +1544,12 @@ inline multi<std::decay_t<decltype(pr::asec(T()))>, N...> asec(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::acot(T()))>, N...> acot(const multi<T, N...>& x)
+inline auto acot(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::acot(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::acot(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1285,9 +1563,12 @@ inline multi<std::decay_t<decltype(pr::acot(T()))>, N...> acot(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::acsch(T()))>, N...> acsch(const multi<T, N...>& x)
+inline auto acsch(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::acsch(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::acsch(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1301,9 +1582,12 @@ inline multi<std::decay_t<decltype(pr::acsch(T()))>, N...> acsch(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::asech(T()))>, N...> asech(const multi<T, N...>& x)
+inline auto asech(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::asech(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::asech(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -1317,9 +1601,12 @@ inline multi<std::decay_t<decltype(pr::asech(T()))>, N...> asech(const multi<T, 
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::acoth(T()))>, N...> acoth(const multi<T, N...>& x)
+inline auto acoth(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::acoth(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::acoth(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {

@@ -15,9 +15,12 @@ namespace pr {
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::finc(T()))>, N...> finc(const multi<T, N...>& x)
+inline auto finc(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::finc(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::finc(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -31,9 +34,12 @@ inline multi<std::decay_t<decltype(pr::finc(T()))>, N...> finc(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fdec(T()))>, N...> fdec(const multi<T, N...>& x)
+inline auto fdec(
+            const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::fdec(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fdec(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
@@ -47,9 +53,16 @@ inline multi<std::decay_t<decltype(pr::fdec(T()))>, N...> fdec(const multi<T, N.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fclamp(T(), T(), T()))>, N...> fclamp(const multi<T, N...>& x, const multi<T, N...>& a, const multi<T, N...>& b)
+inline auto fclamp(
+            const multi<T, N...>& x,
+            const multi<T, N...>& a,
+            const multi<T, N...>& b)
 {
-    multi<std::decay_t<decltype(pr::fclamp(T(), T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fclamp(
+        std::declval<T>(),
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itra = a.begin();
     auto itrb = b.begin();
@@ -65,9 +78,16 @@ inline multi<std::decay_t<decltype(pr::fclamp(T(), T(), T()))>, N...> fclamp(con
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::frepeat(T(), T(), T()))>, N...> frepeat(const multi<T, N...>& x, const multi<T, N...>& a, const multi<T, N...>& b)
+inline auto frepeat(
+            const multi<T, N...>& x,
+            const multi<T, N...>& a,
+            const multi<T, N...>& b)
 {
-    multi<std::decay_t<decltype(pr::frepeat(T(), T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::frepeat(
+        std::declval<T>(),
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itra = a.begin();
     auto itrb = b.begin();
@@ -83,9 +103,16 @@ inline multi<std::decay_t<decltype(pr::frepeat(T(), T(), T()))>, N...> frepeat(c
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fmirror(T(), T(), T()))>, N...> fmirror(const multi<T, N...>& x, const multi<T, N...>& a, const multi<T, N...>& b)
+inline auto fmirror(
+            const multi<T, N...>& x,
+            const multi<T, N...>& a,
+            const multi<T, N...>& b)
 {
-    multi<std::decay_t<decltype(pr::fmirror(T(), T(), T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fmirror(
+        std::declval<T>(),
+        std::declval<T>(),
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itra = a.begin();
     auto itrb = b.begin();
@@ -101,9 +128,18 @@ inline multi<std::decay_t<decltype(pr::fmirror(T(), T(), T()))>, N...> fmirror(c
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fcycle(T(), T(), T(), std::declval<cycle_mode>()))>, N...> fcycle(const multi<T, N...>& x, const multi<T, N...>& a, const multi<T, N...>& b, const multi<cycle_mode, N...>& mode)
+inline auto fcycle(
+            const multi<T, N...>& x,
+            const multi<T, N...>& a,
+            const multi<T, N...>& b,
+            const multi<cycle_mode, N...>& mode)
 {
-    multi<std::decay_t<decltype(pr::fcycle(T(), T(), T(), std::declval<cycle_mode>()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fcycle(
+        std::declval<T>(),
+        std::declval<T>(),
+        std::declval<T>(),
+        std::declval<cycle_mode>()))>, N...> res;
     auto itrx = x.begin();
     auto itra = a.begin();
     auto itrb = b.begin();
@@ -120,9 +156,11 @@ inline multi<std::decay_t<decltype(pr::fcycle(T(), T(), T(), std::declval<cycle_
  */
 template <typename U, typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fstretch<U>(T()))>, N...> fstretch(const multi<T, N...>& x)
+inline auto fstretch(const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::fstretch<U>(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fstretch<U>(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {

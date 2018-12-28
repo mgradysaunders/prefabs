@@ -1,3 +1,6 @@
+tab1 = "    "
+tab2 = "        "
+tab3 = "            "
 funcs = [
 ['finc',        [['T','x']]],
 ['fdec',        [['T','x']]],
@@ -42,27 +45,24 @@ for func in funcs
             args3 << "&(*itr#{arg[1]})"
             decls << "auto itr#{arg[1]} = #{arg[1]}->begin();"
         end
-        if arg[0] == 'T'
-            args2 << 'T()'
-        else
-            args2 << "std::declval<#{arg[0]}>()"
-        end
+        args2 << "std::declval<#{arg[0]}>()"
         incrs << "++itr#{arg[1]}"
     end
-    args1 = args1.join ", "
-    args2 = args2.join ", "
+    args1 = args1.join ",\n#{tab3}"
+    args2 = args2.join ",\n#{tab2}"
     args3 = args3.join ", "
     incrs << "++itrres"
     incrs = incrs.join ", "
-    decls = decls.join "\n    "
-    restype = "multi<std::decay_t<decltype(pr::#{funcname}(#{args2}))>, N...>"
+    decls = decls.join "\n#{tab1}"
+    restype = "multi<\n#{tab2}std::decay_t<decltype(pr::#{funcname}(\n#{tab2}#{args2}))>, N...>"
     puts <<STR
 /**
  * @brief Wrap `pr::#{funcname}()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
-inline #{restype} #{funcname}(#{args1})
+inline auto #{funcname}(
+            #{args1})
 {
     #{restype} res;
     #{decls}
@@ -82,9 +82,11 @@ puts <<STR
  */
 template <typename U, typename T, std::size_t... N>
 __attribute__((always_inline))
-inline multi<std::decay_t<decltype(pr::fstretch<U>(T()))>, N...> fstretch(const multi<T, N...>& x)
+inline auto fstretch(const multi<T, N...>& x)
 {
-    multi<std::decay_t<decltype(pr::fstretch<U>(T()))>, N...> res;
+    multi<
+        std::decay_t<decltype(pr::fstretch<U>(
+        std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
