@@ -57,6 +57,15 @@ namespace pr {
  */
 /**@{*/
 
+#if !DOXYGEN
+
+template <>
+struct is_complex<__complex128> : std::true_type
+{
+};
+
+#endif // #if !DOXYGEN
+
 /**
  * @brief Specialize `__float128`.
  */
