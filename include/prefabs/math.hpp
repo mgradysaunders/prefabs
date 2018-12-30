@@ -345,7 +345,7 @@ template <typename T> constexpr T imag(const std::complex<T>& x)
 }
 
 /**
- * @brief Analagous to `std:norm()`, except constexpr.
+ * @brief Analogous to `std:norm()`, except constexpr.
  */
 template <typename T> constexpr T norm(const std::complex<T>& x)
 {
@@ -353,7 +353,7 @@ template <typename T> constexpr T norm(const std::complex<T>& x)
 }
 
 /**
- * @brief Analagous to `std:conj()`, except constexpr.
+ * @brief Analogous to `std:conj()`, except constexpr.
  */
 template <typename T> constexpr std::complex<T> conj(const std::complex<T>& x)
 {
