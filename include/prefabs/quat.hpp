@@ -199,10 +199,11 @@ public:
 
     /**@}*/
 
-public:
-    
-    // TODO slerp
+public: 
 
+    /**
+     * @brief Multiplicative inverse.
+     */
     constexpr quat inverse() const
     {
         const real_type fac = s_ * s_ + pr::dot(v_, v_);
@@ -211,6 +212,9 @@ public:
             -v_ / fac
         };
     }
+
+    // TODO slerp
+    // TODO apply
 
 public:
 
@@ -237,7 +241,7 @@ public:
      * @brief Cast as component array.
      */
     template <typename U>
-    constexpr operator multi<U, 4>() const
+    constexpr explicit operator multi<U, 4>() const
     {
         return {{
             static_cast<U>(s_),
@@ -261,10 +265,18 @@ private:
      */
     imag_type v_ = {};
 
-private:
+public:
 
     // TODO operator<<
     // TODO operator>>
+
+public:
+
+    // TODO rotation
+    // TODO rotationx
+    // TODO rotationy
+    // TODO rotationz
+    // TODO translation
 };
 
 /**
@@ -538,28 +550,288 @@ constexpr quat<T>& operator/=(quat<T>& q, const U& any)
 /**@}*/
 
 /**
- * @name Complex accessors (quat)
+ * @name Comparison operators (quat)
  */
 /**@{*/
 
 /**
- * @brief Conjugate with respect to @f$ \mathbf{i] @f$.
+ * @brief Compare `operator==`.
  */
-constexpr long conj_quat = 0b0100L;
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr bool operator==(const quat<T>& q0, const quat<U>& q1)
+{
+    return q0.real() == q1.real() && q0.imag() == q1.imag();
+}
 
-// TODO real
-// TODO imag
-// TODO conj
-// TODO norm
+/**
+ * @brief Compare `operator==`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr std::enable_if_t<
+                !is_quat<U>::value, bool> operator==(
+                        const quat<T>& q0, const U& q1)
+{
+    return q0.real() == q1 && q0.imag() == T();
+}
+
+/**
+ * @brief Compare `operator==`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr std::enable_if_t<
+                !is_quat<T>::value, bool> operator==(
+                        const T& q0, const quat<U>& q1)
+{
+    return q0 == q1.real() && U() == q1.imag();
+}
+
+/**
+ * @brief Compare `operator!=`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr bool operator!=(const quat<T>& q0, const quat<U>& q1)
+{
+    return !(q0 == q1);
+}
+
+/**
+ * @brief Compare `operator!=`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr std::enable_if_t<
+                !is_quat<U>::value, bool> operator!=(
+                        const quat<T>& q0, const U& q1)
+{
+    return !(q0 == q1);
+}
+
+/**
+ * @brief Compare `operator!=`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr std::enable_if_t<
+                !is_quat<T>::value, bool> operator!=(
+                        const T& q0, const quat<U>& q1)
+{
+    return !(q0 == q1);
+}
 
 /**@}*/
 
-// TODO dot
-// TODO length
-// TODO fast_length
-// TODO normalize
-// TODO fast_normalize
-// TODO inverse
+#if 0
+
+/**
+ * @brief Imag conjugate policy (quat).
+ */
+template <typename T>
+struct conj_imag<quat<T>> : conj_null<T>
+{
+};
+
+/**
+ * @brief Imag conjugate policy (quat/complex).
+ */
+template <typename T>
+struct conj_imag<quat<T>, 
+            void_t<
+                std::enable_if_t<
+                is_dualnum_complex<T>::value ||
+                is_complex<T>::value, T>>>
+{
+    /**
+     * @brief Base.
+     */
+    typedef conj_imag<T> base;
+
+    /**
+     * @brief Value type.
+     */
+    typedef quat<T> value_type;
+
+    /**
+     * @brief Conjugate.
+     */
+    __attribute__((always_inline))
+    static constexpr value_type conj(const value_type& x)
+    {
+        return {
+            base::conj(x.real()),
+            base::conj(x.imag()[0]),
+            base::conj(x.imag()[1]),
+            base::conj(x.imag()[2])
+        };
+    }
+
+    /**
+     * @brief Symmetric part.
+     */
+    __attribute__((always_inline))
+    static constexpr value_type symm(const value_type& x)
+    {
+        return {
+            base::symm(x.real()),
+            base::symm(x.imag()[0]),
+            base::symm(x.imag()[1]),
+            base::symm(x.imag()[2])
+        };
+    }
+
+    /**
+     * @brief Skew-symmetric part.
+     */
+    __attribute__((always_inline))
+    static constexpr value_type skew(const value_type& x)
+    {
+        return {
+            base::skew(x.real()),
+            base::skew(x.imag()[0]),
+            base::skew(x.imag()[1]),
+            base::skew(x.imag()[2])
+        };
+    }
+};
+
+/**
+ * @brief Dual conjugate policy (quat).
+ */
+template <typename T>
+struct conj_dual<quat<T>> : conj_null<T>
+{
+};
+
+/**
+ * @brief Dual conjugate policy (quat/dualnum).
+ */
+template <typename T>
+struct conj_dual<quat<dualnum<T>>> 
+{
+    /**
+     * @brief Base.
+     */
+    typedef conj_dual<dualnum<T>> base;
+
+    /**
+     * @brief Value type.
+     */
+    typedef quat<dualnum<T>> value_type;
+
+    /**
+     * @brief Conjugate.
+     */
+    __attribute__((always_inline))
+    static constexpr value_type conj(const value_type& x)
+    {
+        return {
+            base::conj(x.real()),
+            base::conj(x.imag()[0]),
+            base::conj(x.imag()[1]),
+            base::conj(x.imag()[2])
+        };
+    }
+
+    /**
+     * @brief Symmetric part.
+     */
+    __attribute__((always_inline))
+    static constexpr value_type symm(const value_type& x)
+    {
+        return {
+            base::symm(x.real()),
+            base::symm(x.imag()[0]),
+            base::symm(x.imag()[1]),
+            base::symm(x.imag()[2])
+        };
+    }
+
+    /**
+     * @brief Skew-symmetric part.
+     */
+    __attribute__((always_inline))
+    static constexpr value_type skew(const value_type& x)
+    {
+        return {
+            base::skew(x.real()),
+            base::skew(x.imag()[0]),
+            base::skew(x.imag()[1]),
+            base::skew(x.imag()[2])
+        };
+    }
+};
+
+#endif
+
+/**
+ * @name Geometry (quat)
+ */
+/**@{*/
+
+/**
+ * @brief Dot product.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr decltype(T() * U()) dot(const quat<T>& q0, const quat<U>& q1)
+{
+    return pr::dot(multi<T, 4>(q0), multi<U, 4>(q1));
+}
+
+/**
+ * @brief @f$ L^2 @f$ length.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline T length(const quat<T>& q)
+{
+    return pr::length(multi<T, 4>(q));
+}
+
+/**
+ * @brief @f$ L^2 @f$ length, fast (and somewhat unsafe) variant.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline T fast_length(const quat<T>& q)
+{
+    return pr::fast_length(multi<T, 4>(q));
+}
+
+/**
+ * @brief @f$ L^2 @f$ normalize.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline quat<T> normalize(const quat<T>& q)
+{
+    return pr::normalize(multi<T, 4>(q));
+}
+
+/**
+ * @brief @f$ L^2 @f$ normalize, fast (and somewhat unsafe) variant.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline quat<T> fast_normalize(const quat<T>& q)
+{
+    return pr::fast_normalize(multi<T, 4>(q));
+}
+
+/**
+ * @brief Multiplicative inverse.
+ */
+template <typename T>
+__attribute__((always_inline))
+constexpr quat<T> inverse(const quat<T>& q)
+{
+    return q.inverse();
+}
+
+/**@}*/
 
 /**@}*/
 
