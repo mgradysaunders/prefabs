@@ -657,6 +657,7 @@ constexpr std::enable_if_t<
  */
 /**@{*/
 
+#if 0
 /**
  * @brief Conjugate with respect to @f$ i @f$.
  */
@@ -669,19 +670,34 @@ constexpr long conj_dual = 0b0010L;
 
 /**
  * @brief Real part (with respect to given conjugate operator).
+ *
+ * Let @f$ x = a + \varepsilon b @f$.
+ *
+ * For `conj_imag`:
+ * @f[
+ *      \real(x) = \frac{x + x^*}{2} = \real(a) + \varepsilon \real(b)
+ * @f]
+ *
+ * For `conj_dual`:
+ * @f[
+ *      \real(x) = \frac{x + x^\circ}{2} = a
+ * @f]
+ *
+ * For `conj_imag | conj_dual`:
+ * @f[
+ *      \real(x) = \frac{x + x^{*\circ}}{2} = \real(a) + i \varepsilon \imag(b)
+ * @f]
  */
 template <long op = conj_imag, typename T> 
 constexpr auto real(const dualnum<T>& x)
 {
     if constexpr (op == conj_imag) {
-        // (x + x^*) / 2i
-        return dualnum<T>{
+        return dualnum<decltype(pr::real(T()))>{
             pr::real(x.real()), 
             pr::real(x.dual())
         };
     }
     else if constexpr (op == conj_dual) {
-        // (x + x^*) / 2e
         return x.real();
     }
     else if constexpr (op == (conj_imag | conj_dual)) {
@@ -689,7 +705,6 @@ constexpr auto real(const dualnum<T>& x)
         typedef std::conditional_t<
                 std::is_floating_point<T>::value, std::complex<T>, T> U;
  
-        // (x + x^*) / 2 
         return dualnum<U>{
             U{pr::real(x.real()), 0},
             U{0, pr::imag(x.dual())}
@@ -702,27 +717,43 @@ constexpr auto real(const dualnum<T>& x)
 
 /**
  * @brief Skew part (with respect to given conjugate operator).
+ *
+ * Let @f$ x = a + \varepsilon b @f$.
+ *
+ * For `conj_imag`:
+ * @f[
+ *      \skew(x) = \frac{x - x^*}{2} = 
+ *      i \imag(a) + i \varepsilon \imag(b)
+ * @f]
+ *
+ * For `conj_dual`:
+ * @f[
+ *      \skew(x) = \frac{x - x^\circ}{2} = \varepsilon b
+ * @f]
+ *
+ * For `conj_imag | conj_dual`:
+ * @f[
+ *      \skew(x) = \frac{x - x^{*\circ}}{2} = 
+ *      i \imag(a) + \varepsilon \real(b)
+ * @f]
  */
-template <long op = conj_imag, typename T>
+template <long op = conj_imag, typename T> 
 constexpr auto skew(const dualnum<T>& x)
 {
     if constexpr (op == conj_imag) {
-        // (x - x^*) / (2 * i)
-        return dualnum<T>{
-            pr::imag(x.real()),
+        return dualnum<decltype(pr::imag(T()))>{
+            pr::imag(x.real()), 
             pr::imag(x.dual())
         };
     }
     else if constexpr (op == conj_dual) {
-        // (x - x^*) / (2 * e)
         return x.dual();
     }
     else if constexpr (op == (conj_imag | conj_dual)) {
         // Promote to dual complex.
         typedef std::conditional_t<
                 std::is_floating_point<T>::value, std::complex<T>, T> U;
-
-        // (x - x^*) / 2 
+ 
         return dualnum<U>{
             U{0, pr::imag(x.real())},
             U{pr::real(x.dual()), 0}
@@ -735,20 +766,31 @@ constexpr auto skew(const dualnum<T>& x)
 
 /**
  * @brief Imag part.
+ *
+ * @f[
+ *      \imag(x) = \frac{x - x^*}{2i}
+ * @f]
  */
 template <typename T> 
 constexpr auto imag(const dualnum<T>& x)
 {
-    return pr::skew<conj_imag>(x);
+    return dualnum<decltype(pr::imag(T()))>{
+        pr::imag(x.real()),
+        pr::imag(x.dual())
+    };
 }
 
 /**
  * @brief Dual part.
+ *
+ * @f[
+ *      \dual(x) = \frac{x - x^\circ}{2\varepsilon}
+ * @f]
  */
 template <typename T> 
 constexpr auto dual(const dualnum<T>& x)
 {
-    return pr::skew<conj_dual>(x);
+    return x.dual();
 }
 
 /**
@@ -827,6 +869,7 @@ constexpr auto norm(const dualnum<T>& x)
         // Error.
     }
 }
+#endif
 
 /**@}*/
 

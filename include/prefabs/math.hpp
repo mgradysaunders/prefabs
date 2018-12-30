@@ -362,6 +362,283 @@ template <typename T> constexpr std::complex<T> conj(const std::complex<T>& x)
 
 /**@}*/
 
+#if !DOXYGEN
+#if (__cplusplus >= 201703L)
+using std::void_t;
+#else
+template <typename...>
+using void_t = void;
+#endif // #if (__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
+
+#if !DOXYGEN
+
+template <typename T, typename = void_t<>>
+struct conj_traits_has_symm : std::false_type 
+{
+};
+
+template <typename T>
+struct conj_traits_has_symm<T, 
+            void_t<decltype(T::symm(
+            std::declval<typename T::value_type>()))>> : 
+            std::true_type 
+{
+};
+
+template <typename T, typename = void_t<>>
+struct conj_traits_has_skew : std::false_type 
+{
+};
+
+template <typename T>
+struct conj_traits_has_skew<T, 
+            void_t<decltype(T::skew(
+            std::declval<typename T::value_type>()))>> : 
+            std::true_type 
+{
+};
+
+template <typename T, typename = void_t<>>
+struct conj_traits_has_norm : std::false_type 
+{
+};
+
+template <typename T>
+struct conj_traits_has_norm<T, 
+            void_t<decltype(T::norm(
+            std::declval<typename T::value_type>()))>> : 
+            std::true_type 
+{
+};
+
+template <typename T, typename = void_t<>>
+struct conj_traits_norm_type
+{
+    typedef typename T::value_type type;
+};
+
+template <typename T>
+struct conj_traits_norm_type<T, void_t<typename T::norm_type>>
+{
+    typedef typename T::norm_type type;
+};
+
+#endif // #if !DOXYGEN
+
+/**
+ * @brief Type traits for conjugate policy.
+ *
+ * A conjugate policy provides at least
+ * - a public member type `value_type` and
+ * - a public static member function `conj()` with signature equivalent 
+ * to `value_type(const value_type&)`.
+ *
+ * By default, the implementation provides additionally
+ * - a public member type `norm_type` equivalent to `value_type`,
+ * - a public static member function `symm()` with signature equivalent
+ * to `value_type(const value_type&)`,
+ * - a public static member function `skew()` with signature equivalent
+ * to `value_type(const value_type&)`, and
+ * - a public static member function `norm()` with signature equivalent
+ * to `norm_type(const value_type&)`.
+ *
+ * A conjugate policy may override `symm()`, `skew()`,
+ * or `norm()` for efficiency.
+ */
+template <typename T>
+struct conj_traits
+{
+    /**
+     * @brief Value type.
+     */
+    typedef typename T::value_type value_type;
+
+    /**
+     * @brief Norm type.
+     */
+    typedef typename conj_traits_norm_type<T>::type norm_type;
+
+    /**
+     * @brief Conjugate.
+     */
+    __attribute__((always_inline))
+    static constexpr value_type conj(const value_type& x)
+    {
+        return T::conj(x);
+    }
+
+#if !DOXYGEN 
+
+    // If traits provides symm, delegate.
+    template <bool B = conj_traits_has_symm<T>::value>
+    __attribute__((always_inline))
+    static constexpr std::enable_if_t<B, value_type> symm(const value_type& x)
+    {
+        return T::symm(x);
+    }
+
+    // If traits provides skew, delegate.
+    template <bool B = conj_traits_has_skew<T>::value>
+    __attribute__((always_inline))
+    static constexpr std::enable_if_t<B, value_type> skew(const value_type& x)
+    {
+        return T::skew(x);
+    }
+
+    // If traits provides norm, delegate.
+    template <bool B = conj_traits_has_norm<T>::value>
+    __attribute__((always_inline))
+    static constexpr std::enable_if_t<B, norm_type> norm(const value_type& x)
+    {
+        return T::norm(x);
+    }
+
+#endif // #if !DOXYGEN
+
+    /**
+     * @brief Symmetric part.
+     *
+     * @f[
+     *      \symm(x) = \frac{x + x^*}{2}
+     * @f]
+     */
+    template <bool B = conj_traits_has_symm<T>::value>
+    __attribute__((always_inline))
+    static constexpr std::enable_if_t<!B, value_type> symm(const value_type& x)
+    {
+        return value_type(x + T::conj(x)) / value_type(2);
+    }
+
+    /**
+     * @brief Skew-symmetric part.
+     *
+     * @f[
+     *      \skew(x) = \frac{x - x^*}{2}
+     * @f]
+     */
+    template <bool B = conj_traits_has_skew<T>::value>
+    __attribute__((always_inline))
+    static constexpr std::enable_if_t<!B, value_type> skew(const value_type& x)
+    {
+        return value_type(x - T::conj(x)) / value_type(2);
+    }
+
+    /**
+     * @brief Norm square.
+     *
+     * @f[
+     *      |x|^2 = x x^*
+     * @f]
+     */
+    template <bool B = conj_traits_has_norm<T>::value>
+    __attribute__((always_inline))
+    static constexpr std::enable_if_t<!B, norm_type> norm(const value_type& x)
+    {
+        return x * T::conj(x);
+    }
+};
+
+/**
+ * @brief Imag conjugate policy.
+ */
+template <typename T, typename = void_t<>>
+struct conj_imag;
+
+/**
+ * @brief Imag conjugate policy (arithmetic).
+ */
+template <typename T>
+struct conj_imag<T, void_t<std::enable_if_t<std::is_arithmetic<T>::value, T>>>
+{
+    /**
+     * @brief Value type.
+     */
+    typedef T value_type;
+
+    /**
+     * @brief Conjugate.
+     */
+    static constexpr value_type conj(const value_type& x)
+    {
+        return x;
+    }
+
+    /**
+     * @brief Symmetric part.
+     */
+    static constexpr value_type symm(const value_type& x)
+    {
+        return x;
+    }
+
+    /**
+     * @brief Skew-symmetric part.
+     */
+    static constexpr value_type skew(const value_type& x)
+    {
+        (void) x;
+        return 0;
+    }
+
+    /**
+     * @brief Norm square.
+     */
+    static constexpr value_type norm(const value_type& x)
+    {
+        return x * x;
+    }
+};
+
+/**
+ * @brief Imag conjugate policy (`std::complex`).
+ */
+template <typename T>
+struct conj_imag<std::complex<T>>
+{
+    /**
+     * @brief Value type.
+     */
+    typedef std::complex<T> value_type;
+
+    /**
+     * @brief Norm type.
+     */
+    typedef T norm_type;
+
+    /**
+     * @brief Conjugate.
+     */
+    static constexpr value_type conj(const value_type& x)
+    {
+        return {+x.real(), -x.imag()};
+    }
+
+    /**
+     * @brief Symmetric part.
+     */
+    static constexpr value_type symm(const value_type& x)
+    {
+        return {+x.real(), 0};
+    }
+
+    /**
+     * @brief Skew-symmetric part.
+     */
+    static constexpr value_type skew(const value_type& x)
+    {
+        return {0, +x.imag()};
+    }
+
+    /**
+     * @brief Norm square.
+     */
+    static constexpr norm_type norm(const value_type& x)
+    {
+        return x.real() * x.real() + x.imag() * x.imag();
+    }
+};
+
 /**
  * @name Misc
  */
