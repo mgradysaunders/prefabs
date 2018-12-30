@@ -578,6 +578,81 @@ constexpr dualnum<T>& operator/=(dualnum<T>& x, const U& any)
 /**@}*/
 
 /**
+ * @name Comparison operators (dualnum)
+ */
+/**@{*/
+
+/**
+ * @brief Compare `operator==`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr bool operator==(const dualnum<T>& x0, const dualnum<U>& x1)
+{
+    return x0.real() == x1.real() && x0.dual() == x1.dual();
+}
+
+/**
+ * @brief Compare `operator==`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr std::enable_if_t<
+                !is_dualnum<U>::value, bool> operator==(
+                        const dualnum<T>& x0, const U& x1)
+{
+    return x0.real() == x1 && x0.dual() == T();
+}
+
+/**
+ * @brief Compare `operator==`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr std::enable_if_t<
+                !is_dualnum<T>::value, bool> operator==(
+                        const T& x0, const dualnum<U>& x1)
+{
+    return x0 == x1.real() && U() == x1.dual();
+}
+
+/**
+ * @brief Compare `operator!=`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr bool operator!=(const dualnum<T>& x0, const dualnum<U>& x1)
+{
+    return !(x0 == x1);
+}
+
+/**
+ * @brief Compare `operator!=`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr std::enable_if_t<
+                !is_dualnum<U>::value, bool> operator!=(
+                        const dualnum<T>& x0, const U& x1)
+{
+    return !(x0 == x1);
+}
+
+/**
+ * @brief Compare `operator!=`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr std::enable_if_t<
+                !is_dualnum<T>::value, bool> operator!=(
+                        const T& x0, const dualnum<U>& x1)
+{
+    return !(x0 == x1);
+}
+
+/**@}*/
+
+/**
  * @name Complex accessors (dualnum)
  */
 /**@{*/
