@@ -161,7 +161,7 @@ struct numeric_limits : std::numeric_limits<T>
 };
 
 /**
- * @brief Useful numeric constants.
+ * @brief Numeric constants.
  */
 template <typename T>
 struct numeric_constants
@@ -322,6 +322,20 @@ constexpr std::enable_if_t<std::is_arithmetic<T>::value, T> conj(T x)
 }
 
 /**@}*/
+
+#if !DOXYGEN
+
+template <typename T>
+struct is_complex : std::false_type
+{
+};
+
+template <typename T>
+struct is_complex<std::complex<T>> : std::true_type
+{
+};
+
+#endif // #if !DOXYGEN
 
 /**
  * @name Complex accessors (complex)
@@ -528,7 +542,7 @@ struct conj_traits
      * @brief Norm square.
      *
      * @f[
-     *      |x|^2 = x x^*
+     *      x x^*
      * @f]
      */
     template <bool B = conj_traits_has_norm<T>::value>
@@ -536,6 +550,71 @@ struct conj_traits
     static constexpr std::enable_if_t<!B, norm_type> norm(const value_type& x)
     {
         return x * T::conj(x);
+    }
+};
+
+/**
+ * @brief Null conjugate policy.
+ */
+template <typename T>
+struct conj_null
+{
+    /**
+     * @brief Value type.
+     */
+    typedef T value_type;
+
+    /**
+     * @brief Conjugate.
+     *
+     * @f[
+     *      x^* = x
+     * @f]
+     */
+    __attribute__((always_inline))
+    static constexpr value_type conj(const value_type& x)
+    {
+        return x;
+    }
+
+    /**
+     * @brief Symmetric part.
+     *
+     * @f[
+     *      \symm(x) = x
+     * @f]
+     */
+    __attribute__((always_inline))
+    static constexpr value_type symm(const value_type& x)
+    {
+        return x;
+    }
+
+    /**
+     * @brief Skew-symmetric part.
+     *
+     * @f[
+     *      \skew(x) = 0
+     * @f]
+     */
+    __attribute__((always_inline))
+    static constexpr value_type skew(const value_type& x)
+    {
+        (void) x;
+        return 0;
+    }
+
+    /**
+     * @brief Norm square.
+     *
+     * @f[
+     *      x x^* = x^2
+     * @f]
+     */
+    __attribute__((always_inline))
+    static constexpr value_type norm(const value_type& x)
+    {
+        return x * x;
     }
 };
 
@@ -549,49 +628,15 @@ struct conj_imag;
  * @brief Imag conjugate policy (arithmetic).
  */
 template <typename T>
-struct conj_imag<T, void_t<std::enable_if_t<std::is_arithmetic<T>::value, T>>>
+struct conj_imag<T, 
+            void_t<
+                std::enable_if_t<
+                std::is_arithmetic<T>::value, T>>> : conj_null<T>
 {
-    /**
-     * @brief Value type.
-     */
-    typedef T value_type;
-
-    /**
-     * @brief Conjugate.
-     */
-    static constexpr value_type conj(const value_type& x)
-    {
-        return x;
-    }
-
-    /**
-     * @brief Symmetric part.
-     */
-    static constexpr value_type symm(const value_type& x)
-    {
-        return x;
-    }
-
-    /**
-     * @brief Skew-symmetric part.
-     */
-    static constexpr value_type skew(const value_type& x)
-    {
-        (void) x;
-        return 0;
-    }
-
-    /**
-     * @brief Norm square.
-     */
-    static constexpr value_type norm(const value_type& x)
-    {
-        return x * x;
-    }
 };
 
 /**
- * @brief Imag conjugate policy (`std::complex`).
+ * @brief Imag conjugate policy (complex).
  */
 template <typename T>
 struct conj_imag<std::complex<T>>
@@ -608,7 +653,12 @@ struct conj_imag<std::complex<T>>
 
     /**
      * @brief Conjugate.
+     *
+     * @f[
+     *      (a + i b)^* = a - i b
+     * @f]
      */
+    __attribute__((always_inline))
     static constexpr value_type conj(const value_type& x)
     {
         return {+x.real(), -x.imag()};
@@ -616,7 +666,12 @@ struct conj_imag<std::complex<T>>
 
     /**
      * @brief Symmetric part.
+     *
+     * @f[
+     *      \symm(a + i b) = a
+     * @f]
      */
+    __attribute__((always_inline))
     static constexpr value_type symm(const value_type& x)
     {
         return {+x.real(), 0};
@@ -624,7 +679,14 @@ struct conj_imag<std::complex<T>>
 
     /**
      * @brief Skew-symmetric part.
+     *
+     * @f[
+     *
+     *      \skew(a + i b) = i b
+     *
+     * @f]
      */
+    __attribute__((always_inline))
     static constexpr value_type skew(const value_type& x)
     {
         return {0, +x.imag()};
@@ -632,7 +694,13 @@ struct conj_imag<std::complex<T>>
 
     /**
      * @brief Norm square.
+     *
+     * @f[
+     *      (a + i b)
+     *      (a + i b)^* = a^2 + b^2
+     * @f]
      */
+    __attribute__((always_inline))
     static constexpr norm_type norm(const value_type& x)
     {
         return x.real() * x.real() + x.imag() * x.imag();
