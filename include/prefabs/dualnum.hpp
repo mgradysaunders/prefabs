@@ -125,17 +125,17 @@ public:
     /**
      * @brief Default copy assign.
      */
-    constexpr dualnum& operator=(const dualnum&) noexcept = default;
+    constexpr dualnum& operator=(const dualnum&) = default;
 
     /**
      * @brief Default move assign.
      */
-    constexpr dualnum& operator=(dualnum&&) noexcept = default;
+    constexpr dualnum& operator=(dualnum&&) = default;
 
     /**
      * @brief Real assign.
      */
-    constexpr dualnum& operator=(T a) noexcept
+    constexpr dualnum& operator=(T a)
     {
         return *this = dualnum(a);
     }
@@ -152,7 +152,7 @@ public:
     /**
      * @brief Get real part.
      */
-    constexpr const T& real() const noexcept
+    constexpr const T& real() const
     {
         return a_;
     }
@@ -160,7 +160,7 @@ public:
     /**
      * @brief Get dual part.
      */
-    constexpr const T& dual() const noexcept
+    constexpr const T& dual() const
     {
         return b_;
     }
@@ -168,7 +168,7 @@ public:
     /**
      * @brief Set real part, return previous real part.
      */
-    constexpr T real(T val) noexcept 
+    constexpr T real(T val)
     { 
         T a = a_; a_ = val; return a; 
     }
@@ -176,7 +176,7 @@ public:
     /**
      * @brief Set dual part, return previous dual part.
      */
-    constexpr T dual(T val) noexcept
+    constexpr T dual(T val)
     { 
         T b = b_; b_ = val; return b; 
     }
@@ -267,10 +267,7 @@ template <typename T>
 __attribute__((always_inline))
 constexpr dualnum<T> operator+(const dualnum<T>& x)
 {
-    return {
-        +x.real(),
-        +x.dual()
-    };
+    return {+x.real(), +x.dual()};
 }
 
 /**
@@ -280,10 +277,7 @@ template <typename T>
 __attribute__((always_inline))
 constexpr dualnum<T> operator-(const dualnum<T>& x)
 {
-    return {
-        -x.real(),
-        -x.dual()
-    };
+    return {-x.real(), -x.dual()};
 }
 
 /**@}*/
@@ -308,10 +302,7 @@ __attribute__((always_inline))
 constexpr dualnum<decltype(T() + U())> operator+(
                     const dualnum<T>& x0, const dualnum<U>& x1)
 {
-    return {
-        x0.real() + x1.real(),
-        x0.dual() + x1.dual()
-    };
+    return {x0.real() + x1.real(), x0.dual() + x1.dual()};
 }
 
 /**
@@ -329,10 +320,7 @@ __attribute__((always_inline))
 constexpr dualnum<decltype(T() - U())> operator-(
                     const dualnum<T>& x0, const dualnum<U>& x1)
 {
-    return {
-        x0.real() - x1.real(),
-        x0.dual() - x1.dual()
-    };
+    return {x0.real() - x1.real(), x0.dual() - x1.dual()};
 }
 
 /**
@@ -400,10 +388,7 @@ constexpr std::enable_if_t<
                     dualnum<decltype(T() + U())>> operator+(
                             const dualnum<T>& x0, const U& x1)
 {
-    return {
-        x0.real() + x1,
-        x0.dual()
-    };
+    return {x0.real() + x1, x0.dual()};
 }
 
 /**
@@ -421,10 +406,7 @@ constexpr std::enable_if_t<
                     dualnum<decltype(T() - U())>> operator-(
                             const dualnum<T>& x0, const U& x1)
 {
-    return {
-        x0.real() - x1,
-        x0.dual()
-    };
+    return {x0.real() - x1, x0.dual()};
 }
 
 /**
@@ -442,10 +424,7 @@ constexpr std::enable_if_t<
                     dualnum<decltype(T() * U())>> operator*(
                             const dualnum<T>& x0, const U& x1)
 {
-    return {
-        x0.real() * x1,
-        x0.dual() * x1
-    };
+    return {x0.real() * x1, x0.dual() * x1};
 }
 
 /**
@@ -463,10 +442,7 @@ constexpr std::enable_if_t<
                     dualnum<decltype(T() / U())>> operator/(
                             const dualnum<T>& x0, const U& x1)
 {
-    return {
-        x0.real() / x1,
-        x0.dual() / x1
-    };
+    return {x0.real() / x1, x0.dual() / x1};
 }
 
 /**@}*/
@@ -491,10 +467,7 @@ constexpr std::enable_if_t<
                     dualnum<decltype(T() + U())>> operator+(
                             const T& x0, const dualnum<U>& x1)
 {
-    return {
-        x1.real() + x0,
-        x1.dual()
-    };
+    return {x0 + x1.real(), x1.dual()};
 }
 
 /**
@@ -512,10 +485,7 @@ constexpr std::enable_if_t<
                     dualnum<decltype(T() - U())>> operator-(
                             const T& x0, const dualnum<U>& x1)
 {
-    return {
-        -x1.real() + x0,
-        -x1.dual()
-    };
+    return {x0 - x1.real(), -x1.dual()};
 }
 
 /**
@@ -533,10 +503,7 @@ constexpr std::enable_if_t<
                     dualnum<decltype(T() * U())>> operator*(
                             const T& x0, const dualnum<U>& x1)
 {
-    return {
-        x0 * x1.real(),
-        x0 * x1.dual()
-    };
+    return {x0 * x1.real(), x0 * x1.dual()};
 }
 
 /**
@@ -616,35 +583,78 @@ constexpr dualnum<T>& operator/=(dualnum<T>& x, const U& any)
 /**@{*/
 
 /**
- * @brief Conjugate operator.
+ * @brief Conjugate with respect to @f$ i @f$.
  */
-enum conj_op
-{
-    /**
-     * @brief Conjugate with respect to @f$ i @f$.
-     */
-    conj_imag,
+constexpr long conj_imag = 0b0001L;
 
-    /**
-     * @brief Conjugate with respect to @f$ \varepsilon @f$.
-     */
-    conj_dual
-};
+/**
+ * @brief Conjugate with respect to @f$ \varepsilon @f$.
+ */
+constexpr long conj_dual = 0b0010L;
 
 /**
  * @brief Real part (with respect to given conjugate operator).
  */
-template <conj_op op = conj_imag, typename T> 
+template <long op = conj_imag, typename T> 
 constexpr auto real(const dualnum<T>& x)
 {
     if constexpr (op == conj_imag) {
+        // (x + x^*) / 2i
         return dualnum<T>{
             pr::real(x.real()), 
             pr::real(x.dual())
         };
     }
-    else {
+    else if constexpr (op == conj_dual) {
+        // (x + x^*) / 2e
         return x.real();
+    }
+    else if constexpr (op == (conj_imag | conj_dual)) {
+        // Promote to dual complex.
+        typedef std::conditional_t<
+                std::is_floating_point<T>::value, std::complex<T>, T> U;
+ 
+        // (x + x^*) / 2 
+        return dualnum<U>{
+            U{pr::real(x.real()), 0},
+            U{0, pr::imag(x.dual())}
+        };
+    }
+    else {
+        // Error.
+    }
+}
+
+/**
+ * @brief Skew part (with respect to given conjugate operator).
+ */
+template <long op = conj_imag, typename T>
+constexpr auto skew(const dualnum<T>& x)
+{
+    if constexpr (op == conj_imag) {
+        // (x - x^*) / (2 * i)
+        return dualnum<T>{
+            pr::imag(x.real()),
+            pr::imag(x.dual())
+        };
+    }
+    else if constexpr (op == conj_dual) {
+        // (x - x^*) / (2 * e)
+        return x.dual();
+    }
+    else if constexpr (op == (conj_imag | conj_dual)) {
+        // Promote to dual complex.
+        typedef std::conditional_t<
+                std::is_floating_point<T>::value, std::complex<T>, T> U;
+
+        // (x - x^*) / 2 
+        return dualnum<U>{
+            U{0, pr::imag(x.real())},
+            U{pr::real(x.dual()), 0}
+        };
+    }
+    else {
+        // Error.
     }
 }
 
@@ -654,10 +664,7 @@ constexpr auto real(const dualnum<T>& x)
 template <typename T> 
 constexpr auto imag(const dualnum<T>& x)
 {
-    return dualnum<T>{
-        pr::imag(x.real()), 
-        pr::imag(x.dual())
-    };
+    return pr::skew<conj_imag>(x);
 }
 
 /**
@@ -666,13 +673,13 @@ constexpr auto imag(const dualnum<T>& x)
 template <typename T> 
 constexpr auto dual(const dualnum<T>& x)
 {
-    return x.dual();
+    return pr::skew<conj_dual>(x);
 }
 
 /**
  * @brief Conjugate.
  */
-template <conj_op op = conj_imag, typename T> 
+template <long op = conj_imag, typename T> 
 constexpr auto conj(const dualnum<T>& x)
 {
     if constexpr (op == conj_imag) {
@@ -681,15 +688,45 @@ constexpr auto conj(const dualnum<T>& x)
             pr::conj(x.dual())
         };
     }
+    else if constexpr (op == conj_dual) {
+        return dualnum<T>{+x.real(), -x.dual()};
+    }
+    else if constexpr (op == (conj_imag | conj_dual)) {
+        // Promote to dual complex.
+        typedef std::conditional_t<
+                std::is_floating_point<T>::value, std::complex<T>, T> U;
+
+        return dualnum<U>{
+            pr::conj(+x.real()), 
+            pr::conj(-x.dual())
+        };
+    }
     else {
-        return dualnum<T>{x.real(), -x.dual()};
+        // Error.
     }
 }
 
 /**
  * @brief Norm square.
+ *
+ * Let @f$ x = a + \varepsilon b @f$.
+ *
+ * For `conj_imag`:
+ * @f[
+ *      |x|^2 = |a|^2 + 2 \real(ab^*)
+ * @f]
+ *
+ * For `conj_dual`:
+ * @f[
+ *      |x|^2 = a^2
+ * @f]
+ *
+ * For `conj_imag | conj_dual`:
+ * @f[
+ *      |x|^2 = |a|^2 - 2 i \varepsilon \imag(ab^*)
+ * @f]
  */
-template <conj_op op = conj_imag, typename T> 
+template <long op = conj_imag, typename T> 
 constexpr auto norm(const dualnum<T>& x)
 {
     if constexpr (op == conj_imag) {
@@ -698,8 +735,21 @@ constexpr auto norm(const dualnum<T>& x)
             pr::real(x.real() * pr::conj(x.dual())) * 2
         };
     }
-    else {
+    else if constexpr (op == conj_dual) {
         return x.real() * x.real();
+    }
+    else if constexpr (op == (conj_imag | conj_dual)) {
+        // Promote to dual complex.
+        typedef std::conditional_t<
+                std::is_floating_point<T>::value, std::complex<T>, T> U;
+
+        return dualnum<U>{
+            U{pr::norm(x.real()), 0},
+            U{0, pr::imag(pr::conj(x.real()) * x.dual())} * U{2}
+        };
+    }
+    else {
+        // Error.
     }
 }
 
