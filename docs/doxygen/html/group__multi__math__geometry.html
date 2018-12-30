@@ -20,6 +20,8 @@ MathJax.Hub.Config({
         real: ["\\operatorname{Re}"],
         imag: ["\\operatorname{Im}"],
         dual: ["\\operatorname{Du}"],
+        symm: ["\\operatorname{Symm}"],
+        skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
@@ -120,19 +122,18 @@ Functions</h2></td></tr>
 <tr class="separator:ga588a239a954ee2fa37d3393445e9be82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7f33edd28a66b30340f066b2a1020751"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
 <tr class="memitem:ga7f33edd28a66b30340f066b2a1020751"><td class="memTemplItemLeft" align="right" valign="top">decltype(<a class="el" href="group__dualnum.html#ga2a4cad69c06164ee6b8c8a4b4805156e">pr::sqrt</a>(<a class="el" href="group__math.html#ga6dac19507f6fff9d5f82d360abe03dbe">pr::abs</a>(T())))&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#ga7f33edd28a66b30340f066b2a1020751">pr::length</a> (const multi&lt; T, N &gt; &amp;arr)</td></tr>
-<tr class="memdesc:ga7f33edd28a66b30340f066b2a1020751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length.  <a href="group__multi__math__geometry.html#ga7f33edd28a66b30340f066b2a1020751">More...</a><br /></td></tr>
+<tr class="memdesc:ga7f33edd28a66b30340f066b2a1020751"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) length.  <a href="group__multi__math__geometry.html#ga7f33edd28a66b30340f066b2a1020751">More...</a><br /></td></tr>
 <tr class="separator:ga7f33edd28a66b30340f066b2a1020751"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabff6b47f374494faa0e7cc86d509c9c1"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
 <tr class="memitem:gabff6b47f374494faa0e7cc86d509c9c1"><td class="memTemplItemLeft" align="right" valign="top">decltype(<a class="el" href="group__dualnum.html#ga2a4cad69c06164ee6b8c8a4b4805156e">pr::sqrt</a>(<a class="el" href="group__math.html#ga6dac19507f6fff9d5f82d360abe03dbe">pr::abs</a>(T())))&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#gabff6b47f374494faa0e7cc86d509c9c1">pr::fast_length</a> (const multi&lt; T, N &gt; &amp;arr)</td></tr>
-<tr class="memdesc:gabff6b47f374494faa0e7cc86d509c9c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length, fast (and somewhat unsafe) variant.  <a href="group__multi__math__geometry.html#gabff6b47f374494faa0e7cc86d509c9c1">More...</a><br /></td></tr>
 <tr class="separator:gabff6b47f374494faa0e7cc86d509c9c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef26577ac5ea8556afd3eb2d3ccab5b3"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
 <tr class="memitem:gaef26577ac5ea8556afd3eb2d3ccab5b3"><td class="memTemplItemLeft" align="right" valign="top">multi&lt; decltype(T()/<a class="el" href="group__dualnum.html#ga2a4cad69c06164ee6b8c8a4b4805156e">pr::sqrt</a>(<a class="el" href="group__math.html#ga6dac19507f6fff9d5f82d360abe03dbe">pr::abs</a>(T()))), N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#gaef26577ac5ea8556afd3eb2d3ccab5b3">pr::normalize</a> (const multi&lt; T, N &gt; &amp;arr)</td></tr>
-<tr class="memdesc:gaef26577ac5ea8556afd3eb2d3ccab5b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalize.  <a href="group__multi__math__geometry.html#gaef26577ac5ea8556afd3eb2d3ccab5b3">More...</a><br /></td></tr>
+<tr class="memdesc:gaef26577ac5ea8556afd3eb2d3ccab5b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) normalize.  <a href="group__multi__math__geometry.html#gaef26577ac5ea8556afd3eb2d3ccab5b3">More...</a><br /></td></tr>
 <tr class="separator:gaef26577ac5ea8556afd3eb2d3ccab5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga790e274e763867965ba1091691add788"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
 <tr class="memitem:ga790e274e763867965ba1091691add788"><td class="memTemplItemLeft" align="right" valign="top">multi&lt; decltype(T()/<a class="el" href="group__dualnum.html#ga2a4cad69c06164ee6b8c8a4b4805156e">pr::sqrt</a>(<a class="el" href="group__math.html#ga6dac19507f6fff9d5f82d360abe03dbe">pr::abs</a>(T()))), N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#ga790e274e763867965ba1091691add788">pr::fast_normalize</a> (const multi&lt; T, N &gt; &amp;arr)</td></tr>
-<tr class="memdesc:ga790e274e763867965ba1091691add788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalize, fast (and somewhat unsafe) variant.  <a href="group__multi__math__geometry.html#ga790e274e763867965ba1091691add788">More...</a><br /></td></tr>
+<tr class="memdesc:ga790e274e763867965ba1091691add788"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) normalize, fast (and somewhat unsafe) variant.  <a href="group__multi__math__geometry.html#ga790e274e763867965ba1091691add788">More...</a><br /></td></tr>
 <tr class="separator:ga790e274e763867965ba1091691add788"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafe7025bebe7822cd0912e3646bcae589"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t M, std::size_t N&gt; </td></tr>
 <tr class="memitem:gafe7025bebe7822cd0912e3646bcae589"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#gafe7025bebe7822cd0912e3646bcae589">pr::trace</a> (const multi&lt; T, M, N &gt; &amp;arr)</td></tr>
@@ -582,7 +583,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Length. </p>
+<p>\( L^2 \) length. </p>
 <p class="formulaDsp">
 \[ \sqrt{\sum_k |x_{[k]}|^2} \]
 </p>
@@ -615,15 +616,6 @@ template&lt;typename T , std::size_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Length, fast (and somewhat unsafe) variant. </p>
-<p class="formulaDsp">
-\[ \sqrt{\sum_k |x_{[k]}|^2} \]
-</p>
-<p><em>Fast</em> means the implementation</p><ul>
-<li>assumes no overflow/underflow,</li>
-<li>does <em>not</em> calculate the absolute values of complex numbers separately. </li>
-</ul>
-
 </div>
 </div>
 <a id="gaef26577ac5ea8556afd3eb2d3ccab5b3"></a>
@@ -652,7 +644,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Normalize. </p>
+<p>\( L^2 \) normalize. </p>
 <p class="formulaDsp">
 \[ \mathbf{x} / \lVert\mathbf{x}\rVert \]
 </p>
@@ -686,7 +678,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Normalize, fast (and somewhat unsafe) variant. </p>
+<p>\( L^2 \) normalize, fast (and somewhat unsafe) variant. </p>
 <p class="formulaDsp">
 \[ \mathbf{x} / \lVert\mathbf{x}\rVert \]
 </p>

@@ -20,6 +20,8 @@ MathJax.Hub.Config({
         real: ["\\operatorname{Re}"],
         imag: ["\\operatorname{Im}"],
         dual: ["\\operatorname{Du}"],
+        symm: ["\\operatorname{Symm}"],
+        skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
@@ -92,8 +94,14 @@ $(function() {
 <li>operator float()
 : <a class="el" href="classpr_1_1half.html#ac7e77aad59bd8e1c3bf07bdaa2ac05cb">pr::half</a>
 </li>
+<li>operator multi&lt; U, 4 &gt;()
+: <a class="el" href="classpr_1_1quat.html#a5c81bbbcdd3f58fd06505e0544967247">pr::quat&lt; T &gt;</a>
+</li>
 <li>operator multi&lt; U, K... &gt;()
 : <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a1356482fa6fbb09b6fea833f3b94793a">pr::multi&lt; T, M, N... &gt;</a>
+</li>
+<li>operator quat&lt; U &gt;()
+: <a class="el" href="classpr_1_1quat.html#a5229703a7abd00646a2ca6646ce1d2ec">pr::quat&lt; T &gt;</a>
 </li>
 <li>operator std::string()
 : <a class="el" href="classpr_1_1option__parser_1_1option.html#acca3c6a13e0e3d58ee39bed5f73c9bb9">pr::option_parser::option</a>
@@ -115,7 +123,7 @@ $(function() {
 , <a class="el" href="classpr_1_1block__array3.html#a195a9a46246653ffe01fc87507e76bf6">pr::block_array3&lt; T, Talloc &gt;</a>
 , <a class="el" href="structpr_1_1exponential__distribution.html#a292a07c3e9b7c0fcd41ec8a681431247">pr::exponential_distribution&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1lognormal__distribution.html#a00fab763b0757a9585bdf8b88c24d3bb">pr::lognormal_distribution&lt; T &gt;</a>
-, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#aa32d55d2e64f47f93fff68f5278a6925">pr::multi&lt; T, M, N... &gt;</a>
+, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a9d522e0892ee1b31b9efbf8cfb987108">pr::multi&lt; T, M, N... &gt;</a>
 , <a class="el" href="structpr_1_1normal__distribution.html#aa8c3da57c6dc58d5d15e3d48432d385a">pr::normal_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1thread__pool_1_1worker.html#af17e1ce86d72e7ac35219ac559405a6e">pr::thread_pool::worker</a>
 , <a class="el" href="structpr_1_1uniform__distribution.html#a2079d5a38afac10048518b5b7bb891e4">pr::uniform_distribution&lt; T &gt;</a>
@@ -178,10 +186,10 @@ $(function() {
 , <a class="el" href="classpr_1_1zip__iterator_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_00_01std_1_1integer__sequence_3_01st29c6912fbc7fe0b4cfe72a9eeea9f477.html#a8c3541e1f2d3e80279c1e7bf970e288d">pr::zip_iterator&lt; std::tuple&lt; Ts... &gt;, std::integer_sequence&lt; std::size_t, N... &gt; &gt;</a>
 </li>
 <li>operator=()
-: <a class="el" href="classpr_1_1dualnum.html#a2dc0fd52fc6e09cc638f8fff689d15a7">pr::dualnum&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1dualnum.html#aef3e7d873ddcfdcac10521d36a537216">pr::dualnum&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1half.html#a42fd7978f7cb382751e504ce171e8364">pr::half</a>
-, <a class="el" href="classpr_1_1memory__arena__allocator.html#a3790630d41f6626ea4f3298aff552745">pr::memory_arena_allocator&lt; T &gt;</a>
-, <a class="el" href="classpr_1_1neumaier__sum.html#a26ef90f7cce3881f799cd040b3a1f723">pr::neumaier_sum&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1memory__arena__allocator.html#a5c962adc65818aa1a825d1847c81252b">pr::memory_arena_allocator&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1neumaier__sum.html#a071f83653cc980dd19498331b4e96cdc">pr::neumaier_sum&lt; T &gt;</a>
 </li>
 <li>operator==()
 : <a class="el" href="classpr_1_1dense__iterator.html#a8cfc16de2cad3deb87e0340e5fab92f6">pr::dense_iterator&lt; T &gt;</a>
@@ -203,10 +211,10 @@ $(function() {
 </li>
 <li>operator[]()
 : <a class="el" href="classpr_1_1aabb.html#a8843bac398c1307e786282135fca9b98">pr::aabb&lt; T, N &gt;</a>
-, <a class="el" href="classpr_1_1block__array2.html#afdcae96f0019ff339686453fc841656f">pr::block_array2&lt; T, Talloc &gt;</a>
+, <a class="el" href="classpr_1_1block__array2.html#afea4c2d007844425c9e354710ffd42f4">pr::block_array2&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#a71674ded1fc5ace07e3f33847a49982e">pr::block_array3&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1dense__iterator.html#a70a5e9602ee5eaa87fbd4f106d70e669">pr::dense_iterator&lt; T &gt;</a>
-, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#af1c6f6400a0526b154ee5a5f065f887a">pr::multi&lt; T, M, N... &gt;</a>
+, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ac2080a9671097fa52728a4cca59bd016">pr::multi&lt; T, M, N... &gt;</a>
 , <a class="el" href="classpr_1_1range.html#a4503adc00ed757e9b61843248fbb418e">pr::range&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1zip__iterator_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_00_01std_1_1integer__sequence_3_01st29c6912fbc7fe0b4cfe72a9eeea9f477.html#af7903e86badf9d56aafac4d7a44f8d11">pr::zip_iterator&lt; std::tuple&lt; Ts... &gt;, std::integer_sequence&lt; std::size_t, N... &gt; &gt;</a>
 </li>

@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classpr_1_1half.html" title="Half&#45;precision float. " alt="" coords="5,5,68,32"/>
+<area shape="rect" id="node1" href="$structpr_1_1conj__null.html" title="Null conjugate policy. " alt="" coords="5,133,129,159"/>
+<area shape="rect" id="node2" href="$structpr_1_1conj__dual_3_01std_1_1complex_3_01T_01_4_01_4.html" title="Dual conjugate policy (complex). " alt="" coords="195,5,321,47"/>
+<area shape="rect" id="node3" href="$structpr_1_1conj__dual_3_01T_00_01void__t_3_01std_1_1enable__if__t_3_01std_1_1is__arithmetic_3_010fc591a2a6f037245fa45638e303bea.html" title="Dual conjugate policy (arithmetic). " alt="" coords="184,71,332,141"/>
+<area shape="rect" id="node4" href="$structpr_1_1conj__imag_3_01dualnum_3_01T_01_4_01_4.html" title="Imag conjugate policy (dualnum). " alt="" coords="177,165,339,207"/>
+<area shape="rect" id="node5" href="$structpr_1_1conj__imag_3_01T_00_01void__t_3_01std_1_1enable__if__t_3_01std_1_1is__arithmetic_3_058708b40e356ab61818b1fc4df292c8e.html" title="Imag conjugate policy (arithmetic). " alt="" coords="182,231,334,301"/>
 </map>

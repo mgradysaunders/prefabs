@@ -20,6 +20,8 @@ MathJax.Hub.Config({
         real: ["\\operatorname{Re}"],
         imag: ["\\operatorname{Im}"],
         dual: ["\\operatorname{Du}"],
+        symm: ["\\operatorname{Symm}"],
+        skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
@@ -65,7 +67,8 @@ $(function() {
 
 <h3><a id="index_b"></a>- b -</h3><ul>
 <li>base
-: <a class="el" href="classpr_1_1image2.html#aa45a4d6e6b3ec650ff20bd2261e79d38">pr::image2&lt; Tfloat, T, N, Talloc &gt;</a>
+: <a class="el" href="structpr_1_1conj__imag_3_01dualnum_3_01std_1_1complex_3_01T_01_4_01_4_01_4.html#aebad02a58b22c8dc2fa4fd01251cb340">pr::conj_imag&lt; dualnum&lt; std::complex&lt; T &gt; &gt; &gt;</a>
+, <a class="el" href="classpr_1_1image2.html#aa45a4d6e6b3ec650ff20bd2261e79d38">pr::image2&lt; Tfloat, T, N, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1image3.html#afc88599f9719370e60fd133813566e57">pr::image3&lt; Tfloat, T, N, Talloc &gt;</a>
 </li>
 </ul>
@@ -133,6 +136,9 @@ $(function() {
 
 
 <h3><a id="index_i"></a>- i -</h3><ul>
+<li>imag_type
+: <a class="el" href="classpr_1_1quat.html#a8018010cf38605cc8f2d109b29ed1677">pr::quat&lt; T &gt;</a>
+</li>
 <li>is_always_equal
 : <a class="el" href="classpr_1_1memory__arena__allocator.html#a5e0ca24da7446f61e0a77d0036eb0312">pr::memory_arena_allocator&lt; T &gt;</a>
 </li>
@@ -145,6 +151,16 @@ $(function() {
 <li>iterator_category
 : <a class="el" href="classpr_1_1dense__iterator.html#a7b44c847c0627b3121474bfb4b3e417e">pr::dense_iterator&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1zip__iterator_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_00_01std_1_1integer__sequence_3_01st29c6912fbc7fe0b4cfe72a9eeea9f477.html#a22fcd8afe17497acaabae527630f3668">pr::zip_iterator&lt; std::tuple&lt; Ts... &gt;, std::integer_sequence&lt; std::size_t, N... &gt; &gt;</a>
+</li>
+</ul>
+
+
+<h3><a id="index_n"></a>- n -</h3><ul>
+<li>norm_type
+: <a class="el" href="structpr_1_1conj__dual_3_01dualnum_3_01T_01_4_01_4.html#a94f946e7dcf8c9f89b5dbb51af4e3982">pr::conj_dual&lt; dualnum&lt; T &gt; &gt;</a>
+, <a class="el" href="structpr_1_1conj__imag_3_01dualnum_3_01std_1_1complex_3_01T_01_4_01_4_01_4.html#add40ccd40658af424c43afdd778836ec">pr::conj_imag&lt; dualnum&lt; std::complex&lt; T &gt; &gt; &gt;</a>
+, <a class="el" href="structpr_1_1conj__imag_3_01std_1_1complex_3_01T_01_4_01_4.html#abc43dab4d5f659fc8c56620d90ab0250">pr::conj_imag&lt; std::complex&lt; T &gt; &gt;</a>
+, <a class="el" href="structpr_1_1conj__traits.html#a3b6da24f46d30196f9a94ea9d92077e5">pr::conj_traits&lt; T &gt;</a>
 </li>
 </ul>
 
@@ -178,6 +194,9 @@ $(function() {
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
+<li>real_type
+: <a class="el" href="classpr_1_1quat.html#a3ffb2624625e389b782decac17ce83e9">pr::quat&lt; T &gt;</a>
+</li>
 <li>reference
 : <a class="el" href="classpr_1_1block__array2.html#af07dcb4f8e308b643e3132eb1e9c2235">pr::block_array2&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#af6f52b9ae77f77142c67b6ed01875118">pr::block_array3&lt; T, Talloc &gt;</a>
@@ -217,6 +236,11 @@ $(function() {
 : <a class="el" href="classpr_1_1aabb.html#af33d16705e786198d818e627adcf352d">pr::aabb&lt; T, N &gt;</a>
 , <a class="el" href="classpr_1_1block__array2.html#a38319095f15d40ec71fa6718f757006f">pr::block_array2&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#a1427d20a54a0d8369f6ef35e0d1eef75">pr::block_array3&lt; T, Talloc &gt;</a>
+, <a class="el" href="structpr_1_1conj__dual_3_01dualnum_3_01T_01_4_01_4.html#a11bb367fc9c631e5ff002da428e81f3b">pr::conj_dual&lt; dualnum&lt; T &gt; &gt;</a>
+, <a class="el" href="structpr_1_1conj__imag_3_01dualnum_3_01std_1_1complex_3_01T_01_4_01_4_01_4.html#a16301932b7e2d06cf31eaa403dc0038f">pr::conj_imag&lt; dualnum&lt; std::complex&lt; T &gt; &gt; &gt;</a>
+, <a class="el" href="structpr_1_1conj__imag_3_01std_1_1complex_3_01T_01_4_01_4.html#adeb324271b747d1a631a9536285ab25c">pr::conj_imag&lt; std::complex&lt; T &gt; &gt;</a>
+, <a class="el" href="structpr_1_1conj__null.html#aaea0321fba916ebdd4a03ec1c884d8c4">pr::conj_null&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1conj__traits.html#a43073ed6205920cc4e58b1e438d2677d">pr::conj_traits&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1dense__iterator.html#af8de9f3156258d29d44f4c4e5e4c3e10">pr::dense_iterator&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1dualnum.html#a58c6261cb36d07469175e40d2208e3d7">pr::dualnum&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1memory__arena__allocator.html#aaea8518086a12fe93191c658a2c83fce">pr::memory_arena_allocator&lt; T &gt;</a>

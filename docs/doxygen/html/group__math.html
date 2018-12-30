@@ -20,6 +20,8 @@ MathJax.Hub.Config({
         real: ["\\operatorname{Re}"],
         imag: ["\\operatorname{Im}"],
         dual: ["\\operatorname{Du}"],
+        symm: ["\\operatorname{Symm}"],
+        skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
         parens: ["{\\left({#1}\\right)}", 1],
@@ -74,10 +76,25 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>std::numeric_limits</code>.  <a href="structpr_1_1numeric__limits.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__constants.html">pr::numeric_constants&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Useful numeric constants.  <a href="structpr_1_1numeric__constants.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numeric constants.  <a href="structpr_1_1numeric__constants.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1numeric__constants_3_01std_1_1complex_3_01T_01_4_01_4.html">pr::numeric_constants&lt; std::complex&lt; T &gt; &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialize <code>std::complex&lt;T&gt;</code>.  <a href="structpr_1_1numeric__constants_3_01std_1_1complex_3_01T_01_4_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__traits.html">pr::conj_traits&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type traits for conjugate policy.  <a href="structpr_1_1conj__traits.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__null.html">pr::conj_null&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Null conjugate policy.  <a href="structpr_1_1conj__null.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__imag.html">pr::conj_imag&lt; T, typename &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imag conjugate policy.  <a href="structpr_1_1conj__imag.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__imag_3_01T_00_01void__t_3_01std_1_1enable__if__t_3_01std_1_1is__arithmetic_3_058708b40e356ab61818b1fc4df292c8e.html">pr::conj_imag&lt; T, void_t&lt; std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt; &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imag conjugate policy (arithmetic).  <a href="structpr_1_1conj__imag_3_01T_00_01void__t_3_01std_1_1enable__if__t_3_01std_1_1is__arithmetic_3_058708b40e356ab61818b1fc4df292c8e.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__imag_3_01std_1_1complex_3_01T_01_4_01_4.html">pr::conj_imag&lt; std::complex&lt; T &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imag conjugate policy (complex).  <a href="structpr_1_1conj__imag_3_01std_1_1complex_3_01T_01_4_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -111,11 +128,11 @@ Complex accessors (complex)</h2></td></tr>
 <tr class="separator:ga555c1129c60865ee7c4532f8eb5f3439"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa03d22e3f7f3f4be7586e4cbca0f17d8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gaa03d22e3f7f3f4be7586e4cbca0f17d8"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaa03d22e3f7f3f4be7586e4cbca0f17d8">pr::norm</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
-<tr class="memdesc:gaa03d22e3f7f3f4be7586e4cbca0f17d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analgous to <code>std:norm()</code>, except constexpr.  <a href="group__math.html#gaa03d22e3f7f3f4be7586e4cbca0f17d8">More...</a><br /></td></tr>
+<tr class="memdesc:gaa03d22e3f7f3f4be7586e4cbca0f17d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analogous to <code>std:norm()</code>, except constexpr.  <a href="group__math.html#gaa03d22e3f7f3f4be7586e4cbca0f17d8">More...</a><br /></td></tr>
 <tr class="separator:gaa03d22e3f7f3f4be7586e4cbca0f17d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::complex&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga700db03feb33c6e9cd7c8928aa083c4c">pr::conj</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
-<tr class="memdesc:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analgous to <code>std:conj()</code>, except constexpr.  <a href="group__math.html#ga700db03feb33c6e9cd7c8928aa083c4c">More...</a><br /></td></tr>
+<tr class="memdesc:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analogous to <code>std:conj()</code>, except constexpr.  <a href="group__math.html#ga700db03feb33c6e9cd7c8928aa083c4c">More...</a><br /></td></tr>
 <tr class="separator:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -593,7 +610,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Analgous to <code>std:norm()</code>, except constexpr. </p>
+<p>Analogous to <code>std:norm()</code>, except constexpr. </p>
 
 </div>
 </div>
@@ -615,7 +632,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Analgous to <code>std:conj()</code>, except constexpr. </p>
+<p>Analogous to <code>std:conj()</code>, except constexpr. </p>
 
 </div>
 </div>
