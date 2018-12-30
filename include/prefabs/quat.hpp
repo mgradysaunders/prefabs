@@ -395,8 +395,10 @@ constexpr quat<decltype(T() * U())> operator/(
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<U>::value,
-                    quat<decltype(T() + U())>> operator+(
+                    std::is_arithmetic<U>::value ||
+                    is_complex<U>::value ||
+                    is_dualnum<U>::value,
+                        quat<decltype(T() + U())>> operator+(
                             const quat<T>& q0, const U& q1)
 {
     return {q0.real() + q1, q0.imag()};
@@ -408,7 +410,9 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<U>::value,
+                std::is_arithmetic<U>::value ||
+                is_complex<U>::value ||
+                is_dualnum<U>::value,
                     quat<decltype(T() - U())>> operator-(
                             const quat<T>& q0, const U& q1)
 {
@@ -421,8 +425,10 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<U>::value,
-                    quat<decltype(T() * U())>> operator*(
+                    std::is_arithmetic<U>::value ||
+                    is_complex<U>::value ||
+                    is_dualnum<U>::value,
+                        quat<decltype(T() * U())>> operator*(
                             const quat<T>& q0, const U& q1)
 {
     return {q0.real() * q1, q0.imag() * q1};
@@ -434,8 +440,10 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<U>::value,
-                    quat<decltype(T() * U())>> operator/(
+                    std::is_arithmetic<U>::value ||
+                    is_complex<U>::value ||
+                    is_dualnum<U>::value,
+                        quat<decltype(T() * U())>> operator/(
                             const quat<T>& q0, const U& q1)
 {
     return {q0.real() / q1, q0.imag() / q1};
@@ -454,8 +462,10 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<T>::value,
-                    quat<decltype(T() + U())>> operator+(
+                    std::is_arithmetic<T>::value ||
+                    is_complex<T>::value ||
+                    is_dualnum<T>::value,
+                        quat<decltype(T() + U())>> operator+(
                             const T& q0, const quat<U>& q1)
 {
     return {q0 + q1.real(), q1.imag()};
@@ -467,8 +477,10 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<T>::value,
-                    quat<decltype(T() - U())>> operator-(
+                    std::is_arithmetic<T>::value ||
+                    is_complex<T>::value ||
+                    is_dualnum<T>::value,
+                        quat<decltype(T() - U())>> operator-(
                             const T& q0, const quat<U>& q1)
 {
     return {q0 - q1.real(), -q1.imag()};
@@ -480,8 +492,10 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<T>::value,
-                    quat<decltype(T() * U())>> operator*(
+                    std::is_arithmetic<T>::value ||
+                    is_complex<T>::value ||
+                    is_dualnum<T>::value,
+                        quat<decltype(T() * U())>> operator*(
                             const T& q0, const quat<U>& q1)
 {
     return {q0 * q1.real(), q0 * q1.imag()};
@@ -493,8 +507,10 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<T>::value,
-                    quat<decltype(T() * U())>> operator/(
+                    std::is_arithmetic<T>::value ||
+                    is_complex<T>::value ||
+                    is_dualnum<T>::value,
+                        quat<decltype(T() * U())>> operator/(
                             const T& q0, const quat<U>& q1)
 {
     return q0 * q1.inverse();
@@ -570,7 +586,9 @@ constexpr bool operator==(const quat<T>& q0, const quat<U>& q1)
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<U>::value, bool> operator==(
+                    std::is_arithmetic<T>::value ||
+                    is_complex<T>::value ||
+                    is_dualnum<T>::value, bool> operator==(
                         const quat<T>& q0, const U& q1)
 {
     return q0.real() == q1 && q0.imag() == T();
@@ -582,7 +600,9 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<T>::value, bool> operator==(
+                std::is_arithmetic<T>::value ||
+                is_complex<T>::value ||
+                is_dualnum<T>::value, bool> operator==(
                         const T& q0, const quat<U>& q1)
 {
     return q0 == q1.real() && U() == q1.imag();
@@ -604,7 +624,9 @@ constexpr bool operator!=(const quat<T>& q0, const quat<U>& q1)
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<U>::value, bool> operator!=(
+                    std::is_arithmetic<T>::value ||
+                    is_complex<T>::value ||
+                    is_dualnum<T>::value, bool> operator!=(
                         const quat<T>& q0, const U& q1)
 {
     return !(q0 == q1);
@@ -616,7 +638,9 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_quat<T>::value, bool> operator!=(
+                    std::is_arithmetic<T>::value ||
+                    is_complex<T>::value ||
+                    is_dualnum<T>::value, bool> operator!=(
                         const T& q0, const quat<U>& q1)
 {
     return !(q0 == q1);
