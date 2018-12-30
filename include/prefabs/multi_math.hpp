@@ -320,7 +320,7 @@ constexpr multi<decltype(T() * U()), N> reflect(
 // TODO refract
 
 /**
- * @brief Length.
+ * @brief @f$ L^2 @f$ length.
  *
  * @f[
  *      \sqrt{\sum_k |x_{[k]}|^2}
@@ -380,7 +380,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
 }
 
 /**
- * @brief Length, fast (and somewhat unsafe) variant.
+ * @brief @f$ L^2 @F$ length, fast (and somewhat unsafe) variant.
  *
  * @f[
  *      \sqrt{\sum_k |x_{[k]}|^2}
@@ -407,7 +407,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) fast_length(const multi<T, N>& arr)
 }
 
 /**
- * @brief Normalize.
+ * @brief @f$ L^2 @f$ normalize.
  *
  * @f[
  *      \mathbf{x} / \lVert\mathbf{x}\rVert
@@ -443,7 +443,7 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
 }
 
 /**
- * @brief Normalize, fast (and somewhat unsafe) variant.
+ * @brief @f$ L^2 @f$ normalize, fast (and somewhat unsafe) variant.
  *
  * @f[
  *      \mathbf{x} / \lVert\mathbf{x}\rVert
