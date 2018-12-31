@@ -212,7 +212,7 @@ Dual number accessors</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math (dualnum)</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp36011988d2b668185367bdc7736e2b0d"></a> </p><p class="formulaDsp">
-\[ f(\real(x) + \varepsilon \dual(x)) = f(\real(x)) + \varepsilon f&#39;(\real(x)) \dual(x) \]
+\[ f(a + \varepsilon b) = f(a) + \varepsilon f&#39;(a) b \]
 </p>
  </td></tr>
 <tr class="memitem:gaa46c2b7b1c2776a75c91f74a705f8ac3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
@@ -437,7 +437,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator+</code>. </p>
 <p class="formulaDsp">
-\[ (\real(x_0) + \varepsilon \dual(x_0)) + (\real(x_1) + \varepsilon \dual(x_1)) = (\real(x_0) + \real(x_1)) + \varepsilon (\dual(x_0) + \dual(x_1)) \]
+\[ (a_0 + \varepsilon b_0) + (a_1 + \varepsilon b_1) = (a_0 + a_1) + \varepsilon (b_0 + b_1) \]
 </p>
  
 </div>
@@ -472,7 +472,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator-</code>. </p>
 <p class="formulaDsp">
-\[ (\real(x_0) + \varepsilon \dual(x_0)) - (\real(x_1) + \varepsilon \dual(x_1)) = (\real(x_0) - \real(x_1)) + \varepsilon (\dual(x_0) - \dual(x_1)) \]
+\[ (a_0 + \varepsilon b_0) - (a_1 + \varepsilon b_1) = (a_0 - a_1) + \varepsilon (b_0 - b_1) \]
 </p>
  
 </div>
@@ -507,7 +507,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator*</code>. </p>
 <p class="formulaDsp">
-\[ (\real(x_0) + \varepsilon \dual(x_0)) (\real(x_1) + \varepsilon \dual(x_1)) = \real(x_0) \real(x_1) + \varepsilon (\real(x_0) \dual(x_1) + \dual(x_0) \real(x_1)) \]
+\[ (a_0 + \varepsilon b_0) (a_1 + \varepsilon b_1) = a_0 a_1 + \varepsilon (a_0 b_1 + b_0 a_1) \]
 </p>
  
 </div>
@@ -542,7 +542,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator*</code>, inverting right hand side. </p>
 <p class="formulaDsp">
-\[ (\real(x_0) + \varepsilon \dual(x_0)) (\real(x_1) + \varepsilon \dual(x_1))^{-1} = \real(x_0)\real(x_1)^{-1} + \varepsilon (\dual(x_0)\real(x_1) - \real(x_0)\dual(x_1)) \real(x_1)^{-2} \]
+\[ (a_0 + \varepsilon b_0) (a_1 + \varepsilon b_1)^{-1} = a_0 a_1^{-1} + \varepsilon (b_0 a_1 - a_0 b_1) a_1^{-2} \]
 </p>
  
 </div>
@@ -577,7 +577,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator+</code>. </p>
 <p class="formulaDsp">
-\[ (\real(x_0) + \varepsilon \dual(x_0)) + x_1 = (\real(x_0) + x_1) + \varepsilon \dual(x_0) \]
+\[ (a_0 + \varepsilon b_0) + a_1 = (a_0 + a_1) + \varepsilon b_0 \]
 </p>
  
 </div>
@@ -612,7 +612,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator-</code>. </p>
 <p class="formulaDsp">
-\[ (\real(x_0) + \varepsilon \dual(x_0)) - x_1 = (\real(x_0) - x_1) + \varepsilon \dual(x_0) \]
+\[ (a_0 + \varepsilon b_0) - a_1 = (a_0 - a_1) + \varepsilon b_0 \]
 </p>
  
 </div>
@@ -647,7 +647,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator*</code>. </p>
 <p class="formulaDsp">
-\[ (\real(x_0) + \varepsilon \dual(x_0)) x_1 = \real(x_0) x_1 + \varepsilon \dual(x_0) x_1 \]
+\[ (a_0 + \varepsilon b_0) a_1 = a_0 a_1 + \varepsilon b_0 a_1 \]
 </p>
  
 </div>
@@ -682,7 +682,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator*</code>, inverting right hand side. </p>
 <p class="formulaDsp">
-\[ (\real(x_0) + \varepsilon \dual(x_0)) x_1^{-1} = \real(x_0) x_1^{-1} + \varepsilon \dual(x_0) x_1^{-1} \]
+\[ (a_0 + \varepsilon b_0) a_1^{-1} = a_0 a_1^{-1} + \varepsilon b_0 a_1^{-1} \]
 </p>
  
 </div>
@@ -717,7 +717,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator+</code>. </p>
 <p class="formulaDsp">
-\[ x_0 + (\real(x_1) + \varepsilon \dual(x_1)) = (x_0 + \real(x_1)) + \varepsilon \dual(x_1) \]
+\[ a_0 + (a_1 + \varepsilon b_1) = (a_0 + a_1) + \varepsilon b_1 \]
 </p>
  
 </div>
@@ -752,7 +752,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator-</code>. </p>
 <p class="formulaDsp">
-\[ x_0 - (\real(x_1) + \varepsilon \dual(x_1)) = (x_0 - \real(x_1)) - \varepsilon \dual(x_1) \]
+\[ a_0 - (a_1 + \varepsilon b_1) = (a_0 - a_1) - \varepsilon b_1 \]
 </p>
  
 </div>
@@ -787,7 +787,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator*</code>. </p>
 <p class="formulaDsp">
-\[ x_0 (\real(x_1) + \varepsilon \dual(x_1)) = x_0 \real(x_1) + \varepsilon x_0 \dual(x_1) \]
+\[ a_0 (a_1 + \varepsilon b_1) = a_0 a_1 + \varepsilon a_0 b_1 \]
 </p>
  
 </div>
@@ -822,7 +822,7 @@ template&lt;typename T , typename U &gt; </div>
 
 <p>Distribute <code>operator*</code>, inverting right hand side. </p>
 <p class="formulaDsp">
-\[ x_0 (\real(x_1) + \varepsilon \dual(x_1))^{-1} = x_0 \real(x_1)^{-1} - \varepsilon x_0 \dual(x_1) \real(x_1)^{-2} \]
+\[ a_0 (a_1 + \varepsilon b_1)^{-1} = a_0 a_1^{-1} - \varepsilon a_0 b_1 a_1^{-2} \]
 </p>
  
 </div>
