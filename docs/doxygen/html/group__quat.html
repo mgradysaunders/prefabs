@@ -194,19 +194,19 @@ Comparison operators (quat)</h2></td></tr>
 Quaternion accessors</h2></td></tr>
 <tr class="memitem:ga9d5166baefb27389b343add6660e9a92"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga9d5166baefb27389b343add6660e9a92"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga9d5166baefb27389b343add6660e9a92">pr::real</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
-<tr class="memdesc:ga9d5166baefb27389b343add6660e9a92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quaternion real part.  <a href="group__quat.html#ga9d5166baefb27389b343add6660e9a92">More...</a><br /></td></tr>
+<tr class="memdesc:ga9d5166baefb27389b343add6660e9a92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Real part.  <a href="group__quat.html#ga9d5166baefb27389b343add6660e9a92">More...</a><br /></td></tr>
 <tr class="separator:ga9d5166baefb27389b343add6660e9a92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga075aaadf5f468032def036e2af76b62b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga075aaadf5f468032def036e2af76b62b"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; T, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga075aaadf5f468032def036e2af76b62b">pr::imag</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
-<tr class="memdesc:ga075aaadf5f468032def036e2af76b62b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quaternion imaginary part.  <a href="group__quat.html#ga075aaadf5f468032def036e2af76b62b">More...</a><br /></td></tr>
+<tr class="memdesc:ga075aaadf5f468032def036e2af76b62b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imag part.  <a href="group__quat.html#ga075aaadf5f468032def036e2af76b62b">More...</a><br /></td></tr>
 <tr class="separator:ga075aaadf5f468032def036e2af76b62b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9835ea0dc5875267ca9a4ace4d74f635"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga9835ea0dc5875267ca9a4ace4d74f635"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga9835ea0dc5875267ca9a4ace4d74f635">pr::conj</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
-<tr class="memdesc:ga9835ea0dc5875267ca9a4ace4d74f635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quaternion conjugate.  <a href="group__quat.html#ga9835ea0dc5875267ca9a4ace4d74f635">More...</a><br /></td></tr>
+<tr class="memdesc:ga9835ea0dc5875267ca9a4ace4d74f635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conjugate.  <a href="group__quat.html#ga9835ea0dc5875267ca9a4ace4d74f635">More...</a><br /></td></tr>
 <tr class="separator:ga9835ea0dc5875267ca9a4ace4d74f635"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga99235e7aacb352059cab10cfa869a69f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga99235e7aacb352059cab10cfa869a69f"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga99235e7aacb352059cab10cfa869a69f">pr::norm</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
-<tr class="memdesc:ga99235e7aacb352059cab10cfa869a69f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quaternion norm.  <a href="group__quat.html#ga99235e7aacb352059cab10cfa869a69f">More...</a><br /></td></tr>
+<tr class="memdesc:ga99235e7aacb352059cab10cfa869a69f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Norm.  <a href="group__quat.html#ga99235e7aacb352059cab10cfa869a69f">More...</a><br /></td></tr>
 <tr class="separator:ga99235e7aacb352059cab10cfa869a69f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -1033,8 +1033,11 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Quaternion real part. </p>
-
+<p>Real part. </p>
+<p class="formulaDsp">
+\[ \real(s + \mathbf{v}) = s \]
+</p>
+ 
 </div>
 </div>
 <a id="ga075aaadf5f468032def036e2af76b62b"></a>
@@ -1055,8 +1058,11 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Quaternion imaginary part. </p>
-
+<p>Imag part. </p>
+<p class="formulaDsp">
+\[ \imag(s + \mathbf{v}) = \mathbf{v} \]
+</p>
+ 
 </div>
 </div>
 <a id="ga9835ea0dc5875267ca9a4ace4d74f635"></a>
@@ -1077,8 +1083,11 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Quaternion conjugate. </p>
-
+<p>Conjugate. </p>
+<p class="formulaDsp">
+\[ (s + \mathbf{v})^\dagger = s - \mathbf{v} \]
+</p>
+ 
 </div>
 </div>
 <a id="ga99235e7aacb352059cab10cfa869a69f"></a>
@@ -1099,8 +1108,11 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Quaternion norm. </p>
-
+<p>Norm. </p>
+<p class="formulaDsp">
+\[ (s + \mathbf{v}) (s + \mathbf{v})^\dagger = s^2 + \mathbf{v} \cdot \mathbf{v} \]
+</p>
+ 
 </div>
 </div>
 <a id="ga010d34c95119e8fcf4d3a51ae6687f97"></a>

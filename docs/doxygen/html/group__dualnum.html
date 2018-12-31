@@ -194,19 +194,19 @@ Comparison operators (dualnum)</h2></td></tr>
 Dual number accessors</h2></td></tr>
 <tr class="memitem:ga28a3a7d35732d605f656be101bc99bf2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga28a3a7d35732d605f656be101bc99bf2"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga28a3a7d35732d605f656be101bc99bf2">pr::real</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
-<tr class="memdesc:ga28a3a7d35732d605f656be101bc99bf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number real part.  <a href="group__dualnum.html#ga28a3a7d35732d605f656be101bc99bf2">More...</a><br /></td></tr>
+<tr class="memdesc:ga28a3a7d35732d605f656be101bc99bf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Real part.  <a href="group__dualnum.html#ga28a3a7d35732d605f656be101bc99bf2">More...</a><br /></td></tr>
 <tr class="separator:ga28a3a7d35732d605f656be101bc99bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5f8365456af5173e21360dcbaf356333"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga5f8365456af5173e21360dcbaf356333"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga5f8365456af5173e21360dcbaf356333">pr::dual</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
-<tr class="memdesc:ga5f8365456af5173e21360dcbaf356333"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number dual part.  <a href="group__dualnum.html#ga5f8365456af5173e21360dcbaf356333">More...</a><br /></td></tr>
+<tr class="memdesc:ga5f8365456af5173e21360dcbaf356333"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual part.  <a href="group__dualnum.html#ga5f8365456af5173e21360dcbaf356333">More...</a><br /></td></tr>
 <tr class="separator:ga5f8365456af5173e21360dcbaf356333"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0665acebd1c2c3e374818d1692fa20ef"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga0665acebd1c2c3e374818d1692fa20ef"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga0665acebd1c2c3e374818d1692fa20ef">pr::conj</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
-<tr class="memdesc:ga0665acebd1c2c3e374818d1692fa20ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number conjugate.  <a href="group__dualnum.html#ga0665acebd1c2c3e374818d1692fa20ef">More...</a><br /></td></tr>
+<tr class="memdesc:ga0665acebd1c2c3e374818d1692fa20ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conjugate.  <a href="group__dualnum.html#ga0665acebd1c2c3e374818d1692fa20ef">More...</a><br /></td></tr>
 <tr class="separator:ga0665acebd1c2c3e374818d1692fa20ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5aad4f97ee10c17bb6656f249c6c241d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga5aad4f97ee10c17bb6656f249c6c241d"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga5aad4f97ee10c17bb6656f249c6c241d">pr::norm</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
-<tr class="memdesc:ga5aad4f97ee10c17bb6656f249c6c241d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number norm.  <a href="group__dualnum.html#ga5aad4f97ee10c17bb6656f249c6c241d">More...</a><br /></td></tr>
+<tr class="memdesc:ga5aad4f97ee10c17bb6656f249c6c241d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Norm.  <a href="group__dualnum.html#ga5aad4f97ee10c17bb6656f249c6c241d">More...</a><br /></td></tr>
 <tr class="separator:ga5aad4f97ee10c17bb6656f249c6c241d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -1165,8 +1165,11 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Dual number real part. </p>
-
+<p>Real part. </p>
+<p class="formulaDsp">
+\[ \real(a + \varepsilon b) = a \]
+</p>
+ 
 </div>
 </div>
 <a id="ga5f8365456af5173e21360dcbaf356333"></a>
@@ -1187,8 +1190,11 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Dual number dual part. </p>
-
+<p>Dual part. </p>
+<p class="formulaDsp">
+\[ \dual(a + \varepsilon b) = b \]
+</p>
+ 
 </div>
 </div>
 <a id="ga0665acebd1c2c3e374818d1692fa20ef"></a>
@@ -1209,8 +1215,11 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Dual number conjugate. </p>
-
+<p>Conjugate. </p>
+<p class="formulaDsp">
+\[ (a + \varepsilon b)^\circ = a - \varepsilon b \]
+</p>
+ 
 </div>
 </div>
 <a id="ga5aad4f97ee10c17bb6656f249c6c241d"></a>
@@ -1231,8 +1240,11 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Dual number norm. </p>
-
+<p>Norm. </p>
+<p class="formulaDsp">
+\[ (a + \varepsilon b) (a + \varepsilon b)^\circ = a^2 \]
+</p>
+ 
 </div>
 </div>
 <a id="gaa46c2b7b1c2776a75c91f74a705f8ac3"></a>
