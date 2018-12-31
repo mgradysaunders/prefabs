@@ -281,15 +281,80 @@ private:
 
 public:
 
-    // TODO operator<<
-    // TODO operator>>
+    /**
+     * @name Stream operators
+     */
+    /**@{*/
+
+    /**
+     * @brief Parse from `std::basic_istream`.
+     *
+     * Format is `(s,v)`. Sets `std::ios_base::failbit` on error.
+     */
+    template <typename C, typename Ctraits>
+    friend
+    inline std::basic_istream<C, Ctraits>& operator>>(
+           std::basic_istream<C, Ctraits>& is, quat& q)
+    {
+        C ch;
+        if (!(is >> ch) ||
+            !Ctraits::eq(ch, 
+             Ctraits::to_char_type('('))) {
+            is.setstate(std::ios_base::failbit);
+            return is;
+        }
+        is >> q.s_;
+        if (!(is >> ch) ||
+            !Ctraits::eq(ch, 
+             Ctraits::to_char_type(','))) {
+            is.setstate(std::ios_base::failbit);
+            return is;
+        }
+        is >> q.v_;
+        if (!(is >> ch) ||
+            !Ctraits::eq(ch, 
+             Ctraits::to_char_type(')'))) {
+            is.setstate(std::ios_base::failbit);
+            return is;
+        }
+        return is;
+    }
+
+    /**
+     * @brief Write into `std::basic_ostream`.
+     *
+     * Format is `(s,v)`.
+     */
+    template <typename C, typename Ctraits>
+    friend
+    inline std::basic_ostream<C, Ctraits>& operator<<(
+           std::basic_ostream<C, Ctraits>& os, const quat& q)
+    {
+        os << '(' << q.s_;
+        os << ',' << q.v_;
+        os << ')';
+        return os;
+    }
+
+    /**@}*/
 
 public:
 
-    // TODO rotation
-    // TODO rotationx
-    // TODO rotationy
-    // TODO rotationz
+    /**
+     * @brief Rotation.
+     *
+     * @param[in] theta
+     * Radians.
+     *
+     * @param[in] axis
+     * Normalized axis.
+     */
+    template <bool B = std::is_floating_point<T>::value>
+    static std::enable_if_t<B, quat> rotation(T theta, const multi<T, 3>& axis)
+    {
+        return {pr::cos(theta), pr::sin(theta) * axis};
+    }
+
     // TODO translation
 };
 
@@ -405,6 +470,10 @@ constexpr quat<decltype(T() * U())> operator/(
 
 /**
  * @brief Distribute `operator+`.
+ *
+ * @f[
+ *      (s_0 + \mathbf{v}_0) + s_1 = (s_0 + s_1) + \mathbf{v}_0
+ * @f]
  */
 template <typename T, typename U>
 __attribute__((always_inline))
@@ -417,6 +486,10 @@ constexpr std::enable_if_t<is_quat_param<U>::value,
 
 /**
  * @brief Distribute `operator-`.
+ *
+ * @f[
+ *      (s_0 + \mathbf{v}_0) - s_1 = (s_0 - s_1) + \mathbf{v}_0
+ * @f]
  */
 template <typename T, typename U>
 __attribute__((always_inline))
@@ -430,6 +503,10 @@ constexpr std::enable_if_t<
 
 /**
  * @brief Distribute `operator*`.
+ *
+ * @f[
+ *      (s_0 + \mathbf{v}_0) s_1 = s_0 s_1 + \mathbf{v}_0 s_1
+ * @f]
  */
 template <typename T, typename U>
 __attribute__((always_inline))
@@ -463,6 +540,10 @@ constexpr std::enable_if_t<
 
 /**
  * @brief Distribute `operator+`.
+ *
+ * @f[
+ *      s_0 + (s_1 + \mathbf{v_1}) = (s_0 + s_1) + \mathbf{v_1}
+ * @f]
  */
 template <typename T, typename U>
 __attribute__((always_inline))
@@ -476,6 +557,10 @@ constexpr std::enable_if_t<
 
 /**
  * @brief Distribute `operator-`.
+ * 
+ * @f[
+ *      s_0 - (s_1 + \mathbf{v_1}) = (s_0 - s_1) - \mathbf{v_1}
+ * @f]
  */
 template <typename T, typename U>
 __attribute__((always_inline))
@@ -489,6 +574,10 @@ constexpr std::enable_if_t<
 
 /**
  * @brief Distribute `operator*`.
+ *
+ * @f[
+ *      s_0 (s_1 + \mathbf{v_1}) = s_0 s_1 + s_0 \mathbf{v_1}
+ * @f]
  */
 template <typename T, typename U>
 __attribute__((always_inline))
@@ -685,7 +774,7 @@ constexpr T norm(const quat<T>& q)
 /**@}*/
 
 /**
- * @name Geometry (quat)
+ * @name Quaternion geometry
  */
 /**@{*/
 
