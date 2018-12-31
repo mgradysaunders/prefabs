@@ -70,6 +70,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpr_1_1quat-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -130,6 +131,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5c81bbbcdd3f58fd06505e0544967247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast as component array.  <a href="#a5c81bbbcdd3f58fd06505e0544967247">More...</a><br /></td></tr>
 <tr class="separator:a5c81bbbcdd3f58fd06505e0544967247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a95f36468a29ce3e08b8ea2717fe6e232"><td class="memTemplParams" colspan="2">template&lt;bool B = std::is_floating_point&lt;T&gt;::value&gt; </td></tr>
+<tr class="memitem:a95f36468a29ce3e08b8ea2717fe6e232"><td class="memTemplItemLeft" align="right" valign="top">static std::enable_if_t&lt; B, <a class="el" href="classpr_1_1quat.html">quat</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#a95f36468a29ce3e08b8ea2717fe6e232">rotation</a> (T theta, const multi&lt; T, 3 &gt; &amp;axis)</td></tr>
+<tr class="memdesc:a95f36468a29ce3e08b8ea2717fe6e232"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation.  <a href="#a95f36468a29ce3e08b8ea2717fe6e232">More...</a><br /></td></tr>
+<tr class="separator:a95f36468a29ce3e08b8ea2717fe6e232"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a7068902cfb22fa5d7ab0b8fe3a8f5b3b"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#a7068902cfb22fa5d7ab0b8fe3a8f5b3b">s_</a> = {}</td></tr>
@@ -138,6 +146,18 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aa7dc008ede27efe502941a7402d378da"><td class="memItemLeft" align="right" valign="top">multi&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#aa7dc008ede27efe502941a7402d378da">v_</a> = {}</td></tr>
 <tr class="memdesc:aa7dc008ede27efe502941a7402d378da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imag part.  <a href="#aa7dc008ede27efe502941a7402d378da">More...</a><br /></td></tr>
 <tr class="separator:aa7dc008ede27efe502941a7402d378da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Stream operators</div></td></tr>
+<tr class="memitem:a77b2377f4fba0bbbd173e14d1c1bab7d"><td class="memTemplParams" colspan="2">template&lt;typename C , typename Ctraits &gt; </td></tr>
+<tr class="memitem:a77b2377f4fba0bbbd173e14d1c1bab7d"><td class="memTemplItemLeft" align="right" valign="top">std::basic_istream&lt; C, Ctraits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#a77b2377f4fba0bbbd173e14d1c1bab7d">operator&gt;&gt;</a> (std::basic_istream&lt; C, Ctraits &gt; &amp;is, <a class="el" href="classpr_1_1quat.html">quat</a> &amp;q)</td></tr>
+<tr class="memdesc:a77b2377f4fba0bbbd173e14d1c1bab7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse from <code>std::basic_istream</code>.  <a href="#a77b2377f4fba0bbbd173e14d1c1bab7d">More...</a><br /></td></tr>
+<tr class="separator:a77b2377f4fba0bbbd173e14d1c1bab7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdd90ca730b2a177045764cd8f867e76"><td class="memTemplParams" colspan="2">template&lt;typename C , typename Ctraits &gt; </td></tr>
+<tr class="memitem:abdd90ca730b2a177045764cd8f867e76"><td class="memTemplItemLeft" align="right" valign="top">std::basic_ostream&lt; C, Ctraits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#abdd90ca730b2a177045764cd8f867e76">operator&lt;&lt;</a> (std::basic_ostream&lt; C, Ctraits &gt; &amp;os, const <a class="el" href="classpr_1_1quat.html">quat</a> &amp;q)</td></tr>
+<tr class="memdesc:abdd90ca730b2a177045764cd8f867e76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write into <code>std::basic_ostream</code>.  <a href="#abdd90ca730b2a177045764cd8f867e76">More...</a><br /></td></tr>
+<tr class="separator:abdd90ca730b2a177045764cd8f867e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
@@ -562,6 +582,142 @@ template&lt;typename U &gt; </div>
 </div><div class="memdoc">
 
 <p>Cast as component array. </p>
+
+</div>
+</div>
+<a id="a95f36468a29ce3e08b8ea2717fe6e232"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95f36468a29ce3e08b8ea2717fe6e232">&#9670;&nbsp;</a></span>rotation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;bool B = std::is_floating_point&lt;T&gt;::value&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::enable_if_t&lt;B, <a class="el" href="classpr_1_1quat.html">quat</a>&gt; <a class="el" href="classpr_1_1quat.html">pr::quat</a>&lt; T &gt;::rotation </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>theta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; T, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>axis</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rotation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">theta</td><td>Radians.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">axis</td><td>Normalized axis. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a77b2377f4fba0bbbd173e14d1c1bab7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77b2377f4fba0bbbd173e14d1c1bab7d">&#9670;&nbsp;</a></span>operator>></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename C , typename Ctraits &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::basic_istream&lt;C, Ctraits&gt;&amp; operator&gt;&gt; </td>
+          <td>(</td>
+          <td class="paramtype">std::basic_istream&lt; C, Ctraits &gt; &amp;&#160;</td>
+          <td class="paramname"><em>is</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>q</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Parse from <code>std::basic_istream</code>. </p>
+<p>Format is <code>(s,v)</code>. Sets <code>std::ios_base::failbit</code> on error. </p>
+
+</div>
+</div>
+<a id="abdd90ca730b2a177045764cd8f867e76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdd90ca730b2a177045764cd8f867e76">&#9670;&nbsp;</a></span>operator<<</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename C , typename Ctraits &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::basic_ostream&lt;C, Ctraits&gt;&amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::basic_ostream&lt; C, Ctraits &gt; &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>q</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write into <code>std::basic_ostream</code>. </p>
+<p>Format is <code>(s,v)</code>. </p>
 
 </div>
 </div>
