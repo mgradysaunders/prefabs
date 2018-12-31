@@ -227,9 +227,6 @@ public:
         };
     }
 
-    // TODO slerp
-    // TODO apply
-
 public:
 
     /**
@@ -330,9 +327,9 @@ public:
     inline std::basic_ostream<C, Ctraits>& operator<<(
            std::basic_ostream<C, Ctraits>& os, const quat& q)
     {
-        os << '(' << q.s_;
-        os << ',' << q.v_;
-        os << ')';
+        os << '(';
+        os << q.s_ << ',';
+        os << q.v_ << ')';
         return os;
     }
 
@@ -727,7 +724,7 @@ constexpr std::enable_if_t<
 /**@}*/
 
 /**
- * @name Quaternion accessors
+ * @name Accessors (quat)
  */
 /**@{*/
 
@@ -775,24 +772,49 @@ constexpr quat<T> conj(const quat<T>& q)
 }
 
 /**
- * @brief Norm.
+ * @brief Norm square.
  *
  * @f[
- *      (s + \mathbf{v})
- *      (s + \mathbf{v})^\dagger = s^2 + \mathbf{v} \cdot \mathbf{v}
+ *      |(s + \mathbf{v})
+ *       (s + \mathbf{v})^\dagger| = |s^2 + v^2|
  * @f]
+ *
+ * @note
+ * If `T` is complex or dualnum, returns floating
+ * point type.
  */
 template <typename T> 
 __attribute__((always_inline))
-constexpr T norm(const quat<T>& q)
+constexpr auto norm(const quat<T>& q)
 {
-    return pr::dot(multi<T, 4>(q), multi<T, 4>(q));
+    return pr::abs(pr::dot(
+                static_cast<multi<T, 4>>(q), 
+                static_cast<multi<T, 4>>(q)));
+}
+
+/**
+ * @brief Absolute value.
+ *
+ * @f[
+ *      |s + \mathbf{v}| = 
+ *      |\sqrt{s^2 + v^2}|
+ * @f]
+ *
+ * @note
+ * If `T` is complex or dualnum, returns floating
+ * point type.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto abs(const quat<T>& q)
+{
+    return pr::length(static_cast<multi<T, 4>>(q));
 }
 
 /**@}*/
 
 /**
- * @name Quaternion geometry
+ * @name Geometry (quat)
  */
 /**@{*/
 
@@ -803,27 +825,37 @@ template <typename T, typename U>
 __attribute__((always_inline))
 constexpr decltype(T() * U()) dot(const quat<T>& q0, const quat<U>& q1)
 {
-    return pr::dot(multi<T, 4>(q0), multi<U, 4>(q1));
+    return pr::dot(
+                static_cast<multi<T, 4>>(q0), 
+                static_cast<multi<U, 4>>(q1));
 }
 
 /**
  * @brief @f$ L^2 @f$ length.
+ *
+ * @note
+ * If `T` is complex or dualnum, returns floating
+ * point type.
  */
 template <typename T>
 __attribute__((always_inline))
-inline T length(const quat<T>& q)
+inline auto length(const quat<T>& q)
 {
-    return pr::length(multi<T, 4>(q));
+    return pr::length(static_cast<multi<T, 4>>(q));
 }
 
 /**
  * @brief @f$ L^2 @f$ length, fast (and somewhat unsafe) variant.
+ *
+ * @note
+ * If `T` is complex or dualnum, returns floating
+ * point type.
  */
 template <typename T>
 __attribute__((always_inline))
-inline T fast_length(const quat<T>& q)
+inline auto fast_length(const quat<T>& q)
 {
-    return pr::fast_length(multi<T, 4>(q));
+    return pr::fast_length(static_cast<multi<T, 4>>(q));
 }
 
 /**
@@ -833,7 +865,7 @@ template <typename T>
 __attribute__((always_inline))
 inline quat<T> normalize(const quat<T>& q)
 {
-    return pr::normalize(multi<T, 4>(q));
+    return pr::normalize(static_cast<multi<T, 4>>(q));
 }
 
 /**
@@ -843,17 +875,102 @@ template <typename T>
 __attribute__((always_inline))
 inline quat<T> fast_normalize(const quat<T>& q)
 {
-    return pr::fast_normalize(multi<T, 4>(q));
+    return pr::fast_normalize(static_cast<multi<T, 4>>(q));
 }
 
 /**
- * @brief Multiplicative inverse.
+ * @brief Inverse.
+ *
+ * @f[
+ *      (s + \mathbf{v})^{-1} = 
+ *      (s - \mathbf{v}) / (s^2 + v^2)
+ * @f]
  */
 template <typename T>
 __attribute__((always_inline))
 constexpr quat<T> inverse(const quat<T>& q)
 {
     return q.inverse();
+}
+
+#if 0
+/**
+ * @brief Spherical linear interpolation.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, 
+       quat<T>> slerp(T mu, const quat<T>& q0, const quat<T>& q1)
+{
+}
+#endif
+
+/**@}*/
+
+/**
+ * @name Math wrappers (quat)
+ */
+/**@{*/
+
+/**
+ * @brief Exponential.
+ *
+ * @f[
+ *      \exp(s + \mathbf{v}) = 
+ *      \exp(s) (\cos(\sqrt{v^2}) + 
+ *               \sin(\sqrt{v^2}) \mathbf{v} / 
+ *                    \sqrt{v^2})
+ * @f]
+ *
+ * @note
+ * This implementation is valid for all quaternion
+ * parameters.
+ */
+template <typename T>
+inline quat<T> exp(const quat<T>& q)
+{
+    T lenv = pr::dot(q.imag(), q.imag());
+    if (pr::abs(lenv) > 0) {
+        lenv = pr::sqrt(lenv);
+        return pr::exp(q.real()) * 
+                quat<T>(
+                pr::cos(lenv), 
+                pr::sin(lenv) * (q.imag() / lenv));
+    }
+    else {
+        return pr::exp(q.real());
+    }
+}
+
+/**
+ * @brief Natural logarithm.
+ *
+ * @f[
+ *      \log(s + \mathbf{v}) = 
+ *      \log(\sqrt{s^2 + v^2}) + \arccos(s / \sqrt{s^2 + v^2}) 
+ *      \mathbf{v} / \sqrt{v^2}
+ * @f]
+ *
+ * @note
+ * This implementation is valid for all quaternion
+ * parameters.
+ */
+template <typename T>
+inline quat<T> log(const quat<T>& q)
+{
+    T lenq = pr::dot(q, q);
+    T lenv = pr::dot(q.imag(), q.imag());
+    if (pr::abs(lenv) > 0) {
+        lenq = pr::sqrt(lenq);
+        lenv = pr::sqrt(lenv);
+        return quat<T>(
+                pr::log(lenq),
+                pr::acos(q.real() / lenq) * (q.imag() / lenv));
+    }
+    else {
+        lenq = pr::sqrt(lenq);
+        return pr::log(lenq);
+    }
 }
 
 /**@}*/
