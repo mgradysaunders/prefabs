@@ -79,6 +79,14 @@ struct is_dualnum_complex<dualnum<std::complex<T>>> : std::true_type
 {
 };
 
+template <typename T>
+struct is_dualnum_param : 
+            std::integral_constant<bool,
+            std::is_arithmetic<T>::value ||
+            is_complex<T>::value>
+{
+};
+
 #endif // #if !DOXYGEN
 
 /**
@@ -88,6 +96,11 @@ template <typename T>
 class dualnum
 {
 public:
+
+    // Sanity check.
+    static_assert(
+        is_dualnum_param<T>::value, 
+        "T must be arithmetic or complex");
 
     /**
      * @brief Value type.
@@ -394,9 +407,8 @@ constexpr dualnum<decltype(T() / U())> operator/(
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                std::is_arithmetic<U>::value ||
-                is_complex<U>::value,
-                    dualnum<decltype(T() + U())>> operator+(
+                        is_dualnum_param<U>::value,
+                        dualnum<decltype(T() + U())>> operator+(
                             const dualnum<T>& x0, const U& x1)
 {
     return {x0.real() + x1, x0.dual()};
@@ -413,9 +425,8 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                std::is_arithmetic<U>::value ||
-                is_complex<U>::value,
-                    dualnum<decltype(T() - U())>> operator-(
+                        is_dualnum_param<U>::value,
+                        dualnum<decltype(T() - U())>> operator-(
                             const dualnum<T>& x0, const U& x1)
 {
     return {x0.real() - x1, x0.dual()};
@@ -432,9 +443,8 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                std::is_arithmetic<U>::value ||
-                is_complex<U>::value,
-                    dualnum<decltype(T() * U())>> operator*(
+                        is_dualnum_param<U>::value,
+                        dualnum<decltype(T() * U())>> operator*(
                             const dualnum<T>& x0, const U& x1)
 {
     return {x0.real() * x1, x0.dual() * x1};
@@ -451,9 +461,8 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                std::is_arithmetic<U>::value ||
-                is_complex<U>::value,
-                    dualnum<decltype(T() / U())>> operator/(
+                        is_dualnum_param<U>::value,
+                        dualnum<decltype(T() / U())>> operator/(
                             const dualnum<T>& x0, const U& x1)
 {
     return {x0.real() / x1, x0.dual() / x1};
@@ -477,9 +486,8 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                std::is_arithmetic<T>::value ||
-                is_complex<T>::value,
-                    dualnum<decltype(T() + U())>> operator+(
+                        is_dualnum_param<T>::value,
+                        dualnum<decltype(T() + U())>> operator+(
                             const T& x0, const dualnum<U>& x1)
 {
     return {x0 + x1.real(), x1.dual()};
@@ -496,9 +504,8 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                std::is_arithmetic<T>::value ||
-                is_complex<T>::value,
-                    dualnum<decltype(T() - U())>> operator-(
+                        is_dualnum_param<T>::value,
+                        dualnum<decltype(T() - U())>> operator-(
                             const T& x0, const dualnum<U>& x1)
 {
     return {x0 - x1.real(), -x1.dual()};
@@ -515,9 +522,8 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                std::is_arithmetic<T>::value ||
-                is_complex<T>::value,
-                    dualnum<decltype(T() * U())>> operator*(
+                        is_dualnum_param<T>::value,
+                        dualnum<decltype(T() * U())>> operator*(
                             const T& x0, const dualnum<U>& x1)
 {
     return {x0 * x1.real(), x0 * x1.dual()};
@@ -534,9 +540,8 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                std::is_arithmetic<T>::value ||
-                is_complex<T>::value,
-                    dualnum<decltype(T() / U())>> operator/(
+                        is_dualnum_param<T>::value,
+                        dualnum<decltype(T() / U())>> operator/(
                             const T& x0, const dualnum<U>& x1)
 {
     return {
@@ -616,7 +621,7 @@ constexpr bool operator==(const dualnum<T>& x0, const dualnum<U>& x1)
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_dualnum<U>::value, bool> operator==(
+                        is_dualnum_param<U>::value, bool> operator==(
                         const dualnum<T>& x0, const U& x1)
 {
     return x0.real() == x1 && x0.dual() == T();
@@ -628,7 +633,7 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_dualnum<T>::value, bool> operator==(
+                        is_dualnum_param<T>::value, bool> operator==(
                         const T& x0, const dualnum<U>& x1)
 {
     return x0 == x1.real() && U() == x1.dual();
@@ -650,7 +655,7 @@ constexpr bool operator!=(const dualnum<T>& x0, const dualnum<U>& x1)
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_dualnum<U>::value, bool> operator!=(
+                        is_dualnum_param<U>::value, bool> operator!=(
                         const dualnum<T>& x0, const U& x1)
 {
     return !(x0 == x1);
@@ -662,7 +667,7 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                !is_dualnum<T>::value, bool> operator!=(
+                        is_dualnum_param<T>::value, bool> operator!=(
                         const T& x0, const dualnum<U>& x1)
 {
     return !(x0 == x1);
@@ -671,198 +676,51 @@ constexpr std::enable_if_t<
 /**@}*/
 
 /**
- * @brief Dual conjugate policy.
+ * @name Dual number accessors
  */
-template <typename T, typename = void_t<>>
-struct conj_dual;
+/**@{*/
 
 /**
- * @brief Dual conjugate policy (arithmetic).
+ * @brief Dual number real part.
  */
 template <typename T>
-struct conj_dual<T,
-            void_t<
-                std::enable_if_t<
-                std::is_arithmetic<T>::value, T>>> : conj_null<T>
+__attribute__((always_inline))
+constexpr T real(const dualnum<T>& x)
 {
-};
+    return x.real();
+}
 
 /**
- * @brief Dual conjugate policy (complex).
+ * @brief Dual number dual part.
  */
-template <typename T>
-struct conj_dual<std::complex<T>> : conj_null<T>
+template <typename T> 
+__attribute__((always_inline))
+constexpr T dual(const dualnum<T>& x)
 {
-};
+    return x.dual();
+}
 
 /**
- * @brief Dual conjugate policy (dualnum).
+ * @brief Dual number conjugate.
  */
-template <typename T>
-struct conj_dual<dualnum<T>>
+template <typename T> 
+__attribute__((always_inline))
+constexpr dualnum<T> conj(const dualnum<T>& x)
 {
-    /**
-     * @brief Value type.
-     */
-    typedef dualnum<T> value_type;
-
-    /**
-     * @brief Norm type.
-     */
-    typedef T norm_type;
-
-    /**
-     * @brief Conjugate.
-     *
-     * @f[
-     *      (a + \varepsilon b)^\circ = a - \varepsilon b
-     * @f]
-     */
-    __attribute__((always_inline))
-    static constexpr value_type conj(const value_type& x)
-    {
-        return {+x.real(), -x.dual()};
-    }
-
-    /**
-     * @brief Symmetric part.
-     *
-     * @f[
-     *      \symm(a + \varepsilon b) = a
-     * @f]
-     */
-    __attribute__((always_inline))
-    static constexpr value_type symm(const value_type& x)
-    {
-        return {+x.real(), 0};
-    }
-
-    /**
-     * @brief Skew-symmetric part.
-     *
-     * @f[
-     *      \skew(a + \varepsilon b) = \varepsilon b
-     * @f]
-     */
-    __attribute__((always_inline))
-    static constexpr value_type skew(const value_type& x)
-    {
-        return {0, +x.dual()};
-    }
-
-    /**
-     * @brief Norm square.
-     *
-     * @f[
-     *      (a + \varepsilon b)
-     *      (a + \varepsilon b)^* = a^2
-     * @f]
-     */
-    __attribute__((always_inline))
-    static constexpr norm_type norm(const value_type& x)
-    {
-        return x.real() * x.real();
-    }
-};
+    return {+x.real(), -x.dual()};
+}
 
 /**
- * @brief Imag conjugate policy (dualnum).
+ * @brief Dual number norm.
  */
-template <typename T>
-struct conj_imag<dualnum<T>> : conj_null<T>
+template <typename T> 
+__attribute__((always_inline))
+constexpr T norm(const dualnum<T>& x)
 {
-};
+    return x.real() * x.real();
+}
 
-/**
- * @brief Imag conjugate policy (dualnum/complex).
- */
-template <typename T>
-struct conj_imag<dualnum<std::complex<T>>>
-{
-    /**
-     * @brief Base.
-     */
-    typedef conj_imag<std::complex<T>> base;
-
-    /**
-     * @brief Value type.
-     */
-    typedef dualnum<std::complex<T>> value_type;
-
-    /**
-     * @brief Norm type.
-     */
-    typedef dualnum<T> norm_type;
-
-    /**
-     * @brief Conjugate.
-     *
-     * @f[
-     *      (a + i b + \varepsilon (c + i d))^* = 
-     *      (a - i b + \varepsilon (c - i d))
-     * @f]
-     */
-    __attribute__((always_inline))
-    static constexpr value_type conj(const value_type& x)
-    {
-        return {
-            base::conj(x.real()),
-            base::conj(x.dual())
-        };
-    }
-
-    /**
-     * @brief Symmetric part.
-     *
-     * @f[
-     *      \symm(a + i b + \varepsilon (c + i d)) = a + \varepsilon c
-     * @f]
-     */
-    __attribute__((always_inline))
-    static constexpr value_type symm(const value_type& x)
-    {
-        return {
-            base::symm(x.real()),
-            base::symm(x.dual())
-        };
-    }
-
-    /**
-     * @brief Skew-symmetric part.
-     *
-     * @f[
-     *      \skew(a + i b + \varepsilon (c + i d)) = i b + i \varepsilon d
-     * @f]
-     */
-    __attribute__((always_inline))
-    static constexpr value_type skew(const value_type& x)
-    {
-        return {
-            base::skew(x.real()),
-            base::skew(x.dual())
-        };
-    }
-
-    /**
-     * @brief Norm square.
-     *
-     * @f[
-     *      (a + i b + \varepsilon (c + i d))
-     *      (a + i b + \varepsilon (c + i d))^* =
-     *       a^2 + b^2 + 2 \varepsilon (a c + b d)
-     * @f]
-     */
-    __attribute__((always_inline))
-    static constexpr norm_type norm(const value_type& x)
-    {
-        return {
-            x.real().real() * x.real().real() + 
-            x.real().imag() * x.real().imag(),
-            T(2) * (x.real().real() * x.dual().real() + 
-                    x.real().imag() * x.dual().imag())
-        };
-    }
-};
+/**@}*/
 
 /**@}*/
 

@@ -70,6 +70,15 @@ struct is_quat<quat<T>> : std::true_type
 {
 };
 
+template <typename T>
+struct is_quat_param : 
+            std::integral_constant<bool,
+            std::is_arithmetic<T>::value ||
+            is_complex<T>::value ||
+            is_dualnum<T>::value>
+{
+};
+
 #endif // #if !DOXYGEN
 
 /**
@@ -79,6 +88,11 @@ template <typename T>
 class quat
 {
 public:
+
+    // Sanity check.
+    static_assert(
+        is_quat_param<T>::value,
+        "T must be arithmetic, complex, or dualnum");
 
     /**
      * @brief Real type.
@@ -112,8 +126,8 @@ public:
      * Imag part.
      */
     constexpr quat(
-            const real_type& s, 
-            const imag_type& v = {}) :
+            const T& s, 
+            const multi<T, 3>& v = {}) :
         s_(s),
         v_(v)
     {
@@ -135,10 +149,10 @@ public:
      * Imag part, 2nd component.
      */
     constexpr quat(
-            const real_type& s, 
-            const real_type& v0, 
-            const real_type& v1, 
-            const real_type& v2) :
+            const T& s, 
+            const T& v0, 
+            const T& v1, 
+            const T& v2) :
         s_(s),
         v_{{v0, v1, v2}}
     {
@@ -168,7 +182,7 @@ public:
     /**
      * @brief Get real part.
      */
-    constexpr const real_type& real() const
+    constexpr const T& real() const
     {
         return s_;
     }
@@ -176,7 +190,7 @@ public:
     /**
      * @brief Get imag part.
      */
-    constexpr const imag_type& imag() const
+    constexpr const multi<T, 3>& imag() const
     {
         return v_;
     }
@@ -184,17 +198,17 @@ public:
     /**
      * @brief Set real part, return previous real part.
      */
-    constexpr real_type real(const real_type& val)
+    constexpr T real(const T& val)
     {
-        const real_type s = s_; s_ = val; return s;
+        const T s = s_; s_ = val; return s;
     }
 
     /**
      * @brief Set imag part, return previous imag part.
      */
-    constexpr imag_type imag(const imag_type& val)
+    constexpr multi<T, 3> imag(const multi<T, 3>& val)
     {
-        const imag_type v = v_; v_ = val; return v;
+        const multi<T, 3> v = v_; v_ = val; return v;
     }
 
     /**@}*/
@@ -206,7 +220,7 @@ public:
      */
     constexpr quat inverse() const
     {
-        const real_type fac = s_ * s_ + pr::dot(v_, v_);
+        const T fac = s_ * s_ + pr::dot(v_, v_);
         return {
             +s_ / fac, 
             -v_ / fac
@@ -258,12 +272,12 @@ private:
     /**
      * @brief Real part.
      */
-    real_type s_ = {};
+    T s_ = {};
 
     /**
      * @brief Imag part.
      */
-    imag_type v_ = {};
+    multi<T, 3> v_ = {};
 
 public:
 
@@ -394,11 +408,8 @@ constexpr quat<decltype(T() * U())> operator/(
  */
 template <typename T, typename U>
 __attribute__((always_inline))
-constexpr std::enable_if_t<
-                    std::is_arithmetic<U>::value ||
-                    is_complex<U>::value ||
-                    is_dualnum<U>::value,
-                        quat<decltype(T() + U())>> operator+(
+constexpr std::enable_if_t<is_quat_param<U>::value,
+                    quat<decltype(T() + U())>> operator+(
                             const quat<T>& q0, const U& q1)
 {
     return {q0.real() + q1, q0.imag()};
@@ -410,10 +421,8 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                std::is_arithmetic<U>::value ||
-                is_complex<U>::value ||
-                is_dualnum<U>::value,
-                    quat<decltype(T() - U())>> operator-(
+                        is_quat_param<U>::value,
+                        quat<decltype(T() - U())>> operator-(
                             const quat<T>& q0, const U& q1)
 {
     return {q0.real() - q1, q0.imag()};
@@ -425,9 +434,7 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                    std::is_arithmetic<U>::value ||
-                    is_complex<U>::value ||
-                    is_dualnum<U>::value,
+                        is_quat_param<U>::value,
                         quat<decltype(T() * U())>> operator*(
                             const quat<T>& q0, const U& q1)
 {
@@ -440,9 +447,7 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                    std::is_arithmetic<U>::value ||
-                    is_complex<U>::value ||
-                    is_dualnum<U>::value,
+                        is_quat_param<U>::value,
                         quat<decltype(T() * U())>> operator/(
                             const quat<T>& q0, const U& q1)
 {
@@ -462,9 +467,7 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                    std::is_arithmetic<T>::value ||
-                    is_complex<T>::value ||
-                    is_dualnum<T>::value,
+                        is_quat_param<T>::value,
                         quat<decltype(T() + U())>> operator+(
                             const T& q0, const quat<U>& q1)
 {
@@ -477,9 +480,7 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                    std::is_arithmetic<T>::value ||
-                    is_complex<T>::value ||
-                    is_dualnum<T>::value,
+                        is_quat_param<T>::value,
                         quat<decltype(T() - U())>> operator-(
                             const T& q0, const quat<U>& q1)
 {
@@ -492,9 +493,7 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                    std::is_arithmetic<T>::value ||
-                    is_complex<T>::value ||
-                    is_dualnum<T>::value,
+                        is_quat_param<T>::value,
                         quat<decltype(T() * U())>> operator*(
                             const T& q0, const quat<U>& q1)
 {
@@ -507,9 +506,7 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                    std::is_arithmetic<T>::value ||
-                    is_complex<T>::value ||
-                    is_dualnum<T>::value,
+                        is_quat_param<T>::value,
                         quat<decltype(T() * U())>> operator/(
                             const T& q0, const quat<U>& q1)
 {
@@ -586,9 +583,7 @@ constexpr bool operator==(const quat<T>& q0, const quat<U>& q1)
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                    std::is_arithmetic<T>::value ||
-                    is_complex<T>::value ||
-                    is_dualnum<T>::value, bool> operator==(
+                        is_quat_param<U>::value, bool> operator==(
                         const quat<T>& q0, const U& q1)
 {
     return q0.real() == q1 && q0.imag() == T();
@@ -600,9 +595,7 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                std::is_arithmetic<T>::value ||
-                is_complex<T>::value ||
-                is_dualnum<T>::value, bool> operator==(
+                        is_quat_param<T>::value, bool> operator==(
                         const T& q0, const quat<U>& q1)
 {
     return q0 == q1.real() && U() == q1.imag();
@@ -624,9 +617,7 @@ constexpr bool operator!=(const quat<T>& q0, const quat<U>& q1)
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                    std::is_arithmetic<T>::value ||
-                    is_complex<T>::value ||
-                    is_dualnum<T>::value, bool> operator!=(
+                        is_quat_param<U>::value, bool> operator!=(
                         const quat<T>& q0, const U& q1)
 {
     return !(q0 == q1);
@@ -638,9 +629,7 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                    std::is_arithmetic<T>::value ||
-                    is_complex<T>::value ||
-                    is_dualnum<T>::value, bool> operator!=(
+                        is_quat_param<T>::value, bool> operator!=(
                         const T& q0, const quat<U>& q1)
 {
     return !(q0 == q1);
@@ -648,147 +637,52 @@ constexpr std::enable_if_t<
 
 /**@}*/
 
-#if 0
+/**
+ * @name Quaternion accessors
+ */
+/**@{*/
 
 /**
- * @brief Imag conjugate policy (quat).
+ * @brief Quaternion real part.
  */
 template <typename T>
-struct conj_imag<quat<T>> : conj_null<T>
+__attribute__((always_inline))
+constexpr T real(const quat<T>& q)
 {
-};
+    return q.real();
+}
 
 /**
- * @brief Imag conjugate policy (quat/complex).
+ * @brief Quaternion imaginary part.
  */
 template <typename T>
-struct conj_imag<quat<T>, 
-            void_t<
-                std::enable_if_t<
-                is_dualnum_complex<T>::value ||
-                is_complex<T>::value, T>>>
+__attribute__((always_inline))
+constexpr multi<T, 3> imag(const quat<T>& q)
 {
-    /**
-     * @brief Base.
-     */
-    typedef conj_imag<T> base;
-
-    /**
-     * @brief Value type.
-     */
-    typedef quat<T> value_type;
-
-    /**
-     * @brief Conjugate.
-     */
-    __attribute__((always_inline))
-    static constexpr value_type conj(const value_type& x)
-    {
-        return {
-            base::conj(x.real()),
-            base::conj(x.imag()[0]),
-            base::conj(x.imag()[1]),
-            base::conj(x.imag()[2])
-        };
-    }
-
-    /**
-     * @brief Symmetric part.
-     */
-    __attribute__((always_inline))
-    static constexpr value_type symm(const value_type& x)
-    {
-        return {
-            base::symm(x.real()),
-            base::symm(x.imag()[0]),
-            base::symm(x.imag()[1]),
-            base::symm(x.imag()[2])
-        };
-    }
-
-    /**
-     * @brief Skew-symmetric part.
-     */
-    __attribute__((always_inline))
-    static constexpr value_type skew(const value_type& x)
-    {
-        return {
-            base::skew(x.real()),
-            base::skew(x.imag()[0]),
-            base::skew(x.imag()[1]),
-            base::skew(x.imag()[2])
-        };
-    }
-};
+    return q.imag();
+}
 
 /**
- * @brief Dual conjugate policy (quat).
+ * @brief Quaternion conjugate.
  */
 template <typename T>
-struct conj_dual<quat<T>> : conj_null<T>
+__attribute__((always_inline))
+constexpr quat<T> conj(const quat<T>& q)
 {
-};
+    return {+q.real(), -q.imag()};
+}
 
 /**
- * @brief Dual conjugate policy (quat/dualnum).
+ * @brief Quaternion norm.
  */
-template <typename T>
-struct conj_dual<quat<dualnum<T>>> 
+template <typename T> 
+__attribute__((always_inline))
+constexpr T norm(const quat<T>& q)
 {
-    /**
-     * @brief Base.
-     */
-    typedef conj_dual<dualnum<T>> base;
+    return pr::dot(multi<T, 4>(q), multi<T, 4>(q));
+}
 
-    /**
-     * @brief Value type.
-     */
-    typedef quat<dualnum<T>> value_type;
-
-    /**
-     * @brief Conjugate.
-     */
-    __attribute__((always_inline))
-    static constexpr value_type conj(const value_type& x)
-    {
-        return {
-            base::conj(x.real()),
-            base::conj(x.imag()[0]),
-            base::conj(x.imag()[1]),
-            base::conj(x.imag()[2])
-        };
-    }
-
-    /**
-     * @brief Symmetric part.
-     */
-    __attribute__((always_inline))
-    static constexpr value_type symm(const value_type& x)
-    {
-        return {
-            base::symm(x.real()),
-            base::symm(x.imag()[0]),
-            base::symm(x.imag()[1]),
-            base::symm(x.imag()[2])
-        };
-    }
-
-    /**
-     * @brief Skew-symmetric part.
-     */
-    __attribute__((always_inline))
-    static constexpr value_type skew(const value_type& x)
-    {
-        return {
-            base::skew(x.real()),
-            base::skew(x.imag()[0]),
-            base::skew(x.imag()[1]),
-            base::skew(x.imag()[2])
-        };
-    }
-};
-
-#endif
+/**@}*/
 
 /**
  * @name Geometry (quat)
