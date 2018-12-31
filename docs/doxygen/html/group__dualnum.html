@@ -75,24 +75,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dualnum.html">pr::dualnum&lt; T &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number.  <a href="classpr_1_1dualnum.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__dual.html">pr::conj_dual&lt; T, typename &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual conjugate policy.  <a href="structpr_1_1conj__dual.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__dual_3_01T_00_01void__t_3_01std_1_1enable__if__t_3_01std_1_1is__arithmetic_3_010fc591a2a6f037245fa45638e303bea.html">pr::conj_dual&lt; T, void_t&lt; std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt; &gt; &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual conjugate policy (arithmetic).  <a href="structpr_1_1conj__dual_3_01T_00_01void__t_3_01std_1_1enable__if__t_3_01std_1_1is__arithmetic_3_010fc591a2a6f037245fa45638e303bea.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__dual_3_01std_1_1complex_3_01T_01_4_01_4.html">pr::conj_dual&lt; std::complex&lt; T &gt; &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual conjugate policy (complex).  <a href="structpr_1_1conj__dual_3_01std_1_1complex_3_01T_01_4_01_4.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__dual_3_01dualnum_3_01T_01_4_01_4.html">pr::conj_dual&lt; dualnum&lt; T &gt; &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual conjugate policy (dualnum).  <a href="structpr_1_1conj__dual_3_01dualnum_3_01T_01_4_01_4.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__imag_3_01dualnum_3_01T_01_4_01_4.html">pr::conj_imag&lt; dualnum&lt; T &gt; &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imag conjugate policy (dualnum).  <a href="structpr_1_1conj__imag_3_01dualnum_3_01T_01_4_01_4.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1conj__imag_3_01dualnum_3_01std_1_1complex_3_01T_01_4_01_4_01_4.html">pr::conj_imag&lt; dualnum&lt; std::complex&lt; T &gt; &gt; &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imag conjugate policy (dualnum/complex).  <a href="structpr_1_1conj__imag_3_01dualnum_3_01std_1_1complex_3_01T_01_4_01_4_01_4.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Unary operators (dualnum)</h2></td></tr>
@@ -126,41 +108,41 @@ Binary operators (dualnum/dualnum)</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Binary operators (dualnum/num)</h2></td></tr>
-<tr class="memitem:ga802d5ea8c90c0e60ce497aec31506809"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga802d5ea8c90c0e60ce497aec31506809"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; U &gt;::value||is_complex&lt; U &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T()+U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga802d5ea8c90c0e60ce497aec31506809">pr::operator+</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
-<tr class="memdesc:ga802d5ea8c90c0e60ce497aec31506809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator+</code>.  <a href="group__dualnum.html#ga802d5ea8c90c0e60ce497aec31506809">More...</a><br /></td></tr>
-<tr class="separator:ga802d5ea8c90c0e60ce497aec31506809"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga918161715f51e7c34d7b73aaee294e2e"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga918161715f51e7c34d7b73aaee294e2e"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; U &gt;::value||is_complex&lt; U &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T() - U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga918161715f51e7c34d7b73aaee294e2e">pr::operator-</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
-<tr class="memdesc:ga918161715f51e7c34d7b73aaee294e2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator-</code>.  <a href="group__dualnum.html#ga918161715f51e7c34d7b73aaee294e2e">More...</a><br /></td></tr>
-<tr class="separator:ga918161715f51e7c34d7b73aaee294e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7cb67a9732296147cd7ef00bd4ede25c"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga7cb67a9732296147cd7ef00bd4ede25c"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; U &gt;::value||is_complex&lt; U &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T() *U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga7cb67a9732296147cd7ef00bd4ede25c">pr::operator*</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
-<tr class="memdesc:ga7cb67a9732296147cd7ef00bd4ede25c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator*</code>.  <a href="group__dualnum.html#ga7cb67a9732296147cd7ef00bd4ede25c">More...</a><br /></td></tr>
-<tr class="separator:ga7cb67a9732296147cd7ef00bd4ede25c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6e57934e22f3321ad38f3a7549baaab4"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga6e57934e22f3321ad38f3a7549baaab4"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; U &gt;::value||is_complex&lt; U &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T()/U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga6e57934e22f3321ad38f3a7549baaab4">pr::operator/</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
-<tr class="memdesc:ga6e57934e22f3321ad38f3a7549baaab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator*</code>, inverting right hand side.  <a href="group__dualnum.html#ga6e57934e22f3321ad38f3a7549baaab4">More...</a><br /></td></tr>
-<tr class="separator:ga6e57934e22f3321ad38f3a7549baaab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c776b398b08e644dd38d130828e81c5"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga5c776b398b08e644dd38d130828e81c5"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; U &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T()+U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga5c776b398b08e644dd38d130828e81c5">pr::operator+</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
+<tr class="memdesc:ga5c776b398b08e644dd38d130828e81c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator+</code>.  <a href="group__dualnum.html#ga5c776b398b08e644dd38d130828e81c5">More...</a><br /></td></tr>
+<tr class="separator:ga5c776b398b08e644dd38d130828e81c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga831242e3d5812097a08f9f787e390d89"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga831242e3d5812097a08f9f787e390d89"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; U &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T() - U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga831242e3d5812097a08f9f787e390d89">pr::operator-</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
+<tr class="memdesc:ga831242e3d5812097a08f9f787e390d89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator-</code>.  <a href="group__dualnum.html#ga831242e3d5812097a08f9f787e390d89">More...</a><br /></td></tr>
+<tr class="separator:ga831242e3d5812097a08f9f787e390d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga48f532b8e3348b03db17c82522dffda5"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga48f532b8e3348b03db17c82522dffda5"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; U &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T() *U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga48f532b8e3348b03db17c82522dffda5">pr::operator*</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
+<tr class="memdesc:ga48f532b8e3348b03db17c82522dffda5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator*</code>.  <a href="group__dualnum.html#ga48f532b8e3348b03db17c82522dffda5">More...</a><br /></td></tr>
+<tr class="separator:ga48f532b8e3348b03db17c82522dffda5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga73bf7adb367c8785145b843fce35f3f1"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga73bf7adb367c8785145b843fce35f3f1"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; U &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T()/U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga73bf7adb367c8785145b843fce35f3f1">pr::operator/</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
+<tr class="memdesc:ga73bf7adb367c8785145b843fce35f3f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator*</code>, inverting right hand side.  <a href="group__dualnum.html#ga73bf7adb367c8785145b843fce35f3f1">More...</a><br /></td></tr>
+<tr class="separator:ga73bf7adb367c8785145b843fce35f3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Binary operators (num/dualnum)</h2></td></tr>
-<tr class="memitem:ga00e8e0415407a6495b84079be79ec23d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga00e8e0415407a6495b84079be79ec23d"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value||is_complex&lt; T &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T()+U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga00e8e0415407a6495b84079be79ec23d">pr::operator+</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
-<tr class="memdesc:ga00e8e0415407a6495b84079be79ec23d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator+</code>.  <a href="group__dualnum.html#ga00e8e0415407a6495b84079be79ec23d">More...</a><br /></td></tr>
-<tr class="separator:ga00e8e0415407a6495b84079be79ec23d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3315e114612d9e341d45f5c8383ea33f"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga3315e114612d9e341d45f5c8383ea33f"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value||is_complex&lt; T &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T() - U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga3315e114612d9e341d45f5c8383ea33f">pr::operator-</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
-<tr class="memdesc:ga3315e114612d9e341d45f5c8383ea33f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator-</code>.  <a href="group__dualnum.html#ga3315e114612d9e341d45f5c8383ea33f">More...</a><br /></td></tr>
-<tr class="separator:ga3315e114612d9e341d45f5c8383ea33f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga052b512e1fa83859dd555294bf323c98"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga052b512e1fa83859dd555294bf323c98"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value||is_complex&lt; T &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T() *U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga052b512e1fa83859dd555294bf323c98">pr::operator*</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
-<tr class="memdesc:ga052b512e1fa83859dd555294bf323c98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator*</code>.  <a href="group__dualnum.html#ga052b512e1fa83859dd555294bf323c98">More...</a><br /></td></tr>
-<tr class="separator:ga052b512e1fa83859dd555294bf323c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3857ab9c43ece780dfc852a7d725caef"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga3857ab9c43ece780dfc852a7d725caef"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value||is_complex&lt; T &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T()/U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga3857ab9c43ece780dfc852a7d725caef">pr::operator/</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
-<tr class="memdesc:ga3857ab9c43ece780dfc852a7d725caef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator*</code>, inverting right hand side.  <a href="group__dualnum.html#ga3857ab9c43ece780dfc852a7d725caef">More...</a><br /></td></tr>
-<tr class="separator:ga3857ab9c43ece780dfc852a7d725caef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac3dc5bef2c7c65c75462c3244b1480cf"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:gac3dc5bef2c7c65c75462c3244b1480cf"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; T &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T()+U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gac3dc5bef2c7c65c75462c3244b1480cf">pr::operator+</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
+<tr class="memdesc:gac3dc5bef2c7c65c75462c3244b1480cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator+</code>.  <a href="group__dualnum.html#gac3dc5bef2c7c65c75462c3244b1480cf">More...</a><br /></td></tr>
+<tr class="separator:gac3dc5bef2c7c65c75462c3244b1480cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1dd25a45296bac344d668c49c84f608b"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga1dd25a45296bac344d668c49c84f608b"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; T &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T() - U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga1dd25a45296bac344d668c49c84f608b">pr::operator-</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
+<tr class="memdesc:ga1dd25a45296bac344d668c49c84f608b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator-</code>.  <a href="group__dualnum.html#ga1dd25a45296bac344d668c49c84f608b">More...</a><br /></td></tr>
+<tr class="separator:ga1dd25a45296bac344d668c49c84f608b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e56ece94aab9c64dcd85c2e814b551b"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga5e56ece94aab9c64dcd85c2e814b551b"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; T &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T() *U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga5e56ece94aab9c64dcd85c2e814b551b">pr::operator*</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
+<tr class="memdesc:ga5e56ece94aab9c64dcd85c2e814b551b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator*</code>.  <a href="group__dualnum.html#ga5e56ece94aab9c64dcd85c2e814b551b">More...</a><br /></td></tr>
+<tr class="separator:ga5e56ece94aab9c64dcd85c2e814b551b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1352c60e3759b737f9243c946c54d0f7"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga1352c60e3759b737f9243c946c54d0f7"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; T &gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; decltype(T()/U())&gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga1352c60e3759b737f9243c946c54d0f7">pr::operator/</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
+<tr class="memdesc:ga1352c60e3759b737f9243c946c54d0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribute <code>operator*</code>, inverting right hand side.  <a href="group__dualnum.html#ga1352c60e3759b737f9243c946c54d0f7">More...</a><br /></td></tr>
+<tr class="separator:ga1352c60e3759b737f9243c946c54d0f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Binary operators (dualnum/any)</h2></td></tr>
@@ -187,26 +169,45 @@ Comparison operators (dualnum)</h2></td></tr>
 <tr class="memitem:gaf0c7fe25d43199ebeea0959d9e65ff83"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaf0c7fe25d43199ebeea0959d9e65ff83">pr::operator==</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
 <tr class="memdesc:gaf0c7fe25d43199ebeea0959d9e65ff83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare <code>operator==</code>.  <a href="group__dualnum.html#gaf0c7fe25d43199ebeea0959d9e65ff83">More...</a><br /></td></tr>
 <tr class="separator:gaf0c7fe25d43199ebeea0959d9e65ff83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga88852bb5065078026d62748bdba66d1d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga88852bb5065078026d62748bdba66d1d"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; !is_dualnum&lt; U &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga88852bb5065078026d62748bdba66d1d">pr::operator==</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
-<tr class="memdesc:ga88852bb5065078026d62748bdba66d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare <code>operator==</code>.  <a href="group__dualnum.html#ga88852bb5065078026d62748bdba66d1d">More...</a><br /></td></tr>
-<tr class="separator:ga88852bb5065078026d62748bdba66d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae4792bb0abc6ff7a3348229b04950aa0"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:gae4792bb0abc6ff7a3348229b04950aa0"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; !is_dualnum&lt; T &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gae4792bb0abc6ff7a3348229b04950aa0">pr::operator==</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
-<tr class="memdesc:gae4792bb0abc6ff7a3348229b04950aa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare <code>operator==</code>.  <a href="group__dualnum.html#gae4792bb0abc6ff7a3348229b04950aa0">More...</a><br /></td></tr>
-<tr class="separator:gae4792bb0abc6ff7a3348229b04950aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab55faabb7c0bb2d8d426b1482be10228"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:gab55faabb7c0bb2d8d426b1482be10228"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; U &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gab55faabb7c0bb2d8d426b1482be10228">pr::operator==</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
+<tr class="memdesc:gab55faabb7c0bb2d8d426b1482be10228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare <code>operator==</code>.  <a href="group__dualnum.html#gab55faabb7c0bb2d8d426b1482be10228">More...</a><br /></td></tr>
+<tr class="separator:gab55faabb7c0bb2d8d426b1482be10228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c0616b9996308b8079535b0adf48841"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga7c0616b9996308b8079535b0adf48841"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; T &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga7c0616b9996308b8079535b0adf48841">pr::operator==</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
+<tr class="memdesc:ga7c0616b9996308b8079535b0adf48841"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare <code>operator==</code>.  <a href="group__dualnum.html#ga7c0616b9996308b8079535b0adf48841">More...</a><br /></td></tr>
+<tr class="separator:ga7c0616b9996308b8079535b0adf48841"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga41d7484038ca68e9cb37218e32416e24"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
 <tr class="memitem:ga41d7484038ca68e9cb37218e32416e24"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga41d7484038ca68e9cb37218e32416e24">pr::operator!=</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
 <tr class="memdesc:ga41d7484038ca68e9cb37218e32416e24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare <code>operator!=</code>.  <a href="group__dualnum.html#ga41d7484038ca68e9cb37218e32416e24">More...</a><br /></td></tr>
 <tr class="separator:ga41d7484038ca68e9cb37218e32416e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6cc475f713bdf266d020e1af1806e476"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga6cc475f713bdf266d020e1af1806e476"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; !is_dualnum&lt; U &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga6cc475f713bdf266d020e1af1806e476">pr::operator!=</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
-<tr class="memdesc:ga6cc475f713bdf266d020e1af1806e476"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare <code>operator!=</code>.  <a href="group__dualnum.html#ga6cc475f713bdf266d020e1af1806e476">More...</a><br /></td></tr>
-<tr class="separator:ga6cc475f713bdf266d020e1af1806e476"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9bebd59ae8ed99d65c1de1ff048b2c91"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
-<tr class="memitem:ga9bebd59ae8ed99d65c1de1ff048b2c91"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; !is_dualnum&lt; T &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga9bebd59ae8ed99d65c1de1ff048b2c91">pr::operator!=</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
-<tr class="memdesc:ga9bebd59ae8ed99d65c1de1ff048b2c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare <code>operator!=</code>.  <a href="group__dualnum.html#ga9bebd59ae8ed99d65c1de1ff048b2c91">More...</a><br /></td></tr>
-<tr class="separator:ga9bebd59ae8ed99d65c1de1ff048b2c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2cb8a0420f6343327f6c443ab2568941"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga2cb8a0420f6343327f6c443ab2568941"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; U &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga2cb8a0420f6343327f6c443ab2568941">pr::operator!=</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x0, const U &amp;x1)</td></tr>
+<tr class="memdesc:ga2cb8a0420f6343327f6c443ab2568941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare <code>operator!=</code>.  <a href="group__dualnum.html#ga2cb8a0420f6343327f6c443ab2568941">More...</a><br /></td></tr>
+<tr class="separator:ga2cb8a0420f6343327f6c443ab2568941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga03047b712587e4b471ce32dbd0745c68"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga03047b712587e4b471ce32dbd0745c68"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; is_dualnum_param&lt; T &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga03047b712587e4b471ce32dbd0745c68">pr::operator!=</a> (const T &amp;x0, const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; U &gt; &amp;x1)</td></tr>
+<tr class="memdesc:ga03047b712587e4b471ce32dbd0745c68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare <code>operator!=</code>.  <a href="group__dualnum.html#ga03047b712587e4b471ce32dbd0745c68">More...</a><br /></td></tr>
+<tr class="separator:ga03047b712587e4b471ce32dbd0745c68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Dual number accessors</h2></td></tr>
+<tr class="memitem:ga28a3a7d35732d605f656be101bc99bf2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga28a3a7d35732d605f656be101bc99bf2"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga28a3a7d35732d605f656be101bc99bf2">pr::real</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga28a3a7d35732d605f656be101bc99bf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number real part.  <a href="group__dualnum.html#ga28a3a7d35732d605f656be101bc99bf2">More...</a><br /></td></tr>
+<tr class="separator:ga28a3a7d35732d605f656be101bc99bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f8365456af5173e21360dcbaf356333"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5f8365456af5173e21360dcbaf356333"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga5f8365456af5173e21360dcbaf356333">pr::dual</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga5f8365456af5173e21360dcbaf356333"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number dual part.  <a href="group__dualnum.html#ga5f8365456af5173e21360dcbaf356333">More...</a><br /></td></tr>
+<tr class="separator:ga5f8365456af5173e21360dcbaf356333"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0665acebd1c2c3e374818d1692fa20ef"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga0665acebd1c2c3e374818d1692fa20ef"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga0665acebd1c2c3e374818d1692fa20ef">pr::conj</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga0665acebd1c2c3e374818d1692fa20ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number conjugate.  <a href="group__dualnum.html#ga0665acebd1c2c3e374818d1692fa20ef">More...</a><br /></td></tr>
+<tr class="separator:ga0665acebd1c2c3e374818d1692fa20ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5aad4f97ee10c17bb6656f249c6c241d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5aad4f97ee10c17bb6656f249c6c241d"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga5aad4f97ee10c17bb6656f249c6c241d">pr::norm</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga5aad4f97ee10c17bb6656f249c6c241d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual number norm.  <a href="group__dualnum.html#ga5aad4f97ee10c17bb6656f249c6c241d">More...</a><br /></td></tr>
+<tr class="separator:ga5aad4f97ee10c17bb6656f249c6c241d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math (dualnum)</h2></td></tr>
@@ -546,8 +547,8 @@ template&lt;typename T , typename U &gt; </div>
  
 </div>
 </div>
-<a id="ga802d5ea8c90c0e60ce497aec31506809"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga802d5ea8c90c0e60ce497aec31506809">&#9670;&nbsp;</a></span>operator+() <span class="overload">[3/4]</span></h2>
+<a id="ga5c776b398b08e644dd38d130828e81c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5c776b398b08e644dd38d130828e81c5">&#9670;&nbsp;</a></span>operator+() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -555,7 +556,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; std::is_arithmetic&lt;U&gt;::value || is_complex&lt;U&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() + U())&gt; &gt; pr::operator+ </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;U&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() + U())&gt; &gt; pr::operator+ </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -581,8 +582,8 @@ template&lt;typename T , typename U &gt; </div>
  
 </div>
 </div>
-<a id="ga918161715f51e7c34d7b73aaee294e2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga918161715f51e7c34d7b73aaee294e2e">&#9670;&nbsp;</a></span>operator-() <span class="overload">[3/4]</span></h2>
+<a id="ga831242e3d5812097a08f9f787e390d89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga831242e3d5812097a08f9f787e390d89">&#9670;&nbsp;</a></span>operator-() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -590,7 +591,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; std::is_arithmetic&lt;U&gt;::value || is_complex&lt;U&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() - U())&gt; &gt; pr::operator- </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;U&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() - U())&gt; &gt; pr::operator- </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -616,8 +617,8 @@ template&lt;typename T , typename U &gt; </div>
  
 </div>
 </div>
-<a id="ga7cb67a9732296147cd7ef00bd4ede25c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7cb67a9732296147cd7ef00bd4ede25c">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/3]</span></h2>
+<a id="ga48f532b8e3348b03db17c82522dffda5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga48f532b8e3348b03db17c82522dffda5">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -625,7 +626,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; std::is_arithmetic&lt;U&gt;::value || is_complex&lt;U&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() * U())&gt; &gt; pr::operator* </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;U&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() * U())&gt; &gt; pr::operator* </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -651,8 +652,8 @@ template&lt;typename T , typename U &gt; </div>
  
 </div>
 </div>
-<a id="ga6e57934e22f3321ad38f3a7549baaab4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6e57934e22f3321ad38f3a7549baaab4">&#9670;&nbsp;</a></span>operator/() <span class="overload">[2/3]</span></h2>
+<a id="ga73bf7adb367c8785145b843fce35f3f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga73bf7adb367c8785145b843fce35f3f1">&#9670;&nbsp;</a></span>operator/() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -660,7 +661,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; std::is_arithmetic&lt;U&gt;::value || is_complex&lt;U&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() / U())&gt; &gt; pr::operator/ </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;U&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() / U())&gt; &gt; pr::operator/ </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -686,8 +687,8 @@ template&lt;typename T , typename U &gt; </div>
  
 </div>
 </div>
-<a id="ga00e8e0415407a6495b84079be79ec23d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga00e8e0415407a6495b84079be79ec23d">&#9670;&nbsp;</a></span>operator+() <span class="overload">[4/4]</span></h2>
+<a id="gac3dc5bef2c7c65c75462c3244b1480cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac3dc5bef2c7c65c75462c3244b1480cf">&#9670;&nbsp;</a></span>operator+() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -695,7 +696,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; std::is_arithmetic&lt;T&gt;::value || is_complex&lt;T&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() + U())&gt; &gt; pr::operator+ </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;T&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() + U())&gt; &gt; pr::operator+ </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -721,8 +722,8 @@ template&lt;typename T , typename U &gt; </div>
  
 </div>
 </div>
-<a id="ga3315e114612d9e341d45f5c8383ea33f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3315e114612d9e341d45f5c8383ea33f">&#9670;&nbsp;</a></span>operator-() <span class="overload">[4/4]</span></h2>
+<a id="ga1dd25a45296bac344d668c49c84f608b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1dd25a45296bac344d668c49c84f608b">&#9670;&nbsp;</a></span>operator-() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -730,7 +731,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; std::is_arithmetic&lt;T&gt;::value || is_complex&lt;T&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() - U())&gt; &gt; pr::operator- </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;T&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() - U())&gt; &gt; pr::operator- </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -756,8 +757,8 @@ template&lt;typename T , typename U &gt; </div>
  
 </div>
 </div>
-<a id="ga052b512e1fa83859dd555294bf323c98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga052b512e1fa83859dd555294bf323c98">&#9670;&nbsp;</a></span>operator*() <span class="overload">[3/3]</span></h2>
+<a id="ga5e56ece94aab9c64dcd85c2e814b551b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5e56ece94aab9c64dcd85c2e814b551b">&#9670;&nbsp;</a></span>operator*() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -765,7 +766,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; std::is_arithmetic&lt;T&gt;::value || is_complex&lt;T&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() * U())&gt; &gt; pr::operator* </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;T&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() * U())&gt; &gt; pr::operator* </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -791,8 +792,8 @@ template&lt;typename T , typename U &gt; </div>
  
 </div>
 </div>
-<a id="ga3857ab9c43ece780dfc852a7d725caef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3857ab9c43ece780dfc852a7d725caef">&#9670;&nbsp;</a></span>operator/() <span class="overload">[3/3]</span></h2>
+<a id="ga1352c60e3759b737f9243c946c54d0f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1352c60e3759b737f9243c946c54d0f7">&#9670;&nbsp;</a></span>operator/() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -800,7 +801,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; std::is_arithmetic&lt;T&gt;::value || is_complex&lt;T&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() / U())&gt; &gt; pr::operator/ </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;T&gt;::value, <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;decltype(T() / U())&gt; &gt; pr::operator/ </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -986,8 +987,8 @@ template&lt;typename T , typename U &gt; </div>
 
 </div>
 </div>
-<a id="ga88852bb5065078026d62748bdba66d1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga88852bb5065078026d62748bdba66d1d">&#9670;&nbsp;</a></span>operator==() <span class="overload">[2/3]</span></h2>
+<a id="gab55faabb7c0bb2d8d426b1482be10228"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab55faabb7c0bb2d8d426b1482be10228">&#9670;&nbsp;</a></span>operator==() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -995,7 +996,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; !is_dualnum&lt;U&gt;::value, bool&gt; pr::operator== </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;U&gt;::value, bool&gt; pr::operator== </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -1018,8 +1019,8 @@ template&lt;typename T , typename U &gt; </div>
 
 </div>
 </div>
-<a id="gae4792bb0abc6ff7a3348229b04950aa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae4792bb0abc6ff7a3348229b04950aa0">&#9670;&nbsp;</a></span>operator==() <span class="overload">[3/3]</span></h2>
+<a id="ga7c0616b9996308b8079535b0adf48841"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7c0616b9996308b8079535b0adf48841">&#9670;&nbsp;</a></span>operator==() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1027,7 +1028,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; !is_dualnum&lt;T&gt;::value, bool&gt; pr::operator== </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;T&gt;::value, bool&gt; pr::operator== </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -1082,8 +1083,8 @@ template&lt;typename T , typename U &gt; </div>
 
 </div>
 </div>
-<a id="ga6cc475f713bdf266d020e1af1806e476"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6cc475f713bdf266d020e1af1806e476">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[2/3]</span></h2>
+<a id="ga2cb8a0420f6343327f6c443ab2568941"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2cb8a0420f6343327f6c443ab2568941">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1091,7 +1092,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; !is_dualnum&lt;U&gt;::value, bool&gt; <a class="el" href="group__multi.html#ga53f17c1dbb0a4d9179119eb0739bd0db">pr::operator!</a>= </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;U&gt;::value, bool&gt; <a class="el" href="group__multi.html#ga53f17c1dbb0a4d9179119eb0739bd0db">pr::operator!</a>= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -1114,8 +1115,8 @@ template&lt;typename T , typename U &gt; </div>
 
 </div>
 </div>
-<a id="ga9bebd59ae8ed99d65c1de1ff048b2c91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9bebd59ae8ed99d65c1de1ff048b2c91">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[3/3]</span></h2>
+<a id="ga03047b712587e4b471ce32dbd0745c68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga03047b712587e4b471ce32dbd0745c68">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1123,7 +1124,7 @@ template&lt;typename T , typename U &gt; </div>
 template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::enable_if_t&lt; !is_dualnum&lt;T&gt;::value, bool&gt; <a class="el" href="group__multi.html#ga53f17c1dbb0a4d9179119eb0739bd0db">pr::operator!</a>= </td>
+          <td class="memname">constexpr std::enable_if_t&lt; is_dualnum_param&lt;T&gt;::value, bool&gt; <a class="el" href="group__multi.html#ga53f17c1dbb0a4d9179119eb0739bd0db">pr::operator!</a>= </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>x0</em>, </td>
@@ -1143,6 +1144,94 @@ template&lt;typename T , typename U &gt; </div>
 </div><div class="memdoc">
 
 <p>Compare <code>operator!=</code>. </p>
+
+</div>
+</div>
+<a id="ga28a3a7d35732d605f656be101bc99bf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga28a3a7d35732d605f656be101bc99bf2">&#9670;&nbsp;</a></span>real()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T pr::real </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dual number real part. </p>
+
+</div>
+</div>
+<a id="ga5f8365456af5173e21360dcbaf356333"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f8365456af5173e21360dcbaf356333">&#9670;&nbsp;</a></span>dual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T pr::dual </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dual number dual part. </p>
+
+</div>
+</div>
+<a id="ga0665acebd1c2c3e374818d1692fa20ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0665acebd1c2c3e374818d1692fa20ef">&#9670;&nbsp;</a></span>conj()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt;T&gt; pr::conj </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dual number conjugate. </p>
+
+</div>
+</div>
+<a id="ga5aad4f97ee10c17bb6656f249c6c241d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5aad4f97ee10c17bb6656f249c6c241d">&#9670;&nbsp;</a></span>norm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T pr::norm </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dual number norm. </p>
 
 </div>
 </div>
