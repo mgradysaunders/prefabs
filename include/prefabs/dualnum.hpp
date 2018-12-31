@@ -46,7 +46,7 @@
 namespace pr {
 
 /**
- * @defgroup dualnum Dual numbers
+ * @defgroup dualnum Dual number
  *
  * `<prefabs/dualnum.hpp>`
  *
@@ -66,16 +66,6 @@ struct is_dualnum : std::false_type
 
 template <typename T>
 struct is_dualnum<dualnum<T>> : std::true_type
-{
-};
-
-template <typename T>
-struct is_dualnum_complex : std::false_type
-{
-};
-
-template <typename T>
-struct is_dualnum_complex<dualnum<std::complex<T>>> : std::true_type
 {
 };
 
@@ -119,6 +109,7 @@ public:
      */
     constexpr dualnum() = default;
 
+#if 0
     /**
      * @brief Default copy constructor.
      */
@@ -128,6 +119,7 @@ public:
      * @brief Default move constructor.
      */
     constexpr dualnum(dualnum&&) = default;
+#endif
 
     /**
      * @brief Constructor.
@@ -145,6 +137,7 @@ public:
      */
     /**@{*/
 
+#if 0
     /**
      * @brief Default copy assign.
      */
@@ -162,6 +155,7 @@ public:
     {
         return *this = dualnum(a);
     }
+#endif
 
     /**@}*/
 
@@ -676,7 +670,7 @@ constexpr std::enable_if_t<
 /**@}*/
 
 /**
- * @name Dual number accessors
+ * @name Accessors (dualnum)
  */
 /**@{*/
 
@@ -724,18 +718,40 @@ constexpr dualnum<T> conj(const dualnum<T>& x)
 }
 
 /**
- * @brief Norm.
+ * @brief Norm square.
  *
  * @f[
- *      (a + \varepsilon b)
- *      (a + \varepsilon b)^\circ = a^2
+ *      |(a + \varepsilon b)
+ *       (a + \varepsilon b)^\circ| = |a^2|
  * @f]
+ *
+ * @note
+ * If `T` is complex, returns a floating 
+ * point type.
  */
 template <typename T> 
 __attribute__((always_inline))
-constexpr T norm(const dualnum<T>& x)
+constexpr auto norm(const dualnum<T>& x)
 {
-    return x.real() * x.real();
+    return pr::abs(x.real() * x.real());
+}
+
+/**
+ * @brief Absolute value.
+ *
+ * @f[
+ *      |a + \varepsilon b| = |a|
+ * @f]
+ *
+ * @note 
+ * If `T` is complex, returns a floating
+ * point type.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline auto abs(const dualnum<T>& x)
+{
+    return pr::abs(x.real());
 }
 
 /**@}*/
