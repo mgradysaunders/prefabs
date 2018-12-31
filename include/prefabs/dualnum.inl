@@ -9,8 +9,8 @@ namespace pr {
  * @name Math (dualnum)
  *
  * @f[
- *      f(\real(x) + \varepsilon \dual(x)) = 
- *      f(\real(x)) + \varepsilon f'(\real(x)) \dual(x)
+ *      f(a + \varepsilon b) = 
+ *      f(a) + \varepsilon f'(a) b
  * @f]
  */
 /**@{*/

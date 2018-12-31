@@ -314,10 +314,10 @@ constexpr dualnum<T> operator-(const dualnum<T>& x)
  * @brief Distribute `operator+`.
  *
  * @f[
- *      (\real(x_0) + \varepsilon \dual(x_0)) + 
- *      (\real(x_1) + \varepsilon \dual(x_1)) = 
- *      (\real(x_0) + \real(x_1)) + \varepsilon 
- *      (\dual(x_0) + \dual(x_1))
+ *      (a_0 + \varepsilon b_0) + 
+ *      (a_1 + \varepsilon b_1) = 
+ *      (a_0 + a_1) + \varepsilon 
+ *      (b_0 + b_1)
  * @f]
  */
 template <typename T, typename U>
@@ -332,10 +332,10 @@ constexpr dualnum<decltype(T() + U())> operator+(
  * @brief Distribute `operator-`.
  *
  * @f[
- *      (\real(x_0) + \varepsilon \dual(x_0)) -
- *      (\real(x_1) + \varepsilon \dual(x_1)) = 
- *      (\real(x_0) - \real(x_1)) + \varepsilon 
- *      (\dual(x_0) - \dual(x_1))
+ *      (a_0 + \varepsilon b_0) -
+ *      (a_1 + \varepsilon b_1) = 
+ *      (a_0 - a_1) + \varepsilon 
+ *      (b_0 - b_1)
  * @f]
  */
 template <typename T, typename U>
@@ -350,10 +350,10 @@ constexpr dualnum<decltype(T() - U())> operator-(
  * @brief Distribute `operator*`.
  *
  * @f[
- *      (\real(x_0) + \varepsilon \dual(x_0))
- *      (\real(x_1) + \varepsilon \dual(x_1)) = 
- *       \real(x_0) \real(x_1) + \varepsilon 
- *      (\real(x_0) \dual(x_1) + \dual(x_0) \real(x_1))
+ *      (a_0 + \varepsilon b_0)
+ *      (a_1 + \varepsilon b_1) = 
+ *       a_0 a_1 + \varepsilon 
+ *      (a_0 b_1 + b_0 a_1)
  * @f]
  */
 template <typename T, typename U>
@@ -371,10 +371,10 @@ constexpr dualnum<decltype(T() * U())> operator*(
  * @brief Distribute `operator*`, inverting right hand side.
  *
  * @f[
- *      (\real(x_0) + \varepsilon \dual(x_0)) 
- *      (\real(x_1) + \varepsilon \dual(x_1))^{-1} = 
- *       \real(x_0)\real(x_1)^{-1} + \varepsilon 
- *      (\dual(x_0)\real(x_1) - \real(x_0)\dual(x_1)) \real(x_1)^{-2}
+ *      (a_0 + \varepsilon b_0) 
+ *      (a_1 + \varepsilon b_1)^{-1} = 
+ *       a_0 a_1^{-1} + \varepsilon 
+ *      (b_0 a_1 - a_0 b_1) a_1^{-2}
  * @f]
  */
 template <typename T, typename U>
@@ -400,8 +400,8 @@ constexpr dualnum<decltype(T() / U())> operator/(
  * @brief Distribute `operator+`.
  *
  * @f[
- *      (\real(x_0) + \varepsilon \dual(x_0)) + x_1 = 
- *      (\real(x_0) + x_1) + \varepsilon \dual(x_0)
+ *      (a_0 + \varepsilon b_0) + a_1 = 
+ *      (a_0 + a_1) + \varepsilon b_0
  * @f]
  */
 template <typename T, typename U>
@@ -418,8 +418,8 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator-`.
  *
  * @f[
- *      (\real(x_0) + \varepsilon \dual(x_0)) - x_1 = 
- *      (\real(x_0) - x_1) + \varepsilon \dual(x_0)
+ *      (a_0 + \varepsilon b_0) - a_1 = 
+ *      (a_0 - a_1) + \varepsilon b_0
  * @f]
  */
 template <typename T, typename U>
@@ -436,8 +436,8 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator*`.
  *
  * @f[
- *      (\real(x_0) + \varepsilon \dual(x_0)) x_1 = 
- *       \real(x_0) x_1 + \varepsilon \dual(x_0) x_1
+ *      (a_0 + \varepsilon b_0) a_1 = 
+ *       a_0 a_1 + \varepsilon b_0 a_1
  * @f]
  */
 template <typename T, typename U>
@@ -454,8 +454,8 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator*`, inverting right hand side.
  *
  * @f[
- *      (\real(x_0) + \varepsilon \dual(x_0)) x_1^{-1} = 
- *       \real(x_0) x_1^{-1} + \varepsilon \dual(x_0) x_1^{-1}
+ *      (a_0 + \varepsilon b_0) a_1^{-1} = 
+ *       a_0 a_1^{-1} + \varepsilon b_0 a_1^{-1}
  * @f]
  */
 template <typename T, typename U>
@@ -479,8 +479,8 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator+`.
  *
  * @f[
- *       x_0 + (\real(x_1) + \varepsilon \dual(x_1)) = 
- *      (x_0 + \real(x_1)) + \varepsilon \dual(x_1)
+ *       a_0 + (a_1 + \varepsilon b_1) = 
+ *      (a_0 + a_1) + \varepsilon b_1
  * @f]
  */
 template <typename T, typename U>
@@ -497,8 +497,8 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator-`.
  *
  * @f[
- *       x_0 - (\real(x_1) + \varepsilon \dual(x_1))  = 
- *      (x_0 - \real(x_1)) - \varepsilon \dual(x_1)
+ *       a_0 - (a_1 + \varepsilon b_1)  = 
+ *      (a_0 - a_1) - \varepsilon b_1
  * @f]
  */
 template <typename T, typename U>
@@ -515,8 +515,8 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator*`.
  *
  * @f[
- *      x_0 (\real(x_1) + \varepsilon \dual(x_1)) = 
- *      x_0  \real(x_1) + \varepsilon x_0 \dual(x_1)
+ *      a_0 (a_1 + \varepsilon b_1) = 
+ *      a_0  a_1 + \varepsilon a_0 b_1
  * @f]
  */
 template <typename T, typename U>
@@ -533,8 +533,8 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator*`, inverting right hand side.
  *
  * @f[
- *      x_0 (\real(x_1) + \varepsilon \dual(x_1))^{-1} = 
- *      x_0  \real(x_1)^{-1} - \varepsilon x_0 \dual(x_1) \real(x_1)^{-2}
+ *      a_0 (a_1 + \varepsilon b_1)^{-1} = 
+ *      a_0  a_1^{-1} - \varepsilon a_0 b_1 a_1^{-2}
  * @f]
  */
 template <typename T, typename U>
