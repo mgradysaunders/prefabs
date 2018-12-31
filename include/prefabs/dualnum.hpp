@@ -681,7 +681,11 @@ constexpr std::enable_if_t<
 /**@{*/
 
 /**
- * @brief Dual number real part.
+ * @brief Real part.
+ *
+ * @f[
+ *      \real(a + \varepsilon b) = a
+ * @f]
  */
 template <typename T>
 __attribute__((always_inline))
@@ -691,9 +695,13 @@ constexpr T real(const dualnum<T>& x)
 }
 
 /**
- * @brief Dual number dual part.
+ * @brief Dual part.
+ *
+ * @f[
+ *      \dual(a + \varepsilon b) = b
+ * @f]
  */
-template <typename T> 
+template <typename T>
 __attribute__((always_inline))
 constexpr T dual(const dualnum<T>& x)
 {
@@ -701,9 +709,14 @@ constexpr T dual(const dualnum<T>& x)
 }
 
 /**
- * @brief Dual number conjugate.
+ * @brief Conjugate.
+ *
+ * @f[
+ *      (a + \varepsilon b)^\circ = 
+ *       a - \varepsilon b
+ * @f]
  */
-template <typename T> 
+template <typename T>
 __attribute__((always_inline))
 constexpr dualnum<T> conj(const dualnum<T>& x)
 {
@@ -711,7 +724,12 @@ constexpr dualnum<T> conj(const dualnum<T>& x)
 }
 
 /**
- * @brief Dual number norm.
+ * @brief Norm.
+ *
+ * @f[
+ *      (a + \varepsilon b)
+ *      (a + \varepsilon b)^\circ = a^2
+ * @f]
  */
 template <typename T> 
 __attribute__((always_inline))

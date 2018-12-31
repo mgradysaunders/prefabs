@@ -732,7 +732,11 @@ constexpr std::enable_if_t<
 /**@{*/
 
 /**
- * @brief Quaternion real part.
+ * @brief Real part.
+ *
+ * @f[
+ *      \real(s + \mathbf{v}) = s
+ * @f]
  */
 template <typename T>
 __attribute__((always_inline))
@@ -742,7 +746,11 @@ constexpr T real(const quat<T>& q)
 }
 
 /**
- * @brief Quaternion imaginary part.
+ * @brief Imag part.
+ *
+ * @f[
+ *      \imag(s + \mathbf{v}) = \mathbf{v}
+ * @f]
  */
 template <typename T>
 __attribute__((always_inline))
@@ -752,7 +760,12 @@ constexpr multi<T, 3> imag(const quat<T>& q)
 }
 
 /**
- * @brief Quaternion conjugate.
+ * @brief Conjugate.
+ *
+ * @f[
+ *      (s + \mathbf{v})^\dagger =
+ *       s - \mathbf{v}
+ * @f]
  */
 template <typename T>
 __attribute__((always_inline))
@@ -762,7 +775,12 @@ constexpr quat<T> conj(const quat<T>& q)
 }
 
 /**
- * @brief Quaternion norm.
+ * @brief Norm.
+ *
+ * @f[
+ *      (s + \mathbf{v})
+ *      (s + \mathbf{v})^\dagger = s^2 + \mathbf{v} \cdot \mathbf{v}
+ * @f]
  */
 template <typename T> 
 __attribute__((always_inline))
