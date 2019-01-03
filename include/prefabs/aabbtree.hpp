@@ -285,7 +285,7 @@ public:
     void clear()
     {
         // Destroy root.
-        destroy(root_);
+        deallocate_recursive(root_);
         root_ = nullptr;
 
         // Destroy proxies.
@@ -340,6 +340,9 @@ private:
 
 private:
 
+    /**
+     * @brief Allocate.
+     */
     node_type* allocate()
     {
         std::unique_lock<std::mutex> lock(node_alloc_mutex_);
@@ -348,19 +351,36 @@ private:
             node_alloc_, 1);
     }
 
-    void destroy(node_type* node)
+    /**
+     * @brief Deallocate.
+     */
+    void deallocate(node_type* node) 
     {
         if (node) {
-            // Destroy.
-            destroy(node->left);
-            destroy(node->right);
-
-            // Deallocate.
+            std::unique_lock<std::mutex> lock(node_alloc_mutex_);
             node_allocator_traits::deallocate(
             node_alloc_, node, 1);
         }
     }
 
+    /**
+     * @brief Deallocate recursively.
+     */
+    void deallocate_recursive(node_type* node)
+    {
+        if (node) {
+            // Recurse.
+            deallocate_recursive(node->left);
+            deallocate_recursive(node->right);
+
+            // Deallocate.
+            deallocate(node);
+        }
+    }
+
+    /**
+     * @brief Initialize recursively.
+     */
     node_type* init_recursive(
             std::atomic<size_type>& total_branches,
             std::atomic<size_type>& total_leaves,
@@ -622,8 +642,7 @@ struct aabbtree_split_surface_area
 
         // Initialize sweeps.
         std::array<bin, Nbins - 1> lsweep;
-        std::array<bin, Nbins - 1> rsweep;
-        {
+        std::array<bin, Nbins - 1> rsweep; {
             auto itrlsweep = lsweep.begin(), itrlbins = bins.begin();
             auto itrrsweep = rsweep.rbegin(), itrrbins = bins.rbegin();
             *itrlsweep++ = *itrlbins++;
@@ -639,8 +658,7 @@ struct aabbtree_split_surface_area
         }
 
         // Compute costs.
-        std::array<Tfloat, Nbins - 1> costs;
-        {
+        std::array<Tfloat, Nbins - 1> costs; {
             auto itrcosts = costs.begin();
             auto itrlsweep = lsweep.begin();
             auto itrrsweep = rsweep.begin();
