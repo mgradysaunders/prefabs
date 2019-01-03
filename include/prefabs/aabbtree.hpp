@@ -235,31 +235,31 @@ public:
      */
     template <typename Tforward_itr, typename Tfunc>
     void init(
-            Tforward_itr begin,
-            Tforward_itr end,
+            Tforward_itr from,
+            Tforward_itr to,
             Tfunc&& func)
     {
         // Clear.
         clear();
 
         // Count.
-        size_type count = std::distance(begin, end);
+        size_type count = std::distance(from, to);
         if (count < 1) {
             return;
         }
 
         // Initialize proxies.
-        size_type index = 0;
-        for (; begin != end; 
-                ++begin, 
-                ++index) {
-            aabb_type box = std::forward<Tfunc>(func)(*begin);
+        size_type value_index = 0;
+        while (from != to) {
+            aabb_type box = std::forward<Tfunc>(func)(*from);
             proxies_.emplace_back(
             proxy_type{
                 box,
                 box.center(),
-                index
+                value_index
             });
+            ++from;
+            ++value_index;
         }
 
         // Initialize.
