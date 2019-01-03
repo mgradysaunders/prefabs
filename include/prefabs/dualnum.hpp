@@ -756,6 +756,11 @@ inline auto abs(const dualnum<T>& x)
 
 /**@}*/
 
+// TODO isinf
+// TODO isnan
+// TODO isfinite
+// TODO isnormal
+
 /**@}*/
 
 } // namespace pr

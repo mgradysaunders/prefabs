@@ -975,6 +975,11 @@ inline quat<T> log(const quat<T>& q)
 
 /**@}*/
 
+// TODO isinf
+// TODO isnan
+// TODO isfinite
+// TODO isnormal
+
 /**@}*/
 
 } // namespace pr
