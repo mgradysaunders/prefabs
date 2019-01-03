@@ -230,6 +230,8 @@ public:
         clear();
     }
 
+public:
+
     /**
      * @brief Initialize.
      */
