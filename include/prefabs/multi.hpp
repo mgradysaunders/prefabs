@@ -847,6 +847,19 @@ public:
         return res;
     }
 
+    /**
+     * @brief Swizzle.
+     */
+    template <typename P, typename... Q>
+    __attribute__((always_inline))
+    constexpr multi<T, 1 + sizeof...(Q), N...> swizzle(P p, Q&&... q) const
+    {
+        return {{
+            operator[](p),
+            operator[](std::forward<Q>(q))...
+        }};
+    }
+
     /**@}*/
 
 public:
