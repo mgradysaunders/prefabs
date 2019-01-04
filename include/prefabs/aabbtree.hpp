@@ -254,6 +254,7 @@ public:
         size_type value_index = 0;
         while (from != to) {
             aabb_type box = std::forward<Tfunc>(func)(*from);
+            assert((box[0] < box[1]).all());
             proxies_.emplace_back(
             proxy_type{
                 box,
@@ -393,6 +394,7 @@ private:
         // Surround boxes and box centers.
         aabb_type box;
         aabb_type box_center;
+        assert((box[0] > box[1]).all());
         for (const proxy_type& proxy : proxies) {
             box |= proxy.box;
             box_center |= proxy.box_center;
@@ -440,7 +442,7 @@ private:
             node_type* right;
 
             // Count sufficiently small?
-            if (count <= 1024) {
+            if (count <= 16384) {
 
                 // Recurse.
                 left = 
