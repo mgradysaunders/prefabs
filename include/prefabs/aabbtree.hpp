@@ -84,7 +84,7 @@ namespace pr {
  */
 template <
     typename Tfloat, std::size_t N,
-    typename Tsplit_policy,
+    typename Tsplit_mode,
     typename Tnode_alloc = std::allocator<char>
     >
 class aabbtree
@@ -234,6 +234,29 @@ public:
 
     /**
      * @brief Initialize.
+     *
+     * Initializes axis-aligned bounding box tree by
+     * 1. converting input range to axis-aligned bounding box
+     * proxy representation with predicate function,
+     * 2. generating tree recursively from the top down, splitting 
+     * according to `Tsplit_mode`.
+     *
+     * @param[in] from
+     * Input range begin.
+     *
+     * @param[in] to
+     * Input range end.
+     *
+     * @param[in] func
+     * Function converting input to axis-aligned bounding box.
+     *
+     * @note
+     * Function must have signature equivalent to 
+     * ~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
+     * aabb_type(const Tvalue&)
+     * ~~~~~~~~~~~~~~~~~~~~~~~~
+     * where `Tvalue` is the value type corresponding to
+     * `Tforward_itr`.
      */
     template <typename Tforward_itr, typename Tfunc>
     void init(
@@ -428,7 +451,7 @@ private:
                         box_center.diag().argmax();
 
             // Split.
-            proxy_type* split = Tsplit_policy()(
+            proxy_type* split = Tsplit_mode()(
                     box,
                     box_center,
                     split_dim,
