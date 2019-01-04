@@ -35,6 +35,12 @@
 #ifndef PREFABS_AABB_HPP
 #define PREFABS_AABB_HPP
 
+// for std::basic_istream
+#include <istream>
+
+// for std::basic_ostream
+#include <ostream>
+
 // for pr::multi
 #include <prefabs/multi.hpp>
 
@@ -292,6 +298,65 @@ private:
         multi<T, N>::value(+pr::numeric_limits<T>::max()),
         multi<T, N>::value(-pr::numeric_limits<T>::max())
     };
+
+public:
+
+    /**
+     * @name Stream operators
+     */
+    /**@{*/
+
+    /**
+     * @brief Parse from `std::basic_istream`.
+     *
+     * Format is `(b0,b1)`. Sets `std::ios_base::failbit` on error.
+     */
+    template <typename C, typename Ctraits>
+    friend
+    inline std::basic_istream<C, Ctraits>& operator>>(
+           std::basic_istream<C, Ctraits>& is, aabb& box)
+    {
+        C ch;
+        if (!(is >> ch) ||
+            !Ctraits::eq(ch, 
+             Ctraits::to_char_type('('))) {
+            is.setstate(std::ios_base::failbit);
+            return is;
+        }
+        is >> box[0];
+        if (!(is >> ch) ||
+            !Ctraits::eq(ch, 
+             Ctraits::to_char_type(','))) {
+            is.setstate(std::ios_base::failbit);
+            return is;
+        }
+        is >> box[1];
+        if (!(is >> ch) ||
+            !Ctraits::eq(ch, 
+             Ctraits::to_char_type(')'))) {
+            is.setstate(std::ios_base::failbit);
+            return is;
+        }
+        return is;
+    }
+
+    /**
+     * @brief Write into `std::basic_ostream`.
+     *
+     * Format is `(b0,b1)`.
+     */
+    template <typename C, typename Ctraits>
+    friend
+    inline std::basic_ostream<C, Ctraits>& operator<<(
+           std::basic_ostream<C, Ctraits>& os, const aabb& box)
+    {
+        os << '(';
+        os << box[0] << ',';
+        os << box[1] << ')';
+        return os;
+    }
+
+    /**@}*/
 };
 
 /**
@@ -303,20 +368,42 @@ private:
  * @brief Set union.
  */
 template <typename T, std::size_t N>
-constexpr aabb<T, N> operator|(const aabb<T, N>& box0, const aabb<T, N>& box1)
+__attribute__((always_inline))
+inline aabb<T, N> operator|(const aabb<T, N>& box0, const aabb<T, N>& box1)
 {
-    return {pr::min(box0[0], box1[0]),
-            pr::max(box0[1], box1[1])};
+    if constexpr (std::is_floating_point<T>::value) {
+        return {
+            pr::fmin(box0[0], box1[0]),
+            pr::fmax(box0[1], box1[1])
+        };
+    }
+    else {
+        return {
+            pr::min(box0[0], box1[0]),
+            pr::max(box0[1], box1[1])
+        };
+    }
 }
 
 /**
  * @brief Set intersection.
  */
 template <typename T, std::size_t N>
-constexpr aabb<T, N> operator&(const aabb<T, N>& box0, const aabb<T, N>& box1)
+__attribute__((always_inline))
+inline aabb<T, N> operator&(const aabb<T, N>& box0, const aabb<T, N>& box1)
 {
-    return {pr::max(box0[0], box1[0]),
-            pr::min(box0[1], box1[1])};
+    if constexpr (std::is_floating_point<T>::value) {
+        return {
+            pr::fmax(box0[0], box1[0]),
+            pr::fmin(box0[1], box1[1])
+        };
+    }
+    else {
+        return {
+            pr::max(box0[0], box1[0]),
+            pr::min(box0[1], box1[1])
+        };
+    }
 }
 
 /**@}*/
@@ -330,20 +417,20 @@ constexpr aabb<T, N> operator&(const aabb<T, N>& box0, const aabb<T, N>& box1)
  * @brief Set union.
  */
 template <typename T, std::size_t N>
-constexpr aabb<T, N> operator|(const aabb<T, N>& box, const multi<T, N>& arr)
+__attribute__((always_inline))
+inline aabb<T, N> operator|(const aabb<T, N>& box, const multi<T, N>& arr)
 {
-    return {pr::min(box[0], arr),
-            pr::max(box[1], arr)};
+    return box | aabb<T, N>(arr);
 }
 
 /**
  * @brief Set intersection.
  */
 template <typename T, std::size_t N>
-constexpr aabb<T, N> operator&(const aabb<T, N>& box, const multi<T, N>& arr)
+__attribute__((always_inline))
+inline aabb<T, N> operator&(const aabb<T, N>& box, const multi<T, N>& arr)
 {
-    return {pr::max(box[0], arr),
-            pr::min(box[1], arr)};
+    return box & aabb<T, N>(arr);
 }
 
 /**@}*/
@@ -357,20 +444,20 @@ constexpr aabb<T, N> operator&(const aabb<T, N>& box, const multi<T, N>& arr)
  * @brief Set union.
  */
 template <typename T, std::size_t N>
-constexpr aabb<T, N> operator|(const multi<T, N>& arr, const aabb<T, N>& box)
+__attribute__((always_inline))
+inline aabb<T, N> operator|(const multi<T, N>& arr, const aabb<T, N>& box)
 {
-    return {pr::min(arr, box[0]),
-            pr::max(arr, box[1])};
+    return aabb<T, N>(arr) | box;
 }
 
 /**
  * @brief Set intersection.
  */
 template <typename T, std::size_t N>
-constexpr aabb<T, N> operator&(const multi<T, N>& arr, const aabb<T, N>& box)
+__attribute__((always_inline))
+inline aabb<T, N> operator&(const multi<T, N>& arr, const aabb<T, N>& box)
 {
-    return {pr::max(arr, box[0]),
-            pr::min(arr, box[1])};
+    return aabb<T, N>(arr) & box;
 }
 
 /**@}*/
@@ -387,7 +474,8 @@ template <
     typename T, std::size_t N, 
     typename U
     >
-constexpr aabb<T, N>& operator|=(aabb<T, N>& box, const U& any)
+__attribute__((always_inline))
+inline aabb<T, N>& operator|=(aabb<T, N>& box, const U& any)
 {
     return box = box | any;
 }
@@ -399,7 +487,8 @@ template <
     typename T, std::size_t N, 
     typename U
     >
-constexpr aabb<T, N>& operator&=(aabb<T, N>& box, const U& any)
+__attribute__((always_inline))
+inline aabb<T, N>& operator&=(aabb<T, N>& box, const U& any)
 {
     return box = box & any;
 }

@@ -382,6 +382,26 @@ template <typename T> constexpr std::complex<T> conj(const std::complex<T>& x)
 /**@{*/
 
 /**
+ * @brief Analogous to `std::min()`, except only for numbers.
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_arithmetic<T>::value, T> min(const T& x, const T& y)
+{
+    return x < y ? x : y;
+}
+
+/**
+ * @brief Analogous to `std::max()`, except only for numbers.
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_arithmetic<T>::value, T> max(const T& x, const T& y)
+{
+    return x < y ? y : x;
+}
+
+/**
  * @brief Raise to integer power.
  */
 template <typename T>
