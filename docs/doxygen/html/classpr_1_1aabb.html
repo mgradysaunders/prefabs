@@ -79,6 +79,11 @@ $(function() {
 
 <p>Axis-aligned bounding box.  
  <a href="classpr_1_1aabb.html#details">More...</a></p>
+<div class="dynheader">
+Inheritance diagram for pr::aabb&lt; T, N &gt;:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classpr_1_1aabb__inherit__graph.svg" width="163" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -150,6 +155,18 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae9370940b83f758315960e9af6ba38ad"><td class="memItemLeft" align="right" valign="top">multi&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#ae9370940b83f758315960e9af6ba38ad">arr_</a> [2]</td></tr>
 <tr class="memdesc:ae9370940b83f758315960e9af6ba38ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arrays.  <a href="#ae9370940b83f758315960e9af6ba38ad">More...</a><br /></td></tr>
 <tr class="separator:ae9370940b83f758315960e9af6ba38ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Stream operators</div></td></tr>
+<tr class="memitem:aab93cfe2244b0ed4612839807b4ab608"><td class="memTemplParams" colspan="2">template&lt;typename C , typename Ctraits &gt; </td></tr>
+<tr class="memitem:aab93cfe2244b0ed4612839807b4ab608"><td class="memTemplItemLeft" align="right" valign="top">std::basic_istream&lt; C, Ctraits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#aab93cfe2244b0ed4612839807b4ab608">operator&gt;&gt;</a> (std::basic_istream&lt; C, Ctraits &gt; &amp;is, <a class="el" href="classpr_1_1aabb.html">aabb</a> &amp;box)</td></tr>
+<tr class="memdesc:aab93cfe2244b0ed4612839807b4ab608"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse from <code>std::basic_istream</code>.  <a href="#aab93cfe2244b0ed4612839807b4ab608">More...</a><br /></td></tr>
+<tr class="separator:aab93cfe2244b0ed4612839807b4ab608"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2fcade0defc49cccb1d7b48346d513a"><td class="memTemplParams" colspan="2">template&lt;typename C , typename Ctraits &gt; </td></tr>
+<tr class="memitem:ad2fcade0defc49cccb1d7b48346d513a"><td class="memTemplItemLeft" align="right" valign="top">std::basic_ostream&lt; C, Ctraits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#ad2fcade0defc49cccb1d7b48346d513a">operator&lt;&lt;</a> (std::basic_ostream&lt; C, Ctraits &gt; &amp;os, const <a class="el" href="classpr_1_1aabb.html">aabb</a> &amp;box)</td></tr>
+<tr class="memdesc:ad2fcade0defc49cccb1d7b48346d513a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write into <code>std::basic_ostream</code>.  <a href="#ad2fcade0defc49cccb1d7b48346d513a">More...</a><br /></td></tr>
+<tr class="separator:ad2fcade0defc49cccb1d7b48346d513a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T, std::size_t N&gt;<br />
@@ -163,7 +180,7 @@ class pr::aabb&lt; T, N &gt;</h3>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef multi&lt;T, N&gt; <a class="el" href="classpr_1_1aabb.html">pr::aabb</a>&lt; T, N &gt;::<a class="el" href="classpr_1_1aabb.html#af33d16705e786198d818e627adcf352d">value_type</a></td>
@@ -181,7 +198,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef T <a class="el" href="classpr_1_1aabb.html">pr::aabb</a>&lt; T, N &gt;::<a class="el" href="classpr_1_1aabb.html#a660e3dbc85a261f0b2c5885153055c30">entry_type</a></td>
@@ -200,7 +217,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -229,7 +246,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -259,7 +276,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -300,7 +317,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -330,7 +347,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -360,7 +377,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -389,7 +406,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -418,7 +435,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -447,7 +464,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -476,7 +493,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <div class="memtemplate">
 template&lt;typename U &gt; </div>
 <table class="mlabels">
@@ -508,7 +525,7 @@ template&lt;typename U &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <div class="memtemplate">
 template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </div>
 <table class="mlabels">
@@ -540,7 +557,7 @@ template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <div class="memtemplate">
 template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </div>
 <table class="mlabels">
@@ -572,7 +589,7 @@ template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <div class="memtemplate">
 template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </div>
 <table class="mlabels">
@@ -604,7 +621,7 @@ template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <div class="memtemplate">
 template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </div>
 <table class="mlabels">
@@ -636,7 +653,7 @@ template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -659,6 +676,93 @@ template&lt;typename T , std::size_t N&gt; </div>
 
 </div>
 </div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="aab93cfe2244b0ed4612839807b4ab608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab93cfe2244b0ed4612839807b4ab608">&#9670;&nbsp;</a></span>operator>></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, std::size_t N&gt; </div>
+<div class="memtemplate">
+template&lt;typename C , typename Ctraits &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::basic_istream&lt;C, Ctraits&gt;&amp; operator&gt;&gt; </td>
+          <td>(</td>
+          <td class="paramtype">std::basic_istream&lt; C, Ctraits &gt; &amp;&#160;</td>
+          <td class="paramname"><em>is</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>box</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Parse from <code>std::basic_istream</code>. </p>
+<p>Format is <code>(b0,b1)</code>. Sets <code>std::ios_base::failbit</code> on error. </p>
+
+</div>
+</div>
+<a id="ad2fcade0defc49cccb1d7b48346d513a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2fcade0defc49cccb1d7b48346d513a">&#9670;&nbsp;</a></span>operator<<</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, std::size_t N&gt; </div>
+<div class="memtemplate">
+template&lt;typename C , typename Ctraits &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::basic_ostream&lt;C, Ctraits&gt;&amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::basic_ostream&lt; C, Ctraits &gt; &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>box</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write into <code>std::basic_ostream</code>. </p>
+<p>Format is <code>(b0,b1)</code>. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="ae9370940b83f758315960e9af6ba38ad"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae9370940b83f758315960e9af6ba38ad">&#9670;&nbsp;</a></span>arr_</h2>
@@ -666,7 +770,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , std::size_t N&gt; </div>
+template&lt;typename T, std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
