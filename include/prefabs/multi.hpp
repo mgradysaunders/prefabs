@@ -147,12 +147,12 @@ public:
     typedef const value_type* const_pointer;
 
     /**
-     * @brief Forward iterator.
+     * @brief Iterator.
      */
     typedef pointer iterator;
 
     /**
-     * @brief Forward const iterator.
+     * @brief Const iterator.
      */
     typedef const_pointer const_iterator;
 
@@ -162,7 +162,7 @@ public:
     typedef std::reverse_iterator<iterator> reverse_iterator;
 
     /**
-     * @brief Reverse const iterator.
+     * @brief Const reverse iterator.
      */
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -237,7 +237,7 @@ public:
     }
 
     /**
-     * @brief Forward begin iterator.
+     * @brief Begin iterator.
      */
     constexpr iterator begin() noexcept
     {
@@ -245,7 +245,7 @@ public:
     }
 
     /**
-     * @brief Forward begin iterator, const variant.
+     * @brief Begin iterator, const variant.
      */
     constexpr const_iterator begin() const noexcept
     {
@@ -253,7 +253,7 @@ public:
     }
 
     /**
-     * @brief Forward begin iterator, force const variant.
+     * @brief Begin iterator, force const variant.
      */
     constexpr const_iterator cbegin() const noexcept
     {
@@ -261,7 +261,7 @@ public:
     }
 
     /**
-     * @brief Forward end iterator.
+     * @brief End iterator.
      */
     constexpr iterator end() noexcept
     {
@@ -269,7 +269,7 @@ public:
     }
 
     /**
-     * @brief Forward end iterator, const variant.
+     * @brief End iterator, const variant.
      */
     constexpr const_iterator end() const noexcept
     {
@@ -277,7 +277,7 @@ public:
     }
 
     /**
-     * @brief Forward end iterator, force const variant.
+     * @brief End iterator, force const variant.
      */
     constexpr const_iterator cend() const noexcept
     {
