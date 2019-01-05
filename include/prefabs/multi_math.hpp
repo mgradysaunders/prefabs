@@ -380,7 +380,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
 }
 
 /**
- * @brief @f$ L^2 @F$ length, fast (and somewhat unsafe) variant.
+ * @brief @f$ L^2 @f$ length, fast (and somewhat unsafe) variant.
  *
  * @f[
  *      \sqrt{\sum_k |x_{[k]}|^2}
