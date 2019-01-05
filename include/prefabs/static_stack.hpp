@@ -342,34 +342,6 @@ public:
     }
 
     /**
-     * @brief Top/back value with empty check.
-     *
-     * @throw std::runtime_error
-     * If empty.
-     */
-    constexpr reference top()
-    {
-        if (empty()) {
-            throw std::runtime_error(__PRETTY_FUNCTION__);
-        }
-        return back();
-    }
-
-    /**
-     * @brief Top/back value with empty check, const variant.
-     *
-     * @throw std::runtime_error
-     * If empty.
-     */
-    constexpr const_reference top() const
-    {
-        if (empty()) {
-            throw std::runtime_error(__PRETTY_FUNCTION__);
-        }
-        return back();
-    }
-
-    /**
      * @brief Bottom/front value with empty check.
      *
      * @throw std::runtime_error
@@ -395,6 +367,34 @@ public:
             throw std::runtime_error(__PRETTY_FUNCTION__);
         }
         return front();
+    }
+
+    /**
+     * @brief Top/back value with empty check.
+     *
+     * @throw std::runtime_error
+     * If empty.
+     */
+    constexpr reference top()
+    {
+        if (empty()) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+        return back();
+    }
+
+    /**
+     * @brief Top/back value with empty check, const variant.
+     *
+     * @throw std::runtime_error
+     * If empty.
+     */
+    constexpr const_reference top() const
+    {
+        if (empty()) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+        return back();
     }
 
     /**@}*/
