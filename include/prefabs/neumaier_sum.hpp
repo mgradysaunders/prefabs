@@ -51,7 +51,7 @@ namespace pr {
 /**
  * @brief Neumaier summation algorithm.
  */
-template <typename T>
+template <typename T = double>
 class neumaier_sum
 {
 public:
