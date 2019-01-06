@@ -83,12 +83,9 @@ public:
     /**
      * @brief Add term.
      *
-     * @f[
-     *      \begin{aligned}
-     *          s' &\gets s \oplus x
-     *      \\  t' &\gets t \oplus ((\max(s, x) \ominus s') \oplus \min(s, x))
-     *      \end{aligned}
-     * @f]
+     * @note
+     * - @f$ s' \gets s \oplus x @f$
+     * - @f$ t' \gets t \oplus ((\max(s, x) \ominus s') \oplus \min(s, x)) @f$
      */
     neumaier_sum& operator+=(T x)
     {
