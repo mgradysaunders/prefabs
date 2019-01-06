@@ -97,7 +97,7 @@ public:
     /**
      * @brief Position.
      */
-    pointer pos_;
+    T pos_;
 
     /**
      * @brief Increment stride.
