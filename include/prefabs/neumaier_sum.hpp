@@ -62,24 +62,9 @@ public:
         "T must be floating point");
 
     /**
-     * @name Constructors
-     */
-    /**@{*/
-
-    /**
      * @brief Default constructor
      */
     constexpr neumaier_sum() = default;
-
-    /**
-     * @brief Default copy constructor
-     */
-    constexpr neumaier_sum(const neumaier_sum&) = default;
-
-    /**
-     * @brief Default move constructor
-     */
-    constexpr neumaier_sum(neumaier_sum&&) = default;
 
     /**
      * @brief Constructor.
@@ -87,27 +72,6 @@ public:
     constexpr neumaier_sum(T s) : s_(s)
     {
     }
-
-    /**@}*/
-
-public:
-
-    /**
-     * @name Assign operators
-     */
-    /**@{*/
-
-    /**
-     * @brief Default copy assign.
-     */
-    constexpr neumaier_sum& operator=(const neumaier_sum&) = default;
-
-    /**
-     * @brief Default move assign.
-     */
-    constexpr neumaier_sum& operator=(neumaier_sum&&) = default;
-
-    /**@}*/
 
 public:
 
