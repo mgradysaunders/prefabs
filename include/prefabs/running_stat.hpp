@@ -192,7 +192,7 @@ public:
      * @brief Negate.
      *
      * @note
-     * - @f$ n' \gets n @f
+     * - @f$ n' \gets n @f$
      * - @f$ m' \gets -m @f$
      * - @f$ M_2' \gets +M_2 @f$
      * - @f$ M_3' \gets -M_3 @f$
