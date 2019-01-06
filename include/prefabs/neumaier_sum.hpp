@@ -76,11 +76,6 @@ public:
 public:
 
     /**
-     * @name Arithmetic operators
-     */
-    /**@{*/
-
-    /**
      * @brief Add term.
      *
      * @note
@@ -97,14 +92,12 @@ public:
     }
 
     /**
-     * @brief Subtract term.
+     * @brief Add negative term.
      */
     neumaier_sum& operator-=(T x)
     {
-        return *this -= x;
+        return *this += -x;
     }
-
-    /**@}*/
 
     /**
      * @brief Cast as float.
