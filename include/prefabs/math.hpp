@@ -65,8 +65,12 @@ struct numeric_limits_min_squarable<float>
 {
     static constexpr float min_squarable() noexcept
     {
+    #if (__cplusplus >= 201703L)
         // 2^(-75)
         return 0x1.000002p-75f;
+    #else
+        return 2.646978276e-23f;
+    #endif // #if (__cplusplus >= 201703L)
     }
 };
 
@@ -75,8 +79,12 @@ struct numeric_limits_min_squarable<double>
 {
     static constexpr double min_squarable() noexcept
     {
+    #if (__cplusplus >= 201703L)
         // 2^(-537.5)
         return 0x1.6a09e667f3bcdp-538;
+    #else
+        return 1.57172778470262880e-162;
+    #endif // #if (__cplusplus >= 201703L)
     }
 };
 
@@ -85,8 +93,12 @@ struct numeric_limits_min_squarable<long double>
 {
     static constexpr long double min_squarable() noexcept
     {
+    #if (__cplusplus >= 201703L)
         // 2^(-8223)
         return 0x8.000000000000001p-8226L;
+    #else
+        return 4.269191686890197838238e-2476L;
+    #endif // #if (__cplusplus >= 201703L)
     }
 };
 
