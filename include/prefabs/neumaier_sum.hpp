@@ -68,6 +68,12 @@ public:
 
     /**
      * @brief Constructor.
+     *
+     * @param[in] s
+     * Sum @f$ s @f$.
+     *
+     * @param[in] t
+     * Low-order term @f$ t @f$.
      */
     constexpr neumaier_sum(T s, T t = T()) : s_(s), t_(t)
     {
@@ -122,12 +128,12 @@ public:
 private:
 
     /**
-     * @brief @f$ s @f$, sum.
+     * @brief Sum @f$ s @f$.
      */
     T s_ = 0;
 
     /**
-     * @brief @f$ t @f$, low-order term.
+     * @brief Low-order term @f$ t @f$.
      */
     T t_ = 0;
 };
