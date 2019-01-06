@@ -126,6 +126,7 @@ Functions</h2></td></tr>
 <tr class="separator:ga7f33edd28a66b30340f066b2a1020751"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabff6b47f374494faa0e7cc86d509c9c1"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
 <tr class="memitem:gabff6b47f374494faa0e7cc86d509c9c1"><td class="memTemplItemLeft" align="right" valign="top">decltype(<a class="el" href="group__dualnum.html#ga2a4cad69c06164ee6b8c8a4b4805156e">pr::sqrt</a>(<a class="el" href="group__dualnum.html#gaaf269e340cdd5df6d7492a80a90178f7">pr::abs</a>(T())))&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#gabff6b47f374494faa0e7cc86d509c9c1">pr::fast_length</a> (const multi&lt; T, N &gt; &amp;arr)</td></tr>
+<tr class="memdesc:gabff6b47f374494faa0e7cc86d509c9c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) length, fast (and somewhat unsafe) variant.  <a href="group__multi__math__geometry.html#gabff6b47f374494faa0e7cc86d509c9c1">More...</a><br /></td></tr>
 <tr class="separator:gabff6b47f374494faa0e7cc86d509c9c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef26577ac5ea8556afd3eb2d3ccab5b3"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
 <tr class="memitem:gaef26577ac5ea8556afd3eb2d3ccab5b3"><td class="memTemplItemLeft" align="right" valign="top">multi&lt; decltype(T()/<a class="el" href="group__dualnum.html#ga2a4cad69c06164ee6b8c8a4b4805156e">pr::sqrt</a>(<a class="el" href="group__dualnum.html#gaaf269e340cdd5df6d7492a80a90178f7">pr::abs</a>(T()))), N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#gaef26577ac5ea8556afd3eb2d3ccab5b3">pr::normalize</a> (const multi&lt; T, N &gt; &amp;arr)</td></tr>
@@ -615,6 +616,15 @@ template&lt;typename T , std::size_t N&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>\( L^2 \) length, fast (and somewhat unsafe) variant. </p>
+<p class="formulaDsp">
+\[ \sqrt{\sum_k |x_{[k]}|^2} \]
+</p>
+<p><em>Fast</em> means the implementation</p><ul>
+<li>assumes no overflow/underflow,</li>
+<li>does <em>not</em> calculate the absolute values of complex numbers separately. </li>
+</ul>
 
 </div>
 </div>
