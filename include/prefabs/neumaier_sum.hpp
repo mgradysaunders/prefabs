@@ -69,7 +69,7 @@ public:
     /**
      * @brief Constructor.
      */
-    constexpr neumaier_sum(T s) : s_(s)
+    constexpr neumaier_sum(T s, T t = T()) : s_(s), t_(t)
     {
     }
 
@@ -100,9 +100,21 @@ public:
     }
 
     /**
+     * @brief Cast as different precision.
+     */
+    template <typename U>
+    operator neumaier_sum<U>() const
+    {
+        return {
+            static_cast<U>(s_),
+            static_cast<U>(t_)
+        };
+    }
+
+    /**
      * @brief Cast as float.
      */
-    operator T() const
+    explicit operator T() const
     {
         return s_ + t_;
     }
