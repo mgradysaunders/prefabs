@@ -342,12 +342,12 @@ public:
     /**
      * @brief Ray information.
      */
-    struct ray_info
+    struct ray_info_type
     {
         /**
          * @brief Default constructor.
          */
-        ray_info() = default;
+        ray_info_type() = default;
 
         /**
          * @brief Constructor.
@@ -364,7 +364,7 @@ public:
          * @param[in] tmax
          * Maximum parameter @f$ t_{\max} @f$.
          */
-        ray_info(
+        ray_info_type(
                 const multi<float_type, N>& o, 
                 const multi<float_type, N>& d,
                 float_type tmin = 0,
@@ -432,20 +432,23 @@ public:
 
     /**
      * @brief Intersect ray?
+     *
+     * @param[in] info
+     * Ray information.
      */
     __attribute__((always_inline))
-    bool intersect(const ray_info& r) const
+    bool intersect(const ray_info_type& info) const
     {
         // Intersect 0th slab.
-        float_type tmin = (arr_[r.dmin[0]][0] - r.o[0]) * r.dinv[0];
-        float_type tmax = (arr_[r.dmax[0]][0] - r.o[0]) * r.dinv[0];
+        auto tmin = (arr_[info.dmin[0]][0] - info.o[0]) * info.dinv[0];
+        auto tmax = (arr_[info.dmax[0]][0] - info.o[0]) * info.dinv[0];
         tmax *= 1 + 2 * pr::numeric_limits<float_type>::echelon(3);
 
         for (std::size_t k = 1; k < N; k++) {
 
             // Intersect kth slab.
-            float_type tkmin = (arr_[r.dmin[k]][k] - r.o[k]) * r.dinv[k];
-            float_type tkmax = (arr_[r.dmax[k]][k] - r.o[k]) * r.dinv[k];
+            auto tkmin = (arr_[info.dmin[k]][k] - info.o[k]) * info.dinv[k];
+            auto tkmax = (arr_[info.dmax[k]][k] - info.o[k]) * info.dinv[k];
             tkmax *= 1 + 2 * pr::numeric_limits<float_type>::echelon(3);
             if (!(tmin <= tkmax &&
                   tmax >= tkmin)) {
@@ -458,8 +461,8 @@ public:
         }
 
         // Clip.
-        return tmin <= r.tmax && 
-               tmax >= r.tmin;
+        return tmin <= info.tmax && 
+               tmax >= info.tmin;
     }
 
     /**@}*/
