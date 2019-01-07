@@ -38,6 +38,9 @@
 // for assert
 #include <cassert>
 
+// for std::uint32_t, std::uint8_t
+#include <cstdint>
+
 // for std::array
 #include <array>
 
@@ -64,6 +67,9 @@
 
 // for pr::range
 #include <prefabs/range.hpp>
+
+// for pr::static_stack
+#include <prefabs/static_stack.hpp>
 
 // for pr::aabb, pr::multi
 #include <prefabs/aabb.hpp>
@@ -102,14 +108,9 @@ public:
     /**@{*/
 
     /**
-     * @brief Axis-aligned bounding box type.
+     * @brief Size type.
      */
-    typedef aabb<Tfloat, N> aabb_type;
-
-    /**
-     * @brief Multi-dimensional array type.
-     */
-    typedef multi<Tfloat, N> multi_type;
+    typedef std::size_t size_type;
 
     /**
      * @brief Floating point type.
@@ -117,9 +118,20 @@ public:
     typedef Tfloat float_type;
 
     /**
-     * @brief Size type.
+     * @brief Multi-dimensional array type.
      */
-    typedef std::size_t size_type;
+    typedef multi<Tfloat, N> multi_type;
+
+    /**
+     * @brief Axis-aligned bounding box type.
+     */
+    typedef aabb<Tfloat, N> aabb_type;
+
+    /**
+     * @brief Axis-aligned bounding box ray info type.
+     */
+    typedef typename aabb_type::
+            ray_info_type ray_info_type;
 
 #if !DOXYGEN
     // prototype
@@ -193,12 +205,12 @@ public:
         size_type split_dim;
 
         /**
-         * @brief If leaf, first index.
+         * @brief If leaf, first proxy index.
          */
         size_type first_index;
 
         /**
-         * @brief If leaf, count.
+         * @brief If leaf, proxy count.
          */
         size_type count;
     };
@@ -215,6 +227,10 @@ public:
             leaf_cutoff_(leaf_cutoff),
             node_alloc_(node_alloc)
     {
+        // Sanity check.
+        assert(
+            leaf_cutoff_ < 
+            size_type(256));
     }
 
     /**
@@ -231,6 +247,22 @@ public:
     }
 
 public:
+
+    /**
+     * @brief Clear.
+     */
+    void clear()
+    {
+        // Destroy root.
+        deallocate_recursive(root_);
+        root_ = nullptr;
+        total_branches_ = 0;
+        total_leaves_ = 0;
+
+        // Destroy proxies.
+        proxies_.clear();
+        proxies_.shrink_to_fit();
+    }
 
     /**
      * @brief Initialize.
@@ -300,21 +332,8 @@ public:
             {&proxies_[0],
              &proxies_[0] + proxies_.size()});
         assert(first_index == proxies_.size());
-        // TODO Output info?
-    }
-
-    /**
-     * @brief Clear.
-     */
-    void clear()
-    {
-        // Destroy root.
-        deallocate_recursive(root_);
-        root_ = nullptr;
-
-        // Destroy proxies.
-        proxies_.clear();
-        proxies_.shrink_to_fit();
+        total_branches_ = total_branches;
+        total_leaves_ = total_leaves;
     }
 
 public:
@@ -333,6 +352,132 @@ public:
     const std::vector<proxy_type>& proxies() const
     {
         return proxies_;
+    }
+
+public:
+
+    /**
+     * @brief Flat node type.
+     */
+    struct flat_node_type
+    {
+        /**
+         * @brief Box.
+         */
+        aabb_type box;
+
+        union {
+
+            /**
+             * @brief If branch, right child index.
+             */
+            std::uint32_t right_index;
+
+            /**
+             * @brief If leaf, first proxy index.
+             */
+            std::uint32_t first_index;
+        };
+
+        /**
+         * @brief Proxy count.
+         */
+        std::uint8_t count;
+
+        /**
+         * @brief If branch, split dimension.
+         */
+        std::uint8_t split_dim;
+    };
+
+    /**
+     * @brief Flat type.
+     */
+    struct flat_type
+    {
+        /**
+         * @brief Traverse hierarchy.
+         *
+         * @param[in] info
+         * Ray information.
+         *
+         * @param[in] func
+         * Function processing leaf primitives.
+         *
+         * @note
+         * Function must have signature
+         * equivalent to 
+         * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
+         * bool(std::uint32_t, std::uint8_t)
+         * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         * where the return value is true to continue
+         * traversal and false to stop traversal.
+         */
+        template <typename Tfunc>
+        __attribute__((always_inline))
+        void traverse(
+                    const ray_info_type& info,
+                    Tfunc&& func) const
+        {
+            static_stack<std::uint32_t, 64> todo;
+            todo.push(0);
+            while (!todo.empty()) {
+
+                // Current.
+                std::uint32_t flat_index = todo.pop();
+                const flat_node_type& flat_node = 
+                      flat_nodes[flat_index];
+
+                if (flat_node.box.intersect(info)) {
+                    if (flat_node.count) {
+                        // Leaf.
+                        bool stop = !std::forward<Tfunc>(func)(
+                                flat_node.first_index,
+                                flat_node.count);
+                        if (stop) {
+                            return;
+                        }
+                    }
+                    else {
+                        // Branch.
+                        todo.push(flat_index + 1);
+                        todo.push(flat_node.right_index);
+                        if (info.dmin[flat_node.split_dim]) {
+                            std::swap(
+                                todo[-1], 
+                                todo[-2]);
+                        }
+                    }
+                }
+            }
+        }
+
+        /**
+         * @brief Flat nodes.
+         */
+        std::vector<flat_node_type> flat_nodes;
+    };
+
+    /**
+     * @brief Flatten.
+     *
+     * After initialization, allocate and initialize flat, sequential
+     * array for traversal.
+     */
+    flat_type flatten()
+    {
+        flat_type flat;
+        flat.flat_nodes.resize(
+            total_branches_ + 
+            total_leaves_);
+        if (root_ && !flat.flat_nodes.empty()) {
+            size_type flat_index = 0;
+            flatten(
+                root_,
+                flat.flat_nodes.data(),
+                flat_index);
+        }
+        return flat;
     }
 
 private:
@@ -358,11 +503,23 @@ private:
     node_type* root_ = nullptr;
 
     /**
+     * @brief Total branches.
+     */
+    size_type total_branches_ = 0;
+
+    /**
+     * @brief Total leaves.
+     */
+    size_type total_leaves_ = 0;
+
+    /**
      * @brief Proxies.
      */
     std::vector<proxy_type> proxies_;
 
 private:
+
+#if !DOXYGEN
 
     /**
      * @brief Allocate.
@@ -524,6 +681,58 @@ private:
         }
         return node;
     }
+
+    /**
+     * @brief Flatten.
+     */
+    void flatten(
+            node_type* node,
+            flat_node_type* flat_nodes,
+            size_type& flat_index)
+    {
+        // Current.
+        assert(node);
+        assert(flat_nodes);
+        flat_node_type& flat_node = flat_nodes[flat_index++];
+        flat_node.box = node->box;
+        if (node->count) {
+            // Sanity check.
+            assert(
+                !node->left &&
+                !node->right);
+            assert(
+                node->count < 
+                size_type(256));
+
+            // Initialize.
+            flat_node.first_index = node->first_index;
+            flat_node.count = node->count;
+        }
+        else {
+            // Sanity check.
+            assert(
+                node->left &&
+                node->right);
+
+            // Flatten left branch.
+            flatten(
+                node->left, 
+                flat_nodes, 
+                flat_index);
+
+            // Initialize.
+            flat_node.right_index = flat_index;
+            flat_node.split_dim = node->split_dim;
+
+            // Flatten right branch.
+            flatten(
+                node->right, 
+                flat_nodes, 
+                flat_index);
+        }
+    }
+
+#endif // #if !DOXYGEN
 };
 
 /**
