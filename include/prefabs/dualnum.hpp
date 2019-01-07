@@ -109,53 +109,12 @@ public:
      */
     constexpr dualnum() = default;
 
-#if 0
-    /**
-     * @brief Default copy constructor.
-     */
-    constexpr dualnum(const dualnum&) = default;
-
-    /**
-     * @brief Default move constructor.
-     */
-    constexpr dualnum(dualnum&&) = default;
-#endif
-
     /**
      * @brief Constructor.
      */
     constexpr dualnum(T a, T b = T()) : a_(a), b_(b)
     {
     }
-
-    /**@}*/
-
-public:
-
-    /**
-     * @name Assign operators
-     */
-    /**@{*/
-
-#if 0
-    /**
-     * @brief Default copy assign.
-     */
-    constexpr dualnum& operator=(const dualnum&) = default;
-
-    /**
-     * @brief Default move assign.
-     */
-    constexpr dualnum& operator=(dualnum&&) = default;
-
-    /**
-     * @brief Real assign.
-     */
-    constexpr dualnum& operator=(T a)
-    {
-        return *this = dualnum(a);
-    }
-#endif
 
     /**@}*/
 
@@ -756,10 +715,52 @@ inline auto abs(const dualnum<T>& x)
 
 /**@}*/
 
-// TODO isinf
-// TODO isnan
-// TODO isfinite
-// TODO isnormal
+/**
+ * @name Float checks (dualnum)
+ */
+/**@{*/
+
+/**
+ * @brief Any Inf?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isinf(const dualnum<T>& x)
+{
+    return pr::isinf(x.real()) || pr::isinf(x.dual());
+}
+
+/**
+ * @brief Any NaN?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isnan(const dualnum<T>& x)
+{
+    return pr::isnan(x.real()) || pr::isnan(x.dual());
+}
+
+/**
+ * @brief All finite?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isfinite(const dualnum<T>& x)
+{
+    return pr::isfinite(x.real()) && pr::isfinite(x.dual());
+}
+
+/**
+ * @brief All normal?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isnormal(const dualnum<T>& x)
+{
+    return pr::isnormal(x.real()) && pr::isnormal(x.dual());
+}
+
+/**@}*/
 
 /**@}*/
 

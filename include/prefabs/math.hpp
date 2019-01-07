@@ -431,6 +431,53 @@ constexpr T nthpow(T x, int n)
 
 /**@}*/
 
+/**
+ * @name Float checks (complex)
+ */
+/**@{*/
+
+/**
+ * @brief Any Inf?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isinf(const std::complex<T>& x)
+{
+    return pr::isinf(x.real()) || pr::isinf(x.imag());
+}
+
+/**
+ * @brief Any NaN?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isnan(const std::complex<T>& x)
+{
+    return pr::isnan(x.real()) || pr::isnan(x.imag());
+}
+
+/**
+ * @brief All finite?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isfinite(const std::complex<T>& x)
+{
+    return pr::isfinite(x.real()) && pr::isfinite(x.imag());
+}
+
+/**
+ * @brief All normal?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isnormal(const std::complex<T>& x)
+{
+    return pr::isnormal(x.real()) && pr::isnormal(x.imag());
+}
+
+/**@}*/
+
 /**@}*/
 
 } // namespace pr

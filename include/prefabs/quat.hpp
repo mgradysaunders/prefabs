@@ -975,10 +975,52 @@ inline quat<T> log(const quat<T>& q)
 
 /**@}*/
 
-// TODO isinf
-// TODO isnan
-// TODO isfinite
-// TODO isnormal
+/**
+ * @name Float checks (quat)
+ */
+/**@{*/
+
+/**
+ * @brief Any Inf?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isinf(const quat<T>& q)
+{
+    return pr::isinf(q.real()) || pr::isinf(q.imag()).any();
+}
+
+/**
+ * @brief Any NaN?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isnan(const quat<T>& q)
+{
+    return pr::isnan(q.real()) || pr::isnan(q.imag()).any();
+}
+
+/**
+ * @brief All finite?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isfinite(const quat<T>& q)
+{
+    return pr::isfinite(q.real()) && pr::isfinite(q.imag()).all();
+}
+
+/**
+ * @brief All normal?
+ */
+template <typename T>
+__attribute__((always_inline))
+inline bool isnormal(const quat<T>& q)
+{
+    return pr::isnormal(q.real()) && pr::isnormal(q.imag()).all();
+}
+
+/**@}*/
 
 /**@}*/
 
