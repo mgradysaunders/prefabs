@@ -218,10 +218,21 @@ public:
 public:
 
     /**
+     * @brief Default constructor.
+     */
+    aabbtree() = default;
+
+    /**
      * @brief Constructor.
+     *
+     * @param[in] leaf_cutoff
+     * Leaf cutoff.
+     *
+     * @param[in] node_alloc
+     * Node allocator.
      */
     aabbtree(
-        size_type leaf_cutoff = 8,
+        size_type leaf_cutoff,
         const node_allocator_type& node_alloc = 
               node_allocator_type()) :
             leaf_cutoff_(leaf_cutoff),
@@ -247,22 +258,6 @@ public:
     }
 
 public:
-
-    /**
-     * @brief Clear.
-     */
-    void clear()
-    {
-        // Destroy root.
-        deallocate_recursive(root_);
-        root_ = nullptr;
-        total_branches_ = 0;
-        total_leaves_ = 0;
-
-        // Destroy proxies.
-        proxies_.clear();
-        proxies_.shrink_to_fit();
-    }
 
     /**
      * @brief Initialize.
@@ -336,7 +331,28 @@ public:
         total_leaves_ = total_leaves;
     }
 
+    /**
+     * @brief Clear.
+     */
+    void clear()
+    {
+        // Destroy root.
+        deallocate_recursive(root_);
+        root_ = nullptr;
+        total_branches_ = 0;
+        total_leaves_ = 0;
+
+        // Destroy proxies.
+        proxies_.clear();
+        proxies_.shrink_to_fit();
+    }
+
 public:
+
+    /**
+     * @name Accessors
+     */
+    /**@{*/
 
     /**
      * @brief Root.
@@ -354,7 +370,14 @@ public:
         return proxies_;
     }
 
+    /**@}*/
+
 public:
+
+    /**
+     * @name Flattening
+     */
+    /**@{*/
 
     /**
      * @brief Flat node type.
@@ -479,6 +502,8 @@ public:
         }
         return flat;
     }
+
+    /**@}*/
 
 private:
 
