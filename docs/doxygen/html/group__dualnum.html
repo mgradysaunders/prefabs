@@ -214,6 +214,25 @@ Accessors (dualnum)</h2></td></tr>
 <tr class="separator:gaaf269e340cdd5df6d7492a80a90178f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Float checks (dualnum)</h2></td></tr>
+<tr class="memitem:gaf77382fcf19c4df5e3d4028429696412"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf77382fcf19c4df5e3d4028429696412"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaf77382fcf19c4df5e3d4028429696412">pr::isinf</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaf77382fcf19c4df5e3d4028429696412"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any Inf?  <a href="group__dualnum.html#gaf77382fcf19c4df5e3d4028429696412">More...</a><br /></td></tr>
+<tr class="separator:gaf77382fcf19c4df5e3d4028429696412"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5566b6cde4084d13db619faed544db00"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5566b6cde4084d13db619faed544db00"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#ga5566b6cde4084d13db619faed544db00">pr::isnan</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga5566b6cde4084d13db619faed544db00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any NaN?  <a href="group__dualnum.html#ga5566b6cde4084d13db619faed544db00">More...</a><br /></td></tr>
+<tr class="separator:ga5566b6cde4084d13db619faed544db00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeb1df6731662e655f22ab42cd5491334"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaeb1df6731662e655f22ab42cd5491334"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gaeb1df6731662e655f22ab42cd5491334">pr::isfinite</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaeb1df6731662e655f22ab42cd5491334"><td class="mdescLeft">&#160;</td><td class="mdescRight">All finite?  <a href="group__dualnum.html#gaeb1df6731662e655f22ab42cd5491334">More...</a><br /></td></tr>
+<tr class="separator:gaeb1df6731662e655f22ab42cd5491334"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb7f623c407d4fe7b2f0766ce3e0c275"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gafb7f623c407d4fe7b2f0766ce3e0c275"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dualnum.html#gafb7f623c407d4fe7b2f0766ce3e0c275">pr::isnormal</a> (const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gafb7f623c407d4fe7b2f0766ce3e0c275"><td class="mdescLeft">&#160;</td><td class="mdescRight">All normal?  <a href="group__dualnum.html#gafb7f623c407d4fe7b2f0766ce3e0c275">More...</a><br /></td></tr>
+<tr class="separator:gafb7f623c407d4fe7b2f0766ce3e0c275"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math (dualnum)</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp36011988d2b668185367bdc7736e2b0d"></a> </p><p class="formulaDsp">
 \[ f(a + \varepsilon b) = f(a) + \varepsilon f&#39;(a) b \]
@@ -1283,6 +1302,126 @@ template&lt;typename T &gt; </div>
 \[ |a + \varepsilon b| = |a| \]
 </p>
 <dl class="section note"><dt>Note</dt><dd>If <code>T</code> is complex, returns a floating point type. </dd></dl>
+
+</div>
+</div>
+<a id="gaf77382fcf19c4df5e3d4028429696412"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf77382fcf19c4df5e3d4028429696412">&#9670;&nbsp;</a></span>isinf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pr::isinf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Any Inf? </p>
+
+</div>
+</div>
+<a id="ga5566b6cde4084d13db619faed544db00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5566b6cde4084d13db619faed544db00">&#9670;&nbsp;</a></span>isnan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pr::isnan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Any NaN? </p>
+
+</div>
+</div>
+<a id="gaeb1df6731662e655f22ab42cd5491334"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeb1df6731662e655f22ab42cd5491334">&#9670;&nbsp;</a></span>isfinite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pr::isfinite </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>All finite? </p>
+
+</div>
+</div>
+<a id="gafb7f623c407d4fe7b2f0766ce3e0c275"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafb7f623c407d4fe7b2f0766ce3e0c275">&#9670;&nbsp;</a></span>isnormal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pr::isnormal </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1dualnum.html">dualnum</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>All normal? </p>
 
 </div>
 </div>

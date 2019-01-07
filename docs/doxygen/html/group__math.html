@@ -136,6 +136,25 @@ Misc</h2></td></tr>
 <tr class="separator:ga280d622de0885accb34df2421e05c6b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Float checks (complex)</h2></td></tr>
+<tr class="memitem:gaf682b157eec34ca7ac7b6286cd3c834a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf682b157eec34ca7ac7b6286cd3c834a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaf682b157eec34ca7ac7b6286cd3c834a">pr::isinf</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gaf682b157eec34ca7ac7b6286cd3c834a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any Inf?  <a href="group__math.html#gaf682b157eec34ca7ac7b6286cd3c834a">More...</a><br /></td></tr>
+<tr class="separator:gaf682b157eec34ca7ac7b6286cd3c834a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga989be4fabff3c1274e2a4bcc0b0a2115"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga989be4fabff3c1274e2a4bcc0b0a2115"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga989be4fabff3c1274e2a4bcc0b0a2115">pr::isnan</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga989be4fabff3c1274e2a4bcc0b0a2115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any NaN?  <a href="group__math.html#ga989be4fabff3c1274e2a4bcc0b0a2115">More...</a><br /></td></tr>
+<tr class="separator:ga989be4fabff3c1274e2a4bcc0b0a2115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd4402e6eb7c145f90c23b390f1c5212"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gadd4402e6eb7c145f90c23b390f1c5212"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gadd4402e6eb7c145f90c23b390f1c5212">pr::isfinite</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gadd4402e6eb7c145f90c23b390f1c5212"><td class="mdescLeft">&#160;</td><td class="mdescRight">All finite?  <a href="group__math.html#gadd4402e6eb7c145f90c23b390f1c5212">More...</a><br /></td></tr>
+<tr class="separator:gadd4402e6eb7c145f90c23b390f1c5212"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafdc66fccff1956212df06339b4fb77e3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gafdc66fccff1956212df06339b4fb77e3"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gafdc66fccff1956212df06339b4fb77e3">pr::isnormal</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:gafdc66fccff1956212df06339b4fb77e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">All normal?  <a href="group__math.html#gafdc66fccff1956212df06339b4fb77e3">More...</a><br /></td></tr>
+<tr class="separator:gafdc66fccff1956212df06339b4fb77e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math wrappers</h2></td></tr>
 <tr class="memitem:ga6dac19507f6fff9d5f82d360abe03dbe"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga6dac19507f6fff9d5f82d360abe03dbe"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga6dac19507f6fff9d5f82d360abe03dbe">pr::abs</a> (T x) -&gt; decltype(std::abs(x))</td></tr>
@@ -714,6 +733,126 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Raise to integer power. </p>
+
+</div>
+</div>
+<a id="gaf682b157eec34ca7ac7b6286cd3c834a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf682b157eec34ca7ac7b6286cd3c834a">&#9670;&nbsp;</a></span>isinf() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pr::isinf </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Any Inf? </p>
+
+</div>
+</div>
+<a id="ga989be4fabff3c1274e2a4bcc0b0a2115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga989be4fabff3c1274e2a4bcc0b0a2115">&#9670;&nbsp;</a></span>isnan() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pr::isnan </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Any NaN? </p>
+
+</div>
+</div>
+<a id="gadd4402e6eb7c145f90c23b390f1c5212"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadd4402e6eb7c145f90c23b390f1c5212">&#9670;&nbsp;</a></span>isfinite() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pr::isfinite </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>All finite? </p>
+
+</div>
+</div>
+<a id="gafdc66fccff1956212df06339b4fb77e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafdc66fccff1956212df06339b4fb77e3">&#9670;&nbsp;</a></span>isnormal() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pr::isnormal </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>All normal? </p>
 
 </div>
 </div>
@@ -1841,7 +1980,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga187128a39ce722eb354acab358d786c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga187128a39ce722eb354acab358d786c6">&#9670;&nbsp;</a></span>isnan()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga187128a39ce722eb354acab358d786c6">&#9670;&nbsp;</a></span>isnan() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1872,7 +2011,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga6cf73f56d6326d09e207c243a82f2d9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6cf73f56d6326d09e207c243a82f2d9b">&#9670;&nbsp;</a></span>isinf()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6cf73f56d6326d09e207c243a82f2d9b">&#9670;&nbsp;</a></span>isinf() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1903,7 +2042,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga6f30b53c394b4fadcf3606227e71aaab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6f30b53c394b4fadcf3606227e71aaab">&#9670;&nbsp;</a></span>isfinite()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6f30b53c394b4fadcf3606227e71aaab">&#9670;&nbsp;</a></span>isfinite() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1934,7 +2073,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga1c19c8e968a3014a9f92f7f08cf500ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1c19c8e968a3014a9f92f7f08cf500ae">&#9670;&nbsp;</a></span>isnormal()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1c19c8e968a3014a9f92f7f08cf500ae">&#9670;&nbsp;</a></span>isnormal() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
