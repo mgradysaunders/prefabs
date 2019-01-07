@@ -12,9 +12,9 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="classpr_1_1block__array3.html" target="_top" xlink:title="pr::block_array3\&lt; multi\l\&lt; T, N \&gt;, std::allocator\l_traits\&lt; Talloc \&gt;::template\l rebind_alloc\&lt; multi\&lt; T, N \&gt; \&gt; \&gt;">
+<g id="a_node1"><a xlink:href="classpr_1_1block__array2.html" target="_top" xlink:title="pr::block_array2\&lt; multi\l\&lt; T, N \&gt;, std::allocator\l_traits\&lt; Talloc \&gt;::template\l rebind_alloc\&lt; multi\&lt; T, N \&gt; \&gt; \&gt;">
 <polygon fill="#ffffff" stroke="#000000" points="0,-.5 0,-52.5 157,-52.5 157,-.5 0,-.5"/>
-<text text-anchor="start" x="8" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::block_array3&lt; multi</text>
+<text text-anchor="start" x="8" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::block_array2&lt; multi</text>
 <text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">&lt; T, N &gt;, std::allocator</text>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">_traits&lt; Talloc &gt;::template</text>
 <text text-anchor="middle" x="78.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> rebind_alloc&lt; multi&lt; T, N &gt; &gt; &gt;</text>
@@ -24,9 +24,9 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="classpr_1_1image3.html" target="_top" xlink:title="3&#45;dimensional image. ">
+<g id="a_node2"><a xlink:href="classpr_1_1image2.html" target="_top" xlink:title="2&#45;dimensional image. ">
 <polygon fill="#ffffff" stroke="#000000" points="193,-11.5 193,-41.5 292,-41.5 292,-11.5 193,-11.5"/>
-<text text-anchor="start" x="201" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::image3&lt; Tfloat,</text>
+<text text-anchor="start" x="201" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::image2&lt; Tfloat,</text>
 <text text-anchor="middle" x="242.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> T, N, Talloc &gt;</text>
 </a>
 </g>
