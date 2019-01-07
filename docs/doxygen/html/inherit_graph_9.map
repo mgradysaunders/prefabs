@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structpr_1_1aabbtree__split__equal__dimensions.html" title="Split by equal dimensions. " alt="" coords="5,5,139,47"/>
+<area shape="rect" id="node1" href="$classpr_1_1block__array2.html" title="pr::block_array2\&lt; multi\l\&lt; T, N \&gt;, std::allocator\l_traits\&lt; Talloc \&gt;::template\l rebind_alloc\&lt; multi\&lt; T, N \&gt; \&gt; \&gt;" alt="" coords="5,5,215,76"/>
+<area shape="rect" id="node2" href="$classpr_1_1image2.html" title="2&#45;dimensional image. " alt="" coords="263,20,395,61"/>
 </map>
