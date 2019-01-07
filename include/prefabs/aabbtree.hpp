@@ -127,11 +127,15 @@ public:
      */
     typedef aabb<Tfloat, N> aabb_type;
 
+#if 0
+
     /**
      * @brief Axis-aligned bounding box ray information type.
      */
     typedef typename aabb_type::
             ray_info_type ray_info_type;
+
+#endif
 
 #if !DOXYGEN
     // prototype
@@ -374,6 +378,8 @@ public:
 
 public:
 
+#if 0
+
     /**
      * @name Flattening
      */
@@ -505,6 +511,8 @@ public:
 
     /**@}*/
 
+#endif
+
 private:
 
     /**
@@ -543,8 +551,6 @@ private:
     std::vector<proxy_type> proxies_;
 
 private:
-
-#if !DOXYGEN
 
     /**
      * @brief Allocate.
@@ -707,6 +713,8 @@ private:
         return node;
     }
 
+#if 0
+
     /**
      * @brief Flatten.
      */
@@ -757,7 +765,7 @@ private:
         }
     }
 
-#endif // #if !DOXYGEN
+#endif
 };
 
 /**
