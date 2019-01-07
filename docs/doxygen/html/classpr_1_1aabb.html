@@ -68,8 +68,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpr_1_1aabb-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -86,6 +86,12 @@ Inheritance diagram for pr::aabb&lt; T, N &gt;:</div>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1aabb_1_1ray__info.html">ray_info</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ray information.  <a href="structpr_1_1aabb_1_1ray__info.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:af33d16705e786198d818e627adcf352d"><td class="memItemLeft" align="right" valign="top">typedef multi&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#af33d16705e786198d818e627adcf352d">value_type</a></td></tr>
@@ -94,25 +100,12 @@ Public Types</h2></td></tr>
 <tr class="memitem:a660e3dbc85a261f0b2c5885153055c30"><td class="memItemLeft" align="right" valign="top">typedef T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#a660e3dbc85a261f0b2c5885153055c30">entry_type</a></td></tr>
 <tr class="memdesc:a660e3dbc85a261f0b2c5885153055c30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry type.  <a href="#a660e3dbc85a261f0b2c5885153055c30">More...</a><br /></td></tr>
 <tr class="separator:a660e3dbc85a261f0b2c5885153055c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1c9309c5e01a2465f76cb6811780fe6"><td class="memItemLeft" align="right" valign="top">typedef std::conditional_t&lt; std::is_floating_point&lt; T &gt;::value, T, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#ab1c9309c5e01a2465f76cb6811780fe6">float_type</a></td></tr>
+<tr class="memdesc:ab1c9309c5e01a2465f76cb6811780fe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Float type.  <a href="#ab1c9309c5e01a2465f76cb6811780fe6">More...</a><br /></td></tr>
+<tr class="separator:ab1c9309c5e01a2465f76cb6811780fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeea82f6befa9b6fa937130d79d74cf28"><td class="memItemLeft" align="right" valign="top">constexpr multi&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#aeea82f6befa9b6fa937130d79d74cf28">diag</a> () const</td></tr>
-<tr class="memdesc:aeea82f6befa9b6fa937130d79d74cf28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagonal.  <a href="#aeea82f6befa9b6fa937130d79d74cf28">More...</a><br /></td></tr>
-<tr class="separator:aeea82f6befa9b6fa937130d79d74cf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf1bcfdd39f72704a9f94dd2c1af47ee"><td class="memItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#adf1bcfdd39f72704a9f94dd2c1af47ee">volume</a> () const</td></tr>
-<tr class="memdesc:adf1bcfdd39f72704a9f94dd2c1af47ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hyper volume.  <a href="#adf1bcfdd39f72704a9f94dd2c1af47ee">More...</a><br /></td></tr>
-<tr class="separator:adf1bcfdd39f72704a9f94dd2c1af47ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c841565eb31f4c470a9c82779ab7b2f"><td class="memItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#a7c841565eb31f4c470a9c82779ab7b2f">surface_area</a> () const</td></tr>
-<tr class="memdesc:a7c841565eb31f4c470a9c82779ab7b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hyper surface area.  <a href="#a7c841565eb31f4c470a9c82779ab7b2f">More...</a><br /></td></tr>
-<tr class="separator:a7c841565eb31f4c470a9c82779ab7b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5452a4c51e497cc3bd0caccf02e4b44c"><td class="memItemLeft" align="right" valign="top">constexpr multi&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#a5452a4c51e497cc3bd0caccf02e4b44c">center</a> () const</td></tr>
-<tr class="memdesc:a5452a4c51e497cc3bd0caccf02e4b44c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Center.  <a href="#a5452a4c51e497cc3bd0caccf02e4b44c">More...</a><br /></td></tr>
-<tr class="separator:a5452a4c51e497cc3bd0caccf02e4b44c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dd7d5eecfb55db82219f766e11fa958"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:a5dd7d5eecfb55db82219f766e11fa958"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#a5dd7d5eecfb55db82219f766e11fa958">lerp</a> (const U &amp;u) const</td></tr>
-<tr class="memdesc:a5dd7d5eecfb55db82219f766e11fa958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lerp minimum and maximum coordinates.  <a href="#a5dd7d5eecfb55db82219f766e11fa958">More...</a><br /></td></tr>
-<tr class="separator:a5dd7d5eecfb55db82219f766e11fa958"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Constructors</div></td></tr>
 <tr class="memitem:a109b817db6d7e72ebfe38d3f8bed206d"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#a109b817db6d7e72ebfe38d3f8bed206d">aabb</a> ()=default</td></tr>
 <tr class="memdesc:a109b817db6d7e72ebfe38d3f8bed206d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a109b817db6d7e72ebfe38d3f8bed206d">More...</a><br /></td></tr>
@@ -130,7 +123,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8843bac398c1307e786282135fca9b98"><td class="memItemLeft" align="right" valign="top">constexpr const multi&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#a8843bac398c1307e786282135fca9b98">operator[]</a> (std::size_t pos) const</td></tr>
 <tr class="memdesc:a8843bac398c1307e786282135fca9b98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index accessor, const variant.  <a href="#a8843bac398c1307e786282135fca9b98">More...</a><br /></td></tr>
 <tr class="separator:a8843bac398c1307e786282135fca9b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Misc</div></td></tr>
+<tr class="memitem:aeea82f6befa9b6fa937130d79d74cf28"><td class="memItemLeft" align="right" valign="top">constexpr multi&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#aeea82f6befa9b6fa937130d79d74cf28">diag</a> () const</td></tr>
+<tr class="memdesc:aeea82f6befa9b6fa937130d79d74cf28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagonal.  <a href="#aeea82f6befa9b6fa937130d79d74cf28">More...</a><br /></td></tr>
+<tr class="separator:aeea82f6befa9b6fa937130d79d74cf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf1bcfdd39f72704a9f94dd2c1af47ee"><td class="memItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#adf1bcfdd39f72704a9f94dd2c1af47ee">volume</a> () const</td></tr>
+<tr class="memdesc:adf1bcfdd39f72704a9f94dd2c1af47ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hyper volume.  <a href="#adf1bcfdd39f72704a9f94dd2c1af47ee">More...</a><br /></td></tr>
+<tr class="separator:adf1bcfdd39f72704a9f94dd2c1af47ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c841565eb31f4c470a9c82779ab7b2f"><td class="memItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#a7c841565eb31f4c470a9c82779ab7b2f">surface_area</a> () const</td></tr>
+<tr class="memdesc:a7c841565eb31f4c470a9c82779ab7b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hyper surface area.  <a href="#a7c841565eb31f4c470a9c82779ab7b2f">More...</a><br /></td></tr>
+<tr class="separator:a7c841565eb31f4c470a9c82779ab7b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad01c3d422e6c3503f8bf6318ad1b4cca"><td class="memItemLeft" align="right" valign="top">constexpr multi&lt; <a class="el" href="classpr_1_1aabb.html#ab1c9309c5e01a2465f76cb6811780fe6">float_type</a>, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#ad01c3d422e6c3503f8bf6318ad1b4cca">center</a> () const</td></tr>
+<tr class="memdesc:ad01c3d422e6c3503f8bf6318ad1b4cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Center.  <a href="#ad01c3d422e6c3503f8bf6318ad1b4cca">More...</a><br /></td></tr>
+<tr class="separator:ad01c3d422e6c3503f8bf6318ad1b4cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7858f760ddf87bdcaa92499cb353fe0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1aabb.html#ab1c9309c5e01a2465f76cb6811780fe6">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#ad7858f760ddf87bdcaa92499cb353fe0">radius</a> () const</td></tr>
+<tr class="memdesc:ad7858f760ddf87bdcaa92499cb353fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Radius.  <a href="#ad7858f760ddf87bdcaa92499cb353fe0">More...</a><br /></td></tr>
+<tr class="separator:ad7858f760ddf87bdcaa92499cb353fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dd7d5eecfb55db82219f766e11fa958"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:a5dd7d5eecfb55db82219f766e11fa958"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#a5dd7d5eecfb55db82219f766e11fa958">lerp</a> (const U &amp;u) const</td></tr>
+<tr class="memdesc:a5dd7d5eecfb55db82219f766e11fa958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lerp minimum and maximum coordinates.  <a href="#a5dd7d5eecfb55db82219f766e11fa958">More...</a><br /></td></tr>
+<tr class="separator:a5dd7d5eecfb55db82219f766e11fa958"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Tests</div></td></tr>
+<tr class="memitem:ad613481e511714aa6ab740fdfaa45994"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#ad613481e511714aa6ab740fdfaa45994">operator bool</a> () const</td></tr>
+<tr class="memdesc:ad613481e511714aa6ab740fdfaa45994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hyper volume is non-negative?  <a href="#ad613481e511714aa6ab740fdfaa45994">More...</a><br /></td></tr>
+<tr class="separator:ad613481e511714aa6ab740fdfaa45994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e1491f0e5fb860c7cb1d8bd287524e3"><td class="memTemplParams" colspan="2">template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </td></tr>
 <tr class="memitem:a8e1491f0e5fb860c7cb1d8bd287524e3"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#a8e1491f0e5fb860c7cb1d8bd287524e3">overlaps</a> (const <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; T, N &gt; &amp;oth) const</td></tr>
 <tr class="memdesc:a8e1491f0e5fb860c7cb1d8bd287524e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overlaps other?  <a href="#a8e1491f0e5fb860c7cb1d8bd287524e3">More...</a><br /></td></tr>
@@ -147,9 +163,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5f75c5ec37eaa1bbee0bbcf715fddca1"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#a5f75c5ec37eaa1bbee0bbcf715fddca1">contains</a> (const multi&lt; T, N &gt; &amp;arr) const</td></tr>
 <tr class="memdesc:a5f75c5ec37eaa1bbee0bbcf715fddca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains array?  <a href="#a5f75c5ec37eaa1bbee0bbcf715fddca1">More...</a><br /></td></tr>
 <tr class="separator:a5f75c5ec37eaa1bbee0bbcf715fddca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad613481e511714aa6ab740fdfaa45994"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#ad613481e511714aa6ab740fdfaa45994">operator bool</a> () const</td></tr>
-<tr class="memdesc:ad613481e511714aa6ab740fdfaa45994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hyper volume is non-negative?  <a href="#ad613481e511714aa6ab740fdfaa45994">More...</a><br /></td></tr>
-<tr class="separator:ad613481e511714aa6ab740fdfaa45994"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff7c297347a05a9cf961b8b29f9f10da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabb.html#aff7c297347a05a9cf961b8b29f9f10da">intersect</a> (const <a class="el" href="structpr_1_1aabb_1_1ray__info.html">ray_info</a> &amp;r) const</td></tr>
+<tr class="memdesc:aff7c297347a05a9cf961b8b29f9f10da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intersect ray?  <a href="#aff7c297347a05a9cf961b8b29f9f10da">More...</a><br /></td></tr>
+<tr class="separator:aff7c297347a05a9cf961b8b29f9f10da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -208,6 +224,24 @@ template&lt;typename T, std::size_t N&gt; </div>
 </div><div class="memdoc">
 
 <p>Entry type. </p>
+
+</div>
+</div>
+<a id="ab1c9309c5e01a2465f76cb6811780fe6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1c9309c5e01a2465f76cb6811780fe6">&#9670;&nbsp;</a></span>float_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, std::size_t N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::conditional_t&lt; std::is_floating_point&lt;T&gt;::value, T, double&gt; <a class="el" href="classpr_1_1aabb.html">pr::aabb</a>&lt; T, N &gt;::<a class="el" href="classpr_1_1aabb.html#ab1c9309c5e01a2465f76cb6811780fe6">float_type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Float type. </p>
 
 </div>
 </div>
@@ -427,6 +461,14 @@ template&lt;typename T, std::size_t N&gt; </div>
 </div><div class="memdoc">
 
 <p>Hyper volume. </p>
+<dl class="section note"><dt>Note</dt><dd>Hyper volume in \( N \) dimensions measures the entire \( N \) dimensional subspace. That is, <p class="formulaDsp">
+\[ V = \prod_{k \in L} (P_{\max[k]} - P_{\min[k]}) \]
+</p>
+ for index set \( L = [0, N) \).<ul>
+<li>In \( N = 2 \) dimensions, \( V \) measures signed area.</li>
+<li>In \( N = 3 \) dimensions, \( V \) measures signed volume. </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -456,11 +498,19 @@ template&lt;typename T, std::size_t N&gt; </div>
 </div><div class="memdoc">
 
 <p>Hyper surface area. </p>
+<dl class="section note"><dt>Note</dt><dd>Hyper surface area in \( N \) dimensions measures the \( N - 1 \) dimensional subspace on the border of the \( N \) dimensional volume. That is, <p class="formulaDsp">
+\[ S = \sum_{k \in L} \prod_{j \in L_k} 2 (P_{\max[j]} - P_{\min[j]}) \]
+</p>
+ for index sets \( L = [0, N) \) and \( L_k = L \setminus k \).<ul>
+<li>In \( N = 2 \) dimensions, \( S \) measures signed perimeter.</li>
+<li>In \( N = 3 \) dimensions, \( S \) measures signed surface area. </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
-<a id="a5452a4c51e497cc3bd0caccf02e4b44c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5452a4c51e497cc3bd0caccf02e4b44c">&#9670;&nbsp;</a></span>center()</h2>
+<a id="ad01c3d422e6c3503f8bf6318ad1b4cca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad01c3d422e6c3503f8bf6318ad1b4cca">&#9670;&nbsp;</a></span>center()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -471,7 +521,7 @@ template&lt;typename T, std::size_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr multi&lt;T, N&gt; <a class="el" href="classpr_1_1aabb.html">pr::aabb</a>&lt; T, N &gt;::center </td>
+          <td class="memname">constexpr multi&lt;<a class="el" href="classpr_1_1aabb.html#ab1c9309c5e01a2465f76cb6811780fe6">float_type</a>, N&gt; <a class="el" href="classpr_1_1aabb.html">pr::aabb</a>&lt; T, N &gt;::center </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -485,6 +535,35 @@ template&lt;typename T, std::size_t N&gt; </div>
 </div><div class="memdoc">
 
 <p>Center. </p>
+
+</div>
+</div>
+<a id="ad7858f760ddf87bdcaa92499cb353fe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7858f760ddf87bdcaa92499cb353fe0">&#9670;&nbsp;</a></span>radius()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, std::size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1aabb.html#ab1c9309c5e01a2465f76cb6811780fe6">float_type</a> <a class="el" href="classpr_1_1aabb.html">pr::aabb</a>&lt; T, N &gt;::radius </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Radius. </p>
 
 </div>
 </div>
@@ -517,6 +596,35 @@ template&lt;typename U &gt; </div>
 </div><div class="memdoc">
 
 <p>Lerp minimum and maximum coordinates. </p>
+
+</div>
+</div>
+<a id="ad613481e511714aa6ab740fdfaa45994"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad613481e511714aa6ab740fdfaa45994">&#9670;&nbsp;</a></span>operator bool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, std::size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1aabb.html">pr::aabb</a>&lt; T, N &gt;::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hyper volume is non-negative? </p>
 
 </div>
 </div>
@@ -648,8 +756,8 @@ template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </div>
 
 </div>
 </div>
-<a id="ad613481e511714aa6ab740fdfaa45994"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad613481e511714aa6ab740fdfaa45994">&#9670;&nbsp;</a></span>operator bool()</h2>
+<a id="aff7c297347a05a9cf961b8b29f9f10da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff7c297347a05a9cf961b8b29f9f10da">&#9670;&nbsp;</a></span>intersect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -660,9 +768,10 @@ template&lt;typename T, std::size_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1aabb.html">pr::aabb</a>&lt; T, N &gt;::operator bool </td>
+          <td class="memname">bool <a class="el" href="classpr_1_1aabb.html">pr::aabb</a>&lt; T, N &gt;::intersect </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structpr_1_1aabb_1_1ray__info.html">ray_info</a> &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -673,7 +782,7 @@ template&lt;typename T, std::size_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Hyper volume is non-negative? </p>
+<p>Intersect ray? </p>
 
 </div>
 </div>
