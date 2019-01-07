@@ -461,7 +461,7 @@ public:
     /**
      * @brief Flatten.
      *
-     * After initialization, allocate and initialize flat, sequential
+     * After initialization, flatten hierarchy to sequential
      * array for traversal.
      */
     flat_type flatten()
