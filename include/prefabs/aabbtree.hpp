@@ -128,7 +128,7 @@ public:
     typedef aabb<Tfloat, N> aabb_type;
 
     /**
-     * @brief Axis-aligned bounding box ray info type.
+     * @brief Axis-aligned bounding box ray information type.
      */
     typedef typename aabb_type::
             ray_info_type ray_info_type;

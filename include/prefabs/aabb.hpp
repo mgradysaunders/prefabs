@@ -340,7 +340,7 @@ public:
     }
 
     /**
-     * @brief Ray information.
+     * @brief Ray information type.
      */
     struct ray_info_type
     {
