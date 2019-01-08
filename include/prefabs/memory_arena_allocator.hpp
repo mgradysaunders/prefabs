@@ -140,6 +140,22 @@ public:
     }
 
     /**
+     * @brief Clear memory arena.
+     */
+    void clear()
+    {
+        arena_->clear();
+    }
+
+    /**
+     * @brief Clear memory arena and free blocks.
+     */
+    void reset()
+    {
+        arena_->reset();
+    }
+
+    /**
      * @brief Allocate.
      *
      * @param[in] n
