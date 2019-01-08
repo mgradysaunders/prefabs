@@ -444,6 +444,157 @@ struct lognormal_distribution : normal_distribution<T>
     }
 };
 
+/**
+ * @brief Logistic distribution.
+ */
+template <typename T = double>
+struct logistic_distribution
+{
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value, 
+        "T must be floating point");
+
+    /**
+     * @brief @f$ \mu @f$, mean.
+     */
+    T mu = T(0);
+
+    /**
+     * @brief @f$ s @f$, spread.
+     */
+    T s = T(1);
+
+    /**
+     * @brief Probability density function.
+     *
+     * @f[
+     *      p(x) = 
+     *          \frac{1}{s}
+     *          \frac{e^{-\xi}}{(1 + e^{-\xi})^2}
+     *          \Bigg|_{\xi \gets (x-\mu)/s}
+     * @f]
+     */
+    T pdf(T x) const
+    {
+        T xi = (x - mu) / s;
+        T exp_nxi = pr::exp(-xi);
+        return exp_nxi / (s * (T(1) + exp_nxi) * (T(1) + exp_nxi));
+    }
+
+    /**
+     * @brief Cumulative density function.
+     *
+     * @f[
+     *      c(x) = 
+     *          \frac{1}{1 + e^{-\xi}}
+     *          \Bigg|_{\xi \gets (x-\mu)/s}
+     * @f]
+     */
+    T cdf(T x) const
+    {
+        T xi = (x - mu) / s;
+        T exp_nxi = pr::exp(-xi);
+        return T(1) / (T(1) + exp_nxi);
+    }
+
+    /**
+     * @brief Cumulative density inverse function.
+     *
+     * @f[
+     *      c^{-1}(x) = 
+     *          \begin{cases}
+     *              \mu - s\log(1/u - 1) & u \in    [0, 1)
+     *          \\  \text{qNaN}          & u \notin [0, 1)
+     *          \end{cases}
+     * @f]
+     */
+    T cdfinv(T u) const
+    {
+        if ((T(0) <= u && u < T(1))) {
+            return mu - s * pr::log(T(1) / u - T(1));
+        }
+        else {
+            return pr::numeric_limits<T>::quiet_NaN();
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G> 
+    T operator()(G& gen) const
+    {
+        return cdfinv(pr::generate_canonical<T>(gen));
+    }
+};
+
+/**
+ * @brief Log-logistic distribution.
+ */
+template <typename T = double>
+struct loglogistic_distribution : logistic_distribution<T>
+{
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value, 
+        "T must be floating point");
+
+    /**
+     * @brief Probability density function.
+     *
+     * @f[
+     *      p(x) = p_{\text{logistic}}(\log(x))/x
+     * @f]
+     */
+    T pdf(T x) const
+    {
+        return logistic_distribution<T>::pdf(pr::log(x)) / x;
+    }
+
+    /**
+     * @brief Cumulative density function.
+     *
+     * @f[
+     *      c(x) = c_{\text{logistic}}(\log(x))
+     * @f]
+     */
+    T cdf(T x) const
+    {
+        return logistic_distribution<T>::cdf(pr::log(x));
+    }
+
+    /**
+     * @brief Cumulative density inverse function.
+     *
+     * @f[
+     *      c^{-1}(u) =
+     *          \begin{cases}
+     *              \exp(c_{\text{logistic}}^{-1}(u)) & u \in    [0, 1)
+     *          \\  \text{qNaN}                       & u \notin [0, 1)
+     *          \end{cases}
+     * @f]
+     */
+    T cdfinv(T u) const
+    {
+        if ((T(0) <= u && u < T(1))) {
+            return pr::exp(logistic_distribution<T>::cdfinv(u));
+        }
+        else {
+            return pr::numeric_limits<T>::quiet_NaN();
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G> 
+    T operator()(G& gen) const
+    {
+        return cdfinv(pr::generate_canonical<T>(gen));
+    }
+};
+
 // TODO piecewise_constant_distribution
 
 // TODO piecewise_linear_distribution
