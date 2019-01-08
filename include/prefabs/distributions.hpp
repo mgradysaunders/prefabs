@@ -502,7 +502,7 @@ struct logistic_distribution
      * @brief Cumulative density inverse function.
      *
      * @f[
-     *      c^{-1}(x) = 
+     *      c^{-1}(u) = 
      *          \begin{cases}
      *              \mu - s\log(1/u - 1) & u \in    [0, 1)
      *          \\  \text{qNaN}          & u \notin [0, 1)
