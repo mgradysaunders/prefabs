@@ -119,6 +119,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3790630d41f6626ea4f3298aff552745"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1memory__arena__allocator.html">memory_arena_allocator</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__arena__allocator.html#a3790630d41f6626ea4f3298aff552745">operator=</a> (<a class="el" href="classpr_1_1memory__arena__allocator.html">memory_arena_allocator</a>&lt; U &gt; &amp;&amp;other)</td></tr>
 <tr class="memdesc:a3790630d41f6626ea4f3298aff552745"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment.  <a href="#a3790630d41f6626ea4f3298aff552745">More...</a><br /></td></tr>
 <tr class="separator:a3790630d41f6626ea4f3298aff552745"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31f93cdaa79d19c16973cbff9fc2511c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__arena__allocator.html#a31f93cdaa79d19c16973cbff9fc2511c">clear</a> ()</td></tr>
+<tr class="memdesc:a31f93cdaa79d19c16973cbff9fc2511c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear memory arena.  <a href="#a31f93cdaa79d19c16973cbff9fc2511c">More...</a><br /></td></tr>
+<tr class="separator:a31f93cdaa79d19c16973cbff9fc2511c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a035cd277acbcf7c2b690742df021ee46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__arena__allocator.html#a035cd277acbcf7c2b690742df021ee46">reset</a> ()</td></tr>
+<tr class="memdesc:a035cd277acbcf7c2b690742df021ee46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear memory arena and free blocks.  <a href="#a035cd277acbcf7c2b690742df021ee46">More...</a><br /></td></tr>
+<tr class="separator:a035cd277acbcf7c2b690742df021ee46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeebc1ec97587c0a331b2d882f4009913"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__arena__allocator.html#aeebc1ec97587c0a331b2d882f4009913">allocate</a> (std::size_t n)</td></tr>
 <tr class="memdesc:aeebc1ec97587c0a331b2d882f4009913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate.  <a href="#aeebc1ec97587c0a331b2d882f4009913">More...</a><br /></td></tr>
 <tr class="separator:aeebc1ec97587c0a331b2d882f4009913"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -399,6 +405,64 @@ template&lt;typename U &gt; </div>
 </div><div class="memdoc">
 
 <p>Move assignment. </p>
+
+</div>
+</div>
+<a id="a31f93cdaa79d19c16973cbff9fc2511c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31f93cdaa79d19c16973cbff9fc2511c">&#9670;&nbsp;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1memory__arena__allocator.html">pr::memory_arena_allocator</a>&lt; T &gt;::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clear memory arena. </p>
+
+</div>
+</div>
+<a id="a035cd277acbcf7c2b690742df021ee46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a035cd277acbcf7c2b690742df021ee46">&#9670;&nbsp;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1memory__arena__allocator.html">pr::memory_arena_allocator</a>&lt; T &gt;::reset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clear memory arena and free blocks. </p>
 
 </div>
 </div>
