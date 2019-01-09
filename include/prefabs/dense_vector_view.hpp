@@ -77,35 +77,38 @@ struct dense_vector_view
         typename std::iterator_traits<T>::iterator_category>::value,
         "T must be random access");
 
+public:
+
     /**
      * @brief Base iterator.
      */
     typedef T base_iterator;
 
     /**
-     * @brief Iterator.
-     */
-    typedef dense_iterator<T> iterator;
-
-    /**
      * @brief Difference type.
      */
-    typedef typename iterator::difference_type difference_type;
+    typedef typename std::iterator_traits<T>::difference_type difference_type;
 
     /**
      * @brief Value type.
      */
-    typedef std::remove_const_t<typename iterator::value_type> value_type;
+    typedef std::remove_const_t<
+            typename std::iterator_traits<T>::value_type> value_type;
 
     /**
      * @brief Pointer.
      */
-    typedef typename iterator::pointer pointer;
+    typedef typename std::iterator_traits<T>::pointer pointer;
 
     /**
      * @brief Reference.
      */
-    typedef typename iterator::reference reference;
+    typedef typename std::iterator_traits<T>::reference reference;
+
+    /**
+     * @brief Iterator.
+     */
+    typedef dense_iterator<T> iterator;
 
     /**
      * @brief Reverse iterator.
@@ -203,17 +206,17 @@ public:
     /**@{*/
 
     /**
-     * @brief Range @f$ [i, j) @f$.
+     * @brief Range @f$ [i_0, i_1) @f$.
      *
      * @throw std::invalid_argument
-     * If any index is invalid.
+     * If invalid index.
      */
     constexpr dense_vector_view range(
-                difference_type i, 
-                difference_type j)
+                difference_type i0, 
+                difference_type i1)
     {
-        if (!(i >= 0 && i <= size_ &&
-              j >= 0 && j <= size_)) {
+        if (!(i0 >= 0 && i0 <= size_ &&
+              i1 >= 0 && i1 <= size_)) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
         if (!offset_) {
@@ -222,9 +225,9 @@ public:
         else {
             return {
                 offset_ +
-                stride_ * (i - (i > j)),
-                (i < j) ? stride_ : -stride_,
-                (i < j) ? (j - i) : (i - j)
+                stride_ * (i0 - (i0 > i1)),
+                (i0 > i1) ? -stride_ : stride_,
+                (i0 > i1) ? (i0 - i1) : (i1 - i0)
             };
         }
     }

@@ -4,7 +4,7 @@ puts <<STR
 namespace pr {
 
 /**
- * @addtogroup dense_vector_view
+ * @addtogroup dense_matrix_view
  */
 /**@{*/
 
@@ -12,7 +12,7 @@ STR
 
 puts <<STR
 /**
- * @name Binary operators (dense_vector_view/dense_vector_view)
+ * @name Binary operators (dense_matrix_view/dense_matrix_view)
  */
 /**@{*/
 
@@ -28,16 +28,15 @@ for op2 in OP2
  */
 template <typename T, typename U>
 __attribute__((always_inline))
-constexpr dense_vector_view<T>& operator#{op2}=(
-          dense_vector_view<T>& arr, dense_vector_view<U> oth)
+constexpr dense_matrix_view<T>& operator#{op2}=(
+          dense_matrix_view<T>& arr, dense_matrix_view<U> oth)
 {
     if (arr.size() != oth.size()) {
         throw std::invalid_argument(__PRETTY_FUNCTION__);
     }
-    auto itrarr = arr.begin();
-    auto itroth = oth.begin();
-    for (; itroth != oth.end(); ++itrarr, ++itroth) {
-        *itrarr #{op2}= *itroth;
+    for (typename dense_matrix_view<T>::difference_type i = 0;
+                i < arr.size0(); i++) {
+         arr[i] #{op2}= oth[i];
     }
     return arr;
 }
@@ -54,7 +53,7 @@ STR
 
 puts <<STR
 /**
- * @name Binary operators (dense_vector_view/value_type)
+ * @name Binary operators (dense_matrix_view/value_type)
  */
 /**@{*/
 
@@ -67,13 +66,13 @@ for op2 in OP2
  */
 template <typename T>
 __attribute__((always_inline))
-constexpr dense_vector_view<T>& operator#{op2}=(
-          dense_vector_view<T>& arr,
-          typename dense_vector_view<T>::value_type val)
+constexpr dense_matrix_view<T>& operator#{op2}=(
+          dense_matrix_view<T>& arr,
+          typename dense_matrix_view<T>::value_type val)
 {
-    for (auto itrarr = arr.begin(); 
-              itrarr != arr.end(); ++itrarr) {
-        *itrarr #{op2}= val;
+    for (typename dense_matrix_view<T>::difference_type i = 0;
+                i < arr.size0(); i++) {
+        arr[i] #{op2}= val;
     }
     return arr;
 }
