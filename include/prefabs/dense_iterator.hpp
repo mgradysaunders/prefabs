@@ -62,10 +62,10 @@ public:
 
     // Sanity check.
     static_assert(
-            std::is_base_of<
-            std::random_access_iterator_tag,
-            typename std::iterator_traits<T>::iterator_category>::value,
-            "T must be random access");
+        std::is_base_of<
+        std::random_access_iterator_tag,
+        typename std::iterator_traits<T>::iterator_category>::value,
+        "T must be random access");
 
     /**
      * @brief Difference type.
