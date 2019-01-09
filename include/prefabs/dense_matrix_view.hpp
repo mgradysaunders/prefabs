@@ -351,8 +351,7 @@ public:
             is.setstate(std::ios_base::failbit);
             return is;
         }
-        if (arr.size0() > 0 &&
-            arr.size1() > 0) {
+        if (arr.size0() > 0) {
             is >> arr[0];
             for (difference_type i = 1; i < arr.size0(); i++) {
                 if (!(is >> ch) ||
@@ -384,8 +383,7 @@ public:
            std::basic_ostream<C, Ctraits>& os, dense_matrix_view arr)
     {
         os << '[';
-        if (arr.size0() > 0 &&
-            arr.size1() > 0) {
+        if (arr.size0() > 0) {
             os << arr[0];
             for (difference_type i = 1; i < arr.size0(); i++) {
                 os << ',';
