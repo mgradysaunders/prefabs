@@ -62,7 +62,7 @@ namespace pr {
 /**@{*/
 
 /**
- * @name sRGB
+ * @name Color conversion
  */
 /**@{*/
 
@@ -261,13 +261,6 @@ inline std::enable_if_t<
     }};
 }
 
-/**@}*/
-
-/**
- * @name XYZ
- */
-/**@{*/
-
 /**
  * @brief Fit of CIE 1931 X by Wyman et. al.
  *
@@ -330,13 +323,6 @@ inline std::enable_if_t<std::is_floating_point<T>::value, T> wymanz(T um)
     return T(1.217) * pr::exp(T(-0.5) * t1 * t1) +
            T(0.681) * pr::exp(T(-0.5) * t2 * t2);
 }
-
-/**@}*/
-
-/**
- * @name XYZ/RGB
- */
-/**@{*/
 
 /**
  * @brief XYZ triple to RGB triple.
@@ -460,13 +446,6 @@ inline std::enable_if_t<
     m[2] = a[2] * s;
     return m;
 }
-
-/**@}*/
-
-/**
- * @name XYZ/Lab
- */
-/**@{*/
 
 /**
  * @brief XYZ triple to Lab triple.
@@ -594,7 +573,7 @@ inline std::enable_if_t<
 /**@}*/
 
 /**
- * @name Alpha
+ * @name Alpha compositing
  */
 /**@{*/
 
@@ -669,13 +648,6 @@ inline std::enable_if_t<
                pr::fstretch<double>(v)));
     }
 }
-
-/**@}*/
-
-/**
- * @name Alpha compositing
- */
-/**@{*/
 
 /**
  * @brief Composite modes.
