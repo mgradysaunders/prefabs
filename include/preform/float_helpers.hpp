@@ -249,18 +249,18 @@ inline std::enable_if_t<
                        std::is_unsigned<U>::value) {
         // Float -> Unorm.
         return 
-            static_cast<U>(
+            static_cast<U>(pr::round(
             static_cast<double>(pr::numeric_limits<U>::max()) * 
-            static_cast<double>(pr::fclamp(x, T(0), T(1))));
+            static_cast<double>(pr::fclamp(x, T(0), T(1)))));
     }
     else if constexpr (std::is_floating_point<T>::value &&
                        std::is_integral<U>::value) {
         // Float -> Snorm.
         return
-            static_cast<U>(
+            static_cast<U>(pr::round(
             static_cast<double>(pr::numeric_limits<U>::max()) * 
             static_cast<double>(pr::fclamp(x, T(-1), T(1) - 
-                                pr::numeric_limits<T>::machine_epsilon())));
+                                pr::numeric_limits<T>::machine_epsilon()))));
     }
     else if constexpr (std::is_unsigned<T>::value &&
                        std::is_floating_point<U>::value) {
