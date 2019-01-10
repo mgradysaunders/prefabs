@@ -544,6 +544,75 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9da81c2f9a1e2b513355e3cac89181ed"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; T, N &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aabb.html#ga9da81c2f9a1e2b513355e3cac89181ed">operator &amp;=</a> (<a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; T, N &gt; &amp;box, const U &amp;any)</td></tr>
 <tr class="memdesc:ga9da81c2f9a1e2b513355e3cac89181ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic <code>operator&amp;=</code>.  <a href="group__aabb.html#ga9da81c2f9a1e2b513355e3cac89181ed">More...</a><br /></td></tr>
 <tr class="separator:ga9da81c2f9a1e2b513355e3cac89181ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">sRGB</div></td></tr>
+<tr class="memitem:ga6fd93c91d0247d84a9955937b54494b3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga6fd93c91d0247d84a9955937b54494b3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga6fd93c91d0247d84a9955937b54494b3">srgbenc</a> (T v)</td></tr>
+<tr class="memdesc:ga6fd93c91d0247d84a9955937b54494b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode linear RGB as sRGB.  <a href="group__color.html#ga6fd93c91d0247d84a9955937b54494b3">More...</a><br /></td></tr>
+<tr class="separator:ga6fd93c91d0247d84a9955937b54494b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7b41e8a235cf99e55c075647c9267cfa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga7b41e8a235cf99e55c075647c9267cfa"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga7b41e8a235cf99e55c075647c9267cfa">srgbenc</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga7b41e8a235cf99e55c075647c9267cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode linear RGB as sRGB.  <a href="group__color.html#ga7b41e8a235cf99e55c075647c9267cfa">More...</a><br /></td></tr>
+<tr class="separator:ga7b41e8a235cf99e55c075647c9267cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99ec9969d08b8213278bcde8b35e7bbb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga99ec9969d08b8213278bcde8b35e7bbb"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, 4 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga99ec9969d08b8213278bcde8b35e7bbb">srgbenc</a> (const multi&lt; T, 4 &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga99ec9969d08b8213278bcde8b35e7bbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode linear RGB as sRGB.  <a href="group__color.html#ga99ec9969d08b8213278bcde8b35e7bbb">More...</a><br /></td></tr>
+<tr class="separator:ga99ec9969d08b8213278bcde8b35e7bbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga14b69651e661aa1f4953f170b10baabd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga14b69651e661aa1f4953f170b10baabd"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga14b69651e661aa1f4953f170b10baabd">srgbdec</a> (T v)</td></tr>
+<tr class="memdesc:ga14b69651e661aa1f4953f170b10baabd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode linear RGB from sRGB.  <a href="group__color.html#ga14b69651e661aa1f4953f170b10baabd">More...</a><br /></td></tr>
+<tr class="separator:ga14b69651e661aa1f4953f170b10baabd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac1a3c63881e9fc3ae4735f765d06f500"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac1a3c63881e9fc3ae4735f765d06f500"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#gac1a3c63881e9fc3ae4735f765d06f500">srgbdec</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
+<tr class="memdesc:gac1a3c63881e9fc3ae4735f765d06f500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode linear RGB from sRGB.  <a href="group__color.html#gac1a3c63881e9fc3ae4735f765d06f500">More...</a><br /></td></tr>
+<tr class="separator:gac1a3c63881e9fc3ae4735f765d06f500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0b57a4f739fbf8b9a1edb968fafe9e7f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga0b57a4f739fbf8b9a1edb968fafe9e7f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, 4 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga0b57a4f739fbf8b9a1edb968fafe9e7f">srgbdec</a> (const multi&lt; T, 4 &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga0b57a4f739fbf8b9a1edb968fafe9e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode linear RGB from sRGB.  <a href="group__color.html#ga0b57a4f739fbf8b9a1edb968fafe9e7f">More...</a><br /></td></tr>
+<tr class="separator:ga0b57a4f739fbf8b9a1edb968fafe9e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">XYZ</div></td></tr>
+<tr class="memitem:ga8b52173e19bfdbc4b8d542fa10d36a31"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga8b52173e19bfdbc4b8d542fa10d36a31"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga8b52173e19bfdbc4b8d542fa10d36a31">wymanx</a> (T um)</td></tr>
+<tr class="memdesc:ga8b52173e19bfdbc4b8d542fa10d36a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fit of CIE 1931 X by Wyman et. al.  <a href="group__color.html#ga8b52173e19bfdbc4b8d542fa10d36a31">More...</a><br /></td></tr>
+<tr class="separator:ga8b52173e19bfdbc4b8d542fa10d36a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19ec0f79c52f0d8abaaad5c58863ec9b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga19ec0f79c52f0d8abaaad5c58863ec9b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga19ec0f79c52f0d8abaaad5c58863ec9b">wymany</a> (T um)</td></tr>
+<tr class="memdesc:ga19ec0f79c52f0d8abaaad5c58863ec9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fit of CIE 1931 Y by Wyman et. al.  <a href="group__color.html#ga19ec0f79c52f0d8abaaad5c58863ec9b">More...</a><br /></td></tr>
+<tr class="separator:ga19ec0f79c52f0d8abaaad5c58863ec9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7fa3060c649d2427868bf9cce275f8c6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga7fa3060c649d2427868bf9cce275f8c6"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga7fa3060c649d2427868bf9cce275f8c6">wymanz</a> (T um)</td></tr>
+<tr class="memdesc:ga7fa3060c649d2427868bf9cce275f8c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fit of CIE 1931 Z by Wyman et. al.  <a href="group__color.html#ga7fa3060c649d2427868bf9cce275f8c6">More...</a><br /></td></tr>
+<tr class="separator:ga7fa3060c649d2427868bf9cce275f8c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">XYZ/RGB</div></td></tr>
+<tr class="memitem:ga16fb0557f89adecff79f82d6b24d368f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga16fb0557f89adecff79f82d6b24d368f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga16fb0557f89adecff79f82d6b24d368f">xyztorgb</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga16fb0557f89adecff79f82d6b24d368f"><td class="mdescLeft">&#160;</td><td class="mdescRight">XYZ triple to RGB triple.  <a href="group__color.html#ga16fb0557f89adecff79f82d6b24d368f">More...</a><br /></td></tr>
+<tr class="separator:ga16fb0557f89adecff79f82d6b24d368f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga73b50f493f77b11fecb8860e1d73f351"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga73b50f493f77b11fecb8860e1d73f351"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga73b50f493f77b11fecb8860e1d73f351">rgbtoxyz</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga73b50f493f77b11fecb8860e1d73f351"><td class="mdescLeft">&#160;</td><td class="mdescRight">RGB triple to XYZ triple.  <a href="group__color.html#ga73b50f493f77b11fecb8860e1d73f351">More...</a><br /></td></tr>
+<tr class="separator:ga73b50f493f77b11fecb8860e1d73f351"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga78bb6816b92a84fb48fcfcc00b60a598"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga78bb6816b92a84fb48fcfcc00b60a598"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga78bb6816b92a84fb48fcfcc00b60a598">rgbtoxyz</a> (const multi&lt; T, 2 &gt; &amp;cr, const multi&lt; T, 2 &gt; &amp;cg, const multi&lt; T, 2 &gt; &amp;cb, const multi&lt; T, 3 &gt; &amp;w)</td></tr>
+<tr class="memdesc:ga78bb6816b92a84fb48fcfcc00b60a598"><td class="mdescLeft">&#160;</td><td class="mdescRight">RGB to XYZ conversion matrix.  <a href="group__color.html#ga78bb6816b92a84fb48fcfcc00b60a598">More...</a><br /></td></tr>
+<tr class="separator:ga78bb6816b92a84fb48fcfcc00b60a598"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">XYZ/Lab</div></td></tr>
+<tr class="memitem:gae49beaf7bd690269c1b2f360e679e479"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae49beaf7bd690269c1b2f360e679e479"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#gae49beaf7bd690269c1b2f360e679e479">xyztolab</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
+<tr class="memdesc:gae49beaf7bd690269c1b2f360e679e479"><td class="mdescLeft">&#160;</td><td class="mdescRight">XYZ triple to Lab triple.  <a href="group__color.html#gae49beaf7bd690269c1b2f360e679e479">More...</a><br /></td></tr>
+<tr class="separator:gae49beaf7bd690269c1b2f360e679e479"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga09ea7e7ab04b535c4e8c361fdf37bfed"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga09ea7e7ab04b535c4e8c361fdf37bfed"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga09ea7e7ab04b535c4e8c361fdf37bfed">labtoxyz</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga09ea7e7ab04b535c4e8c361fdf37bfed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lab triple to XYZ triple.  <a href="group__color.html#ga09ea7e7ab04b535c4e8c361fdf37bfed">More...</a><br /></td></tr>
+<tr class="separator:ga09ea7e7ab04b535c4e8c361fdf37bfed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Alpha</div></td></tr>
+<tr class="memitem:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
+<tr class="memitem:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga3c3b565c08cd5b2f5f8a2fe20a967f4f">premultiply</a> (const multi&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Premultiply.  <a href="group__color.html#ga3c3b565c08cd5b2f5f8a2fe20a967f4f">More...</a><br /></td></tr>
+<tr class="separator:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga43316a39287860d63001822fc941bf80"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
+<tr class="memitem:ga43316a39287860d63001822fc941bf80"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga43316a39287860d63001822fc941bf80">unpremultiply</a> (const multi&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga43316a39287860d63001822fc941bf80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unpremultiply.  <a href="group__color.html#ga43316a39287860d63001822fc941bf80">More...</a><br /></td></tr>
+<tr class="separator:ga43316a39287860d63001822fc941bf80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Binary operators (dense_matrix_view/dense_matrix_view)</div></td></tr>
 <tr class="memitem:ga57487604e6653e66123df20b5c35fbe8"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
 <tr class="memitem:ga57487604e6653e66123df20b5c35fbe8"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="structpr_1_1dense__matrix__view.html">dense_matrix_view</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dense__matrix__view.html#ga57487604e6653e66123df20b5c35fbe8">operator+=</a> (<a class="el" href="structpr_1_1dense__matrix__view.html">dense_matrix_view</a>&lt; T &gt; &amp;arr, <a class="el" href="structpr_1_1dense__matrix__view.html">dense_matrix_view</a>&lt; U &gt; oth)</td></tr>
@@ -2673,6 +2742,45 @@ Functions</h2></td></tr>
 <tr class="memitem:ga54876f74bf697bbb2f9de4eb4b6f0cb2"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga54876f74bf697bbb2f9de4eb4b6f0cb2">isnormal</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
 <tr class="memdesc:ga54876f74bf697bbb2f9de4eb4b6f0cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">All normal?  <a href="group__quat.html#ga54876f74bf697bbb2f9de4eb4b6f0cb2">More...</a><br /></td></tr>
 <tr class="separator:ga54876f74bf697bbb2f9de4eb4b6f0cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Alpha compositing</h2></td></tr>
+<tr class="memitem:ga09c109ef2e17c54f12210b6f7c805905"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> : int { <br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a49985764b671a5311e5a965232aa2822">composite_src</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a88e41fa78a4ede7267ab31319c90fa2b">composite_dst</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a3ebadb5383f778491c38e1d58c038f94">composite_src_over</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a7b332f4661b1e414e7d2aa5b4cc78938">composite_dst_over</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a328abb8be7e4458c3919eaa5d73f5549">composite_src_in</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a07294bf6abf432562045ad06fcc2f9d7">composite_dst_in</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905aeb9539811ac963c762276b575d01d029">composite_src_out</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a846cf463111e19d45ab224ed28f14583">composite_dst_out</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905ab37c14132715e12e9d857de0e6935dfe">composite_src_atop</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a632a2d1567dc50a46e1ee5995cef9e57">composite_dst_atop</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905ac2d34cbacbc64f2cca216fbd8170180d">composite_xor</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a07318fd5bcc356b6a9df19f1ef18b7f4">composite_add</a>
+<br />
+ }<tr class="memdesc:ga09c109ef2e17c54f12210b6f7c805905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite modes.  <a href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga09c109ef2e17c54f12210b6f7c805905"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga470180292b667ad49c8b4878c96392cb"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
+<tr class="memitem:ga470180292b667ad49c8b4878c96392cb"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga470180292b667ad49c8b4878c96392cb">composite_premul</a> (<a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> mode, const multi&lt; T, N &gt; &amp;vsrc, const multi&lt; T, N &gt; &amp;vdst)</td></tr>
+<tr class="memdesc:ga470180292b667ad49c8b4878c96392cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite via Porter-Duff equation (premultiplied).  <a href="group__color.html#ga470180292b667ad49c8b4878c96392cb">More...</a><br /></td></tr>
+<tr class="separator:ga470180292b667ad49c8b4878c96392cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga432e8791de819ee15c5ad96e8ee2de87"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
+<tr class="memitem:ga432e8791de819ee15c5ad96e8ee2de87"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga432e8791de819ee15c5ad96e8ee2de87">composite</a> (<a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> mode, const multi&lt; T, N &gt; &amp;vsrc, const multi&lt; T, N &gt; &amp;vdst)</td></tr>
+<tr class="memdesc:ga432e8791de819ee15c5ad96e8ee2de87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite via Porter-Duff equation.  <a href="group__color.html#ga432e8791de819ee15c5ad96e8ee2de87">More...</a><br /></td></tr>
+<tr class="separator:ga432e8791de819ee15c5ad96e8ee2de87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.13-->
