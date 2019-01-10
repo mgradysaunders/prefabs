@@ -2,7 +2,7 @@ require 'rake'
 require 'ostruct'
 
 # Project name.
-PROJECT = "prefabs"
+PROJECT = "preform"
 
 # Relevant directories.
 DIR = OpenStruct.new
@@ -206,6 +206,17 @@ HPP
             file.write text
 
             # Close.
+            file.close
+        end
+    end
+
+    task :rename do
+        for fname in Rake::FileList.new(*GLOBS.all)
+            text = File.read fname
+            text.gsub! /PREFABS_/, "PREFORM_"
+            text.gsub! /prefabs\//, "preform/"
+            file = File.open fname, "wb"
+            file.write text
             file.close
         end
     end
