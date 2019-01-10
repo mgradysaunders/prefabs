@@ -573,6 +573,108 @@ inline std::enable_if_t<
 /**@}*/
 
 /**
+ * @brief Composite modes.
+ */
+enum class composite_mode : int
+{
+    /**
+     * @brief Only source.
+     *
+     * - @f$ f_{\text{src}} = 1 @f$
+     * - @f$ f_{\text{dst}} = 0 @f$
+     */
+    src,
+
+    /**
+     * @brief Only destination.
+     *
+     * - @f$ f_{\text{src}} = 0 @f$
+     * - @f$ f_{\text{dst}} = 1 @f$
+     */
+    dst,
+
+    /**
+     * @brief Source over destination.
+     *
+     * - @f$ f_{\text{src}} = 1 @f$
+     * - @f$ f_{\text{dst}} = 1 - \alpha_{\text{src}} @f$
+     */
+    src_over,
+
+    /**
+     * @brief Destination over source.
+     *
+     * - @f$ f_{\text{src}} = 1 - \alpha_{\text{dst}} @f$
+     * - @f$ f_{\text{dst}} = 1 @f$
+     */
+    dst_over,
+
+    /**
+     * @brief Source inside destination.
+     *
+     * - @f$ f_{\text{src}} = \alpha_{\text{dst}} @f$
+     * - @f$ f_{\text{dst}} = 0 @f$
+     */
+    src_in,
+
+    /**
+     * @brief Destination inside source.
+     *
+     * - @f$ f_{\text{src}} = 0 @f$
+     * - @f$ f_{\text{dst}} = \alpha_{\text{src}} @f$
+     */
+    dst_in,
+
+    /**
+     * @brief Source outside destination.
+     *
+     * - @f$ f_{\text{src}} = 1 - \alpha_{\text{dst}} @f$
+     * - @f$ f_{\text{dst}} = 0 @f$
+     */
+    src_out,
+
+    /**
+     * @brief Destination outside source.
+     *
+     * - @f$ f_{\text{src}} = 0 @f$
+     * - @f$ f_{\text{dst}} = 1 - \alpha_{\text{src}} @f$
+     */
+    dst_out,
+
+    /**
+     * @brief Source atop destination.
+     *
+     * - @f$ f_{\text{src}} = \alpha_{\text{dst}} @f$
+     * - @f$ f_{\text{dst}} = 1 - \alpha_{\text{src}} @f$
+     */
+    src_atop,
+
+    /**
+     * @brief Destination atop source.
+     *
+     * - @f$ f_{\text{src}} = 1 - \alpha_{\text{dst}} @f$
+     * - @f$ f_{\text{dst}} = \alpha_{\text{src}} @f$
+     */
+    dst_atop,
+
+    /**
+     * @brief Exclusive or.
+     *
+     * - @f$ f_{\text{src}} = 1 - \alpha_{\text{dst}} @f$
+     * - @f$ f_{\text{dst}} = 1 - \alpha_{\text{src}} @f$
+     */
+    exclusive_or,
+
+    /**
+     * @brief Plus.
+     *
+     * - @f$ f_{\text{src}} = 1 @f$
+     * - @f$ f_{\text{dst}} = 1 @f$
+     */
+    plus
+};
+
+/**
  * @name Alpha compositing
  */
 /**@{*/
@@ -650,108 +752,6 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Composite modes.
- */
-enum composite_mode : int
-{
-    /**
-     * @brief Only source.
-     *
-     * - @f$ f_{\text{src}} = 1 @f$
-     * - @f$ f_{\text{dst}} = 0 @f$
-     */
-    composite_src,
-
-    /**
-     * @brief Only destination.
-     *
-     * - @f$ f_{\text{src}} = 0 @f$
-     * - @f$ f_{\text{dst}} = 1 @f$
-     */
-    composite_dst,
-
-    /**
-     * @brief Source over destination.
-     *
-     * - @f$ f_{\text{src}} = 1 @f$
-     * - @f$ f_{\text{dst}} = 1 - \alpha_{\text{src}} @f$
-     */
-    composite_src_over,
-
-    /**
-     * @brief Destination over source.
-     *
-     * - @f$ f_{\text{src}} = 1 - \alpha_{\text{dst}} @f$
-     * - @f$ f_{\text{dst}} = 1 @f$
-     */
-    composite_dst_over,
-
-    /**
-     * @brief Source inside destination.
-     *
-     * - @f$ f_{\text{src}} = \alpha_{\text{dst}} @f$
-     * - @f$ f_{\text{dst}} = 0 @f$
-     */
-    composite_src_in,
-
-    /**
-     * @brief Destination inside source.
-     *
-     * - @f$ f_{\text{src}} = 0 @f$
-     * - @f$ f_{\text{dst}} = \alpha_{\text{src}} @f$
-     */
-    composite_dst_in,
-
-    /**
-     * @brief Source outside destination.
-     *
-     * - @f$ f_{\text{src}} = 1 - \alpha_{\text{dst}} @f$
-     * - @f$ f_{\text{dst}} = 0 @f$
-     */
-    composite_src_out,
-
-    /**
-     * @brief Destination outside source.
-     *
-     * - @f$ f_{\text{src}} = 0 @f$
-     * - @f$ f_{\text{dst}} = 1 - \alpha_{\text{src}} @f$
-     */
-    composite_dst_out,
-
-    /**
-     * @brief Source atop destination.
-     *
-     * - @f$ f_{\text{src}} = \alpha_{\text{dst}} @f$
-     * - @f$ f_{\text{dst}} = 1 - \alpha_{\text{src}} @f$
-     */
-    composite_src_atop,
-
-    /**
-     * @brief Destination atop source.
-     *
-     * - @f$ f_{\text{src}} = 1 - \alpha_{\text{dst}} @f$
-     * - @f$ f_{\text{dst}} = \alpha_{\text{src}} @f$
-     */
-    composite_dst_atop,
-
-    /**
-     * @brief Exclusive or.
-     *
-     * - @f$ f_{\text{src}} = 1 - \alpha_{\text{dst}} @f$
-     * - @f$ f_{\text{dst}} = 1 - \alpha_{\text{src}} @f$
-     */
-    composite_xor,
-
-    /**
-     * @brief Add.
-     *
-     * - @f$ f_{\text{src}} = 1 @f$
-     * - @f$ f_{\text{dst}} = 1 @f$
-     */
-    composite_add
-};
-
-/**
  * @brief Composite via Porter-Duff equation (premultiplied).
  *
  * @f[
@@ -784,73 +784,73 @@ inline std::enable_if_t<
         T fdst = 0;
         switch (mode) {
             // Only source.
-            case composite_src: 
+            case composite_mode::src: 
                 fsrc = 1;
                 fdst = 0; 
                 break;
 
             // Only destination.
-            case composite_dst:
+            case composite_mode::dst:
                 fsrc = 0; 
                 fdst = 1;
                 break;
 
             // Source over destination.
-            case composite_src_over: 
+            case composite_mode::src_over: 
                 fsrc = 1;
                 fdst = 1 - asrc; 
                 break;
 
             // Destination over source.
-            case composite_dst_over:
+            case composite_mode::dst_over:
                 fsrc = 1 - adst; 
                 fdst = 1;
                 break;
 
             // Source inside destination.
-            case composite_src_in:
+            case composite_mode::src_in:
                 fsrc = adst;
                 fdst = 0; 
                 break;
 
             // Destination inside source.
-            case composite_dst_in: 
+            case composite_mode::dst_in: 
                 fsrc = 0; 
                 fdst = asrc;
                 break;
 
             // Source outside destination.
-            case composite_src_out:
+            case composite_mode::src_out:
                 fsrc = 1 - adst;
                 fdst = 0; 
                 break;
 
             // Destination outside source.
-            case composite_dst_out:
+            case composite_mode::dst_out:
                 fsrc = 0; 
                 fdst = 1 - asrc;
                 break;
 
             // Source atop destination.
-            case composite_src_atop:
+            case composite_mode::src_atop:
                 fsrc = adst;
                 fdst = 1 - asrc; 
                 break;
 
             // Destination atop source.
-            case composite_dst_atop:
+            case composite_mode::dst_atop:
                 fsrc = 1 - adst;
                 fdst = asrc;
                 break;
 
             // Exclusive or.
-            case composite_xor:
+            case composite_mode::exclusive_or:
                 fsrc = 1 - adst;
                 fdst = 1 - asrc; 
                 break;
 
-            // Add.
-            case composite_add:
+            // Plus.
+            case composite_mode::plus:
                 fsrc = 1;
                 fdst = 1; 
                 break;
