@@ -308,6 +308,34 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:ga713f3755abaa3ee29da5faa4664409b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bash format enum.  <a href="group__bash__format.html#ga713f3755abaa3ee29da5faa4664409b5">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:ga713f3755abaa3ee29da5faa4664409b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga09c109ef2e17c54f12210b6f7c805905"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> : int { <br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a25d902c24283ab8cfbac54dfa101ad31">composite_mode::src</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a28e3d688a3c077b887921cea3fb1dbc7">composite_mode::dst</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a98edf09a82f9f7d372c0f5ad3b086f2d">composite_mode::src_over</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a1aba18694a6040ab91044bbdf194f3c3">composite_mode::dst_over</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a09d4f8c30829f2fd90bf48afb352dc92">composite_mode::src_in</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a1fc9c7e6c1b69fa138325c4ea088ae43">composite_mode::dst_in</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a6409e48dcc68d7569afc7e580482e090">composite_mode::src_out</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905ac3930745a6db9c3173280dad04568b26">composite_mode::dst_out</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a1a9af792f978f2350307f7fa85f621ba">composite_mode::src_atop</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a7ba2d1903963e07301ed508575c35e75">composite_mode::dst_atop</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a0a511bbf6f4a40f19275a0eaf722513f">composite_mode::exclusive_or</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905ad7d18cfb3a0d8293e2f5d94ea30e04d2">composite_mode::plus</a>
+<br />
+ }<tr class="memdesc:ga09c109ef2e17c54f12210b6f7c805905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite modes.  <a href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga09c109ef2e17c54f12210b6f7c805905"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga436fb0acd392a3993e4589e812796da8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__endian.html#ga436fb0acd392a3993e4589e812796da8">endian</a> { <br />
 &#160;&#160;<a class="el" href="group__endian.html#gga436fb0acd392a3993e4589e812796da8aaae6635e044ac56046b2893a529b5114">endian::little</a>, 
 <br />
@@ -601,6 +629,23 @@ Functions</h2></td></tr>
 <tr class="memitem:ga09ea7e7ab04b535c4e8c361fdf37bfed"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga09ea7e7ab04b535c4e8c361fdf37bfed">labtoxyz</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
 <tr class="memdesc:ga09ea7e7ab04b535c4e8c361fdf37bfed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lab triple to XYZ triple.  <a href="group__color.html#ga09ea7e7ab04b535c4e8c361fdf37bfed">More...</a><br /></td></tr>
 <tr class="separator:ga09ea7e7ab04b535c4e8c361fdf37bfed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Alpha compositing</div></td></tr>
+<tr class="memitem:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
+<tr class="memitem:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga3c3b565c08cd5b2f5f8a2fe20a967f4f">premultiply</a> (const multi&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Premultiply.  <a href="group__color.html#ga3c3b565c08cd5b2f5f8a2fe20a967f4f">More...</a><br /></td></tr>
+<tr class="separator:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga43316a39287860d63001822fc941bf80"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
+<tr class="memitem:ga43316a39287860d63001822fc941bf80"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga43316a39287860d63001822fc941bf80">unpremultiply</a> (const multi&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga43316a39287860d63001822fc941bf80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unpremultiply.  <a href="group__color.html#ga43316a39287860d63001822fc941bf80">More...</a><br /></td></tr>
+<tr class="separator:ga43316a39287860d63001822fc941bf80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga470180292b667ad49c8b4878c96392cb"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
+<tr class="memitem:ga470180292b667ad49c8b4878c96392cb"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga470180292b667ad49c8b4878c96392cb">composite_premul</a> (<a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> mode, const multi&lt; T, N &gt; &amp;vsrc, const multi&lt; T, N &gt; &amp;vdst)</td></tr>
+<tr class="memdesc:ga470180292b667ad49c8b4878c96392cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite via Porter-Duff equation (premultiplied).  <a href="group__color.html#ga470180292b667ad49c8b4878c96392cb">More...</a><br /></td></tr>
+<tr class="separator:ga470180292b667ad49c8b4878c96392cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga432e8791de819ee15c5ad96e8ee2de87"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
+<tr class="memitem:ga432e8791de819ee15c5ad96e8ee2de87"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga432e8791de819ee15c5ad96e8ee2de87">composite</a> (<a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> mode, const multi&lt; T, N &gt; &amp;vsrc, const multi&lt; T, N &gt; &amp;vdst)</td></tr>
+<tr class="memdesc:ga432e8791de819ee15c5ad96e8ee2de87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite via Porter-Duff equation.  <a href="group__color.html#ga432e8791de819ee15c5ad96e8ee2de87">More...</a><br /></td></tr>
+<tr class="separator:ga432e8791de819ee15c5ad96e8ee2de87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Binary operators (dense_matrix_view/dense_matrix_view)</div></td></tr>
 <tr class="memitem:ga57487604e6653e66123df20b5c35fbe8"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
 <tr class="memitem:ga57487604e6653e66123df20b5c35fbe8"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="structpr_1_1dense__matrix__view.html">dense_matrix_view</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__dense__matrix__view.html#ga57487604e6653e66123df20b5c35fbe8">operator+=</a> (<a class="el" href="structpr_1_1dense__matrix__view.html">dense_matrix_view</a>&lt; T &gt; &amp;arr, <a class="el" href="structpr_1_1dense__matrix__view.html">dense_matrix_view</a>&lt; U &gt; oth)</td></tr>
@@ -2730,53 +2775,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga54876f74bf697bbb2f9de4eb4b6f0cb2"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga54876f74bf697bbb2f9de4eb4b6f0cb2">isnormal</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
 <tr class="memdesc:ga54876f74bf697bbb2f9de4eb4b6f0cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">All normal?  <a href="group__quat.html#ga54876f74bf697bbb2f9de4eb4b6f0cb2">More...</a><br /></td></tr>
 <tr class="separator:ga54876f74bf697bbb2f9de4eb4b6f0cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Alpha compositing</h2></td></tr>
-<tr class="memitem:ga09c109ef2e17c54f12210b6f7c805905"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> : int { <br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a49985764b671a5311e5a965232aa2822">composite_src</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a88e41fa78a4ede7267ab31319c90fa2b">composite_dst</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a3ebadb5383f778491c38e1d58c038f94">composite_src_over</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a7b332f4661b1e414e7d2aa5b4cc78938">composite_dst_over</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a328abb8be7e4458c3919eaa5d73f5549">composite_src_in</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a07294bf6abf432562045ad06fcc2f9d7">composite_dst_in</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905aeb9539811ac963c762276b575d01d029">composite_src_out</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a846cf463111e19d45ab224ed28f14583">composite_dst_out</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905ab37c14132715e12e9d857de0e6935dfe">composite_src_atop</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a632a2d1567dc50a46e1ee5995cef9e57">composite_dst_atop</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905ac2d34cbacbc64f2cca216fbd8170180d">composite_xor</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a07318fd5bcc356b6a9df19f1ef18b7f4">composite_add</a>
-<br />
- }<tr class="memdesc:ga09c109ef2e17c54f12210b6f7c805905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite modes.  <a href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ga09c109ef2e17c54f12210b6f7c805905"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
-<tr class="memitem:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga3c3b565c08cd5b2f5f8a2fe20a967f4f">premultiply</a> (const multi&lt; T, N &gt; &amp;v)</td></tr>
-<tr class="memdesc:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Premultiply.  <a href="group__color.html#ga3c3b565c08cd5b2f5f8a2fe20a967f4f">More...</a><br /></td></tr>
-<tr class="separator:ga3c3b565c08cd5b2f5f8a2fe20a967f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga43316a39287860d63001822fc941bf80"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
-<tr class="memitem:ga43316a39287860d63001822fc941bf80"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga43316a39287860d63001822fc941bf80">unpremultiply</a> (const multi&lt; T, N &gt; &amp;v)</td></tr>
-<tr class="memdesc:ga43316a39287860d63001822fc941bf80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unpremultiply.  <a href="group__color.html#ga43316a39287860d63001822fc941bf80">More...</a><br /></td></tr>
-<tr class="separator:ga43316a39287860d63001822fc941bf80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga470180292b667ad49c8b4878c96392cb"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
-<tr class="memitem:ga470180292b667ad49c8b4878c96392cb"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga470180292b667ad49c8b4878c96392cb">composite_premul</a> (<a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> mode, const multi&lt; T, N &gt; &amp;vsrc, const multi&lt; T, N &gt; &amp;vdst)</td></tr>
-<tr class="memdesc:ga470180292b667ad49c8b4878c96392cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite via Porter-Duff equation (premultiplied).  <a href="group__color.html#ga470180292b667ad49c8b4878c96392cb">More...</a><br /></td></tr>
-<tr class="separator:ga470180292b667ad49c8b4878c96392cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga432e8791de819ee15c5ad96e8ee2de87"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
-<tr class="memitem:ga432e8791de819ee15c5ad96e8ee2de87"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, N &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga432e8791de819ee15c5ad96e8ee2de87">composite</a> (<a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> mode, const multi&lt; T, N &gt; &amp;vsrc, const multi&lt; T, N &gt; &amp;vdst)</td></tr>
-<tr class="memdesc:ga432e8791de819ee15c5ad96e8ee2de87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite via Porter-Duff equation.  <a href="group__color.html#ga432e8791de819ee15c5ad96e8ee2de87">More...</a><br /></td></tr>
-<tr class="separator:ga432e8791de819ee15c5ad96e8ee2de87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.13-->

@@ -48,8 +48,7 @@ var menudata={children:[
 {text:"w",url:"namespacemembers_func_w.html#index_w"},
 {text:"x",url:"namespacemembers_func_x.html#index_x"}]},
 {text:"Typedefs",url:"namespacemembers_type.html"},
-{text:"Enumerations",url:"namespacemembers_enum.html"},
-{text:"Enumerator",url:"namespacemembers_eval.html"}]}]},
+{text:"Enumerations",url:"namespacemembers_enum.html"}]}]},
 {text:"Classes",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},
 {text:"Class Index",url:"classes.html"},
