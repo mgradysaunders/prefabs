@@ -551,6 +551,8 @@ public:
 
 } // namespace pr
 
+#if !DOXYGEN
 #include "dense_vector_view.inl"
+#endif // #if !DOXYGEN
 
 #endif // #ifndef PREFORM_DENSE_VECTOR_VIEW_HPP

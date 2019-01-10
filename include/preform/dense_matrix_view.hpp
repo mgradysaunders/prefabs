@@ -401,6 +401,8 @@ public:
 
 } // namespace pr
 
+#if !DOXYGEN
 #include "dense_matrix_view.inl"
+#endif // #if !DOXYGEN
 
 #endif // #ifndef PREFORM_DENSE_MATRIX_VIEW_HPP
