@@ -28,12 +28,12 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201703L)
-#error "preform/float_bounds.hpp requires >=C++17"
+#error "preform/float_interval.hpp requires >=C++17"
 #endif // #if !(__cplusplus >= 201703L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_FLOAT_BOUNDS_HPP
-#define PREFORM_FLOAT_BOUNDS_HPP
+#ifndef PREFORM_FLOAT_INTERVAL_HPP
+#define PREFORM_FLOAT_INTERVAL_HPP
 
 // for assert
 #include <cassert>
@@ -53,19 +53,19 @@
 namespace pr {
 
 /**
- * @defgroup float_bounds Float bounds
+ * @defgroup float_interval Float interval
  *
- * `<preform/float_bounds.hpp>`
+ * `<preform/float_interval.hpp>`
  *
  * __C++ version__: >=C++17
  */
 /**@{*/
 
 /**
- * @brief Float bounds.
+ * @brief Float interval.
  */
 template <typename T>
-class float_bounds
+class float_interval
 {
 public:
 
@@ -82,7 +82,7 @@ public:
     /**
      * @brief Default constructor.
      */
-    float_bounds() = default;
+    float_interval() = default;
 
     /**
      * @brief Constructor.
@@ -90,7 +90,7 @@ public:
      * @param[in] x
      * @f$ x @f$, value.
      */
-    float_bounds(T x) : 
+    float_interval(T x) : 
             x_(x), 
             x0_(x), 
             x1_(x)
@@ -109,7 +109,7 @@ public:
      * @param[in] x1
      * @f$ x_1 @f$, upper bound.
      */
-    float_bounds(T x, T x0, T x1) :
+    float_interval(T x, T x0, T x1) :
             x_(x),
             x0_(x0),
             x1_(x1)
@@ -182,7 +182,7 @@ public:
         bool inclusive0 = true,
         bool inclusive1 = false
         >
-    bool overlaps(const float_bounds& oth) const
+    bool overlaps(const float_interval& oth) const
     {
         if constexpr (inclusive0 && inclusive1) {
             // Both inclusive.
@@ -213,7 +213,7 @@ public:
         bool inclusive0 = true,
         bool inclusive1 = false
         >
-    bool contains(const float_bounds& oth) const
+    bool contains(const float_interval& oth) const
     {
         if constexpr (inclusive0 && inclusive1) {
             // Both inclusive.
@@ -271,7 +271,7 @@ public:
     template <typename C, typename Ctraits>
     friend
     inline std::basic_istream<C, Ctraits>& operator>>(
-           std::basic_istream<C, Ctraits>& is, float_bounds& b)
+           std::basic_istream<C, Ctraits>& is, float_interval& b)
     {
         C ch;
         if (!(is >> ch) ||
@@ -282,7 +282,7 @@ public:
                 is.setstate(std::ios_base::failbit);
                 return is;
             }
-            b = float_bounds(x);
+            b = float_interval(x);
             return is;
         }
         T x;
@@ -321,7 +321,7 @@ public:
             is.setstate(std::ios_base::failbit);
             return is;
         }
-        b = float_bounds(x, x0, x1);
+        b = float_interval(x, x0, x1);
         return is;
     }
 
@@ -333,7 +333,7 @@ public:
     template <typename C, typename Ctraits>
     friend
     inline std::basic_ostream<C, Ctraits>& operator<<(
-           std::basic_ostream<C, Ctraits>& os, const float_bounds& b)
+           std::basic_ostream<C, Ctraits>& os, const float_interval& b)
     {
         os << '(' << b.x_ << ',';
         os << '[' << b.x0_ << ',' << b.x1_ << ']';
@@ -345,7 +345,7 @@ public:
 };
 
 /**
- * @name Unary operators (float_bounds)
+ * @name Unary operators (float_interval)
  */
 /**@{*/
 
@@ -358,7 +358,7 @@ public:
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator+(const float_bounds<T>& b)
+inline float_interval<T> operator+(const float_interval<T>& b)
 {
     return b;
 }
@@ -372,7 +372,7 @@ inline float_bounds<T> operator+(const float_bounds<T>& b)
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator-(const float_bounds<T>& b)
+inline float_interval<T> operator-(const float_interval<T>& b)
 {
     return {
         -b.value(),
@@ -384,7 +384,7 @@ inline float_bounds<T> operator-(const float_bounds<T>& b)
 /**@}*/
 
 /**
- * @name Binary operators (float_bounds/float_bounds)
+ * @name Binary operators (float_interval/float_interval)
  */
 /**@{*/
 
@@ -400,9 +400,9 @@ inline float_bounds<T> operator-(const float_bounds<T>& b)
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator+(
-                const float_bounds<T>& b0,
-                const float_bounds<T>& b1)
+inline float_interval<T> operator+(
+                const float_interval<T>& b0,
+                const float_interval<T>& b1)
 {
     return {
         b0.value() + b1.value(),
@@ -423,9 +423,9 @@ inline float_bounds<T> operator+(
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator-(
-                const float_bounds<T>& b0,
-                const float_bounds<T>& b1)
+inline float_interval<T> operator-(
+                const float_interval<T>& b0,
+                const float_interval<T>& b1)
 {
     return {
         b0.value() - b1.value(),
@@ -449,9 +449,9 @@ inline float_bounds<T> operator-(
  * @f]
  */
 template <typename T>
-inline float_bounds<T> operator*(
-                const float_bounds<T>& b0,
-                const float_bounds<T>& b1)
+inline float_interval<T> operator*(
+                const float_interval<T>& b0,
+                const float_interval<T>& b1)
 {
     T tmp[] = {
         b0.lower_bound() * b1.lower_bound(),
@@ -481,9 +481,9 @@ inline float_bounds<T> operator*(
  * @f]
  */
 template <typename T>
-inline float_bounds<T> operator/(
-                const float_bounds<T>& b0,
-                const float_bounds<T>& b1)
+inline float_interval<T> operator/(
+                const float_interval<T>& b0,
+                const float_interval<T>& b1)
 {
     // Denominator contains zero?
     if (b1.lower_bound() <= T(0) &&
@@ -511,7 +511,7 @@ inline float_bounds<T> operator/(
 /**@}*/
 
 /**
- * @name Binary operators (float_bounds/float)
+ * @name Binary operators (float_interval/float)
  */
 /**@{*/
 
@@ -520,9 +520,9 @@ inline float_bounds<T> operator/(
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator+(const float_bounds<T>& b0, T b1)
+inline float_interval<T> operator+(const float_interval<T>& b0, T b1)
 {
-    return b0 + float_bounds<T>(b1);
+    return b0 + float_interval<T>(b1);
 }
 
 /**
@@ -530,9 +530,9 @@ inline float_bounds<T> operator+(const float_bounds<T>& b0, T b1)
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator-(const float_bounds<T>& b0, T b1)
+inline float_interval<T> operator-(const float_interval<T>& b0, T b1)
 {
-    return b0 - float_bounds<T>(b1);
+    return b0 - float_interval<T>(b1);
 }
 
 /**
@@ -540,9 +540,9 @@ inline float_bounds<T> operator-(const float_bounds<T>& b0, T b1)
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator*(const float_bounds<T>& b0, T b1)
+inline float_interval<T> operator*(const float_interval<T>& b0, T b1)
 {
-    return b0 * float_bounds<T>(b1);
+    return b0 * float_interval<T>(b1);
 }
 
 /**
@@ -550,15 +550,15 @@ inline float_bounds<T> operator*(const float_bounds<T>& b0, T b1)
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator/(const float_bounds<T>& b0, T b1)
+inline float_interval<T> operator/(const float_interval<T>& b0, T b1)
 {
-    return b0 / float_bounds<T>(b1);
+    return b0 / float_interval<T>(b1);
 }
 
 /**@}*/
 
 /**
- * @name Binary operators (float/float_bounds)
+ * @name Binary operators (float/float_interval)
  */
 /**@{*/
 
@@ -567,9 +567,9 @@ inline float_bounds<T> operator/(const float_bounds<T>& b0, T b1)
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator+(T b0, const float_bounds<T>& b1)
+inline float_interval<T> operator+(T b0, const float_interval<T>& b1)
 {
-    return float_bounds<T>(b0) + b1;
+    return float_interval<T>(b0) + b1;
 }
 
 /**
@@ -577,9 +577,9 @@ inline float_bounds<T> operator+(T b0, const float_bounds<T>& b1)
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator-(T b0, const float_bounds<T>& b1)
+inline float_interval<T> operator-(T b0, const float_interval<T>& b1)
 {
-    return float_bounds<T>(b0) - b1;
+    return float_interval<T>(b0) - b1;
 }
 
 /**
@@ -587,9 +587,9 @@ inline float_bounds<T> operator-(T b0, const float_bounds<T>& b1)
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator*(T b0, const float_bounds<T>& b1)
+inline float_interval<T> operator*(T b0, const float_interval<T>& b1)
 {
-    return float_bounds<T>(b0) * b1;
+    return float_interval<T>(b0) * b1;
 }
 
 /**
@@ -597,15 +597,15 @@ inline float_bounds<T> operator*(T b0, const float_bounds<T>& b1)
  */
 template <typename T>
 __attribute__((always_inline))
-inline float_bounds<T> operator/(T b0, const float_bounds<T>& b1)
+inline float_interval<T> operator/(T b0, const float_interval<T>& b1)
 {
-    return float_bounds<T>(b0) / b1;
+    return float_interval<T>(b0) / b1;
 }
 
 /**@}*/
 
 /**
- * @name Binary operators (float_bounds/any)
+ * @name Binary operators (float_interval/any)
  */
 /**@{*/
 
@@ -614,7 +614,7 @@ inline float_bounds<T> operator/(T b0, const float_bounds<T>& b1)
  */
 template <typename T, typename U>
 __attribute__((always_inline))
-inline float_bounds<T>& operator+=(float_bounds<T>& b, const U& any)
+inline float_interval<T>& operator+=(float_interval<T>& b, const U& any)
 {
     return b = b + any;
 }
@@ -624,7 +624,7 @@ inline float_bounds<T>& operator+=(float_bounds<T>& b, const U& any)
  */
 template <typename T, typename U>
 __attribute__((always_inline))
-inline float_bounds<T>& operator-=(float_bounds<T>& b, const U& any)
+inline float_interval<T>& operator-=(float_interval<T>& b, const U& any)
 {
     return b = b - any;
 }
@@ -634,7 +634,7 @@ inline float_bounds<T>& operator-=(float_bounds<T>& b, const U& any)
  */
 template <typename T, typename U>
 __attribute__((always_inline))
-inline float_bounds<T>& operator*=(float_bounds<T>& b, const U& any)
+inline float_interval<T>& operator*=(float_interval<T>& b, const U& any)
 {
     return b = b * any;
 }
@@ -644,7 +644,7 @@ inline float_bounds<T>& operator*=(float_bounds<T>& b, const U& any)
  */
 template <typename T, typename U>
 __attribute__((always_inline))
-inline float_bounds<T>& operator/=(float_bounds<T>& b, const U& any)
+inline float_interval<T>& operator/=(float_interval<T>& b, const U& any)
 {
     return b = b / any;
 }
@@ -652,7 +652,7 @@ inline float_bounds<T>& operator/=(float_bounds<T>& b, const U& any)
 /**@}*/
 
 /**
- * @name Math (float_bounds)
+ * @name Math (float_interval)
  */
 /**@{*/
 
@@ -660,7 +660,7 @@ inline float_bounds<T>& operator/=(float_bounds<T>& b, const U& any)
  * @brief Bound `pr::fabs()`.
  */
 template <typename T>
-inline float_bounds<T> fabs(const float_bounds<T>& b)
+inline float_interval<T> fabs(const float_interval<T>& b)
 {
     if (b.lower_bound() >= T(0)) {
         return +b;
@@ -681,7 +681,7 @@ inline float_bounds<T> fabs(const float_bounds<T>& b)
  * @brief Bound `pr::sqrt()`.
  */
 template <typename T>
-inline float_bounds<T> sqrt(const float_bounds<T>& b)
+inline float_interval<T> sqrt(const float_interval<T>& b)
 {
     return {
         pr::sqrt(b.value()),
@@ -696,4 +696,4 @@ inline float_bounds<T> sqrt(const float_bounds<T>& b)
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_FLOAT_BOUNDS_HPP
+#endif // #ifndef PREFORM_FLOAT_INTERVAL_HPP
