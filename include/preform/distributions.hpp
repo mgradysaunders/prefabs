@@ -35,7 +35,32 @@
 #ifndef PREFORM_DISTRIBUTIONS_HPP
 #define PREFORM_DISTRIBUTIONS_HPP
 
+// for std::min, std::max, std::copy, ...
+#include <algorithm>
+
+// for assert
+#include <cassert>
+
+// for std::allocator
+#include <memory>
+
+// for std::string
+#include <string>
+
+// for std::invalid_argument
+#include <stdexcept>
+
+// for pr::numeric_limits, pr::log2, ...
 #include <preform/math.hpp>
+
+// for pr::neumaier_sum
+#include <preform/neumaier_sum.hpp>
+
+// for pr::lerp
+#include <preform/interp.hpp>
+
+// for pr::range
+#include <preform/range.hpp>
 
 namespace pr {
 
@@ -595,9 +620,821 @@ struct loglogistic_distribution : logistic_distribution<T>
     }
 };
 
-// TODO piecewise_constant_distribution
+/**
+ * @brief Piecewise constant distribution.
+ */
+template <
+    typename T = double,
+    typename Talloc = std::allocator<T>
+    >
+class piecewise_constant_distribution
+{
+public:
 
-// TODO piecewise_linear_distribution
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+public:
+
+    /**
+     * @brief Default constructor.
+     */
+    piecewise_constant_distribution() = default;
+
+    /**
+     * @brief Copy constructor.
+     */
+    piecewise_constant_distribution(
+            const piecewise_constant_distribution& other) : 
+                alloc_(other.alloc_)
+            
+    {
+        int n = other.pmf_.size();
+        if (n > 0) {
+            // Allocate.
+            ptr_ = 
+            std::allocator_traits<Talloc>::allocate(
+                alloc_, 
+                2 * n + 1);
+
+            // Copy.
+            std::copy(
+                other.ptr_, 
+                other.ptr_ + 2 * n + 1,
+                ptr_);
+
+            // Make ranges.
+            T* pos0 = ptr_;
+            T* pos1 = pos0 + n;
+            T* pos2 = pos1 + n + 1;
+            pmf_ = pr::make_range(pos0, pos1);
+            cdf_ = pr::make_range(pos1, pos2);
+
+            // Copy weight sum.
+            wsum_ = other.wsum_;
+        }
+    }
+
+    /**
+     * @brief Move constructor.
+     */
+    piecewise_constant_distribution(
+            piecewise_constant_distribution&& other) : 
+                alloc_(std::move(other.alloc_))
+            
+    {
+        int n = other.pmf_.size();
+        if (n > 0) {
+            // Copy pointer.
+            ptr_ = other.ptr_;
+
+            // Make ranges.
+            T* pos0 = ptr_;
+            T* pos1 = pos0 + n;
+            T* pos2 = pos1 + n + 1;
+            pmf_ = pr::make_range(pos0, pos1);
+            cdf_ = pr::make_range(pos1, pos2);
+
+            // Copy weight sum.
+            wsum_ = other.wsum_;
+
+            // Nullify other.
+            other.ptr_ = nullptr;
+            other.pmf_ = pr::range<T*>{};
+            other.cdf_ = pr::range<T*>{};
+            other.wsum_ = T(0);
+        }
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    piecewise_constant_distribution(const Talloc& alloc) : 
+            alloc_(alloc)
+    {
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    piecewise_constant_distribution(Talloc&& alloc) :
+            alloc_(std::move(alloc))
+    {
+    }
+
+    /**
+     * @brief Destructor.
+     */
+    ~piecewise_constant_distribution()
+    {
+        clear();
+    }
+
+public:
+
+    /**
+     * @brief Copy assignment.
+     */
+    piecewise_constant_distribution& operator=(
+            const piecewise_constant_distribution& other)
+    {
+        if (this != &other) {
+
+            // Clear.
+            clear();
+
+            int n = other.pmf_.size();
+            if (n > 0) {
+                // Allocate.
+                ptr_ = 
+                std::allocator_traits<Talloc>::allocate(
+                    alloc_, 
+                    2 * n + 1);
+
+                // Copy.
+                std::copy(
+                    other.ptr_, 
+                    other.ptr_ + 2 * n + 1,
+                    ptr_);
+
+                // Make ranges.
+                T* pos0 = ptr_;
+                T* pos1 = pos0 + n;
+                T* pos2 = pos1 + n + 1;
+                pmf_ = pr::make_range(pos0, pos1);
+                cdf_ = pr::make_range(pos1, pos2);
+
+                // Copy weight sum.
+                wsum_ = other.wsum_;
+            }
+        }
+        return *this;
+    }
+
+    /**
+     * @brief Move assignment.
+     */
+    piecewise_constant_distribution& operator=(
+            piecewise_constant_distribution&& other)
+    {
+        // Clear.
+        clear();
+
+        int n = other.pmf_.size();
+        if (n > 0) {
+            // Copy pointer.
+            ptr_ = other.ptr_;
+
+            // Make ranges.
+            T* pos0 = ptr_;
+            T* pos1 = pos0 + n;
+            T* pos2 = pos1 + n + 1;
+            pmf_ = pr::make_range(pos0, pos1);
+            cdf_ = pr::make_range(pos1, pos2);
+
+            // Copy weight sum.
+            wsum_ = other.wsum_;
+
+            // Nullify other.
+            other.ptr_ = nullptr;
+            other.pmf_ = pr::range<T*>{};
+            other.cdf_ = pr::range<T*>{};
+            other.wsum_ = T(0);
+        }
+        return *this;
+    }
+
+public:
+
+    /**
+     * @brief Initialize.
+     *
+     * TODO math
+     *
+     * TODO exceptions
+     */
+    template <typename Tinput_itr>
+    void init(
+            Tinput_itr wfrom,
+            Tinput_itr wto)
+    {
+        // Clear.
+        clear();
+
+        // Distance.
+        int n = std::distance(wfrom, wto);
+        if (n < 0) {
+            throw 
+                std::invalid_argument(
+                std::string(__PRETTY_FUNCTION__)
+                    .append(": invalid range"));
+        }
+
+        // Allocate.
+        ptr_ = 
+        std::allocator_traits<Talloc>::allocate(
+            alloc_, 
+            2 * n + 1);
+
+        // Make ranges.
+        T* pos0 = ptr_;
+        T* pos1 = pos0 + n;
+        T* pos2 = pos1 + n + 1;
+        pmf_ = pr::make_range(pos0, pos1);
+        cdf_ = pr::make_range(pos1, pos2);
+        
+        // Copy initialize.
+        std::copy(wfrom, wto, pmf_.begin());
+            
+        // Integrate.
+        pr::neumaier_sum<T> wsum(0);
+        cdf_[0] = T(wsum);
+        for (int j = 0; j < n; j++) {
+            cdf_[j + 1] = T(wsum += pmf_[j]);
+
+            // Invalid value?
+            if (!(T(0) <= pmf_[j])) {
+                throw
+                    std::invalid_argument(
+                    std::string(__PRETTY_FUNCTION__)
+                        .append(": invalid value"));
+            }
+        }
+
+        // Normalize.
+        wsum_ = cdf_[n];
+        if (wsum_ != T(0)) {
+            for (int j = 0; j < n; j++) {
+                pmf_[j] /= wsum_;
+            }
+            for (int j = 0; j < n + 1; j++) {
+                cdf_[j] /= wsum_;
+            }
+        }
+    }
+
+    /**
+     * @brief Clear.
+     */
+    void clear()
+    {
+        if (ptr_) {
+            // Deallocate.
+            std::allocator_traits<Talloc>::deallocate(
+                alloc_,
+                ptr_,
+                pmf_.size() +
+                cdf_.size());
+        }
+
+        // Nullify.
+        ptr_ = nullptr;
+        pmf_ = pr::range<T*>{};
+        cdf_ = pr::range<T*>{};
+        wsum_ = T(0);
+    }
+
+public:
+
+    /**
+     * @name Distribution interface
+     */
+    /**@{*/
+
+    /**
+     * @brief Weight sum.
+     *
+     * TODO math
+     */
+    T wsum() const
+    {
+        return wsum_;
+    }
+
+    /**
+     * @brief Probability mass function.
+     *
+     * TODO math
+     */
+    T pmf(int n) const
+    {
+        if (n < 0 ||
+            n >= int(pmf_.size())) {
+            return T(0);
+        }
+        else {
+            return pmf_[n];
+        }
+    }
+
+    /**
+     * @brief Cumulative density function.
+     *
+     * TODO math
+     */
+    T cdf(int n) const
+    {
+        if (n < 0 ||
+            cdf_.empty()) {
+            return T(0);
+        }
+        else {
+            return cdf_[std::min<int>(n, cdf_.size() - 1)];
+        }
+    }
+
+    /**
+     * @brief Cumulative density inverse function.
+     *
+     * TODO math
+     */
+    int cdfinv(T u) const
+    {
+        if ((T(0) <= u && u < T(1))) {
+            return 
+                std::min<int>(pmf_.size(),
+                std::max<int>(1,
+                    std::distance(cdf_.begin(),
+                    std::lower_bound(cdf_.begin(), cdf_.end(), u)))) - 1;
+        }
+        else {
+            return -1;
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    int operator()(G& gen) const
+    {
+        return cdfinv(pr::generate_canonical<T>(gen));
+    }
+
+    /**@}*/
+
+private:
+
+    /**
+     * @brief Pointer.
+     */
+    T* ptr_ = nullptr;
+
+    /**
+     * @brief Range for probability mass function.
+     */
+    mutable pr::range<T*> pmf_;
+
+    /**
+     * @brief Range for cumulative density function.
+     */
+    mutable pr::range<T*> cdf_;
+
+    /**
+     * @brief Weight sum.
+     */
+    T wsum_ = T(0);
+
+    /**
+     * @brief Allocator.
+     */
+    Talloc alloc_ = Talloc();
+};
+
+/**
+ * @brief Piecewise linear distribution.
+ */
+template <
+    typename T = double,
+    typename Talloc = std::allocator<T>
+    >
+class piecewise_linear_distribution
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+public:
+
+    /**
+     * @brief Default constructor.
+     */
+    piecewise_linear_distribution() = default;
+
+    /**
+     * @brief Copy constructor.
+     */
+    piecewise_linear_distribution(
+            const piecewise_linear_distribution& other) : 
+                alloc_(other.alloc_)
+            
+    {
+        int n = other.x_.size();
+        if (n > 0) {
+            // Allocate.
+            ptr_ = 
+            std::allocator_traits<Talloc>::allocate(
+                alloc_, 
+                3 * n);
+
+            // Copy.
+            std::copy(
+                other.ptr_, 
+                other.ptr_ + 3 * n,
+                ptr_);
+
+            // Make ranges.
+            T* pos0 = ptr_;
+            T* pos1 = pos0 + n;
+            T* pos2 = pos1 + n;
+            T* pos3 = pos2 + n;
+            x_ = pr::make_range(pos0, pos1);
+            pdf_ = pr::make_range(pos1, pos2);
+            cdf_ = pr::make_range(pos2, pos3);
+
+            // Copy weight integral.
+            wint_ = other.wint_;
+        }
+    }
+
+    /**
+     * @brief Move constructor.
+     */
+    piecewise_linear_distribution(
+            piecewise_linear_distribution&& other) : 
+                alloc_(std::move(other.alloc_))
+            
+    {
+        int n = other.x_.size();
+        if (n > 0) {
+            // Copy pointer.
+            ptr_ = other.ptr_;
+
+            // Make ranges.
+            T* pos0 = ptr_;
+            T* pos1 = pos0 + n;
+            T* pos2 = pos1 + n;
+            T* pos3 = pos2 + n;
+            x_ = pr::make_range(pos0, pos1);
+            pdf_ = pr::make_range(pos1, pos2);
+            cdf_ = pr::make_range(pos2, pos3);
+
+            // Copy weight integral.
+            wint_ = other.wint_;
+
+            // Nullify other.
+            other.ptr_ = nullptr;
+            other.x_ = pr::range<T*>{};
+            other.pdf_ = pr::range<T*>{};
+            other.cdf_ = pr::range<T*>{};
+            other.wint_ = T(0);
+        }
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    piecewise_linear_distribution(const Talloc& alloc) : 
+            alloc_(alloc)
+    {
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    piecewise_linear_distribution(Talloc&& alloc) :
+            alloc_(std::move(alloc))
+    {
+    }
+
+    /**
+     * @brief Destructor.
+     */
+    ~piecewise_linear_distribution()
+    {
+        clear();
+    }
+
+public:
+
+    /**
+     * @brief Copy assignment.
+     */
+    piecewise_linear_distribution& operator=(
+            const piecewise_linear_distribution& other)
+    {
+        if (this != &other) {
+
+            // Clear.
+            clear();
+
+            int n = other.x_.size();
+            if (n > 0) {
+                // Allocate.
+                ptr_ = 
+                std::allocator_traits<Talloc>::allocate(
+                    alloc_, 
+                    3 * n);
+
+                // Copy.
+                std::copy(
+                    other.ptr_, 
+                    other.ptr_ + 3 * n,
+                    ptr_);
+
+                // Make ranges.
+                T* pos0 = ptr_;
+                T* pos1 = pos0 + n;
+                T* pos2 = pos1 + n;
+                T* pos3 = pos2 + n;
+                x_ = pr::make_range(pos0, pos1);
+                pdf_ = pr::make_range(pos1, pos2);
+                cdf_ = pr::make_range(pos2, pos3);
+
+                // Copy weight integral.
+                wint_ = other.wint_;
+            }
+        }
+        return *this;
+    }
+
+    /**
+     * @brief Move assignment.
+     */
+    piecewise_linear_distribution& operator=(
+            piecewise_linear_distribution&& other)
+    {
+        // Clear.
+        clear();
+
+        int n = other.x_.size();
+        if (n > 0) {
+            // Copy pointer.
+            ptr_ = other.ptr_;
+
+            // Make ranges.
+            T* pos0 = ptr_;
+            T* pos1 = pos0 + n;
+            T* pos2 = pos1 + n;
+            T* pos3 = pos2 + n;
+            x_ = pr::make_range(pos0, pos1);
+            pdf_ = pr::make_range(pos1, pos2);
+            cdf_ = pr::make_range(pos2, pos3);
+
+            // Copy weight integral.
+            wint_ = other.wint_;
+
+            // Nullify other.
+            other.ptr_ = nullptr;
+            other.x_ = pr::range<T*>{};
+            other.pdf_ = pr::range<T*>{};
+            other.cdf_ = pr::range<T*>{};
+            other.wint_ = T(0);
+        }
+        return *this;
+    }
+
+public:
+
+    /**
+     * @brief Initialize.
+     *
+     * TODO math
+     *
+     * TODO exceptions
+     */
+    template <typename Tinput_itr>
+    void init(
+            Tinput_itr xfrom, Tinput_itr xto,
+            Tinput_itr wfrom)
+    {
+        // Clear.
+        clear();
+
+        // Distance.
+        int n = std::distance(xfrom, xto);
+        if (n < 0 || n == 1) {
+            throw
+                std::invalid_argument(
+                std::string(__PRETTY_FUNCTION__)
+                    .append(": invalid range"));
+        }
+
+        // Allocate.
+        ptr_ = 
+        std::allocator_traits<Talloc>::allocate(
+            alloc_, 
+            3 * n);
+
+        // Make ranges.
+        T* pos0 = ptr_;
+        T* pos1 = pos0 + n;
+        T* pos2 = pos1 + n;
+        T* pos3 = pos2 + n;
+        x_ = pr::make_range(pos0, pos1);
+        pdf_ = pr::make_range(pos1, pos2);
+        cdf_ = pr::make_range(pos2, pos3);
+        
+        // Copy initialize.
+        std::copy(xfrom, xto, x_.begin());
+        std::copy(wfrom, std::next(wfrom, n), pdf_.begin());
+
+        for (int j = 0; j < n; j++) {
+            // Invalid value?
+            if (!(T(0) <= pdf_[j]) || 
+                !std::isfinite(x_[j])) {
+                throw 
+                    std::invalid_argument(
+                    std::string(__PRETTY_FUNCTION__)
+                        .append(": invalid value"));
+            }
+        }
+            
+        // Integrate.
+        pr::neumaier_sum<T> wint(0);
+        cdf_[0] = T(wint);
+        for (int j = 0; j + 1 < n; j++) {
+            cdf_[j + 1] = T(wint += T(0.5) * 
+                    (x_[j + 1] - x_[j]) * (pdf_[j + 1] + pdf_[j]));
+
+            // Invalid value?
+            if (!(x_[j] < x_[j + 1])) {
+                throw 
+                    std::invalid_argument(
+                    std::string(__PRETTY_FUNCTION__)
+                        .append(": invalid value"));
+            }
+        }
+
+        // Normalize.
+        wint_ = cdf_[n - 1];
+        if (wint_ != T(0)) {
+            for (int j = 0; j < n; j++) {
+                pdf_[j] /= wint_;
+            }
+            for (int j = 0; j < n; j++) {
+                cdf_[j] /= wint_;
+            }
+        }
+    }
+
+    /**
+     * @brief Clear.
+     */
+    void clear()
+    {
+        if (ptr_) {
+            // Deallocate.
+            std::allocator_traits<Talloc>::deallocate(
+                alloc_,
+                ptr_,
+                x_.size() +
+                pdf_.size() +
+                cdf_.size());
+        }
+
+        // Nullify.
+        ptr_ = nullptr;
+        x_ = pr::range<T*>{};
+        pdf_ = pr::range<T*>{};
+        cdf_ = pr::range<T*>{};
+        wint_ = T(0);
+    }
+
+public:
+
+    /**
+     * @name Distribution interface
+     */
+    /**@{*/
+
+    /**
+     * @brief Weight integral.
+     *
+     * TODO math
+     */
+    T wint() const
+    {
+        return wint_;
+    }
+
+    /**
+     * @brief Probability mass function.
+     *
+     * TODO math
+     */
+    T pdf(T x) const
+    {
+        if (!(x_.size() >= 2) ||
+            !(x >= x_.front() && x < x_.back())) {
+            return 0;
+        }
+        else {
+            int k = 
+            std::distance(x_.begin(),
+            std::lower_bound(x_.begin(), x_.end(), x));
+            assert(k > 0);
+            assert(k < x_.size() + 1);
+            return pr::lerp((x - x_[k - 1]) / 
+                        (x_[k] - x_[k - 1]), pdf_[k - 1], pdf_[k]);
+        }
+    }
+
+    /**
+     * @brief Cumulative density function.
+     *
+     * TODO math
+     */
+    T cdf(T x) const
+    {
+        if (!(x_.size() >= 2) || 
+            !(x >= x_.front())) {
+            return 0;
+        }
+        else if (!(x < x_.back())) {
+            return 1;
+        }
+        else {
+            int k = 
+            std::distance(x_.begin(),
+            std::lower_bound(x_.begin(), x_.end(), x));
+            assert(k > 0);
+            assert(k < x_.size() + 1);
+            return pr::lerp((x - x_[k - 1]) / 
+                        (x_[k] - x_[k - 1]), cdf_[k - 1], cdf_[k]);
+        }
+    }
+
+    /**
+     * @brief Cumulative density inverse function.
+     *
+     * TODO math
+     */
+    T cdfinv(T u) const
+    {
+        if ((T(0) <= u && u < T(1)) && 
+            x_.size() >= 2) {
+            int k = 
+            std::distance(cdf_.begin(),
+            std::lower_bound(cdf_.begin(), cdf_.end(), u));
+            assert(k > 0);
+            assert(k < cdf_.size() + 1);
+            return pr::lerp((u - cdf_[k - 1]) / 
+                      (cdf_[k] - cdf_[k - 1]), x_[k - 1], x_[k]);
+        }
+        else {
+            return pr::numeric_limits<T>::quiet_NaN();
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    T operator()(G& gen) const
+    {
+        return cdfinv(pr::generate_canonical<T>(gen));
+    }
+
+    /**@}*/
+
+private:
+
+    /**
+     * @brief Pointer.
+     */
+    T* ptr_ = nullptr;
+
+    /**
+     * @brief Range for abscissas.
+     */
+    mutable pr::range<T*> x_;
+
+    /**
+     * @brief Range for probability density function.
+     */
+    mutable pr::range<T*> pdf_;
+
+    /**
+     * @brief Range for cumulative density function.
+     */
+    mutable pr::range<T*> cdf_;
+
+    /**
+     * @brief Weight integral.
+     */
+    T wint_ = T(0);
+
+    /**
+     * @brief Allocator.
+     */
+    Talloc alloc_ = Talloc();
+};
 
 /**@}*/
 
