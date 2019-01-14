@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201402L)
+#error "preform/string_helpers.hpp requires >= C++14"
+#endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFORM_STRING_HELPERS_HPP
 #define PREFORM_STRING_HELPERS_HPP
