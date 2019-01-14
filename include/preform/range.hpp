@@ -137,6 +137,22 @@ public:
     }
 
     /**
+     * @brief Front.
+     */
+    constexpr reference front()
+    {
+        return operator[](0);
+    }
+
+    /**
+     * @brief Back.
+     */
+    constexpr reference back()
+    {
+        return operator[](size() - 1);
+    }
+
+    /**
      * @brief Access operator.
      */
     constexpr reference operator[](difference_type pos)
