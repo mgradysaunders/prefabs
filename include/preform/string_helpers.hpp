@@ -67,7 +67,7 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Format print to string.
+ * @brief String from printf.
  */
 template <typename... Targs>
 inline std::string str_printf(const char* fmt, Targs&&... args)
@@ -88,7 +88,7 @@ inline std::string str_printf(const char* fmt, Targs&&... args)
 }
 
 /**
- * @brief Typename to string.
+ * @brief String from typename.
  */
 template <typename T>
 inline std::string str_typename()
