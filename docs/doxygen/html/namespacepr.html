@@ -24,6 +24,7 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
+        lerp: ["\\operatorname{lerp}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
@@ -550,6 +551,26 @@ Functions</h2></td></tr>
 <tr class="memitem:ga129a239e543df4e680d704c10d2e9754"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__string__helpers.html#ga129a239e543df4e680d704c10d2e9754">str_typename</a> ()</td></tr>
 <tr class="memdesc:ga129a239e543df4e680d704c10d2e9754"><td class="mdescLeft">&#160;</td><td class="mdescRight">String from typename.  <a href="group__string__helpers.html#ga129a239e543df4e680d704c10d2e9754">More...</a><br /></td></tr>
 <tr class="separator:ga129a239e543df4e680d704c10d2e9754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga26e86d9e14c342078f3fba1fcb002ce4"><td class="memTemplParams" colspan="2">template&lt;typename T , typename Tforward_itr &gt; </td></tr>
+<tr class="memitem:ga26e86d9e14c342078f3fba1fcb002ce4"><td class="memTemplItemLeft" align="right" valign="top">std::iterator_traits&lt; Tforward_itr &gt;::difference_type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tabulation.html#ga26e86d9e14c342078f3fba1fcb002ce4">table_hunt</a> (const T &amp;t, Tforward_itr tfrom, Tforward_itr tto)</td></tr>
+<tr class="memdesc:ga26e86d9e14c342078f3fba1fcb002ce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find index.  <a href="group__tabulation.html#ga26e86d9e14c342078f3fba1fcb002ce4">More...</a><br /></td></tr>
+<tr class="separator:ga26e86d9e14c342078f3fba1fcb002ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13a86e4b7d48eb7ad31b1978c867b8ff"><td class="memTemplParams" colspan="2">template&lt;typename T , typename Tforward_itr , typename Uforward_itr , typename U  = typename std::iterator_traits&lt;Uforward_itr&gt;::value_type&gt; </td></tr>
+<tr class="memitem:ga13a86e4b7d48eb7ad31b1978c867b8ff"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, decltype(T() *U())&gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tabulation.html#ga13a86e4b7d48eb7ad31b1978c867b8ff">table_lerp1</a> (const T &amp;t, Tforward_itr tfrom, Tforward_itr tto, Uforward_itr ffrom)</td></tr>
+<tr class="memdesc:ga13a86e4b7d48eb7ad31b1978c867b8ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table linear interpolation in 1 dimension.  <a href="group__tabulation.html#ga13a86e4b7d48eb7ad31b1978c867b8ff">More...</a><br /></td></tr>
+<tr class="separator:ga13a86e4b7d48eb7ad31b1978c867b8ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga763b1df432e58275d1b46ec920941c34"><td class="memTemplParams" colspan="2">template&lt;typename T , typename Tforward_itr , typename Uforward_itr , typename U  = typename std::iterator_traits&lt;Uforward_itr&gt;::value_type&gt; </td></tr>
+<tr class="memitem:ga763b1df432e58275d1b46ec920941c34"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, decltype(T() *U())&gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tabulation.html#ga763b1df432e58275d1b46ec920941c34">table_lerp2</a> (const T &amp;s, const T &amp;t, Tforward_itr sfrom, Tforward_itr sto, Tforward_itr tfrom, Tforward_itr tto, Uforward_itr ffrom)</td></tr>
+<tr class="memdesc:ga763b1df432e58275d1b46ec920941c34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table linear interpolation in 2 dimensions.  <a href="group__tabulation.html#ga763b1df432e58275d1b46ec920941c34">More...</a><br /></td></tr>
+<tr class="separator:ga763b1df432e58275d1b46ec920941c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafd6f5ddb47b6c1913b6aef7009c15461"><td class="memTemplParams" colspan="2">template&lt;typename Tforward_itr , typename Toutput_itr , typename T  = typename std::iterator_traits&lt;Toutput_itr&gt;::value_type&gt; </td></tr>
+<tr class="memitem:gafd6f5ddb47b6c1913b6aef7009c15461"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tabulation.html#gafd6f5ddb47b6c1913b6aef7009c15461">table_int1</a> (Tforward_itr tfrom, Tforward_itr tto, Tforward_itr ffrom, Toutput_itr gfrom)</td></tr>
+<tr class="memdesc:gafd6f5ddb47b6c1913b6aef7009c15461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table trapezoidal integration in 1 dimension.  <a href="group__tabulation.html#gafd6f5ddb47b6c1913b6aef7009c15461">More...</a><br /></td></tr>
+<tr class="separator:gafd6f5ddb47b6c1913b6aef7009c15461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga531cc00b6d6ccb1e57b9fd1712e26c1f"><td class="memTemplParams" colspan="2">template&lt;typename Tforward_itr , typename Toutput_itr , typename T  = typename std::iterator_traits&lt;Toutput_itr&gt;::value_type&gt; </td></tr>
+<tr class="memitem:ga531cc00b6d6ccb1e57b9fd1712e26c1f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tabulation.html#ga531cc00b6d6ccb1e57b9fd1712e26c1f">table_sum1</a> (Tforward_itr ffrom, Tforward_itr fto, Toutput_itr gfrom)</td></tr>
+<tr class="memdesc:ga531cc00b6d6ccb1e57b9fd1712e26c1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table summation in 1 dimension.  <a href="group__tabulation.html#ga531cc00b6d6ccb1e57b9fd1712e26c1f">More...</a><br /></td></tr>
+<tr class="separator:ga531cc00b6d6ccb1e57b9fd1712e26c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Binary operators (aabb/aabb)</div></td></tr>
 <tr class="memitem:ga32f9fcbeb5caa2b2cd9fb5e200d16e4d"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
 <tr class="memitem:ga32f9fcbeb5caa2b2cd9fb5e200d16e4d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aabb.html#ga32f9fcbeb5caa2b2cd9fb5e200d16e4d">operator|</a> (const <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; T, N &gt; &amp;box0, const <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; T, N &gt; &amp;box1)</td></tr>

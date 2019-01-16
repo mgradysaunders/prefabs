@@ -24,6 +24,7 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
+        lerp: ["\\operatorname{lerp}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
@@ -113,11 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a00dbe47cd96c140543b7a02fb10d7e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear.  <a href="#a00dbe47cd96c140543b7a02fb10d7e11">More...</a><br /></td></tr>
 <tr class="separator:a00dbe47cd96c140543b7a02fb10d7e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Distribution interface</div></td></tr>
-<tr class="memitem:ac6615f301c78990896b6d42914356336"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#ac6615f301c78990896b6d42914356336">wint</a> () const</td></tr>
-<tr class="memdesc:ac6615f301c78990896b6d42914356336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weight integral.  <a href="#ac6615f301c78990896b6d42914356336">More...</a><br /></td></tr>
-<tr class="separator:ac6615f301c78990896b6d42914356336"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bfaeb03749187cc7fdd045d33dd855f"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#a8bfaeb03749187cc7fdd045d33dd855f">pdf</a> (T x) const</td></tr>
-<tr class="memdesc:a8bfaeb03749187cc7fdd045d33dd855f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probability mass function.  <a href="#a8bfaeb03749187cc7fdd045d33dd855f">More...</a><br /></td></tr>
+<tr class="memdesc:a8bfaeb03749187cc7fdd045d33dd855f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probability density function.  <a href="#a8bfaeb03749187cc7fdd045d33dd855f">More...</a><br /></td></tr>
 <tr class="separator:a8bfaeb03749187cc7fdd045d33dd855f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28909ae48256a44a339d4a655b3835c5"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#a28909ae48256a44a339d4a655b3835c5">cdf</a> (T x) const</td></tr>
 <tr class="memdesc:a28909ae48256a44a339d4a655b3835c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative density function.  <a href="#a28909ae48256a44a339d4a655b3835c5">More...</a><br /></td></tr>
@@ -136,17 +134,14 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a54f832289df793f1576af68bbe36f86b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer.  <a href="#a54f832289df793f1576af68bbe36f86b">More...</a><br /></td></tr>
 <tr class="separator:a54f832289df793f1576af68bbe36f86b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91bb17fd4bb949df8661a46cdb5fce26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1range.html">pr::range</a>&lt; T * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#a91bb17fd4bb949df8661a46cdb5fce26">x_</a></td></tr>
-<tr class="memdesc:a91bb17fd4bb949df8661a46cdb5fce26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range for abscissas.  <a href="#a91bb17fd4bb949df8661a46cdb5fce26">More...</a><br /></td></tr>
+<tr class="memdesc:a91bb17fd4bb949df8661a46cdb5fce26"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( n \) abscissas \( x_{[i]} \).  <a href="#a91bb17fd4bb949df8661a46cdb5fce26">More...</a><br /></td></tr>
 <tr class="separator:a91bb17fd4bb949df8661a46cdb5fce26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc0e4b513fbf2d4a9af66a58aebbdeac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1range.html">pr::range</a>&lt; T * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#adc0e4b513fbf2d4a9af66a58aebbdeac">pdf_</a></td></tr>
-<tr class="memdesc:adc0e4b513fbf2d4a9af66a58aebbdeac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range for probability density function.  <a href="#adc0e4b513fbf2d4a9af66a58aebbdeac">More...</a><br /></td></tr>
+<tr class="memdesc:adc0e4b513fbf2d4a9af66a58aebbdeac"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( n \) samples \( p_{[i]} \).  <a href="#adc0e4b513fbf2d4a9af66a58aebbdeac">More...</a><br /></td></tr>
 <tr class="separator:adc0e4b513fbf2d4a9af66a58aebbdeac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e10ed623f237045e676e6deef0ef7a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1range.html">pr::range</a>&lt; T * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#a9e10ed623f237045e676e6deef0ef7a1">cdf_</a></td></tr>
-<tr class="memdesc:a9e10ed623f237045e676e6deef0ef7a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range for cumulative density function.  <a href="#a9e10ed623f237045e676e6deef0ef7a1">More...</a><br /></td></tr>
+<tr class="memdesc:a9e10ed623f237045e676e6deef0ef7a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( n \) samples \( c_{[i]} \).  <a href="#a9e10ed623f237045e676e6deef0ef7a1">More...</a><br /></td></tr>
 <tr class="separator:a9e10ed623f237045e676e6deef0ef7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91451d661d5de87f4ea79c67932c0407"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#a91451d661d5de87f4ea79c67932c0407">wint_</a> = T(0)</td></tr>
-<tr class="memdesc:a91451d661d5de87f4ea79c67932c0407"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weight integral.  <a href="#a91451d661d5de87f4ea79c67932c0407">More...</a><br /></td></tr>
-<tr class="separator:a91451d661d5de87f4ea79c67932c0407"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c87a555a2949b7679d8139a7e45c2b8"><td class="memItemLeft" align="right" valign="top">Talloc&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#a3c87a555a2949b7679d8139a7e45c2b8">alloc_</a> = Talloc()</td></tr>
 <tr class="memdesc:a3c87a555a2949b7679d8139a7e45c2b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocator.  <a href="#a3c87a555a2949b7679d8139a7e45c2b8">More...</a><br /></td></tr>
 <tr class="separator:a3c87a555a2949b7679d8139a7e45c2b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -441,8 +436,18 @@ template&lt;typename Tinput_itr &gt; </div>
 </div><div class="memdoc">
 
 <p>Initialize. </p>
-<p>TODO math</p>
-<p>TODO exceptions </p>
+<dl class="section pre"><dt>Precondition</dt><dd><ul>
+<li>\( n \ge 2 \).</li>
+<li>\( x_{[j - 1]} &lt; x_{[j]} \) for all \( j \in [1, n) \).</li>
+<li>\( w_{[j]} \ge 0 \) for all \( j \in [0, n) \).</li>
+</ul>
+</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If any precondition is violated. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -475,36 +480,6 @@ template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt;
 
 </div>
 </div>
-<a id="ac6615f301c78990896b6d42914356336"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6615f301c78990896b6d42914356336">&#9670;&nbsp;</a></span>wint()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T <a class="el" href="classpr_1_1piecewise__linear__distribution.html">pr::piecewise_linear_distribution</a>&lt; T, Talloc &gt;::wint </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Weight integral. </p>
-<p>TODO math </p>
-
-</div>
-</div>
 <a id="a8bfaeb03749187cc7fdd045d33dd855f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bfaeb03749187cc7fdd045d33dd855f">&#9670;&nbsp;</a></span>pdf()</h2>
 
@@ -531,9 +506,11 @@ template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt;
 </table>
 </div><div class="memdoc">
 
-<p>Probability mass function. </p>
-<p>TODO math </p>
-
+<p>Probability density function. </p>
+<p class="formulaDsp">
+\[ p(x) = \begin{cases} \operatorname{lerp}(x;\{x_{[i]}\},\{p_{[i]}\}) &amp; x \in [x_{[0]},x_{[n - 1]}) \\ 0 &amp; x \notin [x_{[0]},x_{[n - 1]}) \end{cases} \]
+</p>
+ 
 </div>
 </div>
 <a id="a28909ae48256a44a339d4a655b3835c5"></a>
@@ -563,8 +540,10 @@ template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt;
 </div><div class="memdoc">
 
 <p>Cumulative density function. </p>
-<p>TODO math </p>
-
+<p class="formulaDsp">
+\[ c(x) = \begin{cases} \operatorname{lerp}(x;\{x_{[i]}\},\{c_{[i]}\}) &amp; x \in [x_{[0]},x_{[n - 1]}) \\ 0 &amp; x \notin [x_{[0]},x_{[n - 1]}), x &lt; x_{[0]} \\ 1 &amp; x \notin [x_{[0]},x_{[n - 1]}), x \ge x_{[n - 1]} \end{cases} \]
+</p>
+ 
 </div>
 </div>
 <a id="a2d486914d90f99a8e7eb5423d28bc4bf"></a>
@@ -594,8 +573,10 @@ template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt;
 </div><div class="memdoc">
 
 <p>Cumulative density inverse function. </p>
-<p>TODO math </p>
-
+<p class="formulaDsp">
+\[ c^{-1}(u) = \begin{cases} \operatorname{lerp}(u; \{c_{[i]}\},\{x_{[i]}\}) &amp; u \in [0, 1) \\ \text{qNaN} &amp; u \notin [0, 1) \end{cases} \]
+</p>
+ 
 </div>
 </div>
 <a id="ab5493751421877a9cbd4bf7b9f1aab49"></a>
@@ -679,7 +660,7 @@ template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt;
 </table>
 </div><div class="memdoc">
 
-<p>Range for abscissas. </p>
+<p>\( n \) abscissas \( x_{[i]} \). </p>
 
 </div>
 </div>
@@ -705,7 +686,7 @@ template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt;
 </table>
 </div><div class="memdoc">
 
-<p>Range for probability density function. </p>
+<p>\( n \) samples \( p_{[i]} \). </p>
 
 </div>
 </div>
@@ -731,33 +712,7 @@ template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt;
 </table>
 </div><div class="memdoc">
 
-<p>Range for cumulative density function. </p>
-
-</div>
-</div>
-<a id="a91451d661d5de87f4ea79c67932c0407"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91451d661d5de87f4ea79c67932c0407">&#9670;&nbsp;</a></span>wint_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T <a class="el" href="classpr_1_1piecewise__linear__distribution.html">pr::piecewise_linear_distribution</a>&lt; T, Talloc &gt;::wint_ = T(0)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Weight integral. </p>
+<p>\( n \) samples \( c_{[i]} \). </p>
 
 </div>
 </div>
