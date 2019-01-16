@@ -38,9 +38,6 @@
 // for std::min, std::max, std::copy, ...
 #include <algorithm>
 
-// for assert
-#include <cassert>
-
 // for std::allocator
 #include <memory>
 
@@ -53,11 +50,8 @@
 // for pr::numeric_limits, pr::log2, ...
 #include <preform/math.hpp>
 
-// for pr::neumaier_sum
-#include <preform/neumaier_sum.hpp>
-
-// for pr::lerp
-#include <preform/interp.hpp>
+// for pr::table_lerp1, pr::table_int1
+#include <preform/tabulation.hpp>
 
 // for pr::range
 #include <preform/range.hpp>
@@ -657,23 +651,20 @@ public:
             ptr_ = 
             std::allocator_traits<Talloc>::allocate(
                 alloc_, 
-                2 * n + 1);
+                2 * n);
 
             // Copy.
             std::copy(
                 other.ptr_, 
-                other.ptr_ + 2 * n + 1,
+                other.ptr_ + 2 * n,
                 ptr_);
 
             // Make ranges.
             T* pos0 = ptr_;
             T* pos1 = pos0 + n;
-            T* pos2 = pos1 + n + 1;
+            T* pos2 = pos1 + n;
             pmf_ = pr::make_range(pos0, pos1);
             cdf_ = pr::make_range(pos1, pos2);
-
-            // Copy weight sum.
-            wsum_ = other.wsum_;
         }
     }
 
@@ -693,18 +684,13 @@ public:
             // Make ranges.
             T* pos0 = ptr_;
             T* pos1 = pos0 + n;
-            T* pos2 = pos1 + n + 1;
+            T* pos2 = pos1 + n;
             pmf_ = pr::make_range(pos0, pos1);
             cdf_ = pr::make_range(pos1, pos2);
 
-            // Copy weight sum.
-            wsum_ = other.wsum_;
-
             // Nullify other.
             other.ptr_ = nullptr;
-            other.pmf_ = pr::range<T*>{};
-            other.cdf_ = pr::range<T*>{};
-            other.wsum_ = T(0);
+            other.clear();
         }
     }
 
@@ -751,23 +737,20 @@ public:
                 ptr_ = 
                 std::allocator_traits<Talloc>::allocate(
                     alloc_, 
-                    2 * n + 1);
+                    2 * n);
 
                 // Copy.
                 std::copy(
                     other.ptr_, 
-                    other.ptr_ + 2 * n + 1,
+                    other.ptr_ + 2 * n,
                     ptr_);
 
                 // Make ranges.
                 T* pos0 = ptr_;
                 T* pos1 = pos0 + n;
-                T* pos2 = pos1 + n + 1;
+                T* pos2 = pos1 + n;
                 pmf_ = pr::make_range(pos0, pos1);
                 cdf_ = pr::make_range(pos1, pos2);
-
-                // Copy weight sum.
-                wsum_ = other.wsum_;
             }
         }
         return *this;
@@ -790,18 +773,13 @@ public:
             // Make ranges.
             T* pos0 = ptr_;
             T* pos1 = pos0 + n;
-            T* pos2 = pos1 + n + 1;
+            T* pos2 = pos1 + n;
             pmf_ = pr::make_range(pos0, pos1);
             cdf_ = pr::make_range(pos1, pos2);
 
-            // Copy weight sum.
-            wsum_ = other.wsum_;
-
             // Nullify other.
             other.ptr_ = nullptr;
-            other.pmf_ = pr::range<T*>{};
-            other.cdf_ = pr::range<T*>{};
-            other.wsum_ = T(0);
+            other.clear();
         }
         return *this;
     }
@@ -811,9 +789,12 @@ public:
     /**
      * @brief Initialize.
      *
-     * TODO math
+     * @pre
+     * - @f$ n \ge 1 @f$.
+     * - @f$ w_{[j]} \ge 0 @f$ for all @f$ j \in [0, n) @f$.
      *
-     * TODO exceptions
+     * @throw std::invalid_argument
+     * If any precondition is violated.
      */
     template <typename Tinput_itr>
     void init(
@@ -825,7 +806,7 @@ public:
 
         // Distance.
         int n = std::distance(wfrom, wto);
-        if (n < 0) {
+        if (n < 1) {
             throw 
                 std::invalid_argument(
                 std::string(__PRETTY_FUNCTION__)
@@ -836,25 +817,20 @@ public:
         ptr_ = 
         std::allocator_traits<Talloc>::allocate(
             alloc_, 
-            2 * n + 1);
+            2 * n);
 
         // Make ranges.
         T* pos0 = ptr_;
         T* pos1 = pos0 + n;
-        T* pos2 = pos1 + n + 1;
+        T* pos2 = pos1 + n;
         pmf_ = pr::make_range(pos0, pos1);
         cdf_ = pr::make_range(pos1, pos2);
         
         // Copy initialize.
         std::copy(wfrom, wto, pmf_.begin());
-            
-        // Integrate.
-        pr::neumaier_sum<T> wsum(0);
-        cdf_[0] = T(wsum);
-        for (int j = 0; j < n; j++) {
-            cdf_[j + 1] = T(wsum += pmf_[j]);
 
-            // Invalid value?
+        // Test invalid.
+        for (int j = 0; j < n; j++) {
             if (!(T(0) <= pmf_[j])) {
                 throw
                     std::invalid_argument(
@@ -863,14 +839,18 @@ public:
             }
         }
 
+        // Sum.
+        pr::table_sum1(
+                pmf_.begin(), pmf_.end(),
+                cdf_.begin());
+
         // Normalize.
-        wsum_ = cdf_[n];
-        if (wsum_ != T(0)) {
-            for (int j = 0; j < n; j++) {
-                pmf_[j] /= wsum_;
+        if (cdf_[n - 1] != T(0)) {
+            for (int j = 0; j < n; j++) { 
+                pmf_[j] /= cdf_[n - 1];
             }
-            for (int j = 0; j < n + 1; j++) {
-                cdf_[j] /= wsum_;
+            for (int j = 0; j < n; j++) {
+                cdf_[j] /= cdf_[n - 1];
             }
         }
     }
@@ -893,7 +873,6 @@ public:
         ptr_ = nullptr;
         pmf_ = pr::range<T*>{};
         cdf_ = pr::range<T*>{};
-        wsum_ = T(0);
     }
 
 public:
@@ -904,63 +883,71 @@ public:
     /**@{*/
 
     /**
-     * @brief Weight sum.
-     *
-     * TODO math
-     */
-    T wsum() const
-    {
-        return wsum_;
-    }
-
-    /**
      * @brief Probability mass function.
      *
-     * TODO math
+     * @f[
+     *      p(k) = 
+     *      \begin{cases}
+     *          p_{[k]} & k \in    [0, n)
+     *      \\  0       & k \notin [0, n)
+     *      \end{cases}
+     * @f]
      */
-    T pmf(int n) const
+    T pmf(int k) const
     {
-        if (n < 0 ||
-            n >= int(pmf_.size())) {
+        if (!(k >= 0) ||
+            !(k < int(pmf_.size()))) {
             return T(0);
         }
         else {
-            return pmf_[n];
+            return pmf_[k];
         }
     }
 
     /**
      * @brief Cumulative density function.
      *
-     * TODO math
+     * @f[
+     *      c(k) = 
+     *      \begin{cases}
+     *          c_{[k - 1]} & k \in [1, n]
+     *      \\  0           & k \notin [1, n], k < 1
+     *      \\  1           & k \notin [1, n], k > n 
+     *      \end{cases}
+     * @f]
+     *
+     * @note
+     * This follows the convention that 
+     * @f$ c(k) = P(X < k) @f$. Hence, @f$ c(0) = 0 @f$ even if 
+     * @f$ p(0) > 0 @f$.
      */
-    T cdf(int n) const
+    T cdf(int k) const
     {
-        if (n < 0 ||
-            cdf_.empty()) {
+        if (!(cdf_.size() >= 1) ||
+            !(k >= 1)) {
             return T(0);
         }
+        else if (!(k <= int(cdf_.size()))) {
+            return T(1);
+        }
         else {
-            return cdf_[std::min<int>(n, cdf_.size() - 1)];
+            return cdf_[k - 1];
         }
     }
 
     /**
      * @brief Cumulative density inverse function.
-     *
-     * TODO math
      */
     int cdfinv(T u) const
     {
-        if ((T(0) <= u && u < T(1))) {
-            return 
-                std::min<int>(pmf_.size(),
-                std::max<int>(1,
-                    std::distance(cdf_.begin(),
-                    std::lower_bound(cdf_.begin(), cdf_.end(), u)))) - 1;
+        if (!(cdf_.size() >= 1) ||
+            !(T(0) <= u && u < T(1))) {
+            return -1;
         }
         else {
-            return -1;
+            return std::distance(
+                        cdf_.begin(),
+                        std::upper_bound(cdf_.begin(), cdf_.end(), u));
         }
     }
 
@@ -983,19 +970,17 @@ private:
     T* ptr_ = nullptr;
 
     /**
-     * @brief Range for probability mass function.
+     * @brief @f$ n @f$ probabilities @f$ p_{[j]} @f$.
      */
     mutable pr::range<T*> pmf_;
 
     /**
-     * @brief Range for cumulative density function.
+     * @brief @f$ n @f$ probability partial sums @f$ c_{[j]} @f$.
+     *
+     * - @f$ c_{[0]} = p_{[0]} @f$
+     * - @f$ c_{[j]} = c_{[j - 1]} + p_{[j]} @f$
      */
     mutable pr::range<T*> cdf_;
-
-    /**
-     * @brief Weight sum.
-     */
-    T wsum_ = T(0);
 
     /**
      * @brief Allocator.
@@ -1056,9 +1041,6 @@ public:
             x_ = pr::make_range(pos0, pos1);
             pdf_ = pr::make_range(pos1, pos2);
             cdf_ = pr::make_range(pos2, pos3);
-
-            // Copy weight integral.
-            wint_ = other.wint_;
         }
     }
 
@@ -1084,15 +1066,9 @@ public:
             pdf_ = pr::make_range(pos1, pos2);
             cdf_ = pr::make_range(pos2, pos3);
 
-            // Copy weight integral.
-            wint_ = other.wint_;
-
             // Nullify other.
             other.ptr_ = nullptr;
-            other.x_ = pr::range<T*>{};
-            other.pdf_ = pr::range<T*>{};
-            other.cdf_ = pr::range<T*>{};
-            other.wint_ = T(0);
+            other.clear();
         }
     }
 
@@ -1155,9 +1131,6 @@ public:
                 x_ = pr::make_range(pos0, pos1);
                 pdf_ = pr::make_range(pos1, pos2);
                 cdf_ = pr::make_range(pos2, pos3);
-
-                // Copy weight integral.
-                wint_ = other.wint_;
             }
         }
         return *this;
@@ -1186,15 +1159,9 @@ public:
             pdf_ = pr::make_range(pos1, pos2);
             cdf_ = pr::make_range(pos2, pos3);
 
-            // Copy weight integral.
-            wint_ = other.wint_;
-
             // Nullify other.
             other.ptr_ = nullptr;
-            other.x_ = pr::range<T*>{};
-            other.pdf_ = pr::range<T*>{};
-            other.cdf_ = pr::range<T*>{};
-            other.wint_ = T(0);
+            other.clear();
         }
         return *this;
     }
@@ -1204,9 +1171,13 @@ public:
     /**
      * @brief Initialize.
      *
-     * TODO math
+     * @pre
+     * - @f$ n \ge 2 @f$.
+     * - @f$ x_{[j - 1]} < x_{[j]} @f$ for all @f$ j \in [1, n) @f$.
+     * - @f$ w_{[j]} \ge 0 @f$ for all @f$ j \in [0, n) @f$.
      *
-     * TODO exceptions
+     * @throw std::invalid_argument
+     * If any precondition is violated.
      */
     template <typename Tinput_itr>
     void init(
@@ -1218,7 +1189,7 @@ public:
 
         // Distance.
         int n = std::distance(xfrom, xto);
-        if (n < 0 || n == 1) {
+        if (n < 2) {
             throw
                 std::invalid_argument(
                 std::string(__PRETTY_FUNCTION__)
@@ -1244,10 +1215,19 @@ public:
         std::copy(xfrom, xto, x_.begin());
         std::copy(wfrom, std::next(wfrom, n), pdf_.begin());
 
+        // Test invalid.
         for (int j = 0; j < n; j++) {
-            // Invalid value?
-            if (!(T(0) <= pdf_[j]) || 
-                !std::isfinite(x_[j])) {
+            if (!(T(0) <= pdf_[j])) {
+                throw 
+                    std::invalid_argument(
+                    std::string(__PRETTY_FUNCTION__)
+                        .append(": invalid value"));
+            }
+        }
+
+        // Test invalid.
+        for (int j = 1; j < n; j++) {
+            if (!(x_[j - 1] < x_[j])) {
                 throw 
                     std::invalid_argument(
                     std::string(__PRETTY_FUNCTION__)
@@ -1256,29 +1236,19 @@ public:
         }
             
         // Integrate.
-        pr::neumaier_sum<T> wint(0);
-        cdf_[0] = T(wint);
-        for (int j = 0; j + 1 < n; j++) {
-            cdf_[j + 1] = T(wint += T(0.5) * 
-                    (x_[j + 1] - x_[j]) * (pdf_[j + 1] + pdf_[j]));
-
-            // Invalid value?
-            if (!(x_[j] < x_[j + 1])) {
-                throw 
-                    std::invalid_argument(
-                    std::string(__PRETTY_FUNCTION__)
-                        .append(": invalid value"));
-            }
-        }
+        pr::table_int1(
+                x_.begin(),
+                x_.end(),
+                pdf_.begin(),
+                cdf_.begin());
 
         // Normalize.
-        wint_ = cdf_[n - 1];
-        if (wint_ != T(0)) {
+        if (cdf_[n - 1] != T(0)) {
             for (int j = 0; j < n; j++) {
-                pdf_[j] /= wint_;
+                pdf_[j] /= cdf_[n - 1];
             }
             for (int j = 0; j < n; j++) {
-                cdf_[j] /= wint_;
+                cdf_[j] /= cdf_[n - 1];
             }
         }
     }
@@ -1303,7 +1273,6 @@ public:
         x_ = pr::range<T*>{};
         pdf_ = pr::range<T*>{};
         cdf_ = pr::range<T*>{};
-        wint_ = T(0);
     }
 
 public:
@@ -1314,81 +1283,91 @@ public:
     /**@{*/
 
     /**
-     * @brief Weight integral.
+     * @brief Probability density function.
      *
-     * TODO math
-     */
-    T wint() const
-    {
-        return wint_;
-    }
-
-    /**
-     * @brief Probability mass function.
-     *
-     * TODO math
+     * @f[
+     *      p(x) = 
+     *      \begin{cases}
+     *          \operatorname{lerp}(x;\{x_{[i]}\},\{p_{[i]}\}) 
+     *              & x \in    [x_{[0]},x_{[n - 1]})
+     *      \\  0   & x \notin [x_{[0]},x_{[n - 1]})
+     *      \end{cases}
+     * @f]
      */
     T pdf(T x) const
     {
-        if (!(x_.size() >= 2) ||
-            !(x >= x_.front() && x < x_.back())) {
-            return 0;
+        if (!(x_.size() >= 2) || 
+            !(x_.front() <= x && 
+              x < x_.back())) { // catches NaNs
+            return T(0);
         }
         else {
-            int k = 
-            std::distance(x_.begin(),
-            std::lower_bound(x_.begin(), x_.end(), x));
-            assert(k > 0);
-            assert(k < x_.size() + 1);
-            return pr::lerp((x - x_[k - 1]) / 
-                        (x_[k] - x_[k - 1]), pdf_[k - 1], pdf_[k]);
+            // Delegate.
+            return pr::table_lerp1(
+                        x,
+                        x_.begin(), 
+                        x_.end(),
+                        pdf_.begin());
         }
     }
 
     /**
      * @brief Cumulative density function.
      *
-     * TODO math
+     * @f[
+     *      c(x) = 
+     *      \begin{cases}
+     *          \operatorname{lerp}(x;\{x_{[i]}\},\{c_{[i]}\}) 
+     *              & x \in    [x_{[0]},x_{[n - 1]})
+     *      \\  0   & x \notin [x_{[0]},x_{[n - 1]}), x <   x_{[0]}
+     *      \\  1   & x \notin [x_{[0]},x_{[n - 1]}), x \ge x_{[n - 1]}
+     *      \end{cases}
+     * @f]
      */
     T cdf(T x) const
     {
         if (!(x_.size() >= 2) || 
-            !(x >= x_.front())) {
-            return 0;
+            !(x_.front() <= x)) { // catches NaNs
+            return T(0);
         }
         else if (!(x < x_.back())) {
-            return 1;
+            return T(1);
         }
         else {
-            int k = 
-            std::distance(x_.begin(),
-            std::lower_bound(x_.begin(), x_.end(), x));
-            assert(k > 0);
-            assert(k < x_.size() + 1);
-            return pr::lerp((x - x_[k - 1]) / 
-                        (x_[k] - x_[k - 1]), cdf_[k - 1], cdf_[k]);
+            // Delegate.
+            return pr::table_lerp1(
+                        x,
+                        x_.begin(), 
+                        x_.end(),
+                        cdf_.begin());
         }
     }
 
     /**
      * @brief Cumulative density inverse function.
      *
-     * TODO math
+     * @f[
+     *      c^{-1}(u) = 
+     *      \begin{cases}
+     *          \operatorname{lerp}(u; 
+     *          \{c_{[i]}\},\{x_{[i]}\}) & u \in    [0, 1)
+     *      \\  \text{qNaN}              & u \notin [0, 1)
+     *      \end{cases}
+     * @f]
      */
     T cdfinv(T u) const
     {
-        if ((T(0) <= u && u < T(1)) && 
-            x_.size() >= 2) {
-            int k = 
-            std::distance(cdf_.begin(),
-            std::lower_bound(cdf_.begin(), cdf_.end(), u));
-            assert(k > 0);
-            assert(k < cdf_.size() + 1);
-            return pr::lerp((u - cdf_[k - 1]) / 
-                      (cdf_[k] - cdf_[k - 1]), x_[k - 1], x_[k]);
+        if (!(x_.size() >= 2) ||
+            !(T(0) <= u && u < T(1))) {
+            return pr::numeric_limits<T>::quiet_NaN();
         }
         else {
-            return pr::numeric_limits<T>::quiet_NaN();
+            // Delegate.
+            return pr::table_lerp1(
+                        u,
+                        cdf_.begin(), 
+                        cdf_.end(),
+                        x_.begin());
         }
     }
 
@@ -1411,24 +1390,19 @@ private:
     T* ptr_ = nullptr;
 
     /**
-     * @brief Range for abscissas.
+     * @brief @f$ n @f$ abscissas @f$ x_{[i]} @f$.
      */
     mutable pr::range<T*> x_;
 
     /**
-     * @brief Range for probability density function.
+     * @brief @f$ n @f$ samples @f$ p_{[i]} @f$.
      */
     mutable pr::range<T*> pdf_;
 
     /**
-     * @brief Range for cumulative density function.
+     * @brief @f$ n @f$ samples @f$ c_{[i]} @f$.
      */
     mutable pr::range<T*> cdf_;
-
-    /**
-     * @brief Weight integral.
-     */
-    T wint_ = T(0);
 
     /**
      * @brief Allocator.
