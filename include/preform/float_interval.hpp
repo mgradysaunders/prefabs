@@ -131,6 +131,7 @@ public:
     /**
      * @brief Value.
      */
+    __attribute__((always_inline))
     T value() const
     {
         return x_;
@@ -139,6 +140,7 @@ public:
     /**
      * @brief Lower bound.
      */
+    __attribute__((always_inline))
     T lower_bound() const
     {
         return x0_;
@@ -147,6 +149,7 @@ public:
     /**
      * @brief Upper bound.
      */
+    __attribute__((always_inline))
     T upper_bound() const
     {
         return x1_;
@@ -155,6 +158,7 @@ public:
     /**
      * @brief Lower bound of absolute interval.
      */
+    __attribute__((always_inline))
     T abs_lower_bound() const
     {
         return pr::fabs(pr::signbit(x_) ? x1_ : x0_);
@@ -163,6 +167,7 @@ public:
     /**
      * @brief Upper bound of absolute interval.
      */
+    __attribute__((always_inline))
     T abs_upper_bound() const
     {
         return pr::fabs(pr::signbit(x_) ? x0_ : x1_);
@@ -171,6 +176,7 @@ public:
     /**
      * @brief Absolute error.
      */
+    __attribute__((always_inline))
     T abs_error() const
     {
         return pr::finc(pr::fmax(pr::fabs(x_ - x0_), pr::fabs(x_ - x1_)));
@@ -179,6 +185,7 @@ public:
     /**
      * @brief Relative error.
      */
+    __attribute__((always_inline))
     T rel_error() const
     {
         return abs_error() / value();
