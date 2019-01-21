@@ -24,7 +24,6 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
-        lerp: ["\\operatorname{lerp}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
@@ -338,6 +337,9 @@ Reshaping</h2></td></tr>
 <tr class="memitem:a5951a647e27159aeba3a0ffc0961a4a8"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; T, 1+sizeof...(Q), N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a5951a647e27159aeba3a0ffc0961a4a8">swizzle</a> (P p, Q &amp;&amp;... q) const</td></tr>
 <tr class="memdesc:a5951a647e27159aeba3a0ffc0961a4a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swizzle.  <a href="#a5951a647e27159aeba3a0ffc0961a4a8">More...</a><br /></td></tr>
 <tr class="separator:a5951a647e27159aeba3a0ffc0961a4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a786cba08829c2324793a5e20b85c8654"><td class="memTemplParams" colspan="2">template&lt;typename P , std::size_t K&gt; </td></tr>
+<tr class="memitem:a786cba08829c2324793a5e20b85c8654"><td class="memTemplItemLeft" align="right" valign="top">constexpr multi&lt; T, K, N... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a786cba08829c2324793a5e20b85c8654">swizzle</a> (const multi&lt; P, K &gt; &amp;k) const</td></tr>
+<tr class="separator:a786cba08829c2324793a5e20b85c8654"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T, std::size_t M, std::size_t... N&gt;<br />
@@ -2075,7 +2077,7 @@ template&lt;typename U , std::size_t... K&gt; </div>
 </div>
 </div>
 <a id="a5951a647e27159aeba3a0ffc0961a4a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5951a647e27159aeba3a0ffc0961a4a8">&#9670;&nbsp;</a></span>swizzle()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5951a647e27159aeba3a0ffc0961a4a8">&#9670;&nbsp;</a></span>swizzle() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2113,6 +2115,36 @@ template&lt;typename P , typename... Q&gt; </div>
 </div><div class="memdoc">
 
 <p>Swizzle. </p>
+
+</div>
+</div>
+<a id="a786cba08829c2324793a5e20b85c8654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a786cba08829c2324793a5e20b85c8654">&#9670;&nbsp;</a></span>swizzle() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , std::size_t M, std::size_t... N&gt; </div>
+<div class="memtemplate">
+template&lt;typename P , std::size_t K&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr multi&lt;T, K, N...&gt; pr::multi&lt; T, M, N... &gt;::swizzle </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; P, K &gt; &amp;&#160;</td>
+          <td class="paramname"><em>k</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

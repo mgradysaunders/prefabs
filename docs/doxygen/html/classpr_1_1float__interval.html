@@ -24,7 +24,6 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
-        lerp: ["\\operatorname{lerp}"],
         parens: ["{\\left({#1}\\right)}", 1],
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
@@ -70,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpr_1_1float__interval-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -91,6 +91,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a69fb0952118b0e4f48e0fbd40bcacce0"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__interval.html#a69fb0952118b0e4f48e0fbd40bcacce0">upper_bound</a> () const</td></tr>
 <tr class="memdesc:a69fb0952118b0e4f48e0fbd40bcacce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper bound.  <a href="#a69fb0952118b0e4f48e0fbd40bcacce0">More...</a><br /></td></tr>
 <tr class="separator:a69fb0952118b0e4f48e0fbd40bcacce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a527cc6e98d53279c97cab1086ba7e788"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__interval.html#a527cc6e98d53279c97cab1086ba7e788">abs_lower_bound</a> () const</td></tr>
+<tr class="memdesc:a527cc6e98d53279c97cab1086ba7e788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower bound of absolute interval.  <a href="#a527cc6e98d53279c97cab1086ba7e788">More...</a><br /></td></tr>
+<tr class="separator:a527cc6e98d53279c97cab1086ba7e788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a21d49aff22f17d63e0f7bd7deaa59a"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__interval.html#a0a21d49aff22f17d63e0f7bd7deaa59a">abs_upper_bound</a> () const</td></tr>
+<tr class="memdesc:a0a21d49aff22f17d63e0f7bd7deaa59a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper bound of absolute interval.  <a href="#a0a21d49aff22f17d63e0f7bd7deaa59a">More...</a><br /></td></tr>
+<tr class="separator:a0a21d49aff22f17d63e0f7bd7deaa59a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd41000ab77fbba20b126c1af12e197d"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__interval.html#acd41000ab77fbba20b126c1af12e197d">abs_error</a> () const</td></tr>
 <tr class="memdesc:acd41000ab77fbba20b126c1af12e197d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute error.  <a href="#acd41000ab77fbba20b126c1af12e197d">More...</a><br /></td></tr>
 <tr class="separator:acd41000ab77fbba20b126c1af12e197d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,6 +122,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afd8a2bc06e939f1189d09b77cfca1903"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1float__interval.html#afd8a2bc06e939f1189d09b77cfca1903">contains</a> (const <a class="el" href="classpr_1_1float__interval.html">float_interval</a> &amp;oth) const</td></tr>
 <tr class="memdesc:afd8a2bc06e939f1189d09b77cfca1903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains other?  <a href="#afd8a2bc06e939f1189d09b77cfca1903">More...</a><br /></td></tr>
 <tr class="separator:afd8a2bc06e939f1189d09b77cfca1903"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a91e8560694d508bd078a212e975fd373"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__interval.html#a91e8560694d508bd078a212e975fd373">solve_poly1</a> (const <a class="el" href="classpr_1_1float__interval.html">float_interval</a> &amp;a0, const <a class="el" href="classpr_1_1float__interval.html">float_interval</a> &amp;a1, <a class="el" href="classpr_1_1float__interval.html">float_interval</a> &amp;t0)</td></tr>
+<tr class="memdesc:a91e8560694d508bd078a212e975fd373"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve for roots of degree-1 polynomial.  <a href="#a91e8560694d508bd078a212e975fd373">More...</a><br /></td></tr>
+<tr class="separator:a91e8560694d508bd078a212e975fd373"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53d6bae5c9083e1fd01507558f443424"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__interval.html#a53d6bae5c9083e1fd01507558f443424">solve_poly2</a> (const <a class="el" href="classpr_1_1float__interval.html">float_interval</a> &amp;a0, const <a class="el" href="classpr_1_1float__interval.html">float_interval</a> &amp;a1, const <a class="el" href="classpr_1_1float__interval.html">float_interval</a> &amp;a2, <a class="el" href="classpr_1_1float__interval.html">float_interval</a> &amp;t0, <a class="el" href="classpr_1_1float__interval.html">float_interval</a> &amp;t1)</td></tr>
+<tr class="memdesc:a53d6bae5c9083e1fd01507558f443424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve for roots of degree-2 polynomial.  <a href="#a53d6bae5c9083e1fd01507558f443424">More...</a><br /></td></tr>
+<tr class="separator:a53d6bae5c9083e1fd01507558f443424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -354,6 +369,64 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a527cc6e98d53279c97cab1086ba7e788"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a527cc6e98d53279c97cab1086ba7e788">&#9670;&nbsp;</a></span>abs_lower_bound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T <a class="el" href="classpr_1_1float__interval.html">pr::float_interval</a>&lt; T &gt;::abs_lower_bound </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lower bound of absolute interval. </p>
+
+</div>
+</div>
+<a id="a0a21d49aff22f17d63e0f7bd7deaa59a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a21d49aff22f17d63e0f7bd7deaa59a">&#9670;&nbsp;</a></span>abs_upper_bound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T <a class="el" href="classpr_1_1float__interval.html">pr::float_interval</a>&lt; T &gt;::abs_upper_bound </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Upper bound of absolute interval. </p>
+
+</div>
+</div>
 <a id="acd41000ab77fbba20b126c1af12e197d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acd41000ab77fbba20b126c1af12e197d">&#9670;&nbsp;</a></span>abs_error()</h2>
 
@@ -473,6 +546,138 @@ template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </div>
 </div><div class="memdoc">
 
 <p>Contains other? </p>
+
+</div>
+</div>
+<a id="a91e8560694d508bd078a212e975fd373"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91e8560694d508bd078a212e975fd373">&#9670;&nbsp;</a></span>solve_poly1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="classpr_1_1float__interval.html">pr::float_interval</a>&lt; T &gt;::solve_poly1 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1float__interval.html">float_interval</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1float__interval.html">float_interval</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpr_1_1float__interval.html">float_interval</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>t0</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Solve for roots of degree-1 polynomial. </p>
+<p class="formulaDsp">
+\[ a_0 + a_1 t = 0 \]
+</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a0</td><td>Polynomial coefficient.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a1</td><td>Polynomial coefficient.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">t0</td><td>Root. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a53d6bae5c9083e1fd01507558f443424"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53d6bae5c9083e1fd01507558f443424">&#9670;&nbsp;</a></span>solve_poly2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="classpr_1_1float__interval.html">pr::float_interval</a>&lt; T &gt;::solve_poly2 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1float__interval.html">float_interval</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1float__interval.html">float_interval</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1float__interval.html">float_interval</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpr_1_1float__interval.html">float_interval</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>t0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpr_1_1float__interval.html">float_interval</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>t1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Solve for roots of degree-2 polynomial. </p>
+<p class="formulaDsp">
+\[ a_0 + a_1 t + a_2 t^2 = 0 \]
+</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a0</td><td>Polynomial coefficient.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a1</td><td>Polynomial coefficient.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a2</td><td>Polynomial coefficient.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">t0</td><td>Solution.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">t1</td><td>Solution.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondition</dt><dd><ul>
+<li><code>!(t1.value() &gt; t0.value())</code> </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
