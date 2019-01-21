@@ -860,6 +860,18 @@ public:
         }};
     }
 
+    template <typename P, std::size_t K>
+    constexpr multi<T, K, N...> swizzle(const multi<P, K>& k)  const
+    {
+        multi<T, K, N...> res;
+        auto itrres = res.begin();
+        auto itrk = k.begin();
+        for (; itrk < k.end(); ++itrres, ++itrk) {
+            *itrres = operator[](*itrk);
+        }
+        return res;
+    }
+
     /**@}*/
 
 public:
