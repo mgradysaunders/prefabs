@@ -153,6 +153,22 @@ public:
     }
 
     /**
+     * @brief Lower bound of absolute interval.
+     */
+    T abs_lower_bound() const
+    {
+        return pr::fabs(pr::signbit(x_) ? x1_ : x0_);
+    }
+
+    /**
+     * @brief Upper bound of absolute interval.
+     */
+    T abs_upper_bound() const
+    {
+        return pr::fabs(pr::signbit(x_) ? x0_ : x1_);
+    }
+
+    /**
      * @brief Absolute error.
      */
     T abs_error() const
@@ -342,6 +358,64 @@ public:
     }
 
     /**@}*/
+
+public:
+
+    /**
+     * @brief Solve for roots of degree-1 polynomial.
+     *
+     * @f[
+     *      a_0 + a_1 t = 0
+     * @f]
+     *
+     * @param[in] a0
+     * Polynomial coefficient.
+     *
+     * @param[in] a1
+     * Polynomial coefficient.
+     *
+     * @param[out] t0
+     * Root.
+     */
+    static void solve_poly1(
+                const float_interval& a0,
+                const float_interval& a1,
+                float_interval& t0) 
+    {
+        t0 = -a0 / a1;
+    }
+
+    /**
+     * @brief Solve for roots of degree-2 polynomial.
+     *
+     * @f[
+     *      a_0 + a_1 t + a_2 t^2 = 0
+     * @f]
+     *
+     * @param[in] a0
+     * Polynomial coefficient.
+     *
+     * @param[in] a1
+     * Polynomial coefficient.
+     *
+     * @param[in] a2
+     * Polynomial coefficient.
+     *
+     * @param[out] t0
+     * Solution.
+     *
+     * @param[out] t1
+     * Solution.
+     *
+     * @post 
+     * - `!(t1.value() > t0.value())`
+     */
+    static void solve_poly2(
+                const float_interval& a0,
+                const float_interval& a1,
+                const float_interval& a2,
+                float_interval& t0,
+                float_interval& t1);
 };
 
 /**
@@ -691,6 +765,69 @@ inline float_interval<T> sqrt(const float_interval<T>& b)
 }
 
 /**@}*/
+
+#if !DOXYGEN
+
+template <typename T>
+inline void float_interval<T>::solve_poly2(
+            const float_interval& a0,
+            const float_interval& a1,
+            const float_interval& a2,
+            float_interval& t0,
+            float_interval& t1)
+{
+    if (a2.contains(T(0)) ||
+        a2.abs_upper_bound() < 
+        a1.abs_lower_bound() * 
+            pr::numeric_limits<T>::min_invertible() ||
+        a2.abs_upper_bound() < 
+        a0.abs_lower_bound() * 
+            pr::numeric_limits<T>::min_invertible()) {
+        // Solve linear.
+        t0 = -a0 / a1;
+        t1 = float_interval(pr::numeric_limits<T>::quiet_NaN());
+        return;
+    }
+
+    // Normalize.
+    float_interval c0 = a0 / a2;
+    float_interval c1 = a1 / a2;
+
+    // Discriminant.
+    float_interval d = c1 * c1 - T(4) * c0;
+
+    // Is discriminant negative?
+    if (d.upper_bound() < T(0)) {
+        t0 = float_interval(pr::numeric_limits<T>::quiet_NaN());
+        t1 = float_interval(pr::numeric_limits<T>::quiet_NaN());
+        return;
+    }
+
+    // Is discriminant zero?
+    if (d.contains(T(0))) {
+        t0 = T(-0.5) * c1;
+    }
+    else {
+        float_interval sqrt_d = pr::sqrt(d);
+        if (c1.lower_bound() < T(0)) {
+            t0 = T(-0.5) * (c1 - sqrt_d);
+        }
+        else {
+            t0 = T(-0.5) * (c1 + sqrt_d);
+        }
+    }
+
+    // Remaining root.
+    t1 = c0 / t0;
+
+    // Sort.
+    if (t1.value() < 
+        t0.value()) {
+        std::swap(t0, t1);
+    }
+}
+
+#endif // #if !DOXYGEN
 
 /**@}*/
 
