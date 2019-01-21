@@ -10,6 +10,7 @@ DIR.include = "include"
 DIR.src = "src"
 DIR.bin = "bin"
 DIR.build = "bin/build"
+DIR.install = "/usr/local"
 
 # Globs.
 GLOBS = OpenStruct.new
@@ -105,6 +106,19 @@ end
 desc "Default task."
 task :default do
     # nothing
+end
+
+# Install.
+desc "Install header files to #{DIR.install}/include."
+task :install do
+    sh "mkdir -p #{DIR.install}/include/preform"
+    sh "cp -r -f #{DIR.include}/preform #{DIR.install}/include"
+end
+
+# Uninstall.
+desc "Uninstall header files from #{DIR.install}/include."
+task :uninstall do
+    sh "rm -r -f #{DIR.install}/include/preform"
 end
 
 # Doxygen.
