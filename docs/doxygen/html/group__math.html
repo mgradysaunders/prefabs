@@ -156,14 +156,14 @@ Float checks (complex)</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Sign/step functions (arithmetic)</h2></td></tr>
-<tr class="memitem:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga2f37f55c9587ba694e59c62ed154a47b">pr::sign</a> (T x)</td></tr>
-<tr class="memdesc:ga2f37f55c9587ba694e59c62ed154a47b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__math.html#ga2f37f55c9587ba694e59c62ed154a47b">More...</a><br /></td></tr>
-<tr class="separator:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga55065f1c44b7d40828e7c3f4f6cb5c0c">pr::step</a> (T x)</td></tr>
-<tr class="memdesc:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__math.html#ga55065f1c44b7d40828e7c3f4f6cb5c0c">More...</a><br /></td></tr>
-<tr class="separator:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10ba93acff8694dd80a036c2b04b89ae"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga10ba93acff8694dd80a036c2b04b89ae"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga10ba93acff8694dd80a036c2b04b89ae">pr::sign</a> (T x) -&gt; decltype(std::copysign(T(1), x))</td></tr>
+<tr class="memdesc:ga10ba93acff8694dd80a036c2b04b89ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__math.html#ga10ba93acff8694dd80a036c2b04b89ae">More...</a><br /></td></tr>
+<tr class="separator:ga10ba93acff8694dd80a036c2b04b89ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab1cb32ab109b27cf42da360a1b5f9e1c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab1cb32ab109b27cf42da360a1b5f9e1c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gab1cb32ab109b27cf42da360a1b5f9e1c">pr::step</a> (T x) -&gt; decltype(std::signbit(x) ? T(0) :T(1))</td></tr>
+<tr class="memdesc:gab1cb32ab109b27cf42da360a1b5f9e1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__math.html#gab1cb32ab109b27cf42da360a1b5f9e1c">More...</a><br /></td></tr>
+<tr class="separator:gab1cb32ab109b27cf42da360a1b5f9e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Sign/step functions (complex)</h2></td></tr>
@@ -878,8 +878,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga2f37f55c9587ba694e59c62ed154a47b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2f37f55c9587ba694e59c62ed154a47b">&#9670;&nbsp;</a></span>sign() <span class="overload">[1/2]</span></h2>
+<a id="ga10ba93acff8694dd80a036c2b04b89ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga10ba93acff8694dd80a036c2b04b89ae">&#9670;&nbsp;</a></span>sign() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -890,11 +890,12 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::enable_if_t&lt;std::is_arithmetic&lt;T&gt;::value, T&gt; pr::sign </td>
+          <td class="memname">auto pr::sign </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
+          <td> -&gt; decltype(std::copysign(T(1), x))
+</td>
         </tr>
       </table>
   </td>
@@ -908,7 +909,7 @@ template&lt;typename T &gt; </div>
 <p class="formulaDsp">
 \[ \operatorname{sign}(x) = \begin{cases} -1 &amp; x &lt; 0 \\ +1 &amp; x &gt; 0 \end{cases} \]
 </p>
-<dl class="section note"><dt>Note</dt><dd>For floating point types, uses <code>pr::copysign</code>. Hence,<ul>
+<dl class="section note"><dt>Note</dt><dd>Uses <code>std::copysign()</code>. Hence,<ul>
 <li><code>pr::sign(-0.0) = -1.0</code> and</li>
 <li><code>pr::sign(+0.0) = +1.0</code>. </li>
 </ul>
@@ -916,8 +917,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga55065f1c44b7d40828e7c3f4f6cb5c0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga55065f1c44b7d40828e7c3f4f6cb5c0c">&#9670;&nbsp;</a></span>step() <span class="overload">[1/2]</span></h2>
+<a id="gab1cb32ab109b27cf42da360a1b5f9e1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab1cb32ab109b27cf42da360a1b5f9e1c">&#9670;&nbsp;</a></span>step() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -928,11 +929,12 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::enable_if_t&lt;std::is_arithmetic&lt;T&gt;::value, T&gt; pr::step </td>
+          <td class="memname">auto pr::step </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
+          <td> -&gt; decltype(std::signbit(x) ? T(0) : T(1))
+</td>
         </tr>
       </table>
   </td>
@@ -946,9 +948,9 @@ template&lt;typename T &gt; </div>
 <p class="formulaDsp">
 \[ \operatorname{step}(x) = \frac{1}{2} \operatorname{sign}(x) + \frac{1}{2} = \begin{cases} 0 &amp; x &lt; 0 \\ 1 &amp; x &gt; 0 \end{cases} \]
 </p>
-<dl class="section note"><dt>Note</dt><dd>For floating point types, uses <code>pr::signbit</code>. Hence,<ul>
-<li><code>pr::sign(-0.0) = 0.0</code> and</li>
-<li><code>pr::sign(+0.0) = 1.0</code>. </li>
+<dl class="section note"><dt>Note</dt><dd>Uses <code>std::signbit()</code>. Hence,<ul>
+<li><code>pr::step(-0.0) = 0.0</code> and</li>
+<li><code>pr::step(+0.0) = 1.0</code>. </li>
 </ul>
 </dd></dl>
 
@@ -984,7 +986,7 @@ template&lt;typename T &gt; </div>
 <p class="formulaDsp">
 \[ \operatorname{sign}(x) = \begin{cases} 1 &amp; x = 0 \\ x/|x| &amp; x \ne 0 \end{cases} \]
 </p>
-<dl class="section note"><dt>Note</dt><dd>If <code>x.imag() == T(0)</code>, computes <code>pr::sign(x.real())</code> and preserves sign of <code>x.imag()</code>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>pr::imag(x) == 0</code>, computes <code>pr::sign(pr::real(x))</code> and preserves sign of <code>pr::imag(x)</code>. </dd></dl>
 
 </div>
 </div>
@@ -1018,7 +1020,7 @@ template&lt;typename T &gt; </div>
 <p class="formulaDsp">
 \[ \operatorname{step}(x) = \frac{1}{2} \operatorname{sign}(x) + \frac{1}{2} \]
 </p>
-<dl class="section note"><dt>Note</dt><dd>If <code>x.imag() == T(0)</code>, computes <code>pr::step(x.real())</code> and preserves sign of <code>x.imag()</code>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>pr::imag(x) == 0</code>, computes <code>pr::step(pr::real(x))</code> and preserves sign of <code>pr::imag(x)</code>. </dd></dl>
 
 </div>
 </div>

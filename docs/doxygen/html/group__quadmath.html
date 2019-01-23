@@ -83,6 +83,24 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Sign/step functions (__float128)</h2></td></tr>
+<tr class="memitem:ga4a13095ae2844cc7f1a679ece4cd1bd1"><td class="memItemLeft" align="right" valign="top">__float128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4a13095ae2844cc7f1a679ece4cd1bd1">pr::sign</a> (__float128 x)</td></tr>
+<tr class="memdesc:ga4a13095ae2844cc7f1a679ece4cd1bd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__quadmath.html#ga4a13095ae2844cc7f1a679ece4cd1bd1">More...</a><br /></td></tr>
+<tr class="separator:ga4a13095ae2844cc7f1a679ece4cd1bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga35153802ec4a1f6dc690a4a54a545f30"><td class="memItemLeft" align="right" valign="top">__float128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga35153802ec4a1f6dc690a4a54a545f30">pr::step</a> (__float128 x)</td></tr>
+<tr class="memdesc:ga35153802ec4a1f6dc690a4a54a545f30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__quadmath.html#ga35153802ec4a1f6dc690a4a54a545f30">More...</a><br /></td></tr>
+<tr class="separator:ga35153802ec4a1f6dc690a4a54a545f30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Sign/step functions (__complex128)</h2></td></tr>
+<tr class="memitem:ga94c834968ef5ffb597def94d20c6e811"><td class="memItemLeft" align="right" valign="top">__complex128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga94c834968ef5ffb597def94d20c6e811">pr::sign</a> (const __complex128 &amp;x)</td></tr>
+<tr class="memdesc:ga94c834968ef5ffb597def94d20c6e811"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__quadmath.html#ga94c834968ef5ffb597def94d20c6e811">More...</a><br /></td></tr>
+<tr class="separator:ga94c834968ef5ffb597def94d20c6e811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4e709d71111c76e1c932ae4a804a7fa7"><td class="memItemLeft" align="right" valign="top">__complex128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4e709d71111c76e1c932ae4a804a7fa7">pr::step</a> (const __complex128 &amp;x)</td></tr>
+<tr class="memdesc:ga4e709d71111c76e1c932ae4a804a7fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__quadmath.html#ga4e709d71111c76e1c932ae4a804a7fa7">More...</a><br /></td></tr>
+<tr class="separator:ga4e709d71111c76e1c932ae4a804a7fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Quadmath wrappers (__float128)</h2></td></tr>
 <tr class="memitem:ga4288d30b2377e9b696d241b94150c718"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga4288d30b2377e9b696d241b94150c718"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4288d30b2377e9b696d241b94150c718">pr::fabs</a> (T x)</td></tr>
@@ -467,6 +485,142 @@ Reciprocal trigonometric functions (__float128/__complex128)</h2></td></tr>
 <p><code>&lt;preform/quadmath.hpp&gt;</code></p>
 <p><b>C++ version</b>: &gt;=C++14 (<code>-std=gnu++14</code>, <code>-lquadmath</code>) </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga4a13095ae2844cc7f1a679ece4cd1bd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a13095ae2844cc7f1a679ece4cd1bd1">&#9670;&nbsp;</a></span>sign() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__float128 pr::sign </td>
+          <td>(</td>
+          <td class="paramtype">__float128&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sign function. </p>
+<p class="formulaDsp">
+\[ \operatorname{sign}(x) = \begin{cases} -1 &amp; x &lt; 0 \\ +1 &amp; x &gt; 0 \end{cases} \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>Uses <code>copysignq()</code>. Hence,<ul>
+<li><code>pr::sign(-0.0) = -1.0</code> and</li>
+<li><code>pr::sign(+0.0) = +1.0</code>. </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a id="ga35153802ec4a1f6dc690a4a54a545f30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga35153802ec4a1f6dc690a4a54a545f30">&#9670;&nbsp;</a></span>step() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__float128 pr::step </td>
+          <td>(</td>
+          <td class="paramtype">__float128&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Step function. </p>
+<p class="formulaDsp">
+\[ \operatorname{step}(x) = \frac{1}{2} \operatorname{sign}(x) + \frac{1}{2} = \begin{cases} 0 &amp; x &lt; 0 \\ 1 &amp; x &gt; 0 \end{cases} \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>Uses <code>signbitq()</code>. Hence,<ul>
+<li><code>pr::step(-0.0) = 0.0</code> and</li>
+<li><code>pr::step(+0.0) = 1.0</code>. </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a id="ga94c834968ef5ffb597def94d20c6e811"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga94c834968ef5ffb597def94d20c6e811">&#9670;&nbsp;</a></span>sign() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__complex128 pr::sign </td>
+          <td>(</td>
+          <td class="paramtype">const __complex128 &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sign function. </p>
+<p class="formulaDsp">
+\[ \operatorname{sign}(x) = \begin{cases} 1 &amp; x = 0 \\ x/|x| &amp; x \ne 0 \end{cases} \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>If <code>pr::imag(x) == 0</code>, computes <code>pr::sign(pr::real(x))</code> and preserves sign of <code>pr::imag(x)</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ga4e709d71111c76e1c932ae4a804a7fa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4e709d71111c76e1c932ae4a804a7fa7">&#9670;&nbsp;</a></span>step() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__complex128 pr::step </td>
+          <td>(</td>
+          <td class="paramtype">const __complex128 &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Step function. </p>
+<p class="formulaDsp">
+\[ \operatorname{step}(x) = \frac{1}{2} \operatorname{sign}(x) + \frac{1}{2} \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>If <code>pr::imag(x) == 0</code>, computes <code>pr::step(pr::real(x))</code> and preserves sign of <code>pr::imag(x)</code>. </dd></dl>
+
+</div>
+</div>
 <a id="ga4288d30b2377e9b696d241b94150c718"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga4288d30b2377e9b696d241b94150c718">&#9670;&nbsp;</a></span>fabs()</h2>
 

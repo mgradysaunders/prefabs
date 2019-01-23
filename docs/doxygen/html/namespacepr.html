@@ -1281,14 +1281,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:gafdc66fccff1956212df06339b4fb77e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">All normal?  <a href="group__math.html#gafdc66fccff1956212df06339b4fb77e3">More...</a><br /></td></tr>
 <tr class="separator:gafdc66fccff1956212df06339b4fb77e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Sign/step functions (arithmetic)</div></td></tr>
-<tr class="memitem:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga2f37f55c9587ba694e59c62ed154a47b">sign</a> (T x)</td></tr>
-<tr class="memdesc:ga2f37f55c9587ba694e59c62ed154a47b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__math.html#ga2f37f55c9587ba694e59c62ed154a47b">More...</a><br /></td></tr>
-<tr class="separator:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga55065f1c44b7d40828e7c3f4f6cb5c0c">step</a> (T x)</td></tr>
-<tr class="memdesc:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__math.html#ga55065f1c44b7d40828e7c3f4f6cb5c0c">More...</a><br /></td></tr>
-<tr class="separator:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10ba93acff8694dd80a036c2b04b89ae"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga10ba93acff8694dd80a036c2b04b89ae"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga10ba93acff8694dd80a036c2b04b89ae">sign</a> (T x) -&gt; decltype(std::copysign(T(1), x))</td></tr>
+<tr class="memdesc:ga10ba93acff8694dd80a036c2b04b89ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__math.html#ga10ba93acff8694dd80a036c2b04b89ae">More...</a><br /></td></tr>
+<tr class="separator:ga10ba93acff8694dd80a036c2b04b89ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab1cb32ab109b27cf42da360a1b5f9e1c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab1cb32ab109b27cf42da360a1b5f9e1c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gab1cb32ab109b27cf42da360a1b5f9e1c">step</a> (T x) -&gt; decltype(std::signbit(x) ? T(0) :T(1))</td></tr>
+<tr class="memdesc:gab1cb32ab109b27cf42da360a1b5f9e1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__math.html#gab1cb32ab109b27cf42da360a1b5f9e1c">More...</a><br /></td></tr>
+<tr class="separator:gab1cb32ab109b27cf42da360a1b5f9e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Sign/step functions (complex)</div></td></tr>
 <tr class="memitem:ga9896fcf291e17ff0d55fe21694f1c4bc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga9896fcf291e17ff0d55fe21694f1c4bc"><td class="memTemplItemLeft" align="right" valign="top">std::complex&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga9896fcf291e17ff0d55fe21694f1c4bc">sign</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
@@ -2278,6 +2278,20 @@ Functions</h2></td></tr>
 <tr class="memitem:gada649b6caf1fc665348bbb31f0f6f557"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math.html#gada649b6caf1fc665348bbb31f0f6f557">acoth</a> (const multi&lt; T, N... &gt; &amp;x)</td></tr>
 <tr class="memdesc:gada649b6caf1fc665348bbb31f0f6f557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>pr::acoth()</code>.  <a href="group__multi__math.html#gada649b6caf1fc665348bbb31f0f6f557">More...</a><br /></td></tr>
 <tr class="separator:gada649b6caf1fc665348bbb31f0f6f557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Sign/step functions (__float128)</div></td></tr>
+<tr class="memitem:ga4a13095ae2844cc7f1a679ece4cd1bd1"><td class="memItemLeft" align="right" valign="top">__float128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4a13095ae2844cc7f1a679ece4cd1bd1">sign</a> (__float128 x)</td></tr>
+<tr class="memdesc:ga4a13095ae2844cc7f1a679ece4cd1bd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__quadmath.html#ga4a13095ae2844cc7f1a679ece4cd1bd1">More...</a><br /></td></tr>
+<tr class="separator:ga4a13095ae2844cc7f1a679ece4cd1bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga35153802ec4a1f6dc690a4a54a545f30"><td class="memItemLeft" align="right" valign="top">__float128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga35153802ec4a1f6dc690a4a54a545f30">step</a> (__float128 x)</td></tr>
+<tr class="memdesc:ga35153802ec4a1f6dc690a4a54a545f30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__quadmath.html#ga35153802ec4a1f6dc690a4a54a545f30">More...</a><br /></td></tr>
+<tr class="separator:ga35153802ec4a1f6dc690a4a54a545f30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Sign/step functions (__complex128)</div></td></tr>
+<tr class="memitem:ga94c834968ef5ffb597def94d20c6e811"><td class="memItemLeft" align="right" valign="top">__complex128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga94c834968ef5ffb597def94d20c6e811">sign</a> (const __complex128 &amp;x)</td></tr>
+<tr class="memdesc:ga94c834968ef5ffb597def94d20c6e811"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__quadmath.html#ga94c834968ef5ffb597def94d20c6e811">More...</a><br /></td></tr>
+<tr class="separator:ga94c834968ef5ffb597def94d20c6e811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4e709d71111c76e1c932ae4a804a7fa7"><td class="memItemLeft" align="right" valign="top">__complex128&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4e709d71111c76e1c932ae4a804a7fa7">step</a> (const __complex128 &amp;x)</td></tr>
+<tr class="memdesc:ga4e709d71111c76e1c932ae4a804a7fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__quadmath.html#ga4e709d71111c76e1c932ae4a804a7fa7">More...</a><br /></td></tr>
+<tr class="separator:ga4e709d71111c76e1c932ae4a804a7fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Quadmath wrappers (__float128)</div></td></tr>
 <tr class="memitem:ga4288d30b2377e9b696d241b94150c718"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga4288d30b2377e9b696d241b94150c718"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same&lt; T, __float128 &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quadmath.html#ga4288d30b2377e9b696d241b94150c718">fabs</a> (T x)</td></tr>
