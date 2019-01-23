@@ -85,10 +85,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af0efbc673106331168e6b944ffd55c95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probability density function.  <a href="#af0efbc673106331168e6b944ffd55c95">More...</a><br /></td></tr>
 <tr class="separator:af0efbc673106331168e6b944ffd55c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6eddb559a8f374a43f2383cf5c2c4ae8"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1exponential__distribution.html#a6eddb559a8f374a43f2383cf5c2c4ae8">cdf</a> (T x) const</td></tr>
-<tr class="memdesc:a6eddb559a8f374a43f2383cf5c2c4ae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative density function.  <a href="#a6eddb559a8f374a43f2383cf5c2c4ae8">More...</a><br /></td></tr>
+<tr class="memdesc:a6eddb559a8f374a43f2383cf5c2c4ae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative distribution function.  <a href="#a6eddb559a8f374a43f2383cf5c2c4ae8">More...</a><br /></td></tr>
 <tr class="separator:a6eddb559a8f374a43f2383cf5c2c4ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ea9f8ac548cbd876a4a5802c455841c"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1exponential__distribution.html#a1ea9f8ac548cbd876a4a5802c455841c">cdfinv</a> (T u) const</td></tr>
-<tr class="memdesc:a1ea9f8ac548cbd876a4a5802c455841c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative density inverse function.  <a href="#a1ea9f8ac548cbd876a4a5802c455841c">More...</a><br /></td></tr>
+<tr class="memdesc:a1ea9f8ac548cbd876a4a5802c455841c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative distribution inverse function.  <a href="#a1ea9f8ac548cbd876a4a5802c455841c">More...</a><br /></td></tr>
 <tr class="separator:a1ea9f8ac548cbd876a4a5802c455841c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a292a07c3e9b7c0fcd41ec8a681431247"><td class="memTemplParams" colspan="2">template&lt;typename G &gt; </td></tr>
 <tr class="memitem:a292a07c3e9b7c0fcd41ec8a681431247"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1exponential__distribution.html#a292a07c3e9b7c0fcd41ec8a681431247">operator()</a> (G &amp;gen) const</td></tr>
@@ -98,7 +98,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:afa43d170c7ca31812833053569f087fc"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1exponential__distribution.html#afa43d170c7ca31812833053569f087fc">lambda</a> = T(1)</td></tr>
-<tr class="memdesc:afa43d170c7ca31812833053569f087fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( \lambda \), rate.  <a href="#afa43d170c7ca31812833053569f087fc">More...</a><br /></td></tr>
+<tr class="memdesc:afa43d170c7ca31812833053569f087fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rate \( \lambda \).  <a href="#afa43d170c7ca31812833053569f087fc">More...</a><br /></td></tr>
 <tr class="separator:afa43d170c7ca31812833053569f087fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -166,7 +166,7 @@ template&lt;typename T  = double&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Cumulative density function. </p>
+<p>Cumulative distribution function. </p>
 <p class="formulaDsp">
 \[ c(x) = \begin{cases} 1 - e^{-\lambda x} &amp; x \in [0, \infty) \\ 0 &amp; x \notin [0, \infty) \end{cases} \]
 </p>
@@ -199,7 +199,7 @@ template&lt;typename T  = double&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Cumulative density inverse function. </p>
+<p>Cumulative distribution inverse function. </p>
 <p class="formulaDsp">
 \[ c^{-1}(u) = \begin{cases} -\log(1 - u) / \lambda &amp; u \in [0, 1) \\ \text{qNaN} &amp; u \notin [0, 1) \end{cases} \]
 </p>
@@ -253,7 +253,7 @@ template&lt;typename T  = double&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>\( \lambda \), rate. </p>
+<p>Rate \( \lambda \). </p>
 
 </div>
 </div>

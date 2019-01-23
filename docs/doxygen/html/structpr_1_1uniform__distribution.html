@@ -85,10 +85,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a3c728c8d943043726d741eb2cc4c6fec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probability density function.  <a href="#a3c728c8d943043726d741eb2cc4c6fec">More...</a><br /></td></tr>
 <tr class="separator:a3c728c8d943043726d741eb2cc4c6fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76b5cf6fa6655b795c4cd98a358a3c67"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1uniform__distribution.html#a76b5cf6fa6655b795c4cd98a358a3c67">cdf</a> (T x) const</td></tr>
-<tr class="memdesc:a76b5cf6fa6655b795c4cd98a358a3c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative density function.  <a href="#a76b5cf6fa6655b795c4cd98a358a3c67">More...</a><br /></td></tr>
+<tr class="memdesc:a76b5cf6fa6655b795c4cd98a358a3c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative distribution function.  <a href="#a76b5cf6fa6655b795c4cd98a358a3c67">More...</a><br /></td></tr>
 <tr class="separator:a76b5cf6fa6655b795c4cd98a358a3c67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bb15c463adb8add06be51216400f05a"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1uniform__distribution.html#a3bb15c463adb8add06be51216400f05a">cdfinv</a> (T u) const</td></tr>
-<tr class="memdesc:a3bb15c463adb8add06be51216400f05a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative density inverse function.  <a href="#a3bb15c463adb8add06be51216400f05a">More...</a><br /></td></tr>
+<tr class="memdesc:a3bb15c463adb8add06be51216400f05a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative distribution inverse function.  <a href="#a3bb15c463adb8add06be51216400f05a">More...</a><br /></td></tr>
 <tr class="separator:a3bb15c463adb8add06be51216400f05a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2079d5a38afac10048518b5b7bb891e4"><td class="memTemplParams" colspan="2">template&lt;typename G &gt; </td></tr>
 <tr class="memitem:a2079d5a38afac10048518b5b7bb891e4"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1uniform__distribution.html#a2079d5a38afac10048518b5b7bb891e4">operator()</a> (G &amp;gen) const</td></tr>
@@ -98,10 +98,10 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a89aaf661d98104ef2c2e27b2b1ef867f"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1uniform__distribution.html#a89aaf661d98104ef2c2e27b2b1ef867f">x0</a> = T(0)</td></tr>
-<tr class="memdesc:a89aaf661d98104ef2c2e27b2b1ef867f"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( x_0 \), lower bound.  <a href="#a89aaf661d98104ef2c2e27b2b1ef867f">More...</a><br /></td></tr>
+<tr class="memdesc:a89aaf661d98104ef2c2e27b2b1ef867f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower bound \( x_0 \).  <a href="#a89aaf661d98104ef2c2e27b2b1ef867f">More...</a><br /></td></tr>
 <tr class="separator:a89aaf661d98104ef2c2e27b2b1ef867f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f02060342a3a7daebb67acb39fb0535"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1uniform__distribution.html#a1f02060342a3a7daebb67acb39fb0535">x1</a> = T(1)</td></tr>
-<tr class="memdesc:a1f02060342a3a7daebb67acb39fb0535"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( x_1 \), upper bound.  <a href="#a1f02060342a3a7daebb67acb39fb0535">More...</a><br /></td></tr>
+<tr class="memdesc:a1f02060342a3a7daebb67acb39fb0535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper bound \( x_1 \).  <a href="#a1f02060342a3a7daebb67acb39fb0535">More...</a><br /></td></tr>
 <tr class="separator:a1f02060342a3a7daebb67acb39fb0535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -169,7 +169,7 @@ template&lt;typename T  = double&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Cumulative density function. </p>
+<p>Cumulative distribution function. </p>
 <p class="formulaDsp">
 \[ c(x) = \max\parens{0, \min\parens{1, \frac{x - x_0}{x_1 - x_0}}} \]
 </p>
@@ -202,7 +202,7 @@ template&lt;typename T  = double&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Cumulative density inverse function. </p>
+<p>Cumulative distribution inverse function. </p>
 <p class="formulaDsp">
 \[ c^{-1}(u) = \begin{cases} (1 - u)x_0 + ux_1 &amp; u \in [0, 1) \\ \text{qNaN} &amp; u \notin [0, 1) \end{cases} \]
 </p>
@@ -256,7 +256,7 @@ template&lt;typename T  = double&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>\( x_0 \), lower bound. </p>
+<p>Lower bound \( x_0 \). </p>
 
 </div>
 </div>
@@ -274,7 +274,7 @@ template&lt;typename T  = double&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>\( x_1 \), upper bound. </p>
+<p>Upper bound \( x_1 \). </p>
 
 </div>
 </div>

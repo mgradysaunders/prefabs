@@ -117,10 +117,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8bfaeb03749187cc7fdd045d33dd855f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probability density function.  <a href="#a8bfaeb03749187cc7fdd045d33dd855f">More...</a><br /></td></tr>
 <tr class="separator:a8bfaeb03749187cc7fdd045d33dd855f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28909ae48256a44a339d4a655b3835c5"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#a28909ae48256a44a339d4a655b3835c5">cdf</a> (T x) const</td></tr>
-<tr class="memdesc:a28909ae48256a44a339d4a655b3835c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative density function.  <a href="#a28909ae48256a44a339d4a655b3835c5">More...</a><br /></td></tr>
+<tr class="memdesc:a28909ae48256a44a339d4a655b3835c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative distribution function.  <a href="#a28909ae48256a44a339d4a655b3835c5">More...</a><br /></td></tr>
 <tr class="separator:a28909ae48256a44a339d4a655b3835c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d486914d90f99a8e7eb5423d28bc4bf"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#a2d486914d90f99a8e7eb5423d28bc4bf">cdfinv</a> (T u) const</td></tr>
-<tr class="memdesc:a2d486914d90f99a8e7eb5423d28bc4bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative density inverse function.  <a href="#a2d486914d90f99a8e7eb5423d28bc4bf">More...</a><br /></td></tr>
+<tr class="memdesc:a2d486914d90f99a8e7eb5423d28bc4bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative distribution inverse function.  <a href="#a2d486914d90f99a8e7eb5423d28bc4bf">More...</a><br /></td></tr>
 <tr class="separator:a2d486914d90f99a8e7eb5423d28bc4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5493751421877a9cbd4bf7b9f1aab49"><td class="memTemplParams" colspan="2">template&lt;typename G &gt; </td></tr>
 <tr class="memitem:ab5493751421877a9cbd4bf7b9f1aab49"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1piecewise__linear__distribution.html#ab5493751421877a9cbd4bf7b9f1aab49">operator()</a> (G &amp;gen) const</td></tr>
@@ -538,7 +538,7 @@ template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt;
 </table>
 </div><div class="memdoc">
 
-<p>Cumulative density function. </p>
+<p>Cumulative distribution function. </p>
 <p class="formulaDsp">
 \[ c(x) = \begin{cases} \operatorname{lerp}(x;\{x_{[i]}\},\{c_{[i]}\}) &amp; x \in [x_{[0]},x_{[n - 1]}) \\ 0 &amp; x \notin [x_{[0]},x_{[n - 1]}), x &lt; x_{[0]} \\ 1 &amp; x \notin [x_{[0]},x_{[n - 1]}), x \ge x_{[n - 1]} \end{cases} \]
 </p>
@@ -571,7 +571,7 @@ template&lt;typename T  = double, typename Talloc  = std::allocator&lt;T&gt;&gt;
 </table>
 </div><div class="memdoc">
 
-<p>Cumulative density inverse function. </p>
+<p>Cumulative distribution inverse function. </p>
 <p class="formulaDsp">
 \[ c^{-1}(u) = \begin{cases} \operatorname{lerp}(u; \{c_{[i]}\},\{x_{[i]}\}) &amp; u \in [0, 1) \\ \text{qNaN} &amp; u \notin [0, 1) \end{cases} \]
 </p>

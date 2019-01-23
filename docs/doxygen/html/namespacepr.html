@@ -1250,7 +1250,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::complex&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga700db03feb33c6e9cd7c8928aa083c4c">conj</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
 <tr class="memdesc:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analogous to <code>std:conj()</code>, except constexpr.  <a href="group__math.html#ga700db03feb33c6e9cd7c8928aa083c4c">More...</a><br /></td></tr>
 <tr class="separator:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Misc</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Misc (math)</div></td></tr>
 <tr class="memitem:ga62cbcdf870499f2ce7977e094698ad94"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga62cbcdf870499f2ce7977e094698ad94"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga62cbcdf870499f2ce7977e094698ad94">min</a> (const T &amp;x, const T &amp;y)</td></tr>
 <tr class="memdesc:ga62cbcdf870499f2ce7977e094698ad94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analogous to <code>std::min()</code>, except only for numbers.  <a href="group__math.html#ga62cbcdf870499f2ce7977e094698ad94">More...</a><br /></td></tr>
@@ -1280,6 +1280,24 @@ Functions</h2></td></tr>
 <tr class="memitem:gafdc66fccff1956212df06339b4fb77e3"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gafdc66fccff1956212df06339b4fb77e3">isnormal</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
 <tr class="memdesc:gafdc66fccff1956212df06339b4fb77e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">All normal?  <a href="group__math.html#gafdc66fccff1956212df06339b4fb77e3">More...</a><br /></td></tr>
 <tr class="separator:gafdc66fccff1956212df06339b4fb77e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Sign/step functions (arithmetic)</div></td></tr>
+<tr class="memitem:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga2f37f55c9587ba694e59c62ed154a47b">sign</a> (T x)</td></tr>
+<tr class="memdesc:ga2f37f55c9587ba694e59c62ed154a47b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__math.html#ga2f37f55c9587ba694e59c62ed154a47b">More...</a><br /></td></tr>
+<tr class="separator:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga55065f1c44b7d40828e7c3f4f6cb5c0c">step</a> (T x)</td></tr>
+<tr class="memdesc:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__math.html#ga55065f1c44b7d40828e7c3f4f6cb5c0c">More...</a><br /></td></tr>
+<tr class="separator:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Sign/step functions (complex)</div></td></tr>
+<tr class="memitem:ga9896fcf291e17ff0d55fe21694f1c4bc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga9896fcf291e17ff0d55fe21694f1c4bc"><td class="memTemplItemLeft" align="right" valign="top">std::complex&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga9896fcf291e17ff0d55fe21694f1c4bc">sign</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga9896fcf291e17ff0d55fe21694f1c4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__math.html#ga9896fcf291e17ff0d55fe21694f1c4bc">More...</a><br /></td></tr>
+<tr class="separator:ga9896fcf291e17ff0d55fe21694f1c4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga757b123c933a72f0a33b4f940a2919c5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga757b123c933a72f0a33b4f940a2919c5"><td class="memTemplItemLeft" align="right" valign="top">std::complex&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga757b123c933a72f0a33b4f940a2919c5">step</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga757b123c933a72f0a33b4f940a2919c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__math.html#ga757b123c933a72f0a33b4f940a2919c5">More...</a><br /></td></tr>
+<tr class="separator:ga757b123c933a72f0a33b4f940a2919c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Math wrappers</div></td></tr>
 <tr class="memitem:ga6dac19507f6fff9d5f82d360abe03dbe"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga6dac19507f6fff9d5f82d360abe03dbe"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga6dac19507f6fff9d5f82d360abe03dbe">abs</a> (T x) -&gt; decltype(std::abs(x))</td></tr>

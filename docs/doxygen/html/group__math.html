@@ -121,7 +121,7 @@ Complex accessors (complex)</h2></td></tr>
 <tr class="separator:ga700db03feb33c6e9cd7c8928aa083c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Misc</h2></td></tr>
+Misc (math)</h2></td></tr>
 <tr class="memitem:ga62cbcdf870499f2ce7977e094698ad94"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga62cbcdf870499f2ce7977e094698ad94"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga62cbcdf870499f2ce7977e094698ad94">pr::min</a> (const T &amp;x, const T &amp;y)</td></tr>
 <tr class="memdesc:ga62cbcdf870499f2ce7977e094698ad94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analogous to <code>std::min()</code>, except only for numbers.  <a href="group__math.html#ga62cbcdf870499f2ce7977e094698ad94">More...</a><br /></td></tr>
@@ -153,6 +153,28 @@ Float checks (complex)</h2></td></tr>
 <tr class="memitem:gafdc66fccff1956212df06339b4fb77e3"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gafdc66fccff1956212df06339b4fb77e3">pr::isnormal</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
 <tr class="memdesc:gafdc66fccff1956212df06339b4fb77e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">All normal?  <a href="group__math.html#gafdc66fccff1956212df06339b4fb77e3">More...</a><br /></td></tr>
 <tr class="separator:gafdc66fccff1956212df06339b4fb77e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Sign/step functions (arithmetic)</h2></td></tr>
+<tr class="memitem:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga2f37f55c9587ba694e59c62ed154a47b">pr::sign</a> (T x)</td></tr>
+<tr class="memdesc:ga2f37f55c9587ba694e59c62ed154a47b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__math.html#ga2f37f55c9587ba694e59c62ed154a47b">More...</a><br /></td></tr>
+<tr class="separator:ga2f37f55c9587ba694e59c62ed154a47b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga55065f1c44b7d40828e7c3f4f6cb5c0c">pr::step</a> (T x)</td></tr>
+<tr class="memdesc:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__math.html#ga55065f1c44b7d40828e7c3f4f6cb5c0c">More...</a><br /></td></tr>
+<tr class="separator:ga55065f1c44b7d40828e7c3f4f6cb5c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Sign/step functions (complex)</h2></td></tr>
+<tr class="memitem:ga9896fcf291e17ff0d55fe21694f1c4bc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga9896fcf291e17ff0d55fe21694f1c4bc"><td class="memTemplItemLeft" align="right" valign="top">std::complex&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga9896fcf291e17ff0d55fe21694f1c4bc">pr::sign</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga9896fcf291e17ff0d55fe21694f1c4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign function.  <a href="group__math.html#ga9896fcf291e17ff0d55fe21694f1c4bc">More...</a><br /></td></tr>
+<tr class="separator:ga9896fcf291e17ff0d55fe21694f1c4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga757b123c933a72f0a33b4f940a2919c5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga757b123c933a72f0a33b4f940a2919c5"><td class="memTemplItemLeft" align="right" valign="top">std::complex&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga757b123c933a72f0a33b4f940a2919c5">pr::step</a> (const std::complex&lt; T &gt; &amp;x)</td></tr>
+<tr class="memdesc:ga757b123c933a72f0a33b4f940a2919c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step function.  <a href="group__math.html#ga757b123c933a72f0a33b4f940a2919c5">More...</a><br /></td></tr>
+<tr class="separator:ga757b123c933a72f0a33b4f940a2919c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math wrappers</h2></td></tr>
@@ -853,6 +875,150 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>All normal? </p>
+
+</div>
+</div>
+<a id="ga2f37f55c9587ba694e59c62ed154a47b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f37f55c9587ba694e59c62ed154a47b">&#9670;&nbsp;</a></span>sign() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt;std::is_arithmetic&lt;T&gt;::value, T&gt; pr::sign </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sign function. </p>
+<p class="formulaDsp">
+\[ \operatorname{sign}(x) = \begin{cases} -1 &amp; x &lt; 0 \\ +1 &amp; x &gt; 0 \end{cases} \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>For floating point types, uses <code>pr::copysign</code>. Hence,<ul>
+<li><code>pr::sign(-0.0) = -1.0</code> and</li>
+<li><code>pr::sign(+0.0) = +1.0</code>. </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a id="ga55065f1c44b7d40828e7c3f4f6cb5c0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga55065f1c44b7d40828e7c3f4f6cb5c0c">&#9670;&nbsp;</a></span>step() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt;std::is_arithmetic&lt;T&gt;::value, T&gt; pr::step </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Step function. </p>
+<p class="formulaDsp">
+\[ \operatorname{step}(x) = \frac{1}{2} \operatorname{sign}(x) + \frac{1}{2} = \begin{cases} 0 &amp; x &lt; 0 \\ 1 &amp; x &gt; 0 \end{cases} \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>For floating point types, uses <code>pr::signbit</code>. Hence,<ul>
+<li><code>pr::sign(-0.0) = 0.0</code> and</li>
+<li><code>pr::sign(+0.0) = 1.0</code>. </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a id="ga9896fcf291e17ff0d55fe21694f1c4bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9896fcf291e17ff0d55fe21694f1c4bc">&#9670;&nbsp;</a></span>sign() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::complex&lt;T&gt; pr::sign </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sign function. </p>
+<p class="formulaDsp">
+\[ \operatorname{sign}(x) = \begin{cases} 1 &amp; x = 0 \\ x/|x| &amp; x \ne 0 \end{cases} \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>If <code>x.imag() == T(0)</code>, computes <code>pr::sign(x.real())</code> and preserves sign of <code>x.imag()</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ga757b123c933a72f0a33b4f940a2919c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga757b123c933a72f0a33b4f940a2919c5">&#9670;&nbsp;</a></span>step() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::complex&lt;T&gt; pr::step </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Step function. </p>
+<p class="formulaDsp">
+\[ \operatorname{step}(x) = \frac{1}{2} \operatorname{sign}(x) + \frac{1}{2} \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>If <code>x.imag() == T(0)</code>, computes <code>pr::step(x.real())</code> and preserves sign of <code>x.imag()</code>. </dd></dl>
 
 </div>
 </div>
