@@ -510,30 +510,15 @@ namespace pr {
  * @f]
  *
  * @note
- * For floating point types, uses `pr::copysign`. Hence,
+ * Uses `std::copysign()`. Hence,
  * - `pr::sign(-0.0) = -1.0` and
  * - `pr::sign(+0.0) = +1.0`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline std::enable_if_t<std::is_arithmetic<T>::value, T> sign(T x)
+inline auto sign(T x) -> decltype(std::copysign(T(1), x))
 {
-#if (__cplusplus >= 201703L)
-    if constexpr 
-#else
-    if 
-#endif // #if (__cplusplus >= 201703L)
-       (std::is_integral<T>::value) {
-        if (x < T(0)) {
-            return T(-1);
-        }
-        else {
-            return T(1);
-        }
-    }
-    else {
-        return pr::copysign(T(1), x);
-    }
+    return std::copysign(T(1), x);
 }
 
 /**
@@ -550,35 +535,15 @@ inline std::enable_if_t<std::is_arithmetic<T>::value, T> sign(T x)
  * @f]
  *
  * @note
- * For floating point types, uses `pr::signbit`. Hence,
- * - `pr::sign(-0.0) = 0.0` and
- * - `pr::sign(+0.0) = 1.0`.
+ * Uses `std::signbit()`. Hence,
+ * - `pr::step(-0.0) = 0.0` and
+ * - `pr::step(+0.0) = 1.0`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline std::enable_if_t<std::is_arithmetic<T>::value, T> step(T x)
+inline auto step(T x) -> decltype(std::signbit(x) ? T(0) : T(1))
 {
-#if (__cplusplus >= 201703L)
-    if constexpr 
-#else
-    if
-#endif // #if (__cplusplus >= 201703L)
-       (std::is_integral<T>::value) {
-        if (x < T(0)) {
-            return T(0);
-        }
-        else {
-            return T(1);
-        }
-    }
-    else {
-        if (pr::signbit(x)) {
-            return T(0);
-        }
-        else {
-            return T(1);
-        }
-    }
+    return std::signbit(x) ? T(0) : T(1);
 }
 
 /**@}*/
@@ -600,21 +565,21 @@ inline std::enable_if_t<std::is_arithmetic<T>::value, T> step(T x)
  * @f]
  *
  * @note
- * If `x.imag() == T(0)`, computes `pr::sign(x.real())` and
- * preserves sign of `x.imag()`.
+ * If `pr::imag(x) == 0`, computes `pr::sign(pr::real(x))` and
+ * preserves sign of `pr::imag(x)`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline std::complex<T> sign(const std::complex<T>& x)
 {
-    if (x.imag() == T(0)) {
+    if (pr::imag(x) == T(0)) {
         return {
-            pr::sign(x.real()), 
-            x.imag()
+            pr::sign(pr::real(x)), 
+            pr::imag(x)
         };
     }
     else {
-        return x / pr::abs(x);
+        return x / std::abs(x);
     }
 }
 
@@ -628,17 +593,17 @@ inline std::complex<T> sign(const std::complex<T>& x)
  * @f]
  *
  * @note
- * If `x.imag() == T(0)`, computes `pr::step(x.real())` and
- * preserves sign of `x.imag()`.
+ * If `pr::imag(x) == 0`, computes `pr::step(pr::real(x))` and
+ * preserves sign of `pr::imag(x)`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline std::complex<T> step(const std::complex<T>& x)
 {
-    if (x.imag() == T(0)) {
+    if (pr::imag(x) == T(0)) {
         return {
-            pr::step(x.real()), 
-            x.imag()
+            pr::step(pr::real(x)), 
+            pr::imag(x)
         };
     }
     else {
