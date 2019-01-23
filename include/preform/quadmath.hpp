@@ -350,4 +350,136 @@ struct numeric_constants<__complex128> : numeric_constants<__float128>
 #include "quadmath.inl"
 #endif // #if !DOXYGEN
 
+namespace pr {
+
+/**
+ * @addtogroup quadmath
+ */
+/**@{*/
+
+/**
+ * @name Sign/step functions (__float128)
+ */
+/**@{*/
+
+/**
+ * @brief Sign function.
+ *
+ * @f[
+ *      \operatorname{sign}(x) =
+ *      \begin{cases}
+ *          -1 & x < 0
+ *      \\  +1 & x > 0 
+ *      \end{cases}
+ * @f]
+ *
+ * @note
+ * Uses `::copysignq()`. Hence,
+ * - `pr::sign(-0.0) = -1.0` and
+ * - `pr::sign(+0.0) = +1.0`.
+ */
+__attribute__((always_inline))
+inline __float128 sign(__float128 x)
+{
+    return ::copysignq(1.0q, x);
+}
+
+/**
+ * @brief Step function.
+ *
+ * @f[
+ *      \operatorname{step}(x) = 
+ *      \frac{1}{2} \operatorname{sign}(x) +
+ *      \frac{1}{2} =
+ *      \begin{cases}
+ *          0 & x < 0
+ *      \\  1 & x > 0
+ *      \end{cases}
+ * @f]
+ *
+ * @note
+ * Uses `::signbitq()`. Hence,
+ * - `pr::step(-0.0) = 0.0` and
+ * - `pr::step(+0.0) = 1.0`.
+ */
+__attribute__((always_inline))
+inline __float128 step(__float128 x)
+{
+    if (::signbitq(x)) {
+        return 0.0q;
+    }
+    else {
+        return 1.0q;
+    }
+}
+
+/**@}*/
+
+/**
+ * @name Sign/step functions (__complex128)
+ */
+/**@{*/
+
+/**
+ * @brief Sign function.
+ *
+ * @f[
+ *      \operatorname{sign}(x) =
+ *      \begin{cases}
+ *          1     & x =   0
+ *      \\  x/|x| & x \ne 0 
+ *      \end{cases}
+ * @f]
+ *
+ * @note
+ * If `pr::imag(x) == 0`, computes `pr::sign(pr::real(x))` and
+ * preserves sign of `pr::imag(x)`.
+ */
+__attribute__((always_inline))
+inline __complex128 sign(const __complex128& x)
+{
+    if (pr::imag(x) == 0.0q) {
+        return {
+            pr::sign(pr::real(x)),
+            pr::imag(x)
+        };
+    }
+    else {
+        return x / pr::abs(x);
+    }
+}
+
+/**
+ * @brief Step function.
+ *
+ * @f[
+ *      \operatorname{step}(x) =
+ *      \frac{1}{2} \operatorname{sign}(x) +
+ *      \frac{1}{2}
+ * @f]
+ *
+ * @note
+ * If `pr::imag(x) == 0`, computes `pr::step(pr::real(x))` and
+ * preserves sign of `pr::imag(x)`.
+ */
+__attribute__((always_inline))
+inline __complex128 step(const __complex128& x)
+{
+    if (pr::imag(x) == 0.0q) {
+        return {
+            pr::step(pr::real(x)),
+            pr::imag(x)
+        };
+    }
+    else {
+        return pr::sign(x) * 0.5q + 0.5q;
+    }
+}
+
+/**@}*/
+
+/**@}*/
+
+} // namespace pr
+
 #endif // #ifndef PREFORM_QUADMATH_HPP
