@@ -332,6 +332,14 @@ struct numeric_constants<__float128>
     {
         return M_SQRT1_2q;
     }
+
+    /**
+     * @brief @f$ \gamma @f$ (Euler's constant).
+     */
+    static constexpr __float128 M_gamma() noexcept
+    {
+        return 0.57721566490153286060651209008240243104215q;
+    }
 };
 
 /**

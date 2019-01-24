@@ -281,6 +281,20 @@ struct numeric_constants
     {
         return T(0.7071067811865475244008443621048490L);
     }
+
+    /**
+     * @brief @f$ \gamma @f$ (Euler's constant).
+     *
+     * @f[
+     *      \gamma = 
+     *          \lim_{n\to\infty}
+     *          \left(-\log(n) + \sum_{k=1}^{n}\frac{1}{k}\right)
+     * @f]
+     */
+    static constexpr T M_gamma() noexcept
+    {
+        return T(0.5772156649015328606065120900824024L);
+    }
 };
 
 /**
