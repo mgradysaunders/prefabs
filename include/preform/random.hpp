@@ -50,11 +50,6 @@
 // for pr::numeric_limits, pr::log2, ...
 #include <preform/math.hpp>
 
-#if 0
-// for pr::table_lerp1, pr::table_int1, ...
-#include <preform/tabulation.hpp>
-#endif
-
 // for pr::range
 #include <preform/range.hpp>
 
