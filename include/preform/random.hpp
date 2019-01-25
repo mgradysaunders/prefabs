@@ -137,25 +137,25 @@ public:
     }
 
     /**
-     * @brief Support minimum.
+     * @brief Lower bound.
      *
      * @f[
      *      \min[X] = a
      * @f]
      */
-    T support_min() const
+    T lower_bound() const
     {
         return a_;
     }
 
     /**
-     * @brief Support maximum.
+     * @brief Upper bound.
      *
      * @f[
      *      \max[X] = b
      * @f]
      */
-    T support_max() const
+    T upper_bound() const
     {
         return b_;
     }
@@ -285,17 +285,221 @@ public:
 private:
 
     /**
-     * @brief Support minimum.@f$ a @f$.
+     * @brief Lower bound @f$ a @f$.
      */
     T a_ = T(0);
 
     /**
-     * @brief Support maximum.@f$ b @f$.
+     * @brief Upper bound @f$ b @f$.
      */
     T b_ = T(1);
 };
 
-// TODO uniform_int_distribution
+/**
+ * @brief Uniform int distribution.
+ */
+template <typename T = double>
+class uniform_int_distribution
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value, 
+        "T must be floating point");
+
+    /**
+     * @brief Value type.
+     */
+    typedef int value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    uniform_int_distribution() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @throw std::invalid_argument
+     * Unless `a < b`.
+     */
+    uniform_int_distribution(int a, int b) : 
+            a_(a), 
+            b_(b)
+    {
+        if (!(a < b)) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+    }
+
+    /**
+     * @brief Lower bound.
+     *
+     * @f[
+     *      \min[X] = a
+     * @f]
+     */
+    T lower_bound() const
+    {
+        return a_;
+    }
+
+    /**
+     * @brief Upper bound.
+     *
+     * @f[
+     *      \max[X] = b
+     * @f]
+     *
+     * @note
+     * Just as in real distributions, the implementation follows the
+     * convention that the upper bound is open such that @f$ f(b) = 0 @f$.
+     */
+    T upper_bound() const
+    {
+        return b_;
+    }
+
+    /**
+     * @brief Mean.
+     *
+     * @f[
+     *      E[X] = \frac{1}{2} (a + b - 1)
+     * @f]
+     */
+    T mean() const
+    {
+        return T(0.5) * (a_ + b_ - 1);
+    }
+
+    /**
+     * @brief Variance.
+     *
+     * @f[
+     *      V[X] = \frac{1}{12} \left[(b - a)^2 - 1\right]
+     * @f]
+     */
+    T variance() const
+    {
+        return ((b_ - a_) * 
+                (b_ - a_) - 1) / T(12);
+    }
+
+    /**
+     * @brief Skewness.
+     *
+     * @f[
+     *      \gamma_1[X] = 0
+     * @f]
+     */
+    T skewness() const
+    {
+        return T(0);
+    }
+
+    /**
+     * @brief Entropy.
+     *
+     * @f[
+     *      H[X] = \log(b - a)
+     * @f]
+     */
+    T entropy() const
+    {
+        return pr::log(T(b_ - a_));
+    }
+
+    /**
+     * @brief Probability mass function.
+     *
+     * @f[
+     *      f(k) =
+     *          \begin{cases}
+     *              \frac{1}{b - a} & a \le k < b
+     *          \\  0               & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    T pmf(int k) const
+    {
+        if (!(k >= a_ &&
+              k <  b_)) {
+            return 0;
+        }
+        else {
+            return T(1) / T(b_ - a_);
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function.
+     *
+     * @f[
+     *      F(x) = 
+     *          \begin{cases}
+     *              0                                 & k < a
+     *          \\  \frac{\lceil k \rceil - a}{b - a} & a \le k < b
+     *          \\  1                                 & b \le k
+     *          \end{cases}
+     * @f]
+     */
+    T cdf(T k) const
+    {
+        return 
+            pr::fmax(T(0),
+            pr::fmin(T(1), (pr::ceil(k) - a_) / (b_ - a_)));
+    }
+
+    /**
+     * @brief Cumulative distribution function inverse.
+     *
+     * @f[
+     *      F^{-1}(u) =
+     *          \begin{cases}
+     *              \lfloor (1 - u) a + u b \rfloor & 0 \le u < 1
+     *          \\  \text{NaN}                      & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    T cdfinv(T u) const
+    {
+        if (!(u >= T(0) && 
+              u <  T(1))) {
+            return pr::numeric_limits<T>::quiet_NaN();
+        }
+        else {
+            return pr::floor((T(1) - u) * a_ + u * b_);
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    int operator()(G& gen) const
+    {
+        return int(cdfinv(pr::generate_canonical<T>(gen)));
+    }
+
+private:
+
+    /**
+     * @brief Lower bound @f$ a @f$.
+     */
+    int a_ = 0;
+
+    /**
+     * @brief Upper bound @f$ b @f$.
+     */
+    int b_ = 1;
+
+};
 
 /**
  * @brief Exponential distribution.
@@ -339,25 +543,25 @@ public:
     }
 
     /**
-     * @brief Support minimum.
+     * @brief Lower bound.
      *
      * @f[
      *      \min[X] = 0
      * @f]
      */
-    T support_min() const
+    T lower_bound() const
     {
         return T(0);
     }
 
     /**
-     * @brief Support maximum.
+     * @brief Upper bound.
      *
      * @f[
      *      \max[X] = \infty
      * @f]
      */
-    T support_max() const
+    T upper_bound() const
     {
         return pr::numeric_limits<T>::infinity();
     }
@@ -572,25 +776,25 @@ public:
     }
 
     /**
-     * @brief Support minimum.
+     * @brief Lower bound.
      *
      * @f[
      *      \min[X] = -\infty
      * @f]
      */
-    T support_min() const
+    T lower_bound() const
     {
         return -pr::numeric_limits<T>::infinity();
     }
 
     /**
-     * @brief Support maximum.
+     * @brief Upper bound.
      *
      * @f[
      *      \max[X] = \infty
      * @f]
      */
-    T support_max() const
+    T upper_bound() const
     {
         return pr::numeric_limits<T>::infinity();
     }
@@ -760,25 +964,25 @@ public:
     using normal_distribution<T>::normal_distribution;
 
     /**
-     * @brief Support minimum.
+     * @brief Lower bound.
      *
      * @f[
      *      \min[X] = 0
      * @f]
      */
-    T support_min() const
+    T lower_bound() const
     {
         return T(0);
     }
 
     /**
-     * @brief Support maximum.
+     * @brief Upper bound.
      *
      * @f[
      *      \max[X] = \infty
      * @f]
      */
-    T support_max() const
+    T upper_bound() const
     {
         return pr::numeric_limits<T>::infinity();
     }
@@ -942,25 +1146,25 @@ public:
     }
 
     /**
-     * @brief Support minimum.
+     * @brief Lower bound.
      *
      * @f[
      *      \min[X] = -\infty
      * @f]
      */
-    T support_min() const
+    T lower_bound() const
     {
         return -pr::numeric_limits<T>::infinity();
     }
 
     /**
-     * @brief Support maximum.
+     * @brief Upper bound.
      *
      * @f[
      *      \max[X] = \infty
      * @f]
      */
-    T support_max() const
+    T upper_bound() const
     {
         return pr::numeric_limits<T>::infinity();
     }
@@ -1135,25 +1339,25 @@ public:
     }
 
     /**
-     * @brief Support minimum.
+     * @brief Lower bound.
      *
      * @f[
      *      \min[X] = 0
      * @f]
      */
-    T support_min() const
+    T lower_bound() const
     {
         return T(0);
     }
 
     /**
-     * @brief Support maximum.
+     * @brief Upper bound.
      *
      * @f[
      *      \max[X] = \infty
      * @f]
      */
-    T support_max() const
+    T upper_bound() const
     {
         return pr::numeric_limits<T>::infinity();
     }
