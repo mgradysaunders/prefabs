@@ -498,7 +498,226 @@ private:
      * @brief Upper bound @f$ b @f$.
      */
     int b_ = 1;
+};
 
+/**
+ * @brief Bernoulli distribution.
+ */
+template <typename T = double>
+class bernoulli_distribution
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value, 
+        "T must be floating point");
+
+    /**
+     * @brief Value type.
+     */
+    typedef int value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    bernoulli_distribution() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @throw std::invalid_argument
+     * Unless `p >= 0 && p <= 1`.
+     */
+    bernoulli_distribution(T p) : p_(p), q_(T(1) - p)
+    {
+        if (!(p >= T(0)) ||
+            !(p <= T(1))) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+    }
+
+    /**
+     * @brief Lower bound.
+     *
+     * @f[
+     *      \min[X] = 0
+     * @f]
+     */
+    T lower_bound() const
+    {
+        return T(0);
+    }
+
+    /**
+     * @brief Upper bound.
+     *
+     * @f[
+     *      \max[X] = 2
+     * @f]
+     *
+     * @note
+     * Just as in real distributions, the implementation follows the
+     * convention that the upper bound is open such that @f$ f(b) = 0 @f$.
+     */
+    T upper_bound() const
+    {
+        return T(2);
+    }
+
+    /**
+     * @brief Mean.
+     *
+     * @f[
+     *      E[X] = p
+     * @f]
+     */
+    T mean() const
+    {
+        return p_;
+    }
+
+    /**
+     * @brief Variance.
+     *
+     * @f[
+     *      V[X] = pq
+     * @f]
+     */
+    T variance() const
+    {
+        return p_ * q_;
+    }
+
+    /**
+     * @brief Skewness.
+     *
+     * @f[
+     *      \gamma_1[X] = \frac{1 - 2p}{\sqrt{pq}}
+     * @f]
+     */
+    T skewness() const
+    {
+        return (T(1) - T(2) * p_) / pr::sqrt(p_ * q_);
+    }
+
+    /**
+     * @brief Shannon entropy.
+     *
+     * @f[
+     *      H[X] = -p\log(p) - q\log(q)
+     * @f]
+     */
+    T entropy() const
+    {
+        T pval = p_ * pr::log(p_);
+        T qval = q_ * pr::log(q_);
+        if (!pr::isfinite(pval) ||
+            !pr::isfinite(qval)) {
+            return T(1);
+        }
+        else {
+            return -pval - qval;
+        }
+    }
+
+    /**
+     * @brief Probability mass function.
+     *
+     * @f[
+     *      f(x) = 
+     *          \begin{cases}
+     *              q & k = 0
+     *          \\  p & k = 1
+     *          \\  0 & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    T pmf(int k) const
+    {
+        if (k == 0) return q_;
+        if (k == 1) return p_;
+        return T(0);
+    }
+
+    /**
+     * @brief Cumulative distribution function.
+     *
+     * @f[
+     *      F(x) = 
+     *          \begin{cases}
+     *              0 & x < 0 
+     *          \\  q & 0 \le x < 1
+     *          \\  1 & 1 \le x
+     *          \end{cases}
+     * @f]
+     */
+    T cdf(T x) const
+    {
+        if (!(x >= T(0))) {
+            return T(0);
+        }
+        else if (!(x < T(1))) {
+            return T(1);
+        }
+        else {
+            return q_;
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function inverse.
+     *
+     * @f[
+     *      F^{-1}(u) = 
+     *          \begin{cases}
+     *              0 & 0 \le u < q
+     *          \\  1 & q \le u < 1
+     *          \\ \text{NaN} & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    T cdfinv(T u) const
+    {
+        if (!(u >= T(0) &&
+              u <  T(1))) {
+            return pr::numeric_limits<T>::quiet_NaN();
+        }
+        else {
+            if (u < q_) {
+                return T(0);
+            }
+            else {
+                return T(1);
+            }
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    int operator()(G& gen) const
+    {
+        return int(cdfinv(pr::generate_canonical<T>(gen)));
+    }
+
+private:
+
+    /**
+     * @brief Probability of success @f$ p @f$.
+     */
+    T p_ = T(0.5);
+
+    /**
+     * @brief Probability of failure @f$ q = 1 - p @f$.
+     */
+    T q_ = T(0.5);
 };
 
 /**
@@ -839,7 +1058,7 @@ public:
      * @brief Differential Shannon entropy.
      *
      * @f[
-     *      h[X] = \frac{1}{2} \log\left(2 \pi e \sigma^2\right)
+     *      h[X] = \frac{1}{2} \log\left(2\pi e \sigma^2\right)
      * @f]
      */
     T entropy() const
@@ -857,7 +1076,7 @@ public:
      * @f[
      *      f(x) = 
      *          \frac{1}{\sigma}
-     *          \frac{1}{\sqrt{2 \pi}}
+     *          \frac{1}{\sqrt{2\pi}}
      *          \exp\left[-\frac{1}{2}
      *              \left(\frac{x - \mu}{\sigma}
      *              \right)^2
@@ -1341,7 +1560,7 @@ public:
      * @brief Lower bound.
      *
      * @f[
-     *      \min[X] = 0
+     *      \min[X] = -\infty
      * @f]
      */
     T lower_bound() const
@@ -1519,7 +1738,7 @@ public:
      * @brief Constructor.
      *
      * @throw std::invalid_argument
-     * Unless `lambda > 0` and `k > 0`.
+     * Unless `lambda > 0 && k > 0`.
      */
     weibull_distribution(T lambda, T k) : lambda_(lambda), k_(k)
     {
