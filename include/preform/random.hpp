@@ -404,7 +404,7 @@ public:
     }
 
     /**
-     * @brief Entropy.
+     * @brief Shannon entropy.
      *
      * @f[
      *      H[X] = \log(b - a)
@@ -603,7 +603,7 @@ public:
     }
 
     /**
-     * @brief Entropy.
+     * @brief Differential Shannon entropy.
      *
      * @f[
      *      h[X] = 1 - \log(\lambda)
@@ -836,7 +836,7 @@ public:
     }
 
     /**
-     * @brief Entropy.
+     * @brief Differential Shannon entropy.
      *
      * @f[
      *      h[X] = \frac{1}{2} \log\left(2 \pi e \sigma^2\right)
@@ -1030,7 +1030,7 @@ public:
     }
 
     /**
-     * @brief Entropy.
+     * @brief Differential Shannon entropy.
      *
      * @f[
      *      h[X] = 
@@ -1209,7 +1209,7 @@ public:
     }
 
     /**
-     * @brief Entropy.
+     * @brief Differential Shannon entropy.
      *
      * @f[
      *      h[X] = \log(s) + 2
@@ -1271,6 +1271,197 @@ public:
         }
         else {
             return mu_ - s_ * pr::log(T(1) / u - T(1));
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G> 
+    T operator()(G& gen) const
+    {
+        return cdfinv(pr::generate_canonical<T>(gen));
+    }
+
+private:
+
+    /**
+     * @brief Mean @f$ \mu @f$.
+     */
+    T mu_ = T(0);
+
+    /**
+     * @brief Scale (or spread) @f$ s @f$.
+     */
+    T s_ = T(1);
+};
+
+/**
+ * @brief Tanh distribution.
+ */
+template <typename T = double>
+class tanh_distribution
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value, 
+        "T must be floating point");
+
+    /**
+     * @brief Value type.
+     */
+    typedef T value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    tanh_distribution() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @throw std::invalid_argument
+     * Unless `s > 0`.
+     */
+    tanh_distribution(T mu, T s) : mu_(mu), s_(s)
+    {
+        if (!(s > T(0))) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+    }
+
+    /**
+     * @brief Lower bound.
+     *
+     * @f[
+     *      \min[X] = 0
+     * @f]
+     */
+    T lower_bound() const
+    {
+        return -pr::numeric_limits<T>::infinity();
+    }
+
+    /**
+     * @brief Upper bound.
+     *
+     * @f[
+     *      \max[X] = \infty
+     * @f]
+     */
+    T upper_bound() const
+    {
+        return pr::numeric_limits<T>::infinity();
+    }
+
+    /**
+     * @brief Mean.
+     *
+     * @f[
+     *      E[X] = \mu
+     * @f]
+     */
+    T mean() const
+    {
+        return mu_;
+    }
+
+    /**
+     * @brief Variance.
+     *
+     * @f[
+     *      V[X] = \frac{1}{12} \pi^2 s^2
+     * @f]
+     */
+    T variance() const
+    {
+        return 
+            pr::numeric_constants<T>::M_pi() * 
+            pr::numeric_constants<T>::M_pi() * 
+            s_ * s_ / T(12);
+    }
+
+    /**
+     * @brief Skewness.
+     *
+     * @f[
+     *      \gamma_1[X] = 0
+     * @f]
+     */
+    T skewness() const
+    {
+        return T(0);
+    }
+
+    /**
+     * @brief Differential Shannon entropy.
+     *
+     * @f[
+     *      h[X] = \log\left(\frac{1}{2} e^2 s\right)
+     * @f]
+     */
+    T entropy() const
+    {
+        return pr::log(T(0.5) * 
+                    pr::numeric_constants<T>::M_e() * 
+                    pr::numeric_constants<T>::M_e() * s_);
+    }
+
+    /**
+     * @brief Probability density function.
+     *
+     * @f[
+     *      f(x) = 
+     *          \frac{1}{2s}
+     *          \operatorname{sech}^{2}\left(\frac{x - \mu}{s}\right)
+     * @f]
+     */
+    T pdf(T x) const
+    {
+        return T(0.5) / (s_ * pr::nthpow(pr::cosh((x - mu_) / s_), 2));
+    }
+
+    /**
+     * @brief Cumulative distribution function.
+     *
+     * @f[
+     *      F(x) = 
+     *          \frac{1}{2}
+     *          \operatorname{tanh}\left(\frac{x - \mu}{s}\right) + 
+     *                  \frac{1}{2}
+     * @f]
+     */
+    T cdf(T x) const
+    {
+        return T(0.5) * pr::tanh((x - mu_) / s_) + T(0.5);
+    }
+
+    /**
+     * @brief Cumulative distribution function inverse.
+     *
+     * @f[
+     *      F^{-1}(u) = 
+     *          \begin{cases}
+     *              \mu + s \operatorname{arctanh}(2u - 1)  & 0 \le u < 1
+     *          \\  \text{NaN}                              & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    T cdfinv(T u) const
+    {
+        if (!(u >= T(0) &&
+              u <  T(1))) {
+            return pr::numeric_limits<T>::quiet_NaN();
+        }
+        else {
+            return pr::atanh(T(2) * u - T(1)) * s_ + mu_;
         }
     }
 
@@ -1416,7 +1607,7 @@ public:
     }
 
     /**
-     * @brief Entropy.
+     * @brief Differential Shannon entropy.
      *
      * @f[
      *      h[X] = 1 + 
