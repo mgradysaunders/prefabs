@@ -112,6 +112,10 @@ Functions</h2></td></tr>
 <tr class="memitem:gae45c092c6abdafe86875ae8f0c9c1b14"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gae45c092c6abdafe86875ae8f0c9c1b14">pr::rotr</a> (T val, int rot)</td></tr>
 <tr class="memdesc:gae45c092c6abdafe86875ae8f0c9c1b14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cyclical bit rotate right.  <a href="group__int__helpers.html#gae45c092c6abdafe86875ae8f0c9c1b14">More...</a><br /></td></tr>
 <tr class="separator:gae45c092c6abdafe86875ae8f0c9c1b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ec686488e5725ce302486d4b59c69d6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga6ec686488e5725ce302486d4b59c69d6"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga6ec686488e5725ce302486d4b59c69d6">pr::wrap</a> (T k, T n)</td></tr>
+<tr class="memdesc:ga6ec686488e5725ce302486d4b59c69d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap integer in range.  <a href="group__int__helpers.html#ga6ec686488e5725ce302486d4b59c69d6">More...</a><br /></td></tr>
+<tr class="separator:ga6ec686488e5725ce302486d4b59c69d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/int_helpers.hpp&gt;</code></p>
@@ -399,6 +403,43 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Cyclical bit rotate right. </p>
+
+</div>
+</div>
+<a id="ga6ec686488e5725ce302486d4b59c69d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6ec686488e5725ce302486d4b59c69d6">&#9670;&nbsp;</a></span>wrap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, T&gt; pr::wrap </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>k</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wrap integer in range. </p>
+<ul>
+<li>If \( n &gt; 0 \), wrap \( k \) to \( [0, n) \).</li>
+<li>If \( n &lt; 0 \), wrap \( k \) to \( (-n, 0] \).</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>For \( k &gt; 0 \), \( n &gt; 0 \), this operation is equivalent to \( k \% n \). </dd></dl>
 
 </div>
 </div>
