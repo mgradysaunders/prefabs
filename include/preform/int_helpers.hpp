@@ -208,6 +208,47 @@ constexpr std::enable_if_t<
     return (val >> rot) | (val << ((-rot) & (sizeof(T) * 8 - 1)));
 }
 
+/**
+ * @brief Wrap integer in range.
+ *
+ * - If @f$ n > 0 @f$, wrap @f$ k @f$ to @f$ [0, n) @f$.
+ * - If @f$ n < 0 @f$, wrap @f$ k @f$ to @f$ (-n, 0] @f$.
+ *
+ * @note
+ * For @f$ k > 0 @f$, @f$ n > 0 @f$, this operation is 
+ * equivalent to @f$ k \% n @f$.
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> wrap(T k, T n)
+{
+#if (__cplusplus >= 201703L)
+    if constexpr
+#else
+    if
+#endif // #if (__cplusplus >= 201703L)
+       (std::is_unsigned<T>::value) {
+        return k % n;
+    }
+    else {
+        if (n < T(0)) {
+            return -wrap(-k, -n);
+        }
+        else {
+            if (k >= T(0)) {
+                return k % n;
+            }
+            else {
+                k = n + k % n;
+                if (k == n) {
+                    k = T(0);
+                }
+                return k;
+            }
+        }
+    }
+}
+
 /**@}*/
 
 } // namespace pr
