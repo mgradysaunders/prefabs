@@ -70,7 +70,7 @@ namespace pr {
 template <typename T, typename G>
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> 
-                        generate_canonical(G& gen) 
+                        generate_canonical(G&& gen) 
 {
     long double r = 
                 static_cast<long double>(gen.max()) - 
@@ -277,9 +277,9 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G& gen) const
+    T operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(gen));
+        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
     }
 
 private:
@@ -482,9 +482,9 @@ public:
      * @brief Generate number.
      */
     template <typename G>
-    int operator()(G& gen) const
+    int operator()(G&& gen) const
     {
-        return int(cdfinv(pr::generate_canonical<T>(gen)));
+        return int(cdfinv(pr::generate_canonical<T>(std::forward<G>(gen))));
     }
 
 private:
@@ -702,9 +702,9 @@ public:
      * @brief Generate number.
      */
     template <typename G>
-    int operator()(G& gen) const
+    int operator()(G&& gen) const
     {
-        return int(cdfinv(pr::generate_canonical<T>(gen)));
+        return int(cdfinv(pr::generate_canonical<T>(std::forward<G>(gen))));
     }
 
 private:
@@ -905,9 +905,9 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G& gen) const
+    T operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(gen));
+        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
     }
 
 private:
@@ -1138,9 +1138,9 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G& gen) const
+    T operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(gen));
+        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
     }
 
 protected:
@@ -1309,9 +1309,9 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G& gen) const
+    T operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(gen));
+        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
     }
 
 private:
@@ -1497,9 +1497,9 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G& gen) const
+    T operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(gen));
+        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
     }
 
 private:
@@ -1688,9 +1688,9 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G& gen) const
+    T operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(gen));
+        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
     }
 
 private:
@@ -1922,9 +1922,9 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G& gen) const
+    T operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(gen));
+        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
     }
 
 private:
