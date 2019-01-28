@@ -249,6 +249,94 @@ constexpr std::enable_if_t<
     }
 }
 
+/**
+ * @brief Linear congruential generator seek.
+ *
+ * @param[in] x
+ * State.
+ *
+ * @param[in] a
+ * State multiplier.
+ *
+ * @param[in] b
+ * State increment.
+ *
+ * @param[in] n
+ * Step count.
+ *
+ * @note
+ * If @f$ a \% 4 = 1 @f$ and @f$ b @f$ is odd, such that
+ * the generator has a full period of @f$ 2^{m} @f$ where @f$ m @f$ is
+ * the bit depth of the unsigned integral type, then seeking by negative
+ * numbers works as expected. 
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_unsigned<T>::value, T> lcg_seek(T x, T a, T b, T n)
+{
+    // Fast exponentiation by squaring.
+    T an = 1;
+    T bn = 0;
+    while (n > T(0)) {
+        if (n & T(1)) {
+            an *= a;
+            bn *= a;
+            bn += b;
+        }
+        b *= a + 1;
+        a *= a;
+        n >>= 1;
+    }
+    x *= an;
+    x += bn;
+    return x;
+}
+
+/**
+ * @brief Linear congruential generator distance.
+ *
+ * @param[in] x
+ * State.
+ *
+ * @param[in] a
+ * State multiplier.
+ *
+ * @param[in] b
+ * State increment.
+ *
+ * @param[in] xn
+ * Target state.
+ *
+ * @throw std::invalid_argument
+ * Unless @f$ a \% 4 = 1 @f$ and @f$ b @f$ is odd, such that
+ * the generator has a full period of @f$ 2^{m} @f$ where @f$ m @f$ is
+ * the bit depth of the unsigned integral type.
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_unsigned<T>::value, T> lcg_distance(T x, T a, T b, T xn)
+{
+    // Ensure full period.
+    if (!((a & 3) == 1) || 
+        !((b & 1) == 1)) {
+        throw std::invalid_argument(__PRETTY_FUNCTION__);
+    }
+
+    T p = 1;
+    T r = 0;
+    while (x != xn) {
+        if ((x & p) != (xn & p)) {
+            x *= a;
+            x += b;
+            r |= p;
+        }
+        p <<= 1;
+        b *= a + 1;
+        a *= a;
+    }
+    return r;
+}
+
 /**@}*/
 
 } // namespace pr
