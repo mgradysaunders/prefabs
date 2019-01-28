@@ -116,6 +116,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6ec686488e5725ce302486d4b59c69d6"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga6ec686488e5725ce302486d4b59c69d6">pr::wrap</a> (T k, T n)</td></tr>
 <tr class="memdesc:ga6ec686488e5725ce302486d4b59c69d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap integer in range.  <a href="group__int__helpers.html#ga6ec686488e5725ce302486d4b59c69d6">More...</a><br /></td></tr>
 <tr class="separator:ga6ec686488e5725ce302486d4b59c69d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3faf448a6cb84ff88b476c7ab7426e80"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga3faf448a6cb84ff88b476c7ab7426e80"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#ga3faf448a6cb84ff88b476c7ab7426e80">pr::lcg_seek</a> (T x, T a, T b, T n)</td></tr>
+<tr class="memdesc:ga3faf448a6cb84ff88b476c7ab7426e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear congruential generator seek.  <a href="group__int__helpers.html#ga3faf448a6cb84ff88b476c7ab7426e80">More...</a><br /></td></tr>
+<tr class="separator:ga3faf448a6cb84ff88b476c7ab7426e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae80a7cc61492e532575558207be5147e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae80a7cc61492e532575558207be5147e"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gae80a7cc61492e532575558207be5147e">pr::lcg_distance</a> (T x, T a, T b, T xn)</td></tr>
+<tr class="memdesc:gae80a7cc61492e532575558207be5147e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear congruential generator distance.  <a href="group__int__helpers.html#gae80a7cc61492e532575558207be5147e">More...</a><br /></td></tr>
+<tr class="separator:gae80a7cc61492e532575558207be5147e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/int_helpers.hpp&gt;</code></p>
@@ -440,6 +448,119 @@ template&lt;typename T &gt; </div>
 <li>If \( n &lt; 0 \), wrap \( k \) to \( (-n, 0] \).</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>For \( k &gt; 0 \), \( n &gt; 0 \), this operation is equivalent to \( k \% n \). </dd></dl>
+
+</div>
+</div>
+<a id="ga3faf448a6cb84ff88b476c7ab7426e80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3faf448a6cb84ff88b476c7ab7426e80">&#9670;&nbsp;</a></span>lcg_seek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_unsigned&lt;T&gt;::value, T&gt; pr::lcg_seek </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linear congruential generator seek. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>State.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>State multiplier.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>State increment.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>Step count.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>If \( a \% 4 = 1 \) and \( b \) is odd, such that the generator has a full period of \( 2^{m} \) where \( m \) is the bit depth of the unsigned integral type, then seeking by negative numbers works as expected. </dd></dl>
+
+</div>
+</div>
+<a id="gae80a7cc61492e532575558207be5147e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae80a7cc61492e532575558207be5147e">&#9670;&nbsp;</a></span>lcg_distance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_unsigned&lt;T&gt;::value, T&gt; pr::lcg_distance </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>xn</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linear congruential generator distance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>State.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>State multiplier.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>State increment.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">xn</td><td>Target state.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Unless \( a \% 4 = 1 \) and \( b \) is odd, such that the generator has a full period of \( 2^{m} \) where \( m \) is the bit depth of the unsigned integral type. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
