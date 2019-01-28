@@ -53,7 +53,7 @@
 namespace pr {
 
 /**
- * @defgroup block_array2 2-dimensional block array
+ * @defgroup block_array2 Block array (2-dimensional)
  *
  * `<preform/block_array2.hpp>`
  *
@@ -62,9 +62,9 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief 2-dimensional block array.
+ * @brief Block array (2-dimensional).
  *
- * 2-dimensional block array with block size @f$ B = 2^k @f$ for an integer 
+ * Block array with block size @f$ B = 2^k @f$ for an integer 
  * @f$ k > 0 @f$, which is chosen to promote cache performance. Specifically, 
  * @f$ k @f$ is chosen such that each @f$ B^2 @f$ block fits on an L1 cache 
  * line which, by default, the implementation assumes to be 64 bytes. To 
