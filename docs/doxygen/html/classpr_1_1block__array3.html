@@ -73,11 +73,11 @@ $(function() {
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classpr_1_1block__array3-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::block_array3&lt; T, Talloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__block__array3.html">3-dimensional block array</a></div></div>  </div>
+<div class="title">pr::block_array3&lt; T, Talloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__block__array3.html">Block array (3-dimensional)</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>3-dimensional block array.  
+<p>Block array (3-dimensional).  
  <a href="classpr_1_1block__array3.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -301,8 +301,8 @@ Protected Attributes</h2></td></tr>
 <div class="textblock"><h3>template&lt;typename T, typename Talloc = std::allocator&lt;T&gt;&gt;<br />
 class pr::block_array3&lt; T, Talloc &gt;</h3>
 
-<p>3-dimensional block array. </p>
-<p>3-dimensional block array with block size \( B = 2^k \) for an integer \( k &gt; 0 \), which is chosen to promote cache performance. Specifically, \( k \) is chosen such that each \( B^2 \) block fits on an L1 cache line which, by default, the implementation assumes to be 64 bytes. To change this assumption, define <code>L1_LINE</code> to the appropriate size before including the data structure.</p>
+<p>Block array (3-dimensional). </p>
+<p>Block array with block size \( B = 2^k \) for an integer \( k &gt; 0 \), which is chosen to promote cache performance. Specifically, \( k \) is chosen such that each \( B^2 \) block fits on an L1 cache line which, by default, the implementation assumes to be 64 bytes. To change this assumption, define <code>L1_LINE</code> to the appropriate size before including the data structure.</p>
 <dl class="section note"><dt>Note</dt><dd>The implementation blocks <em>only</em> the 0th and 1st dimensions. As a result, the addresses of adjacent locations in the 2nd dimension are usually far apart. </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a2171d8609225405246498a478c7173d7"></a>
