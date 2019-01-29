@@ -1944,6 +1944,284 @@ private:
 
 // TODO piecewise_linear_distribution
 
+/**
+ * @brief PCG XSH-RR engine.
+ *
+ * Permuted congruential generator with XOR-shift plus 
+ * random-rotate output transform. The implementation here 
+ * is adapted as a special case of the [implementation 
+ * by Melissa O'Neill][1] affiliated with the [PCG project][2].
+ *
+ * [1]: https://github.com/imneme/pcg-cpp
+ * [2]: https://pcg-random.org
+ */
+template <
+    typename T, 
+    typename Tstate,
+    Tstate Nmultiplier,
+    Tstate Ndefault_increment
+    >
+class pcg_xsh_rr_engine
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_unsigned<T>::value,
+        "T must be unsigned");
+
+    // Sanity check.
+    static_assert(
+        std::is_unsigned<Tstate>::value,
+        "Tstate must be unsigned");
+
+    // Sanity check.
+    static_assert(
+        sizeof(T) <= sizeof(Tstate), 
+        "T cannot be larger than Tstate");
+
+    // Sanity check.
+    static_assert(
+        (Nmultiplier & 3) == 1 &&
+        (Ndefault_increment & 1) == 1,
+        "Invalid constants");
+
+public:
+
+    /**
+     * @brief Result type.
+     */
+    typedef T result_type;
+
+    /**
+     * @brief State type.
+     */
+    typedef Tstate state_type;
+
+    /**
+     * @brief Multiplier.
+     */
+    static constexpr state_type multiplier = Nmultiplier;
+
+    /**
+     * @brief Default increment.
+     */
+    static constexpr state_type default_increment = Ndefault_increment;
+
+public:
+
+    /**
+     * @brief Default constructor.
+     */
+    pcg_xsh_rr_engine()
+    {
+        // Advance.
+        state_ *= multiplier;
+        state_ += inc_;
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    pcg_xsh_rr_engine(state_type seed) : 
+            state_(seed)
+    {
+        // Advance.
+        state_ *= multiplier;
+        state_ += inc_;
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    pcg_xsh_rr_engine(state_type seed, state_type seq) : 
+            state_(seed)
+    {
+        // Set stream.
+        set_stream(seq);
+
+        // Advance.
+        state_ *= multiplier;
+        state_ += inc_;
+    }
+
+public:
+
+    /**
+     * @brief Increment.
+     */
+    state_type increment() const
+    {
+        return inc_;
+    }
+
+    /**
+     * @brief Stream.
+     */
+    state_type stream() const
+    {
+        return inc_ >> 1;
+    }
+
+    /**
+     * @brief Set stream.
+     */
+    void set_stream(state_type seq)
+    {
+        inc_ = (seq << 1) | 1;
+    }
+
+    /**
+     * @brief Result minimum.
+     */
+    static constexpr result_type min() noexcept
+    {
+        return 0;
+    }
+
+    /**
+     * @brief Result maximum.
+     */
+    static constexpr result_type max() noexcept
+    {
+        return pr::numeric_limits<result_type>::max();
+    }
+
+    /**
+     * @brief Generate result.
+     */
+    result_type operator()()
+    {
+        // Current state.
+        state_type state = state_;
+
+        // Advance.
+        state_ *= multiplier;
+        state_ += inc_;
+
+        // Output.
+        return output(state);
+    }
+
+    /**
+     * @brief Discard.
+     */
+    void discard(state_type n)
+    {
+        // Advance.
+        state_ = pr::lcg_seek<state_type>(state_, multiplier, inc_, n);
+    }
+
+    /**
+     * @brief Compare `operator==`.
+     */
+    bool operator==(const pcg_xsh_rr_engine& other) const
+    {
+        return state_ == other.state_ && inc_ == other.inc_;
+    }
+
+    /**
+     * @brief Compare `operator!=`.
+     */
+    bool operator!=(const pcg_xsh_rr_engine& other) const
+    {
+        return state_ != other.state_ || inc_ != other.inc_;
+    }
+
+private:
+
+    /**
+     * @brief State.
+     */
+    state_type state_ = 0;
+
+    /**
+     * @brief Increment.
+     */
+    state_type inc_ = default_increment;
+
+    /**
+     * @brief Output function.
+     */
+    static constexpr result_type output(state_type state)
+    {
+        // Result bits.
+        constexpr std::size_t result_bits = sizeof(result_type) * 8;
+
+        // State bits.
+        constexpr std::size_t state_bits = sizeof(state_type) * 8;
+
+        // Spare bits.
+        constexpr std::size_t spare_bits = state_bits - result_bits;
+
+        // Target operation bits.
+        constexpr std::size_t target_op_bits = pr::first1(result_bits);
+
+        // Actual operation bits.
+        constexpr std::size_t op_bits = 
+              spare_bits < target_op_bits 
+            ? spare_bits : target_op_bits;
+
+        // Amplifier.
+        constexpr std::size_t amplifier = target_op_bits - op_bits;
+
+        // Mask.
+        constexpr std::size_t mask = (1 << op_bits) - 1;
+
+        // Top spare bits
+        constexpr std::size_t top_spare = op_bits;
+
+        // Bottom spare bits.
+        constexpr std::size_t bottom_spare = spare_bits - top_spare;
+
+        // Shift.
+        constexpr std::size_t shift = (result_bits + top_spare) >> 1;
+
+        // Pivot.
+        std::size_t pivot = 0;
+        if (op_bits > 0) {
+            pivot = state >> (state_bits - op_bits);
+            pivot = pivot & mask;
+        }
+        pivot = pivot << amplifier;
+        pivot = pivot & mask;
+
+        // XOR shift.
+        state ^= 
+        state >> shift;
+
+        // Random rotate.
+        return pr::rotr(result_type(state >> bottom_spare), pivot);
+    }
+};
+
+/**
+ * @brief 8-bit PCG XSH-RR generator.
+ */
+typedef pcg_xsh_rr_engine<
+            std::uint8_t,
+            std::uint16_t,
+            12829U,
+            47989U> pcg8_xsh_rr;
+
+/**
+ * @brief 16-bit PCG XSH-RR generator.
+ */
+typedef pcg_xsh_rr_engine<
+            std::uint16_t,
+            std::uint32_t,
+            747796405UL,
+            2891336453UL> pcg16_xsh_rr;
+
+/**
+ * @brief 32-bit PCG XSH-RR generator.
+ */
+typedef pcg_xsh_rr_engine<
+            std::uint32_t,
+            std::uint64_t,
+            6364136223846793005ULL,
+            1442695040888963407ULL> pcg32_xsh_rr;
+
 /**@}*/
 
 } // namespace pr
