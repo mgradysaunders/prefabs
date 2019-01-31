@@ -2027,6 +2027,7 @@ public:
             state_(seed)
     {
         // Advance.
+        state_ += inc_;
         state_ *= multiplier;
         state_ += inc_;
     }
@@ -2041,6 +2042,7 @@ public:
         set_stream(seq);
 
         // Advance.
+        state_ += inc_;
         state_ *= multiplier;
         state_ += inc_;
     }
