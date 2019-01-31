@@ -2104,6 +2104,31 @@ public:
     }
 
     /**
+     * @brief Generate result in range.
+     *
+     * @param[in] b
+     * Upper bound.
+     *
+     * @throw std::invalid_argument
+     * Unless `b > 0`.
+     */
+    result_type operator()(result_type b)
+    {
+        if (!(b > 0)) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+
+        for (;;) {
+            result_type r = operator()() - 
+                pcg_xsh_rr_engine::min();
+            if (r >= (pcg_xsh_rr_engine::max() - 
+                      pcg_xsh_rr_engine::min() + 1 - b) % b) {
+                return r % b;
+            }
+        }
+    }
+
+    /**
      * @brief Discard.
      */
     void discard(state_type n)
