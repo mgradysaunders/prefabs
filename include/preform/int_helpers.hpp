@@ -337,6 +337,42 @@ constexpr std::enable_if_t<
     return r;
 }
 
+/**
+ * @brief Cantor pairing function.
+ *
+ * @f[
+ *      \pi(x, y) = \frac{1}{2} (x + y) (x + y + 1) + y
+ * @f]
+ *
+ * @see
+ * [This article] on Wikipedia.
+ * [1]: https://en.wikipedia.org/wiki/Pairing_function
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> cantor(T x, T y)
+{
+    return ((x + y) * (x + y + 1)) / 2 + y;
+}
+
+/**
+ * @brief Cantor tuple function.
+ *
+ * @f[
+ *      \pi(x, y, z, \ldots) = \pi(\pi(x, y), z, \ldots)
+ * @f]
+ *
+ * @see
+ * [This article] on Wikipedia.
+ * [1]: https://en.wikipedia.org/wiki/Pairing_function
+ */
+template <typename T, typename... Ts>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> cantor(T x, T y, T z, Ts... ws)
+{
+    return cantor(cantor(x, y), z, ws...);
+}
+
 /**@}*/
 
 } // namespace pr
