@@ -115,6 +115,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abb7637caa6dd4f781b1a1cbd804a53d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#a7717a33b144a9e83a4be11c92503203f">result_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#abb7637caa6dd4f781b1a1cbd804a53d8">operator()</a> ()</td></tr>
 <tr class="memdesc:abb7637caa6dd4f781b1a1cbd804a53d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate result.  <a href="#abb7637caa6dd4f781b1a1cbd804a53d8">More...</a><br /></td></tr>
 <tr class="separator:abb7637caa6dd4f781b1a1cbd804a53d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab92e255d76c0044760db94512888f16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#a7717a33b144a9e83a4be11c92503203f">result_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#aab92e255d76c0044760db94512888f16">operator()</a> (<a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#a7717a33b144a9e83a4be11c92503203f">result_type</a> b)</td></tr>
+<tr class="memdesc:aab92e255d76c0044760db94512888f16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate result in range.  <a href="#aab92e255d76c0044760db94512888f16">More...</a><br /></td></tr>
+<tr class="separator:aab92e255d76c0044760db94512888f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a582431b1ba82c9715ca0ef8e08136eda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#a582431b1ba82c9715ca0ef8e08136eda">discard</a> (<a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#accf9804b1656bf81c9bdc839144e7d7d">state_type</a> n)</td></tr>
 <tr class="memdesc:a582431b1ba82c9715ca0ef8e08136eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Discard.  <a href="#a582431b1ba82c9715ca0ef8e08136eda">More...</a><br /></td></tr>
 <tr class="separator:a582431b1ba82c9715ca0ef8e08136eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -449,7 +452,7 @@ template&lt;typename T , typename Tstate , Tstate Nmultiplier, Tstate Ndefault_i
 </div>
 </div>
 <a id="abb7637caa6dd4f781b1a1cbd804a53d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb7637caa6dd4f781b1a1cbd804a53d8">&#9670;&nbsp;</a></span>operator()()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abb7637caa6dd4f781b1a1cbd804a53d8">&#9670;&nbsp;</a></span>operator()() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -474,6 +477,48 @@ template&lt;typename T , typename Tstate , Tstate Nmultiplier, Tstate Ndefault_i
 </div><div class="memdoc">
 
 <p>Generate result. </p>
+
+</div>
+</div>
+<a id="aab92e255d76c0044760db94512888f16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab92e255d76c0044760db94512888f16">&#9670;&nbsp;</a></span>operator()() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename Tstate , Tstate Nmultiplier, Tstate Ndefault_increment&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#a7717a33b144a9e83a4be11c92503203f">result_type</a> <a class="el" href="classpr_1_1pcg__xsh__rr__engine.html">pr::pcg_xsh_rr_engine</a>&lt; T, Tstate, Nmultiplier, Ndefault_increment &gt;::operator() </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#a7717a33b144a9e83a4be11c92503203f">result_type</a>&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Generate result in range. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>Upper bound.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Unless <code>b &gt; 0</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

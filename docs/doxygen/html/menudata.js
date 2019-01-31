@@ -23,7 +23,9 @@ var menudata={children:[
 {text:"r",url:"namespacemembers_r.html#index_r"},
 {text:"s",url:"namespacemembers_s.html#index_s"},
 {text:"t",url:"namespacemembers_t.html#index_t"},
-{text:"w",url:"namespacemembers_w.html#index_w"}]},
+{text:"u",url:"namespacemembers_u.html#index_u"},
+{text:"w",url:"namespacemembers_w.html#index_w"},
+{text:"x",url:"namespacemembers_x.html#index_x"}]},
 {text:"Functions",url:"namespacemembers_func.html",children:[
 {text:"a",url:"namespacemembers_func.html#index_a"},
 {text:"c",url:"namespacemembers_func_c.html#index_c"},
@@ -42,7 +44,9 @@ var menudata={children:[
 {text:"r",url:"namespacemembers_func_r.html#index_r"},
 {text:"s",url:"namespacemembers_func_s.html#index_s"},
 {text:"t",url:"namespacemembers_func_t.html#index_t"},
-{text:"w",url:"namespacemembers_func_w.html#index_w"}]},
+{text:"u",url:"namespacemembers_func_u.html#index_u"},
+{text:"w",url:"namespacemembers_func_w.html#index_w"},
+{text:"x",url:"namespacemembers_func_x.html#index_x"}]},
 {text:"Typedefs",url:"namespacemembers_type.html"},
 {text:"Enumerations",url:"namespacemembers_enum.html"}]}]},
 {text:"Classes",url:"annotated.html",children:[

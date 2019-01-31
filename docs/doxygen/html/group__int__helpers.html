@@ -124,6 +124,14 @@ Functions</h2></td></tr>
 <tr class="memitem:gae80a7cc61492e532575558207be5147e"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gae80a7cc61492e532575558207be5147e">pr::lcg_distance</a> (T x, T a, T b, T xn)</td></tr>
 <tr class="memdesc:gae80a7cc61492e532575558207be5147e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear congruential generator distance.  <a href="group__int__helpers.html#gae80a7cc61492e532575558207be5147e">More...</a><br /></td></tr>
 <tr class="separator:gae80a7cc61492e532575558207be5147e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac80d90f7e8a92806209a0fa04372e356"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac80d90f7e8a92806209a0fa04372e356"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gac80d90f7e8a92806209a0fa04372e356">pr::cantor</a> (T x, T y)</td></tr>
+<tr class="memdesc:gac80d90f7e8a92806209a0fa04372e356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cantor pairing function.  <a href="group__int__helpers.html#gac80d90f7e8a92806209a0fa04372e356">More...</a><br /></td></tr>
+<tr class="separator:gac80d90f7e8a92806209a0fa04372e356"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae9bbee6ce19a6f14facb983d21512ca7"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... Ts&gt; </td></tr>
+<tr class="memitem:gae9bbee6ce19a6f14facb983d21512ca7"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_integral&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__int__helpers.html#gae9bbee6ce19a6f14facb983d21512ca7">pr::cantor</a> (T x, T y, T z, Ts... ws)</td></tr>
+<tr class="memdesc:gae9bbee6ce19a6f14facb983d21512ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cantor tuple function.  <a href="group__int__helpers.html#gae9bbee6ce19a6f14facb983d21512ca7">More...</a><br /></td></tr>
+<tr class="separator:gae9bbee6ce19a6f14facb983d21512ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/int_helpers.hpp&gt;</code></p>
@@ -561,6 +569,90 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="gac80d90f7e8a92806209a0fa04372e356"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac80d90f7e8a92806209a0fa04372e356">&#9670;&nbsp;</a></span>cantor() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, T&gt; pr::cantor </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cantor pairing function. </p>
+<p class="formulaDsp">
+\[ \pi(x, y) = \frac{1}{2} (x + y) (x + y + 1) + y \]
+</p>
+<dl class="section see"><dt>See also</dt><dd>[This article] on Wikipedia. </dd></dl>
+
+</div>
+</div>
+<a id="gae9bbee6ce19a6f14facb983d21512ca7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae9bbee6ce19a6f14facb983d21512ca7">&#9670;&nbsp;</a></span>cantor() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... Ts&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_integral&lt;T&gt;::value, T&gt; pr::cantor </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>z</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ts...&#160;</td>
+          <td class="paramname"><em>ws</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cantor tuple function. </p>
+<p class="formulaDsp">
+\[ \pi(x, y, z, \ldots) = \pi(\pi(x, y), z, \ldots) \]
+</p>
+<dl class="section see"><dt>See also</dt><dd>[This article] on Wikipedia. </dd></dl>
 
 </div>
 </div>
