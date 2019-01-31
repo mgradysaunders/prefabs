@@ -250,25 +250,6 @@ constexpr std::enable_if_t<
 }
 
 /**
- * @brief Fast unsigned integral power.
- */
-template <typename T>
-constexpr std::enable_if_t<
-          std::is_unsigned<T>::value, T> fastuintpow(T x, T n)
-{
-    // Fast power by squaring.
-    T xn = 1;
-    while (n > 0) {
-        if (n & 1) {
-            xn *= x;
-        }
-        x *= x;
-        n >>= 1;
-    }
-    return xn;
-}
-
-/**
  * @brief Linear congruential generator seek.
  *
  * @param[in] x
@@ -354,6 +335,35 @@ constexpr std::enable_if_t<
         a *= a;
     }
     return r;
+}
+
+/**
+ * @brief Cantor pairing function.
+ *  
+ * @f[
+ *      \pi(x, y) = 
+ *      \frac{1}{2}(x + y)(x + y + 1) + y
+ * @f]
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> cantor(T x, T y)
+{
+    return ((x + y) * (x + y + 1)) / 2 + y;
+}
+
+/**
+ * @brief Cantor tuple pairing function.
+ *
+ * @f[
+ *      \pi(x, y, z, \ldots) = \pi(\pi(x, y), z, \ldots)
+ * @f]
+ */
+template <typename T, typename... Ts>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> cantor(T x, T y, T z, Ts... ws)
+{
+    return cantor(cantor(x, y), z, ws...);
 }
 
 /**@}*/

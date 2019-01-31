@@ -151,9 +151,10 @@ public:
             // Generator.
             pcg32_xsh_rr gen(
                 seed_, 
-                fastuintpow<unsigned>(1299791U, w[0]) *
-                fastuintpow<unsigned>(15485867U, w[1]) * 
-                fastuintpow<unsigned>(32451169U, w[2]));
+                cantor(
+                    w[0],
+                    w[1],
+                    w[2]));
 
             // Initialize gradient.
             multi<float_type, 3> x;

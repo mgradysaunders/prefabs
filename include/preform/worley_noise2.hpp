@@ -122,8 +122,9 @@ public:
             // Generator.
             pcg32_xsh_rr gen(
                 seed_,
-                fastuintpow<unsigned>(1299791U, wk[0]) *
-                fastuintpow<unsigned>(15485867U, wk[1]));
+                cantor(
+                    wk[0], 
+                    wk[1]));
 
             // Vertex.
             multi<float_type, 2> vk = {{
