@@ -139,11 +139,10 @@ public:
         auto grad = [&](multi<int, 2> w) -> multi<float_type, 2>
         {
             // Generator.
-            pcg32_xsh_rr gen(seed_);
-            int a = cantor(w[0], ~w[1] + w[0]);
-            int b = cantor(w[1], -w[0] ^ w[1]);
-            gen.set_stream(a);
-            gen.discard(b);
+            pcg32_xsh_rr gen(
+                seed_,
+                fastuintpow<unsigned>(1299791U, w[0]) *
+                fastuintpow<unsigned>(15485867U, w[1]));
 
             // Initialize gradient.
             multi<float_type, 2> x;

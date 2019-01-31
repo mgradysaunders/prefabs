@@ -121,11 +121,11 @@ public:
         for (wk[2] = w0[2] - 1; wk[2] <= w0[2] + 1; wk[2]++) {
 
             // Generator.
-            pcg32_xsh_rr gen(seed_);
-            int a = cantor(wk[0], wk[1] ^ wk[2], ~wk[2]);
-            int b = cantor(wk[2], wk[0], -wk[1]);
-            gen.set_stream(a);
-            gen.discard(b);
+            pcg32_xsh_rr gen(
+                seed_,
+                fastuintpow<unsigned>(1299791U, wk[0]) *
+                fastuintpow<unsigned>(15485867U, wk[1]) * 
+                fastuintpow<unsigned>(32451169U, wk[2]));
 
             // Vertex.
             multi<float_type, 3> vk = {{
