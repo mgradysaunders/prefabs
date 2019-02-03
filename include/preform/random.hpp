@@ -2229,7 +2229,7 @@ typedef pcg_xsh_rr_engine<
             std::uint8_t,
             std::uint16_t,
             12829U,
-            47989U> pcg8_xsh_rr;
+            47989U> pcg8;
 
 /**
  * @brief 16-bit PCG XSH-RR generator.
@@ -2238,7 +2238,7 @@ typedef pcg_xsh_rr_engine<
             std::uint16_t,
             std::uint32_t,
             747796405UL,
-            2891336453UL> pcg16_xsh_rr;
+            2891336453UL> pcg16;
 
 /**
  * @brief 32-bit PCG XSH-RR generator.
@@ -2247,7 +2247,16 @@ typedef pcg_xsh_rr_engine<
             std::uint32_t,
             std::uint64_t,
             6364136223846793005ULL,
-            1442695040888963407ULL> pcg32_xsh_rr;
+            1442695040888963407ULL> pcg32;
+
+/**
+ * @brief 64-bit PCG XSH-RR generator.
+ */
+typedef pcg_xsh_rr_engine<
+            std::uint64_t,
+            std::uint64_t,
+            6364136223846793005ULL,
+            1442695040888963407ULL> pcg64;
 
 /**@}*/
 
