@@ -120,7 +120,7 @@ public:
         for (wk[1] = w0[1] - 1; wk[1] <= w0[1] + 1; wk[1]++) {
 
             // Generator.
-            pcg32_xsh_rr gen(
+            pcg32 gen(
                 seed_,
                 cantor(
                     wk[0], 

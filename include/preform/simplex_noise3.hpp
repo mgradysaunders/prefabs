@@ -42,7 +42,7 @@
 // for pr::wrap
 #include <preform/int_helpers.hpp>
 
-// for pr::pcg32_xsh_rr
+// for pr::pcg32
 #include <preform/random.hpp>
 
 namespace pr {
@@ -149,7 +149,7 @@ public:
         auto grad = [&](multi<int, 3> w) -> multi<float_type, 3>
         {
             // Generator.
-            pcg32_xsh_rr gen(
+            pcg32 gen(
                 seed_, 
                 cantor(
                     w[0],
