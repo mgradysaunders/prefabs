@@ -41,7 +41,9 @@
 // for pr::fclamp, pr::frepeat, ...
 #include <preform/float_helpers.hpp>
 
-// for pr::fclamp, pr::frepeat, ...
+// for pr::multi
+#include <preform/multi.hpp>
+#include <preform/multi_math.hpp>
 #include <preform/multi_float_helpers.hpp>
 
 // for pr::lerp, pr::catmull
