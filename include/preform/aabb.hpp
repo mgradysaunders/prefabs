@@ -236,6 +236,18 @@ public:
         return (1 - u) * arr_[0] + u * arr_[1];
     }
 
+    /**
+     * @brief Cast operator.
+     */
+    template <typename U, std::size_t M>
+    constexpr operator aabb<U, M>() const
+    {
+        return {
+            static_cast<multi<U, M>>(arr_[0]),
+            static_cast<multi<U, M>>(arr_[1])
+        };
+    }
+
     /**@}*/
 
 public:
