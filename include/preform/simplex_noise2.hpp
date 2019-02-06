@@ -128,7 +128,7 @@ public:
         u -= u0;
 
         // Descending order.
-        multi<int, 2> uorder = {{0, 1}};
+        multi<int, 2> uorder = {0, 1};
         if (!(u[0] >= u[1])) {
             std::swap(
                     uorder[0], 

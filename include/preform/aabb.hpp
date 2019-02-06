@@ -485,8 +485,8 @@ private:
      * @brief Arrays.
      */
     multi<T, N> arr_[2] = {
-        multi<T, N>::value(+pr::numeric_limits<T>::max()),
-        multi<T, N>::value(-pr::numeric_limits<T>::max())
+        multi<T, N>(+pr::numeric_limits<T>::max()),
+        multi<T, N>(-pr::numeric_limits<T>::max())
     };
 
 public:

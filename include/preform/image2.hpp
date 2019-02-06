@@ -136,7 +136,7 @@ public:
             multi<float_type, 2> locmin,
             multi<float_type, 2> locmax,
             multi<cycle_mode, 2> cyc_mode = 
-            multi<cycle_mode, 2>::value(cycle_mode::clamp)) const
+            multi<cycle_mode, 2>(cycle_mode::clamp)) const
     {
         if (this->empty()) {
             return {};
@@ -161,10 +161,10 @@ public:
             float_type denom = 0;
             for (int i = int(loc0[0]); i < int(loc1[0]); i++)
             for (int j = int(loc0[1]); j < int(loc1[1]); j++) {
-                multi<float_type, 2> cur = {{
+                multi<float_type, 2> cur = {
                     float_type(i),
                     float_type(j)
-                }};
+                };
                 multi<float_type, 2> cur0 = pr::fmax(locmin, cur);
                 multi<float_type, 2> cur1 = pr::fmin(locmax, cur + 1);
                 numer += (cur1 - cur0).prod() * lookup(cur, cyc_mode);
@@ -188,7 +188,7 @@ public:
     multi<float_type, N> sample0(
             multi<float_type, 2> loc, 
             multi<cycle_mode, 2> cyc_mode =
-            multi<cycle_mode, 2>::value(cycle_mode::clamp)) const
+            multi<cycle_mode, 2>(cycle_mode::clamp)) const
     {
         if (this->empty()) {
             return {};
@@ -212,7 +212,7 @@ public:
     multi<float_type, N> sample1(
             multi<float_type, 2> loc,
             multi<cycle_mode, 2> cyc_mode =
-            multi<cycle_mode, 2>::value(cycle_mode::clamp)) const
+            multi<cycle_mode, 2>(cycle_mode::clamp)) const
     {
         if (this->empty()) {
             return {};
@@ -233,10 +233,10 @@ public:
                 for (size_type j = 0; j < 2; j++) {
                     val1[j] = 
                         lookup(loc0 + 
-                        multi<float_type, 2>{{
+                        multi<float_type, 2>{
                             float_type(i),
                             float_type(j)
-                        }}, cyc_mode);
+                        }, cyc_mode);
                 }
 
                 // Linear interpolation.
@@ -260,7 +260,7 @@ public:
     multi<float_type, N> sample2(
             multi<float_type, 2> loc,
             multi<cycle_mode, 2> cyc_mode =
-            multi<cycle_mode, 2>::value(cycle_mode::clamp)) const
+            multi<cycle_mode, 2>(cycle_mode::clamp)) const
     {
         if (this->empty()) {
             return {};
@@ -281,10 +281,10 @@ public:
                 for (size_type j = 0; j < 4; j++) {
                     val1[j] = 
                         lookup(loc0 + 
-                        multi<float_type, 2>{{
+                        multi<float_type, 2>{
                             float_type(i) - 1,
                             float_type(j) - 1
-                        }}, cyc_mode);
+                        }, cyc_mode);
                 }
 
                 // Catmull-Rom interpolation.
@@ -320,7 +320,7 @@ public:
             int samp,
             multi<float_type, 2> loc,
             multi<cycle_mode, 2> cyc_mode =
-            multi<cycle_mode, 2>::value(cycle_mode::clamp)) const
+            multi<cycle_mode, 2>(cycle_mode::clamp)) const
     {
         switch (samp) {
             default:
@@ -349,7 +349,7 @@ public:
             int samp,
             multi<size_type, 2> count,
             multi<cycle_mode, 2> cyc_mode =
-            multi<cycle_mode, 2>::value(cycle_mode::clamp))
+            multi<cycle_mode, 2>(cycle_mode::clamp))
     {
         // Target size is equivalent?
         if ((count == this->user_size_).all()) {
@@ -364,9 +364,9 @@ public:
         else if (!((count <= this->user_size_).all() ||
                    (count >= this->user_size_).all())) {
             // Resample 0th dimension.
-            resample(samp, {{count[0], this->user_size_[1]}}, cyc_mode);
+            resample(samp, {count[0], this->user_size_[1]}, cyc_mode);
             // Resample 1st dimension.
-            resample(samp, {{this->user_size_[0], count[1]}}, cyc_mode);
+            resample(samp, {this->user_size_[0], count[1]}, cyc_mode);
         }
         else {
 
@@ -386,14 +386,14 @@ public:
                 for (size_type i = 0; i < this->user_size_[0]; i++)
                 for (size_type j = 0; j < this->user_size_[1]; j++) {
                     // Downsample.
-                    multi<float_type, 2> locmin = {{
+                    multi<float_type, 2> locmin = {
                         scale_fac[0] * float_type(i),
                         scale_fac[1] * float_type(j)
-                    }};
-                    multi<float_type, 2> locmax = {{
+                    };
+                    multi<float_type, 2> locmax = {
                         scale_fac[0] * float_type(i + 1),
                         scale_fac[1] * float_type(j + 1)
-                    }};
+                    };
                     this->operator()(i, j) = 
                         fstretch<entry_type>(
                                  image.average(locmin, locmax, cyc_mode));
@@ -403,10 +403,10 @@ public:
                 for (size_type i = 0; i < this->user_size_[0]; i++)
                 for (size_type j = 0; j < this->user_size_[1]; j++) {
                     // Upsample.
-                    multi<float_type, 2> loc = {{
+                    multi<float_type, 2> loc = {
                         scale_fac[0] * (float_type(i) + float_type(0.5)),
                         scale_fac[1] * (float_type(j) + float_type(0.5))
-                    }};
+                    };
                     this->operator()(i, j) = 
                         fstretch<entry_type>(
                                  image.sample(samp, loc, cyc_mode));
@@ -434,7 +434,7 @@ private:
     {
         // Cycle.
         multi<float_type, 2> locmin =
-        multi<float_type, 2>::value(float_type(-0.5));
+        multi<float_type, 2>(float_type(-0.5));
         multi<float_type, 2> locmax = 
             float_type(0.5) * multi<float_type, 2>(this->user_size_) +
             float_type(0.5) * multi<float_type, 2>(this->user_size_ - 1);

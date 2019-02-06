@@ -154,7 +154,7 @@ public:
             const T& v1, 
             const T& v2) :
         s_(s),
-        v_{{v0, v1, v2}}
+        v_{v0, v1, v2}
     {
     }
 
@@ -166,7 +166,7 @@ public:
      */
     constexpr quat(const multi<T, 4>& x) :
         s_(x[0]),
-        v_{{x[1], x[2], x[3]}}
+        v_{x[1], x[2], x[3]}
     {
     }
 
@@ -254,12 +254,12 @@ public:
     template <typename U>
     constexpr explicit operator multi<U, 4>() const
     {
-        return {{
+        return {
             static_cast<U>(s_),
             static_cast<U>(v_[0]),
             static_cast<U>(v_[1]),
             static_cast<U>(v_[2])
-        }};
+        };
     }
 
     /**@}*/

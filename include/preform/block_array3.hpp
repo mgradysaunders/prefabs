@@ -166,7 +166,7 @@ public:
 
 
     /**
-     * @brief Binary log of the block area @f$ \log_{2}{B^{2}} @f$.
+     * @brief Binary log of the block area @f$ \log_{2}{B^{2} @f$.
      */
     static constexpr 
     size_type block_area_log2 = block_size_log2 * 2;
@@ -544,11 +544,11 @@ public:
         size_type num = data_size_[0] >> block_size_log2;
 
         // Recover index.
-        return {{
+        return {
             (tmp_quo % num) << block_size_log2 | (tmp_rem & (block_size - 1)),
             (tmp_quo / num) << block_size_log2 | (tmp_rem >> block_size_log2),
              pos_quo
-        }};
+        };
     }
 
     /**@}*/
@@ -619,7 +619,7 @@ public:
      */
     reference operator()(size_type k0, size_type k1, size_type k2)
     {
-        return data_[convert({{k0, k1, k2}})];
+        return data_[convert({k0, k1, k2})];
     }
 
     /**
@@ -627,7 +627,7 @@ public:
      */
     const_reference operator()(size_type k0, size_type k1, size_type k2) const
     {
-        return data_[convert({{k0, k1, k2}})];
+        return data_[convert({k0, k1, k2})];
     }
 
     /**

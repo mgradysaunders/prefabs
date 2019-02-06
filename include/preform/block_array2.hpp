@@ -161,7 +161,7 @@ public:
     size_type block_size = 1 << block_size_log2;
 
     /**
-     * @brief Binary log of the block area @f$ \log_{2}{B^{2}} @f$.
+     * @brief Binary log of the block area @f$ \log_{2}{B^{2} @f$.
      */
     static constexpr 
     size_type block_area_log2 = block_size_log2 * 2;
@@ -187,10 +187,10 @@ public:
     static constexpr
     multi<size_type, 2> round_size(multi<size_type, 2> num) noexcept
     {
-        return {{
+        return {
             round_size(num[0]),
             round_size(num[1])
-        }};
+        };
     }
 
 public:
@@ -523,10 +523,10 @@ public:
         size_type num = data_size_[0] >> block_size_log2;
 
         // Recover index.
-        return {{
+        return {
             (pos_quo % num) << block_size_log2 | (pos_rem & (block_size - 1)),
             (pos_quo / num) << block_size_log2 | (pos_rem >> block_size_log2)
-        }};
+        };
     }
 
     /**@}*/
@@ -597,7 +597,7 @@ public:
      */
     reference operator()(size_type k0, size_type k1)
     {
-        return data_[convert({{k0, k1}})];
+        return data_[convert({k0, k1})];
     }
 
     /**
@@ -605,7 +605,7 @@ public:
      */
     const_reference operator()(size_type k0, size_type k1) const
     {
-        return data_[convert({{k0, k1}})];
+        return data_[convert({k0, k1})];
     }
 
     /**

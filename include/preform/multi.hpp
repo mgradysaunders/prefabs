@@ -47,6 +47,9 @@
 // for std::basic_ostream
 #include <ostream>
 
+// for std::initializer_list
+#include <initializer_list>
+
 // for std::forward
 #include <utility>
 
@@ -80,6 +83,23 @@ struct multi_value_type
 
 template <typename T>
 struct multi_value_type<T>
+{
+    using type = T;
+};
+
+template <typename T, std::size_t... N>
+struct multi_initializer_list;
+
+template <typename T, std::size_t M, std::size_t... N>
+struct multi_initializer_list<T, M, N...>
+{
+    using type = 
+        std::initializer_list<
+        typename multi_initializer_list<T, N...>::type>;
+};
+
+template <typename T>
+struct multi_initializer_list<T>
 {
     using type = T;
 };
@@ -185,9 +205,14 @@ public:
         typedef multi<U, M, N...> other;
     };
 
+    /**
+     * @brief Initializer list.
+     */
+    typedef typename multi_initializer_list<T, M, N...>::type initializer_list;
+
     /**@}*/
 
-public:
+private:
 
     /**
      * @brief Array alignment, to promote vectorization by compiler.
@@ -206,11 +231,49 @@ public:
 
     /**
      * @brief Array.
-     *
-     * This should be treated as a private member variable. It is public
-     * only to ensure the implicit array constructor is available.
      */
     alignas(alignment()) value_type v_[M] = {};
+
+public:
+
+    /**
+     * @brief Default constructor.
+     */
+    constexpr multi() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    __attribute__((always_inline))
+    constexpr multi(initializer_list list)
+    {
+        auto itr = begin();
+        auto itrlist = list.begin();
+        for (; itr < end() &&
+               itrlist < list.end(); 
+               ++itr, 
+               ++itrlist) {
+            *itr = *itrlist;
+        }
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    __attribute__((always_inline))
+    constexpr explicit multi(const entry_type& all)
+    {
+        fill(all);
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    __attribute__((always_inline))
+    constexpr explicit multi(const entry_type* ptr) __attribute__((nonnull))
+    {
+        fill(ptr);
+    }
 
 public:
 
@@ -728,16 +791,15 @@ public:
     /**
      * @brief Fill from entry.
      */
-    constexpr multi& fill(const entry_type& ent)
+    __attribute__((always_inline))
+    constexpr multi& fill(const T& all)
     {
         for (value_type& val : *this) {
-            if constexpr (std::is_same<
-                            entry_type, 
-                            value_type>::value) {
-                val = ent;
+            if constexpr (std::is_same<T, value_type>::value) {
+                val = all;
             }
             else {
-                val.fill(ent);
+                val.fill(all);
             }
         }
         return *this;
@@ -746,36 +808,19 @@ public:
     /**
      * @brief Fill from entry array.
      */
-    constexpr multi& fill(const entry_type* pos)
+    __attribute__((always_inline))
+    constexpr multi& fill(const T* ptr) __attribute__((nonnull))
     {
         for (value_type& val : *this) {
-            if constexpr (std::is_same<
-                            entry_type, 
-                            value_type>::value) {
-                val = *pos++;
+            if constexpr (std::is_same<T, value_type>::value) {
+                val = *ptr++;
             }
             else {
-                val.fill(pos);
-                pos += value_type::total_size();
+                val.fill(ptr);
+                ptr += value_type::total_size();
             }
         }
         return *this;
-    }
-
-    /**
-     * @brief Entry initializer.
-     */
-    static constexpr multi value(const T& ent)
-    {
-        return multi().fill(ent);
-    }
-
-    /**
-     * @brief Entry array initializer.
-     */
-    static constexpr multi array(const T* pos)
-    {
-        return multi().fill(pos);
     }
 
     /**
@@ -791,17 +836,15 @@ public:
 #if !DOXYGEN
 
     // Flatten into array.
-    constexpr void flatten_into(entry_type* pos) const
+    constexpr void flatten_into(T* ptr) const
     {
         for (const value_type& val : *this) {
-            if constexpr (std::is_same<
-                            entry_type, 
-                            value_type>::value) {
-                *pos++ = val;
+            if constexpr (std::is_same<T, value_type>::value) {
+                *ptr++ = val;
             }
             else {
-                val.flatten_into(pos);
-                pos += value_type::total_size();
+                val.flatten_into(ptr);
+                ptr += value_type::total_size();
             }
         }
     }
@@ -887,9 +930,7 @@ public:
     constexpr bool any() const
     {
         for (const value_type& val : *this) {
-            if constexpr (std::is_same<
-                            entry_type,
-                            value_type>::value) {
+            if constexpr (std::is_same<T, value_type>::value) {
                 if (val) {
                     return true;
                 }
@@ -909,9 +950,7 @@ public:
     constexpr bool all() const
     {
         for (const value_type& val : *this) {
-            if constexpr (std::is_same<
-                            entry_type, 
-                            value_type>::value) {
+            if constexpr (std::is_same<T, value_type>::value) {
                 if (!val) {
                     return false;
                 }

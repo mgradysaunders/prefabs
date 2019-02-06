@@ -143,12 +143,12 @@ public:
                    const std::pair<T, int>& usort1) {
                     return usort0.first > usort1.first;
                 });
-            uorder = {{
+            uorder = {
                 usort[0].second,
                 usort[1].second,
                 usort[2].second,
                 usort[3].second
-            }};
+            };
         }
 
         // Gradient.

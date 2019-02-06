@@ -125,11 +125,11 @@ inline std::enable_if_t<
        std::is_floating_point<T>::value,
        multi<T, 3>> srgbenc(const multi<T, 3>& v)
 {
-    return {{
+    return {
         srgbenc(v[0]),
         srgbenc(v[1]),
         srgbenc(v[2])
-    }};
+    };
 }
 
 /**
@@ -156,12 +156,12 @@ inline std::enable_if_t<
        std::is_floating_point<T>::value,
        multi<T, 4>> srgbenc(const multi<T, 4>& v)
 {
-    return {{
+    return {
         srgbenc(v[0]),
         srgbenc(v[1]),
         srgbenc(v[2]),
         v[3]
-    }};
+    };
 }
 
 /**
@@ -222,11 +222,11 @@ inline std::enable_if_t<
        std::is_floating_point<T>::value,
        multi<T, 3>> srgbdec(const multi<T, 3>& v)
 {
-    return {{
+    return {
         srgbenc(v[0]),
         srgbenc(v[1]),
         srgbenc(v[2])
-    }};
+    };
 }
 
 /**
@@ -253,12 +253,12 @@ inline std::enable_if_t<
        std::is_floating_point<T>::value,
        multi<T, 4>> srgbdec(const multi<T, 4>& v)
 {
-    return {{
+    return {
         srgbdec(v[0]),
         srgbdec(v[1]),
         srgbdec(v[2]),
         v[3]
-    }};
+    };
 }
 
 /**
@@ -307,11 +307,11 @@ inline std::enable_if_t<
        std::is_floating_point<T>::value,
        multi<T, 3>> srgbenc_hable(const multi<T, 3>& v)
 {
-    return {{
+    return {
         srgbenc_hable(v[0]),
         srgbenc_hable(v[1]),
         srgbenc_hable(v[2])
-    }};
+    };
 }
 
 /**
@@ -336,12 +336,12 @@ inline std::enable_if_t<
        std::is_floating_point<T>::value,
        multi<T, 4>> srgbenc_hable(const multi<T, 4>& v)
 {
-    return {{
+    return {
         srgbenc_hable(v[0]),
         srgbenc_hable(v[1]),
         srgbenc_hable(v[2]),
         v[3]
-    }};
+    };
 }
 
 /**
@@ -387,11 +387,11 @@ inline std::enable_if_t<
        std::is_floating_point<T>::value,
        multi<T, 3>> srgbenc_hejl_burgess(const multi<T, 3>& v)
 {
-    return {{
+    return {
         srgbenc_hejl_burgess(v[0]),
         srgbenc_hejl_burgess(v[1]),
         srgbenc_hejl_burgess(v[2])
-    }};
+    };
 }
 
 /**
@@ -416,12 +416,12 @@ inline std::enable_if_t<
        std::is_floating_point<T>::value,
        multi<T, 4>> srgbenc_hejl_burgess(const multi<T, 4>& v)
 {
-    return {{
+    return {
         srgbenc_hejl_burgess(v[0]),
         srgbenc_hejl_burgess(v[1]),
         srgbenc_hejl_burgess(v[2]),
         v[3]
-    }};
+    };
 }
 
 /**
@@ -512,11 +512,11 @@ inline std::enable_if_t<
        multi<T, 3>> xyztorgb(const multi<T, 3>& v)
 {
     if constexpr (std::is_floating_point<T>::value) {
-        const multi<T, 3, 3> m = {{
-            {{T(+2.3706743), T(-0.9000405), T(-0.4706338)}},
-            {{T(-0.5138850), T(+1.4253036), T(+0.0885814)}},
-            {{T(+0.0052982), T(-0.0146949), T(+1.0093968)}}
-        }};
+        const multi<T, 3, 3> m = {
+            {T(+2.3706743), T(-0.9000405), T(-0.4706338)},
+            {T(-0.5138850), T(+1.4253036), T(+0.0885814)},
+            {T(+0.0052982), T(-0.0146949), T(+1.0093968)}
+        };
         return dot(m, v);
     }
     else {
@@ -550,11 +550,11 @@ inline std::enable_if_t<
        multi<T, 3>> rgbtoxyz(const multi<T, 3>& v)
 {
     if constexpr (std::is_floating_point<T>::value) {
-        const multi<T, 3, 3> m = {{
-            {{T(0.4887180), T(0.3106803), T(0.2006017)}},
-            {{T(0.1762044), T(0.8129847), T(0.0108109)}},
-            {{T(0.0000000), T(0.0102048), T(0.9897952)}}
-        }};
+        const multi<T, 3, 3> m = {
+            {T(0.4887180), T(0.3106803), T(0.2006017)},
+            {T(0.1762044), T(0.8129847), T(0.0108109)},
+            {T(0.0000000), T(0.0102048), T(0.9897952)}
+        };
         return dot(m, v);
     }
     else {
@@ -583,22 +583,22 @@ inline std::enable_if_t<
     multi<T, 3, 3> m;
 
     // Temp matrix.
-    multi<T, 3, 3> a = {{
-        {{cr[0] / cr[1],
-          cg[0] / cg[1],
-          cb[0] / cb[1]}},
-        {{T(1), T(1), T(1)}},
-        {{(T(1) - cr[0] - cr[1]) / cr[1],
-          (T(1) - cg[0] - cg[1]) / cg[1],
-          (T(1) - cb[0] - cb[1]) / cb[1]}}
-    }};
+    multi<T, 3, 3> a = {
+        {cr[0] / cr[1],
+         cg[0] / cg[1],
+         cb[0] / cb[1]},
+        {T(1), T(1), T(1)},
+        {(T(1) - cr[0] - cr[1]) / cr[1],
+         (T(1) - cg[0] - cg[1]) / cg[1],
+         (T(1) - cb[0] - cb[1]) / cb[1]}
+    };
 
     // Temp matrix cofactors.
-    multi<T, 3, 3> acof = {{
+    multi<T, 3, 3> acof = {
         cross(a[1], a[2]),
         cross(a[2], a[0]),
         cross(a[0], a[1])
-    }};
+    };
 
     // Temp matrix inverse times reference white.
     multi<T, 3> s = dot(w, acof) / acof[1].sum();
@@ -654,11 +654,11 @@ inline std::enable_if_t<
                 return (t * (T(24389) / T(27)) + T(16)) / T(116);
             }
         };
-        return {{
+        return {
             T(116) * f(v[1]) - T(16),
             T(500) * (f(v[0]) - f(v[1])),
             T(200) * (f(v[1]) - f(v[2]))
-        }};
+        };
     }
     else {
         return fstretch<T>(xyztolab(
@@ -721,11 +721,11 @@ inline std::enable_if_t<
         T fy = (v[0] + T(16)) / T(116);
         T fx = fy + v[1] / T(500);
         T fz = fy - v[2] / T(200);
-        return {{
+        return {
             finv(fx),
             finv(fy),
             finv(fz)
-        }};
+        };
     }
     else {
         return fstretch<T>(labtoxyz(

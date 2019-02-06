@@ -199,7 +199,7 @@ template <
     >
 constexpr multi<T, 2> cross(const multi<T, 2>& arr)
 {
-    return {{arr[1], -arr[0]}};
+    return {arr[1], -arr[0]};
 }
 
 /**
@@ -230,11 +230,11 @@ constexpr decltype(T() * U()) cross(
 template <typename T>
 constexpr multi<T, 3, 3> cross(const multi<T, 3>& arr)
 {
-    return {{
-        {{T(), -arr[2], +arr[1]}},
-        {{+arr[2], T(), -arr[0]}},
-        {{-arr[1], +arr[0], T()}}
-    }};
+    return {
+        {T(), -arr[2], +arr[1]},
+        {+arr[2], T(), -arr[0]},
+        {-arr[1], +arr[0], T()}
+    };
 }
 
 /**
@@ -250,11 +250,11 @@ constexpr multi<decltype(T() * U()), 3> cross(
                         const multi<U, 3>& arr1)
 {
 //  return dot(arr0, cross(arr1));
-    return {{
+    return {
         arr0[1] * arr1[2] - arr0[2] * arr1[1],
         arr0[2] * arr1[0] - arr0[0] * arr1[2],
         arr0[0] * arr1[1] - arr0[1] * arr1[0]
-    }};
+    };
 }
 
 /**

@@ -129,11 +129,11 @@ public:
                     wk[2]));
 
             // Vertex.
-            multi<float_type, 3> vk = {{
+            multi<float_type, 3> vk = {
                 float_type(wk[0]) + pr::generate_canonical<float_type>(gen),
                 float_type(wk[1]) + pr::generate_canonical<float_type>(gen),
                 float_type(wk[2]) + pr::generate_canonical<float_type>(gen)
-            }};
+            };
 
             // Offset.
             multi<float_type, 3> tk = t - vk;
