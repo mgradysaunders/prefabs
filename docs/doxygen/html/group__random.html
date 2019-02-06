@@ -65,7 +65,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Random</div>  </div>
@@ -108,8 +107,19 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">PCG XSH-RR engine.  <a href="classpr_1_1pcg__xsh__rr__engine.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="memTemplParams" colspan="2">template&lt;typename T , typename G &gt; </td></tr>
+<tr class="memitem:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__random.html#ga1cec41c2a3e03c0583b5310b18a9be9c">pr::generate_canonical</a> (G &amp;&amp;gen)</td></tr>
+<tr class="memdesc:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate canonical random number.  <a href="group__random.html#ga1cec41c2a3e03c0583b5310b18a9be9c">More...</a><br /></td></tr>
+<tr class="separator:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaadb97df7d9295a6ed4b23c2224bb182b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaadb97df7d9295a6ed4b23c2224bb182b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__random.html#gaadb97df7d9295a6ed4b23c2224bb182b">pr::erfinv</a> (T y)</td></tr>
+<tr class="memdesc:gaadb97df7d9295a6ed4b23c2224bb182b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error function inverse.  <a href="group__random.html#gaadb97df7d9295a6ed4b23c2224bb182b">More...</a><br /></td></tr>
+<tr class="separator:gaadb97df7d9295a6ed4b23c2224bb182b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Subset distributions</h2></td></tr>
 <tr class="memitem:ga8c225ea6ecc6345f2b78e1308ca6f738"><td class="memTemplParams" colspan="2">template&lt;typename T  = double&gt; </td></tr>
 <tr class="memitem:ga8c225ea6ecc6345f2b78e1308ca6f738"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__random.html#ga8c225ea6ecc6345f2b78e1308ca6f738">pr::subset_exponential_distribution</a> = <a class="el" href="classpr_1_1subset__distribution__wrapper.html">subset_distribution_wrapper</a>&lt; <a class="el" href="classpr_1_1exponential__distribution.html">exponential_distribution</a>&lt; T &gt; &gt;</td></tr>
 <tr class="memdesc:ga8c225ea6ecc6345f2b78e1308ca6f738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subset exponential distribution.  <a href="group__random.html#ga8c225ea6ecc6345f2b78e1308ca6f738">More...</a><br /></td></tr>
@@ -134,6 +144,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gaece1c660291831b1dfe4871d2bf1d1d6"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__random.html#gaece1c660291831b1dfe4871d2bf1d1d6">pr::subset_weibull_distribution</a> = <a class="el" href="classpr_1_1subset__distribution__wrapper.html">subset_distribution_wrapper</a>&lt; <a class="el" href="classpr_1_1weibull__distribution.html">weibull_distribution</a>&lt; T &gt; &gt;</td></tr>
 <tr class="memdesc:gaece1c660291831b1dfe4871d2bf1d1d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subset Weibull distribution.  <a href="group__random.html#gaece1c660291831b1dfe4871d2bf1d1d6">More...</a><br /></td></tr>
 <tr class="separator:gaece1c660291831b1dfe4871d2bf1d1d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+PCGs</h2></td></tr>
 <tr class="memitem:gaf88fbe49ac6f5e102a50952798d87f07"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classpr_1_1pcg__xsh__rr__engine.html">pcg_xsh_rr_engine</a>&lt; std::uint8_t, std::uint16_t, 12829U, 47989U &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__random.html#gaf88fbe49ac6f5e102a50952798d87f07">pr::pcg8</a></td></tr>
 <tr class="memdesc:gaf88fbe49ac6f5e102a50952798d87f07"><td class="mdescLeft">&#160;</td><td class="mdescRight">8-bit PCG XSH-RR generator.  <a href="group__random.html#gaf88fbe49ac6f5e102a50952798d87f07">More...</a><br /></td></tr>
 <tr class="separator:gaf88fbe49ac6f5e102a50952798d87f07"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,17 +159,6 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga3916a30744bce4beb86bb9d57539ec8b"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classpr_1_1pcg__xsh__rr__engine.html">pcg_xsh_rr_engine</a>&lt; std::uint64_t, std::uint64_t, 6364136223846793005ULL, 1442695040888963407ULL &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__random.html#ga3916a30744bce4beb86bb9d57539ec8b">pr::pcg64</a></td></tr>
 <tr class="memdesc:ga3916a30744bce4beb86bb9d57539ec8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">64-bit PCG XSH-RR generator.  <a href="group__random.html#ga3916a30744bce4beb86bb9d57539ec8b">More...</a><br /></td></tr>
 <tr class="separator:ga3916a30744bce4beb86bb9d57539ec8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="memTemplParams" colspan="2">template&lt;typename T , typename G &gt; </td></tr>
-<tr class="memitem:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__random.html#ga1cec41c2a3e03c0583b5310b18a9be9c">pr::generate_canonical</a> (G &amp;&amp;gen)</td></tr>
-<tr class="memdesc:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate canonical random number.  <a href="group__random.html#ga1cec41c2a3e03c0583b5310b18a9be9c">More...</a><br /></td></tr>
-<tr class="separator:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaadb97df7d9295a6ed4b23c2224bb182b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gaadb97df7d9295a6ed4b23c2224bb182b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__random.html#gaadb97df7d9295a6ed4b23c2224bb182b">pr::erfinv</a> (T y)</td></tr>
-<tr class="memdesc:gaadb97df7d9295a6ed4b23c2224bb182b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error function inverse.  <a href="group__random.html#gaadb97df7d9295a6ed4b23c2224bb182b">More...</a><br /></td></tr>
-<tr class="separator:gaadb97df7d9295a6ed4b23c2224bb182b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/random.hpp&gt;</code></p>
