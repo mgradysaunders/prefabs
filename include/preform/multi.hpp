@@ -261,9 +261,9 @@ public:
      * @brief Constructor.
      */
     __attribute__((always_inline))
-    constexpr explicit multi(const entry_type& all)
+    constexpr explicit multi(const entry_type& ent)
     {
-        fill(all);
+        fill(ent);
     }
 
     /**
@@ -792,14 +792,14 @@ public:
      * @brief Fill from entry.
      */
     __attribute__((always_inline))
-    constexpr multi& fill(const T& all)
+    constexpr multi& fill(const T& ent)
     {
         for (value_type& val : *this) {
             if constexpr (std::is_same<T, value_type>::value) {
-                val = all;
+                val = ent;
             }
             else {
-                val.fill(all);
+                val.fill(ent);
             }
         }
         return *this;
