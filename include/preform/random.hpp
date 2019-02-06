@@ -53,6 +53,9 @@
 // for pr::range
 #include <preform/range.hpp>
 
+// for pr::first1, pr::lcg_seek
+#include <preform/int_helpers.hpp>
+
 namespace pr {
 
 /**
@@ -1939,6 +1942,261 @@ private:
      */
     T k_ = T(1);
 };
+
+
+/**
+ * @brief Subset distribution wrapper.
+ */
+template <typename Tbase>
+class subset_distribution_wrapper : public Tbase
+{
+public:
+
+    /**
+     * @brief Base.
+     */
+    typedef Tbase base;
+
+    /**
+     * @brief Value type.
+     */
+    typedef typename base::value_type value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef typename base::float_type float_type;
+
+    // Sanity check.
+    static_assert(
+        std::is_same<
+            value_type, 
+            float_type>::value,
+        "Tbase must be a real distribution");
+
+    /**
+     * @brief Constructor.
+     *
+     * @throw std::invalid_argument
+     * If invalid bounds.
+     */
+    template <typename... Targs>
+    subset_distribution_wrapper(
+            float_type x0,
+            float_type x1,
+            Targs&&... args) :
+                Tbase(std::forward<Targs>(args)...),
+                x0_(x0),
+                x1_(x1)
+    {
+        x0_ = pr::fmax(x0_, Tbase::lower_bound());
+        x1_ = pr::fmin(x1_, Tbase::upper_bound());
+        cdf_x0_ = Tbase::cdf(x0_);
+        cdf_x1_ = Tbase::cdf(x1_);
+        fac_ = float_type(1) / (cdf_x1_ - cdf_x0_);
+        if (!(x0_ < x1_) ||
+            !pr::isfinite(fac_)) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+    }
+
+    /**
+     * @brief Lower bound.
+     *
+     * @f[
+     *      \min[X] = x_0
+     * @f]
+     */
+    float_type lower_bound() const { return x0_; }
+
+    /**
+     * @brief Upper bound.
+     *
+     * @f[
+     *      \max[X] = x_1
+     * @f]
+     */
+    float_type upper_bound() const { return x1_; }
+
+    /**
+     * @brief Mean.
+     *
+     * @note
+     * This is not feasible to compute in general, so it is deleted.
+     */
+    float_type mean() const = delete;
+
+    /**
+     * @brief Variance.
+     *
+     * @note
+     * This is not feasible to compute in general, so it is deleted.
+     */
+    float_type variance() const = delete;
+
+    /**
+     * @brief Skewness.
+     *
+     * @note
+     * This is not feasible to compute in general, so it is deleted.
+     */
+    float_type skewness() const = delete;
+
+    /**
+     * @brief Entropy.
+     *
+     * @note
+     * This is not feasible to compute in general, so it is deleted.
+     */
+    float_type entropy() const = delete;
+
+    /**
+     * @brief Probability density function.
+     *
+     * @f[
+     *      g(x) = 
+     *          \begin{cases}
+     *              \frac{1}{F_1 - F_0} f(x) & x_0 \le x < x_1
+     *          \\  0                        & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    float_type pdf(float_type x) const
+    {
+        if (!(x >= x0_ &&
+              x <  x1_)) {
+            return float_type(0);
+        }
+        else {
+            return fac_ * Tbase::pdf(x);
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function.
+     *
+     * @f[
+     *      G(x) =
+     *          \begin{cases}
+     *              0                                & x < x_0
+     *          \\  \frac{1}{F_1 - F_0} (F(x) - F_0) & x_0 \le x < x_1
+     *          \\  1                                & x_1 \le x
+     *          \end{cases}
+     * @f]
+     */
+    float_type cdf(float_type x) const
+    {
+        if (!(x >= x0_)) {
+            return float_type(0);
+        }
+        else if (!(x < x1_)) {
+            return float_type(1);
+        }
+        else {
+            return fac_ * (Tbase::cdf(x) - cdf_x0_);
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function inverse.
+     *
+     * @f[
+     *      G^{-1}(u) = 
+     *          \begin{cases}
+     *              F^{-1}((1 - u) F_0 + u F_1) & 0 \le u < 1
+     *          \\  \text{NaN}                  & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    float_type cdfinv(float_type u) const
+    {
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
+        }
+        else {
+            return Tbase::cdfinv((1 - u) * cdf_x0_ + u * cdf_x1_);
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    float_type operator()(G&& gen) const
+    {
+        return cdfinv(std::forward<G>(gen));
+    }
+
+private:
+
+    /**
+     * @brief Lower bound @f$ x_0 @f$.
+     */
+    float_type x0_ = -pr::numeric_limits<float_type>::infinity();
+
+    /**
+     * @brief Upper bound @f$ x_1 @f$.
+     */
+    float_type x1_ = +pr::numeric_limits<float_type>::infinity();
+
+    /**
+     * @brief Pre-computed term @f$ F_0 = F(x_0) @f$.
+     */
+    float_type cdf_x0_ = 0;
+
+    /**
+     * @brief Pre-computed term @f$ F_1 = F(x_1) @f$.
+     */
+    float_type cdf_x1_ = 1;
+
+    /**
+     * @brief Pre-computed term @f$ 1 / (F_1 - F_0) @f$.
+     */
+    float_type fac_ = 1;
+};
+
+/**
+ * @brief Subset exponential distribution.
+ */
+template <typename T = double>
+using subset_exponential_distribution = 
+      subset_distribution_wrapper<exponential_distribution<T>>;
+
+/**
+ * @brief Subset normal distribution.
+ */
+template <typename T = double>
+using subset_normal_distribution = 
+      subset_distribution_wrapper<normal_distribution<T>>;
+
+/**
+ * @brief Subset lognormal distribution.
+ */
+template <typename T = double>
+using subset_lognormal_distribution = 
+      subset_distribution_wrapper<lognormal_distribution<T>>;
+
+/**
+ * @brief Subset logistic distribution.
+ */
+template <typename T = double>
+using subset_logistic_distribution = 
+      subset_distribution_wrapper<logistic_distribution<T>>;
+
+/**
+ * @brief Subset tanh distribution.
+ */
+template <typename T = double>
+using subset_tanh_distribution = 
+      subset_distribution_wrapper<tanh_distribution<T>>;
+
+/**
+ * @brief Subset Weibull distribution.
+ */
+template <typename T = double>
+using subset_weibull_distribution = 
+      subset_distribution_wrapper<weibull_distribution<T>>;
 
 // TODO piecewise_constant_distribution
 
