@@ -920,7 +920,7 @@ public:
 public:
 
     /**
-     * @brief Tests
+     * @name Tests
      */
     /**@{*/
 
