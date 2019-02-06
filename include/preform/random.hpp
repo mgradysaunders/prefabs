@@ -2157,6 +2157,11 @@ private:
 };
 
 /**
+ * @name Subset distributions
+ */
+/**@{*/
+
+/**
  * @brief Subset exponential distribution.
  */
 template <typename T = double>
@@ -2197,6 +2202,8 @@ using subset_tanh_distribution =
 template <typename T = double>
 using subset_weibull_distribution = 
       subset_distribution_wrapper<weibull_distribution<T>>;
+
+/**@}*/
 
 // TODO piecewise_constant_distribution
 
@@ -2481,6 +2488,11 @@ private:
 };
 
 /**
+ * @name PCGs
+ */
+/**@{*/
+
+/**
  * @brief 8-bit PCG XSH-RR generator.
  */
 typedef pcg_xsh_rr_engine<
@@ -2515,6 +2527,8 @@ typedef pcg_xsh_rr_engine<
             std::uint64_t,
             6364136223846793005ULL,
             1442695040888963407ULL> pcg64;
+
+/**@}*/
 
 /**@}*/
 
