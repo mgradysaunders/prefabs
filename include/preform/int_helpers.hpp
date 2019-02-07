@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -52,7 +52,7 @@ namespace pr {
 /**
  * @brief Greatest common divisor.
  */
-template <typename T> 
+template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, T> gcd(T a, T b)
 {
@@ -68,7 +68,7 @@ constexpr std::enable_if_t<
 /**
  * @brief Greatest common divisor with Bezout coefficients.
  */
-template <typename T> 
+template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, T> gcd_bezout(T a, T b, T* x, T* y)
 {
@@ -90,7 +90,7 @@ constexpr std::enable_if_t<
 /**
  * @brief Least common multiple.
  */
-template <typename T> 
+template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, T> lcm(T a, T b)
 {
@@ -103,7 +103,7 @@ constexpr std::enable_if_t<
 /**
  * @brief Is odd?
  */
-template <typename T> 
+template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, bool> isodd(T n)
 {
@@ -123,7 +123,7 @@ constexpr std::enable_if_t<
 /**
  * @brief Is power of 2?
  */
-template <typename T> 
+template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, bool> ispow2(T n)
 {
@@ -133,7 +133,7 @@ constexpr std::enable_if_t<
 /**
  * @brief Round up to power of 2.
  */
-template <typename T> 
+template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, T> roundpow2(T n)
 {
@@ -158,7 +158,7 @@ constexpr std::enable_if_t<
  * @note Uses [`__builtin_ctz`][1] when compiling with GCC.
  * [1]: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
  */
-template <typename T> 
+template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, T> first1(T n)
 {
@@ -191,7 +191,7 @@ constexpr std::enable_if_t<
 /**
  * @brief Cyclical bit rotate left.
  */
-template <typename T> 
+template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, T> rotl(T val, int rot)
 {
@@ -201,7 +201,7 @@ constexpr std::enable_if_t<
 /**
  * @brief Cyclical bit rotate right.
  */
-template <typename T> 
+template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, T> rotr(T val, int rot)
 {
@@ -215,7 +215,7 @@ constexpr std::enable_if_t<
  * - If @f$ n < 0 @f$, wrap @f$ k @f$ to @f$ (-n, 0] @f$.
  *
  * @note
- * For @f$ k > 0 @f$, @f$ n > 0 @f$, this operation is 
+ * For @f$ k > 0 @f$, @f$ n > 0 @f$, this operation is
  * equivalent to @f$ k \% n @f$.
  */
 template <typename T>
@@ -250,6 +250,30 @@ constexpr std::enable_if_t<
 }
 
 /**
+ * @brief Wrap integer in range, mirror with each repeat.
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> wrap_mirror(T k, T n)
+{
+    if (n < T(0)) {
+        return -wrap_mirror(-k, -n); // TODO test behavior
+    }
+    else {
+        T r = k % n;
+        T q = k / n;
+        if (r < T(0)) {
+            r += n;
+            q++;
+        }
+        if (q & T(1)) {
+            r = n - r - T(1);
+        }
+        return r;
+    }
+}
+
+/**
  * @brief Linear congruential generator seek.
  *
  * @param[in] x
@@ -268,7 +292,7 @@ constexpr std::enable_if_t<
  * If @f$ a \% 4 = 1 @f$ and @f$ b @f$ is odd, such that
  * the generator has a full period of @f$ 2^{m} @f$ where @f$ m @f$ is
  * the bit depth of the unsigned integral type, then seeking by negative
- * numbers works as expected. 
+ * numbers works as expected.
  */
 template <typename T>
 constexpr std::enable_if_t<
@@ -317,7 +341,7 @@ constexpr std::enable_if_t<
           std::is_unsigned<T>::value, T> lcg_distance(T x, T a, T b, T xn)
 {
     // Ensure full period.
-    if (!((a & 3) == 1) || 
+    if (!((a & 3) == 1) ||
         !((b & 1) == 1)) {
         throw std::invalid_argument(__PRETTY_FUNCTION__);
     }
@@ -339,9 +363,9 @@ constexpr std::enable_if_t<
 
 /**
  * @brief Cantor pairing function.
- *  
+ *
  * @f[
- *      \pi(x, y) = 
+ *      \pi(x, y) =
  *      \frac{1}{2}(x + y)(x + y + 1) + y
  * @f]
  */
