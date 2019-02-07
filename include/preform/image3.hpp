@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -38,7 +38,10 @@
 // for pr::block_array3
 #include <preform/block_array3.hpp>
 
-// for pr::fclamp, pr::frepeat, ...
+// for pr::wrap, pr::wrap_mirror, ...
+#include <preform/int_helpers.hpp>
+
+// for pr::cycle_mode
 #include <preform/float_helpers.hpp>
 
 // for pr::multi
@@ -64,11 +67,11 @@ namespace pr {
  * @brief Image (3-dimensional).
  */
 template <
-    typename Tfloat, 
-    typename T, std::size_t N, 
+    typename Tfloat,
+    typename T, std::size_t N,
     typename Talloc = std::allocator<T>
     >
-class image3 : public block_array3<multi<T, N>, 
+class image3 : public block_array3<multi<T, N>,
                             typename std::allocator_traits<Talloc>::
                             template rebind_alloc<multi<T, N>>>
 {
@@ -116,6 +119,41 @@ public:
 public:
 
     /**
+     * @name Cycle mode
+     */
+    /**@{*/
+
+    /**
+     * @brief Get cycle mode.
+     */
+    multi<cycle_mode, 3> cyc_mode() const
+    {
+        return cyc_mode_;
+    }
+
+    /**
+     * @brief Set cycle mode.
+     */
+    multi<cycle_mode, 3> cyc_mode(multi<cycle_mode, 3> mode)
+    {
+        multi<cycle_mode, 3> prev = cyc_mode_;
+        cyc_mode_ = mode;
+        return prev;
+    }
+
+    /**
+     * @brief Set cycle mode.
+     */
+    multi<cycle_mode, 3> cyc_mode(cycle_mode mode)
+    {
+        return cyc_mode(multi<cycle_mode, 3>(mode));
+    }
+
+    /**@}*/
+
+public:
+
+    /**
      * @name Sampling
      */
     /**@{*/
@@ -124,25 +162,20 @@ public:
      * @brief Average.
      *
      * @param[in] locmin
-     * Location minimum in index coordinates.
+     * Location minimum.
      *
      * @param[in] locmax
-     * Location maximum in index coordinates.
-     *
-     * @param[in] cyc_mode
-     * Cycle modes.
+     * Location maximum.
      */
     multi<float_type, N> average(
             multi<float_type, 3> locmin,
-            multi<float_type, 3> locmax,
-            multi<cycle_mode, 3> cyc_mode = 
-            multi<cycle_mode, 3>(cycle_mode::clamp)) const
+            multi<float_type, 3> locmax) const
     {
         if (this->empty()) {
             return {};
         }
         else if ((locmin == locmax).all()) {
-            return sample0(locmin, cyc_mode);
+            return sample0(locmin);
         }
         else {
 
@@ -154,8 +187,8 @@ public:
             if (locmin[2] > locmax[2]) std::swap(locmin[2], locmax[2]);
 
             // Floor.
-            multi<float_type, 3> loc0 = pr::floor(locmin);
-            multi<float_type, 3> loc1 = pr::floor(locmax) + 1;
+            multi<int, 3> loc0 = pr::floor(locmin);
+            multi<int, 3> loc1 = pr::floor(locmax) + 1;
 
             // Integrate.
             multi<float_type, N> numer = {};
@@ -163,15 +196,13 @@ public:
             for (int k = int(loc0[2]); k < int(loc1[2]); k++)
             for (int i = int(loc0[0]); i < int(loc1[0]); i++)
             for (int j = int(loc0[1]); j < int(loc1[1]); j++) {
-                multi<float_type, 3> cur = {
-                    float_type(i),
-                    float_type(j),
-                    float_type(k)
-                };
-                multi<float_type, 3> cur0 = pr::fmax(locmin, cur);
-                multi<float_type, 3> cur1 = pr::fmin(locmax, cur + 1);
-                numer += (cur1 - cur0).prod() * lookup(cur, cyc_mode);
-                denom += (cur1 - cur0).prod();
+                multi<int, 3> loc = {i, j, k};
+                multi<float_type, 3> pos0 = loc;
+                multi<float_type, 3> pos1 = loc + 1;
+                pos0 = pr::fmax(pos0, locmin);
+                pos1 = pr::fmin(pos1, locmax);
+                numer += (pos1 - pos0).prod() * fetch(loc);
+                denom += (pos1 - pos0).prod();
             }
 
             // Average.
@@ -183,15 +214,9 @@ public:
      * @brief Sample, no interpolation.
      *
      * @param[in] loc
-     * Location in index coordinates.
-     *
-     * @param[in] cyc_mode
-     * Cycle modes.
+     * Location.
      */
-    multi<float_type, N> sample0(
-            multi<float_type, 3> loc, 
-            multi<cycle_mode, 3> cyc_mode =
-            multi<cycle_mode, 3>(cycle_mode::clamp)) const
+    multi<float_type, N> sample0(multi<float_type, 3> loc) const
     {
         if (this->empty()) {
             return {};
@@ -199,7 +224,7 @@ public:
         else {
             // Shift.
             loc -= float_type(0.5);
-            return lookup(loc, cyc_mode);
+            return fetch(multi<int, 3>{pr::round(loc)});
         }
     }
 
@@ -207,15 +232,9 @@ public:
      * @brief Sample, linear interpolation.
      *
      * @param[in] loc
-     * Location in index coordinates.
-     *
-     * @param[in] cyc_mode
-     * Cycle modes.
+     * Location.
      */
-    multi<float_type, N> sample1(
-            multi<float_type, 3> loc,
-            multi<cycle_mode, 3> cyc_mode =
-            multi<cycle_mode, 3>(cycle_mode::clamp)) const
+    multi<float_type, N> sample1(multi<float_type, 3> loc) const
     {
         if (this->empty()) {
             return {};
@@ -225,25 +244,21 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<float_type, 3> loc0 = pr::floor(loc);
+            multi<int, 3> loc0 = pr::floor(loc);
             loc -= loc0;
 
             // Interpolate.
             multi<float_type, N> val2[2];
-            for (size_type k = 0; k < 2; k++) {
+            for (int k = 0; k < 2; k++) {
 
                 multi<float_type, N> val0[2];
-                for (size_type i = 0; i < 2; i++) {
+                for (int i = 0; i < 2; i++) {
 
                     multi<float_type, N> val1[2];
-                    for (size_type j = 0; j < 2; j++) {
-                        val1[j] = 
-                            lookup(loc0 + 
-                            multi<float_type, 3>{
-                                float_type(i),
-                                float_type(j),
-                                float_type(k)
-                            }, cyc_mode);
+                    for (int j = 0; j < 2; j++) {
+                        val1[j] =
+                            fetch(loc0 +
+                            multi<int, 3>{i, j, k});
                     }
 
                     // Linear interpolation.
@@ -264,15 +279,9 @@ public:
      * @brief Sample, cubic interpolation.
      *
      * @param[in] loc
-     * Location in index coordinates.
-     *
-     * @param[in] cyc_mode
-     * Cycle modes.
+     * Location.
      */
-    multi<float_type, N> sample2(
-            multi<float_type, 3> loc,
-            multi<cycle_mode, 3> cyc_mode =
-            multi<cycle_mode, 3>(cycle_mode::clamp)) const
+    multi<float_type, N> sample2(multi<float_type, 3> loc) const
     {
         if (this->empty()) {
             return {};
@@ -282,29 +291,29 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<float_type, 3> loc0 = pr::floor(loc);
+            multi<int, 3> loc0 = pr::floor(loc);
             loc -= loc0;
 
             // Interpolate.
             multi<float_type, N> val2[4];
-            for (size_type k = 0; k < 4; k++) { // Outer for cache performance.
+            for (int k = 0; k < 4; k++) { // Outer for cache performance.
 
                 multi<float_type, N> val0[4];
-                for (size_type i = 0; i < 4; i++) {
+                for (int i = 0; i < 4; i++) {
 
                     multi<float_type, N> val1[4];
-                    for (size_type j = 0; j < 4; j++) {
-                        val1[j] = 
-                            lookup(loc0 + 
-                            multi<float_type, 3>{
-                                float_type(i) - 1,
-                                float_type(j) - 1,
-                                float_type(k) - 1
-                            }, cyc_mode);
+                    for (int j = 0; j < 4; j++) {
+                        val1[j] =
+                            fetch(loc0 +
+                            multi<int, 3>{
+                                i - 1,
+                                j - 1,
+                                k - 1
+                            });
                     }
 
                     // Catmull-Rom interpolation.
-                    val0[i] = 
+                    val0[i] =
                         catmull(
                             loc[1],
                             val1[0], val1[1],
@@ -312,7 +321,7 @@ public:
                 }
 
                 // Catmull-Rom interpolation.
-                val2[k] = 
+                val2[k] =
                     catmull(
                         loc[0],
                         val0[0], val0[1],
@@ -320,10 +329,10 @@ public:
             }
 
             // Catmull-Rom interpolation.
-            return 
+            return
                 catmull(
-                    loc[2], 
-                    val2[0], val2[1], 
+                    loc[2],
+                    val2[0], val2[1],
                     val2[2], val2[3]);
         }
     }
@@ -332,25 +341,18 @@ public:
      * @brief Sample.
      *
      * @param[in] samp
-     * Sample method, either 0, 1, or 2.
+     * Sampling method, either 0, 1, or 2.
      *
      * @param[in] loc
-     * Location in index coordinates.
-     *
-     * @param[in] cyc_mode
-     * Cycle modes.
+     * Location.
      */
-    multi<float_type, N> sample(
-            int samp,
-            multi<float_type, 3> loc,
-            multi<cycle_mode, 3> cyc_mode =
-            multi<cycle_mode, 3>(cycle_mode::clamp)) const
+    multi<float_type, N> sample(int samp, multi<float_type, 3> loc) const
     {
         switch (samp) {
             default:
-            case 0: return sample0(loc, cyc_mode);
-            case 1: return sample1(loc, cyc_mode);
-            case 2: return sample2(loc, cyc_mode);
+            case 0: return sample0(loc);
+            case 1: return sample1(loc);
+            case 2: return sample2(loc);
         }
 
         // Unreachable.
@@ -361,19 +363,12 @@ public:
      * @brief Resample.
      *
      * @param[in] samp
-     * Sample method, either 0, 1, or 2.
+     * Sampling method, either 0, 1, or 2.
      *
      * @param[in] count
      * Count.
-     *
-     * @param[in] cyc_mode
-     * Cycle modes.
      */
-    void resample(
-            int samp,
-            multi<size_type, 3> count,
-            multi<cycle_mode, 3> cyc_mode =
-            multi<cycle_mode, 3>(cycle_mode::clamp))
+    void resample(int samp, multi<size_type, 3> count)
     {
         // Target size is equivalent?
         if ((count == this->user_size_).all()) {
@@ -389,22 +384,22 @@ public:
                    (count >= this->user_size_).all())) {
             // Resample 0th dimension.
             resample(samp, {
-                    count[0], 
-                    this->user_size_[1],
-                    this->user_size_[2]
-                }, cyc_mode);
+                count[0],
+                this->user_size_[1],
+                this->user_size_[2]
+            });
             // Resample 1st dimension.
             resample(samp, {
-                    this->user_size_[0], 
-                    count[1], 
-                    this->user_size_[2]
-                }, cyc_mode);
+                count[0],
+                count[1],
+                this->user_size_[2]
+            });
             // Resample 2nd dimension.
             resample(samp, {
-                    this->user_size_[0], 
-                    this->user_size_[1],
-                    count[2]
-                }, cyc_mode);
+                count[0],
+                count[1],
+                count[2]
+            });
         }
         else {
 
@@ -435,9 +430,9 @@ public:
                         scale_fac[1] * float_type(j + 1),
                         scale_fac[2] * float_type(k + 1)
                     };
-                    this->operator()(i, j, k) = 
+                    this->operator()(i, j, k) =
                         fstretch<entry_type>(
-                                 image.average(locmin, locmax, cyc_mode));
+                                 image.average(locmin, locmax));
                 }
             }
             else {
@@ -450,9 +445,9 @@ public:
                         scale_fac[1] * (float_type(j) + float_type(0.5)),
                         scale_fac[2] * (float_type(k) + float_type(0.5))
                     };
-                    this->operator()(i, j, k) = 
+                    this->operator()(i, j, k) =
                         fstretch<entry_type>(
-                                 image.sample(samp, loc, cyc_mode));
+                                 image.sample(samp, loc));
                 }
             }
         }
@@ -463,39 +458,62 @@ public:
 private:
 
     /**
-     * @brief Lookup pixel.
-     *
-     * @param[in] loc
-     * Location in pixel coordinates.
-     *
-     * @param[in] cyc_mode
-     * Cycle modes.
+     * @brief Cycle mode.
      */
-    multi<float_type, N> lookup(
-                multi<float_type, 3> loc,
-                multi<cycle_mode, 3> cyc_mode) const
+    multi<cycle_mode, 3> cyc_mode_ =
+    multi<cycle_mode, 3>(cycle_mode::clamp);
+
+#if !DOXYGEN
+
+    /**
+     * @brief Cycle.
+     */
+    multi<int, 3> cycle(multi<int, 3> loc) const
     {
-        // Cycle.
-        multi<float_type, 3> locmin =
-        multi<float_type, 3>(float_type(-0.5));
-        multi<float_type, 3> locmax = 
-            float_type(0.5) * multi<float_type, 3>(this->user_size_) +
-            float_type(0.5) * multi<float_type, 3>(this->user_size_ - 1);
-        loc = fcycle(loc, locmin, locmax, cyc_mode);
+        for (int k = 0; k < 3; k++) {
+            switch (cyc_mode_[k]) {
+                // Clamp.
+                default:
+                case cycle_mode::clamp:
+                    loc[k] =
+                        std::max(0,
+                        std::min(
+                            loc[k],
+                            int(this->user_size_[k]) - 1));
+                    break;
 
-        // Round edge cases appropriately.
-        for (size_type k = 0; k < 3; k++) {
-            if (loc[k] == locmin[k]) loc[k] = finc(loc[k]);
-            if (loc[k] == locmax[k]) loc[k] = fdec(loc[k]);
+                // Repeat.
+                case cycle_mode::repeat:
+                    loc[k] =
+                        pr::wrap(
+                            loc[k],
+                            int(this->user_size_[k]));
+                    break;
+
+                // Mirror.
+                case cycle_mode::mirror:
+                    loc[k] =
+                        pr::wrap_mirror(
+                            loc[k],
+                            int(this->user_size_[k]));
+                    break;
+            }
         }
-
-        // Lookup.
-        return fstretch<float_type>(
-                    this->data_[
-                    this->convert(
-                        multi<size_type, 3>(pr::round(loc)) % 
-                        this->user_size_)]);
+        return loc;
     }
+
+    /**
+     * @brief Fetch.
+     */
+    multi<float_type, N> fetch(multi<int, 3> loc) const
+    {
+        return
+            fstretch<float_type>(
+                this->operator[](
+                this->convert(cycle(loc))));
+    }
+    
+#endif // #if !DOXYGEN
 };
 
 /**@}*/
