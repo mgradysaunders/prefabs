@@ -72,9 +72,9 @@ template <
     typename Talloc = std::allocator<T>
     >
 class image2 : public block_array2<
-                            multi<T, N>,
-                            typename std::allocator_traits<Talloc>::
-                            template rebind_alloc<multi<T, N>>>
+                    multi<T, N>,
+                    typename std::allocator_traits<Talloc>::
+                    template rebind_alloc<multi<T, N>>>
 {
 public:
 
