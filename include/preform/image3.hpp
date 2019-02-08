@@ -189,26 +189,26 @@ public:
             if (locmin[2] > locmax[2]) std::swap(locmin[2], locmax[2]);
 
             // Floor.
-            multi<int, 3> loc0 = pr::fastfloor(locmin);
-            multi<int, 3> loc1 = pr::fastfloor(locmax) + 1;
+            multi<int, 3> indmin = pr::fastfloor(locmin);
+            multi<int, 3> indmax = pr::fastfloor(locmax);
 
             // Integrate.
             multi<float_type, N> numer = {};
             float_type denom = 0;
-            for (int k = int(loc0[2]); k < int(loc1[2]); k++)
-            for (int i = int(loc0[0]); i < int(loc1[0]); i++)
-            for (int j = int(loc0[1]); j < int(loc1[1]); j++) {
-                multi<int, 3> loc = {i, j, k};
-                multi<float_type, 3> pos0 = loc;
-                multi<float_type, 3> pos1 = loc + 1;
+            for (int k = indmin[2]; k <= indmax[2]; k++)
+            for (int i = indmin[0]; i <= indmax[0]; i++)
+            for (int j = indmin[1]; j <= indmax[1]; j++) {
+                multi<int, 3> ind = {i, j, k};
+                multi<float_type, 3> loc0 = ind;
+                multi<float_type, 3> loc1 = ind + 1;
 
                 // Clamp.
-                pos0 = pr::fmax(pos0, locmin);
-                pos1 = pr::fmin(pos1, locmax);
+                loc0 = pr::fmax(loc0, locmin);
+                loc1 = pr::fmin(loc1, locmax);
 
                 // Compute contribution.
-                numer += (pos1 - pos0).prod() * fetch(loc);
-                denom += (pos1 - pos0).prod();
+                numer += (loc1 - loc0).prod() * fetch(ind);
+                denom += (loc1 - loc0).prod();
             }
 
             // Average.
@@ -248,8 +248,8 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<int, 3> loc0 = pr::fastfloor(loc);
-            loc -= loc0;
+            multi<int, 3> ind = pr::fastfloor(loc);
+            loc -= ind;
 
             // Interpolate.
             multi<float_type, N> val2[2];
@@ -261,7 +261,7 @@ public:
                     multi<float_type, N> val1[2];
                     for (int j = 0; j < 2; j++) {
                         val1[j] =
-                            fetch(loc0 +
+                            fetch(ind +
                             multi<int, 3>{i, j, k});
                     }
 
@@ -295,8 +295,8 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<int, 3> loc0 = pr::fastfloor(loc);
-            loc -= loc0;
+            multi<int, 3> ind = pr::fastfloor(loc);
+            loc -= ind;
 
             // Interpolate.
             multi<float_type, N> val2[4];
@@ -308,7 +308,7 @@ public:
                     multi<float_type, N> val1[4];
                     for (int j = 0; j < 4; j++) {
                         val1[j] =
-                            fetch(loc0 +
+                            fetch(ind +
                             multi<int, 3>{
                                 i - 1,
                                 j - 1,
@@ -472,49 +472,49 @@ private:
     /**
      * @brief Cycle.
      */
-    multi<int, 3> cycle(multi<int, 3> loc) const
+    multi<int, 3> cycle(multi<int, 3> ind) const
     {
         for (int k = 0; k < 3; k++) {
             switch (cyc_mode_[k]) {
                 // Clamp.
                 default:
                 case cycle_mode::clamp:
-                    loc[k] =
+                    ind[k] =
                         std::max(0,
                         std::min(
-                            loc[k],
+                            ind[k],
                             int(this->user_size_[k]) - 1));
                     break;
 
                 // Repeat.
                 case cycle_mode::repeat:
-                    loc[k] =
+                    ind[k] =
                         pr::wrap(
-                            loc[k],
+                            ind[k],
                             int(this->user_size_[k]));
                     break;
 
                 // Mirror.
                 case cycle_mode::mirror:
-                    loc[k] =
+                    ind[k] =
                         pr::wrap_mirror(
-                            loc[k],
+                            ind[k],
                             int(this->user_size_[k]));
                     break;
             }
         }
-        return loc;
+        return ind;
     }
 
     /**
      * @brief Fetch.
      */
-    multi<float_type, N> fetch(multi<int, 3> loc) const
+    multi<float_type, N> fetch(multi<int, 3> ind) const
     {
         return
             fstretch<float_type>(
                 this->operator[](
-                this->convert(cycle(loc))));
+                this->convert(cycle(ind))));
     }
 
 #endif // #if !DOXYGEN
