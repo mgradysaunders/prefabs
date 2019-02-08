@@ -114,6 +114,22 @@ Functions</h2></td></tr>
 <tr class="memitem:ga53710d39de9a732fced8bda8bfb69deb"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value &amp;&amp;std::is_arithmetic&lt; U &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__float__helpers.html#ga53710d39de9a732fced8bda8bfb69deb">pr::fstretch</a> (T x)</td></tr>
 <tr class="memdesc:ga53710d39de9a732fced8bda8bfb69deb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stretch floating point values to signed/unsigned normalized integer values.  <a href="group__float__helpers.html#ga53710d39de9a732fced8bda8bfb69deb">More...</a><br /></td></tr>
 <tr class="separator:ga53710d39de9a732fced8bda8bfb69deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9f0cad9375840a4ce438df4d09932b71"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga9f0cad9375840a4ce438df4d09932b71"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__float__helpers.html#ga9f0cad9375840a4ce438df4d09932b71">pr::fastfloor</a> (T x)</td></tr>
+<tr class="memdesc:ga9f0cad9375840a4ce438df4d09932b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast floor by int casting.  <a href="group__float__helpers.html#ga9f0cad9375840a4ce438df4d09932b71">More...</a><br /></td></tr>
+<tr class="separator:ga9f0cad9375840a4ce438df4d09932b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac9212084374887b9b4f00f877d292c93"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac9212084374887b9b4f00f877d292c93"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__float__helpers.html#gac9212084374887b9b4f00f877d292c93">pr::fastceil</a> (T x)</td></tr>
+<tr class="memdesc:gac9212084374887b9b4f00f877d292c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast ceil by int casting.  <a href="group__float__helpers.html#gac9212084374887b9b4f00f877d292c93">More...</a><br /></td></tr>
+<tr class="separator:gac9212084374887b9b4f00f877d292c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6cf578cee40a01f6cbf6126eabe4f0f4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga6cf578cee40a01f6cbf6126eabe4f0f4"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__float__helpers.html#ga6cf578cee40a01f6cbf6126eabe4f0f4">pr::fastround</a> (T x)</td></tr>
+<tr class="memdesc:ga6cf578cee40a01f6cbf6126eabe4f0f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast round by int casting.  <a href="group__float__helpers.html#ga6cf578cee40a01f6cbf6126eabe4f0f4">More...</a><br /></td></tr>
+<tr class="separator:ga6cf578cee40a01f6cbf6126eabe4f0f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga700313ba4df0a60765f0a0ed0846e0a0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga700313ba4df0a60765f0a0ed0846e0a0"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__float__helpers.html#ga700313ba4df0a60765f0a0ed0846e0a0">pr::fasttrunc</a> (T x)</td></tr>
+<tr class="memdesc:ga700313ba4df0a60765f0a0ed0846e0a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast trunc by int casting.  <a href="group__float__helpers.html#ga700313ba4df0a60765f0a0ed0846e0a0">More...</a><br /></td></tr>
+<tr class="separator:ga700313ba4df0a60765f0a0ed0846e0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/float_helpers.hpp&gt;</code></p>
@@ -472,6 +488,126 @@ template&lt;typename U , typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Stretch floating point values to signed/unsigned normalized integer values. </p>
+
+</div>
+</div>
+<a id="ga9f0cad9375840a4ce438df4d09932b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9f0cad9375840a4ce438df4d09932b71">&#9670;&nbsp;</a></span>fastfloor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, int&gt; pr::fastfloor </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fast floor by int casting. </p>
+
+</div>
+</div>
+<a id="gac9212084374887b9b4f00f877d292c93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac9212084374887b9b4f00f877d292c93">&#9670;&nbsp;</a></span>fastceil()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, int&gt; pr::fastceil </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fast ceil by int casting. </p>
+
+</div>
+</div>
+<a id="ga6cf578cee40a01f6cbf6126eabe4f0f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6cf578cee40a01f6cbf6126eabe4f0f4">&#9670;&nbsp;</a></span>fastround()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, int&gt; pr::fastround </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fast round by int casting. </p>
+
+</div>
+</div>
+<a id="ga700313ba4df0a60765f0a0ed0846e0a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga700313ba4df0a60765f0a0ed0846e0a0">&#9670;&nbsp;</a></span>fasttrunc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, int&gt; pr::fasttrunc </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fast trunc by int casting. </p>
 
 </div>
 </div>
