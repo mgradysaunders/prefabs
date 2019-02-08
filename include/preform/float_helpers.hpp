@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -61,6 +61,7 @@ namespace pr {
  * @brief Increment to next representable value.
  */
 template <typename T>
+__attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> finc(T x)
 {
@@ -71,6 +72,7 @@ inline std::enable_if_t<
  * @brief Decrement to next representable value.
  */
 template <typename T>
+__attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> fdec(T x)
 {
@@ -90,13 +92,14 @@ inline std::enable_if_t<
  * Maximum value.
  */
 template <typename T>
+__attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> fclamp(T x, T a, T b)
 {
     if (a > b) {
         std::swap(a, b);
     }
-    return pr::fmax(a, 
+    return pr::fmax(a,
            pr::fmin(x, b));
 }
 
@@ -232,10 +235,11 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Stretch floating point values to signed/unsigned 
+ * @brief Stretch floating point values to signed/unsigned
  * normalized integer values.
  */
 template <typename U, typename T>
+__attribute__((always_inline))
 inline std::enable_if_t<
        std::is_arithmetic<T>::value &&
        std::is_arithmetic<U>::value, U> fstretch(T x)
@@ -248,9 +252,9 @@ inline std::enable_if_t<
     else if constexpr (std::is_floating_point<T>::value &&
                        std::is_unsigned<U>::value) {
         // Float -> Unorm.
-        return 
+        return
             static_cast<U>(pr::round(
-            static_cast<double>(pr::numeric_limits<U>::max()) * 
+            static_cast<double>(pr::numeric_limits<U>::max()) *
             static_cast<double>(pr::fclamp(x, T(0), T(1)))));
     }
     else if constexpr (std::is_floating_point<T>::value &&
@@ -258,8 +262,8 @@ inline std::enable_if_t<
         // Float -> Snorm.
         return
             static_cast<U>(pr::round(
-            static_cast<double>(pr::numeric_limits<U>::max()) * 
-            static_cast<double>(pr::fclamp(x, T(-1), T(1) - 
+            static_cast<double>(pr::numeric_limits<U>::max()) *
+            static_cast<double>(pr::fclamp(x, T(-1), T(1) -
                                 pr::numeric_limits<T>::machine_epsilon()))));
     }
     else if constexpr (std::is_unsigned<T>::value &&
@@ -281,7 +285,7 @@ inline std::enable_if_t<
     else if constexpr (std::is_integral<T>::value &&
                        std::is_integral<U>::value) {
         // Xnorm -> Xnorm.
-        return 
+        return
             fstretch<double, U>(
             fstretch<T, double>(x));
     }
@@ -289,6 +293,54 @@ inline std::enable_if_t<
         // Unreachable.
         return U();
     }
+}
+
+/**
+ * @brief Fast floor by int casting.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, int> fastfloor(T x)
+{
+    int i = int(x);
+    i = i - (T(i) > x);
+    return i;
+}
+
+/**
+ * @brief Fast ceil by int casting.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, int> fastceil(T x)
+{
+    int i = int(x);
+    i = i + (T(i) < x);
+    return i;
+}
+
+/**
+ * @brief Fast round by int casting.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, int> fastround(T x)
+{
+    return fastfloor(x + T(0.5));
+}
+
+/**
+ * @brief Fast trunc by int casting.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, int> fasttrunc(T x)
+{
+    return int(x);
 }
 
 /**@}*/

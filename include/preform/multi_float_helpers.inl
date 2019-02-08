@@ -152,6 +152,82 @@ inline auto fcycle(
 }
 
 /**
+ * @brief Wrap `pr::fastfloor()`.
+ */
+template <typename T, std::size_t... N>
+__attribute__((always_inline))
+inline auto fastfloor(
+            const multi<T, N...>& x)
+{
+    multi<
+        std::decay_t<decltype(pr::fastfloor(
+        std::declval<T>()))>, N...> res;
+    auto itrx = x.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrx, ++itrres) {
+        *itrres = pr::fastfloor(*itrx);
+    }
+    return res;
+}
+
+/**
+ * @brief Wrap `pr::fastceil()`.
+ */
+template <typename T, std::size_t... N>
+__attribute__((always_inline))
+inline auto fastceil(
+            const multi<T, N...>& x)
+{
+    multi<
+        std::decay_t<decltype(pr::fastceil(
+        std::declval<T>()))>, N...> res;
+    auto itrx = x.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrx, ++itrres) {
+        *itrres = pr::fastceil(*itrx);
+    }
+    return res;
+}
+
+/**
+ * @brief Wrap `pr::fastround()`.
+ */
+template <typename T, std::size_t... N>
+__attribute__((always_inline))
+inline auto fastround(
+            const multi<T, N...>& x)
+{
+    multi<
+        std::decay_t<decltype(pr::fastround(
+        std::declval<T>()))>, N...> res;
+    auto itrx = x.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrx, ++itrres) {
+        *itrres = pr::fastround(*itrx);
+    }
+    return res;
+}
+
+/**
+ * @brief Wrap `pr::fasttrunc()`.
+ */
+template <typename T, std::size_t... N>
+__attribute__((always_inline))
+inline auto fasttrunc(
+            const multi<T, N...>& x)
+{
+    multi<
+        std::decay_t<decltype(pr::fasttrunc(
+        std::declval<T>()))>, N...> res;
+    auto itrx = x.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrx, ++itrres) {
+        *itrres = pr::fasttrunc(*itrx);
+    }
+    return res;
+}
+
+/**
  * @brief Wrap `pr::fstretch()`.
  */
 template <typename U, typename T, std::size_t... N>
