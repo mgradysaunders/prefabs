@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpr_1_1image2-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -136,6 +137,10 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a329e19a7d84a3f4aaab036e0a7709028"><td class="memTemplParams" colspan="2">template&lt;typename Tfilt &gt; </td></tr>
+<tr class="memitem:a329e19a7d84a3f4aaab036e0a7709028"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1image2.html#a329e19a7d84a3f4aaab036e0a7709028">reconstruct</a> (multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, N &gt; val, multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, 2 &gt; loc, multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, 2 &gt; filtrad, Tfilt &amp;&amp;filt)</td></tr>
+<tr class="memdesc:a329e19a7d84a3f4aaab036e0a7709028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruct.  <a href="#a329e19a7d84a3f4aaab036e0a7709028">More...</a><br /></td></tr>
+<tr class="separator:a329e19a7d84a3f4aaab036e0a7709028"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Cycle mode</div></td></tr>
 <tr class="memitem:a053999d952f1e7142279829734b792d2"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="group__float__helpers.html#ga6f837626b5296b39b6ca866b16af5d06">cycle_mode</a>, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1image2.html#a053999d952f1e7142279829734b792d2">cyc_mode</a> () const</td></tr>
 <tr class="memdesc:a053999d952f1e7142279829734b792d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get cycle mode.  <a href="#a053999d952f1e7142279829734b792d2">More...</a><br /></td></tr>
@@ -731,6 +736,69 @@ template&lt;typename Tfloat , typename T , std::size_t N, typename Talloc  = std
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">samp</td><td>Sampling method, either 0, 1, or 2.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>Count. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a329e19a7d84a3f4aaab036e0a7709028"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a329e19a7d84a3f4aaab036e0a7709028">&#9670;&nbsp;</a></span>reconstruct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , typename T , std::size_t N, typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;typename Tfilt &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1image2.html">pr::image2</a>&lt; Tfloat, T, N, Talloc &gt;::reconstruct </td>
+          <td>(</td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, N &gt;&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, 2 &gt;&#160;</td>
+          <td class="paramname"><em>loc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, 2 &gt;&#160;</td>
+          <td class="paramname"><em>filtrad</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Tfilt &amp;&amp;&#160;</td>
+          <td class="paramname"><em>filt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconstruct. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">val</td><td>Value.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">loc</td><td>Location.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filtrad</td><td>Filter radii, beyond which filter is zero.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filt</td><td>Filter function. </td></tr>
   </table>
   </dd>
 </dl>
