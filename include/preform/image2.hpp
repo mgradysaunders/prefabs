@@ -188,25 +188,25 @@ public:
             if (locmin[1] > locmax[1]) std::swap(locmin[1], locmax[1]);
 
             // Floor.
-            multi<int, 2> loc0 = pr::fastfloor(locmin);
-            multi<int, 2> loc1 = pr::fastfloor(locmax) + 1;
+            multi<int, 2> indmin = pr::fastfloor(locmin);
+            multi<int, 2> indmax = pr::fastfloor(locmax);
 
             // Integrate.
             multi<float_type, N> numer = {};
             float_type denom = 0;
-            for (int i = loc0[0]; i < loc1[0]; i++)
-            for (int j = loc0[1]; j < loc1[1]; j++) {
-                multi<int, 2> loc = {i, j};
-                multi<float_type, 2> pos0 = loc;
-                multi<float_type, 2> pos1 = loc + 1;
+            for (int i = indmin[0]; i <= indmax[0]; i++)
+            for (int j = indmin[1]; j <= indmax[1]; j++) {
+                multi<int, 2> ind = {i, j};
+                multi<float_type, 2> loc0 = ind;
+                multi<float_type, 2> loc1 = ind + 1;
 
                 // Clamp.
-                pos0 = pr::fmax(pos0, locmin);
-                pos1 = pr::fmin(pos1, locmax);
+                loc0 = pr::fmax(loc0, locmin);
+                loc1 = pr::fmin(loc1, locmax);
 
                 // Compute contribution.
-                numer += (pos1 - pos0).prod() * fetch(loc);
-                denom += (pos1 - pos0).prod();
+                numer += (loc1 - loc0).prod() * fetch(ind);
+                denom += (loc1 - loc0).prod();
             }
 
             // Average.
@@ -246,8 +246,8 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<int, 2> loc0 = pr::fastfloor(loc);
-            loc -= loc0;
+            multi<int, 2> ind = pr::fastfloor(loc);
+            loc -= ind;
 
             // Interpolate.
             multi<float_type, N> val0[2];
@@ -256,7 +256,7 @@ public:
                 multi<float_type, N> val1[2];
                 for (int j = 0; j < 2; j++) {
                     val1[j] =
-                        fetch(loc0 +
+                        fetch(ind +
                         multi<int, 2>{i, j});
                 }
 
@@ -285,8 +285,8 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<int, 2> loc0 = pr::fastfloor(loc);
-            loc -= loc0;
+            multi<int, 2> ind = pr::fastfloor(loc);
+            loc -= ind;
 
             // Interpolate.
             multi<float_type, N> val0[4];
@@ -295,7 +295,7 @@ public:
                 multi<float_type, N> val1[4];
                 for (int j = 0; j < 4; j++) {
                     val1[j] =
-                        fetch(loc0 +
+                        fetch(ind +
                         multi<int, 2>{
                             i - 1,
                             j - 1
@@ -418,17 +418,59 @@ public:
 
     /**@}*/
 
-#if 0
+    /**
+     * @brief Reconstruct.
+     *
+     * @param[in] val
+     * Value.
+     *
+     * @param[in] loc
+     * Location.
+     *
+     * @param[in] filtrad
+     * Filter radii, beyond which filter is zero.
+     *
+     * @param[in] filt
+     * Filter function.
+     */
+    template <typename Tfilt>
     void reconstruct(
-            multi<float_type, 2> loc,
             multi<float_type, N> val,
-            multi<float_type, 2> filterr,
-            Tfilter&& filter)
+            multi<float_type, 2> loc,
+            multi<float_type, 2> filtrad,
+            Tfilt&& filt)
     {
+        // Shift.
         loc -= float_type(0.5);
 
+        // Determine indices.
+        multi<int, 2> indmin = pr::fastceil(loc - filtrad);
+        multi<int, 2> indmax = pr::fastfloor(loc + filtrad);
+        for (int k = 0; k < 2; k++) {
+            if (cyc_mode_[k] == cycle_mode::clamp) {
+                indmin[k] = std::max(indmin[k], 0);
+                indmax[k] = std::min(indmax[k], int(this->user_size_[k]) - 1);
+            }
+        }
+
+        // Reconstruct.
+        for (int i = indmin[0]; i <= indmax[0]; i++)
+        for (int j = indmin[1]; j <= indmax[1]; j++) {
+            multi<int, 2> ind = {i, j};
+            float_type tmp = std::forward<Tfilt>(filt)(ind - loc);
+            if (tmp != float_type(0)) {
+
+                // Lookup entry.
+                multi<entry_type, N>& ent =
+                    this->operator[](
+                    this->convert(cycle(ind)));
+
+                // Add.
+                ent = fstretch<entry_type>(
+                      fstretch<float_type>(ent) + val * tmp);
+            }
+        }
     }
-#endif
 
 private:
 
@@ -443,49 +485,49 @@ private:
     /**
      * @brief Cycle.
      */
-    multi<int, 2> cycle(multi<int, 2> loc) const
+    multi<int, 2> cycle(multi<int, 2> ind) const
     {
         for (int k = 0; k < 2; k++) {
             switch (cyc_mode_[k]) {
                 // Clamp.
                 default:
                 case cycle_mode::clamp:
-                    loc[k] =
+                    ind[k] =
                         std::max(0,
                         std::min(
-                            loc[k],
+                            ind[k],
                             int(this->user_size_[k]) - 1));
                     break;
 
                 // Repeat.
                 case cycle_mode::repeat:
-                    loc[k] =
+                    ind[k] =
                         pr::wrap(
-                            loc[k],
+                            ind[k],
                             int(this->user_size_[k]));
                     break;
 
                 // Mirror.
                 case cycle_mode::mirror:
-                    loc[k] =
+                    ind[k] =
                         pr::wrap_mirror(
-                            loc[k],
+                            ind[k],
                             int(this->user_size_[k]));
                     break;
             }
         }
-        return loc;
+        return ind;
     }
 
     /**
      * @brief Fetch.
      */
-    multi<float_type, N> fetch(multi<int, 2> loc) const
+    multi<float_type, N> fetch(multi<int, 2> ind) const
     {
         return
             fstretch<float_type>(
                 this->operator[](
-                this->convert(cycle(loc))));
+                this->convert(cycle(ind))));
     }
 
 #endif // #if !DOXYGEN
