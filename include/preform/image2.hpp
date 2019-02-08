@@ -41,7 +41,7 @@
 // for pr::wrap, pr::wrap_mirror, ...
 #include <preform/int_helpers.hpp>
 
-// for pr::cycle_mode
+// for pr::fastfloor, pr::cycle_mode, ...
 #include <preform/float_helpers.hpp>
 
 // for pr::multi
@@ -71,7 +71,8 @@ template <
     typename T, std::size_t N,
     typename Talloc = std::allocator<T>
     >
-class image2 : public block_array2<multi<T, N>,
+class image2 : public block_array2<
+                            multi<T, N>,
                             typename std::allocator_traits<Talloc>::
                             template rebind_alloc<multi<T, N>>>
 {
@@ -101,7 +102,8 @@ public:
     /**
      * @brief Base type.
      */
-    typedef block_array2<multi<T, N>,
+    typedef block_array2<
+            multi<T, N>,
             typename std::allocator_traits<Talloc>::
             template rebind_alloc<multi<T, N>>> base;
 #endif // #if !DOXYGEN
@@ -186,8 +188,8 @@ public:
             if (locmin[1] > locmax[1]) std::swap(locmin[1], locmax[1]);
 
             // Floor.
-            multi<int, 2> loc0 = pr::floor(locmin);
-            multi<int, 2> loc1 = pr::floor(locmax) + 1;
+            multi<int, 2> loc0 = pr::fastfloor(locmin);
+            multi<int, 2> loc1 = pr::fastfloor(locmax) + 1;
 
             // Integrate.
             multi<float_type, N> numer = {};
@@ -197,8 +199,12 @@ public:
                 multi<int, 2> loc = {i, j};
                 multi<float_type, 2> pos0 = loc;
                 multi<float_type, 2> pos1 = loc + 1;
+
+                // Clamp.
                 pos0 = pr::fmax(pos0, locmin);
                 pos1 = pr::fmin(pos1, locmax);
+
+                // Compute contribution.
                 numer += (pos1 - pos0).prod() * fetch(loc);
                 denom += (pos1 - pos0).prod();
             }
@@ -221,8 +227,7 @@ public:
         }
         else {
             // Shift.
-            loc -= float_type(0.5);
-            return fetch(multi<int, 2>{pr::round(loc)});
+            return fetch(pr::fastfloor(loc));
         }
     }
 
@@ -242,7 +247,7 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<int, 2> loc0 = pr::floor(loc);
+            multi<int, 2> loc0 = pr::fastfloor(loc);
             loc -= loc0;
 
             // Interpolate.
@@ -281,7 +286,7 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<int, 2> loc0 = pr::floor(loc);
+            multi<int, 2> loc0 = pr::fastfloor(loc);
             loc -= loc0;
 
             // Interpolate.
@@ -413,6 +418,18 @@ public:
     }
 
     /**@}*/
+
+#if 0
+    void reconstruct(
+            multi<float_type, 2> loc,
+            multi<float_type, N> val,
+            multi<float_type, 2> filterr,
+            Tfilter&& filter)
+    {
+        loc -= float_type(0.5);
+
+    }
+#endif
 
 private:
 
