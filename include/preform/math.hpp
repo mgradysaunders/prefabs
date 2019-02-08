@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -61,7 +61,7 @@ template <typename T>
 struct numeric_limits_min_squarable;
 
 template <>
-struct numeric_limits_min_squarable<float> 
+struct numeric_limits_min_squarable<float>
 {
     static constexpr float min_squarable() noexcept
     {
@@ -75,7 +75,7 @@ struct numeric_limits_min_squarable<float>
 };
 
 template <>
-struct numeric_limits_min_squarable<double> 
+struct numeric_limits_min_squarable<double>
 {
     static constexpr double min_squarable() noexcept
     {
@@ -89,7 +89,7 @@ struct numeric_limits_min_squarable<double>
 };
 
 template <>
-struct numeric_limits_min_squarable<long double> 
+struct numeric_limits_min_squarable<long double>
 {
     static constexpr long double min_squarable() noexcept
     {
@@ -129,25 +129,25 @@ struct numeric_limits : std::numeric_limits<T>
      * The minimum invertible value @f$ \varepsilon_{\text{inv}} @f$ is
      * the minimum positive value satisfying @f$ 1 \oslash x < \infty @f$.
      *
-     * For IEEE floating point types (and possibly others?),  
+     * For IEEE floating point types (and possibly others?),
      * @f$ \varepsilon_{\text{inv}} =
      *     \varepsilon_{\text{min}} / 4 + \Delta_{\text{denormal}} @f$
-     * where @f$ \varepsilon_{\text{min}} @f$ is the minimum 
-     * positive normal value and @f$ \Delta_{\text{denormal}} @f$ is 
+     * where @f$ \varepsilon_{\text{min}} @f$ is the minimum
+     * positive normal value and @f$ \Delta_{\text{denormal}} @f$ is
      * the denormal spacing.
      */
     template <bool B = numeric_limits::is_iec559>
     static constexpr std::enable_if_t<B, T> min_invertible() noexcept
     {
-        return numeric_limits::min() / 4 + 
+        return numeric_limits::min() / 4 +
                numeric_limits::denorm_min();
     }
 
     /**
      * @brief For floating point types, machine epsilon.
      *
-     * Machine epsilon @f$ \varepsilon_{\mathrm{m}} @f$, also known 
-     * as unit roundoff, is the maximum representable value satisfying 
+     * Machine epsilon @f$ \varepsilon_{\mathrm{m}} @f$, also known
+     * as unit roundoff, is the maximum representable value satisfying
      * @f$ 1 \oplus x = 1 @f$.
      *
      * For IEEE floating point types (and possibly others?),
@@ -286,7 +286,7 @@ struct numeric_constants
      * @brief @f$ \gamma @f$ (Euler's constant).
      *
      * @f[
-     *      \gamma = 
+     *      \gamma =
      *          \lim_{n\to\infty}
      *          \left(-\log(n) + \sum_{k=1}^{n}\frac{1}{k}\right)
      * @f]
@@ -519,7 +519,7 @@ namespace pr {
  *      \operatorname{sign}(x) =
  *      \begin{cases}
  *          -1 & x < 0
- *      \\  +1 & x > 0 
+ *      \\  +1 & x > 0
  *      \end{cases}
  * @f]
  *
@@ -539,7 +539,7 @@ inline auto sign(T x) -> decltype(std::copysign(T(1), x))
  * @brief Step function.
  *
  * @f[
- *      \operatorname{step}(x) = 
+ *      \operatorname{step}(x) =
  *      \frac{1}{2} \operatorname{sign}(x) +
  *      \frac{1}{2} =
  *      \begin{cases}
@@ -574,7 +574,7 @@ inline auto step(T x) -> decltype(std::signbit(x) ? T(0) : T(1))
  *      \operatorname{sign}(x) =
  *      \begin{cases}
  *          1     & x =   0
- *      \\  x/|x| & x \ne 0 
+ *      \\  x/|x| & x \ne 0
  *      \end{cases}
  * @f]
  *
@@ -588,7 +588,7 @@ inline std::complex<T> sign(const std::complex<T>& x)
 {
     if (pr::imag(x) == T(0)) {
         return {
-            pr::sign(pr::real(x)), 
+            pr::sign(pr::real(x)),
             pr::imag(x)
         };
     }
@@ -616,7 +616,7 @@ inline std::complex<T> step(const std::complex<T>& x)
 {
     if (pr::imag(x) == T(0)) {
         return {
-            pr::step(pr::real(x)), 
+            pr::step(pr::real(x)),
             pr::imag(x)
         };
     }
