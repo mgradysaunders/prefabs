@@ -226,7 +226,6 @@ public:
             return {};
         }
         else {
-            // Shift.
             return fetch(pr::fastfloor(loc));
         }
     }
