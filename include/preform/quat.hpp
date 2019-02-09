@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -34,6 +34,8 @@
 #pragma once
 #ifndef PREFORM_QUAT_HPP
 #define PREFORM_QUAT_HPP
+
+#include <preform/type_traits.hpp>
 
 // for pr::dualnum
 #include <preform/dualnum.hpp>
@@ -71,11 +73,21 @@ struct is_quat<quat<T>> : std::true_type
 };
 
 template <typename T>
-struct is_quat_param : 
+struct is_quat_param :
             std::integral_constant<bool,
             std::is_arithmetic<T>::value ||
             is_complex<T>::value ||
             is_dualnum<T>::value>
+{
+};
+
+template <typename T>
+struct is_floating_point_dualnum : std::false_type
+{
+};
+
+template <typename T>
+struct is_floating_point_dualnum<dualnum<T>> : std::is_floating_point<T>
 {
 };
 
@@ -93,6 +105,16 @@ public:
     static_assert(
         is_quat_param<T>::value,
         "T must be arithmetic, complex, or dualnum");
+
+    /**
+     * @brief Value type.
+     */
+    typedef T value_type;
+
+    /**
+     * @brief Inner value type.
+     */
+    typedef typename inner_value_type_of<T>::type inner_value_type;
 
     /**
      * @brief Real type.
@@ -126,7 +148,7 @@ public:
      * Imag part.
      */
     constexpr quat(
-            const T& s, 
+            const T& s,
             const multi<T, 3>& v = {}) :
         s_(s),
         v_(v)
@@ -149,9 +171,9 @@ public:
      * Imag part, 2nd component.
      */
     constexpr quat(
-            const T& s, 
-            const T& v0, 
-            const T& v1, 
+            const T& s,
+            const T& v0,
+            const T& v1,
             const T& v2) :
         s_(s),
         v_{v0, v1, v2}
@@ -168,6 +190,28 @@ public:
         s_(x[0]),
         v_{x[1], x[2], x[3]}
     {
+    }
+
+    /**
+     * @brief Constructor.
+     *
+     * @note
+     * Through SFINAE, this only compiles for dual quaternions.
+     */
+    template <
+        bool B = is_dualnum<T>::value,
+        typename = std::enable_if_t<B, void>
+        >
+    constexpr quat(
+            const quat<typename value_type_of<T>::type>& a,
+            const quat<typename value_type_of<T>::type>& b)
+    {
+        s_ = T(a.real(), b.real());
+        v_ = {
+            T(a.imag()[0], b.imag()[0]),
+            T(a.imag()[1], b.imag()[1]),
+            T(a.imag()[2], b.imag()[2])
+        };
     }
 
     /**@}*/
@@ -213,7 +257,7 @@ public:
 
     /**@}*/
 
-public: 
+public:
 
     /**
      * @brief Multiplicative inverse.
@@ -222,7 +266,7 @@ public:
     {
         const T fac = s_ * s_ + pr::dot(v_, v_);
         return {
-            +s_ / fac, 
+            +s_ / fac,
             -v_ / fac
         };
     }
@@ -295,21 +339,21 @@ public:
     {
         C ch;
         if (!(is >> ch) ||
-            !Ctraits::eq(ch, 
+            !Ctraits::eq(ch,
              Ctraits::to_char_type('('))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         is >> q.s_;
         if (!(is >> ch) ||
-            !Ctraits::eq(ch, 
+            !Ctraits::eq(ch,
              Ctraits::to_char_type(','))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         is >> q.v_;
         if (!(is >> ch) ||
-            !Ctraits::eq(ch, 
+            !Ctraits::eq(ch,
              Ctraits::to_char_type(')'))) {
             is.setstate(std::ios_base::failbit);
             return is;
@@ -345,14 +389,45 @@ public:
      *
      * @param[in] axis
      * Normalized axis.
+     *
+     * @note
+     * Through SFINAE, this only compiles for non-complex quaternions.
      */
-    template <bool B = std::is_floating_point<T>::value>
-    static std::enable_if_t<B, quat> rotation(T theta, const multi<T, 3>& axis)
+    template <
+        bool B =
+        std::is_floating_point<T>::value ||
+             is_floating_point_dualnum<T>::value
+        >
+    static std::enable_if_t<B, quat> rotation(
+                typename value_type_of<T>::type theta,
+                const multi<typename value_type_of<T>::type, 3>& axis)
     {
-        return {pr::cos(theta), pr::sin(theta) * axis};
+        return {
+            T(pr::cos(theta)),
+            multi<T, 3>(pr::sin(theta) * axis) // Assume normalized.
+        };
     }
 
-    // TODO translation
+    /**
+     * @brief Translation.
+     *
+     * @param[in] offset
+     * Offset.
+     *
+     * @note
+     * Through SFINAE, this only compiles for dual non-complex quaternions.
+     */
+    template <bool B = is_floating_point_dualnum<T>::value>
+    static std::enable_if_t<B, quat> translation(
+                const multi<typename value_type_of<T>::type, 3>& offset)
+    {
+        return {
+            T(1, 0),
+            T(0, typename value_type_of<T>::type(0.5) * offset[0]),
+            T(0, typename value_type_of<T>::type(0.5) * offset[1]),
+            T(0, typename value_type_of<T>::type(0.5) * offset[2])
+        };
+    }
 };
 
 /**
@@ -441,7 +516,7 @@ constexpr quat<decltype(T() * U())> operator*(
 {
     return {
         q0.real() * q1.real() - pr::dot(q0.imag(), q1.imag()),
-        q0.real() * q1.imag() + 
+        q0.real() * q1.imag() +
         q0.imag() * q1.real() +
         pr::cross(q0.imag(), q1.imag())
     };
@@ -554,7 +629,7 @@ constexpr std::enable_if_t<
 
 /**
  * @brief Distribute `operator-`.
- * 
+ *
  * @f[
  *      s_0 - (s_1 + \mathbf{v_1}) = (s_0 - s_1) - \mathbf{v_1}
  * @f]
@@ -783,12 +858,12 @@ constexpr quat<T> conj(const quat<T>& q)
  * If `T` is complex or dualnum, returns floating
  * point type.
  */
-template <typename T> 
+template <typename T>
 __attribute__((always_inline))
 constexpr auto norm(const quat<T>& q)
 {
     return pr::abs(pr::dot(
-                static_cast<multi<T, 4>>(q), 
+                static_cast<multi<T, 4>>(q),
                 static_cast<multi<T, 4>>(q)));
 }
 
@@ -796,7 +871,7 @@ constexpr auto norm(const quat<T>& q)
  * @brief Absolute value.
  *
  * @f[
- *      |s + \mathbf{v}| = 
+ *      |s + \mathbf{v}| =
  *      |\sqrt{s^2 + v^2}|
  * @f]
  *
@@ -826,7 +901,7 @@ __attribute__((always_inline))
 constexpr decltype(T() * U()) dot(const quat<T>& q0, const quat<U>& q1)
 {
     return pr::dot(
-                static_cast<multi<T, 4>>(q0), 
+                static_cast<multi<T, 4>>(q0),
                 static_cast<multi<U, 4>>(q1));
 }
 
@@ -882,7 +957,7 @@ inline quat<T> fast_normalize(const quat<T>& q)
  * @brief Inverse.
  *
  * @f[
- *      (s + \mathbf{v})^{-1} = 
+ *      (s + \mathbf{v})^{-1} =
  *      (s - \mathbf{v}) / (s^2 + v^2)
  * @f]
  */
@@ -893,17 +968,62 @@ constexpr quat<T> inverse(const quat<T>& q)
     return q.inverse();
 }
 
-#if 0
 /**
  * @brief Spherical linear interpolation.
+ *
+ * @param[in] mu
+ * Factor @f$ \mu \in [0, 1] @f$.
+ *
+ * @param[in] q0
+ * Versor @f$ q_0 @f$ for @f$ \mu = 0 @f$.
+ *
+ * @param[in] q1
+ * Versor @f$ q_1 @f$ for @f$ \mu = 1 @f$.
+ *
+ * @param[out] dq_dmu
+ * Derivative @f$ dq/d\mu @f$. _Optional_.
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, 
-       quat<T>> slerp(T mu, const quat<T>& q0, const quat<T>& q1)
+       std::is_floating_point<T>::value,
+       quat<T>> slerp(
+                T mu,
+                const quat<T>& q0,
+                const quat<T>& q1,
+                quat<T>* dq_dmu = nullptr)
 {
+    T cos_theta = dot(q0, q1);
+    cos_theta = pr::fmax(cos_theta, T(-1));
+    cos_theta = pr::fmin(cos_theta, T(+1));
+    if (cos_theta > T(0.9999)) {
+        quat<T> q = (T(1) - mu) * q0 + mu * q1;
+        T invlen2 = T(1) / dot(q, q);
+        T invlen1 = pr::sqrt(invlen2);
+        quat<T> hatq = q * invlen1;
+        if (dq_dmu) {
+            *dq_dmu =
+                invlen1 * (q1 - q0) +
+                invlen2 * (T(1) - T(2) * mu) *
+                          (T(1) - cos_theta) * hatq;
+        }
+        return hatq;
+    }
+    else {
+        T theta = pr::acos(cos_theta);
+        T sin_mutheta = pr::sin(mu * theta);
+        T cos_mutheta = pr::cos(mu * theta);
+        quat<T> qperp = normalize(q1 - q0 * cos_theta);
+        quat<T> q =
+            cos_mutheta * q0 +
+            sin_mutheta * qperp;
+        if (dq_dmu) {
+            *dq_dmu =
+                theta * cos_mutheta * qperp -
+                theta * sin_mutheta * q0;
+        }
+        return q;
+    }
 }
-#endif
 
 /**@}*/
 
@@ -916,9 +1036,9 @@ inline std::enable_if_t<
  * @brief Exponential.
  *
  * @f[
- *      \exp(s + \mathbf{v}) = 
- *      \exp(s) (\cos(\sqrt{v^2}) + 
- *               \sin(\sqrt{v^2}) \mathbf{v} / 
+ *      \exp(s + \mathbf{v}) =
+ *      \exp(s) (\cos(\sqrt{v^2}) +
+ *               \sin(\sqrt{v^2}) \mathbf{v} /
  *                    \sqrt{v^2})
  * @f]
  *
@@ -932,9 +1052,9 @@ inline quat<T> exp(const quat<T>& q)
     T lenv = pr::dot(q.imag(), q.imag());
     if (pr::abs(lenv) > 0) {
         lenv = pr::sqrt(lenv);
-        return pr::exp(q.real()) * 
+        return pr::exp(q.real()) *
                 quat<T>(
-                pr::cos(lenv), 
+                pr::cos(lenv),
                 pr::sin(lenv) * (q.imag() / lenv));
     }
     else {
@@ -946,8 +1066,8 @@ inline quat<T> exp(const quat<T>& q)
  * @brief Natural logarithm.
  *
  * @f[
- *      \log(s + \mathbf{v}) = 
- *      \log(\sqrt{s^2 + v^2}) + \arccos(s / \sqrt{s^2 + v^2}) 
+ *      \log(s + \mathbf{v}) =
+ *      \log(\sqrt{s^2 + v^2}) + \arccos(s / \sqrt{s^2 + v^2})
  *      \mathbf{v} / \sqrt{v^2}
  * @f]
  *
