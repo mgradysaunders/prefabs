@@ -35,6 +35,7 @@
 #ifndef PREFORM_QUAT_HPP
 #define PREFORM_QUAT_HPP
 
+// for pr::value_type_of
 #include <preform/type_traits.hpp>
 
 // for pr::dualnum
@@ -110,11 +111,6 @@ public:
      * @brief Value type.
      */
     typedef T value_type;
-
-    /**
-     * @brief Inner value type.
-     */
-    typedef typename inner_value_type_of<T>::type inner_value_type;
 
     /**
      * @brief Real type.
