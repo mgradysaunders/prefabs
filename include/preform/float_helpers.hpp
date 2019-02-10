@@ -44,6 +44,7 @@
 // for std::enable_if, std::is_floating_point
 #include <type_traits>
 
+// for pr::numeric_limits, pr::fmax, pr::fmin, ...
 #include <preform/math.hpp>
 
 namespace pr {
@@ -202,6 +203,21 @@ enum class cycle_mode
      */
     mirror
 };
+
+/**
+ * @brief Cycle mode to string.
+ */
+constexpr const char* to_string(cycle_mode mode)
+{
+    switch (mode)
+    {
+        case cycle_mode::clamp: return "clamp";
+        case cycle_mode::repeat: return "repeat";
+        case cycle_mode::mirror: return "mirror";
+        default: break;
+    }
+    return "unknown";
+}
 
 /**
  * @brief Cycle.
