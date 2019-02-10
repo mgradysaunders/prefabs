@@ -107,7 +107,7 @@ public:
 public:
 
     /**
-     * @name Cycle mode
+     * @name Accessors
      */
     /**@{*/
 
@@ -445,6 +445,12 @@ public:
 
     /**@}*/
 
+public:
+
+    /**
+     * @name Reconstruction
+     */
+    /**@{*/
 
     /**
      * @brief Reconstruct.
@@ -502,6 +508,8 @@ public:
             }
         }
     }
+
+    /**@}*/
 
 private:
 
