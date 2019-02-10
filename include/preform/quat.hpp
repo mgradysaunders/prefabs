@@ -35,7 +35,7 @@
 #ifndef PREFORM_QUAT_HPP
 #define PREFORM_QUAT_HPP
 
-// for pr::value_type_of
+// for pr::value_type_of, pr::inner_value_type_of
 #include <preform/type_traits.hpp>
 
 // for pr::dualnum
@@ -44,7 +44,7 @@
 // for pr::multi
 #include <preform/multi.hpp>
 
-// for pr::dot, pr::cross
+// for pr::dot, pr::cross, ...
 #include <preform/multi_math.hpp>
 
 namespace pr {
@@ -856,7 +856,7 @@ constexpr quat<T> conj(const quat<T>& q)
  */
 template <typename T>
 __attribute__((always_inline))
-constexpr auto norm(const quat<T>& q)
+constexpr typename inner_value_type_of<T>::type norm(const quat<T>& q)
 {
     return pr::abs(pr::dot(
                 static_cast<multi<T, 4>>(q),
@@ -877,7 +877,7 @@ constexpr auto norm(const quat<T>& q)
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto abs(const quat<T>& q)
+inline typename inner_value_type_of<T>::type abs(const quat<T>& q)
 {
     return pr::length(static_cast<multi<T, 4>>(q));
 }
@@ -910,7 +910,7 @@ constexpr decltype(T() * U()) dot(const quat<T>& q0, const quat<U>& q1)
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto length(const quat<T>& q)
+inline typename inner_value_type_of<T>::type length(const quat<T>& q)
 {
     return pr::length(static_cast<multi<T, 4>>(q));
 }
@@ -924,9 +924,9 @@ inline auto length(const quat<T>& q)
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto fast_length(const quat<T>& q)
+inline typename inner_value_type_of<T>::type fastlength(const quat<T>& q)
 {
-    return pr::fast_length(static_cast<multi<T, 4>>(q));
+    return pr::fastlength(static_cast<multi<T, 4>>(q));
 }
 
 /**
@@ -944,9 +944,9 @@ inline quat<T> normalize(const quat<T>& q)
  */
 template <typename T>
 __attribute__((always_inline))
-inline quat<T> fast_normalize(const quat<T>& q)
+inline quat<T> fastnormalize(const quat<T>& q)
 {
-    return pr::fast_normalize(static_cast<multi<T, 4>>(q));
+    return pr::fastnormalize(static_cast<multi<T, 4>>(q));
 }
 
 /**

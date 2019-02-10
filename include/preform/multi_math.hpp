@@ -393,7 +393,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
  */
 template <typename T, std::size_t N>
 __attribute__((always_inline))
-inline decltype(pr::sqrt(pr::abs(T()))) fast_length(const multi<T, N>& arr)
+inline decltype(pr::sqrt(pr::abs(T()))) fastlength(const multi<T, N>& arr)
 {
     if constexpr (N == 1) {
         // Delegate.
@@ -457,10 +457,10 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
 template <typename T, std::size_t N>
 __attribute__((always_inline))
 inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N> 
-                                    fast_normalize(const multi<T, N>& arr)
+                                    fastnormalize(const multi<T, N>& arr)
 {
     // Normalize.
-    return arr * (1 / fast_length(arr));
+    return arr * (1 / fastlength(arr));
 }
 
 /**
