@@ -204,14 +204,14 @@ Accessors (quat)</h2></td></tr>
 <tr class="memitem:ga9835ea0dc5875267ca9a4ace4d74f635"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga9835ea0dc5875267ca9a4ace4d74f635">pr::conj</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
 <tr class="memdesc:ga9835ea0dc5875267ca9a4ace4d74f635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conjugate.  <a href="group__quat.html#ga9835ea0dc5875267ca9a4ace4d74f635">More...</a><br /></td></tr>
 <tr class="separator:ga9835ea0dc5875267ca9a4ace4d74f635"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga486492eeb9d00f31396a73ed7011d37f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga486492eeb9d00f31396a73ed7011d37f"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga486492eeb9d00f31396a73ed7011d37f">pr::norm</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
-<tr class="memdesc:ga486492eeb9d00f31396a73ed7011d37f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Norm square.  <a href="group__quat.html#ga486492eeb9d00f31396a73ed7011d37f">More...</a><br /></td></tr>
-<tr class="separator:ga486492eeb9d00f31396a73ed7011d37f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga57c6a5e318ce944d8bab2037b060a36e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga57c6a5e318ce944d8bab2037b060a36e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga57c6a5e318ce944d8bab2037b060a36e">pr::abs</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
-<tr class="memdesc:ga57c6a5e318ce944d8bab2037b060a36e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute value.  <a href="group__quat.html#ga57c6a5e318ce944d8bab2037b060a36e">More...</a><br /></td></tr>
-<tr class="separator:ga57c6a5e318ce944d8bab2037b060a36e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga728433bc685c09813766970710d74ba9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga728433bc685c09813766970710d74ba9"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="structpr_1_1inner__value__type__of.html">inner_value_type_of</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga728433bc685c09813766970710d74ba9">pr::norm</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
+<tr class="memdesc:ga728433bc685c09813766970710d74ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Norm square.  <a href="group__quat.html#ga728433bc685c09813766970710d74ba9">More...</a><br /></td></tr>
+<tr class="separator:ga728433bc685c09813766970710d74ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10c0c1dd2711550cce7dc08580fd54bf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga10c0c1dd2711550cce7dc08580fd54bf"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1inner__value__type__of.html">inner_value_type_of</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga10c0c1dd2711550cce7dc08580fd54bf">pr::abs</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
+<tr class="memdesc:ga10c0c1dd2711550cce7dc08580fd54bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absolute value.  <a href="group__quat.html#ga10c0c1dd2711550cce7dc08580fd54bf">More...</a><br /></td></tr>
+<tr class="separator:ga10c0c1dd2711550cce7dc08580fd54bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Geometry (quat)</h2></td></tr>
@@ -219,26 +219,30 @@ Geometry (quat)</h2></td></tr>
 <tr class="memitem:ga010d34c95119e8fcf4d3a51ae6687f97"><td class="memTemplItemLeft" align="right" valign="top">decltype(T() *U()) constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga010d34c95119e8fcf4d3a51ae6687f97">pr::dot</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q0, const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; U &gt; &amp;q1)</td></tr>
 <tr class="memdesc:ga010d34c95119e8fcf4d3a51ae6687f97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dot product.  <a href="group__quat.html#ga010d34c95119e8fcf4d3a51ae6687f97">More...</a><br /></td></tr>
 <tr class="separator:ga010d34c95119e8fcf4d3a51ae6687f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7f9ee525385f1d83301541984831b2a7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga7f9ee525385f1d83301541984831b2a7"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga7f9ee525385f1d83301541984831b2a7">pr::length</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
-<tr class="memdesc:ga7f9ee525385f1d83301541984831b2a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) length.  <a href="group__quat.html#ga7f9ee525385f1d83301541984831b2a7">More...</a><br /></td></tr>
-<tr class="separator:ga7f9ee525385f1d83301541984831b2a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7a64bc4c9f44a1de73b470d1f0e899a3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga7a64bc4c9f44a1de73b470d1f0e899a3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga7a64bc4c9f44a1de73b470d1f0e899a3">pr::fast_length</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
-<tr class="memdesc:ga7a64bc4c9f44a1de73b470d1f0e899a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) length, fast (and somewhat unsafe) variant.  <a href="group__quat.html#ga7a64bc4c9f44a1de73b470d1f0e899a3">More...</a><br /></td></tr>
-<tr class="separator:ga7a64bc4c9f44a1de73b470d1f0e899a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9752f42c251c8e098d4499147f2bfd9f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga9752f42c251c8e098d4499147f2bfd9f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1inner__value__type__of.html">inner_value_type_of</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga9752f42c251c8e098d4499147f2bfd9f">pr::length</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
+<tr class="memdesc:ga9752f42c251c8e098d4499147f2bfd9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) length.  <a href="group__quat.html#ga9752f42c251c8e098d4499147f2bfd9f">More...</a><br /></td></tr>
+<tr class="separator:ga9752f42c251c8e098d4499147f2bfd9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f68dd1170e77b3471c8047aed575059"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5f68dd1170e77b3471c8047aed575059"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1inner__value__type__of.html">inner_value_type_of</a>&lt; T &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga5f68dd1170e77b3471c8047aed575059">pr::fastlength</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
+<tr class="memdesc:ga5f68dd1170e77b3471c8047aed575059"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) length, fast (and somewhat unsafe) variant.  <a href="group__quat.html#ga5f68dd1170e77b3471c8047aed575059">More...</a><br /></td></tr>
+<tr class="separator:ga5f68dd1170e77b3471c8047aed575059"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf74da443db08bfd1bbe4586d67ee7b61"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gaf74da443db08bfd1bbe4586d67ee7b61"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#gaf74da443db08bfd1bbe4586d67ee7b61">pr::normalize</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
 <tr class="memdesc:gaf74da443db08bfd1bbe4586d67ee7b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) normalize.  <a href="group__quat.html#gaf74da443db08bfd1bbe4586d67ee7b61">More...</a><br /></td></tr>
 <tr class="separator:gaf74da443db08bfd1bbe4586d67ee7b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8366da7d559e74b7f26e685d567aa1ed"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga8366da7d559e74b7f26e685d567aa1ed"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga8366da7d559e74b7f26e685d567aa1ed">pr::fast_normalize</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
-<tr class="memdesc:ga8366da7d559e74b7f26e685d567aa1ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) normalize, fast (and somewhat unsafe) variant.  <a href="group__quat.html#ga8366da7d559e74b7f26e685d567aa1ed">More...</a><br /></td></tr>
-<tr class="separator:ga8366da7d559e74b7f26e685d567aa1ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae18801a987fec69b279c2b09e170505c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae18801a987fec69b279c2b09e170505c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#gae18801a987fec69b279c2b09e170505c">pr::fastnormalize</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
+<tr class="memdesc:gae18801a987fec69b279c2b09e170505c"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) normalize, fast (and somewhat unsafe) variant.  <a href="group__quat.html#gae18801a987fec69b279c2b09e170505c">More...</a><br /></td></tr>
+<tr class="separator:gae18801a987fec69b279c2b09e170505c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga21ea71fe4127038108393fef9a8ec266"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga21ea71fe4127038108393fef9a8ec266"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga21ea71fe4127038108393fef9a8ec266">pr::inverse</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
 <tr class="memdesc:ga21ea71fe4127038108393fef9a8ec266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse.  <a href="group__quat.html#ga21ea71fe4127038108393fef9a8ec266">More...</a><br /></td></tr>
 <tr class="separator:ga21ea71fe4127038108393fef9a8ec266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf0965a6ee35df125a950ab74853747a7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf0965a6ee35df125a950ab74853747a7"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#gaf0965a6ee35df125a950ab74853747a7">pr::slerp</a> (T mu, const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q0, const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q1, <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; *dq_dmu=nullptr)</td></tr>
+<tr class="memdesc:gaf0965a6ee35df125a950ab74853747a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spherical linear interpolation.  <a href="group__quat.html#gaf0965a6ee35df125a950ab74853747a7">More...</a><br /></td></tr>
+<tr class="separator:gaf0965a6ee35df125a950ab74853747a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math wrappers (quat)</h2></td></tr>
@@ -1124,8 +1128,8 @@ template&lt;typename T &gt; </div>
  
 </div>
 </div>
-<a id="ga486492eeb9d00f31396a73ed7011d37f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga486492eeb9d00f31396a73ed7011d37f">&#9670;&nbsp;</a></span>norm()</h2>
+<a id="ga728433bc685c09813766970710d74ba9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga728433bc685c09813766970710d74ba9">&#9670;&nbsp;</a></span>norm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1133,7 +1137,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr auto pr::norm </td>
+          <td class="memname">constexpr <a class="el" href="structpr_1_1inner__value__type__of.html">inner_value_type_of</a>&lt;T&gt;::type pr::norm </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>q</em></td><td>)</td>
@@ -1150,8 +1154,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga57c6a5e318ce944d8bab2037b060a36e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga57c6a5e318ce944d8bab2037b060a36e">&#9670;&nbsp;</a></span>abs()</h2>
+<a id="ga10c0c1dd2711550cce7dc08580fd54bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga10c0c1dd2711550cce7dc08580fd54bf">&#9670;&nbsp;</a></span>abs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1162,7 +1166,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto pr::abs </td>
+          <td class="memname"><a class="el" href="structpr_1_1inner__value__type__of.html">inner_value_type_of</a>&lt;T&gt;::type pr::abs </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>q</em></td><td>)</td>
@@ -1216,8 +1220,8 @@ template&lt;typename T , typename U &gt; </div>
 
 </div>
 </div>
-<a id="ga7f9ee525385f1d83301541984831b2a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7f9ee525385f1d83301541984831b2a7">&#9670;&nbsp;</a></span>length()</h2>
+<a id="ga9752f42c251c8e098d4499147f2bfd9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9752f42c251c8e098d4499147f2bfd9f">&#9670;&nbsp;</a></span>length()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1228,7 +1232,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto pr::length </td>
+          <td class="memname"><a class="el" href="structpr_1_1inner__value__type__of.html">inner_value_type_of</a>&lt;T&gt;::type pr::length </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>q</em></td><td>)</td>
@@ -1247,8 +1251,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga7a64bc4c9f44a1de73b470d1f0e899a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7a64bc4c9f44a1de73b470d1f0e899a3">&#9670;&nbsp;</a></span>fast_length()</h2>
+<a id="ga5f68dd1170e77b3471c8047aed575059"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f68dd1170e77b3471c8047aed575059">&#9670;&nbsp;</a></span>fastlength()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1259,7 +1263,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto pr::fast_length </td>
+          <td class="memname"><a class="el" href="structpr_1_1inner__value__type__of.html">inner_value_type_of</a>&lt;T&gt;::type pr::fastlength </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>q</em></td><td>)</td>
@@ -1308,8 +1312,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga8366da7d559e74b7f26e685d567aa1ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8366da7d559e74b7f26e685d567aa1ed">&#9670;&nbsp;</a></span>fast_normalize()</h2>
+<a id="gae18801a987fec69b279c2b09e170505c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae18801a987fec69b279c2b09e170505c">&#9670;&nbsp;</a></span>fastnormalize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1320,7 +1324,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1quat.html">quat</a>&lt;T&gt; pr::fast_normalize </td>
+          <td class="memname"><a class="el" href="classpr_1_1quat.html">quat</a>&lt;T&gt; pr::fastnormalize </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>q</em></td><td>)</td>
@@ -1361,6 +1365,67 @@ template&lt;typename T &gt; </div>
 \[ (s + \mathbf{v})^{-1} = (s - \mathbf{v}) / (s^2 + v^2) \]
 </p>
  
+</div>
+</div>
+<a id="gaf0965a6ee35df125a950ab74853747a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf0965a6ee35df125a950ab74853747a7">&#9670;&nbsp;</a></span>slerp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, <a class="el" href="classpr_1_1quat.html">quat</a>&lt;T&gt; &gt; pr::slerp </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>mu</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>q0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>q1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; *&#160;</td>
+          <td class="paramname"><em>dq_dmu</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Spherical linear interpolation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">mu</td><td>Factor \( \mu \in [0, 1] \).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">q0</td><td>Versor \( q_0 \) for \( \mu = 0 \).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">q1</td><td>Versor \( q_1 \) for \( \mu = 1 \).</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dq_dmu</td><td>Derivative \( dq/d\mu \). <em>Optional</em>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ga7cd3891694975648de8a27cec1379302"></a>

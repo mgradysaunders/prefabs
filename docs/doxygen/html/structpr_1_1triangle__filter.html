@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>preform: pr::box_filter2&lt; T &gt; Struct Template Reference</title>
+<title>preform: pr::triangle_filter&lt; T, N &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,55 +63,55 @@ $(function() {
 <div id="main-nav"></div>
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacepr.html">pr</a></li><li class="navelem"><a class="el" href="structpr_1_1box__filter2.html">box_filter2</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacepr.html">pr</a></li><li class="navelem"><a class="el" href="structpr_1_1triangle__filter.html">triangle_filter</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structpr_1_1box__filter2-members.html">List of all members</a>  </div>
+<a href="structpr_1_1triangle__filter-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::box_filter2&lt; T &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__image__filter2.html">Image filters (2-dimensional)</a></div></div>  </div>
+<div class="title">pr::triangle_filter&lt; T, N &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__image__helpers.html">Image helpers</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Box filter.  
- <a href="structpr_1_1box__filter2.html#details">More...</a></p>
+<p>Triangle filter.  
+ <a href="structpr_1_1triangle__filter.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a87294517a62fe9c23c04c26acef98b74"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1box__filter2.html#a87294517a62fe9c23c04c26acef98b74">operator()</a> (multi&lt; T, 2 &gt; vec) const</td></tr>
-<tr class="memdesc:a87294517a62fe9c23c04c26acef98b74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate.  <a href="#a87294517a62fe9c23c04c26acef98b74">More...</a><br /></td></tr>
-<tr class="separator:a87294517a62fe9c23c04c26acef98b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae72d0583d21f49128e4e3c23a129ff92"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1triangle__filter.html#ae72d0583d21f49128e4e3c23a129ff92">operator()</a> (multi&lt; T, N &gt; vec) const</td></tr>
+<tr class="memdesc:ae72d0583d21f49128e4e3c23a129ff92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate.  <a href="#ae72d0583d21f49128e4e3c23a129ff92">More...</a><br /></td></tr>
+<tr class="separator:ae72d0583d21f49128e4e3c23a129ff92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a90ddc1623346c2addf400e9969d524f5"><td class="memItemLeft" align="right" valign="top">multi&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1box__filter2.html#a90ddc1623346c2addf400e9969d524f5">rad</a> = multi&lt;T, 2&gt;(T(0.5))</td></tr>
-<tr class="memdesc:a90ddc1623346c2addf400e9969d524f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Radii.  <a href="#a90ddc1623346c2addf400e9969d524f5">More...</a><br /></td></tr>
-<tr class="separator:a90ddc1623346c2addf400e9969d524f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bee508b1c8db6728b4273a6e4b79bb8"><td class="memItemLeft" align="right" valign="top">multi&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1triangle__filter.html#a2bee508b1c8db6728b4273a6e4b79bb8">rad</a> = multi&lt;T, N&gt;(T(1))</td></tr>
+<tr class="memdesc:a2bee508b1c8db6728b4273a6e4b79bb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Radii.  <a href="#a2bee508b1c8db6728b4273a6e4b79bb8">More...</a><br /></td></tr>
+<tr class="separator:a2bee508b1c8db6728b4273a6e4b79bb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-struct pr::box_filter2&lt; T &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, std::size_t N&gt;<br />
+struct pr::triangle_filter&lt; T, N &gt;</h3>
 
-<p>Box filter. </p>
+<p>Triangle filter. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a87294517a62fe9c23c04c26acef98b74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87294517a62fe9c23c04c26acef98b74">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="ae72d0583d21f49128e4e3c23a129ff92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae72d0583d21f49128e4e3c23a129ff92">&#9670;&nbsp;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename T , std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T <a class="el" href="structpr_1_1box__filter2.html">pr::box_filter2</a>&lt; T &gt;::operator() </td>
+          <td class="memname">T <a class="el" href="structpr_1_1triangle__filter.html">pr::triangle_filter</a>&lt; T, N &gt;::operator() </td>
           <td>(</td>
-          <td class="paramtype">multi&lt; T, 2 &gt;&#160;</td>
+          <td class="paramtype">multi&lt; T, N &gt;&#160;</td>
           <td class="paramname"><em>vec</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -128,16 +128,16 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a90ddc1623346c2addf400e9969d524f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90ddc1623346c2addf400e9969d524f5">&#9670;&nbsp;</a></span>rad</h2>
+<a id="a2bee508b1c8db6728b4273a6e4b79bb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bee508b1c8db6728b4273a6e4b79bb8">&#9670;&nbsp;</a></span>rad</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename T , std::size_t N&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">multi&lt;T, 2&gt; <a class="el" href="structpr_1_1box__filter2.html">pr::box_filter2</a>&lt; T &gt;::rad = multi&lt;T, 2&gt;(T(0.5))</td>
+          <td class="memname">multi&lt;T, N&gt; <a class="el" href="structpr_1_1triangle__filter.html">pr::triangle_filter</a>&lt; T, N &gt;::rad = multi&lt;T, N&gt;(T(1))</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -12,9 +12,9 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="structpr_1_1triangle__filter2.html" target="_top" xlink:title="Triangle filter. ">
+<g id="a_node1"><a xlink:href="classpr_1_1thread__pool_1_1worker.html" target="_top" xlink:title="Worker. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-.5 0,-19.5 116,-19.5 116,-.5 0,-.5"/>
-<text text-anchor="middle" x="58" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::triangle_filter2&lt; T &gt;</text>
+<text text-anchor="middle" x="58" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::thread_pool::worker</text>
 </a>
 </g>
 </g>

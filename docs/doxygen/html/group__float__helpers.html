@@ -64,26 +64,12 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Float helpers</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga6f837626b5296b39b6ca866b16af5d06"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__float__helpers.html#ga6f837626b5296b39b6ca866b16af5d06">pr::cycle_mode</a> { <br />
-&#160;&#160;<a class="el" href="group__float__helpers.html#gga6f837626b5296b39b6ca866b16af5d06aa597a055c00d084069e4bb23dc789ac9">pr::cycle_mode::clamp</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__float__helpers.html#gga6f837626b5296b39b6ca866b16af5d06a32cf6da134a8b268cf4ab6b79a9a5ad9">pr::cycle_mode::repeat</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__float__helpers.html#gga6f837626b5296b39b6ca866b16af5d06afbe322a89bc0ba531c3f0050e3935f28">pr::cycle_mode::mirror</a>
-<br />
- }<tr class="memdesc:ga6f837626b5296b39b6ca866b16af5d06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cycle mode.  <a href="group__float__helpers.html#ga6f837626b5296b39b6ca866b16af5d06">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ga6f837626b5296b39b6ca866b16af5d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gab388b196296c2393a16193800a7564a9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
@@ -106,13 +92,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga895af51adef3abc7346f44a56579d862"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__float__helpers.html#ga895af51adef3abc7346f44a56579d862">pr::fmirror</a> (T x, T a, T b)</td></tr>
 <tr class="memdesc:ga895af51adef3abc7346f44a56579d862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mirror.  <a href="group__float__helpers.html#ga895af51adef3abc7346f44a56579d862">More...</a><br /></td></tr>
 <tr class="separator:ga895af51adef3abc7346f44a56579d862"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaafd7f1918968e242674c54ae6f655311"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gaafd7f1918968e242674c54ae6f655311"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__float__helpers.html#gaafd7f1918968e242674c54ae6f655311">pr::fcycle</a> (T x, T a, T b, <a class="el" href="group__float__helpers.html#ga6f837626b5296b39b6ca866b16af5d06">cycle_mode</a> mode)</td></tr>
-<tr class="memdesc:gaafd7f1918968e242674c54ae6f655311"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cycle.  <a href="group__float__helpers.html#gaafd7f1918968e242674c54ae6f655311">More...</a><br /></td></tr>
-<tr class="separator:gaafd7f1918968e242674c54ae6f655311"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga53710d39de9a732fced8bda8bfb69deb"><td class="memTemplParams" colspan="2">template&lt;typename U , typename T &gt; </td></tr>
 <tr class="memitem:ga53710d39de9a732fced8bda8bfb69deb"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value &amp;&amp;std::is_arithmetic&lt; U &gt;::value, U &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__float__helpers.html#ga53710d39de9a732fced8bda8bfb69deb">pr::fstretch</a> (T x)</td></tr>
-<tr class="memdesc:ga53710d39de9a732fced8bda8bfb69deb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stretch floating point values to signed/unsigned normalized integer values.  <a href="group__float__helpers.html#ga53710d39de9a732fced8bda8bfb69deb">More...</a><br /></td></tr>
+<tr class="memdesc:ga53710d39de9a732fced8bda8bfb69deb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stretch floating point values to normalized integer values.  <a href="group__float__helpers.html#ga53710d39de9a732fced8bda8bfb69deb">More...</a><br /></td></tr>
 <tr class="separator:ga53710d39de9a732fced8bda8bfb69deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9f0cad9375840a4ce438df4d09932b71"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga9f0cad9375840a4ce438df4d09932b71"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__float__helpers.html#ga9f0cad9375840a4ce438df4d09932b71">pr::fastfloor</a> (T x)</td></tr>
@@ -134,39 +116,6 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/float_helpers.hpp&gt;</code></p>
 <p><b>C++ version</b>: &gt;=C++17 </p>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="ga6f837626b5296b39b6ca866b16af5d06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6f837626b5296b39b6ca866b16af5d06">&#9670;&nbsp;</a></span>cycle_mode</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="group__float__helpers.html#ga6f837626b5296b39b6ca866b16af5d06">pr::cycle_mode</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Cycle mode. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga6f837626b5296b39b6ca866b16af5d06aa597a055c00d084069e4bb23dc789ac9"></a>clamp&#160;</td><td class="fielddoc"><p>Use <code>fclamp()</code>. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga6f837626b5296b39b6ca866b16af5d06a32cf6da134a8b268cf4ab6b79a9a5ad9"></a>repeat&#160;</td><td class="fielddoc"><p>Use <code>frepeat()</code>. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga6f837626b5296b39b6ca866b16af5d06afbe322a89bc0ba531c3f0050e3935f28"></a>mirror&#160;</td><td class="fielddoc"><p>Use <code>fmirror()</code>. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gab388b196296c2393a16193800a7564a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gab388b196296c2393a16193800a7564a9">&#9670;&nbsp;</a></span>finc()</h2>
@@ -400,67 +349,6 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="gaafd7f1918968e242674c54ae6f655311"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaafd7f1918968e242674c54ae6f655311">&#9670;&nbsp;</a></span>fcycle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, T&gt; pr::fcycle </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>b</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__float__helpers.html#ga6f837626b5296b39b6ca866b16af5d06">cycle_mode</a>&#160;</td>
-          <td class="paramname"><em>mode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Cycle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>Value</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>Minimum value.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>Maximum value.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>Cycle mode. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="ga53710d39de9a732fced8bda8bfb69deb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga53710d39de9a732fced8bda8bfb69deb">&#9670;&nbsp;</a></span>fstretch()</h2>
 
@@ -487,7 +375,7 @@ template&lt;typename U , typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Stretch floating point values to signed/unsigned normalized integer values. </p>
+<p>Stretch floating point values to normalized integer values. </p>
 
 </div>
 </div>
