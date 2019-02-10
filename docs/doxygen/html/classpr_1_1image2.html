@@ -69,7 +69,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpr_1_1image2-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -134,11 +133,7 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a329e19a7d84a3f4aaab036e0a7709028"><td class="memTemplParams" colspan="2">template&lt;typename Tfilt &gt; </td></tr>
-<tr class="memitem:a329e19a7d84a3f4aaab036e0a7709028"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1image2.html#a329e19a7d84a3f4aaab036e0a7709028">reconstruct</a> (multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, N &gt; val, multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, 2 &gt; loc, multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, 2 &gt; filtrad, Tfilt &amp;&amp;filt)</td></tr>
-<tr class="memdesc:a329e19a7d84a3f4aaab036e0a7709028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruct.  <a href="#a329e19a7d84a3f4aaab036e0a7709028">More...</a><br /></td></tr>
-<tr class="separator:a329e19a7d84a3f4aaab036e0a7709028"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Cycle mode</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Accessors</div></td></tr>
 <tr class="memitem:a053999d952f1e7142279829734b792d2"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="group__image__helpers.html#ga6f837626b5296b39b6ca866b16af5d06">cycle_mode</a>, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1image2.html#a053999d952f1e7142279829734b792d2">cyc_mode</a> () const</td></tr>
 <tr class="memdesc:a053999d952f1e7142279829734b792d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get cycle mode.  <a href="#a053999d952f1e7142279829734b792d2">More...</a><br /></td></tr>
 <tr class="separator:a053999d952f1e7142279829734b792d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,6 +162,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5bbd4ff5c387364530fa5ee227ea42e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1image2.html#a5bbd4ff5c387364530fa5ee227ea42e3">resample</a> (int samp, multi&lt; <a class="el" href="classpr_1_1block__array2.html#aedc69fe9ffc2a7e87e421faf38442be4">size_type</a>, 2 &gt; count)</td></tr>
 <tr class="memdesc:a5bbd4ff5c387364530fa5ee227ea42e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample.  <a href="#a5bbd4ff5c387364530fa5ee227ea42e3">More...</a><br /></td></tr>
 <tr class="separator:a5bbd4ff5c387364530fa5ee227ea42e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Reconstruction</div></td></tr>
+<tr class="memitem:a329e19a7d84a3f4aaab036e0a7709028"><td class="memTemplParams" colspan="2">template&lt;typename Tfilt &gt; </td></tr>
+<tr class="memitem:a329e19a7d84a3f4aaab036e0a7709028"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1image2.html#a329e19a7d84a3f4aaab036e0a7709028">reconstruct</a> (multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, N &gt; val, multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, 2 &gt; loc, multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, 2 &gt; filtrad, Tfilt &amp;&amp;filt)</td></tr>
+<tr class="memdesc:a329e19a7d84a3f4aaab036e0a7709028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruct.  <a href="#a329e19a7d84a3f4aaab036e0a7709028">More...</a><br /></td></tr>
+<tr class="separator:a329e19a7d84a3f4aaab036e0a7709028"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classpr_1_1block__array2"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classpr_1_1block__array2')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classpr_1_1block__array2.html">pr::block_array2&lt; multi&lt; T, N &gt;, std::allocator_traits&lt; Talloc &gt;::template rebind_alloc&lt; multi&lt; T, N &gt; &gt; &gt;</a></td></tr>
 <tr class="memitem:a28b9a9a33ca524101ea9426da70a9ad8 inherit pub_methods_classpr_1_1block__array2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1block__array2.html#a28b9a9a33ca524101ea9426da70a9ad8">block_array2</a> () noexcept(noexcept(std::allocator_traits&lt; Talloc &gt;::template rebind_alloc&lt; multi&lt; T, N &gt; &gt;()))=default</td></tr>
 <tr class="memdesc:a28b9a9a33ca524101ea9426da70a9ad8 inherit pub_methods_classpr_1_1block__array2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="classpr_1_1block__array2.html#a28b9a9a33ca524101ea9426da70a9ad8">More...</a><br /></td></tr>
