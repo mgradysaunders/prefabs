@@ -838,6 +838,29 @@ enum class composite_mode : int
 };
 
 /**
+ * @brief Composite mode to string.
+ */
+constexpr const char* to_string(composite_mode mode)
+{
+    switch (mode) {
+        case composite_mode::src: return "src";
+        case composite_mode::dst: return "dst";
+        case composite_mode::src_over: return "src_over";
+        case composite_mode::dst_over: return "dst_over";
+        case composite_mode::src_in: return "src_in";
+        case composite_mode::dst_in: return "dst_in";
+        case composite_mode::src_out: return "src_out";
+        case composite_mode::dst_out: return "dst_out";
+        case composite_mode::src_atop: return "src_atop";
+        case composite_mode::dst_atop: return "dst_atop";
+        case composite_mode::exclusive_or: return "exclusive_or";
+        case composite_mode::plus: return "plus";
+        default: break;
+    }
+    return "unknown";
+}
+
+/**
  * @name Alpha compositing
  */
 /**@{*/
