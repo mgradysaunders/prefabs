@@ -7,7 +7,6 @@ funcs = [
 ['fclamp',      [['T','x'],['T','a'],['T','b']]],
 ['frepeat',     [['T','x'],['T','a'],['T','b']]],
 ['fmirror',     [['T','x'],['T','a'],['T','b']]],
-['fcycle',      [['T','x'],['T','a'],['T','b'],['cycle_mode','mode']]],
 ['fastfloor',   [['T','x']]],
 ['fastceil',    [['T','x']]],
 ['fastround',   [['T','x']]],

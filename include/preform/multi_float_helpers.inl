@@ -124,34 +124,6 @@ inline auto fmirror(
 }
 
 /**
- * @brief Wrap `pr::fcycle()`.
- */
-template <typename T, std::size_t... N>
-__attribute__((always_inline))
-inline auto fcycle(
-            const multi<T, N...>& x,
-            const multi<T, N...>& a,
-            const multi<T, N...>& b,
-            const multi<cycle_mode, N...>& mode)
-{
-    multi<
-        std::decay_t<decltype(pr::fcycle(
-        std::declval<T>(),
-        std::declval<T>(),
-        std::declval<T>(),
-        std::declval<cycle_mode>()))>, N...> res;
-    auto itrx = x.begin();
-    auto itra = a.begin();
-    auto itrb = b.begin();
-    auto itrmode = mode.begin();
-    auto itrres = res.begin();
-    for (; itrres < res.end(); ++itrx, ++itra, ++itrb, ++itrmode, ++itrres) {
-        *itrres = pr::fcycle(*itrx, *itra, *itrb, *itrmode);
-    }
-    return res;
-}
-
-/**
  * @brief Wrap `pr::fastfloor()`.
  */
 template <typename T, std::size_t... N>

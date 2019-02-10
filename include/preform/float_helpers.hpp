@@ -184,75 +184,7 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Cycle mode.
- */
-enum class cycle_mode
-{
-    /**
-     * @brief Use `fclamp()`.
-     */
-    clamp,
-
-    /**
-     * @brief Use `frepeat()`.
-     */
-    repeat,
-
-    /**
-     * @brief Use `fmirror()`.
-     */
-    mirror
-};
-
-/**
- * @brief Cycle mode to string.
- */
-constexpr const char* to_string(cycle_mode mode)
-{
-    switch (mode)
-    {
-        case cycle_mode::clamp: return "clamp";
-        case cycle_mode::repeat: return "repeat";
-        case cycle_mode::mirror: return "mirror";
-        default: break;
-    }
-    return "unknown";
-}
-
-/**
- * @brief Cycle.
- *
- * @param[in] x
- * Value
- *
- * @param[in] a
- * Minimum value.
- *
- * @param[in] b
- * Maximum value.
- *
- * @param[in] mode
- * Cycle mode.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> fcycle(T x, T a, T b,
-                                             cycle_mode mode)
-{
-    switch (mode) {
-        default:
-        case cycle_mode::clamp: return fclamp(x, a, b);
-        case cycle_mode::repeat: return frepeat(x, a, b);
-        case cycle_mode::mirror: return fmirror(x, a, b);
-    }
-
-    // Unreachable.
-    return T();
-}
-
-/**
- * @brief Stretch floating point values to signed/unsigned
- * normalized integer values.
+ * @brief Stretch floating point values to normalized integer values.
  */
 template <typename U, typename T>
 __attribute__((always_inline))

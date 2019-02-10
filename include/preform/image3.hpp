@@ -35,22 +35,11 @@
 #ifndef PREFORM_IMAGE3_HPP
 #define PREFORM_IMAGE3_HPP
 
+// for pr::cycle_mode, ...
+#include <preform/image_helpers.hpp>
+
 // for pr::block_array3
 #include <preform/block_array3.hpp>
-
-// for pr::wrap, pr::wrap_mirror, ...
-#include <preform/int_helpers.hpp>
-
-// for pr::fastfloor, pr::cycle_mode, ...
-#include <preform/float_helpers.hpp>
-
-// for pr::multi
-#include <preform/multi.hpp>
-#include <preform/multi_math.hpp>
-#include <preform/multi_float_helpers.hpp>
-
-// for pr::lerp, pr::catmull
-#include <preform/interp.hpp>
 
 namespace pr {
 
@@ -106,12 +95,9 @@ public:
             multi<T, N>,
             typename std::allocator_traits<Talloc>::
             template rebind_alloc<multi<T, N>>> base;
-#endif // #if !DOXYGEN
 
-    /**
-     * @brief Size type.
-     */
-    typedef typename base::size_type size_type;
+    using typename base::size_type;
+#endif // #if !DOXYGEN
 
 public:
 
@@ -138,9 +124,9 @@ public:
      */
     multi<cycle_mode, 3> cyc_mode(multi<cycle_mode, 3> mode)
     {
-        multi<cycle_mode, 3> prev = cyc_mode_;
+        multi<cycle_mode, 3> res = cyc_mode_;
         cyc_mode_ = mode;
-        return prev;
+        return res;
     }
 
     /**
@@ -189,8 +175,8 @@ public:
             if (locmin[2] > locmax[2]) std::swap(locmin[2], locmax[2]);
 
             // Floor.
-            multi<int, 3> indmin = pr::fastfloor(locmin);
-            multi<int, 3> indmax = pr::fastfloor(locmax);
+            multi<int, 3> indmin = fastfloor(locmin);
+            multi<int, 3> indmax = fastfloor(locmax);
 
             // Integrate.
             multi<float_type, N> numer = {};
@@ -228,7 +214,7 @@ public:
             return {};
         }
         else {
-            return fetch(pr::fastfloor(loc));
+            return fetch(fastfloor(loc));
         }
     }
 
@@ -248,7 +234,7 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<int, 3> ind = pr::fastfloor(loc);
+            multi<int, 3> ind = fastfloor(loc);
             loc -= ind;
 
             // Interpolate.
@@ -295,7 +281,7 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<int, 3> ind = pr::fastfloor(loc);
+            multi<int, 3> ind = fastfloor(loc);
             loc -= ind;
 
             // Interpolate.
@@ -459,6 +445,64 @@ public:
 
     /**@}*/
 
+
+    /**
+     * @brief Reconstruct.
+     *
+     * @param[in] val
+     * Value.
+     *
+     * @param[in] loc
+     * Location.
+     *
+     * @param[in] filtrad
+     * Filter radii, beyond which filter is zero.
+     *
+     * @param[in] filt
+     * Filter function.
+     */
+    template <typename Tfilt>
+    void reconstruct(
+            multi<float_type, N> val,
+            multi<float_type, 3> loc,
+            multi<float_type, 3> filtrad,
+            Tfilt&& filt)
+    {
+        // Shift.
+        loc -= float_type(0.5);
+
+        // Determine indices.
+        multi<int, 3> indmin = fastceil(loc - filtrad);
+        multi<int, 3> indmax = fastfloor(loc + filtrad);
+        for (int l = 0; l < 3; l++) {
+            if (cyc_mode_[l] == cycle_mode::clamp) {
+                indmin[l] = std::max(indmin[l], 0);
+                indmax[l] = std::min(indmax[l], int(this->user_size_[l]) - 1);
+            }
+        }
+
+        // Reconstruct.
+        for (int k = indmin[2]; k <= indmax[2]; k++)
+        for (int i = indmin[0]; i <= indmax[0]; i++)
+        for (int j = indmin[1]; j <= indmax[1]; j++) {
+            multi<int, 3> ind = {i, j, k};
+            float_type tmp = std::forward<Tfilt>(filt)(ind - loc);
+            if (tmp != float_type(0)) {
+
+                // Lookup entry.
+                multi<entry_type, N>& ent =
+                    this->operator[](
+                    this->convert(cycle<int, 3>(
+                                        cyc_mode_, ind,
+                                        this->user_size_)));
+
+                // Add.
+                ent = fstretch<entry_type>(
+                      fstretch<float_type>(ent) + val * tmp);
+            }
+        }
+    }
+
 private:
 
     /**
@@ -470,51 +514,17 @@ private:
 #if !DOXYGEN
 
     /**
-     * @brief Cycle.
-     */
-    multi<int, 3> cycle(multi<int, 3> ind) const
-    {
-        for (int k = 0; k < 3; k++) {
-            switch (cyc_mode_[k]) {
-                // Clamp.
-                default:
-                case cycle_mode::clamp:
-                    ind[k] =
-                        std::max(0,
-                        std::min(
-                            ind[k],
-                            int(this->user_size_[k]) - 1));
-                    break;
-
-                // Repeat.
-                case cycle_mode::repeat:
-                    ind[k] =
-                        pr::wrap(
-                            ind[k],
-                            int(this->user_size_[k]));
-                    break;
-
-                // Mirror.
-                case cycle_mode::mirror:
-                    ind[k] =
-                        pr::wrap_mirror(
-                            ind[k],
-                            int(this->user_size_[k]));
-                    break;
-            }
-        }
-        return ind;
-    }
-
-    /**
      * @brief Fetch.
      */
+    __attribute__((always_inline))
     multi<float_type, N> fetch(multi<int, 3> ind) const
     {
         return
             fstretch<float_type>(
                 this->operator[](
-                this->convert(cycle(ind))));
+                this->convert(cycle<int, 3>(
+                                    cyc_mode_, ind,
+                                    this->user_size_))));
     }
 
 #endif // #if !DOXYGEN

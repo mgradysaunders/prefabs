@@ -35,22 +35,11 @@
 #ifndef PREFORM_IMAGE2_HPP
 #define PREFORM_IMAGE2_HPP
 
+// for pr::cycle_mode, ...
+#include <preform/image_helpers.hpp>
+
 // for pr::block_array2
 #include <preform/block_array2.hpp>
-
-// for pr::wrap, pr::wrap_mirror, ...
-#include <preform/int_helpers.hpp>
-
-// for pr::fastfloor, pr::cycle_mode, ...
-#include <preform/float_helpers.hpp>
-
-// for pr::multi
-#include <preform/multi.hpp>
-#include <preform/multi_math.hpp>
-#include <preform/multi_float_helpers.hpp>
-
-// for pr::lerp, pr::catmull
-#include <preform/interp.hpp>
 
 namespace pr {
 
@@ -106,12 +95,9 @@ public:
             multi<T, N>,
             typename std::allocator_traits<Talloc>::
             template rebind_alloc<multi<T, N>>> base;
-#endif // #if !DOXYGEN
 
-    /**
-     * @brief Size type.
-     */
-    typedef typename base::size_type size_type;
+    using typename base::size_type;
+#endif // #if !DOXYGEN
 
 public:
 
@@ -138,9 +124,9 @@ public:
      */
     multi<cycle_mode, 2> cyc_mode(multi<cycle_mode, 2> mode)
     {
-        multi<cycle_mode, 2> prev = cyc_mode_;
+        multi<cycle_mode, 2> res = cyc_mode_;
         cyc_mode_ = mode;
-        return prev;
+        return res;
     }
 
     /**
@@ -188,8 +174,8 @@ public:
             if (locmin[1] > locmax[1]) std::swap(locmin[1], locmax[1]);
 
             // Floor.
-            multi<int, 2> indmin = pr::fastfloor(locmin);
-            multi<int, 2> indmax = pr::fastfloor(locmax);
+            multi<int, 2> indmin = fastfloor(locmin);
+            multi<int, 2> indmax = fastfloor(locmax);
 
             // Integrate.
             multi<float_type, N> numer = {};
@@ -226,7 +212,7 @@ public:
             return {};
         }
         else {
-            return fetch(pr::fastfloor(loc));
+            return fetch(fastfloor(loc));
         }
     }
 
@@ -246,7 +232,7 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<int, 2> ind = pr::fastfloor(loc);
+            multi<int, 2> ind = fastfloor(loc);
             loc -= ind;
 
             // Interpolate.
@@ -285,7 +271,7 @@ public:
             loc -= float_type(0.5);
 
             // Floor.
-            multi<int, 2> ind = pr::fastfloor(loc);
+            multi<int, 2> ind = fastfloor(loc);
             loc -= ind;
 
             // Interpolate.
@@ -444,8 +430,8 @@ public:
         loc -= float_type(0.5);
 
         // Determine indices.
-        multi<int, 2> indmin = pr::fastceil(loc - filtrad);
-        multi<int, 2> indmax = pr::fastfloor(loc + filtrad);
+        multi<int, 2> indmin = fastceil(loc - filtrad);
+        multi<int, 2> indmax = fastfloor(loc + filtrad);
         for (int k = 0; k < 2; k++) {
             if (cyc_mode_[k] == cycle_mode::clamp) {
                 indmin[k] = std::max(indmin[k], 0);
@@ -463,7 +449,9 @@ public:
                 // Lookup entry.
                 multi<entry_type, N>& ent =
                     this->operator[](
-                    this->convert(cycle(ind)));
+                    this->convert(cycle<int, 2>(
+                                        cyc_mode_, ind,
+                                        this->user_size_)));
 
                 // Add.
                 ent = fstretch<entry_type>(
@@ -483,51 +471,17 @@ private:
 #if !DOXYGEN
 
     /**
-     * @brief Cycle.
-     */
-    multi<int, 2> cycle(multi<int, 2> ind) const
-    {
-        for (int k = 0; k < 2; k++) {
-            switch (cyc_mode_[k]) {
-                // Clamp.
-                default:
-                case cycle_mode::clamp:
-                    ind[k] =
-                        std::max(0,
-                        std::min(
-                            ind[k],
-                            int(this->user_size_[k]) - 1));
-                    break;
-
-                // Repeat.
-                case cycle_mode::repeat:
-                    ind[k] =
-                        pr::wrap(
-                            ind[k],
-                            int(this->user_size_[k]));
-                    break;
-
-                // Mirror.
-                case cycle_mode::mirror:
-                    ind[k] =
-                        pr::wrap_mirror(
-                            ind[k],
-                            int(this->user_size_[k]));
-                    break;
-            }
-        }
-        return ind;
-    }
-
-    /**
      * @brief Fetch.
      */
+    __attribute__((always_inline))
     multi<float_type, N> fetch(multi<int, 2> ind) const
     {
         return
             fstretch<float_type>(
                 this->operator[](
-                this->convert(cycle(ind))));
+                this->convert(cycle<int, 2>(
+                                    cyc_mode_, ind, 
+                                    this->user_size_))));
     }
 
 #endif // #if !DOXYGEN

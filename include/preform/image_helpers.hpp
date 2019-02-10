@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- *
+ * 
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- *
+ * 
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -28,34 +28,121 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201703L)
-#error "preform/image_filter2.hpp requires >=C++17"
+#error "preform/image_helpers.hpp requires >=C++17"
 #endif // #if !(__cplusplus >= 201703L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_IMAGE_FILTER2_HPP
-#define PREFORM_IMAGE_FILTER2_HPP
+#ifndef PREFORM_IMAGE_HELPERS_HPP
+#define PREFORM_IMAGE_HELPERS_HPP
+
+// for pr::wrap, pr::wrap_mirror
+#include <preform/int_helpers.hpp>
 
 // for pr::multi
 #include <preform/multi.hpp>
 #include <preform/multi_math.hpp>
 #include <preform/multi_float_helpers.hpp>
 
+// for pr::lerp, pr::catmull
+#include <preform/interp.hpp>
+
 namespace pr {
 
 /**
- * @defgroup image_filter2 Image filters (2-dimensional)
+ * @defgroup image_helpers Image helpers
  *
- * `<preform/image_filter2.hpp>`
+ * `<preform/image_helpers.hpp>`
  *
  * __C++ version__: >=C++17
  */
 /**@{*/
 
 /**
+ * @brief Cycle mode.
+ */
+enum class cycle_mode
+{
+    /**
+     * @brief Clamp.
+     */
+    clamp,
+
+    /**
+     * @brief Repeat.
+     */
+    repeat,
+
+    /**
+     * @brief Repeat with mirroring.
+     */
+    mirror
+};
+
+/**
+ * @brief Cycle mode to string.
+ */
+constexpr const char* to_string(cycle_mode mode)
+{
+    switch (mode) {
+        case cycle_mode::clamp: return "clamp";
+        case cycle_mode::repeat: return "repeat";
+        case cycle_mode::mirror: return "mirror";
+        default: break;
+    }
+    return "unknown";
+}
+
+#if !DOXYGEN
+
+// Apply cycle op.
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> cycle(
+                                         cycle_mode mode, 
+                                         T index, 
+                                         T count)
+{
+    switch (mode) {
+        case cycle_mode::clamp:
+            return std::max<T>(0,
+                   std::min<T>(index, count - 1));
+        case cycle_mode::repeat: return wrap(index, count);
+        case cycle_mode::mirror: return wrap_mirror(index, count);
+        default: break;
+    }
+    return 0;
+}
+
+// Apply cycle op, multi wrapper.
+template <typename T, std::size_t N>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value,
+          multi<T, N>> cycle(
+                        const multi<cycle_mode, N>& mode,
+                        const multi<T, N>& index,
+                        const multi<T, N>& count)
+{
+    multi<T, N> res;
+    auto itrmode = mode.begin();
+    auto itrindex = index.begin();
+    auto itrcount = count.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrmode, ++itrindex, ++itrcount, ++itrres) {
+        *itrres = cycle(
+                    *itrmode, 
+                    *itrindex, 
+                    *itrcount);
+    }
+    return res;
+}
+
+#endif // #if !DOXYGEN
+
+/**
  * @brief Box filter.
  */
-template <typename T>
-struct box_filter2
+template <typename T, std::size_t N>
+struct box_filter
 {
     // Sanity check.
     static_assert(
@@ -65,15 +152,15 @@ struct box_filter2
     /**
      * @brief Radii.
      */
-    multi<T, 2> rad = multi<T, 2>(T(0.5));
+    multi<T, N> rad = multi<T, N>(T(0.5));
 
     /**
      * @brief Evaluate.
      */
-    T operator()(multi<T, 2> vec) const
+    T operator()(multi<T, N> vec) const
     {
-        multi<T, 2> res = {};
-        for (int k = 0; k < 2; k++) {
+        multi<T, N> res = {};
+        for (int k = 0; k < int(N); k++) {
             // Absolute value.
             vec[k] = pr::fabs(vec[k]);
 
@@ -89,15 +176,27 @@ struct box_filter2
                 return T(0);
             }
         }
-        return res[0] * res[1];
+        return res.prod();
     }
 };
 
 /**
- * @brief Triangle filter.
+ * @brief Box filter (2-dimensional).
  */
 template <typename T>
-struct triangle_filter2
+using box_filter2 = box_filter<T, 2>;
+
+/**
+ * @brief Box filter (3-dimensional).
+ */
+template <typename T>
+using box_filter3 = box_filter<T, 3>;
+
+/**
+ * @brief Triangle filter.
+ */
+template <typename T, std::size_t N>
+struct triangle_filter
 {
     // Sanity check.
     static_assert(
@@ -107,15 +206,15 @@ struct triangle_filter2
     /**
      * @brief Radii.
      */
-    multi<T, 2> rad = multi<T, 2>(T(1));
+    multi<T, N> rad = multi<T, N>(T(1));
 
     /**
      * @brief Evaluate.
      */
-    T operator()(multi<T, 2> vec) const
+    T operator()(multi<T, N> vec) const
     {
-        multi<T, 2> res = {};
-        for (int k = 0; k < 2; k++) {
+        multi<T, N> res = {};
+        for (int k = 0; k < int(N); k++) {
             // Absolute value.
             vec[k] = pr::fabs(vec[k]);
 
@@ -128,15 +227,27 @@ struct triangle_filter2
                 return T(0);
             }
         }
-        return res[0] * res[1];
+        return res.prod();
     }
 };
 
 /**
- * @brief Mitchell filter.
+ * @brief Triangle filter (2-dimensional).
  */
 template <typename T>
-struct mitchell_filter2
+using triangle_filter2 = triangle_filter<T, 2>;
+
+/**
+ * @brief Triangle filter (3-dimensional).
+ */
+template <typename T>
+using triangle_filter3 = triangle_filter<T, 3>;
+
+/**
+ * @brief Mitchell filter.
+ */
+template <typename T, std::size_t N>
+struct mitchell_filter
 {
     // Sanity check.
     static_assert(
@@ -146,7 +257,7 @@ struct mitchell_filter2
     /**
      * @brief Radii.
      */
-    multi<T, 2> rad = multi<T, 2>(T(1));
+    multi<T, N> rad = multi<T, N>(T(1));
 
     /**
      * @brief Mitchell coefficient @f$ B @f$.
@@ -161,10 +272,10 @@ struct mitchell_filter2
     /**
      * @brief Evaluate.
      */
-    T operator()(multi<T, 2> vec) const
+    T operator()(multi<T, N> vec) const
     {
-        multi<T, 2> res = {};
-        for (int k = 0; k < 2; k++) {
+        multi<T, N> res = {};
+        for (int k = 0; k < int(N); k++) {
             // Absolute value.
             vec[k] = pr::fabs(vec[k]);
 
@@ -207,12 +318,24 @@ struct mitchell_filter2
                 return T(0);
             }
         }
-        return res[0] * res[1];
+        return res.prod();
     }
 };
+
+/**
+ * @brief Mitchell filter (2-dimensional).
+ */
+template <typename T>
+using mitchell_filter2 = mitchell_filter<T, 2>;
+
+/**
+ * @brief Mitchell filter (3-dimensional).
+ */
+template <typename T>
+using mitchell_filter3 = mitchell_filter<T, 3>;
 
 /**@}*/
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_IMAGE_FILTER2_HPP
+#endif // #ifndef PREFORM_IMAGE_HELPERS_HPP
