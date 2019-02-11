@@ -209,10 +209,37 @@ constexpr std::enable_if_t<
 }
 
 /**
+ * @brief Clamp integer in range.
+ *
+ * - If @f$ n > 0 @f$, clamp @f$ k @f$ to @f$ [0, n) @f$.
+ * - If @f$ n < 0 @f$, clamp @f$ k @f$ to @f$ (n, 0] @f$.
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> clamp(T k, T n)
+{
+    if (n < T(0)) {
+        return -clamp(-k, -n);
+    }
+    else {
+        return
+            std::max<T>(0, 
+            std::min<T>(k, n - 1));
+    }
+}
+
+/**
  * @brief Wrap integer in range.
  *
  * - If @f$ n > 0 @f$, wrap @f$ k @f$ to @f$ [0, n) @f$.
- * - If @f$ n < 0 @f$, wrap @f$ k @f$ to @f$ (-n, 0] @f$.
+ * - If @f$ n < 0 @f$, wrap @f$ k @f$ to @f$ (n, 0] @f$.
+ *
+ * @f[
+ *      \begin{aligned}
+ *          \operatorname{repeat}(k; n) &= \operatorname{repeat}(k + mn; n)
+ *      \\ -\operatorname{repeat}(k; n) &= \operatorname{repeat}(-k; -n)
+ *      \end{aligned}
+ * @f]
  *
  * @note
  * For @f$ k > 0 @f$, @f$ n > 0 @f$, this operation is
@@ -220,7 +247,7 @@ constexpr std::enable_if_t<
  */
 template <typename T>
 constexpr std::enable_if_t<
-          std::is_integral<T>::value, T> wrap(T k, T n)
+          std::is_integral<T>::value, T> repeat(T k, T n)
 {
 #if (__cplusplus >= 201703L)
     if constexpr
@@ -232,7 +259,7 @@ constexpr std::enable_if_t<
     }
     else {
         if (n < T(0)) {
-            return -wrap(-k, -n);
+            return -repeat(-k, -n);
         }
         else {
             if (k >= T(0)) {
@@ -251,13 +278,28 @@ constexpr std::enable_if_t<
 
 /**
  * @brief Wrap integer in range, mirror with each repeat.
+ *
+ * - If @f$ n > 0 @f$, wrap @f$ k @f$ to @f$ [0, n) @f$.
+ * - If @f$ n < 0 @f$, wrap @f$ k @f$ to @f$ (n, 0] @f$.
+ *
+ * @f[
+ *      \begin{aligned}
+ *          \operatorname{mirror}(k; n) &= 
+ *          \operatorname{mirror}(k + mn; n),
+ *          \, m = 2\ell
+ *      \\  \operatorname{mirror}(k; n) &= n - 1 - 
+ *          \operatorname{mirror}(k + mn; n),
+ *          \, m = 2\ell + 1
+ *      \\ -\operatorname{mirror}(k; n) &= \operatorname{mirror}(-k; -n)
+ *      \end{aligned}
+ * @f]
  */
 template <typename T>
 constexpr std::enable_if_t<
-          std::is_integral<T>::value, T> wrap_mirror(T k, T n)
+          std::is_integral<T>::value, T> mirror(T k, T n)
 {
     if (n < T(0)) {
-        return -wrap_mirror(-k, -n); // TODO test behavior
+        return -mirror(-k, -n);
     }
     else {
         T r = k % n;

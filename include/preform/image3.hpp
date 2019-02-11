@@ -35,11 +35,16 @@
 #ifndef PREFORM_IMAGE3_HPP
 #define PREFORM_IMAGE3_HPP
 
-// for pr::cycle_mode, ...
-#include <preform/image_helpers.hpp>
-
 // for pr::block_array3
 #include <preform/block_array3.hpp>
+
+// for pr::multi
+#include <preform/multi.hpp>
+#include <preform/multi_math.hpp>
+#include <preform/multi_float_helpers.hpp>
+
+// for pr::lerp, pr::catmull
+#include <preform/interp.hpp>
 
 namespace pr {
 
@@ -114,27 +119,27 @@ public:
     /**
      * @brief Get cycle mode.
      */
-    multi<cycle_mode, 3> cyc_mode() const
+    multi<int, 3> cycle_mode() const
     {
-        return cyc_mode_;
+        return cycle_mode_;
     }
 
     /**
      * @brief Set cycle mode.
      */
-    multi<cycle_mode, 3> cyc_mode(multi<cycle_mode, 3> mode)
+    multi<int, 3> cycle_mode(multi<int, 3> mode)
     {
-        multi<cycle_mode, 3> res = cyc_mode_;
-        cyc_mode_ = mode;
-        return res;
+        multi<int, 3> prev = cycle_mode_;
+        cycle_mode_ = mode;
+        return prev;
     }
 
     /**
      * @brief Set cycle mode.
      */
-    multi<cycle_mode, 3> cyc_mode(cycle_mode mode)
+    multi<int, 3> cycle_mode(int mode)
     {
-        return cyc_mode(multi<cycle_mode, 3>(mode));
+        return cycle_mode(multi<int, 3>(mode));
     }
 
     /**@}*/
@@ -271,7 +276,7 @@ public:
      * @param[in] loc
      * Location.
      */
-    multi<float_type, N> sample2(multi<float_type, 3> loc) const
+    multi<float_type, N> sample3(multi<float_type, 3> loc) const
     {
         if (this->empty()) {
             return {};
@@ -331,7 +336,7 @@ public:
      * @brief Sample.
      *
      * @param[in] samp
-     * Sampling method, either 0, 1, or 2.
+     * Sampling method, either 0, 1, or 3.
      *
      * @param[in] loc
      * Location.
@@ -342,7 +347,7 @@ public:
             default:
             case 0: return sample0(loc);
             case 1: return sample1(loc);
-            case 2: return sample2(loc);
+            case 3: return sample3(loc);
         }
 
         // Unreachable.
@@ -353,7 +358,7 @@ public:
      * @brief Resample.
      *
      * @param[in] samp
-     * Sampling method, either 0, 1, or 2.
+     * Sampling method, either 0, 1, or 3.
      *
      * @param[in] count
      * Count.
@@ -481,7 +486,7 @@ public:
         multi<int, 3> indmin = fastceil(loc - filtrad);
         multi<int, 3> indmax = fastfloor(loc + filtrad);
         for (int l = 0; l < 3; l++) {
-            if (cyc_mode_[l] == cycle_mode::clamp) {
+            if (!cycle_mode_[l]) {
                 indmin[l] = std::max(indmin[l], 0);
                 indmax[l] = std::min(indmax[l], int(this->user_size_[l]) - 1);
             }
@@ -492,19 +497,18 @@ public:
         for (int i = indmin[0]; i <= indmax[0]; i++)
         for (int j = indmin[1]; j <= indmax[1]; j++) {
             multi<int, 3> ind = {i, j, k};
-            float_type tmp = std::forward<Tfilt>(filt)(ind - loc);
-            if (tmp != float_type(0)) {
+            float_type weight = std::forward<Tfilt>(filt)(ind - loc);
+            if (weight != float_type(0)) {
 
                 // Lookup entry.
-                multi<entry_type, N>& ent =
+                auto& target =
                     this->operator[](
-                    this->convert(cycle<int, 3>(
-                                        cyc_mode_, ind,
-                                        this->user_size_)));
+                    this->convert(cycle(ind)));
 
                 // Add.
-                ent = fstretch<entry_type>(
-                      fstretch<float_type>(ent) + val * tmp);
+                target = 
+                    fstretch<entry_type>(weight * val +
+                    fstretch<float_type>(target));
             }
         }
     }
@@ -515,24 +519,47 @@ private:
 
     /**
      * @brief Cycle mode.
+     *
+     *  Value | Behavior
+     * -------|----------
+     *  0     | Clamp
+     *  +1    | Repeat
+     *  -1    | Repeat with mirroring
      */
-    multi<cycle_mode, 3> cyc_mode_ =
-    multi<cycle_mode, 3>(cycle_mode::clamp);
+    multi<int, 3> cycle_mode_ = {};
 
 #if !DOXYGEN
 
     /**
+     * @brief Cycle.
+     */
+    multi<int, 3> cycle(multi<int, 3> ind) const
+    {
+        for (int l = 0; l < 3; l++) {
+            switch (cycle_mode_[l]) {
+                default:
+                case 0:
+                    ind[l] = clamp(ind[l], int(this->user_size_[l]));
+                    break;
+                case +1:
+                    ind[l] = repeat(ind[l], int(this->user_size_[l]));
+                    break;
+                case -1:
+                    ind[l] = mirror(ind[l], int(this->user_size_[l]));
+                    break;
+            }
+        }
+        return ind;
+    }
+
+    /**
      * @brief Fetch.
      */
-    __attribute__((always_inline))
     multi<float_type, N> fetch(multi<int, 3> ind) const
     {
-        return
-            fstretch<float_type>(
-                this->operator[](
-                this->convert(cycle<int, 3>(
-                                    cyc_mode_, ind,
-                                    this->user_size_))));
+        return fstretch<float_type>(
+                        this->operator[](
+                        this->convert(cycle(ind))));
     }
 
 #endif // #if !DOXYGEN
