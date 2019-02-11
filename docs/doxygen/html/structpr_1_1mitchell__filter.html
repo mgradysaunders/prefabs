@@ -72,7 +72,7 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structpr_1_1mitchell__filter-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::mitchell_filter&lt; T, N &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__image__helpers.html">Image helpers</a></div></div>  </div>
+<div class="title">pr::mitchell_filter&lt; T, N &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__image__filters.html">Image filters</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -81,15 +81,15 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a32d95e57acc988b8f2cc160cd12495a8"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1mitchell__filter.html#a32d95e57acc988b8f2cc160cd12495a8">operator()</a> (multi&lt; T, N &gt; vec) const</td></tr>
-<tr class="memdesc:a32d95e57acc988b8f2cc160cd12495a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate.  <a href="#a32d95e57acc988b8f2cc160cd12495a8">More...</a><br /></td></tr>
-<tr class="separator:a32d95e57acc988b8f2cc160cd12495a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e78e985291e5b3f32968fb904154d0e"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1mitchell__filter.html#a0e78e985291e5b3f32968fb904154d0e">operator()</a> (multi&lt; T, N &gt; x) const</td></tr>
+<tr class="memdesc:a0e78e985291e5b3f32968fb904154d0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate.  <a href="#a0e78e985291e5b3f32968fb904154d0e">More...</a><br /></td></tr>
+<tr class="separator:a0e78e985291e5b3f32968fb904154d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a840433b583bc1cb90871da55c8ff34fc"><td class="memItemLeft" align="right" valign="top">multi&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1mitchell__filter.html#a840433b583bc1cb90871da55c8ff34fc">rad</a> = multi&lt;T, N&gt;(T(1))</td></tr>
-<tr class="memdesc:a840433b583bc1cb90871da55c8ff34fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Radii.  <a href="#a840433b583bc1cb90871da55c8ff34fc">More...</a><br /></td></tr>
-<tr class="separator:a840433b583bc1cb90871da55c8ff34fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76ceaa39de1e89f412f70fe2a3472c78"><td class="memItemLeft" align="right" valign="top">multi&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1mitchell__filter.html#a76ceaa39de1e89f412f70fe2a3472c78">r</a> = multi&lt;T, N&gt;(T(1))</td></tr>
+<tr class="memdesc:a76ceaa39de1e89f412f70fe2a3472c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Radii.  <a href="#a76ceaa39de1e89f412f70fe2a3472c78">More...</a><br /></td></tr>
+<tr class="separator:a76ceaa39de1e89f412f70fe2a3472c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae74be19af047a68a3d7630ec6715be4d"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1mitchell__filter.html#ae74be19af047a68a3d7630ec6715be4d">b</a> = T(1) / T(3)</td></tr>
 <tr class="memdesc:ae74be19af047a68a3d7630ec6715be4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mitchell coefficient \( B \).  <a href="#ae74be19af047a68a3d7630ec6715be4d">More...</a><br /></td></tr>
 <tr class="separator:ae74be19af047a68a3d7630ec6715be4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -103,8 +103,8 @@ struct pr::mitchell_filter&lt; T, N &gt;</h3>
 
 <p>Mitchell filter. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a32d95e57acc988b8f2cc160cd12495a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32d95e57acc988b8f2cc160cd12495a8">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="a0e78e985291e5b3f32968fb904154d0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e78e985291e5b3f32968fb904154d0e">&#9670;&nbsp;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -118,7 +118,7 @@ template&lt;typename T , std::size_t N&gt; </div>
           <td class="memname">T <a class="el" href="structpr_1_1mitchell__filter.html">pr::mitchell_filter</a>&lt; T, N &gt;::operator() </td>
           <td>(</td>
           <td class="paramtype">multi&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -134,8 +134,8 @@ template&lt;typename T , std::size_t N&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a840433b583bc1cb90871da55c8ff34fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a840433b583bc1cb90871da55c8ff34fc">&#9670;&nbsp;</a></span>rad</h2>
+<a id="a76ceaa39de1e89f412f70fe2a3472c78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76ceaa39de1e89f412f70fe2a3472c78">&#9670;&nbsp;</a></span>r</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,7 +143,7 @@ template&lt;typename T , std::size_t N&gt; </div>
 template&lt;typename T , std::size_t N&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">multi&lt;T, N&gt; <a class="el" href="structpr_1_1mitchell__filter.html">pr::mitchell_filter</a>&lt; T, N &gt;::rad = multi&lt;T, N&gt;(T(1))</td>
+          <td class="memname">multi&lt;T, N&gt; <a class="el" href="structpr_1_1mitchell__filter.html">pr::mitchell_filter</a>&lt; T, N &gt;::r = multi&lt;T, N&gt;(T(1))</td>
         </tr>
       </table>
 </div><div class="memdoc">
