@@ -2444,12 +2444,12 @@ private:
         T m = 0;
 
         /**
-         * @brief Probability density ordinate @f$ p_k @f$.
+         * @brief Probability density ordinate @f$ f_k @f$.
          */
         T pdf = 0;
 
         /**
-         * @brief Cumulative distribution ordinate @f$ c_k @f$.
+         * @brief Cumulative distribution ordinate @f$ F_k @f$.
          */
         T cdf = 0;
     };
