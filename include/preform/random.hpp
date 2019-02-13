@@ -2413,7 +2413,7 @@ public:
             a0 /= a2;
             a1 /= a2;
             a1 *= T(0.5);
-            return pr::sqrt(u - a0 + a1 * a1) - a1;
+            return pr::sqrt(u - a0 + a1 * a1) - a1; // TODO sqrt sign?
         }
     }
 
