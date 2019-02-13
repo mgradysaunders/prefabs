@@ -47,14 +47,17 @@
 // for std::invalid_argument
 #include <stdexcept>
 
+// for std::vector
+#include <vector>
+
 // for pr::numeric_limits, pr::log2, ...
 #include <preform/math.hpp>
 
-// for pr::range
-#include <preform/range.hpp>
-
 // for pr::first1, pr::lcg_seek
 #include <preform/int_helpers.hpp>
+
+// for pr::neumaier_sum
+#include <preform/neumaier_sum.hpp>
 
 namespace pr {
 
@@ -2205,9 +2208,258 @@ using subset_weibull_distribution =
 
 /**@}*/
 
-// TODO piecewise_constant_distribution
+// Under construction
+#if 0
+/**
+ * @brief Piecewise linear distribution.
+ */
+template <typename T = double>
+class piecewise_linear_distribution
+{
+public:
 
-// TODO piecewise_linear_distribution
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Value type.
+     */
+    typedef T value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    piecewise_linear_distribution() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @throw std::invalid_argument
+     * If `!(std::distance(xfrom, xto) > 1)`.
+     */
+    template <
+        typename Tinput0, 
+        typename Tinput1
+        >
+    piecewise_linear_distribution(
+            Tinput0 xfrom, Tinput0 xto,
+            Tinput1 yfrom)
+    {
+        // Invalid?
+        if (!(std::distance(xfrom, xto) > 1)) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+
+        // Resize.
+        points_.resize(
+            std::distance(xfrom, xto));
+
+        // Copy.
+        int n = points_.size();
+        for (int k = 0; k < n; k++) {
+            points_[k].x = *xfrom++;
+            points_[k].pdf = *yfrom++; // TODO verify?
+        }
+
+        // Integrate by trapezoid rule.
+        neumaier_sum<T> yint = 0;
+        for (int k = 1; k < n; k++) {
+            T x0 = points_[k - 1].x, y0 = points_[k - 1].pdf;
+            T x1 = points_[k - 0].x, y1 = points_[k - 0].pdf;
+            yint += 
+                (x1 - x0) * 
+                (y1 + y0) * T(0.5);
+            points_[k - 1].m = (y1 - y0) / (x1 - x0);
+            points_[k - 0].cdf = T(yint);
+        }
+
+        // Normalize.
+        T fac = T(1) / points_[n - 1].cdf;
+        for (int k = 0; k < n; k++) {
+            points_[k].m *= fac;
+            points_[k].pdf *= fac;
+            points_[k].cdf *= fac;
+        }
+    }
+
+    /**
+     * @brief Probability density function.
+     *
+     * TODO
+     *
+     * @throw std::runtime_error
+     * If `!(points_.size() > 1)`.
+     */
+    T pdf(T x) const
+    {
+        // Invalid?
+        if (!(points_.size() > 1)) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+
+        // Lookup.
+        auto itr = 
+            std::lower_bound(
+                points_.begin(),
+                points_.end(),
+                x,
+                [](const point_type& point,
+                   const T& otherx) {
+                    return point.x < otherx;
+                });
+        if (itr == points_.begin() ||
+            itr == points_.end()) {
+            return T(0);
+        }
+        --itr;
+
+        // Evaluate.
+        T t0 = (itr[1].x - x) / (itr[1].x - itr[0].x);
+        T t1 = (x - itr[0].x) / (itr[1].x - itr[0].x);
+        return t0 * itr[0].pdf + t1 * itr[1].pdf;
+    }
+
+    /**
+     * @brief Cumulative distribution function.
+     *
+     * TODO
+     *
+     * @throw std::runtime_error
+     * If `!(points_.size() > 1)`.
+     */
+    T cdf(T x) const
+    {
+        // Invalid?
+        if (!(points_.size() > 1)) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+
+        // Lookup.
+        auto itr = 
+            std::lower_bound(
+                points_.begin(),
+                points_.end(),
+                x,
+                [](const point_type& point,
+                   const T& otherx) {
+                    return point.x < otherx;
+                });
+        if (itr == points_.begin() ||
+            itr == points_.end()) {
+            return T(itr == points_.end());
+        }
+        --itr;
+
+        // Evaluate.
+        T y = T(0.5) * itr[0].m;
+        y = pr::fma(y, x, itr[0].pdf - itr[0].x * itr[0].m);
+        y = pr::fma(y, x, itr[0].cdf - itr[0].x * (itr[0].pdf - 
+                          T(0.5) * itr[0].m * itr[0].x));
+        return y;
+    }
+
+    /**
+     * @brief Cumulative distribution function inverse.
+     *
+     * TODO
+     *
+     * @throw std::runtime_error
+     * If `!(points_.size() > 1)`.
+     */
+    T cdfinv(T u) const
+    {
+        // Invalid?
+        if (!(points_.size() > 1)) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+
+        if (!(u >= T(0) &&
+              u <  T(1))) {
+            return pr::numeric_limits<T>::quiet_NaN();
+        }
+        else {
+
+            // Lookup.
+            auto itr = 
+                std::lower_bound(
+                    points_.begin(),
+                    points_.end(),
+                    u,
+                    [](const point_type& point,
+                       const T& othercdf) {
+                        return point.cdf < othercdf;
+                    });
+            if (itr == points_.begin() ||
+                itr == points_.end()) {
+                return T(0);
+            }
+            --itr;
+
+            // Quadratic coefficients.
+            T a2 = T(0.5) * itr[0].m;
+            T a1 = itr[0].pdf - itr[0].x * itr[0].m;
+            T a0 = itr[0].cdf - itr[0].x * (itr[0].pdf -
+                   T(0.5) * itr[0].m * itr[0].x);
+
+            // Invert.
+            u /= a2;
+            a0 /= a2;
+            a1 /= a2;
+            a1 *= T(0.5);
+            return pr::sqrt(u - a0 + a1 * a1) - a1;
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    T operator()(G&& gen) const
+    {
+        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
+    } 
+
+private:
+
+    /**
+     * @brief Point type.
+     */
+    struct alignas(16) point_type
+    {
+        /**
+         * @brief Abscissa @f$ x_k @f$.
+         */
+        T x = 0;
+
+        /**
+         * @brief Probability density slope @f$ m_k @f$.
+         */
+        T m = 0;
+
+        /**
+         * @brief Probability density ordinate @f$ p_k @f$.
+         */
+        T pdf = 0;
+
+        /**
+         * @brief Cumulative distribution ordinate @f$ c_k @f$.
+         */
+        T cdf = 0;
+    };
+
+    /**
+     * @brief Points.
+     */
+    std::vector<point_type> points_;
+};
+#endif
 
 /**
  * @brief PCG XSH-RR engine.
@@ -2529,6 +2781,10 @@ typedef pcg_xsh_rr_engine<
             1442695040888963407ULL> pcg64;
 
 /**@}*/
+
+// TODO stratify1
+// TODO stratify2
+// TODO latin_hypercube
 
 /**@}*/
 
