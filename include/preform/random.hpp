@@ -133,7 +133,7 @@ public:
      * @throw std::invalid_argument
      * Unless `a < b`.
      */
-    uniform_real_distribution(T a, T b) : 
+    uniform_real_distribution(float_type a, float_type b) : 
             a_(a), 
             b_(b)
     {
@@ -149,7 +149,7 @@ public:
      *      \min[X] = a
      * @f]
      */
-    T lower_bound() const
+    float_type lower_bound() const
     {
         return a_;
     }
@@ -161,7 +161,7 @@ public:
      *      \max[X] = b
      * @f]
      */
-    T upper_bound() const
+    float_type upper_bound() const
     {
         return b_;
     }
@@ -173,9 +173,9 @@ public:
      *      E[X] = \frac{1}{2}(a + b)
      * @f]
      */
-    T mean() const
+    float_type mean() const
     {
-        return T(0.5) * (a_ + b_);
+        return float_type(0.5) * (a_ + b_);
     }
 
     /**
@@ -185,10 +185,10 @@ public:
      *      V[X] = \frac{1}{12}(b - a)^2
      * @f]
      */
-    T variance() const
+    float_type variance() const
     {
         return (b_ - a_) * 
-               (b_ - a_) / T(12);
+               (b_ - a_) / 12;
     }
 
     /**
@@ -198,9 +198,9 @@ public:
      *      \gamma_1[X] = 0
      * @f]
      */
-    T skewness() const
+    float_type skewness() const
     {
-        return T(0);
+        return 0;
     }
 
     /**
@@ -210,7 +210,7 @@ public:
      *      h[X] = \log(b - a)
      * @f]
      */
-    T entropy() const
+    float_type entropy() const
     {
         return pr::log(b_ - a_);
     }
@@ -226,14 +226,14 @@ public:
      *      \end{cases}
      * @f]
      */
-    T pdf(T x) const
+    float_type pdf(float_type x) const
     {
         if (!(x >= a_ &&
               x <  b_)) {
-            return T(0);
+            return 0;
         }
         else {
-            return T(1) / (b_ - a_);
+            return 1 / (b_ - a_);
         }
     }
 
@@ -249,11 +249,11 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdf(T x) const
+    float_type cdf(float_type x) const
     {
         return 
-            pr::fmax(T(0),
-            pr::fmin(T(1), (x - a_) / (b_ - a_)));
+            pr::fmax(float_type(0),
+            pr::fmin(float_type(1), (x - a_) / (b_ - a_)));
                 
     }
 
@@ -268,14 +268,14 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdfinv(T u) const
+    float_type cdfinv(float_type u) const
     {
-        if (!(u >= T(0) && 
-              u <  T(1))) {
-            return pr::numeric_limits<T>::quiet_NaN();
+        if (!(u >= float_type(0) && 
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            return (T(1) - u) * a_ + u * b_;
+            return (1 - u) * a_ + u * b_;
         }
     }
 
@@ -283,9 +283,10 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G&& gen) const
+    value_type operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -293,12 +294,12 @@ private:
     /**
      * @brief Lower bound @f$ a @f$.
      */
-    T a_ = T(0);
+    float_type a_ = 0;
 
     /**
      * @brief Upper bound @f$ b @f$.
      */
-    T b_ = T(1);
+    float_type b_ = 1;
 };
 
 /**
@@ -351,7 +352,7 @@ public:
      *      \min[X] = a
      * @f]
      */
-    T lower_bound() const
+    float_type lower_bound() const
     {
         return a_;
     }
@@ -367,7 +368,7 @@ public:
      * Just as in real distributions, the implementation follows the
      * convention that the upper bound is open such that @f$ f(b) = 0 @f$.
      */
-    T upper_bound() const
+    float_type upper_bound() const
     {
         return b_;
     }
@@ -379,9 +380,9 @@ public:
      *      E[X] = \frac{1}{2} (a + b - 1)
      * @f]
      */
-    T mean() const
+    float_type mean() const
     {
-        return T(0.5) * (a_ + b_ - 1);
+        return float_type(0.5) * (a_ + b_ - 1);
     }
 
     /**
@@ -391,10 +392,11 @@ public:
      *      V[X] = \frac{1}{12} \left[(b - a)^2 - 1\right]
      * @f]
      */
-    T variance() const
+    float_type variance() const
     {
-        return ((b_ - a_) * 
-                (b_ - a_) - 1) / T(12);
+        return float_type(
+                    (b_ - a_) * 
+                    (b_ - a_) - 1) / 12;
     }
 
     /**
@@ -404,9 +406,9 @@ public:
      *      \gamma_1[X] = 0
      * @f]
      */
-    T skewness() const
+    float_type skewness() const
     {
-        return T(0);
+        return 0;
     }
 
     /**
@@ -416,9 +418,9 @@ public:
      *      H[X] = \log(b - a)
      * @f]
      */
-    T entropy() const
+    float_type entropy() const
     {
-        return pr::log(T(b_ - a_));
+        return pr::log(float_type(b_ - a_));
     }
 
     /**
@@ -432,14 +434,14 @@ public:
      *          \end{cases}
      * @f]
      */
-    T pmf(int k) const
+    float_type pmf(int k) const
     {
         if (!(k >= a_ &&
               k <  b_)) {
             return 0;
         }
         else {
-            return T(1) / T(b_ - a_);
+            return 1 / float_type(b_ - a_);
         }
     }
 
@@ -455,11 +457,11 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdf(T k) const
+    float_type cdf(float_type k) const
     {
         return 
-            pr::fmax(T(0),
-            pr::fmin(T(1), (pr::ceil(k) - a_) / (b_ - a_)));
+            pr::fmax(float_type(0),
+            pr::fmin(float_type(1), (pr::ceil(k) - a_) / (b_ - a_)));
     }
 
     /**
@@ -473,14 +475,14 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdfinv(T u) const
+    float_type cdfinv(float_type u) const
     {
-        if (!(u >= T(0) && 
-              u <  T(1))) {
-            return pr::numeric_limits<T>::quiet_NaN();
+        if (!(u >= float_type(0) && 
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            return pr::floor((T(1) - u) * a_ + u * b_);
+            return pr::floor((1 - u) * a_ + u * b_);
         }
     }
 
@@ -488,9 +490,10 @@ public:
      * @brief Generate number.
      */
     template <typename G>
-    int operator()(G&& gen) const
+    value_type operator()(G&& gen) const
     {
-        return int(cdfinv(pr::generate_canonical<T>(std::forward<G>(gen))));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -540,10 +543,10 @@ public:
      * @throw std::invalid_argument
      * Unless `p >= 0 && p <= 1`.
      */
-    bernoulli_distribution(T p) : p_(p), q_(T(1) - p)
+    bernoulli_distribution(float_type p) : p_(p), q_(1 - p)
     {
-        if (!(p >= T(0)) ||
-            !(p <= T(1))) {
+        if (!(p >= float_type(0)) ||
+            !(p <= float_type(1))) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
     }
@@ -555,9 +558,9 @@ public:
      *      \min[X] = 0
      * @f]
      */
-    T lower_bound() const
+    float_type lower_bound() const
     {
-        return T(0);
+        return 0;
     }
 
     /**
@@ -571,9 +574,9 @@ public:
      * Just as in real distributions, the implementation follows the
      * convention that the upper bound is open such that @f$ f(b) = 0 @f$.
      */
-    T upper_bound() const
+    float_type upper_bound() const
     {
-        return T(2);
+        return 2;
     }
 
     /**
@@ -583,7 +586,7 @@ public:
      *      E[X] = p
      * @f]
      */
-    T mean() const
+    float_type mean() const
     {
         return p_;
     }
@@ -595,7 +598,7 @@ public:
      *      V[X] = pq
      * @f]
      */
-    T variance() const
+    float_type variance() const
     {
         return p_ * q_;
     }
@@ -607,9 +610,9 @@ public:
      *      \gamma_1[X] = \frac{1 - 2p}{\sqrt{pq}}
      * @f]
      */
-    T skewness() const
+    float_type skewness() const
     {
-        return (T(1) - T(2) * p_) / pr::sqrt(p_ * q_);
+        return (1 - 2 * p_) / pr::sqrt(p_ * q_);
     }
 
     /**
@@ -619,13 +622,13 @@ public:
      *      H[X] = -p\log(p) - q\log(q)
      * @f]
      */
-    T entropy() const
+    float_type entropy() const
     {
-        T pval = p_ * pr::log(p_);
-        T qval = q_ * pr::log(q_);
+        float_type pval = p_ * pr::log(p_);
+        float_type qval = q_ * pr::log(q_);
         if (!pr::isfinite(pval) ||
             !pr::isfinite(qval)) {
-            return T(1);
+            return 1;
         }
         else {
             return -pval - qval;
@@ -644,11 +647,11 @@ public:
      *          \end{cases}
      * @f]
      */
-    T pmf(int k) const
+    float_type pmf(int k) const
     {
         if (k == 0) return q_;
         if (k == 1) return p_;
-        return T(0);
+        return 0;
     }
 
     /**
@@ -663,13 +666,13 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdf(T x) const
+    float_type cdf(float_type x) const
     {
-        if (!(x >= T(0))) {
-            return T(0);
+        if (!(x >= float_type(0))) {
+            return 0;
         }
-        else if (!(x < T(1))) {
-            return T(1);
+        else if (!(x < float_type(1))) {
+            return 1;
         }
         else {
             return q_;
@@ -688,18 +691,18 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdfinv(T u) const
+    float_type cdfinv(float_type u) const
     {
-        if (!(u >= T(0) &&
-              u <  T(1))) {
-            return pr::numeric_limits<T>::quiet_NaN();
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
             if (u < q_) {
-                return T(0);
+                return 0;
             }
             else {
-                return T(1);
+                return 1;
             }
         }
     }
@@ -708,9 +711,10 @@ public:
      * @brief Generate number.
      */
     template <typename G>
-    int operator()(G&& gen) const
+    value_type operator()(G&& gen) const
     {
-        return int(cdfinv(pr::generate_canonical<T>(std::forward<G>(gen))));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -718,12 +722,12 @@ private:
     /**
      * @brief Probability of success @f$ p @f$.
      */
-    T p_ = T(0.5);
+    float_type p_ = float_type(0.5);
 
     /**
      * @brief Probability of failure @f$ q = 1 - p @f$.
      */
-    T q_ = T(0.5);
+    float_type q_ = float_type(0.5);
 };
 
 /**
@@ -760,9 +764,9 @@ public:
      * @throw std::invalid_argument
      * Unless `lambda > 0`.
      */
-    exponential_distribution(T lambda) : lambda_(lambda)
+    exponential_distribution(float_type lambda) : lambda_(lambda)
     {
-        if (!(lambda > T(0))) {
+        if (!(lambda > float_type(0))) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
     }
@@ -774,9 +778,9 @@ public:
      *      \min[X] = 0
      * @f]
      */
-    T lower_bound() const
+    float_type lower_bound() const
     {
-        return T(0);
+        return 0;
     }
 
     /**
@@ -786,9 +790,9 @@ public:
      *      \max[X] = \infty
      * @f]
      */
-    T upper_bound() const
+    float_type upper_bound() const
     {
-        return pr::numeric_limits<T>::infinity();
+        return pr::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -798,9 +802,9 @@ public:
      *      E[X] = \frac{1}{\lambda}
      * @f]
      */
-    T mean() const
+    float_type mean() const
     {
-        return T(1) / lambda_;
+        return 1 / lambda_;
     }
 
     /**
@@ -810,9 +814,9 @@ public:
      *      V[X] = \frac{1}{\lambda^2}
      * @f]
      */
-    T variance() const
+    float_type variance() const
     {
-        return T(1) / (lambda_ * lambda_);
+        return 1 / (lambda_ * lambda_);
     }
 
     /**
@@ -822,9 +826,9 @@ public:
      *      \gamma_1[X] = 2
      * @f]
      */
-    T skewness() const
+    float_type skewness() const
     {
-        return T(2);
+        return 2;
     }
 
     /**
@@ -834,9 +838,9 @@ public:
      *      h[X] = 1 - \log(\lambda)
      * @f]
      */
-    T entropy() const
+    float_type entropy() const
     {
-        return T(1) - pr::log(lambda_);
+        return 1 - pr::log(lambda_);
     }
 
     /**
@@ -850,10 +854,10 @@ public:
      *          \end{cases}
      * @f]
      */
-    T pdf(T x) const
+    float_type pdf(float_type x) const
     {
-        if (!(x >= T(0))) {
-            return T(0);
+        if (!(x >= float_type(0))) {
+            return 0;
         }
         else {
             return lambda_ * pr::exp(-lambda_ * x);
@@ -871,10 +875,10 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdf(T x) const
+    float_type cdf(float_type x) const
     {
-        if (!(x >= T(0))) {
-            return T(0);
+        if (!(x >= float_type(0))) {
+            return 0;
         }
         else {
             return -pr::expm1(-lambda_ * x);
@@ -892,17 +896,17 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdfinv(T u) const
+    float_type cdfinv(float_type u) const
     {
-        if (!(u >= T(0) && 
-              u <  T(1))) {
-            return pr::numeric_limits<T>::quiet_NaN();
+        if (!(u >= float_type(0) && 
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            T log_term = 
-                u < T(0.5) ?
-                pr::log1p(-u) : // More accurate for small arguments?
-                pr::log(T(1) - u);
+            // More accurate for small arguments?
+            float_type log_term = 
+                u < float_type(0.5) ? pr::log1p(-u) : 
+                pr::log(1 - u);
             return -log_term / lambda_;
         }
     }
@@ -911,9 +915,10 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G&& gen) const
+    value_type operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -921,7 +926,7 @@ private:
     /**
      * @brief Rate @f$ \lambda @f$.
      */
-    T lambda_ = T(1);
+    float_type lambda_ = 1;
 };
 
 /**
@@ -993,9 +998,11 @@ public:
      * @throw std::invalid_argument
      * Unless `sigma > 0`.
      */
-    normal_distribution(T mu, T sigma) : mu_(mu), sigma_(sigma)
+    normal_distribution(
+                float_type mu, 
+                float_type sigma) : mu_(mu), sigma_(sigma)
     {
-        if (!(sigma > T(0))) {
+        if (!(sigma > float_type(0))) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
     }
@@ -1007,9 +1014,9 @@ public:
      *      \min[X] = -\infty
      * @f]
      */
-    T lower_bound() const
+    float_type lower_bound() const
     {
-        return -pr::numeric_limits<T>::infinity();
+        return -pr::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1019,9 +1026,9 @@ public:
      *      \max[X] = \infty
      * @f]
      */
-    T upper_bound() const
+    float_type upper_bound() const
     {
-        return pr::numeric_limits<T>::infinity();
+        return pr::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1031,7 +1038,7 @@ public:
      *      E[X] = \mu
      * @f]
      */
-    T mean() const
+    float_type mean() const
     {
         return mu_;
     }
@@ -1043,7 +1050,7 @@ public:
      *      V[X] = \sigma^2
      * @f]
      */
-    T variance() const
+    float_type variance() const
     {
         return sigma_ * sigma_;
     }
@@ -1055,9 +1062,9 @@ public:
      *      \gamma_1[X] = 0
      * @f]
      */
-    T skewness() const
+    float_type skewness() const
     {
-        return T(0);
+        return 0;
     }
 
     /**
@@ -1067,13 +1074,13 @@ public:
      *      h[X] = \frac{1}{2} \log\left(2\pi e \sigma^2\right)
      * @f]
      */
-    T entropy() const
+    float_type entropy() const
     {
         return
-            pr::log(T(2) * 
-            pr::numeric_constants<T>::M_pi() * 
-            pr::numeric_constants<T>::M_e() * 
-            sigma_ * sigma_) / T(2);
+            pr::log(2 * 
+            pr::numeric_constants<float_type>::M_pi() * 
+            pr::numeric_constants<float_type>::M_e() * 
+            sigma_ * sigma_) / 2;
     }
 
     /**
@@ -1089,12 +1096,12 @@ public:
      *              \right]
      * @f]
      */
-    T pdf(T x) const
+    float_type pdf(float_type x) const
     {
-        T xi = (x - mu_) / sigma_;
-        return pr::numeric_constants<T>::M_2_sqrtpi() *
-               pr::numeric_constants<T>::M_sqrt1_2() / T(2) *
-                            pr::exp(-xi * xi / T(2)) / sigma_;
+        float_type xi = (x - mu_) / sigma_;
+        return pr::numeric_constants<float_type>::M_2_sqrtpi() *
+               pr::numeric_constants<float_type>::M_sqrt1_2() / 2 *
+                            pr::exp(-xi * xi / 2) / sigma_;
     }
 
     /**
@@ -1109,10 +1116,11 @@ public:
      *               \right]
      * @f]
      */
-    T cdf(T x) const 
+    float_type cdf(float_type x) const 
     {
-        T xi = (x - mu_) / sigma_;
-        return pr::erfc(-pr::numeric_constants<T>::M_sqrt1_2() * xi) / T(2);
+        float_type xi = (x - mu_) / sigma_;
+        return pr::erfc(
+              -pr::numeric_constants<float_type>::M_sqrt1_2() * xi) / 2;
     }
 
     /**
@@ -1127,16 +1135,16 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdfinv(T u) const
+    float_type cdfinv(float_type u) const
     {
-        if (!(u >= T(0) &&
-              u <  T(1))) {
-            return pr::numeric_limits<T>::quiet_NaN();
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
             return mu_ + sigma_ *
-                   pr::numeric_constants<T>::M_sqrt2() *
-                   pr::erfinv(T(2) * u - T(1));
+                   pr::numeric_constants<float_type>::M_sqrt2() *
+                   pr::erfinv(2 * u - 1);
         }
     }
 
@@ -1144,9 +1152,10 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G&& gen) const
+    value_type operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 protected:
@@ -1154,12 +1163,12 @@ protected:
     /**
      * @brief Mean @f$ \mu @f$.
      */
-    T mu_ = T(0);
+    float_type mu_ = 0;
 
     /**
      * @brief Standard deviation @f$ \sigma @f$.
      */
-    T sigma_ = T(1);
+    float_type sigma_ = 1;
 };
 
 /**
@@ -1195,9 +1204,9 @@ public:
      *      \min[X] = 0
      * @f]
      */
-    T lower_bound() const
+    float_type lower_bound() const
     {
-        return T(0);
+        return 0;
     }
 
     /**
@@ -1207,9 +1216,9 @@ public:
      *      \max[X] = \infty
      * @f]
      */
-    T upper_bound() const
+    float_type upper_bound() const
     {
-        return pr::numeric_limits<T>::infinity();
+        return pr::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1219,9 +1228,9 @@ public:
      *      E[X] = \exp\left(\mu + \frac{1}{2}\sigma^2\right)
      * @f]
      */
-    T mean() const
+    float_type mean() const
     {
-        return pr::exp(mu_ + T(0.5) * sigma_ * sigma_);
+        return pr::exp(mu_ + float_type(0.5) * sigma_ * sigma_);
     }
 
     /**
@@ -1233,10 +1242,10 @@ public:
      *                \exp\left(2\mu + \sigma^2\right)
      * @f]
      */
-    T variance() const
+    float_type variance() const
     {
         return pr::expm1(sigma_ * sigma_) *
-               pr::exp(T(2) * mu_ + sigma_ * sigma_);
+                      pr::exp(2 * mu_ + sigma_ * sigma_);
     }
 
     /**
@@ -1248,10 +1257,11 @@ public:
      *                    \left[\exp\left(\sigma^2\right) + 2\right]
      * @f]
      */
-    T skewness() const
+    float_type skewness() const
     {
-        return pr::sqrt(pr::expm1(sigma_ * sigma_)) *
-                       (pr::exp(sigma_ * sigma_) + T(2));
+        return pr::sqrt(
+               pr::expm1(sigma_ * sigma_)) *
+                        (pr::exp(sigma_ * sigma_) + 2);
     }
 
     /**
@@ -1263,21 +1273,21 @@ public:
      *          \exp\left(\mu + \frac{1}{2}\right)\right]
      * @f]
      */
-    T entropy() const
+    float_type entropy() const
     {
         return pr::log2(
-               pr::numeric_constants<T>::M_2_sqrtpi() *
-               pr::numeric_constants<T>::M_sqrt1_2() / T(2) *
-                    sigma_ * pr::exp(mu_ + T(0.5)));
+               pr::numeric_constants<float_type>::M_2_sqrtpi() *
+               pr::numeric_constants<float_type>::M_sqrt1_2() / 2 *
+                    sigma_ * pr::exp(mu_ + float_type(0.5)));
     }
 
     /**
      * @brief Probability density function.
      */
-    T pdf(T x) const
+    float_type pdf(float_type x) const
     {
-        if (!(x > T(0))) {
-            return T(0);
+        if (!(x > float_type(0))) {
+            return 0;
         }
         else {
             return normal_distribution<T>::pdf(pr::log(x)) / x;
@@ -1287,10 +1297,10 @@ public:
     /**
      * @brief Cumulative distribution function.
      */
-    T cdf(T x) const
+    float_type cdf(float_type x) const
     {
-        if (!(x > T(0))) {
-            return T(0);
+        if (!(x > float_type(0))) {
+            return 0;
         }
         else {
             return normal_distribution<T>::cdf(pr::log(x));
@@ -1300,11 +1310,11 @@ public:
     /**
      * @brief Cumulative distribution function inverse.
      */
-    T cdfinv(T u) const
+    float_type cdfinv(float_type u) const
     {
-        if (!(u >= T(0) &&
-              u <  T(1))) {
-            return pr::numeric_limits<T>::quiet_NaN();
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
             return pr::exp(normal_distribution<T>::cdfinv(u));
@@ -1315,9 +1325,10 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G&& gen) const
+    value_type operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -1363,9 +1374,9 @@ public:
      * @throw std::invalid_argument
      * Unless `s > 0`.
      */
-    logistic_distribution(T mu, T s) : mu_(mu), s_(s)
+    logistic_distribution(float_type mu, float_type s) : mu_(mu), s_(s)
     {
-        if (!(s > T(0))) {
+        if (!(s > float_type(0))) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
     }
@@ -1377,9 +1388,9 @@ public:
      *      \min[X] = -\infty
      * @f]
      */
-    T lower_bound() const
+    float_type lower_bound() const
     {
-        return -pr::numeric_limits<T>::infinity();
+        return -pr::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1389,9 +1400,9 @@ public:
      *      \max[X] = \infty
      * @f]
      */
-    T upper_bound() const
+    float_type upper_bound() const
     {
-        return pr::numeric_limits<T>::infinity();
+        return pr::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1401,7 +1412,7 @@ public:
      *      E[X] = \mu
      * @f]
      */
-    T mean() const
+    float_type mean() const
     {
         return mu_;
     }
@@ -1413,12 +1424,12 @@ public:
      *      V[X] = \frac{1}{3} \pi^2 s^2
      * @f]
      */
-    T variance() const
+    float_type variance() const
     {
         return 
-            pr::numeric_constants<T>::M_pi() *
-            pr::numeric_constants<T>::M_pi() * 
-            s_ * s_ / T(3);
+            pr::numeric_constants<float_type>::M_pi() *
+            pr::numeric_constants<float_type>::M_pi() * 
+            s_ * s_ / 3;
     }
 
     /**
@@ -1428,9 +1439,9 @@ public:
      *      \gamma_1[X] = 0
      * @f]
      */
-    T skewness() const
+    float_type skewness() const
     {
-        return T(0);
+        return 0;
     }
 
     /**
@@ -1440,7 +1451,7 @@ public:
      *      h[X] = \log(s) + 2
      * @f]
      */
-    T entropy() const
+    float_type entropy() const
     {
         return pr::log(s_) + 2;
     }
@@ -1455,12 +1466,12 @@ public:
      *          \Bigg|_{\xi \gets (x - \mu) / s}
      * @f]
      */
-    T pdf(T x) const
+    float_type pdf(float_type x) const
     {
-        T exp_term = pr::exp(-(x - mu_) / s_);
+        float_type exp_term = pr::exp(-(x - mu_) / s_);
         return exp_term / (s_ * 
-                        (T(1) + exp_term) * 
-                        (T(1) + exp_term));
+                        (1 + exp_term) * 
+                        (1 + exp_term));
     }
 
     /**
@@ -1472,9 +1483,9 @@ public:
      *          \Bigg|_{\xi \gets (x - \mu) / s}
      * @f]
      */
-    T cdf(T x) const
+    float_type cdf(float_type x) const
     {
-        return T(1) / (T(1) + pr::exp(-(x - mu_) / s_));
+        return 1 / (1 + pr::exp(-(x - mu_) / s_));
     }
 
     /**
@@ -1488,14 +1499,14 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdfinv(T u) const
+    float_type cdfinv(float_type u) const
     {
-        if (!(u >= T(0) &&
-              u <  T(1))) {
-            return pr::numeric_limits<T>::quiet_NaN();
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            return mu_ - s_ * pr::log(T(1) / u - T(1));
+            return mu_ - s_ * pr::log(1 / u - 1);
         }
     }
 
@@ -1503,9 +1514,10 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G&& gen) const
+    value_type operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -1513,12 +1525,12 @@ private:
     /**
      * @brief Mean @f$ \mu @f$.
      */
-    T mu_ = T(0);
+    float_type mu_ = 0;
 
     /**
      * @brief Scale (or spread) @f$ s @f$.
      */
-    T s_ = T(1);
+    float_type s_ = 1;
 };
 
 /**
@@ -1555,9 +1567,9 @@ public:
      * @throw std::invalid_argument
      * Unless `s > 0`.
      */
-    tanh_distribution(T mu, T s) : mu_(mu), s_(s)
+    tanh_distribution(float_type mu, float_type s) : mu_(mu), s_(s)
     {
-        if (!(s > T(0))) {
+        if (!(s > float_type(0))) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
     }
@@ -1569,9 +1581,9 @@ public:
      *      \min[X] = -\infty
      * @f]
      */
-    T lower_bound() const
+    float_type lower_bound() const
     {
-        return -pr::numeric_limits<T>::infinity();
+        return -pr::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1581,9 +1593,9 @@ public:
      *      \max[X] = \infty
      * @f]
      */
-    T upper_bound() const
+    float_type upper_bound() const
     {
-        return pr::numeric_limits<T>::infinity();
+        return pr::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1593,7 +1605,7 @@ public:
      *      E[X] = \mu
      * @f]
      */
-    T mean() const
+    float_type mean() const
     {
         return mu_;
     }
@@ -1605,12 +1617,12 @@ public:
      *      V[X] = \frac{1}{12} \pi^2 s^2
      * @f]
      */
-    T variance() const
+    float_type variance() const
     {
         return 
-            pr::numeric_constants<T>::M_pi() * 
-            pr::numeric_constants<T>::M_pi() * 
-            s_ * s_ / T(12);
+            pr::numeric_constants<float_type>::M_pi() * 
+            pr::numeric_constants<float_type>::M_pi() * 
+            s_ * s_ / 12;
     }
 
     /**
@@ -1620,9 +1632,9 @@ public:
      *      \gamma_1[X] = 0
      * @f]
      */
-    T skewness() const
+    float_type skewness() const
     {
-        return T(0);
+        return 0;
     }
 
     /**
@@ -1632,11 +1644,11 @@ public:
      *      h[X] = \log\left(\frac{1}{2} e^2 s\right)
      * @f]
      */
-    T entropy() const
+    float_type entropy() const
     {
-        return pr::log(T(0.5) * 
-                    pr::numeric_constants<T>::M_e() * 
-                    pr::numeric_constants<T>::M_e() * s_);
+        return pr::log(float_type(0.5) * 
+                    pr::numeric_constants<float_type>::M_e() * 
+                    pr::numeric_constants<float_type>::M_e() * s_);
     }
 
     /**
@@ -1648,9 +1660,10 @@ public:
      *          \operatorname{sech}^{2}\left(\frac{x - \mu}{s}\right)
      * @f]
      */
-    T pdf(T x) const
+    float_type pdf(float_type x) const
     {
-        return T(0.5) / (s_ * pr::nthpow(pr::cosh((x - mu_) / s_), 2));
+        return float_type(0.5) / 
+                    (s_ * pr::nthpow(pr::cosh((x - mu_) / s_), 2));
     }
 
     /**
@@ -1663,9 +1676,9 @@ public:
      *                  \frac{1}{2}
      * @f]
      */
-    T cdf(T x) const
+    float_type cdf(float_type x) const
     {
-        return T(0.5) * pr::tanh((x - mu_) / s_) + T(0.5);
+        return float_type(0.5) * pr::tanh((x - mu_) / s_) + float_type(0.5);
     }
 
     /**
@@ -1679,14 +1692,14 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdfinv(T u) const
+    float_type cdfinv(float_type u) const
     {
-        if (!(u >= T(0) &&
-              u <  T(1))) {
-            return pr::numeric_limits<T>::quiet_NaN();
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            return pr::atanh(T(2) * u - T(1)) * s_ + mu_;
+            return pr::atanh(2 * u - 1) * s_ + mu_;
         }
     }
 
@@ -1694,9 +1707,10 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G&& gen) const
+    float_type operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -1704,12 +1718,12 @@ private:
     /**
      * @brief Mean @f$ \mu @f$.
      */
-    T mu_ = T(0);
+    float_type mu_ = 0;
 
     /**
      * @brief Scale (or spread) @f$ s @f$.
      */
-    T s_ = T(1);
+    float_type s_ = 1;
 };
 
 /**
@@ -1746,10 +1760,12 @@ public:
      * @throw std::invalid_argument
      * Unless `lambda > 0 && k > 0`.
      */
-    weibull_distribution(T lambda, T k) : lambda_(lambda), k_(k)
+    weibull_distribution(
+                float_type lambda, 
+                float_type k) : lambda_(lambda), k_(k)
     {
-        if (!(lambda > T(0)) ||
-            !(k > T(0))) {
+        if (!(lambda > float_type(0)) ||
+            !(k > float_type(0))) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
     }
@@ -1761,9 +1777,9 @@ public:
      *      \min[X] = 0
      * @f]
      */
-    T lower_bound() const
+    float_type lower_bound() const
     {
-        return T(0);
+        return 0;
     }
 
     /**
@@ -1773,9 +1789,9 @@ public:
      *      \max[X] = \infty
      * @f]
      */
-    T upper_bound() const
+    float_type upper_bound() const
     {
-        return pr::numeric_limits<T>::infinity();
+        return pr::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1787,9 +1803,9 @@ public:
      *          \Gamma\left(1 + \frac{1}{k}\right)
      * @f]
      */
-    T mean() const
+    float_type mean() const
     {
-        return lambda_ * pr::tgamma(T(1) + T(1) / k_);
+        return lambda_ * pr::tgamma(1 + 1 / k_);
     }
 
     /**
@@ -1803,10 +1819,10 @@ public:
      *          \right]
      * @f]
      */
-    T variance() const
+    float_type variance() const
     {
-        T a0 = pr::tgamma(T(1) + T(2) / k_);
-        T a1 = pr::tgamma(T(1) + T(1) / k_);
+        float_type a0 = pr::tgamma(1 + 2 / k_);
+        float_type a1 = pr::tgamma(1 + 1 / k_);
         return lambda_ * lambda_ * (a0 - a1 * a1);
     }
 
@@ -1821,14 +1837,14 @@ public:
      *                  \mu^3 - 3\mu\sigma^2\right]
      * @f]
      */
-    T skewness() const
+    float_type skewness() const
     {
-        T mu = mean();
-        T sigma2 = variance();
-        T sigma3 = sigma2 * pr::sqrt(sigma2);
+        float_type mu = mean();
+        float_type sigma2 = variance();
+        float_type sigma3 = sigma2 * pr::sqrt(sigma2);
         return (pr::nthpow(lambda_, 3) *
-                pr::tgamma(T(1) + T(3) / k_) - pr::nthpow(mu, 3) -
-                T(3) * mu * sigma2) / sigma3;
+                pr::tgamma(1 + 3 / k_) - pr::nthpow(mu, 3) -
+                3 * mu * sigma2) / sigma3;
     }
 
     /**
@@ -1840,10 +1856,10 @@ public:
      *          \log\frac{\lambda}{k}
      * @f]
      */
-    T entropy() const
+    float_type entropy() const
     {
-        return T(1) + 
-               pr::numeric_constants<T>::M_gamma() * (k_ - 1) / k_ +
+        return 1 + 
+               pr::numeric_constants<float_type>::M_gamma() * (k_ - 1) / k_ +
                pr::log(lambda_ / k_);
     }
 
@@ -1864,14 +1880,14 @@ public:
      *          \end{cases}
      * @f]
      */
-    T pdf(T x) const
+    float_type pdf(float_type x) const
     {
-        if (!(x >= T(0))) {
-            return T(0);
+        if (!(x >= float_type(0))) {
+            return 0;
         }
         else {
             return k_ / lambda_ * 
-                   pr::pow(x / lambda_, k_ - T(1)) *
+                   pr::pow(x / lambda_, k_ - 1) *
                    pr::exp(-pr::pow(x / lambda_, k_));
         }
     }
@@ -1891,13 +1907,13 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdf(T x) const
+    float_type cdf(float_type x) const
     {
-        if (!(x >= T(0))) {
-            return T(0);
+        if (!(x >= float_type(0))) {
+            return 0;
         }
         else {
-            return T(1) - pr::exp(-pr::pow(x / lambda_, k_));
+            return 1 - pr::exp(-pr::pow(x / lambda_, k_));
         }
     }
 
@@ -1913,14 +1929,14 @@ public:
      *          \end{cases}
      * @f]
      */
-    T cdfinv(T u) const
+    float_type cdfinv(float_type u) const
     {
-        if (!(u >= T(0) &&
-              u <  T(1))) {
-            return pr::numeric_limits<T>::quiet_NaN();
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            return lambda_ * pr::pow(-pr::log(T(1) - u), T(1) / k_);
+            return lambda_ * pr::pow(-pr::log(1 - u), 1 / k_);
         }
     }
 
@@ -1928,9 +1944,10 @@ public:
      * @brief Generate number.
      */
     template <typename G> 
-    T operator()(G&& gen) const
+    value_type operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -1938,12 +1955,12 @@ private:
     /**
      * @brief Scale @f$ \lambda @f$.
      */
-    T lambda_ = T(1);
+    float_type lambda_ = 1;
 
     /**
      * @brief Shape @f$ k @f$.
      */
-    T k_ = T(1);
+    float_type k_ = 1;
 };
 
 
@@ -2274,7 +2291,7 @@ public:
             yint += 
                 (x1 - x0) * 
                 (y1 + y0) * float_type(0.5);
-            points_[k - 0].cdf = T(yint);
+            points_[k - 0].cdf = float_type(yint);
         }
 
         // Normalize.
@@ -2402,7 +2419,7 @@ public:
             // Compute coefficients.
             float_type x0 = itr[0].x, y0 = itr[0].pdf;
             float_type x1 = itr[1].x, y1 = itr[1].pdf;
-            float_type a2 = (x1 - x0) * (y1 - y0) * T(0.5);
+            float_type a2 = (x1 - x0) * (y1 - y0) * float_type(0.5);
             float_type a1 = (x1 - x0) * y0;
             float_type a0 = itr[0].cdf;
 
@@ -2781,10 +2798,6 @@ typedef pcg_xsh_rr_engine<
             1442695040888963407ULL> pcg64;
 
 /**@}*/
-
-// TODO stratify1
-// TODO stratify2
-// TODO latin_hypercube
 
 /**@}*/
 
