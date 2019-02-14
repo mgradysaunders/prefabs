@@ -2208,8 +2208,6 @@ using subset_weibull_distribution =
 
 /**@}*/
 
-// Under construction
-#if 0
 /**
  * @brief Piecewise linear distribution.
  */
@@ -2269,21 +2267,19 @@ public:
         }
 
         // Integrate by trapezoid rule.
-        neumaier_sum<T> yint = 0;
+        neumaier_sum<float_type> yint = 0;
         for (int k = 1; k < n; k++) {
-            T x0 = points_[k - 1].x, y0 = points_[k - 1].pdf;
-            T x1 = points_[k - 0].x, y1 = points_[k - 0].pdf;
+            float_type x0 = points_[k - 1].x, y0 = points_[k - 1].pdf;
+            float_type x1 = points_[k - 0].x, y1 = points_[k - 0].pdf;
             yint += 
                 (x1 - x0) * 
-                (y1 + y0) * T(0.5);
-            points_[k - 1].m = (y1 - y0) / (x1 - x0);
+                (y1 + y0) * float_type(0.5);
             points_[k - 0].cdf = T(yint);
         }
 
         // Normalize.
-        T fac = T(1) / points_[n - 1].cdf;
+        float_type fac = float_type(1) / points_[n - 1].cdf;
         for (int k = 0; k < n; k++) {
-            points_[k].m *= fac;
             points_[k].pdf *= fac;
             points_[k].cdf *= fac;
         }
@@ -2297,7 +2293,7 @@ public:
      * @throw std::runtime_error
      * If `!(points_.size() > 1)`.
      */
-    T pdf(T x) const
+    float_type pdf(float_type x) const
     {
         // Invalid?
         if (!(points_.size() > 1)) {
@@ -2311,19 +2307,20 @@ public:
                 points_.end(),
                 x,
                 [](const point_type& point,
-                   const T& otherx) {
+                   const float_type& otherx) {
                     return point.x < otherx;
                 });
         if (itr == points_.begin() ||
             itr == points_.end()) {
-            return T(0);
+            return 0;
         }
         --itr;
 
         // Evaluate.
-        T t0 = (itr[1].x - x) / (itr[1].x - itr[0].x);
-        T t1 = (x - itr[0].x) / (itr[1].x - itr[0].x);
-        return t0 * itr[0].pdf + t1 * itr[1].pdf;
+        float_type x0 = itr[0].x, y0 = itr[0].pdf;
+        float_type x1 = itr[1].x, y1 = itr[1].pdf;
+        float_type t = (x - x0) / (x1 - x0);
+        return (1 - t) * y0 + t * y1;
     }
 
     /**
@@ -2334,7 +2331,7 @@ public:
      * @throw std::runtime_error
      * If `!(points_.size() > 1)`.
      */
-    T cdf(T x) const
+    float_type cdf(float_type x) const
     {
         // Invalid?
         if (!(points_.size() > 1)) {
@@ -2348,21 +2345,21 @@ public:
                 points_.end(),
                 x,
                 [](const point_type& point,
-                   const T& otherx) {
+                   const float_type& otherx) {
                     return point.x < otherx;
                 });
         if (itr == points_.begin() ||
             itr == points_.end()) {
-            return T(itr == points_.end());
+            return float_type(itr == points_.end());
         }
         --itr;
 
         // Evaluate.
-        T y = T(0.5) * itr[0].m;
-        y = pr::fma(y, x, itr[0].pdf - itr[0].x * itr[0].m);
-        y = pr::fma(y, x, itr[0].cdf - itr[0].x * (itr[0].pdf - 
-                          T(0.5) * itr[0].m * itr[0].x));
-        return y;
+        float_type x0 = itr[0].x, y0 = itr[0].pdf;
+        float_type x1 = itr[1].x, y1 = itr[1].pdf;
+        float_type t = (x - x0) / (x1 - x0);
+        return (x1 - x0) * (float_type(0.5) * 
+               (y1 - y0) * t + y0) * t + itr[0].cdf;
     }
 
     /**
@@ -2373,16 +2370,16 @@ public:
      * @throw std::runtime_error
      * If `!(points_.size() > 1)`.
      */
-    T cdfinv(T u) const
+    float_type cdfinv(float_type u) const
     {
         // Invalid?
         if (!(points_.size() > 1)) {
             throw std::runtime_error(__PRETTY_FUNCTION__);
         }
 
-        if (!(u >= T(0) &&
-              u <  T(1))) {
-            return pr::numeric_limits<T>::quiet_NaN();
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
 
@@ -2393,27 +2390,35 @@ public:
                     points_.end(),
                     u,
                     [](const point_type& point,
-                       const T& othercdf) {
+                       const float_type& othercdf) {
                         return point.cdf < othercdf;
                     });
             if (itr == points_.begin() ||
                 itr == points_.end()) {
-                return T(0);
+                return 0;
             }
             --itr;
 
-            // Quadratic coefficients.
-            T a2 = T(0.5) * itr[0].m;
-            T a1 = itr[0].pdf - itr[0].x * itr[0].m;
-            T a0 = itr[0].cdf - itr[0].x * (itr[0].pdf -
-                   T(0.5) * itr[0].m * itr[0].x);
+            // Compute coefficients.
+            float_type x0 = itr[0].x, y0 = itr[0].pdf;
+            float_type x1 = itr[1].x, y1 = itr[1].pdf;
+            float_type a2 = (x1 - x0) * (y1 - y0) * T(0.5);
+            float_type a1 = (x1 - x0) * y0;
+            float_type a0 = itr[0].cdf;
 
-            // Invert.
-            u /= a2;
+            // Solve inverse.
+            a0 -= u;
             a0 /= a2;
             a1 /= a2;
-            a1 *= T(0.5);
-            return pr::sqrt(u - a0 + a1 * a1) - a1; // TODO sqrt sign?
+            float_type q = pr::sqrt(a1 * a1 - 4 * a0);
+            float_type t = -float_type(0.5) * (a1 + pr::copysign(q, a1));
+            if (!(t >= float_type(0) &&
+                  t <= float_type(1))) {
+                t = a0 / t;
+            }
+
+            // Interpolate.
+            return (1 - t) * x0 + t * x1;
         }
     }
 
@@ -2421,9 +2426,10 @@ public:
      * @brief Generate number.
      */
     template <typename G>
-    T operator()(G&& gen) const
+    value_type operator()(G&& gen) const
     {
-        return cdfinv(pr::generate_canonical<T>(std::forward<G>(gen)));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     } 
 
 private:
@@ -2431,27 +2437,22 @@ private:
     /**
      * @brief Point type.
      */
-    struct alignas(16) point_type
+    struct point_type
     {
         /**
          * @brief Abscissa @f$ x_k @f$.
          */
-        T x = 0;
+        float_type x = 0;
 
         /**
-         * @brief Probability density slope @f$ m_k @f$.
+         * @brief Ordinate @f$ f_k @f$.
          */
-        T m = 0;
+        float_type pdf = 0;
 
         /**
-         * @brief Probability density ordinate @f$ f_k @f$.
+         * @brief Ordinate @f$ F_k @f$.
          */
-        T pdf = 0;
-
-        /**
-         * @brief Cumulative distribution ordinate @f$ F_k @f$.
-         */
-        T cdf = 0;
+        float_type cdf = 0;
     };
 
     /**
@@ -2459,7 +2460,6 @@ private:
      */
     std::vector<point_type> points_;
 };
-#endif
 
 /**
  * @brief PCG XSH-RR engine.
