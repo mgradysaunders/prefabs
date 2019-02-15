@@ -35,6 +35,16 @@
 #ifndef PREFORM_BASH_FORMAT_HPP
 #define PREFORM_BASH_FORMAT_HPP
 
+#if __linux__
+extern "C" {
+#include <sys/ioctl.h>
+#include <unistd.h>
+} // extern "C"
+#endif // #if __linux__
+
+// for std::reverse, std::max, std::min
+#include <algorithm>
+
 // for std::basic_ostream
 #include <ostream>
 
@@ -295,6 +305,7 @@ enum class bash_format : int
  * @brief Write into `std::basic_ostream`.
  */
 template <typename C, typename Ctraits>
+__attribute__((always_inline))
 inline std::basic_ostream<C, Ctraits>& operator<<(
        std::basic_ostream<C, Ctraits>& os, bash_format fmt)
 {
@@ -304,6 +315,136 @@ inline std::basic_ostream<C, Ctraits>& operator<<(
     return os;
 #endif // #if __linux__
 }
+
+/**
+ * @brief Terminal dimensions.
+ */
+struct terminal_dims
+{
+    /**
+     * @brief Rows.
+     */
+    int rows;
+
+    /**
+     * @brief Columns.
+     */
+    int cols;
+
+    /**
+     * @brief Get current terminal dimensions.
+     *
+     * @note
+     * On Linux, uses `ioctl` to fetch terminal size. Otherwise, 
+     * defaults to 24 rows by 80 columns.
+     */
+    static terminal_dims get()
+    {
+    #if __linux__
+        struct winsize winsz; 
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &winsz);
+        return {
+            int(winsz.ws_row),
+            int(winsz.ws_col)
+        };
+    #else
+        return {
+            24,
+            80
+        };
+    #endif // #if __linux__
+    }
+};
+
+/**
+ * @brief Terminal progress bar.
+ */
+struct terminal_progress_bar
+{
+public:
+
+    /**
+     * @brief Amount complete, between 0 and 1.
+     */
+    double amount = 0.0;
+
+    /**
+     * @brief Write into `std::basic_ostream`.
+     */
+    template <typename C, typename Ctraits>
+    friend
+    inline std::basic_ostream<C, Ctraits>& operator<<(
+           std::basic_ostream<C, Ctraits>& os, terminal_progress_bar bar)
+    {
+        // Print bracket.
+        os << '[';
+
+        // Terminal dimensions.
+        terminal_dims dims = 
+        terminal_dims::get();
+        if (dims.cols < 8) {
+            // Error?
+            dims = {
+                24,
+                80
+            };
+        }
+
+        // Amount.
+        double amount = 
+            std::max(0.0,
+            std::min(1.0, bar.amount));
+
+        // Columns total.
+        int columns = dims.cols - 2;
+
+        // Message.
+        char message[8];
+        message[0] = '%';
+        message[2] = '.';
+        char* messageitr = &message[1];
+        int tmp = amount * 1000;
+        while (tmp >= 10) {
+
+            // Reduce.
+            int quo = tmp / 10;
+            int rem = tmp % 10;
+            tmp = quo;
+
+            // Digit.
+            *messageitr++ = rem + '0';
+            if (messageitr == &message[2]) {
+                messageitr++; // Skip decimal point.
+            }
+        }
+        if (tmp > 0) {
+            // Digit.
+            *messageitr++ = tmp + '0';
+        }
+        *messageitr = '\0';
+
+        // Reverse.
+        std::reverse(
+            message,
+            messageitr);
+
+        // Print message.
+        os << message;
+
+        // Print progress.
+        int column0 = messageitr - message;
+        int column1 = 
+            std::max(column0, 
+                 int(columns * amount));
+        for (; column0 < column1; column0++) { os << '='; }
+        for (; column1 < columns; column1++) { os << '.'; }
+
+        // Print bracket.
+        os << ']';
+
+        return os;
+    }
+};
 
 /**@}*/
 
