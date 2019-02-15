@@ -53,7 +53,7 @@
 namespace pr {
 
 /**
- * @defgroup float_bounds Float interval
+ * @defgroup float_bounds Float bounds 
  *
  * `<preform/float_bounds.hpp>`
  *
