@@ -69,10 +69,13 @@ $(function() {
 <li>a_
 : <a class="el" href="classpr_1_1dualnum.html#ab39727ff82bdab38f807c339dd91aa79">pr::dualnum&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1uniform__int__distribution.html#a58b05bd5eae497737da1b1ae39780b8b">pr::uniform_int_distribution&lt; T &gt;</a>
-, <a class="el" href="classpr_1_1uniform__real__distribution.html#a39a55fb0eb338668207a4ea08d3014b4">pr::uniform_real_distribution&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1uniform__real__distribution.html#af618a9483cbf75d3480eb03b3ab71f47">pr::uniform_real_distribution&lt; T &gt;</a>
 </li>
 <li>allocator_
 : <a class="el" href="classpr_1_1memory__arena.html#a105b6687848d2d08ef7fe9efd62702cf">pr::memory_arena</a>
+</li>
+<li>amount
+: <a class="el" href="structpr_1_1terminal__progress__bar.html#a35fa7b857be2ff4b27fd6318a1b81f89">pr::terminal_progress_bar</a>
 </li>
 <li>arena_
 : <a class="el" href="classpr_1_1memory__arena__allocator.html#a77460e3f718d38953d225b794f97c9db">pr::memory_arena_allocator&lt; T &gt;</a>
@@ -96,7 +99,7 @@ $(function() {
 : <a class="el" href="classpr_1_1dualnum.html#a828aec56724620cff2398e2ed93f6960">pr::dualnum&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1half.html#a02e2f97ddf15c48544fd0b44f3f32248">pr::half</a>
 , <a class="el" href="classpr_1_1uniform__int__distribution.html#a13bfa0b03c4cf1c289b04fe60dd7b9a8">pr::uniform_int_distribution&lt; T &gt;</a>
-, <a class="el" href="classpr_1_1uniform__real__distribution.html#a9b4b5021e89009fd0eb29315100600b8">pr::uniform_real_distribution&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1uniform__real__distribution.html#a064a37b46a1af2c3546b9cd285cb6736">pr::uniform_real_distribution&lt; T &gt;</a>
 </li>
 <li>begin
 : <a class="el" href="structpr_1_1memory__arena_1_1block.html#a26dcddd963da5e9ded6ef1435f31b575">pr::memory_arena::block</a>
@@ -146,11 +149,17 @@ $(function() {
 <li>c
 : <a class="el" href="structpr_1_1mitchell__filter.html#acd170f3302cd544cefbc2f838603c99d">pr::mitchell_filter&lt; T, N &gt;</a>
 </li>
+<li>cdf
+: <a class="el" href="structpr_1_1piecewise__linear__distribution_1_1point__type.html#a21d9227bec2482e1b199ee8d6700f5b7">pr::piecewise_linear_distribution&lt; T &gt;::point_type</a>
+</li>
 <li>cdf_x0_
 : <a class="el" href="classpr_1_1subset__distribution__wrapper.html#a7c29730ade7d37eb8e2d0b894334c572">pr::subset_distribution_wrapper&lt; Tbase &gt;</a>
 </li>
 <li>cdf_x1_
 : <a class="el" href="classpr_1_1subset__distribution__wrapper.html#a08904122eb7001acc4b59a4872860fd8">pr::subset_distribution_wrapper&lt; Tbase &gt;</a>
+</li>
+<li>cols
+: <a class="el" href="structpr_1_1terminal__dims.html#a69171461f667e88ac54a797f14b06dae">pr::terminal_dims</a>
 </li>
 <li>count
 : <a class="el" href="structpr_1_1aabbtree_1_1node__type.html#a50b87cc325c840785efef7734b770f46">pr::aabbtree&lt; Tfloat, N, Tsplit_mode, Tnode_alloc &gt;::node_type</a>
@@ -250,15 +259,15 @@ $(function() {
 
 <h3><a id="index_k"></a>- k -</h3><ul>
 <li>k_
-: <a class="el" href="classpr_1_1weibull__distribution.html#aadb52e4b58534775d64c74993b29d8ef">pr::weibull_distribution&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1weibull__distribution.html#ac30b0b1dbff2c318d7f7d78723125268">pr::weibull_distribution&lt; T &gt;</a>
 </li>
 </ul>
 
 
 <h3><a id="index_l"></a>- l -</h3><ul>
 <li>lambda_
-: <a class="el" href="classpr_1_1exponential__distribution.html#a15744d784a447afd85b8375c937df35a">pr::exponential_distribution&lt; T &gt;</a>
-, <a class="el" href="classpr_1_1weibull__distribution.html#a1f0d681744415d267863171c59320052">pr::weibull_distribution&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1exponential__distribution.html#a32b8007254c43c5a20bb4d0bf739d5eb">pr::exponential_distribution&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1weibull__distribution.html#a2d24ce4d52d233d6059fc2f3af182254">pr::weibull_distribution&lt; T &gt;</a>
 </li>
 <li>leaf_cutoff_
 : <a class="el" href="classpr_1_1aabbtree.html#a451276205c545805bd6889597f009a23">pr::aabbtree&lt; Tfloat, N, Tsplit_mode, Tnode_alloc &gt;</a>
@@ -289,9 +298,9 @@ $(function() {
 : <a class="el" href="structpr_1_1numeric__limits_3_01____float128_01_4.html#af588f9ac64327a3f9b856fdf62944623">pr::numeric_limits&lt; __float128 &gt;</a>
 </li>
 <li>mu_
-: <a class="el" href="classpr_1_1logistic__distribution.html#a4f3f69e67a2c46172ca7a231db8fa9ad">pr::logistic_distribution&lt; T &gt;</a>
-, <a class="el" href="classpr_1_1normal__distribution.html#a3e7c5065d54bc93d5c46ee8d1eb21885">pr::normal_distribution&lt; T &gt;</a>
-, <a class="el" href="classpr_1_1tanh__distribution.html#a3c86f43056f64c3dc6ced97ae616b5bd">pr::tanh_distribution&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1logistic__distribution.html#ae437dd1bb3a79f143752469b89d9950d">pr::logistic_distribution&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1normal__distribution.html#af0523b9ce1648d4567e7d91d8144c1df">pr::normal_distribution&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1tanh__distribution.html#a8f4085ed626bb9f913eb40fcda11eaeb">pr::tanh_distribution&lt; T &gt;</a>
 </li>
 <li>multiplier
 : <a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#ab49657dcd7422d1ab326e4e719798292">pr::pcg_xsh_rr_engine&lt; T, Tstate, Nmultiplier, Ndefault_increment &gt;</a>
@@ -356,7 +365,13 @@ $(function() {
 
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>p_
-: <a class="el" href="classpr_1_1bernoulli__distribution.html#a35617bea0045084f406ac2b540b83a2c">pr::bernoulli_distribution&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1bernoulli__distribution.html#adfac3dad63bebdd612f523ee5c038643">pr::bernoulli_distribution&lt; T &gt;</a>
+</li>
+<li>pdf
+: <a class="el" href="structpr_1_1piecewise__linear__distribution_1_1point__type.html#a46b8307b08af01abdfdc96d709a80e9e">pr::piecewise_linear_distribution&lt; T &gt;::point_type</a>
+</li>
+<li>points_
+: <a class="el" href="classpr_1_1piecewise__linear__distribution.html#a8f1b9bc5fccbba8872913217ec80ee69">pr::piecewise_linear_distribution&lt; T &gt;</a>
 </li>
 <li>pool_
 : <a class="el" href="classpr_1_1thread__pool_1_1worker.html#ae9597046e18b2cb3f1b7399e003f2fb1">pr::thread_pool::worker</a>
@@ -378,7 +393,7 @@ $(function() {
 
 <h3><a id="index_q"></a>- q -</h3><ul>
 <li>q_
-: <a class="el" href="classpr_1_1bernoulli__distribution.html#adfe1e6a45570848cfd16e5136dd709ba">pr::bernoulli_distribution&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1bernoulli__distribution.html#a862aab21a4fc17866a4a37ec49b8e9bd">pr::bernoulli_distribution&lt; T &gt;</a>
 </li>
 <li>queue_
 : <a class="el" href="classpr_1_1thread__pool.html#ae3baac804666553887b8330ea66f62f8">pr::thread_pool</a>
@@ -399,15 +414,18 @@ $(function() {
 <li>root_
 : <a class="el" href="classpr_1_1aabbtree.html#aba6968975a83dda06b3eb0d210d81c55">pr::aabbtree&lt; Tfloat, N, Tsplit_mode, Tnode_alloc &gt;</a>
 </li>
+<li>rows
+: <a class="el" href="structpr_1_1terminal__dims.html#aba2ab371de2cd0e60c05cab2caf962fe">pr::terminal_dims</a>
+</li>
 </ul>
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>s_
-: <a class="el" href="classpr_1_1logistic__distribution.html#a96391f8589364dd831d72b93bad46fad">pr::logistic_distribution&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1logistic__distribution.html#af79112dc422bbaf2cb77cdff115b4f78">pr::logistic_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1neumaier__sum.html#af01e1d747d73c3e56926faea50f4a547">pr::neumaier_sum&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1quat.html#a7068902cfb22fa5d7ab0b8fe3a8f5b3b">pr::quat&lt; T &gt;</a>
-, <a class="el" href="classpr_1_1tanh__distribution.html#a47a31ba362379fa9cdf20ccec74e4a15">pr::tanh_distribution&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1tanh__distribution.html#af6a3f59e8f4b62192bc14388fdc5f9c4">pr::tanh_distribution&lt; T &gt;</a>
 </li>
 <li>seed_
 : <a class="el" href="classpr_1_1simplex__noise2.html#a5b9a48d75cf3667dbb2af37c9233dc52">pr::simplex_noise2&lt; T &gt;</a>
@@ -420,7 +438,7 @@ $(function() {
 : <a class="el" href="classpr_1_1thread__pool.html#aa0e3d6f84a065c6df9da70e4e0324b62">pr::thread_pool</a>
 </li>
 <li>sigma_
-: <a class="el" href="classpr_1_1normal__distribution.html#a9f91eb850ad566140338401f678d5aba">pr::normal_distribution&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1normal__distribution.html#ad84f517637865b603411c659e38f0674">pr::normal_distribution&lt; T &gt;</a>
 </li>
 <li>size
 : <a class="el" href="structpr_1_1memory__arena_1_1block.html#af470bf363de6e9e9be86f891cfd12c19">pr::memory_arena::block</a>
@@ -502,16 +520,19 @@ $(function() {
 
 
 <h3><a id="index_x"></a>- x -</h3><ul>
+<li>x
+: <a class="el" href="structpr_1_1piecewise__linear__distribution_1_1point__type.html#abc0517c1dfa1efec40d585743fbe40b6">pr::piecewise_linear_distribution&lt; T &gt;::point_type</a>
+</li>
 <li>x0_
-: <a class="el" href="classpr_1_1float__interval.html#ad2b125eee836e642da4fef8d9a204fe1">pr::float_interval&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1float__bounds.html#abfcd22ce5cf8e0beb2843a5ccfa39eeb">pr::float_bounds&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1subset__distribution__wrapper.html#adff6358e1c1bec8af961176e9dd6a3c5">pr::subset_distribution_wrapper&lt; Tbase &gt;</a>
 </li>
 <li>x1_
-: <a class="el" href="classpr_1_1float__interval.html#acc1bf6bc8c4d76c2a3536cd2a9180ea0">pr::float_interval&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1float__bounds.html#a58dfd6d20b3fb1d98408a9a6b68b8702">pr::float_bounds&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1subset__distribution__wrapper.html#a7f7aba4a50afa324df54cc4ebd3dc9a1">pr::subset_distribution_wrapper&lt; Tbase &gt;</a>
 </li>
 <li>x_
-: <a class="el" href="classpr_1_1float__interval.html#acbe6081d903cbb87d35e818803b48581">pr::float_interval&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1float__bounds.html#aa6d76ec840d29edcd6f68029b13e13cc">pr::float_bounds&lt; T &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->
