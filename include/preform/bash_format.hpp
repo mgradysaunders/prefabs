@@ -37,9 +37,12 @@
 
 #if __linux__
 extern "C" {
+// for ioctl
 #include <sys/ioctl.h>
+
+// for STDOUT_FILENO
 #include <unistd.h>
-} // extern "C"
+}
 #endif // #if __linux__
 
 // for std::reverse, std::max, std::min
