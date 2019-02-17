@@ -300,6 +300,7 @@ constexpr multi<decltype(T() * U()),
     return res;
 }
 
+#if 0
 /**
  * @brief Reflect.
  *
@@ -318,6 +319,7 @@ constexpr multi<decltype(T() * U()), N> reflect(
 }
 
 // TODO refract
+#endif
 
 /**
  * @brief @f$ L^2 @f$ length.
@@ -370,11 +372,11 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
                 tmp /= tmpmax; // Inverse overflows.
             }
             // Length.
-            return pr::sqrt((tmp * tmp).sum()) * tmpmax;
+            return pr::sqrt(pr::dot(tmp, tmp)) * tmpmax;
         }
         else {
             // Length.
-            return pr::sqrt((tmp * tmp).sum());
+            return pr::sqrt(pr::dot(tmp, tmp));
         }
     }
 }
