@@ -26,9 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
 #if !(__cplusplus >= 201402L)
 #error "preform/blas.hpp requires >=C++14"
 #endif // #if !(__cplusplus >= 201402L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFORM_BLAS_HPP
 #define PREFORM_BLAS_HPP
