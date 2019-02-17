@@ -54,7 +54,7 @@
 #include <preform/math.hpp>
 
 // for pr::first1, pr::lcg_seek
-#include <preform/int_helpers.hpp>
+#include <preform/misc_int.hpp>
 
 // for pr::neumaier_sum
 #include <preform/neumaier_sum.hpp>

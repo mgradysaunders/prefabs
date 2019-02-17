@@ -28,23 +28,23 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201703L)
-#error "preform/multi_float_helpers.hpp requires >=C++17"
+#error "preform/multi_misc_float.hpp requires >=C++17"
 #endif // #if !(__cplusplus >= 201703L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_MULTI_FLOAT_HELPERS_HPP
-#define PREFORM_MULTI_FLOAT_HELPERS_HPP
+#ifndef PREFORM_MULTI_MISC_FLOAT_HPP
+#define PREFORM_MULTI_MISC_FLOAT_HPP
 
-#include <preform/float_helpers.hpp>
+#include <preform/misc_float.hpp>
 
 #include <preform/multi.hpp>
 
 namespace pr {
 
 /**
- * @defgroup multi_float_helpers Multi-dimensional array (float helpers)
+ * @defgroup multi_misc_float Multi-dimensional array (miscellaneous float)
  *
- * `<preform/multi_float_helpers.hpp>`
+ * `<preform/multi_misc_float.hpp>`
  *
  * __C++ version__: >=C++17
  */
@@ -55,7 +55,7 @@ namespace pr {
 } // namespace pr
 
 #if !DOXYGEN
-#include "multi_float_helpers.inl"
+#include "multi_misc_float.inl"
 #endif // #if !DOXYGEN
 
-#endif // #ifndef PREFORM_MULTI_FLOAT_HELPERS_HPP
+#endif // #ifndef PREFORM_MULTI_MISC_FLOAT_HPP

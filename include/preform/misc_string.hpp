@@ -28,12 +28,12 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201402L)
-#error "preform/string_helpers.hpp requires >= C++14"
+#error "preform/misc_string.hpp requires >= C++14"
 #endif // #if !(__cplusplus >= 201402L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_STRING_HELPERS_HPP
-#define PREFORM_STRING_HELPERS_HPP
+#ifndef PREFORM_MISC_STRING_HPP
+#define PREFORM_MISC_STRING_HPP
 
 // for std::snprintf
 #include <cstdio>
@@ -58,9 +58,9 @@
 namespace pr {
 
 /**
- * @defgroup string_helpers String helpers
+ * @defgroup misc_string Miscellaneous string
  *
- * `<preform/string_helpers.hpp>`
+ * `<preform/misc_string.hpp>`
  *
  * __C++ version__: >=C++14
  */
@@ -115,4 +115,4 @@ inline std::string str_typename()
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_STRING_HELPERS_HPP
+#endif // #ifndef PREFORM_MISC_STRING_HPP

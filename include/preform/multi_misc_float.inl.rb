@@ -17,7 +17,7 @@ puts <<STR
 namespace pr {
 
 /**
- * @addtogroup multi_float_helpers
+ * @addtogroup multi_misc_float
  */
 /**@{*/
 

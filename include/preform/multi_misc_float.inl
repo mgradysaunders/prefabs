@@ -1,12 +1,12 @@
 namespace pr {
 
 /**
- * @addtogroup multi_float_helpers
+ * @addtogroup multi_misc_float
  */
 /**@{*/
 
 /**
- * @name Float helpers (multi)
+ * @name Miscellaneous float (multi)
  */
 /**@{*/
 

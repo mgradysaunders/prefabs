@@ -40,8 +40,12 @@
 
 // for pr::multi
 #include <preform/multi.hpp>
+
+// for pr::multi wrappers
 #include <preform/multi_math.hpp>
-#include <preform/multi_float_helpers.hpp>
+
+// for pr::multi wrappers
+#include <preform/multi_misc_float.hpp>
 
 // for pr::lerp, pr::catmull
 #include <preform/interp.hpp>

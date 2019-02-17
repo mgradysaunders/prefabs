@@ -42,7 +42,7 @@
 #include <preform/multi.hpp>
 
 // for pr::first1, pr::roundpow2, ...
-#include <preform/int_helpers.hpp>
+#include <preform/misc_int.hpp>
 
 #if !DOXYGEN
 #ifndef L1_LINE

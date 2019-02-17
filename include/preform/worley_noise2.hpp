@@ -37,12 +37,14 @@
 
 // for pr::multi
 #include <preform/multi.hpp>
+
+// for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
 // for pr::wrap
-#include <preform/int_helpers.hpp>
+#include <preform/misc_int.hpp>
 
-// for pr::pcg_xsh_rr, pr::generate_canonical
+// for pr::pcg32, pr::generate_canonical
 #include <preform/random.hpp>
 
 namespace pr {

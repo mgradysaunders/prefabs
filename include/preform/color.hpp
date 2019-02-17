@@ -39,16 +39,16 @@
 #include <preform/math.hpp>
 
 // for pr::fstretch
-#include <preform/float_helpers.hpp>
+#include <preform/misc_float.hpp>
 
 // for pr::multi
 #include <preform/multi.hpp>
 
-// for pr::dot
+// for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::fstretch(pr::multi)
-#include <preform/multi_float_helpers.hpp>
+// for pr::multi wrappers
+#include <preform/multi_misc_float.hpp>
 
 namespace pr {
 

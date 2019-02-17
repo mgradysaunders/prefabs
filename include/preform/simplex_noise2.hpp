@@ -37,10 +37,12 @@
 
 // for pr::multi
 #include <preform/multi.hpp>
+
+// for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
 // for pr::wrap
-#include <preform/int_helpers.hpp>
+#include <preform/misc_int.hpp>
 
 // for pr::pcg32
 #include <preform/random.hpp>

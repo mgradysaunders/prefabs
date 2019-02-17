@@ -28,12 +28,12 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201703L)
-#error "preform/float_helpers.hpp requires >=C++17"
+#error "preform/misc_float.hpp requires >=C++17"
 #endif // #if !(__cplusplus >= 201703L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_FLOAT_HELPERS_HPP
-#define PREFORM_FLOAT_HELPERS_HPP
+#ifndef PREFORM_MISC_FLOAT_HPP
+#define PREFORM_MISC_FLOAT_HPP
 
 // for assert
 #include <cassert>
@@ -50,9 +50,9 @@
 namespace pr {
 
 /**
- * @defgroup float_helpers Float helpers
+ * @defgroup misc_float Miscellaneous float
  *
- * `<preform/float_helpers.hpp>`
+ * `<preform/misc_float.hpp>`
  *
  * __C++ version__: >=C++17
  */
@@ -295,4 +295,4 @@ inline std::enable_if_t<
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_FLOAT_HELPERS_HPP
+#endif // #ifndef PREFORM_MISC_FLOAT_HPP

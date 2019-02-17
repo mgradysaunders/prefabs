@@ -48,7 +48,7 @@
 #include <preform/math.hpp>
 
 // for pr::finc, pr::fdec
-#include <preform/float_helpers.hpp>
+#include <preform/misc_float.hpp>
 
 namespace pr {
 

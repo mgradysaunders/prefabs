@@ -28,12 +28,12 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201402L)
-#error "preform/int_helpers.hpp requires >=C++14"
+#error "preform/misc_int.hpp requires >=C++14"
 #endif // #if !(__cplusplus >= 201402L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_INT_HELPERS_HPP
-#define PREFORM_INT_HELPERS_HPP
+#ifndef PREFORM_MISC_INT_HPP
+#define PREFORM_MISC_INT_HPP
 
 // for std::enable_if_t, std::is_integral
 #include <type_traits>
@@ -41,9 +41,9 @@
 namespace pr {
 
 /**
- * @defgroup int_helpers Int helpers
+ * @defgroup misc_int Miscellaneous int
  *
- * `<preform/int_helpers.hpp>`
+ * `<preform/misc_int.hpp>`
  *
  * __C++ version__: >=C++14
  */
@@ -436,4 +436,4 @@ constexpr std::enable_if_t<
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_INT_HELPERS_HPP
+#endif // #ifndef PREFORM_MISC_INT_HPP
