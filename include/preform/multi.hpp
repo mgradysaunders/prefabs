@@ -967,19 +967,108 @@ public:
     /**
      * @brief Index of minimum element.
      */
-    constexpr size_type argmin() const
+    template <bool B = (sizeof...(N) == 0)>
+    constexpr std::enable_if_t<B, size_type> argmin() const
     {
-        static_assert(sizeof...(N) == 0, "argmin() for vectors only");
         return std::min_element(begin(), end()) - begin();
     }
 
     /**
      * @brief Index of maximum element.
      */
-    constexpr size_type argmax() const
+    template <bool B = (sizeof...(N) == 0)>
+    constexpr std::enable_if_t<B, size_type> argmax() const
     {
-        static_assert(sizeof...(N) == 0, "argmax() for vectors only");
         return std::max_element(begin(), end()) - begin();
+    }
+
+    /**@}*/
+
+public:
+
+    /**
+     * @name Vector members 
+     */
+    /**@{*/
+
+    /**
+     * @brief Alias for `operator[](0)`.
+     */
+    template <bool B = (sizeof...(N) == 0) && (M <= 4)> 
+    __attribute__((always_inline))
+    constexpr std::enable_if_t<B, value_type&> x() 
+    {
+        return v_[0];
+    }
+
+    /**
+     * @brief Alias for `operator[](0)`, const variant.
+     */
+    template <bool B = (sizeof...(N) == 0) && (M <= 4)> 
+    __attribute__((always_inline))
+    constexpr std::enable_if_t<B, const value_type&> x() const
+    {
+        return v_[0];
+    }
+
+    /**
+     * @brief Alias for `operator[](1)`.
+     */
+    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 2)> 
+    __attribute__((always_inline))
+    constexpr std::enable_if_t<B, value_type&> y() 
+    {
+        return v_[1];
+    }
+
+    /**
+     * @brief Alias for `operator[](1)`, const variant.
+     */
+    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 2)> 
+    __attribute__((always_inline))
+    constexpr std::enable_if_t<B, const value_type&> y() const
+    {
+        return v_[1];
+    }
+
+    /**
+     * @brief Alias for `operator[](2)`.
+     */
+    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 3)> 
+    __attribute__((always_inline))
+    constexpr std::enable_if_t<B, value_type&> z() 
+    {
+        return v_[2];
+    }
+
+    /**
+     * @brief Alias for `operator[](2)`, const variant.
+     */
+    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 3)> 
+    __attribute__((always_inline))
+    constexpr std::enable_if_t<B, const value_type&> z() const
+    {
+        return v_[2];
+    }
+
+    /**
+     * @brief Alias for `operator[](3)`.
+     */
+    template <bool B = (sizeof...(N) == 0) && (M == 4)> 
+    __attribute__((always_inline))
+    constexpr std::enable_if_t<B, value_type&> w() 
+    {
+        return v_[3];
+    }
+
+    /**
+     * @brief Alias for `operator[](3)`, const variant.
+     */
+    template <bool B = (sizeof...(N) == 0) && (M == 4)> 
+    __attribute__((always_inline))
+    constexpr std::enable_if_t<B, const value_type&> w() const
+    {
+        return v_[3];
     }
 
     /**@}*/
