@@ -12,6 +12,15 @@ DIR.bin = "bin"
 DIR.build = "bin/build"
 DIR.install = "/usr/local"
 
+def find_fnames pattern
+    fpaths = []
+    fpaths += Dir[File.join(DIR.include, "**", "*")]
+    fpaths += Dir[File.join(DIR.src, "**", "*")]
+    fpaths.select do |fpath|
+        fpath =~ pattern if File.file? fpath
+    end
+end
+
 # Globs.
 GLOBS = OpenStruct.new
 GLOBS.include_hpp = File.join(DIR.include, "**", "*.hpp")
@@ -189,11 +198,34 @@ HPP
         end
     end
 
+=begin
     # Generate inline files.
     desc "Generate inline files from scripts."
     task :generate_inline do 
         for fname in Rake::FileList[File.join(DIR.include, "**/*.inl.rb")]
             sh "ruby #{fname} > #{fname.pathmap("%X")}"
+        end
+    end
+=end
+
+    # Generate files from scripts.
+    desc "Generate files from scripts."
+    task :generate_from_scripts do 
+        for fname in find_fnames(/\.(?:hpp|cpp|inl)\.rb$/i)
+            # Open file.
+            file = File.open(fname.pathmap("%X"), "wb")
+
+            # Dump license comment.
+            file.write license_comment
+
+            # Dump warning comment.
+            file.write "// A ruby script generates this file, DO NOT EDIT\n\n"
+
+            # Delegate.
+            file.write `ruby #{fname}`
+
+            # Close.
+            file.close
         end
     end
 
