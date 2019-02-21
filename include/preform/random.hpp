@@ -2145,7 +2145,8 @@ public:
     template <typename G>
     float_type operator()(G&& gen) const
     {
-        return cdfinv(std::forward<G>(gen));
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
