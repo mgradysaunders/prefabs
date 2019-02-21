@@ -685,6 +685,30 @@ inline aabb<T, N>& operator&=(aabb<T, N>& box, const U& any)
 
 /**@}*/
 
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using aabb1 = aabb<T, 1>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using aabb2 = aabb<T, 2>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using aabb3 = aabb<T, 3>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using aabb4 = aabb<T, 4>;
+
 /**@}*/
 
 } // namespace pr
