@@ -324,6 +324,43 @@ STR
 
 #------------------------------------------------------------------------------
 
+for m in [1, 2, 3, 4]
+    puts <<STR
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using vec#{m} = multi<T, #{m}>;
+
+STR
+end
+
+for m in [1, 2, 3, 4]
+    puts <<STR
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat#{m} = multi<T, #{m}, #{m}>;
+
+STR
+end
+
+for m in [1, 2, 3, 4]
+for n in [1, 2, 3, 4]
+    puts <<STR
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat#{m}x#{n} = multi<T, #{m}, #{n}>;
+
+STR
+end
+end
+
+#------------------------------------------------------------------------------
+
 puts <<STR
 /**@}*/
 

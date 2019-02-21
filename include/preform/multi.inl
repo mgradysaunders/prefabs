@@ -1470,6 +1470,150 @@ constexpr std::enable_if_t<!is_multi<T>::value,
 
 /**@}*/
 
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using vec1 = multi<T, 1>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using vec2 = multi<T, 2>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using vec3 = multi<T, 3>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using vec4 = multi<T, 4>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat1 = multi<T, 1, 1>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat2 = multi<T, 2, 2>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat3 = multi<T, 3, 3>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat4 = multi<T, 4, 4>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat1x1 = multi<T, 1, 1>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat1x2 = multi<T, 1, 2>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat1x3 = multi<T, 1, 3>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat1x4 = multi<T, 1, 4>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat2x1 = multi<T, 2, 1>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat2x2 = multi<T, 2, 2>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat2x3 = multi<T, 2, 3>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat2x4 = multi<T, 2, 4>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat3x1 = multi<T, 3, 1>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat3x2 = multi<T, 3, 2>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat3x3 = multi<T, 3, 3>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat3x4 = multi<T, 3, 4>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat4x1 = multi<T, 4, 1>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat4x2 = multi<T, 4, 2>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat4x3 = multi<T, 4, 3>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using mat4x4 = multi<T, 4, 4>;
+
 /**@}*/
 
 } // namespace pr
