@@ -44,7 +44,7 @@
 // for pr::multi
 #include <preform/multi.hpp>
 
-// for pr::multi math wrappers
+// for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
 namespace pr {
@@ -230,8 +230,7 @@ public:
     /**
      * @brief Lerp minimum and maximum coordinates.
      */
-    template <typename U>
-    constexpr multi<T, N> lerp(const U& u) const
+    constexpr multi<float_type, N> lerp(const multi<float_type, N>& u) const
     {
         return (1 - u) * arr_[0] + u * arr_[1];
     }
