@@ -218,7 +218,7 @@ public:
         // Dot.
         auto itrx = x.begin();
         auto itry = y.begin();
-        for (; itrx < x.end(); ++itrx, ++itry) {
+        for (; itry < y.end(); ++itrx, ++itry) {
             res = (*itrx) * (*itry) + res;
         }
 
@@ -256,7 +256,7 @@ public:
         // Dot.
         auto itrx = x.begin();
         auto itry = y.begin();
-        for (; itrx < x.end(); ++itrx, ++itry) {
+        for (; itry < y.end(); ++itrx, ++itry) {
             res = conj(*itrx) * (*itry) + res;
         }
 
@@ -408,7 +408,7 @@ public:
             auto itrx = x.begin();
             for (; itrx < x.end(); ++itrtmp, ++itrx) {
                 *itrtmp = abs(*itrx);
-                if (*itrtmp != float_type(0)) {
+                if (*itrtmp != 0) {
                     tmpmin = pr::fmin(tmpmin, *itrtmp);
                     tmpmax = pr::fmax(tmpmax, *itrtmp);
                 }
@@ -456,13 +456,11 @@ public:
     static void normalize(dense_vector_view<value_type*> x)
     {
         float_type tmplen = length(x);
-        if (tmplen != 0) {
-            if (tmplen >= pr::numeric_limits<float_type>::min_invertible()) {
-                x *= 1 / tmplen;
-            }
-            else {
-                x /= tmplen;   
-            }
+        if (tmplen >= pr::numeric_limits<float_type>::min_invertible()) {
+            x *= 1 / tmplen;
+        }
+        else if (tmplen != 0) {
+            x /= tmplen;   
         }
     }
 
@@ -553,7 +551,7 @@ public:
                 dense_matrix_view<value_type*> y = {})
     {
         // Delegate.
-        blas::householderl(
+        householderl(
                 q, p, 
                 x.transpose(),
                 y.transpose());
