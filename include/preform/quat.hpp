@@ -743,7 +743,7 @@ constexpr std::enable_if_t<
                         is_quat_param<U>::value, bool> operator==(
                         const quat<T>& q0, const U& q1)
 {
-    return q0.real() == q1 && q0.imag() == T();
+    return q0.real() == q1 && (q0.imag() == T()).all();
 }
 
 /**
@@ -755,7 +755,7 @@ constexpr std::enable_if_t<
                         is_quat_param<T>::value, bool> operator==(
                         const T& q0, const quat<U>& q1)
 {
-    return q0 == q1.real() && U() == q1.imag();
+    return q0 == q1.real() && (U() == q1.imag()).all();
 }
 
 /**
