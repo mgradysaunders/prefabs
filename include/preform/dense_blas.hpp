@@ -892,7 +892,8 @@ public:
             }
 
             // Diagonal not real?
-            if (x[k][k] != Ttraits::real(x[k][k])) {
+            if (x[k][k] != Ttraits::real(x[k][k])) { 
+                // TODO is this the general condition?
                 throw std::runtime_error(__PRETTY_FUNCTION__);
             }
 
