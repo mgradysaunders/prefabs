@@ -38,6 +38,12 @@
 // for std::vector
 #include <vector>
 
+// for std::swap, std::swap_ranges
+#include <algorithm>
+
+// for std::iota
+#include <numeric>
+
 // for pr::sqrt, pr::fmin, pr::fmax, ...
 #include <preform/math.hpp>
 
@@ -88,6 +94,8 @@ struct default_blas_traits
     {
         return pr::copysign(value_type(1), x);
     }
+
+    // TODO real
 };
 
 template <typename T>
@@ -119,6 +127,8 @@ struct default_blas_traits<std::complex<T>>
     {
         return pr::sign(x);
     }
+
+    // TODO real
 };
 
 /**
@@ -146,63 +156,6 @@ public:
     static_assert(
         std::is_floating_point<float_type>::value,
         "float_type must be floating point");
-
-    /**
-     * @brief Wrap `Ttraits::abs()`.
-     *
-     * For every @f$ x \in T @f$, the implementation must
-     * satisfy
-     * - @f$ |x| = \sqrt{x^\dagger x} \in \mathbb{R} @f$,
-     * - @f$ |x| \ge 0 @f$, and
-     * - @f$ |x| = 0 @f$ iff @f$ x \sim 0 @f$.
-     */
-    __attribute__((always_inline))
-    static float_type abs(const value_type& x)
-    {
-        return Ttraits::abs(x);
-    }
-
-    /**
-     * @brief Wrap `Ttraits::norm()`.
-     *
-     * For every @f$ x \in T @f$, the implementation must
-     * satisfy
-     * - @f$ |x|^2 = x^\dagger x \in \mathbb{R} @f$,
-     * - @f$ |x|^2 \ge 0 @f$, and
-     * - @f$ |x|^2 = 0 @f$ iff @f$ x \sim 0 @f$.
-     */
-    __attribute__((always_inline))
-    static float_type norm(const value_type& x)
-    {
-        return Ttraits::norm(x);
-    }
-
-    /**
-     * @brief Wrap `Ttraits::conj()`.
-     *
-     * For every @f$ x \in T @f$, the implementation must
-     * satisfy
-     * - @f$ x = (x^\dagger)^\dagger @f$.
-     */
-    __attribute__((always_inline))
-    static value_type conj(const value_type& x)
-    {
-        return Ttraits::conj(x);
-    }
-
-    /**
-     * @brief Wrap `Ttraits::sign()`.
-     *
-     * For every @f$ x \in T @f$, the implementation must
-     * satisfy
-     * - @f$ \operatorname{sign}(x) = x/|x| @f$ iff @f$ |x| > 0 @f$,
-     * - @f$ \operatorname{sign}(x) = 1 @f$ if @f$ |x| = 0 @f$.
-     */
-    __attribute__((always_inline))
-    static value_type sign(const value_type& x)
-    {
-        return Ttraits::sign(x);
-    }
 
 public:
 
@@ -281,7 +234,7 @@ public:
         auto itrx = x.begin();
         auto itry = y.begin();
         for (; itry < y.end(); ++itrx, ++itry) {
-            res = conj(*itrx) * (*itry) + res;
+            res = Ttraits::conj(*itrx) * (*itry) + res;
         }
 
         return res;
@@ -307,10 +260,12 @@ public:
         switch (x.size()) {
             case 1: 
                 // Delegate.
-                return float_type(abs(x[0]));
+                return Ttraits::abs(x[0]);
             case 2: 
                 // Delegate.
-                return float_type(pr::hypot(abs(x[0]), abs(x[1])));
+                return pr::hypot(
+                            Ttraits::abs(x[0]), 
+                            Ttraits::abs(x[1]));
             default:
                 break;
         }
@@ -340,7 +295,7 @@ public:
             auto itrtmp = tmp.begin();
             auto itrx = x.begin();
             for (; itrx < x.end(); ++itrtmp, ++itrx) {
-                *itrtmp = abs(*itrx);
+                *itrtmp = Ttraits::abs(*itrx);
                 if (*itrtmp != 0) {
                     tmpmin = pr::fmin(tmpmin, *itrtmp);
                     tmpmax = pr::fmax(tmpmax, *itrtmp);
@@ -436,7 +391,7 @@ public:
             auto itrx = x.begin();
             auto itry = y.begin();
             for (; itry < y.end(); ++itrx, ++itry) {
-                fac = conj(*itrx) * (*itry) + fac;
+                fac = Ttraits::conj(*itrx) * (*itry) + fac;
             }
         }
 
@@ -488,10 +443,10 @@ public:
 
             // Swap.
             for (int i = 0; i < y.size0(); i++) {
-                y[i][i] = conj(y[i][i]);
+                y[i][i] = Ttraits::conj(y[i][i]);
                 for (int j = i + 1; j < y.size0(); j++) {
-                    value_type tmp0 = conj(y[i][j]);
-                    value_type tmp1 = conj(y[j][i]);
+                    value_type tmp0 = Ttraits::conj(y[i][j]);
+                    value_type tmp1 = Ttraits::conj(y[j][i]);
                     y[i][j] = tmp1;
                     y[j][i] = tmp0;
                 }
@@ -508,7 +463,7 @@ public:
             // Copy.
             for (int i = 0; i < x.size0(); i++) {
                 for (int j = 0; j < x.size1(); j++) {
-                    y[j][i] = conj(x[i][j]);
+                    y[j][i] = Ttraits::conj(x[i][j]);
                 }
             }
         }
@@ -609,7 +564,7 @@ public:
             w.begin());
 
         // Compute reflector.
-        value_type alpha = sign(w[0]) * length(w);
+        value_type alpha = Ttraits::sign(w[0]) * length(w);
         w[0] += alpha;
 
         // Normalize.
@@ -671,11 +626,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++) 
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = conj(x[i][j]);
+            x[i][j] = Ttraits::conj(x[i][j]);
         }
         for (int i = 0; i < y.size0(); i++) 
         for (int j = 0; j < y.size1(); j++) {
-            y[i][j] = conj(y[i][j]);
+            y[i][j] = Ttraits::conj(y[i][j]);
         }
 
         // Delegate.
@@ -687,11 +642,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++) 
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = conj(x[i][j]);
+            x[i][j] = Ttraits::conj(x[i][j]);
         }
         for (int i = 0; i < y.size0(); i++) 
         for (int j = 0; j < y.size1(); j++) {
-            y[i][j] = conj(y[i][j]);
+            y[i][j] = Ttraits::conj(y[i][j]);
         }
     }
 
@@ -791,11 +746,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++) 
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = conj(x[i][j]);
+            x[i][j] = Ttraits::conj(x[i][j]);
         }
         for (int i = 0; i < q.size0(); i++) 
         for (int j = 0; j < q.size1(); j++) {
-            q[i][j] = conj(q[i][j]);
+            q[i][j] = Ttraits::conj(q[i][j]);
         }
 
         // Delegate.
@@ -806,11 +761,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++) 
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = conj(x[i][j]);
+            x[i][j] = Ttraits::conj(x[i][j]);
         }
         for (int i = 0; i < q.size0(); i++) 
         for (int j = 0; j < q.size1(); j++) {
-            q[i][j] = conj(q[i][j]);
+            q[i][j] = Ttraits::conj(q[i][j]);
         }
     }
 
@@ -834,11 +789,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++) 
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = conj(x[i][j]);
+            x[i][j] = Ttraits::conj(x[i][j]);
         }
         for (int i = 0; i < q.size0(); i++) 
         for (int j = 0; j < q.size1(); j++) {
-            q[i][j] = conj(q[i][j]);
+            q[i][j] = Ttraits::conj(q[i][j]);
         }
 
         // Delegate.
@@ -849,11 +804,116 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++) 
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = conj(x[i][j]);
+            x[i][j] = Ttraits::conj(x[i][j]);
         }
         for (int i = 0; i < q.size0(); i++) 
         for (int j = 0; j < q.size1(); j++) {
-            q[i][j] = conj(q[i][j]);
+            q[i][j] = Ttraits::conj(q[i][j]);
+        }
+    }
+
+    /**@}*/
+
+public:
+
+    /**
+     * @name Triangular-triangular decomposition
+     */
+    /**@{*/
+
+    /**
+     * @brief Decomp @f$ \mathbf{X} \to \mathbf{L}\mathbf{L}^\dagger @f$.
+     *
+     * @param[inout] x
+     * Matrix @f$ \mathbf{X} \to \mathbf{L} @f$.
+     *
+     * @param[out] p
+     * Vector @f$ \mathbf{P} @f$. _Optional_.
+     */
+    static void decompchol(
+                dense_matrix_view<value_type*> x,
+                dense_vector_view<int*> p = {})
+    {
+        // Ensure valid.
+        if (x.empty() ||
+            x.size0() != x.size1()) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+
+        // Initialize pivot.
+        if (!p.empty()) {
+            // Ensure valid.
+            if (p.size() != x.size0()) {
+                throw std::invalid_argument(__PRETTY_FUNCTION__);
+            }
+            // Initialize.
+            std::iota(
+                    p.begin(), 
+                    p.end(), 
+                    0);
+        }
+
+        // Iterate.
+        for (int k = 0; k < x.size0(); k++) {
+
+            // Pivot.
+            if (!p.empty()) {
+                int l = k;
+                float_type fac = 0;
+                float_type tmp = 0;
+                for (int i = k; i < x.size0(); i++) {
+                    tmp = Ttraits::abs(x[i][i]);
+                    if (fac < tmp) {
+                        fac = tmp;
+                        l = i;
+                    }
+                }
+                if (k != l) {
+                    // Swap.
+                    std::swap(p[k], p[l]);
+                    std::swap_ranges(
+                        x[k].begin(), x[k].end(),
+                        x[l].begin());
+                    std::swap_ranges(
+                        x.transpose()[k].begin(), x.transpose()[k].end(),
+                        x.transpose()[l].begin());
+                }
+
+                // Positive semi-definite?
+                if (!(Ttraits::abs(x[k][k]) > 
+                      Ttraits::abs(x[0][0]) * 
+                      pr::numeric_limits<float_type>::epsilon())) {
+                    for (int i = k; i < x.size0(); i++) 
+                    for (int j = k; j < i + 1; j++) {
+                        x[i][j] = value_type();
+                    }
+                    break;
+                }
+            }
+
+            // Diagonal not real?
+            if (x[k][k] != Ttraits::real(x[k][k])) {
+                throw std::runtime_error(__PRETTY_FUNCTION__);
+            }
+
+            // Update diagonal entry.
+            x[k][k] = pr::sqrt(Ttraits::real(x[k][k]));
+
+            // Update off-diagonal entries.
+            float_type invxkk = float_type(1) / Ttraits::real(x[k][k]);
+            for (int i = k + 1; i < x.size0(); i++) {
+                x[i][k] *= invxkk;
+            }
+            for (int i = k + 1; i < x.size0(); i++)
+            for (int j = k + 1; j < i + 1; j++) {
+                x[i][j] -= x[i][k] * Ttraits::conj(x[j][k]);
+            }
+        }
+
+        // To lower triangular.
+        for (int i = 1; i < x.size0(); i++)
+        for (int j = 0; j < i; j++) {
+            x[j][i] = value_type();
         }
     }
 
