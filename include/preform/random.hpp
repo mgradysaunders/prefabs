@@ -1968,7 +1968,7 @@ private:
  * @brief Subset distribution wrapper.
  */
 template <typename Tbase>
-class subset_distribution_wrapper : public Tbase
+class subset_distribution_adapter : public Tbase
 {
 public:
 
@@ -2001,7 +2001,7 @@ public:
      * If invalid bounds.
      */
     template <typename... Targs>
-    subset_distribution_wrapper(
+    subset_distribution_adapter(
             float_type x0,
             float_type x1,
             Targs&&... args) :
@@ -2187,42 +2187,42 @@ private:
  */
 template <typename T = double>
 using subset_exponential_distribution = 
-      subset_distribution_wrapper<exponential_distribution<T>>;
+      subset_distribution_adapter<exponential_distribution<T>>;
 
 /**
  * @brief Subset normal distribution.
  */
 template <typename T = double>
 using subset_normal_distribution = 
-      subset_distribution_wrapper<normal_distribution<T>>;
+      subset_distribution_adapter<normal_distribution<T>>;
 
 /**
  * @brief Subset lognormal distribution.
  */
 template <typename T = double>
 using subset_lognormal_distribution = 
-      subset_distribution_wrapper<lognormal_distribution<T>>;
+      subset_distribution_adapter<lognormal_distribution<T>>;
 
 /**
  * @brief Subset logistic distribution.
  */
 template <typename T = double>
 using subset_logistic_distribution = 
-      subset_distribution_wrapper<logistic_distribution<T>>;
+      subset_distribution_adapter<logistic_distribution<T>>;
 
 /**
  * @brief Subset tanh distribution.
  */
 template <typename T = double>
 using subset_tanh_distribution = 
-      subset_distribution_wrapper<tanh_distribution<T>>;
+      subset_distribution_adapter<tanh_distribution<T>>;
 
 /**
  * @brief Subset Weibull distribution.
  */
 template <typename T = double>
 using subset_weibull_distribution = 
-      subset_distribution_wrapper<weibull_distribution<T>>;
+      subset_distribution_adapter<weibull_distribution<T>>;
 
 /**@}*/
 
