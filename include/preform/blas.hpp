@@ -32,8 +32,8 @@
 #endif // #if !(__cplusplus >= 201402L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_DENSE_BLAS_HPP
-#define PREFORM_DENSE_BLAS_HPP
+#ifndef PREFORM_BLAS_HPP
+#define PREFORM_BLAS_HPP
 
 // for std::vector
 #include <vector>
@@ -56,87 +56,107 @@
 namespace pr {
 
 /**
- * @defgroup dense_blas Basic linear algebra subroutines
+ * @defgroup blas Basic linear algebra subroutines
  *
- * `<preform/dense_blas.hpp>`
+ * `<preform/blas.hpp>`
  *
  * __C++ version__: >=C++14
  */
 /**@{*/
 
+// TODO generalize
+/**
+ * @brief BLAS traits.
+ */
 template <typename T>
-struct default_blas_traits
+struct blas_traits
 {
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value ||
+        is_complex<T>::value,  
+        "T must be floating point or complex");
+
+    /**
+     * @brief Value type.
+     */
     typedef T value_type;
 
-    typedef T float_type;
+    /**
+     * @brief Float type.
+     */
+    typedef decltype(pr::real(T())) float_type;
 
-    __attribute__((always_inline))
-    static float_type abs(const value_type& x)
-    {
-        return pr::fabs(x);
-    }
-
-    __attribute__((always_inline))
-    static float_type norm(const value_type& x)
-    {
-        return x * x;
-    }
-
-    __attribute__((always_inline))
-    static value_type conj(const value_type& x)
-    {
-        return x;
-    }
-
-    __attribute__((always_inline))
-    static value_type sign(const value_type& x)
-    {
-        return pr::copysign(value_type(1), x);
-    }
-
-    // TODO real
-};
-
-template <typename T>
-struct default_blas_traits<std::complex<T>>
-{
-    typedef std::complex<T> value_type;
-
-    typedef T float_type;
-
+    /**
+     * @brief Absolute value.
+     */
     __attribute__((always_inline))
     static float_type abs(const value_type& x)
     {
         return pr::abs(x);
     }
 
+    /**
+     * @brief Norm square.
+     */
     __attribute__((always_inline))
     static float_type norm(const value_type& x)
     {
         return pr::norm(x);
     }
 
+    /**
+     * @brief Conjugate.
+     */
     __attribute__((always_inline))
     static value_type conj(const value_type& x)
     {
         return pr::conj(x);
     }
 
+    /**
+     * @brief Sign.
+     */
+    __attribute__((always_inline))
     static value_type sign(const value_type& x)
     {
         return pr::sign(x);
     }
 
-    // TODO real
+    /**
+     * @brief Real part.
+     */
+    __attribute__((always_inline))
+    static float_type real(const value_type& x)
+    {
+        return pr::real(x);
+    }
 };
 
 /**
- * @brief Dense basic linear algebra subroutines.
+ * @brief Dense BLAS.
+ *
+ * Dense BLAS, or Basic Linear Algebra Subroutines, for a 
+ * generic type.
+ *
+ * ### Assumptions
+ *
+ * Let @f$ T @f$ denote the set of values 
+ * representable by the generic type parameter. 
+ *
+ * For every @f$ x \in T @f$, let @f$ x^\dagger @f$ denote
+ * the conjugate, whereby
+ * 1. @f$ x @f$ and @f$ x^\dagger @f$ form a unique conjugate pair such that
+ *    @f$ x = (x^\dagger)^\dagger @f$,
+ * 2. @f$ x @f$ and @f$ x^\dagger @f$ commute such that 
+ *    @f$ x x^\dagger = x^\dagger x @f$.
+ *
+ * Let the quantity @f$ x x^\dagger \in P \subseteq T @f$, where 
+ * @f$ P @f$ is a _pseudo real_ subset of @f$ T @f$.
  */
 template <
     typename T, 
-    typename Ttraits = default_blas_traits<T>
+    typename Ttraits = blas_traits<T>
     >
 struct dense_blas
 {
@@ -357,7 +377,7 @@ public:
      *
      * @f[
      *      \mathbf{y} \gets
-     *      \mathbf{y} - 2 \mathbf{x} (\bar{\mathbf{x}} \cdot \mathbf{y}) 
+     *      \mathbf{y} - 2 \mathbf{x} (\mathbf{x}^\dagger \mathbf{y}) 
      * @f]
      *
      * @param[in] x
@@ -616,7 +636,6 @@ public:
      * This method calls `householderl()` with the appropriate
      * view transform.
      */
-    __attribute__((always_inline))
     static void householderr(
                 int p,
                 int q,
@@ -925,4 +944,4 @@ public:
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_DENSE_BLAS_HPP
+#endif // #ifndef PREFORM_BLAS_HPP
