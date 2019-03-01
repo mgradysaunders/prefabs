@@ -71,11 +71,11 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="structpr_1_1dense__blas-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::dense_blas&lt; T, Ttraits &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__dense__blas.html">Basic linear algebra subroutines</a></div></div>  </div>
+<div class="title">pr::dense_blas&lt; T, Ttraits &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__blas.html">Basic linear algebra subroutines</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Dense basic linear algebra subroutines.  
+<p>Dense BLAS.  
  <a href="structpr_1_1dense__blas.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -137,10 +137,18 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:abeebd098e7cab55a1deb474c935dcf44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, typename Ttraits = default_blas_traits&lt;T&gt;&gt;<br />
+<div class="textblock"><h3>template&lt;typename T, typename Ttraits = blas_traits&lt;T&gt;&gt;<br />
 struct pr::dense_blas&lt; T, Ttraits &gt;</h3>
 
-<p>Dense basic linear algebra subroutines. </p>
+<p>Dense BLAS. </p>
+<p>Dense BLAS, or Basic Linear Algebra Subroutines, for a generic type.</p>
+<h3>Assumptions</h3>
+<p>Let \( T \) denote the set of values representable by the generic type parameter.</p>
+<p>For every \( x \in T \), let \( x^\dagger \) denote the conjugate, whereby</p><ol type="1">
+<li>\( x \) and \( x^\dagger \) form a unique conjugate pair such that \( x = (x^\dagger)^\dagger \),</li>
+<li>\( x \) and \( x^\dagger \) commute such that \( x x^\dagger = x^\dagger x \).</li>
+</ol>
+<p>Let the quantity \( x x^\dagger \in P \subseteq T \), where \( P \) is a <em>pseudo real</em> subset of \( T \). </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a10a218501ca539992b175c6614381eef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a10a218501ca539992b175c6614381eef">&#9670;&nbsp;</a></span>value_type</h2>
@@ -148,7 +156,7 @@ struct pr::dense_blas&lt; T, Ttraits &gt;</h3>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef Ttraits::value_type <a class="el" href="structpr_1_1dense__blas.html">pr::dense_blas</a>&lt; T, Ttraits &gt;::<a class="el" href="structpr_1_1dense__blas.html#a10a218501ca539992b175c6614381eef">value_type</a></td>
@@ -166,7 +174,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">typedef Ttraits::float_type <a class="el" href="structpr_1_1dense__blas.html">pr::dense_blas</a>&lt; T, Ttraits &gt;::<a class="el" href="structpr_1_1dense__blas.html#a1c639f4327c8809a2da98ff73dfab0cd">float_type</a></td>
@@ -185,7 +193,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -241,7 +249,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -297,7 +305,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -337,7 +345,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -373,7 +381,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -405,7 +413,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 
 <p>Reflect. </p>
 <p class="formulaDsp">
-\[ \mathbf{y} \gets \mathbf{y} - 2 \mathbf{x} (\bar{\mathbf{x}} \cdot \mathbf{y}) \]
+\[ \mathbf{y} \gets \mathbf{y} - 2 \mathbf{x} (\mathbf{x}^\dagger \mathbf{y}) \]
 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -430,7 +438,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -487,7 +495,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -523,7 +531,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -592,7 +600,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -654,7 +662,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -707,7 +715,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -755,7 +763,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -803,7 +811,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -851,7 +859,7 @@ template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Ttraits  = default_blas_traits&lt;T&gt;&gt; </div>
+template&lt;typename T , typename Ttraits  = blas_traits&lt;T&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
