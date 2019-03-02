@@ -228,6 +228,117 @@ public:
 };
 
 /**
+ * @brief Beckmann microsurface slope distribution.
+ */
+template <typename T>
+struct beckmann_microsurface_slope
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+    
+    /**
+     * @brief Non-constructible.
+     */
+    beckmann_microsurface_slope() = delete;
+
+    /**
+     * @brief Smith shadowing term.
+     *
+     * @f[
+     *      \Lambda_{11}(\omega_o) = 
+     *      \frac{1}{2a\sqrt{\pi}} e^{-a^2} -
+     *      \frac{1}{2} \operatorname{erfc}(a)
+     * @f]
+     * where
+     * @f[
+     *      a = \frac{1}{
+     *          \sqrt{\omega_{o_x}^2/\omega_{o_z}^2 +
+     *          \sqrt{\omega_{o_y}^2/\omega_{o_z}^2}
+     * @f]
+     * 
+     * @param[in] wo
+     * Viewing direction.
+     */
+    static float_type lambda11(multi<float_type, 3> wo)
+    {
+        // TODO Verify
+        float_type a = 
+            1 / pr::hypot(
+                wo[0] / wo[2],
+                wo[1] / wo[2]);
+
+        // Overflow?
+        if (!pr::isfinite(a)) {
+            return pr::signbit(wo[2]) ? -1 : 0;
+        }
+        else {
+            // Evaluate.
+            return float_type(0.5) * 
+                (pr::numeric_constants<float_type>::M_sqrt1_pi() * 
+                 pr::exp(-a * a) / a - pr::erfc(a));
+        }
+    }
+
+    /**
+     * @brief Projected area.
+     *
+     * @f[
+     *      A_{\perp11}(\omega_o) = 
+     *          (1 + \Lambda_{11}(\omega_o))\omega_{o_z}
+     * @f]
+     *
+     * @param[in] wo
+     * Viewing direction.
+     */
+    static float_type aperp11(multi<float_type, 3> wo)
+    {
+        return (1 + lambda11(wo)) * wo[2];
+    }
+
+    /**
+     * @brief Distribution of slopes.
+     *
+     * @f[
+     *      P_{11}([m_x\; m_y]^\top) = 
+     *      \frac{1}{\pi} \exp(-m_x^2 - m_y^2)
+     * @f]
+     *
+     * @param[in] m
+     * Slope.
+     */
+    static float_type p11(multi<float_type, 2> m)
+    {
+        return pr::numeric_constants<float_type>::M_1_pi() *
+               pr::exp(-(m[0] * m[0] + m[1] * m[1]));
+    }
+
+    /**
+     * @brief Distribution of slopes sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] cos_thetao
+     * Cosine of viewing angle.
+     */
+    static multi<float_type, 2> p11_sample(
+                multi<float_type, 2> u, float_type cos_thetao)
+    {
+        // TODO
+        return {};
+    }
+};
+
+/**
  * @brief Uniform microsurface height distribution.
  */
 template <typename T>
@@ -707,6 +818,8 @@ private:
      */
     multi<float_type, 2> alpha_ = multi<float_type, 2>(1);
 };
+
+// TODO diffuse_microsurface_adapter
 
 /**@}*/
 
