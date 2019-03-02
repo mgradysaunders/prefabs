@@ -51,431 +51,103 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Microsurface shared members (by curiously recurring 
- * template pattern).
- *
- * This implementation is based on the _Multiple-scattering microfacet BSDFs 
- * with the Smith model_ sample code by Eric Heitz.
+ * @brief Trowbridge-Reitz microsurface slope distribution.
  */
-template <
-    typename Tfloat, 
-    typename Tspecific
-    >
-struct microsurface_shared
+template <typename T>
+struct trowbridge_reitz_microsurface_slope
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<Tfloat>::value,
-        "Tfloat must be floating point");
+        std::is_floating_point<T>::value,
+        "T must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef Tfloat float_type;
-
+    typedef T float_type;
+    
     /**
-     * @brief Default constructor.
+     * @brief Non-constructible.
      */
-    microsurface_shared() = default;
-
-    /**
-     * @brief Constructor.
-     *
-     * @param[in] alpha
-     * Roughness.
-     */
-    microsurface_shared(multi<float_type, 2> alpha) : alpha_(alpha)
-    {
-    }
-
-    /**
-     * @brief Distribution of normals.
-     *
-     * @f[
-     *      D(\omega_m) = 
-     *      \frac{1}{\cos^4(\theta_m)} P_{22}([m_x\; m_y])
-     * @f]
-     * where
-     * - @f$ m_x = -\omega_{m_x} / \cos(\theta_m) @f$,
-     * - @f$ m_y = -\omega_{m_y} / \cos(\theta_m) @f$
-     *
-     * @param[in] wm
-     * Normal direction.
-     */
-    float_type dwm(multi<float_type, 3> wm) const
-    {
-        // Invalid normal?
-        if (pr::signbit(wm[2])) {
-            return 0;
-        }
-
-        // Trig terms.
-        float_type cos_thetam = wm[2];
-        cos_thetam = pr::fmax(cos_thetam, float_type(-1));
-        cos_thetam = pr::fmin(cos_thetam, float_type(+1));
-        float_type cos2_thetam = cos_thetam * cos_thetam;
-        float_type cos4_thetam = cos2_thetam * cos2_thetam;
-        if (cos4_thetam == 0) {
-            return 0;
-        }
-
-        // Slope.
-        multi<float_type, 2> m = {
-            -wm[0] / cos_thetam,
-            -wm[1] / cos_thetam
-        };
-
-        // Slope distribution.
-        float_type p22 = static_cast<const Tspecific*>(this)->p22(m);
-        return pr::isfinite(p22 / cos4_thetam) ?
-                            p22 / cos4_thetam : 0;
-    }
-
-    /**
-     * @brief Distribution of visible normals.
-     *
-     * @f[
-     *      D_{\omega_o}(\omega_m) = D(\omega_m)
-     *         \frac{\langle{\omega_o, \omega_m}\rangle}{A_{\perp}(\omega_o)}
-     * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
-     *
-     * @param[in] wm
-     * Normal direction.
-     */
-    float_type dwo(
-                multi<float_type, 3> wo,
-                multi<float_type, 3> wm) const
-    {
-        // Invalid normal?
-        if (pr::signbit(wm[2])) {
-            return 0;
-        }
-
-        // Dot product.
-        float_type cos_theta = pr::dot(wo, wm);
-
-        // Invalid hemisphere?
-        if (pr::signbit(cos_theta)) {
-            return 0;
-        }
-
-        // Projected area.
-        float_type a = static_cast<const Tspecific*>(this)->aperp(wo);
-
-        // Distribution of normals.
-        float_type d = dwm(wm);
-
-        // Distribution of visible normals.
-        return pr::isfinite(d * cos_theta / a) ?
-                            d * cos_theta / a : 0;
-    }
-
-    /**
-     * @brief Distribution of visible normals sampling routine.
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
-     *
-     * @param[in] wo
-     * Viewing direction.
-     */
-    multi<float_type, 3> dwo_sample(
-                multi<float_type, 2> u,
-                multi<float_type, 3> wo) const
-    {
-        // Stretch.
-        multi<float_type, 3> wo11 = pr::normalize(
-        multi<float_type, 3>{
-            alpha_[0] * wo[0],
-            alpha_[1] * wo[1],
-            wo[2]
-        });
-
-        // Sample visible slope.
-        multi<float_type, 2> m11 = 
-            static_cast<const Tspecific*>(this)->p11_sample(u, wo11[2]);
-
-        // Rotate.
-        float_type phi = pr::atan2(wo11[1], wo11[0]);
-        float_type sin_phi = pr::sin(phi);
-        float_type cos_phi = pr::cos(phi);
-        multi<float_type, 2> m = {
-            cos_phi * m11[0] - sin_phi * m11[1],
-            sin_phi * m11[0] + cos_phi * m11[1]
-        };
-
-        // Unstretch.
-        m *= alpha_;
-
-        // Invalid slope?
-        if (!pr::isfinite(m[0]) ||
-            !pr::isfinite(m[1])) {
-            if (wo[2] != 0) {
-                return {0, 0, 1};
-            }
-            else {
-                multi<float_type, 3> wm = {wo[0], wo[1], 0};
-                return pr::normalize(wm);
-            }
-        }
-
-        // Normalize.
-        multi<float_type, 3> wm = {-m[0], -m[1], 1};
-        return pr::normalize(wm);
-    }
-
-    /**
-     * @brief Height-averaged shadowing function.
-     *
-     * @f[
-     *      G_1(\omega_o) = \frac{1}{1 + \Lambda(\omega_o)}
-     * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
-     */
-    float_type g1(multi<float_type, 3> wo) const
-    {
-        if (pr::signbit(wo[2])) {
-            return 0;
-        }
-
-        return 1 / (1 + static_cast<const Tspecific*>(this)->lambda(wo));
-    }
-
-    /**
-     * @brief Height-specific shadowing function.
-     *
-     * @f[
-     *      G_1(\omega_o, h_0) = C_1(h_0)^{\Lambda(\omega_o)}
-     * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
-     *
-     * @param[in] h0
-     * Current height.
-     */
-    float_type g1(multi<float_type, 3> wo, float_type h0) const
-    {
-        if (pr::signbit(wo[2])) {
-            return 0;
-        }
-
-        return pr::pow(
-               pr::normal_distribution<float_type>().cdf(h0),
-               static_cast<const Tspecific*>(this)->lambda(wo));
-    }
-
-    /**
-     * @brief Height sampling routine.
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1) @f$.
-     *
-     * @param[in] wo
-     * Viewing direction.
-     *
-     * @param[in] h0
-     * Current height.
-     */
-    float_type h_sample(
-                float_type u, multi<float_type, 3> wo,
-                float_type h0) const
-    {
-        // Handle edge case.
-        if (wo[2] > float_type(+0.9999)) {
-            return pr::numeric_limits<float_type>::infinity(); // Exit
-        }
-
-        // Handle edge case.
-        if (wo[2] < float_type(-0.9999)) {
-            return 
-                pr::normal_distribution<float_type>().cdfinv(u * 
-                pr::normal_distribution<float_type>().cdf(h0));
-        }
-
-        // Handle edge case.
-        if (pr::fabs(wo[2]) < float_type(0.0001)) {
-            return h0;
-        }
-
-        // Shadowing is probability of intersection.
-        float_type g = g1(wo, h0);
-        if (u > 1 - g) {
-            return pr::numeric_limits<float_type>::infinity(); // Exit
-        }
-
-        // Intersect.
-        return 
-            pr::normal_distribution<float_type>().cdfinv(
-            pr::normal_distribution<float_type>().cdf(h0) /
-            pr::pow(1 - u, 
-                    1 / static_cast<const Tspecific*>(this)->lambda(wo)));
-    }
-
-protected:
-
-    /**
-     * @brief Roughness @f$ [\alpha_x\, \alpha_y]^\top @f$.
-     */
-    multi<float_type, 2> alpha_ = {
-        1, 
-        1
-    };
-};
-
-/**
- * @brief Trowbridge-Reitz microsurface.
- */
-template <typename Tfloat>
-struct trowbridge_reitz_microsurface : public
-                        microsurface_shared<Tfloat,
-                        trowbridge_reitz_microsurface<Tfloat>>
-{
-public:
-
-    // Sanity check.
-    static_assert(
-        std::is_floating_point<Tfloat>::value,
-        "Tfloat must be floating point");
-
-    /**
-     * @brief Float type.
-     */
-    typedef Tfloat float_type;
-
-    // Expose constructors.
-    using microsurface_shared<Tfloat,
-            trowbridge_reitz_microsurface<Tfloat>>::microsurface_shared;
-
-    // Expose alpha_.
-    using microsurface_shared<Tfloat,
-            trowbridge_reitz_microsurface<Tfloat>>::alpha_;
-
-    /**
-     * @brief Projected area.
-     *
-     * @f[
-     *      A_{\perp}(\omega_o) = 
-     *      \int{\langle{\omega_o, \omega_m}\rangle D(\omega_m)}\,d\omega_m =
-     *      (1 + \Lambda(\omega_o))\cos(\theta_o)
-     * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
-     */
-    float_type aperp(multi<float_type, 3> wo) const
-    {
-        // Trig terms.
-        float_type cos_thetao = wo[2];
-        cos_thetao = pr::fmax(cos_thetao, -float_type(1));
-        cos_thetao = pr::fmin(cos_thetao, +float_type(1));
-        float_type cos2_thetao = cos_thetao * cos_thetao;
-        float_type sin2_thetao = 1 - cos2_thetao;
-        float_type cos2_phio = wo[0] * wo[0] / sin2_thetao;
-        float_type sin2_phio = wo[1] * wo[1] / sin2_thetao;
-
-        // Projected roughness squared.
-        float_type alpha2 = 
-            alpha_[0] * alpha_[0] * cos2_phio +
-            alpha_[1] * alpha_[1] * sin2_phio;
-
-        // Overflow? 
-        if (!pr::isfinite(alpha2)) {
-            return pr::signbit(cos_thetao) ? 0 : 1;
-        }
-        else {
-            // Evaluate.
-            return 
-                float_type(0.5) * cos_thetao + 
-                float_type(0.5) * pr::sqrt(cos2_thetao +
-                                           sin2_thetao * alpha2); 
-        }
-    }
+    trowbridge_reitz_microsurface_slope() = delete;
 
     /**
      * @brief Smith shadowing term.
      *
      * @f[
-     *      \Lambda(\omega_o) = 
-     *      \frac{1}{2}\left(-1 + \operatorname{sign}(\mu)
-     *      \sqrt{1 + \frac{1}{\mu^2}}\right)
-     * @f]
-     * where
-     * @f[
-     *      \mu = \frac{1}{\tan(\theta_o)\alpha_{\perp}(\omega_o)}
+     *      \Lambda_{11}(\omega_o) = 
+     *      \frac{1}{2}\operatorname{sign}(\omega_{o_z})
+     *      \sqrt{1 + 
+     *      \omega_{o_x}^2 / \omega_{o_z}^2 +
+     *      \omega_{o_y}^2 / \omega_{o_z}^2} - \frac{1}{2}
      * @f]
      * 
      * @param[in] wo
      * Viewing direction.
      */
-    float_type lambda(multi<float_type, 3> wo) const
+    static float_type lambda11(multi<float_type, 3> wo)
     {
-        // Trig terms.
-        float_type cos_thetao = wo[2];
-        cos_thetao = pr::fmax(cos_thetao, -float_type(1));
-        cos_thetao = pr::fmin(cos_thetao, +float_type(1));
-        float_type cos2_thetao = cos_thetao * cos_thetao;
-        float_type sin2_thetao = 1 - cos2_thetao;
-        float_type cos2_phio = wo[0] * wo[0] / sin2_thetao;
-        float_type sin2_phio = wo[1] * wo[1] / sin2_thetao;
-
-        // Projected roughness squared.
-        float_type alpha2 = 
-            alpha_[0] * alpha_[0] * cos2_phio +
-            alpha_[1] * alpha_[1] * sin2_phio;
-
-        // Projected roughness.
-        float_type alpha = pr::sqrt(alpha2);
-
-        // More trig terms, evaluation terms.
-        float_type sin_thetao = pr::sqrt(sin2_thetao);
-        float_type cot_thetao = cos_thetao / sin_thetao;
-        float_type mu = cot_thetao / alpha;
-        float_type muinv2 = 1 / mu / mu;
+        float_type tmp0 = wo[0] / wo[2];
+        float_type tmp1 = wo[1] / wo[2];
+        float_type fac = 1 + 
+            tmp0 * tmp0 + 
+            tmp1 * tmp1;
 
         // Overflow?
-        if (!pr::isfinite(mu) ||
-            !pr::isfinite(muinv2)) {
-            return pr::signbit(cos_thetao) ? -1 : 0;
+        if (!pr::isfinite(fac)) {
+            return pr::signbit(wo[2]) ? -1 : 0;
         }
         else {
             // Evaluate.
             return 
-                pr::copysign(float_type(0.5), mu) *
-                pr::sqrt(1 + muinv2) - float_type(0.5);
+                pr::copysign(float_type(0.5), wo[2]) *
+                pr::sqrt(fac) - float_type(0.5);
         }
+    }
+
+    /**
+     * @brief Projected area.
+     *
+     * @f[
+     *      A_{\perp11}(\omega_o) = 
+     *          (1 + \Lambda_{11}(\omega_o))\cos{\theta_o} = 
+     *          \frac{1}{2}\omega_{o_z} + 
+     *          \frac{1}{2}\lVert{\omega_o}\rVert
+     * @f]
+     *
+     * @param[in] wo
+     * Viewing direction.
+     */
+    static float_type aperp11(multi<float_type, 3> wo)
+    {
+        return float_type(0.5) * wo[2] + 
+               float_type(0.5) * pr::length(wo);
     }
 
     /**
      * @brief Distribution of slopes.
      *
      * @f[
-     *      P_{22}([m_x\; m_y]^\top) = 
-     *      \frac{1}{\pi\alpha_x\alpha_y}
-     *      \frac{1}{(1 + m_x^2/\alpha_x^2 + m_y^2/\alpha_y^2)^2}
+     *      P_{11}([m_x\; m_y]^\top) = 
+     *      \frac{1}{\pi}
+     *      \frac{1}{(1 + m_x^2 + m_y^2)^2}
      * @f]
      *
      * @param[in] m
      * Slope.
      */
-    float_type p22(multi<float_type, 2> m) const
+    static float_type p11(multi<float_type, 2> m)
     {
         float_type zeta = 1 +
-            m[0] * m[0] / (alpha_[0] * alpha_[0]) +
-            m[1] * m[1] / (alpha_[1] * alpha_[1]);
-        return pr::numeric_constants<float_type>::M_1_pi() / 
-                    (alpha_[0] * alpha_[1] * zeta * zeta);
+            m[0] * m[0] +
+            m[1] * m[1];
+        return pr::numeric_constants<float_type>::M_1_pi() / (zeta * zeta);
     }
 
     /**
-     * @brief Distribution of slopes sampling routine, without roughness.
+     * @brief Distribution of slopes sampling routine.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -483,8 +155,8 @@ public:
      * @param[in] cos_thetao
      * Cosine of viewing angle.
      */
-    multi<float_type, 2> p11_sample(
-            multi<float_type, 2> u, float_type cos_thetao) const
+    static multi<float_type, 2> p11_sample(
+                multi<float_type, 2> u, float_type cos_thetao)
     {
         // Slope.
         multi<float_type, 2> m = {
@@ -555,7 +227,486 @@ public:
     }
 };
 
-// TODO beckmann_microsurface
+/**
+ * @brief Uniform microsurface height distribution.
+ */
+template <typename T>
+struct uniform_microsurface_height
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Non-constructible.
+     */
+    uniform_microsurface_height() = delete;
+
+    /**
+     * @brief Height probability density function.
+     *
+     * @param[in] h
+     * Height.
+     */
+    __attribute__((always_inline))
+    static float_type p1(float_type h)
+    {
+        return pr::uniform_real_distribution<float_type>(-1, +1).pdf(h);
+    }
+
+    /**
+     * @brief Height cumulative distribution function.
+     *
+     * @param[in] h
+     * Height.
+     */
+    __attribute__((always_inline))
+    static float_type c1(float_type h)
+    {
+        return pr::uniform_real_distribution<float_type>(-1, +1).cdf(h);
+    }
+
+    /**
+     * @brief Height cumulative distribution function inverse.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1) @f$.
+     */
+    __attribute__((always_inline))
+    static float_type c1inv(float_type u)
+    {
+        return pr::uniform_real_distribution<float_type>(-1, +1).cdfinv(u);
+    }
+};
+
+/**
+ * @brief Normal microsurface height distribution.
+ */
+template <typename T>
+struct normal_microsurface_height
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Non-constructible.
+     */
+    normal_microsurface_height() = delete;
+
+    /**
+     * @brief Height probability density function.
+     *
+     * @param[in] h
+     * Height.
+     */
+    __attribute__((always_inline))
+    static float_type p1(float_type h)
+    {
+        return pr::normal_distribution<float_type>(0, 1).pdf(h);
+    }
+
+    /**
+     * @brief Height cumulative distribution function.
+     *
+     * @param[in] h
+     * Height.
+     */
+    __attribute__((always_inline))
+    static float_type c1(float_type h)
+    {
+        return pr::normal_distribution<float_type>(0, 1).cdf(h);
+    }
+
+    /**
+     * @brief Height cumulative distribution function inverse.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1) @f$.
+     */
+    __attribute__((always_inline))
+    static float_type c1inv(float_type u)
+    {
+        return pr::normal_distribution<float_type>(0, 1).cdfinv(u);
+    }
+};
+
+/**
+ * @brief Microsurface adapter.
+ *
+ * This implementation is based on the _Multiple-scattering microfacet BSDFs 
+ * with the Smith model_ sample code by Eric Heitz.
+ *
+ * @tparam Tslope 
+ * Slope distribution.
+ *
+ * @tparam Theight
+ * Height distribution.
+ */
+template <typename Tslope, typename Theight>
+struct microsurface_adapter
+{
+public:
+
+    /**
+     * @brief Float type.
+     */
+    typedef typename Tslope::float_type float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    microsurface_adapter() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @param[in] alpha
+     * Roughness.
+     */
+    microsurface_adapter(multi<float_type, 2> alpha) : alpha_(alpha)
+    {
+    }
+
+    /**
+     * @brief Smith shadowing term.
+     *
+     * @f[
+     *      \Lambda(\omega_o) = 
+     *      \Lambda_{11}(\omega_o')
+     * @f]
+     * where
+     * @f[
+     *      \omega_o' \gets
+     *      \frac{1}{\sqrt{
+     *          \alpha_x^2\omega_{o_x}^2 +
+     *          \alpha_y^2\omega_{o_y}^2}}
+            [\alpha_x\omega_{o_x}\;
+     *       \alpha_y\omega_{o_y}\;
+     *       \omega_{o_z}]^\top
+     * @f]
+     *
+     * @param[in] wo
+     * Viewing direction.
+     */
+    float_type lambda(multi<float_type, 3> wo) const
+    {
+        // Warp.
+        wo[0] *= alpha_[0];
+        wo[1] *= alpha_[1];
+        float_type fac = pr::hypot(wo[0], wo[1]);
+        wo /= fac;
+
+        // Delegate.
+        return Tslope::lambda11(wo);
+    }
+
+    /**
+     * @brief Projected area.
+     *
+     * @f[
+     *      A_{\perp}(\omega_o) =
+     *      A_{\perp11}(\omega_o') \sqrt{
+     *          \alpha_x^2\omega_{o_x}^2 +
+     *          \alpha_y^2\omega_{o_y}^2}
+     * @f]
+     * where
+     * @f[
+     *      \omega_o' \gets
+     *      \frac{1}{\sqrt{
+     *          \alpha_x^2\omega_{o_x}^2 +
+     *          \alpha_y^2\omega_{o_y}^2}}
+            [\alpha_x\omega_{o_x}\;
+     *       \alpha_y\omega_{o_y}\;
+     *       \omega_{o_z}]^\top
+     * @f]
+     *
+     * @param[in] wo
+     * Viewing direction.
+     */
+    float_type aperp(multi<float_type, 3> wo) const
+    {
+        // Warp.
+        wo[0] *= alpha_[0];
+        wo[1] *= alpha_[1];
+        float_type fac = pr::hypot(wo[0], wo[1]);
+        wo /= fac;
+
+        // Delegate.
+        return Tslope::aperp11(wo) * fac;
+    }
+
+    /**
+     * @brief Distribution of slopes.
+     *
+     * @f[
+     *      P_{22}([m_x\; m_y]^\top) = \frac{1}{\alpha_x \alpha_y} 
+     *      P_{11}([m_x/\alpha_x\; m_y/\alpha_y]^\top)
+     * @f]
+     *
+     * @param[in] m
+     * Slope.
+     */
+    float_type p22(multi<float_type, 2> m) const
+    {
+        // Warp.
+        m /= alpha_;
+        if (!pr::isfinite(m).all()) {
+            return 0;
+        }
+
+        // Delegate.
+        float_type p11 = Tslope::p11(m);
+        return pr::isfinite(p11 / alpha_.prod())  ?
+                            p11 / alpha_.prod() : 0;
+    }
+
+    /**
+     * @brief Distribution of normals.
+     *
+     * @f[
+     *      D(\omega_m) = 
+     *      \frac{1}{\cos^4(\theta_m)} P_{22}([m_x\; m_y])
+     * @f]
+     * where
+     * - @f$ m_x = -\omega_{m_x} / \cos(\theta_m) @f$,
+     * - @f$ m_y = -\omega_{m_y} / \cos(\theta_m) @f$
+     *
+     * @param[in] wm
+     * Normal direction.
+     */
+    float_type d(multi<float_type, 3> wm) const
+    {
+        // Invalid normal?
+        if (pr::signbit(wm[2])) {
+            return 0;
+        }
+
+        // Trig terms.
+        float_type cos_thetam = wm[2];
+        cos_thetam = pr::fmax(cos_thetam, float_type(-1));
+        cos_thetam = pr::fmin(cos_thetam, float_type(+1));
+        float_type cos2_thetam = cos_thetam * cos_thetam;
+        float_type cos4_thetam = cos2_thetam * cos2_thetam;
+        if (cos4_thetam == 0) {
+            return 0;
+        }
+
+        // Slope.
+        multi<float_type, 2> m = {
+            -wm[0] / cos_thetam,
+            -wm[1] / cos_thetam
+        };
+
+        // Slope distribution.
+        float_type p22_m = p22(m);
+        return pr::isfinite(p22_m / cos4_thetam) ?
+                            p22_m / cos4_thetam : 0;
+    }
+
+    /**
+     * @brief Distribution of visible normals.
+     *
+     * @f[
+     *      D_{\omega_o}(\omega_m) = D(\omega_m)
+     *         \frac{\langle{\omega_o, \omega_m}\rangle}{A_{\perp}(\omega_o)}
+     * @f]
+     *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @param[in] wm
+     * Normal direction.
+     */
+    float_type dwo(
+                multi<float_type, 3> wo,
+                multi<float_type, 3> wm) const
+    {
+        // Invalid normal?
+        if (pr::signbit(wm[2])) {
+            return 0;
+        }
+
+        // Area factors.
+        float_type fac_numer = pr::dot(wo, wm);
+        float_type fac_denom = aperp(wo);
+        if (pr::signbit(fac_numer) ||
+            pr::signbit(fac_denom)) {
+            return 0;
+        }
+
+        // Distribution of visible normals.
+        float_type d_wm = d(wm);
+        return pr::isfinite(d_wm * fac_numer / fac_denom) ?
+                            d_wm * fac_numer / fac_denom : 0;
+    }
+
+    /**
+     * @brief Distribution of visible normals sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Viewing direction.
+     */
+    multi<float_type, 3> dwo_sample(
+                multi<float_type, 2> u,
+                multi<float_type, 3> wo) const
+    {
+        // Stretch.
+        multi<float_type, 3> wo11 = normalize(
+        multi<float_type, 3>{
+            alpha_[0] * wo[0],
+            alpha_[1] * wo[1],
+            wo[2]
+        });
+
+        // Sample visible slope.
+        multi<float_type, 2> m11 = Tslope::p11_sample(u, wo11[2]);
+
+        // Rotate.
+        float_type phi = pr::atan2(wo11[1], wo11[0]);
+        float_type sin_phi = pr::sin(phi);
+        float_type cos_phi = pr::cos(phi);
+        multi<float_type, 2> m = {
+            cos_phi * m11[0] - sin_phi * m11[1],
+            sin_phi * m11[0] + cos_phi * m11[1]
+        };
+
+        // Unstretch.
+        m *= alpha_;
+
+        // Invalid slope?
+        if (!pr::isfinite(m[0]) ||
+            !pr::isfinite(m[1])) {
+            if (wo[2] != 0) {
+                return {0, 0, 1};
+            }
+            else {
+                multi<float_type, 3> wm = {wo[0], wo[1], 0};
+                return normalize(wm);
+            }
+        }
+
+        // Normalize.
+        multi<float_type, 3> wm = {-m[0], -m[1], 1};
+        return normalize(wm);
+    }
+
+    /**
+     * @brief Height-averaged shadowing function.
+     *
+     * @f[
+     *      G_1(\omega_o) = \chi^+(\cos{\theta_o})
+     *      \frac{1}{1 + \Lambda(\omega_o)}
+     * @f]
+     *
+     * @param[in] wo
+     * Viewing direction.
+     */
+    float_type g1(multi<float_type, 3> wo) const
+    {
+        if (pr::signbit(wo[2])) {
+            return 0;
+        }
+        else {
+            return 1 / (1 + lambda(wo));
+        }
+    }
+
+    /**
+     * @brief Height-specific shadowing function.
+     *
+     * @f[
+     *      G_1(\omega_o, h_0) = \chi^+(\cos{\theta_o})
+     *      C_1(h_0)^{\Lambda(\omega_o)}
+     * @f]
+     *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @param[in] h0
+     * Current height.
+     */
+    float_type g1(multi<float_type, 3> wo, float_type h0) const
+    {
+        if (pr::signbit(wo[2])) {
+            return 0;
+        }
+        else {
+            return pr::pow(Theight::c1(h0), lambda(wo));
+        }
+    }
+
+    /**
+     * @brief Height sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1) @f$.
+     *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @param[in] h0
+     * Current height.
+     */
+    float_type h_sample(
+                float_type u, multi<float_type, 3> wo,
+                float_type h0) const
+    {
+        // Handle cos(thetao) ~= +1.
+        if (wo[2] > float_type(+0.9999)) {
+            return pr::numeric_limits<float_type>::infinity(); // Exit
+        }
+
+        // Handle cos(thetao) ~= -1.
+        if (wo[2] < float_type(-0.9999)) {
+            return Theight::c1inv(
+                   Theight::c1(h0) * u);
+        }
+
+        // Handle cos(thetao) ~= 0.
+        if (pr::fabs(wo[2]) < float_type(0.0001)) {
+            return h0;
+        }
+
+        // Shadowing is probability of intersection.
+        float_type g = g1(wo, h0);
+        if (u > 1 - g) {
+            return pr::numeric_limits<float_type>::infinity(); // Exit
+        }
+
+        // Intersect.
+        return Theight::c1inv(
+               Theight::c1(h0) /
+                    pr::pow(1 - u, 
+                            1 / lambda(wo)));
+    }
+
+private:
+
+    /**
+     * @brief Roughness @f$ [\alpha_x\; \alpha_y]^\top @f$.
+     */
+    multi<float_type, 2> alpha_ = multi<float_type, 2>(1);
+};
 
 /**@}*/
 
