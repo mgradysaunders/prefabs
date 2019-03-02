@@ -372,12 +372,8 @@ template&lt;typename Tslope , typename Theight &gt; </div>
 
 <p>Distribution of normals. </p>
 <p class="formulaDsp">
-\[ D(\omega_m) = \frac{1}{\cos^4(\theta_m)} P_{22}([m_x\; m_y]) \]
+\[ D(\omega_m) = \frac{1}{\cos^4{\theta_m}} P_{22}(-[\omega_{m_x}\; \omega_{m_y}]^\top / \cos{\theta_m}) \]
 </p>
-<p> where</p><ul>
-<li>\( m_x = -\omega_{m_x} / \cos(\theta_m) \),</li>
-<li>\( m_y = -\omega_{m_y} / \cos(\theta_m) \)</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">wm</td><td>Normal direction. </td></tr>
