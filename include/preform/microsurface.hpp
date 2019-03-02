@@ -36,7 +36,7 @@
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::pcg32, pr::normal_distribution
+// for pr::pcg32, pr::uniform_real_distribution, ...
 #include <preform/random.hpp>
 
 namespace pr {
