@@ -500,17 +500,10 @@ public:
      *
      * @f[
      *      \Lambda(\omega_o) = 
-     *      \Lambda_{11}(\omega_o')
-     * @f]
-     * where
-     * @f[
-     *      \omega_o' \gets
-     *      \frac{1}{\sqrt{
-     *          \alpha_x^2\omega_{o_x}^2 +
-     *          \alpha_y^2\omega_{o_y}^2}}
-            [\alpha_x\omega_{o_x}\;
+     *      \Lambda_{11}(
+     *      [\alpha_x\omega_{o_x}\;
      *       \alpha_y\omega_{o_y}\;
-     *       \omega_{o_z}]^\top
+     *       \omega_{o_z}]^\top)
      * @f]
      *
      * @param[in] wo
@@ -521,8 +514,6 @@ public:
         // Warp.
         wo[0] *= alpha_[0];
         wo[1] *= alpha_[1];
-        float_type fac = pr::hypot(wo[0], wo[1]);
-        wo /= fac;
 
         // Delegate.
         return Tslope::lambda11(wo);
@@ -533,19 +524,10 @@ public:
      *
      * @f[
      *      A_{\perp}(\omega_o) =
-     *      A_{\perp11}(\omega_o') \sqrt{
-     *          \alpha_x^2\omega_{o_x}^2 +
-     *          \alpha_y^2\omega_{o_y}^2}
-     * @f]
-     * where
-     * @f[
-     *      \omega_o' \gets
-     *      \frac{1}{\sqrt{
-     *          \alpha_x^2\omega_{o_x}^2 +
-     *          \alpha_y^2\omega_{o_y}^2}}
-            [\alpha_x\omega_{o_x}\;
+     *      A_{\perp11}(
+     *      [\alpha_x\omega_{o_x}\;
      *       \alpha_y\omega_{o_y}\;
-     *       \omega_{o_z}]^\top
+     *       \omega_{o_z}]^\top)
      * @f]
      *
      * @param[in] wo
@@ -556,11 +538,9 @@ public:
         // Warp.
         wo[0] *= alpha_[0];
         wo[1] *= alpha_[1];
-        float_type fac = pr::hypot(wo[0], wo[1]);
-        wo /= fac;
 
         // Delegate.
-        return Tslope::aperp11(wo) * fac;
+        return Tslope::aperp11(wo);
     }
 
     /**
