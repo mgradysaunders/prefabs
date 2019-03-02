@@ -79,9 +79,13 @@ public:
      * @f[
      *      \Lambda_{11}(\omega_o) = 
      *      \frac{1}{2}\operatorname{sign}(\omega_{o_z})
-     *      \sqrt{1 + 
-     *      \omega_{o_x}^2 / \omega_{o_z}^2 +
-     *      \omega_{o_y}^2 / \omega_{o_z}^2} - \frac{1}{2}
+     *      \sqrt{1 + 1/a^2} - \frac{1}{2}
+     * @f]
+     * where
+     * @f[
+     *      a = \frac{1}{
+     *          \sqrt{\omega_{o_x}^2/\omega_{o_z}^2 +
+     *                \omega_{o_y}^2/\omega_{o_z}^2}}
      * @f]
      * 
      * @param[in] wo
@@ -91,19 +95,17 @@ public:
     {
         float_type tmp0 = wo[0] / wo[2];
         float_type tmp1 = wo[1] / wo[2];
-        float_type fac = 1 + 
-            tmp0 * tmp0 + 
-            tmp1 * tmp1;
+        float_type inva2 = tmp0 * tmp0 + tmp1 * tmp1;
 
         // Overflow?
-        if (!pr::isfinite(fac)) {
+        if (!pr::isfinite(inva2)) {
             return pr::signbit(wo[2]) ? -1 : 0;
         }
         else {
             // Evaluate.
             return 
                 pr::copysign(float_type(0.5), wo[2]) *
-                pr::sqrt(fac) - float_type(0.5);
+                pr::sqrt(1 + inva2) - float_type(0.5);
         }
     }
 
@@ -255,14 +257,15 @@ public:
      *
      * @f[
      *      \Lambda_{11}(\omega_o) = 
-     *      \frac{1}{2a\sqrt{\pi}} e^{-a^2} -
-     *      \frac{1}{2} \operatorname{erfc}(a)
+     *      \frac{1}{2\sqrt{\pi}} 
+     *      \frac{1}{a}\exp(-a^2) -
+     *      \frac{1}{2}\operatorname{erfc}(a)
      * @f]
      * where
      * @f[
      *      a = \frac{1}{
      *          \sqrt{\omega_{o_x}^2/\omega_{o_z}^2 +
-     *          \sqrt{\omega_{o_y}^2/\omega_{o_z}^2}
+     *                \omega_{o_y}^2/\omega_{o_z}^2}}
      * @f]
      * 
      * @param[in] wo
@@ -573,11 +576,10 @@ public:
      *
      * @f[
      *      D(\omega_m) = 
-     *      \frac{1}{\cos^4(\theta_m)} P_{22}([m_x\; m_y])
+     *      \frac{1}{\cos^4{\theta_m}} 
+     *      P_{22}(-[\omega_{m_x}\;
+     *               \omega_{m_y}]^\top / \cos{\theta_m})
      * @f]
-     * where
-     * - @f$ m_x = -\omega_{m_x} / \cos(\theta_m) @f$,
-     * - @f$ m_y = -\omega_{m_y} / \cos(\theta_m) @f$
      *
      * @param[in] wm
      * Normal direction.
