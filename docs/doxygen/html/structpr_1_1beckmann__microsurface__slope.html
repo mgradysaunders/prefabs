@@ -190,10 +190,10 @@ template&lt;typename T &gt; </div>
 
 <p>Smith shadowing term. </p>
 <p class="formulaDsp">
-\[ \Lambda_{11}(\omega_o) = \frac{1}{2\sqrt{\pi}} \frac{1}{a}\exp(-a^2) - \frac{1}{2}\operatorname{erfc}(a) \]
+\[ \Lambda_{11}(\omega_o) = \frac{1}{2a\sqrt{\pi}}e^{-a^2} - \frac{1}{2}\operatorname{erfc}(a) \]
 </p>
 <p> where </p><p class="formulaDsp">
-\[ a = \frac{1}{ \sqrt{\omega_{o_x}^2/\omega_{o_z}^2 + \omega_{o_y}^2/\omega_{o_z}^2}} \]
+\[ a = \frac{\omega_{o_z}}{ \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}} \]
 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -232,7 +232,10 @@ template&lt;typename T &gt; </div>
 
 <p>Projected area. </p>
 <p class="formulaDsp">
-\[ A_{\perp11}(\omega_o) = (1 + \Lambda_{11}(\omega_o))\omega_{o_z} \]
+\[ A_{\perp11}(\omega_o) = (1 + \Lambda_{11}(\omega_o))\omega_{o_z} = \frac{1}{2\sqrt{\pi}} \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}e^{-a^2} + \frac{1}{2}\omega_{o_z}\operatorname{erfc}(-a) \]
+</p>
+<p> where </p><p class="formulaDsp">
+\[ a = \frac{\omega_{o_z}}{ \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}} \]
 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -271,7 +274,7 @@ template&lt;typename T &gt; </div>
 
 <p>Distribution of slopes. </p>
 <p class="formulaDsp">
-\[ P_{11}([m_x\; m_y]^\top) = \frac{1}{\pi} \exp(-m_x^2 - m_y^2) \]
+\[ P_{11}([m_x\; m_y]^\top) = \frac{1}{\pi} e^{-m_x^2 - m_y^2} \]
 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
