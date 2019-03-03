@@ -84,10 +84,10 @@ public:
      *
      * @f[
      *      \Lambda_{11}(\omega_o) = 
-     *      \frac{1}{2}\operatorname{sign}(\omega_{o_z})\sqrt{1 + 1/a^2} - 
-     *      \frac{1}{2} =
+     *      \frac{1}{2}\operatorname{sign}(\omega_{o_z})
+     *      \sqrt{1 + 1/a^2} - \frac{1}{2} =
      *      \frac{1}{2}\frac{\lVert{\omega_o}\rVert}{\omega_{o_z}} -
-     *      \frac{1}[2}
+     *      \frac{1}{2}
      * @f]
      * where
      * @f[
