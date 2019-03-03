@@ -30,13 +30,19 @@
 #ifndef PREFORM_MICROSURFACE_HPP
 #define PREFORM_MICROSURFACE_HPP
 
+// for assert
+#include <cassert>
+
 // for pr::multi
 #include <preform/multi.hpp>
 
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::pcg32, pr::uniform_real_distribution, ...
+// for pr::cosine_hemisphere
+#include <preform/geometric_sampling.hpp>
+
+// for pr::uniform_real_distribution, ...
 #include <preform/random.hpp>
 
 namespace pr {
@@ -67,7 +73,7 @@ public:
      * @brief Float type.
      */
     typedef T float_type;
-    
+
     /**
      * @brief Non-constructible.
      */
@@ -78,14 +84,15 @@ public:
      *
      * @f[
      *      \Lambda_{11}(\omega_o) = 
-     *      \frac{1}{2}\operatorname{sign}(\omega_{o_z})
-     *      \sqrt{1 + 1/a^2} - \frac{1}{2}
+     *      \frac{1}{2}\operatorname{sign}(\omega_{o_z})\sqrt{1 + 1/a^2} - 
+     *      \frac{1}{2} =
+     *      \frac{1}{2}\frac{\lVert{\omega_o}\rVert}{\omega_{o_z}} -
+     *      \frac{1}[2}
      * @f]
      * where
      * @f[
-     *      a = \frac{1}{
-     *          \sqrt{\omega_{o_x}^2/\omega_{o_z}^2 +
-     *                \omega_{o_y}^2/\omega_{o_z}^2}}
+     *      a = \frac{\omega_{o_z}}{
+     *          \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}}
      * @f]
      * 
      * @param[in] wo
@@ -93,20 +100,7 @@ public:
      */
     static float_type lambda11(multi<float_type, 3> wo)
     {
-        float_type tmp0 = wo[0] / wo[2];
-        float_type tmp1 = wo[1] / wo[2];
-        float_type inva2 = tmp0 * tmp0 + tmp1 * tmp1;
-
-        // Overflow?
-        if (!pr::isfinite(inva2)) {
-            return pr::signbit(wo[2]) ? -1 : 0;
-        }
-        else {
-            // Evaluate.
-            return 
-                pr::copysign(float_type(0.5), wo[2]) *
-                pr::sqrt(1 + inva2) - float_type(0.5);
-        }
+        return float_type(0.5) * pr::length(wo) / wo[2] - float_type(0.5);
     }
 
     /**
@@ -124,8 +118,7 @@ public:
      */
     static float_type aperp11(multi<float_type, 3> wo)
     {
-        return float_type(0.5) * wo[2] + 
-               float_type(0.5) * pr::length(wo);
+        return float_type(0.5) * pr::length(wo) + float_type(0.5) * wo[2];
     }
 
     /**
@@ -142,10 +135,8 @@ public:
      */
     static float_type p11(multi<float_type, 2> m)
     {
-        float_type zeta = 1 +
-            m[0] * m[0] +
-            m[1] * m[1];
-        return pr::numeric_constants<float_type>::M_1_pi() / (zeta * zeta);
+        return pr::numeric_constants<float_type>::M_1_pi() / 
+               pr::nthpow(1 + pr::dot(m, m), 2);
     }
 
     /**
@@ -160,71 +151,65 @@ public:
     static multi<float_type, 2> p11_sample(
                 multi<float_type, 2> u, float_type cos_thetao)
     {
-        // Slope.
-        multi<float_type, 2> m = {
-            pr::numeric_limits<float_type>::quiet_NaN(),
-            pr::numeric_limits<float_type>::quiet_NaN()
-        };
+        // Sanity check.
+        assert(
+            cos_thetao >= -1 &&
+            cos_thetao <= +1);
 
-        // Trig terms.
-        cos_thetao = pr::fmax(cos_thetao, float_type(-1));
-        cos_thetao = pr::fmin(cos_thetao, float_type(+1));
-        float_type sec_thetao = 1 / cos_thetao;
-        float_type sin_thetao = pr::sqrt(1 - cos_thetao * cos_thetao);
-        float_type tan_thetao = sin_thetao / cos_thetao;
-        float_type cot_thetao = cos_thetao / sin_thetao;
-        if (pr::isfinite(sec_thetao) &&
-            pr::isfinite(tan_thetao) &&
-            pr::isfinite(cot_thetao)) {
-
-            // Slope x.
-            float_type mu = u[0] * (1 + sec_thetao) - 1;
-            float_type nu = 1 / (1 - mu * mu);
-            float_type q = 
-                    pr::sqrt(
-                    pr::fmax(float_type(0),
-                        mu * mu * nu -
-                        nu * (1 - nu) * tan_thetao * tan_thetao));
-            float_type t0 = -nu * tan_thetao - q;
-            float_type t1 = -nu * tan_thetao + q;
-            m[0] = mu < 0 || t1 > cot_thetao ? t0 : t1;
-
-            // Slope y.
-            if (u[1] > float_type(0.5)) {
-                u[1] = 2 * u[1] - 1;
-                m[1] = 1;
-            }
-            else {
-                u[1] = 1 - 2 * u[1];
-                m[1] = -1;
-            }
-            m[1] *= pr::sqrt(1 + m[0] * m[0]) * 
-                (u[1] * 
-                (u[1] * 
-                (u[1] * float_type(0.273850) - 
-                        float_type(0.733690)) + 
-                        float_type(0.463410))) / 
-                (u[1] *
-                (u[1] * 
-                (u[1] * float_type(0.093073) + 
-                        float_type(0.309420)) - 
-                        float_type(1.000000)) + 
-                        float_type(0.597999));
-        }
-
-        // Overflow? This may occur near normal incidence.
-        if (!pr::isfinite(m[0]) ||
-            !pr::isfinite(m[1])) {
-
-            // Uniform sample.
+        // Handle cos(thetao) ~= +1.
+        if (cos_thetao > float_type(0.99999)) {
             float_type r = pr::sqrt(u[0] / (1 - u[0]));
             float_type phi = 
                 2 * pr::numeric_constants<float_type>::M_pi() * u[1];
-            m = {
+            return {
                 r * pr::cos(phi),
                 r * pr::sin(phi)
             };
         }
+
+        // Trig terms.
+        float_type sec_thetao = 1 / cos_thetao;
+        float_type sin_thetao = pr::sqrt(1 - cos_thetao * cos_thetao);
+        float_type tan_thetao = sin_thetao / cos_thetao;
+        float_type cot_thetao = cos_thetao / sin_thetao;
+
+        // Slope.
+        multi<float_type, 2> m;
+
+        // Slope x.
+        float_type mu = u[0] * (1 + sec_thetao) - 1;
+        float_type nu = 1 / (1 - mu * mu);
+        float_type q = 
+                pr::sqrt(
+                pr::fmax(float_type(0),
+                    mu * mu * nu -
+                    nu * (1 - nu) * tan_thetao * tan_thetao));
+        float_type t0 = -nu * tan_thetao - q;
+        float_type t1 = -nu * tan_thetao + q;
+        m[0] = mu < 0 || t1 > cot_thetao ? t0 : t1;
+
+        // Slope y.
+        if (u[1] > float_type(0.5)) {
+            u[1] = 2 * u[1] - 1;
+            m[1] = 1;
+        }
+        else {
+            u[1] = 1 - 2 * u[1];
+            m[1] = -1;
+        }
+        m[1] *= pr::sqrt(1 + m[0] * m[0]) * 
+            (u[1] * 
+            (u[1] * 
+            (u[1] * float_type(0.273850) - 
+                    float_type(0.733690)) + 
+                    float_type(0.463410))) / 
+            (u[1] *
+            (u[1] * 
+            (u[1] * float_type(0.093073) + 
+                    float_type(0.309420)) - 
+                    float_type(1.000000)) + 
+                    float_type(0.597999));
+
         return m;
     }
 };
@@ -246,7 +231,7 @@ public:
      * @brief Float type.
      */
     typedef T float_type;
-    
+
     /**
      * @brief Non-constructible.
      */
@@ -257,15 +242,13 @@ public:
      *
      * @f[
      *      \Lambda_{11}(\omega_o) = 
-     *      \frac{1}{2\sqrt{\pi}} 
-     *      \frac{1}{a}\exp(-a^2) -
-     *      \frac{1}{2}\operatorname{erfc}(a)
+     *          \frac{1}{2a\sqrt{\pi}}e^{-a^2} -
+     *          \frac{1}{2}\operatorname{erfc}(a)
      * @f]
      * where
      * @f[
-     *      a = \frac{1}{
-     *          \sqrt{\omega_{o_x}^2/\omega_{o_z}^2 +
-     *                \omega_{o_y}^2/\omega_{o_z}^2}}
+     *      a = \frac{\omega_{o_z}}{
+     *          \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}}
      * @f]
      * 
      * @param[in] wo
@@ -273,22 +256,9 @@ public:
      */
     static float_type lambda11(multi<float_type, 3> wo)
     {
-        // TODO Verify
-        float_type a = 
-            1 / pr::hypot(
-                wo[0] / wo[2],
-                wo[1] / wo[2]);
-
-        // Overflow?
-        if (!pr::isfinite(a)) {
-            return pr::signbit(wo[2]) ? -1 : 0;
-        }
-        else {
-            // Evaluate.
-            return float_type(0.5) * 
-                (pr::numeric_constants<float_type>::M_sqrt1_pi() * 
-                 pr::exp(-a * a) / a - pr::erfc(a));
-        }
+        float_type a = wo[2] / pr::hypot(wo[0], wo[1]);
+        return (pr::numeric_constants<float_type>::M_2_sqrtpi() / 2 * 
+                pr::exp(-a * a) / a - pr::erfc(a)) / 2;
     }
 
     /**
@@ -296,7 +266,16 @@ public:
      *
      * @f[
      *      A_{\perp11}(\omega_o) = 
-     *          (1 + \Lambda_{11}(\omega_o))\omega_{o_z}
+     *          (1 + \Lambda_{11}(\omega_o))\omega_{o_z} =
+     *          \frac{1}{2\sqrt{\pi}}
+     *          \sqrt{\omega_{o_x}^2 + 
+     *                \omega_{o_y}^2}e^{-a^2} + 
+     *          \frac{1}{2}\omega_{o_z}\operatorname{erfc}(-a)
+     * @f]
+     * where
+     * @f[
+     *      a = \frac{\omega_{o_z}}{
+     *          \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}}
      * @f]
      *
      * @param[in] wo
@@ -304,7 +283,10 @@ public:
      */
     static float_type aperp11(multi<float_type, 3> wo)
     {
-        return (1 + lambda11(wo)) * wo[2];
+        float_type r = pr::hypot(wo[0], wo[1]);
+        float_type a = wo[2] / r;
+        return (pr::numeric_constants<float_type>::M_2_sqrtpi() / 2 *
+                pr::exp(-a * a) * r + wo[2] * pr::erfc(-a)) / 2;
     }
 
     /**
@@ -312,7 +294,7 @@ public:
      *
      * @f[
      *      P_{11}([m_x\; m_y]^\top) = 
-     *      \frac{1}{\pi} \exp(-m_x^2 - m_y^2)
+     *      \frac{1}{\pi} e^{-m_x^2 - m_y^2}
      * @f]
      *
      * @param[in] m
@@ -321,7 +303,7 @@ public:
     static float_type p11(multi<float_type, 2> m)
     {
         return pr::numeric_constants<float_type>::M_1_pi() *
-               pr::exp(-(m[0] * m[0] + m[1] * m[1]));
+               pr::exp(-pr::dot(m, m));
     }
 
     /**
@@ -336,8 +318,99 @@ public:
     static multi<float_type, 2> p11_sample(
                 multi<float_type, 2> u, float_type cos_thetao)
     {
-        // TODO
-        return {};
+        // Sanity check.
+        assert(
+            cos_thetao >= -1 &&
+            cos_thetao <= +1);
+
+        // Handle cos(thetao) ~= +1.
+        if (cos_thetao > float_type(0.99999)) {
+            float_type r = pr::sqrt(pr::log(-u[0]));
+            float_type phi = 
+                2 * pr::numeric_constants<float_type>::M_pi() * u[1];
+            return {
+                r * pr::cos(phi),
+                r * pr::sin(phi)
+            };
+        }
+
+        // Trig terms. 
+        float_type cos2_thetao = cos_thetao * cos_thetao;
+        float_type sin2_thetao = 1 - cos2_thetao;
+        float_type sin_thetao = pr::sqrt(sin2_thetao);
+        float_type cot_thetao = cos_thetao / sin_thetao;
+
+        auto c11 = [=](float_type a) {
+            return 
+                (pr::numeric_constants<float_type>::M_2_sqrtpi() / 2 *
+                 sin_thetao * pr::exp(-a * a) + cos_thetao * pr::erfc(-a)) / 2;
+        };
+
+        // Projected area.
+        float_type aperp = c11(cot_thetao);
+        float_type cnorm = 1 / aperp;
+        if (aperp < float_type(0.00001) || !pr::isfinite(aperp)) {
+            return {0, 0};
+        }
+
+        // Search.
+        float_type erf_amin = float_type(-0.99999);
+        float_type erf_amax = pr::fmax(erf_amin, pr::erf(cot_thetao));
+        float_type erf_a = 
+            float_type(0.5) * erf_amin + 
+            float_type(0.5) * erf_amax;
+        while (erf_amax - erf_amin > float_type(0.00001)) {
+
+            // Out of bounds?
+            if (!(erf_a >= erf_amin && 
+                  erf_a <= erf_amax))  {
+                // Center.
+                erf_a = 
+                    float_type(0.5) * erf_amin + 
+                    float_type(0.5) * erf_amax;
+            }
+
+            // Evaluate.
+            float_type a = pr::erfinv(erf_a);
+            float_type c = (a >= cot_thetao ? 1 : cnorm * c11(a)) - u[0];
+            if (pr::fabs(c) <= float_type(0.00001)) {
+                // Convergence.
+                break;
+            }
+
+            if (pr::signbit(c)) {
+                if (erf_amin != erf_a) {
+                    erf_amin = erf_a;
+                }
+                else {
+                    // Convergence.
+                    break;
+                }
+            }
+            else {
+                if (erf_amax != erf_a) {
+                    erf_amax = erf_a;
+                }
+                else {
+                    // Convergence.
+                    break;
+                }
+            }
+
+            // Newton-Raphson update.
+            float_type dc_derf_a = 
+            float_type(0.5) * cnorm * 
+                    (cos_thetao - a * sin_thetao);
+            erf_a -= c / dc_derf_a;
+        }
+
+        // Done.
+        erf_a = pr::fmin(erf_a, erf_amax);
+        erf_a = pr::fmax(erf_a, erf_amin);
+        return {
+            pr::erfinv(erf_a),
+            pr::erfinv(2 * u[1] - 1)    
+        };
     }
 };
 
@@ -493,9 +566,21 @@ public:
      *
      * @param[in] alpha
      * Roughness.
+     *
+     * @throw std::invalid_argument
+     * If negative roughness.
      */
     microsurface_adapter(multi<float_type, 2> alpha) : alpha_(alpha)
     {
+        // Invalid?
+        if (pr::signbit(alpha_[0]) ||
+            pr::signbit(alpha_[1])) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+
+        // Clamp.
+        alpha_[0] = pr::fmax(alpha_[0], float_type(0.00001));
+        alpha_[1] = pr::fmax(alpha_[1], float_type(0.00001));
     }
 
     /**
@@ -765,18 +850,18 @@ public:
                 float_type h0) const
     {
         // Handle cos(thetao) ~= +1.
-        if (wo[2] > float_type(+0.9999)) {
+        if (wo[2] > float_type(+0.99999)) {
             return pr::numeric_limits<float_type>::infinity(); // Exit
         }
 
         // Handle cos(thetao) ~= -1.
-        if (wo[2] < float_type(-0.9999)) {
+        if (wo[2] < float_type(-0.99999)) {
             return Theight::c1inv(
                    Theight::c1(h0) * u);
         }
 
         // Handle cos(thetao) ~= 0.
-        if (pr::fabs(wo[2]) < float_type(0.0001)) {
+        if (pr::fabs(wo[2]) < float_type(0.00001)) {
             return h0;
         }
 
@@ -801,7 +886,274 @@ private:
     multi<float_type, 2> alpha_ = multi<float_type, 2>(1);
 };
 
-// TODO diffuse_microsurface_adapter
+/**
+ * @brief Diffuse BRDF microsurface adapter.
+ */
+template <typename Tslope, typename Theight>
+struct diffuse_brdf_microsurface_adapter : 
+                    public microsurface_adapter<Tslope, Theight>
+{
+public:
+
+    // Inherit float type.
+    using typename microsurface_adapter<Tslope, Theight>::float_type;
+
+    // Inherit constructors.
+    using microsurface_adapter<Tslope, Theight>::
+          microsurface_adapter;
+
+    // Locally visible for convenience.
+    using microsurface_adapter<Tslope, Theight>::lambda;
+
+    // Locally visible for convenience.
+    using microsurface_adapter<Tslope, Theight>::dwo_sample;
+
+    // Locally visible for convenience.
+    using microsurface_adapter<Tslope, Theight>::g1;
+
+    // Locally visible for convenience.
+    using microsurface_adapter<Tslope, Theight>::h_sample;
+
+    /**
+     * @brief Single-scattering BRDF.
+     *
+     * @f[
+     *      f_s(\omega_o, \omega_i) =
+     *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
+     *      \frac{1 + \Lambda(\omega_o)}
+     *           {1 + \Lambda(\omega_o) + \Lambda(\omega_i)}
+     * @f]
+     * where @f$ \omega_m \sim D_{\omega_o} @f$
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fs(
+            const multi<float_type, 2>& u,
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi) const
+    {
+        // Sample visible microsurface normal.
+        multi<float_type, 3> wm = dwo_sample(u, wo);
+
+        // Evaluate.
+        float_type lambda_wo = lambda(wo);
+        float_type lambda_wi = lambda(wi);
+        float_type g2_given_g1 = 
+                (1 + lambda_wo) / 
+                (1 + lambda_wo + lambda_wi);
+        return pr::numeric_constants<float_type>::M_1_pi() *
+               pr::fmax(pr::dot(wm, wi), float_type(0)) * g2_given_g1;
+    }
+
+    // TODO fs_sample
+
+    /**
+     * @brief Phase function.
+     *
+     * @f[
+     *      p_m(\omega_o, \omega_i) = 
+     *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
+     * @f]
+     * where @f$ \omega_m \sim D_{\omega_o} @f$
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type pm(
+            const multi<float_type, 2>& u,
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi) const
+    {
+        // Sample visible microsurface normal.
+        multi<float_type, 3> wm = dwo_sample(u, wo);
+
+        // Evaluate.
+        return pr::numeric_constants<float_type>::M_1_pi() *
+               pr::fmax(pr::dot(wm, wi), float_type(0));
+    }
+
+    /**
+     * @brief Phase function sample.
+     *
+     * @param[in] u0
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] u1
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     */
+    multi<float_type, 3> pm_sample(
+            const multi<float_type, 2>& u0,
+            const multi<float_type, 2>& u1,
+            const multi<float_type, 3>& wo) const
+    {
+        // Sample visible microsurface normal.
+        multi<float_type, 3> wm = dwo_sample(u0, wo);
+
+        // Orthonormal basis.
+        multi<float_type, 3> wx = {};
+        multi<float_type, 3> wy = {};
+        if (wm[2] < float_type(-0.9999999)) {
+            wx[1] = -1;
+            wy[0] = -1;
+        }
+        else {
+            float_type tmp0 = -1 / (wm[2] + 1);
+            float_type tmp1 = tmp0 * wm[0] * wm[1];
+            float_type tmp2 = 1 + tmp0 * wm[0] * wm[0];
+            float_type tmp3 = 1 + tmp0 * wm[1] * wm[1];
+            wx = {tmp2, tmp1, -wm[0]};
+            wy = {tmp1, tmp3, -wm[1]};
+        }
+
+        // Sample direction, expand in orthonormal basis.
+        multi<float_type, 3> wi = cosine_hemisphere(u1);
+        return wi[0] * wx +
+               wi[1] * wy +
+               wi[2] * wm;
+    }
+
+    /**
+     * @brief Multiple-scattering BRDF.
+     *
+     * @param[in] uk
+     * Sample generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @param[in] kres
+     * Result scattering order, 0 for all orders.
+     */
+    template <typename U>
+    float_type fm(
+            U&& uk,
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi, int kres = 0) const
+    {
+        if (!(wi[2] > 0)) {
+            return 0;
+        }
+
+        // Result.
+        float_type f = 0;
+
+        // Initial height.
+        float_type hk = Theight::c1inv(float_type(0.99999)) + 1;
+
+        // Initial direction.
+        multi<float_type, 3> wk = -wo;
+
+        for (int k = 0; 
+                    kres == 0 || 
+                    kres > k;) {
+
+            // Sample next height.
+            hk = h_sample(std::forward<U>(uk)(), wk, hk);
+            if (pr::isinf(hk)) {
+                break;
+            }
+
+            // Increment.
+            ++k;
+
+            if (kres == 0 ||
+                kres == k) {
+
+                // Next event estimation.
+                float_type fk = 
+                    g1(wi, hk) * 
+                    pm({std::forward<U>(uk)(),
+                        std::forward<U>(uk)()}, -wk, wi);
+                if (pr::isfinite(fk)) {
+                    f += fk;
+                }
+            }
+
+            // Sample next direction.
+            wk = pm_sample(
+                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
+                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
+                    -wk);
+
+            // NaN check.
+            if (pr::isnan(hk) ||
+                pr::isnan(wk[2])) {
+                return 0;
+            }
+        }
+
+        return f;
+    }
+
+    /**
+     * @brief Multiple-scattering BRDF sample.
+     *
+     * @param[in] uk
+     * Sample generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[out] k
+     * Scattering order.
+     */
+    template <typename U>
+    multi<float_type, 3> fm_sample(
+            U&& uk, const multi<float_type, 3>& wo, 
+            int& k) const
+    {
+        // Initial height.
+        float_type hk = Theight::c1inv(float_type(0.99999)) + 1;
+
+        // Initial direction.
+        multi<float_type, 3> wk = -wo;
+
+        for (k = 0; true;) {
+
+            // Sample next height.
+            hk = h_sample(std::forward<U>(uk)(), wk, hk);
+            if (pr::isinf(hk)) {
+                break;
+            }
+
+            // Increment.
+            ++k;
+
+            // Sample next direction.
+            wk = pm_sample(
+                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
+                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
+                    -wk);
+
+            // NaN check.
+            if (pr::isnan(hk) ||
+                pr::isnan(wk[2])) {
+                return {0, 0, 1};
+            }
+        }
+
+        return wk;
+    }
+};
 
 /**@}*/
 
