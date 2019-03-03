@@ -109,8 +109,8 @@ public:
      * @f[
      *      A_{\perp11}(\omega_o) = 
      *          (1 + \Lambda_{11}(\omega_o))\omega_{o_z} = 
-     *          \frac{1}{2}\omega_{o_z} + 
-     *          \frac{1}{2}\lVert{\omega_o}\rVert
+     *          \frac{1}{2}\lVert{\omega_o}\rVert +
+     *          \frac{1}{2}\omega_{o_z}
      * @f]
      *
      * @param[in] wo
