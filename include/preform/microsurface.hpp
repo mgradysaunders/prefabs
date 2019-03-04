@@ -39,7 +39,7 @@
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::cosine_hemisphere
+// for pr::cosine_hemisphere_pdf_sample
 #include <preform/geometric_sampling.hpp>
 
 // for pr::uniform_real_distribution, ...
@@ -1022,7 +1022,7 @@ public:
         }
 
         // Sample direction, expand in orthonormal basis.
-        multi<float_type, 3> wi = cosine_hemisphere(u1);
+        multi<float_type, 3> wi = cosine_hemisphere_pdf_sample(u1);
         return wi[0] * wx +
                wi[1] * wy +
                wi[2] * wm;

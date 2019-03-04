@@ -56,7 +56,7 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Uniform disk.
+ * @brief Uniform disk probability density function sampling routine.
  *
  * @f[
  *      \mathbf{P}_{\text{disk}}(\mathbf{u}) =
@@ -87,7 +87,7 @@ namespace pr {
 template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value,
-                multi<T, 2>> uniform_disk(multi<T, 2> u)
+                multi<T, 2>> uniform_disk_pdf_sample(multi<T, 2> u)
 {
     u = T(2) * u - T(1);
     if (u[0] == T(0) &&
@@ -114,7 +114,7 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Uniform disk density.
+ * @brief Uniform disk probability density function.
  *
  * @f[
  *      f_{\text{disk}} = \frac{1}{\pi}
@@ -122,13 +122,13 @@ inline std::enable_if_t<
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> uniform_disk_density()
+       std::is_floating_point<T>::value, T> uniform_disk_pdf()
 {
     return pr::numeric_constants<T>::M_1_pi();
 }
 
 /**
- * @brief Uniform hemisphere.
+ * @brief Uniform hemisphere probability density function sampling routine.
  *
  * @f[
  *      \omega_{\text{hemisphere}}(\mathbf{u}) =
@@ -145,7 +145,7 @@ inline std::enable_if_t<
 template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value,
-                multi<T, 3>> uniform_hemisphere(multi<T, 2> u)
+                multi<T, 3>> uniform_hemisphere_pdf_sample(multi<T, 2> u)
 {
     T cos_theta = u[0];
     cos_theta = pr::fmax(cos_theta, T(0));
@@ -160,7 +160,7 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Uniform hemisphere density.
+ * @brief Uniform hemisphere probability density function.
  *
  * @f[
  *      f_{\text{hemisphere}} = \frac{1}{2\pi}
@@ -168,13 +168,13 @@ inline std::enable_if_t<
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> uniform_hemisphere_density()
+       std::is_floating_point<T>::value, T> uniform_hemisphere_pdf()
 {
     return pr::numeric_constants<T>::M_1_pi() / T(2);
 }
 
 /**
- * @brief Uniform sphere.
+ * @brief Uniform sphere probability density function sampling routine.
  *
  * @f[
  *      \omega_{\text{sphere}}(\mathbf{u}) =
@@ -191,7 +191,7 @@ inline std::enable_if_t<
 template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value,
-                multi<T, 3>> uniform_sphere(multi<T, 2> u)
+                multi<T, 3>> uniform_sphere_pdf_sample(multi<T, 2> u)
 {
     T cos_theta = T(2) * u[0] - T(1);
     cos_theta = pr::fmax(cos_theta, T(-1));
@@ -206,7 +206,7 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Uniform sphere density.
+ * @brief Uniform sphere probability density function.
  *
  * @f[
  *      f_{\text{sphere}} = \frac{1}{4\pi}
@@ -214,13 +214,13 @@ inline std::enable_if_t<
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> uniform_sphere_density()
+       std::is_floating_point<T>::value, T> uniform_sphere_pdf()
 {
     return pr::numeric_constants<T>::M_1_pi() / T(4);
 }
 
 /**
- * @brief Cosine hemisphere.
+ * @brief Cosine hemisphere probability density function sampling routine.
  *
  * @f[
  *      \omega_{\text{cosine}}(\mathbf{u}) = 
@@ -241,9 +241,9 @@ inline std::enable_if_t<
 template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value,
-                multi<T, 3>> cosine_hemisphere(multi<T, 2> u)
+                multi<T, 3>> cosine_hemisphere_pdf_sample(multi<T, 2> u)
 {
-    multi<T, 2> p = uniform_disk(u);
+    multi<T, 2> p = uniform_disk_pdf_sample(u);
     return {
         p[0],
         p[1],
@@ -252,7 +252,7 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Cosine hemisphere density.
+ * @brief Cosine hemisphere probability density function.
  *
  * @f[
  *      f_{\text{cosine}}(\omega_{[2]}) = \frac{\omega_{[2]}}{\pi}
@@ -263,7 +263,7 @@ inline std::enable_if_t<
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> cosine_hemisphere_density(T w2)
+       std::is_floating_point<T>::value, T> cosine_hemisphere_pdf(T w2)
 {
     return pr::numeric_constants<T>::M_1_pi() * w2;
 }
