@@ -28,12 +28,12 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201703L)
-#error "preform/geometric_sampling.hpp requires >=C++17"
+#error "preform/sampling.hpp requires >=C++17"
 #endif // #if !(__cplusplus >= 201703L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_GEOMETRIC_SAMPLING_HPP
-#define PREFORM_GEOMETRIC_SAMPLING_HPP
+#ifndef PREFORM_SAMPLING_HPP
+#define PREFORM_SAMPLING_HPP
 
 // for pr::multi
 #include <preform/multi.hpp>
@@ -47,13 +47,28 @@
 namespace pr {
 
 /**
- * @defgroup geometric_sampling Geometric sampling
+ * @defgroup sampling Sampling
  *
- * `<preform/geometric_sampling.hpp>`
+ * `<preform/sampling.hpp>`
  *
  * __C++ version__: >=C++17
  */
 /**@{*/
+
+/**
+ * @brief Uniform disk probability density function.
+ *
+ * @f[
+ *      f_{\text{disk}} = \frac{1}{\pi}
+ * @f]
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> uniform_disk_pdf()
+{
+    return pr::numeric_constants<T>::M_1_pi();
+}
 
 /**
  * @brief Uniform disk probability density function sampling routine.
@@ -114,17 +129,18 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Uniform disk probability density function.
+ * @brief Uniform hemisphere probability density function.
  *
  * @f[
- *      f_{\text{disk}} = \frac{1}{\pi}
+ *      f_{\text{hemisphere}} = \frac{1}{2\pi}
  * @f]
  */
 template <typename T>
+__attribute__((always_inline))
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> uniform_disk_pdf()
+       std::is_floating_point<T>::value, T> uniform_hemisphere_pdf()
 {
-    return pr::numeric_constants<T>::M_1_pi();
+    return pr::numeric_constants<T>::M_1_pi() / T(2);
 }
 
 /**
@@ -160,17 +176,18 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Uniform hemisphere probability density function.
+ * @brief Uniform sphere probability density function.
  *
  * @f[
- *      f_{\text{hemisphere}} = \frac{1}{2\pi}
+ *      f_{\text{sphere}} = \frac{1}{4\pi}
  * @f]
  */
 template <typename T>
+__attribute__((always_inline))
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> uniform_hemisphere_pdf()
+       std::is_floating_point<T>::value, T> uniform_sphere_pdf()
 {
-    return pr::numeric_constants<T>::M_1_pi() / T(2);
+    return pr::numeric_constants<T>::M_1_pi() / T(4);
 }
 
 /**
@@ -206,17 +223,21 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Uniform sphere probability density function.
+ * @brief Cosine hemisphere probability density function.
  *
  * @f[
- *      f_{\text{sphere}} = \frac{1}{4\pi}
+ *      f_{\text{cosine}}(\omega_{[2]}) = \frac{\omega_{[2]}}{\pi}
  * @f]
+ *
+ * @param[in] w2
+ * Direction component.
  */
 template <typename T>
+__attribute__((always_inline))
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> uniform_sphere_pdf()
+       std::is_floating_point<T>::value, T> cosine_hemisphere_pdf(T w2)
 {
-    return pr::numeric_constants<T>::M_1_pi() / T(4);
+    return pr::numeric_constants<T>::M_1_pi() * w2;
 }
 
 /**
@@ -252,24 +273,69 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Cosine hemisphere probability density function.
+ * @brief Henyey-Greenstein phase probability density function.
  *
  * @f[
- *      f_{\text{cosine}}(\omega_{[2]}) = \frac{\omega_{[2]}}{\pi}
+ *      f_{\text{HG}}(g; \omega_{[2]}) = 
+ *      \frac{1}{4\pi}\frac{1 - g^2}{(1 + g^2 - 2g\omega_{[2]})^{3/2}}
  * @f]
+ *
+ * @param[in] g
+ * Parameter in @f$ (-1, 1) @f$.
  *
  * @param[in] w2
  * Direction component.
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> cosine_hemisphere_pdf(T w2)
+       std::is_floating_point<T>::value, T> hg_phase_pdf(T g, T w2)
 {
-    return pr::numeric_constants<T>::M_1_pi() * w2;
+    if (pr::fabs(g) < T(0.00001)) {
+        return uniform_sphere_pdf<T>();
+    }
+    else {
+        T a = 1 - g * g;
+        T b = 1 + g * g - 2 * g * w2;
+        T b3_2 = pr::sqrt(b * b * b);
+        return T(0.25) * pr::numeric_constants<T>::M_1_pi() * (a / b3_2);
+    }
+}
+
+/**
+ * @brief Henyey-Greenstein phase probability density function 
+ * sampling routine.
+ *
+ * @param[in] g
+ * Parameter in @f$ (-1, 1) @f$.
+ *
+ * @param[in] u
+ * Sample in @f$ [0, 1)^2 @f$.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, 
+                multi<T, 3>> hg_phase_pdf_sample(T g, multi<T, 2> u)
+{
+    if (pr::fabs(g) < T(0.00001)) {
+        return uniform_sphere_pdf_sample(u);
+    }
+    else {
+        T tmp = (1 - g * g) / (1 - g + 2 * g * u[0]);
+        T cos_theta = (1 + g * g - tmp * tmp) / (2 * g);
+        cos_theta = pr::fmax(cos_theta, T(-1));
+        cos_theta = pr::fmin(cos_theta, T(+1));
+        T sin_theta = pr::sqrt(T(1) - cos_theta * cos_theta);
+        T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
+        return {
+            sin_theta * pr::cos(phi),
+            sin_theta * pr::sin(phi),
+            cos_theta
+        };
+    }
 }
 
 /**@}*/
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_GEOMETRIC_SAMPLING_HPP
+#endif // #ifndef PREFORM_SAMPLING_HPP

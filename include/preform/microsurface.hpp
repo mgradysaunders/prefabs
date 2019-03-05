@@ -40,7 +40,7 @@
 #include <preform/multi_math.hpp>
 
 // for pr::cosine_hemisphere_pdf_sample
-#include <preform/geometric_sampling.hpp>
+#include <preform/sampling.hpp>
 
 // for pr::uniform_real_distribution, ...
 #include <preform/random.hpp>
