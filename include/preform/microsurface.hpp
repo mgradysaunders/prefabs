@@ -39,11 +39,14 @@
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
+// for pr::uniform_real_distribution, ...
+#include <preform/random.hpp>
+
 // for pr::cosine_hemisphere_pdf_sample
 #include <preform/sampling.hpp>
 
-// for pr::uniform_real_distribution, ...
-#include <preform/random.hpp>
+// for pr::fr_diel_diel, ...
+#include <preform/fresnel.hpp>
 
 namespace pr {
 
@@ -939,6 +942,8 @@ public:
             const multi<float_type, 3>& wo,
             const multi<float_type, 3>& wi) const
     {
+        // TODO Implement for wo in lower hemisphere
+
         // Sample visible microsurface normal.
         multi<float_type, 3> wm = dwo_sample(u, wo);
 
@@ -1049,6 +1054,8 @@ public:
             const multi<float_type, 3>& wo,
             const multi<float_type, 3>& wi, int kres = 0) const
     {
+        // TODO Implement for wo in lower hemisphere
+
         if (!(wi[2] > 0)) {
             return 0;
         }
@@ -1121,6 +1128,8 @@ public:
             U&& uk, const multi<float_type, 3>& wo, 
             int& k) const
     {
+        // TODO Implement for wo in lower hemisphere
+
         // Initial height.
         float_type hk = Theight::c1inv(float_type(0.99999)) + 1;
 
@@ -1155,6 +1164,119 @@ public:
     }
 };
 
+/**
+ * @brief Dielectric BSDF microsurface adapter.
+ */
+template <typename Tslope, typename Theight>
+struct dielectric_bsdf_microsurface_adapter :
+                public microsurface_adapter<Tslope, Theight>
+{
+public:
+
+    // Inherit float type.
+    using typename microsurface_adapter<Tslope, Theight>::float_type;
+
+    // Inherit constructors.
+    using microsurface_adapter<Tslope, Theight>::
+          microsurface_adapter;
+
+    // Locally visible for convenience.
+    using microsurface_adapter<Tslope, Theight>::d;
+
+    // Locally visible for convenience.
+    using microsurface_adapter<Tslope, Theight>::lambda;
+
+    // Locally visible for convenience.
+    using microsurface_adapter<Tslope, Theight>::dwo_sample;
+
+    // Locally visible for convenience.
+    using microsurface_adapter<Tslope, Theight>::g1;
+
+    // Locally visible for convenience.
+    using microsurface_adapter<Tslope, Theight>::h_sample;
+
+    /**
+     * @brief Single-scattering BSDF.
+     *
+     * @f[
+     *      f_s(\omega_o, \omega_i) =
+     * @f]
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fs(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        float_type n0 = n0_;
+        float_type n1 = n1_;
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+            std::swap(n0, n1);
+        }
+
+        bool wo_outside = true;
+        bool wi_outside = wi[2] > 0;
+        if (wi_outside) {
+            
+            // Microsurface normal.
+            multi<float_type, 3> wm = normalize(wo + wi);
+        
+            // Masking-shadowing.
+            float_type lambda_wo = lambda(wo);
+            float_type lambda_wi = lambda(wi);
+            float_type g2 = 1 / (1 + lambda_wo + lambda_wi);
+
+            // Reflection.
+            float_type fr, ft;
+            float_type cos_thetai = dot(wi, wm);
+            (void) fr_diel_diel(cos_thetai, n0, n1, fr, ft);
+            return d(wm) * fr * g2 / (4 * wo[2]);
+        }
+        else {
+
+            // Microsurface normal.
+            multi<float_type, 3> wm = -normalize(wo * n0 + wi * n1);
+            if (n1 < n0) {
+                wm = -wm;
+            }
+            float_type cos_thetao = dot(wo, wm);
+            float_type cos_thetai = dot(wi, wm);
+            if (!(cos_thetao > 0 &&
+                  cos_thetai < 0)) {
+                return 0;
+            }
+            
+            // Masking-shadowing.
+            float_type lambda_wo = lambda(+wo);
+            float_type lambda_wi = lambda(-wi);
+            float_type g2 = pr::exp(
+                    pr::lgamma(1 + lambda_wo) + 
+                    pr::lgamma(1 + lambda_wi) -
+                    pr::lgamma(2 + lambda_wo + lambda_wi));
+
+            // Transmission.
+            float_type fr, ft;
+            (void) fr_diel_diel(+cos_thetai, n0, n1, fr, ft);
+            return cos_thetao * -cos_thetai / wo[2] * 
+                        d(wm) * ft * g2 * n1 * n1 /
+                        nthpow(n0 * cos_thetao +
+                               n1 * cos_thetai, 2);
+        }
+    }
+
+private:
+
+    float_type n0_ = 1;
+
+    float_type n1_ = 1.5;
+};
+        
 /**@}*/
 
 } // namespace pr

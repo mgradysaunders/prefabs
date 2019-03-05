@@ -119,6 +119,20 @@ inline std::enable_if_t<
     }
 }
 
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> fr_diel_diel(
+                T cos_thetai, T n0, T n1,
+                T& ru, T& tu)
+{
+    T rs, rp;
+    T ts, tp;
+    T cos_thetat = fr_diel_diel(cos_thetai, n0, n1, rs, rp, ts, tp);
+    ru = T(0.5) * (rs * rs + rp * rp);
+    tu = 1 - ru;
+    return cos_thetat;
+}
+
 /**
  * @brief Fresnel equations for dielectric-conductor interface.
  *
