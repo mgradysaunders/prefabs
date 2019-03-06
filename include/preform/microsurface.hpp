@@ -957,7 +957,9 @@ public:
                pr::fmax(pr::dot(wm, wi), float_type(0)) * g2_given_g1;
     }
 
-    // TODO fs_sample
+    // TODO fs_pdf
+
+    // TODO fs_pdf_sample
 
     /**
      * @brief Phase function.
@@ -1328,6 +1330,10 @@ public:
             return 0;
         }
     }
+
+    // TODO fs_pdf
+
+    // TODO fs_pdf_sample
 
 private:
 
