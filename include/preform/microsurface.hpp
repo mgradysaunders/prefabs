@@ -45,7 +45,7 @@
 // for pr::cosine_hemisphere_pdf_sample
 #include <preform/sampling.hpp>
 
-// for pr::fr_diel_diel, ...
+// for pr::fresnel_dielectric, ...
 #include <preform/fresnel.hpp>
 
 namespace pr {
@@ -1198,10 +1198,52 @@ public:
     /**
      * @brief Single-scattering BSDF.
      *
+     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
+     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
+     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
+     * - @f$ \eta \gets 1 / \eta @f$
+     *
+     * If @f$ \omega_{i_z} > 0 @f$, calculate the BRDF:
+     * - @f$ \mathbf{v}_m \gets \omega_o + \omega_i @f$
+     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
+     * - @f$ G_2(\omega_o, \omega_i) = 1 / 
+     *          (1 + \Lambda(\omega_o) + \Lambda(\omega_i)) @f$
+     *
      * @f[
-     *      f_s(\omega_o, \omega_i) =
+     *      f_s(\omega_o, \omega_i) = 
+     *          \frac{1}{\omega_{o_z}}
+     *          D(\omega_m) 
+     *          F_r(\omega_o \cdot \omega_m) 
+     *          G_2(\omega_o, \omega_i)
      * @f]
      *
+     * If @f$ \omega_{i_z} < 0 @f$, calculate the BTDF:
+     * - @f$ \mathbf{v}_m \gets -\eta\omega_o - \omega_i @f$
+     * - @f$ \mathbf{v}_m \gets -\mathbf{v}_m @f$ if @f$ \eta > 1 @f$
+     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
+     * - @f$ G_2(\omega_o, \omega_i) = 
+     *         \beta(1 + \Lambda(\omega_o),
+     *               1 + \Lambda(\omega_i)) @f$
+     *
+     * @f[
+     *      f_s(\omega_o, \omega_i) = 
+     *          \frac{1}{\omega_{o_z}}
+     *          D(\omega_m) 
+     *          F_t(\omega_o \cdot \omega_m) 
+     *          G_2(\omega_o, \omega_i)
+     *          |\omega_o \cdot \omega_m|
+     *          |\omega_i \cdot \omega_m|
+     *          \frac{1}{\lVert \mathbf{v}_m \rVert^2}
+     * @f]
+     *
+     * @note
+     * @f[
+     *     f_s(\omega_o, \omega_i) 
+     *     \frac{1}{|\omega_{i_z}|} \frac{\eta_o}{\eta_i} =
+     *     f_s(\omega_i, \omega_o) 
+     *     \frac{1}{|\omega_{o_z}|} \frac{\eta_i}{\eta_o}
+     * @f]
+     *                      
      * @param[in] wo
      * Outgoing direction.
      *
@@ -1212,17 +1254,17 @@ public:
             multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
     {
-        float_type n0 = n0_;
-        float_type n1 = n1_;
+        float_type eta = eta_;
         if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
-            std::swap(n0, n1);
+            eta = 1 / eta;
+        }
+        else if (wo[2] == 0) {
+            return 0;
         }
 
-        bool wo_outside = true;
-        bool wi_outside = wi[2] > 0;
-        if (wi_outside) {
+        if (wi[2] > 0) {
             
             // Microsurface normal.
             multi<float_type, 3> wm = normalize(wo + wi);
@@ -1233,25 +1275,34 @@ public:
             float_type g2 = 1 / (1 + lambda_wo + lambda_wi);
 
             // Reflection.
+            float_type cos_thetao = dot(wo, wm);
+            float_type cos_thetat;
             float_type fr, ft;
-            float_type cos_thetai = dot(wi, wm);
-            (void) fr_diel_diel(cos_thetai, n0, n1, fr, ft);
+            fresnel_dielectric(
+                eta, 
+                cos_thetao, 
+                cos_thetat, 
+                fr, ft);
             return d(wm) * fr * g2 / (4 * wo[2]);
         }
-        else {
+        else if (wi[2] < 0) {
 
-            // Microsurface normal.
-            multi<float_type, 3> wm = -normalize(wo * n0 + wi * n1);
-            if (n1 < n0) {
-                wm = -wm;
-            }
-            float_type cos_thetao = dot(wo, wm);
-            float_type cos_thetai = dot(wi, wm);
-            if (!(cos_thetao > 0 &&
-                  cos_thetai < 0)) {
+            // Half vector.
+            multi<float_type, 3> vm = (eta * wo + wi) * (eta > 1 ? +1 : -1);
+            float_type dot_vm_vm = dot(vm, vm);
+            if (dot_vm_vm < float_type(1e-8)) {
                 return 0;
             }
-            
+
+            // Microsurface normal.
+            multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
+            float_type dot_wo_wm = dot(wo, wm);
+            float_type dot_wi_wm = dot(wi, wm);
+            if (!(dot_wo_wm > 0 &&
+                  dot_wi_wm < 0)) {
+                return 0;
+            }
+
             // Masking-shadowing.
             float_type lambda_wo = lambda(+wo);
             float_type lambda_wi = lambda(-wi);
@@ -1261,20 +1312,38 @@ public:
                     pr::lgamma(2 + lambda_wo + lambda_wi));
 
             // Transmission.
+            float_type cos_thetao = dot_wo_wm;
+            float_type cos_thetat;
             float_type fr, ft;
-            (void) fr_diel_diel(+cos_thetai, n0, n1, fr, ft);
-            return cos_thetao * -cos_thetai / wo[2] * 
-                        d(wm) * ft * g2 * n1 * n1 /
-                        nthpow(n0 * cos_thetao +
-                               n1 * cos_thetai, 2);
+            fresnel_dielectric(
+                    eta,
+                    cos_thetao, 
+                    cos_thetat,
+                    fr, ft);
+            return d(wm) * ft * g2 * 
+                   (dot_wo_wm * -dot_wi_wm /
+                    dot_vm_vm / wo[2]);
+        }
+        else {
+            return 0;
         }
     }
 
 private:
 
-    float_type n0_ = 1;
-
-    float_type n1_ = 1.5;
+    /**
+     * @brief Refractive index @f$ \eta @f$.
+     *
+     * @f[
+     *      \eta = 
+     *      \frac{\eta_{+}}
+     *           {\eta_{-}}
+     * @f]
+     * where
+     * - @f$ \eta_{+} @f$ is the refractive index in the upper hemisphere
+     * - @f$ \eta_{-} @f$ is the refractive index in the lower hemisphere
+     */
+    float_type eta_ = float_type(1) / float_type(1.5);
 };
         
 /**@}*/

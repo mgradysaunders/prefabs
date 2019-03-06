@@ -41,7 +41,7 @@
 namespace pr {
 
 /**
- * @defgroup fresnel Fresnel
+ * @defgroup fresnel Fresnel equations
  *
  * `<preform/fresnel.hpp>`
  *
@@ -50,26 +50,26 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Fresnel equations for dielectric-dielectric interface.
+ * @brief Fresnel equations for dielectric interface.
  *
- * - @f$ \cos^2{\theta_t} = 1 - n^2 (1 - \cos^2{\theta_i}) @f$
+ * - @f$ \cos^2{\theta_t} = 1 - \eta^2 (1 - \cos^2{\theta_i}) @f$
  * - @f$ r_s = 
- *      (n \cos{\theta_i} - \cos{\theta_t}) /
- *      (n \cos{\theta_i} + \cos{\theta_t}) @f$
+ *      (\eta \cos{\theta_i} - \cos{\theta_t}) /
+ *      (\eta \cos{\theta_i} + \cos{\theta_t}) @f$
  * - @f$ r_p = 
- *      (\cos{\theta_i} - n \cos{\theta_t}) /
- *      (\cos{\theta_i} + n \cos{\theta_t}) @f$
+ *      (\cos{\theta_i} - \eta \cos{\theta_t}) /
+ *      (\cos{\theta_i} + \eta \cos{\theta_t}) @f$
  * - @f$ t_s = 1 + r_s @f$
- * - @f$ t_p = n (1 + r_p) @f$
+ * - @f$ t_p = \eta (1 + r_p) @f$
+ *
+ * @param[in] eta
+ * Refractive index @f$ \eta = \eta_i / \eta_t @f$.
  *
  * @param[in] cos_thetai
  * Cosine of incidence angle.
  *
- * @param[in] n0
- * Refractive index in upper hemisphere.
- *
- * @param[in] n1
- * Refractive index in lower hemisphere.
+ * @param[out] cos_thetat
+ * Cosine of transmittance angle.
  *
  * @param[out] rs
  * Reflection s-polarization.
@@ -83,115 +83,77 @@ namespace pr {
  * @param[out] tp
  * Transmission p-polarization.
  *
- * @returns
- * Cosine of transmittance angle.
- *
  * @note
- * In the event of total internal reflection, 
- * - sets `rs = rp = 1`,
- * - sets `ts = tp = 0`, and
- * - returns `0`.
+ * In the case of total internal reflection, 
+ * - `cos_thetat = 0`,
+ * - `rs = rp = 1`, and
+ * - `ts = tp = 0`.
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> fr_diel_diel(
-                T cos_thetai, T n0, T n1,
+       std::is_floating_point<T>::value, void> fresnel_dielectric(
+                T eta, 
+                T cos_thetai,
+                T& cos_thetat,
                 T& rs, T& rp,
                 T& ts, T& tp)
 {
-    T ni = pr::signbit(cos_thetai) ? n1 : n0;
-    T nt = pr::signbit(cos_thetai) ? n0 : n1;
-    T n = ni / nt;
-    T cos2_thetat = 1 - n * n * (1 - cos_thetai * cos_thetai);
+    T cos2_thetat = 1 - eta * eta * (1 - cos_thetai * cos_thetai);
     if (!(cos2_thetat > 0)) {
+        cos_thetat = 0;
         rs = rp = 1;
-        ts = tp = 0;
-        return 0; // Total internal reflection.
+        ts = tp = 0; // Total internal reflection.
     }
     else {
-        T cos_thetat = pr::copysign(pr::sqrt(cos2_thetat), cos_thetai);
-        rs = (n * cos_thetai - cos_thetat) / (n * cos_thetai + cos_thetat);
-        rp = (cos_thetai - n * cos_thetat) / (cos_thetai + n * cos_thetat);
+        cos_thetat = pr::copysign(pr::sqrt(cos2_thetat), cos_thetai);
+        rs = (eta * cos_thetai - cos_thetat) / (eta * cos_thetai + cos_thetat);
+        rp = (cos_thetai - eta * cos_thetat) / (cos_thetai + eta * cos_thetat);
         ts = 1 + rs;
         tp = 1 + rp; 
-        tp *= n;
-        return -cos_thetat;
+        tp *= eta;
+        cos_thetat = -cos_thetat;
     }
-}
-
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> fr_diel_diel(
-                T cos_thetai, T n0, T n1,
-                T& ru, T& tu)
-{
-    T rs, rp;
-    T ts, tp;
-    T cos_thetat = fr_diel_diel(cos_thetai, n0, n1, rs, rp, ts, tp);
-    ru = T(0.5) * (rs * rs + rp * rp);
-    tu = 1 - ru;
-    return cos_thetat;
 }
 
 /**
- * @brief Fresnel equations for dielectric-conductor interface.
+ * @brief Fresnel equations for dielectric interface, unpolarized form.
  *
- * - @f$ \cos^2{\theta_t} = 1 - n^2 (1 - \cos^2{\theta_i}) @f$
- * - @f$ r_s = 
- *      (n \cos{\theta_i} - \cos{\theta_t}) /
- *      (n \cos{\theta_i} + \cos{\theta_t}) @f$
- * - @f$ r_p = 
- *      (\cos{\theta_i} - n \cos{\theta_t}) /
- *      (\cos{\theta_i} + n \cos{\theta_t}) @f$
- * - @f$ t_s = 1 + r_s @f$
- * - @f$ t_p = n (1 + r_p) @f$
+ * - @f$ F_r = (r_s^2 + r_p^2)/2 @f$
+ * - @f$ F_t = 1 - F_r @f$
+ *
+ * @param[in] eta
+ * Refractive index @f$ \eta = \eta_i / \eta_t @f$.
  *
  * @param[in] cos_thetai
  * Cosine of incidence angle.
  *
- * @param[in] n0
- * Refractive index in upper hemisphere.
- *
- * @param[in] n1
- * Refractive index in lower hemisphere.
- *
- * @param[out] rs
- * Reflection s-polarization.
- *
- * @param[out] rp
- * Reflection p-polarization.
- *
- * @param[out] ts
- * Transmission s-polarization.
- *
- * @param[out] tp
- * Transmission p-polarization.
- *
- * @returns
+ * @param[out] cos_thetat
  * Cosine of transmittance angle.
+ *
+ * @param[out] fr
+ * Reflection.
+ *
+ * @param[out] ft
+ * Transmission.
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-       std::complex<T>> fr_diel_cond(
+       std::is_floating_point<T>::value, void> fresnel_dielectric(
+                T eta,
                 T cos_thetai, 
-                T n0, 
-                std::complex<T> n1, 
-                std::complex<T>& rs, std::complex<T>& rp,
-                std::complex<T>& ts, std::complex<T>& tp)
+                T& cos_thetat, 
+                T& fr, T& ft)
 {
-    std::complex<T> ni = pr::signbit(cos_thetai) ? n1 : n0;
-    std::complex<T> nt = pr::signbit(cos_thetai) ? n0 : n1;
-    std::complex<T> n = ni / nt;
-    std::complex<T> cos_thetat = pr::sqrt(T(1) - n * n * 
-            (T(1) - cos_thetai * cos_thetai));
-    cos_thetat *= pr::copysign(T(1), cos_thetai);
-    rs = (n * cos_thetai - cos_thetat) / (n * cos_thetai + cos_thetat);
-    rp = (cos_thetai - n * cos_thetat) / (cos_thetai + n * cos_thetat);
-    ts = T(1) + rs;
-    tp = T(1) + rp; 
-    tp *= n;
-    return -cos_thetat;
+    T rs = 0, rp = 0;
+    T ts = 0, tp = 0;
+    fresnel_dielectric(
+        eta, 
+        cos_thetai, 
+        cos_thetat, 
+        rs, rp, 
+        ts, tp);
+    fr = T(0.5) * (rs * rs + rp * rp);
+    ft = 1 - fr;
 }
 
 /**@}*/
