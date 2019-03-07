@@ -66,6 +66,8 @@ namespace pr {
  * @defgroup multi_math_geometry Multi-dimensional array (math, geometry)
  * 
  * `<preform/multi_math.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 
@@ -300,27 +302,6 @@ constexpr multi<decltype(T() * U()),
     return res;
 }
 
-#if 0
-/**
- * @brief Reflect.
- *
- * @f[
- *      2 (\mathbf{x}_0 \cdot \mathbf{x}_1) \mathbf{x}_1 - \mathbf{x}_0
- * @f]
- */
-template <typename T, typename U, std::size_t N>
-constexpr multi<decltype(T() * U()), N> reflect(
-                        const multi<T, N>& arr0,
-                        const multi<U, N>& arr1)
-{
-    decltype(T() * U()) fac = 
-    decltype(T() * U())(2) * dot(arr0, arr1);
-    return fac * arr1 - arr0;
-}
-
-// TODO refract
-#endif
-
 /**
  * @brief @f$ L^2 @f$ length.
  *
@@ -372,11 +353,11 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
                 tmp /= tmpmax; // Inverse overflows.
             }
             // Length.
-            return pr::sqrt(pr::dot(tmp, tmp)) * tmpmax;
+            return pr::sqrt(dot(tmp, tmp)) * tmpmax;
         }
         else {
             // Length.
-            return pr::sqrt(pr::dot(tmp, tmp));
+            return pr::sqrt(dot(tmp, tmp));
         }
     }
 }

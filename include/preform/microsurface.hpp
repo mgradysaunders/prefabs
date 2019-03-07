@@ -42,7 +42,7 @@
 // for pr::uniform_real_distribution, ...
 #include <preform/random.hpp>
 
-// for pr::cosine_hemisphere_pdf_sample
+// for pr::cosine_hemisphere_pdf, ...
 #include <preform/sampling.hpp>
 
 // for pr::fresnel_dielectric, ...
@@ -56,6 +56,13 @@ namespace pr {
  * `<preform/microsurface.hpp>`
  *
  * __C++ version__: >=C++17
+ *
+ * This implementation is based on the work of Heitz, Hanika, d'Eon, and
+ * Dachsbacher in _Multiple-scattering microfacet BSDFs with the Smith model_. 
+ *
+ * @see
+ * Eric Heitz's [page][1].
+ * [1]: https://eheitzresearch.wordpress.com/240-2/
  */
 /**@{*/
 
@@ -539,15 +546,6 @@ public:
 
 /**
  * @brief Microsurface adapter.
- *
- * This implementation is based on the _Multiple-scattering microfacet BSDFs 
- * with the Smith model_ sample code by Eric Heitz.
- *
- * @tparam Tslope 
- * Slope distribution.
- *
- * @tparam Theight
- * Height distribution.
  */
 template <typename Tslope, typename Theight>
 struct microsurface_adapter
@@ -938,11 +936,19 @@ public:
      * Incident direction.
      */
     float_type fs(
-            const multi<float_type, 2>& u,
-            const multi<float_type, 3>& wo,
-            const multi<float_type, 3>& wi) const
+            multi<float_type, 2> u,
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
     {
-        // TODO Implement for wo in lower hemisphere
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
+        if (wo[2] == 0 ||
+            wi[2] <= 0) {
+            return 0;
+        }
 
         // Sample visible microsurface normal.
         multi<float_type, 3> wm = dwo_sample(u, wo);
@@ -957,18 +963,39 @@ public:
                pr::fmax(pr::dot(wm, wi), float_type(0)) * g2_given_g1;
     }
 
-    // TODO fs_pdf
+    /**
+     * @brief Single-scattering BRDF probability density function.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @note 
+     * For simplicity, this implementation samples 
+     * the single-scattering BRDF as if it is Lambertian.
+     */
+    float_type fs_pdf(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
+        if (wi[2] <= 0) {
+            return 0;
+        }
 
-    // TODO fs_pdf_sample
+        // Cosine hemisphere PDF.
+        return cosine_hemisphere_pdf(wi[2]);
+    }
 
     /**
-     * @brief Phase function.
-     *
-     * @f[
-     *      p_m(\omega_o, \omega_i) = 
-     *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
-     * @f]
-     * where @f$ \omega_m \sim D_{\omega_o} @f$
+     * @brief Single-scattering BRDF probability density function 
+     * sampling routine.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -976,63 +1003,19 @@ public:
      * @param[in] wo
      * Outgoing direction.
      *
-     * @param[in] wi
-     * Incident direction.
+     * @note 
+     * For simplicity, this implementation samples 
+     * the single-scattering BRDF as if it is Lambertian.
      */
-    float_type pm(
-            const multi<float_type, 2>& u,
-            const multi<float_type, 3>& wo,
-            const multi<float_type, 3>& wi) const
+    multi<float_type, 3> fs_pdf_sample(
+            multi<float_type, 2> u,
+            multi<float_type, 3> wo) const
     {
-        // Sample visible microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u, wo);
-
-        // Evaluate.
-        return pr::numeric_constants<float_type>::M_1_pi() *
-               pr::fmax(pr::dot(wm, wi), float_type(0));
-    }
-
-    /**
-     * @brief Phase function sample.
-     *
-     * @param[in] u0
-     * Sample in @f$ [0, 1)^2 @f$.
-     *
-     * @param[in] u1
-     * Sample in @f$ [0, 1)^2 @f$.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     */
-    multi<float_type, 3> pm_sample(
-            const multi<float_type, 2>& u0,
-            const multi<float_type, 2>& u1,
-            const multi<float_type, 3>& wo) const
-    {
-        // Sample visible microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u0, wo);
-
-        // Orthonormal basis.
-        multi<float_type, 3> wx = {};
-        multi<float_type, 3> wy = {};
-        if (wm[2] < float_type(-0.9999999)) {
-            wx[1] = -1;
-            wy[0] = -1;
+        multi<float_type, 3> wi = cosine_hemisphere_pdf_sample(u);
+        if (wo[2] < 0) {
+            wi[2] = -wi[2];
         }
-        else {
-            float_type tmp0 = -1 / (wm[2] + 1);
-            float_type tmp1 = tmp0 * wm[0] * wm[1];
-            float_type tmp2 = 1 + tmp0 * wm[0] * wm[0];
-            float_type tmp3 = 1 + tmp0 * wm[1] * wm[1];
-            wx = {tmp2, tmp1, -wm[0]};
-            wy = {tmp1, tmp3, -wm[1]};
-        }
-
-        // Sample direction, expand in orthonormal basis.
-        multi<float_type, 3> wi = cosine_hemisphere_pdf_sample(u1);
-        return wi[0] * wx +
-               wi[1] * wy +
-               wi[2] * wm;
+        return wi;
     }
 
     /**
@@ -1053,12 +1036,16 @@ public:
     template <typename U>
     float_type fm(
             U&& uk,
-            const multi<float_type, 3>& wo,
-            const multi<float_type, 3>& wi, int kres = 0) const
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi, int kres = 0) const
     {
-        // TODO Implement for wo in lower hemisphere
-
-        if (!(wi[2] > 0)) {
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
+        if (wo[2] == 0 ||
+            wi[2] <= 0) {
             return 0;
         }
 
@@ -1127,10 +1114,15 @@ public:
      */
     template <typename U>
     multi<float_type, 3> fm_sample(
-            U&& uk, const multi<float_type, 3>& wo, 
+            U&& uk, multi<float_type, 3> wo, 
             int& k) const
     {
-        // TODO Implement for wo in lower hemisphere
+        // Flip.
+        bool flip = false;
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            flip = true;
+        }
 
         // Initial height.
         float_type hk = Theight::c1inv(float_type(0.99999)) + 1;
@@ -1162,7 +1154,71 @@ public:
             }
         }
 
+        // Unflip.
+        if (flip) {
+            wk[2] = -wk[2];
+        }
         return wk;
+    }
+
+private:
+
+    /**
+     * @brief Phase function.
+     *
+     * @f[
+     *      p_m(\omega_o, \omega_i) = 
+     *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
+     * @f]
+     * where @f$ \omega_m \sim D_{\omega_o} @f$
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type pm(
+            const multi<float_type, 2>& u,
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi) const
+    {
+        // Sample visible microsurface normal.
+        multi<float_type, 3> wm = dwo_sample(u, wo);
+
+        // Evaluate.
+        return pr::numeric_constants<float_type>::M_1_pi() *
+               pr::fmax(pr::dot(wm, wi), float_type(0));
+    }
+
+    /**
+     * @brief Phase function sample.
+     *
+     * @param[in] u0
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] u1
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     */
+    multi<float_type, 3> pm_sample(
+            const multi<float_type, 2>& u0,
+            const multi<float_type, 2>& u1,
+            const multi<float_type, 3>& wo) const
+    {
+        // Sample visible microsurface normal.
+        multi<float_type, 3> wm = dwo_sample(u0, wo);
+
+        // Sample direction.
+        multi<float_type, 3> wi = cosine_hemisphere_pdf_sample(u1);
+
+        // Expand in orthonormal basis.
+        return dot(build_onb(wm), wi);
     }
 };
 
@@ -1257,12 +1313,15 @@ public:
             multi<float_type, 3> wi) const
     {
         float_type eta = eta_;
+
+        // Flip.
         if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
             eta = 1 / eta;
         }
-        else if (wo[2] == 0) {
+        if (wo[2] == 0 ||
+            wi[2] == 0) {
             return 0;
         }
 
@@ -1287,7 +1346,7 @@ public:
                 fr, ft);
             return d(wm) * fr * g2 / (4 * wo[2]);
         }
-        else if (wi[2] < 0) {
+        else {
 
             // Half vector.
             multi<float_type, 3> vm = (eta * wo + wi) * (eta > 1 ? +1 : -1);
@@ -1326,9 +1385,6 @@ public:
                    (dot_wo_wm * -dot_wi_wm /
                     dot_vm_vm / wo[2]);
         }
-        else {
-            return 0;
-        }
     }
 
     // TODO fs_pdf
@@ -1351,7 +1407,7 @@ private:
      */
     float_type eta_ = float_type(1) / float_type(1.5);
 };
-        
+
 /**@}*/
 
 } // namespace pr
