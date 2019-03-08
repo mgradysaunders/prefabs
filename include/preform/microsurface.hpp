@@ -1810,7 +1810,7 @@ public:
 
             if (kres == 0 ||
                 kres == k) {
-                if (k > 1) {
+                //if (k > 1) {
 
                     // Next event estimation.
                     float_type fk = 
@@ -1820,7 +1820,7 @@ public:
                     if (pr::isfinite(fk)) {
                         f += fk;
                     }
-                }
+                //}
             }
 
             // Sample next direction.
@@ -1838,10 +1838,10 @@ public:
             }
         }
         
-        if (kres == 0 ||
-            kres == 1) {
-            f += fs(wo, wi);
-        }
+        //if (kres == 0 ||
+        //    kres == 1) {
+        //    f += fs(wo, wi);
+        //}
 
         return f;
     }
