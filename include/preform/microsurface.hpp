@@ -1800,7 +1800,7 @@ public:
             hk = h_sample(
                     std::forward<U>(uk)(), 
                     outside ? wk : -wk, 
-                    outside ? hk : -hk);
+                    outside ? hk : -hk) * (outside ? +1 : -1);
             if (pr::isinf(hk)) {
                 break;
             }
@@ -1824,12 +1824,12 @@ public:
             }
 
             // Sample next direction.
-            wk = pm_sample(
+            wk = fastnormalize(
+                 pm_sample(
                     std::forward<U>(uk)(),
                     {std::forward<U>(uk)(), 
                      std::forward<U>(uk)()},
-                    -wk, outside, outside);
-            wk = fastnormalize(wk);
+                    -wk, outside, outside));
 
             // NaN check.
             if (pr::isnan(hk) ||
