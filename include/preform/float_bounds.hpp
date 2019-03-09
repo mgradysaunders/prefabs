@@ -88,7 +88,7 @@ public:
      * @brief Constructor.
      *
      * @param[in] x
-     * @f$ x @f$, value.
+     * Value.
      */
     float_bounds(T x) : 
             x_(x), 
@@ -101,13 +101,13 @@ public:
      * @brief Constructor.
      *
      * @param[in] x
-     * @f$ x @f$, value.
+     * Value.
      *
      * @param[in] x0
-     * @f$ x_0 @f$, lower bound.
+     * Value lower bound.
      *
      * @param[in] x1
-     * @f$ x_1 @f$, upper bound.
+     * Value upper bound.
      */
     float_bounds(T x, T x0, T x1) :
             x_(x),
@@ -122,6 +122,22 @@ public:
                    x1_ >= x);
         }
 #endif // #if !NDEBUG
+    }
+
+    /**
+     * @brief Constructor.
+     *
+     * @param[in] x
+     * Value.
+     *
+     * @param[in] xerr
+     * Value absolute error.
+     */
+    float_bounds(T x, T xerr) :
+            x_(x),
+            x0_(fdec(x - xerr)),
+            x1_(finc(x + xerr))
+    {
     }
 
     /**@}*/
@@ -265,17 +281,17 @@ public:
 private:
 
     /**
-     * @brief @f$ x @f$, value.
+     * @brief Value @f$ x @f$.
      */
     T x_ = T();
 
     /**
-     * @brief @f$ x_0 @f$, lower bound.
+     * @brief Value lower bound @f$ x_0 @f$.
      */
     T x0_ = T();
 
     /**
-     * @brief @f$ x_1 @f$, upper bound.
+     * @brief Value upper bound @f$ x_1 @f$.
      */
     T x1_ = T();
 
