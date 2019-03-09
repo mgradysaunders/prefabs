@@ -1238,9 +1238,23 @@ public:
     // Inherit float type.
     using typename microsurface_adapter<Tslope, Theight>::float_type;
 
-    // Inherit constructors.
-    using microsurface_adapter<Tslope, Theight>::
-          microsurface_adapter;
+    /**
+     * @brief Default constructor.
+     */
+    dielectric_bsdf_microsurface_adapter() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    template <typename... Targs>
+    dielectric_bsdf_microsurface_adapter(
+            float_type eta, 
+            Targs&&... args) :
+                microsurface_adapter<Tslope, Theight>::
+                microsurface_adapter(std::forward<Targs>(args)...),
+                eta_(eta)
+    {
+    }
 
     // Locally visible for convenience.
     using microsurface_adapter<Tslope, Theight>::lambda;
@@ -1356,10 +1370,13 @@ public:
         else {
 
             // Half vector.
-            multi<float_type, 3> vm = (eta * wo + wi) * (eta > 1 ? +1 : -1);
+            multi<float_type, 3> vm = (eta * wo + wi);// * (eta > 1 ? +1 : -1);
             float_type dot_vm_vm = dot(vm, vm);
             if (dot_vm_vm < float_type(1e-8)) {
                 return 0;
+            }
+            if (vm[2] < 0) {
+                vm = -vm;
             }
 
             // Microsurface normal.
@@ -1474,10 +1491,13 @@ public:
         else {
 
             // Half vector.
-            multi<float_type, 3> vm = (eta * wo + wi) * (eta > 1 ? +1 : -1);
+            multi<float_type, 3> vm = (eta * wo + wi);// * (eta > 1 ? +1 : -1);
             float_type dot_vm_vm = dot(vm, vm);
             if (dot_vm_vm < float_type(1e-8)) {
                 return 0;
+            }
+            if (vm[2] < 0) {
+                vm = -vm;
             }
             
             // Microsurface normal.
@@ -1703,10 +1723,13 @@ public:
         }
 
         // Half vector.
-        multi<float_type, 3> vm = (eta * wo + wi) * (eta > 1 ? +1 : -1);
+        multi<float_type, 3> vm = (eta * wo + wi);// * (eta > 1 ? +1 : -1);
         float_type dot_vm_vm = dot(vm, vm);
         if (dot_vm_vm < float_type(1e-8)) {
             return 0;
+        }
+        if (vm[2] < 0) {
+            vm = -vm;
         }
             
         // Microsurface normal.
@@ -1790,7 +1813,12 @@ public:
         // Initial direction.
         multi<float_type, 3> wk = -wo;
 
-        bool outside = true;
+        bool wk_outside = wo[2] > 0;
+        bool wi_outside = wi[2] > 0;
+
+        if (!wk_outside) {
+            hk = -hk;
+        }
 
         for (int k = 0; 
                     kres == 0 || 
@@ -1799,8 +1827,8 @@ public:
             // Sample next height.
             hk = h_sample(
                     std::forward<U>(uk)(), 
-                    outside ? wk : -wk, 
-                    outside ? hk : -hk) * (outside ? +1 : -1);
+                    wk_outside ? wk : -wk, 
+                    wk_outside ? hk : -hk) * (wk_outside ? +1 : -1);
             if (pr::isinf(hk)) {
                 break;
             }
@@ -1810,17 +1838,17 @@ public:
 
             if (kres == 0 ||
                 kres == k) {
-                //if (k > 1) {
+                if (k > 1) {
 
                     // Next event estimation.
                     float_type fk = 
-                        g1(wi[2] > 0 ? wi : -wi, 
-                           wi[2] > 0 ? hk : -hk) *
-                        pm(-wk, wi, outside, wi[2] > 0);
+                        g1(wi_outside ? wi : -wi, 
+                           wi_outside ? hk : -hk) *
+                        pm(-wk, wi, wk_outside, wi_outside);
                     if (pr::isfinite(fk)) {
                         f += fk;
                     }
-                //}
+                }
             }
 
             // Sample next direction.
@@ -1829,7 +1857,7 @@ public:
                     std::forward<U>(uk)(),
                     {std::forward<U>(uk)(), 
                      std::forward<U>(uk)()},
-                    -wk, outside, outside));
+                    -wk, wk_outside, wk_outside));
 
             // NaN check.
             if (pr::isnan(hk) ||
@@ -1838,10 +1866,10 @@ public:
             }
         }
         
-        //if (kres == 0 ||
-        //    kres == 1) {
-        //    f += fs(wo, wi);
-        //}
+        if (kres == 0 ||
+            kres == 1) {
+            f += fs(wo, wi);
+        }
 
         return f;
     }
@@ -1882,10 +1910,13 @@ private:
         else {
 
             // Half vector.
-            multi<float_type, 3> vm = (eta * wo + wi) * (eta > 1 ? +1 : -1);
+            multi<float_type, 3> vm = (eta * wo + wi);// * (eta > 1 ? +1 : -1);
             float_type dot_vm_vm = dot(vm, vm);
             if (dot_vm_vm < float_type(1e-8)) {
                 return 0;
+            }
+            if (vm[2] < 0) {
+                vm = -vm;
             }
             if (!wo_outside) {
                 vm = -vm;
@@ -1902,7 +1933,7 @@ private:
 
             if (!wo_outside) {
                 wo = -wo;
-                wi = -wi;
+            //  wi = -wi;
                 wm = -wm;
             }
 
