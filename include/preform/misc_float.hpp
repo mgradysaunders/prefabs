@@ -38,6 +38,12 @@
 // for assert
 #include <cassert>
 
+// for std::memcpy
+#include <cstring>
+
+// for std::uint32_t, std::uint64_t
+#include <cstdint>
+
 // for std::swap
 #include <utility>
 
