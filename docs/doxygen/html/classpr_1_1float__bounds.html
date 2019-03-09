@@ -113,6 +113,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aff77080dfb585997cdadc3410f880dcc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__bounds.html#aff77080dfb585997cdadc3410f880dcc">float_bounds</a> (T x, T x0, T x1)</td></tr>
 <tr class="memdesc:aff77080dfb585997cdadc3410f880dcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#aff77080dfb585997cdadc3410f880dcc">More...</a><br /></td></tr>
 <tr class="separator:aff77080dfb585997cdadc3410f880dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47b2e73b770df5dffa36880d1552e41a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__bounds.html#a47b2e73b770df5dffa36880d1552e41a">float_bounds</a> (T x, T xerr)</td></tr>
+<tr class="memdesc:a47b2e73b770df5dffa36880d1552e41a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a47b2e73b770df5dffa36880d1552e41a">More...</a><br /></td></tr>
+<tr class="separator:a47b2e73b770df5dffa36880d1552e41a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Tests</div></td></tr>
 <tr class="memitem:a4f3a23abca908c82ca06b5a31aff4747"><td class="memTemplParams" colspan="2">template&lt;bool inclusive0 = true, bool inclusive1 = false&gt; </td></tr>
 <tr class="memitem:a4f3a23abca908c82ca06b5a31aff4747"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1float__bounds.html#a4f3a23abca908c82ca06b5a31aff4747">overlaps</a> (const <a class="el" href="classpr_1_1float__bounds.html">float_bounds</a> &amp;oth) const</td></tr>
@@ -135,13 +138,13 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aa6d76ec840d29edcd6f68029b13e13cc"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__bounds.html#aa6d76ec840d29edcd6f68029b13e13cc">x_</a> = T()</td></tr>
-<tr class="memdesc:aa6d76ec840d29edcd6f68029b13e13cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( x \), value.  <a href="#aa6d76ec840d29edcd6f68029b13e13cc">More...</a><br /></td></tr>
+<tr class="memdesc:aa6d76ec840d29edcd6f68029b13e13cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value \( x \).  <a href="#aa6d76ec840d29edcd6f68029b13e13cc">More...</a><br /></td></tr>
 <tr class="separator:aa6d76ec840d29edcd6f68029b13e13cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfcd22ce5cf8e0beb2843a5ccfa39eeb"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__bounds.html#abfcd22ce5cf8e0beb2843a5ccfa39eeb">x0_</a> = T()</td></tr>
-<tr class="memdesc:abfcd22ce5cf8e0beb2843a5ccfa39eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( x_0 \), lower bound.  <a href="#abfcd22ce5cf8e0beb2843a5ccfa39eeb">More...</a><br /></td></tr>
+<tr class="memdesc:abfcd22ce5cf8e0beb2843a5ccfa39eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value lower bound \( x_0 \).  <a href="#abfcd22ce5cf8e0beb2843a5ccfa39eeb">More...</a><br /></td></tr>
 <tr class="separator:abfcd22ce5cf8e0beb2843a5ccfa39eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58dfd6d20b3fb1d98408a9a6b68b8702"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1float__bounds.html#a58dfd6d20b3fb1d98408a9a6b68b8702">x1_</a> = T()</td></tr>
-<tr class="memdesc:a58dfd6d20b3fb1d98408a9a6b68b8702"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( x_1 \), upper bound.  <a href="#a58dfd6d20b3fb1d98408a9a6b68b8702">More...</a><br /></td></tr>
+<tr class="memdesc:a58dfd6d20b3fb1d98408a9a6b68b8702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value upper bound \( x_1 \).  <a href="#a58dfd6d20b3fb1d98408a9a6b68b8702">More...</a><br /></td></tr>
 <tr class="separator:a58dfd6d20b3fb1d98408a9a6b68b8702"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
@@ -163,7 +166,7 @@ class pr::float_bounds&lt; T &gt;</h3>
 <p>Float bounds. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3ad73b0dd6aceee9cf1d3078ac2b77c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ad73b0dd6aceee9cf1d3078ac2b77c4">&#9670;&nbsp;</a></span>float_bounds() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ad73b0dd6aceee9cf1d3078ac2b77c4">&#9670;&nbsp;</a></span>float_bounds() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +195,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a7928a848ae0949f09bde74226e81108f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7928a848ae0949f09bde74226e81108f">&#9670;&nbsp;</a></span>float_bounds() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7928a848ae0949f09bde74226e81108f">&#9670;&nbsp;</a></span>float_bounds() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -220,7 +223,7 @@ template&lt;typename T &gt; </div>
 <p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>\( x \), value. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>Value. </td></tr>
   </table>
   </dd>
 </dl>
@@ -228,7 +231,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="aff77080dfb585997cdadc3410f880dcc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff77080dfb585997cdadc3410f880dcc">&#9670;&nbsp;</a></span>float_bounds() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aff77080dfb585997cdadc3410f880dcc">&#9670;&nbsp;</a></span>float_bounds() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,9 +275,56 @@ template&lt;typename T &gt; </div>
 <p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>\( x \), value.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">x0</td><td>\( x_0 \), lower bound.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">x1</td><td>\( x_1 \), upper bound. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>Value.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x0</td><td>Value lower bound.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x1</td><td>Value upper bound. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a47b2e73b770df5dffa36880d1552e41a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47b2e73b770df5dffa36880d1552e41a">&#9670;&nbsp;</a></span>float_bounds() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1float__bounds.html">pr::float_bounds</a>&lt; T &gt;::<a class="el" href="classpr_1_1float__bounds.html">float_bounds</a> </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>xerr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>Value.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">xerr</td><td>Value absolute error. </td></tr>
   </table>
   </dd>
 </dl>
@@ -791,7 +841,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>\( x \), value. </p>
+<p>Value \( x \). </p>
 
 </div>
 </div>
@@ -817,7 +867,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>\( x_0 \), lower bound. </p>
+<p>Value lower bound \( x_0 \). </p>
 
 </div>
 </div>
@@ -843,7 +893,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>\( x_1 \), upper bound. </p>
+<p>Value upper bound \( x_1 \). </p>
 
 </div>
 </div>

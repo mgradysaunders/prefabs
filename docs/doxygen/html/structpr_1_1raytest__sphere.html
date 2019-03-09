@@ -104,6 +104,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8fc5aa21f719ca5a0f3b7ebc0e0a01f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__sphere.html#a8fc5aa21f719ca5a0f3b7ebc0e0a01f8">raytest_sphere</a> (<a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a> r, <a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a> thetamin, <a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a> thetamax, <a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a> phimax)</td></tr>
 <tr class="memdesc:a8fc5aa21f719ca5a0f3b7ebc0e0a01f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a8fc5aa21f719ca5a0f3b7ebc0e0a01f8">More...</a><br /></td></tr>
 <tr class="separator:a8fc5aa21f719ca5a0f3b7ebc0e0a01f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31ecd60714cdbe516a8e652dd446091b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; <a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__sphere.html#a31ecd60714cdbe516a8e652dd446091b">bounding_box</a> () const</td></tr>
+<tr class="memdesc:a31ecd60714cdbe516a8e652dd446091b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bounding box.  <a href="#a31ecd60714cdbe516a8e652dd446091b">More...</a><br /></td></tr>
+<tr class="separator:a31ecd60714cdbe516a8e652dd446091b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a291e39394f1f7e8eb01156b235ea106b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__sphere.html#a291e39394f1f7e8eb01156b235ea106b">surface_area</a> () const</td></tr>
+<tr class="memdesc:a291e39394f1f7e8eb01156b235ea106b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface area.  <a href="#a291e39394f1f7e8eb01156b235ea106b">More...</a><br /></td></tr>
+<tr class="separator:a291e39394f1f7e8eb01156b235ea106b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3510b5f18b51b8fb72449fa5d483180"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__sphere_1_1hit__info.html">hit_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__sphere.html#ab3510b5f18b51b8fb72449fa5d483180">evaluate</a> (<a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a> u, <a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a> v) const</td></tr>
+<tr class="memdesc:ab3510b5f18b51b8fb72449fa5d483180"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate.  <a href="#ab3510b5f18b51b8fb72449fa5d483180">More...</a><br /></td></tr>
+<tr class="separator:ab3510b5f18b51b8fb72449fa5d483180"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3dbe35696837d8807ec904ff9e6b570"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__sphere.html#af3dbe35696837d8807ec904ff9e6b570">intersect</a> (const <a class="el" href="structpr_1_1raytest__sphere_1_1ray__info.html">ray_info</a> &amp;ray, <a class="el" href="structpr_1_1raytest__sphere_1_1hit__info.html">hit_info</a> *hit=nullptr) const</td></tr>
 <tr class="memdesc:af3dbe35696837d8807ec904ff9e6b570"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intersect.  <a href="#af3dbe35696837d8807ec904ff9e6b570">More...</a><br /></td></tr>
 <tr class="separator:af3dbe35696837d8807ec904ff9e6b570"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -249,7 +258,7 @@ template&lt;typename T &gt; </div>
 <li><code>thetamin &gt;= 0 &amp;&amp; thetamin &lt;= pi</code>,</li>
 <li><code>thetamax &gt;= 0 &amp;&amp; thetamax &lt;= pi</code>,</li>
 <li><code>thetamax &gt; thetamin</code>, and</li>
-<li><code>phimax &gt;= 0 &amp;&amp; phimax &lt;= 2 * pi</code>. </li>
+<li><code>phimax &gt; 0 &amp;&amp; phimax &lt;= 2 * pi</code>. </li>
 </ul>
 </td></tr>
   </table>
@@ -259,6 +268,114 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a31ecd60714cdbe516a8e652dd446091b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31ecd60714cdbe516a8e652dd446091b">&#9670;&nbsp;</a></span>bounding_box()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1aabb.html">aabb</a>&lt;<a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a>, 3&gt; <a class="el" href="structpr_1_1raytest__sphere.html">pr::raytest_sphere</a>&lt; T &gt;::bounding_box </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bounding box. </p>
+
+</div>
+</div>
+<a id="a291e39394f1f7e8eb01156b235ea106b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a291e39394f1f7e8eb01156b235ea106b">&#9670;&nbsp;</a></span>surface_area()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a> <a class="el" href="structpr_1_1raytest__sphere.html">pr::raytest_sphere</a>&lt; T &gt;::surface_area </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Surface area. </p>
+<p class="formulaDsp">
+\[ A = \phi_{\max} r (z_{\max} - z_{\min}) \]
+</p>
+ 
+</div>
+</div>
+<a id="ab3510b5f18b51b8fb72449fa5d483180"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3510b5f18b51b8fb72449fa5d483180">&#9670;&nbsp;</a></span>evaluate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpr_1_1raytest__sphere_1_1hit__info.html">hit_info</a> <a class="el" href="structpr_1_1raytest__sphere.html">pr::raytest_sphere</a>&lt; T &gt;::evaluate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a>&#160;</td>
+          <td class="paramname"><em>u</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">float_type</a>&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Evaluate. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Parameter in \( [0, 1) \).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>Parameter in \( [0, 1) \). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="af3dbe35696837d8807ec904ff9e6b570"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3dbe35696837d8807ec904ff9e6b570">&#9670;&nbsp;</a></span>intersect()</h2>
 
