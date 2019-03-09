@@ -44,6 +44,9 @@
 // for pr::float_bounds
 #include <preform/float_bounds.hpp>
 
+// for pr::aabb
+#include <preform/aabb.hpp>
+
 namespace pr {
 
 /**
@@ -251,7 +254,7 @@ public:
      * - `thetamin >= 0 && thetamin <= pi`,
      * - `thetamax >= 0 && thetamax <= pi`,
      * - `thetamax > thetamin`, and
-     * - `phimax >= 0 && phimax <= 2 * pi`.
+     * - `phimax > 0 && phimax <= 2 * pi`.
      */
     raytest_sphere(
         float_type r, 
@@ -264,13 +267,13 @@ public:
             phimax_(phimax)
     {
         if (!(r_ > 0 &&
-            thetamin_ >= 0 && 
-            thetamax_ >= 0 && 
-            thetamin_ <= pr::numeric_constants<float_type>::M_pi() &&
-            thetamax_ <= pr::numeric_constants<float_type>::M_pi() &&
-            thetamax_ > thetamin_ &&
-            phimax_ >= 0 &&
-            phimax_ <= 2 * pr::numeric_constants<float_type>::M_pi())) {
+              thetamin_ >= 0 && 
+              thetamax_ >= 0 && 
+              thetamin_ <= pr::numeric_constants<float_type>::M_pi() &&
+              thetamax_ <= pr::numeric_constants<float_type>::M_pi() &&
+              thetamax_ > thetamin_ &&
+              phimax_ > 0 &&
+              phimax_ <= 2 * pr::numeric_constants<float_type>::M_pi())) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
@@ -279,6 +282,81 @@ public:
         if (!(zmin_ < zmax_)) {
             std::swap(zmin_, zmax_); // Shouldn't happen
         }
+    }
+
+    /**
+     * @brief Bounding box.
+     */
+    aabb<float_type, 3> bounding_box() const
+    {
+        return {
+            {-r_, -r_, zmin_},
+            {+r_, +r_, zmax_}
+        };
+    }
+
+    /**
+     * @brief Surface area.
+     *
+     * @f[
+     *      A = \phi_{\max} r (z_{\max} - z_{\min})
+     * @f]
+     */
+    float_type surface_area() const
+    {
+        return phimax_ * r_ * (zmax_ - zmin_);
+    }
+
+    /**
+     * @brief Evaluate.
+     *
+     * @param[in] u
+     * Parameter in @f$ [0, 1) @f$.
+     *
+     * @param[in] v
+     * Parameter in @f$ [0, 1) @f$.
+     */
+    hit_info evaluate(
+                float_type u, 
+                float_type v) const
+    {
+        hit_info hit;
+        float_type phi = u * phimax_;
+        float_type sin_phi = pr::sin(phi);
+        float_type cos_phi = pr::cos(phi);
+        float_type theta = (1 - v) * thetamin_ + v * thetamax_;
+        float_type sin_theta = pr::sin(theta);
+        float_type cos_theta = pr::cos(theta);
+
+        // Position.
+        hit.p = {
+            r_ * sin_theta * cos_phi,
+            r_ * sin_theta * sin_phi,
+            r_ * cos_theta
+        };
+        hit.p = fastnormalize(hit.p) * r_;
+
+        // Position absolute error.
+        hit.perr = 
+                pr::fabs(hit.p) * 
+                pr::numeric_limits<float_type>::echelon(5);
+
+        // Surface parameters.
+        hit.u = u;
+        hit.v = v;
+
+        // Surface partial derivatives.
+        hit.dp_du = {
+            -phimax_ * hit.p[1],
+            +phimax_ * hit.p[0],
+            0
+        };
+        hit.dp_dv = {
+            +(r_ * (thetamax_ - thetamin_)) * cos_theta * cos_phi,
+            +(r_ * (thetamax_ - thetamin_)) * cos_theta * sin_phi,
+            -(r_ * (thetamax_ - thetamin_)) * sin_theta
+        };
+        return hit;
     }
 
     /**
@@ -300,16 +378,8 @@ public:
         multi<float_bounds<float_type>, 3> o;
         multi<float_bounds<float_type>, 3> d;
         for (int k = 0; k < 3; k++) {
-            o[k] = {
-                ray.o[k],
-                fdec(ray.o[k] - ray.oerr[k]),
-                finc(ray.o[k] + ray.oerr[k])
-            };
-            d[k] = {
-                ray.d[k],
-                fdec(ray.d[k] - ray.derr[k]),
-                finc(ray.d[k] + ray.derr[k])
-            };
+            o[k] = {ray.o[k], ray.oerr[k]};
+            d[k] = {ray.d[k], ray.derr[k]};
         }
 
         // Quadratic roots.
@@ -320,8 +390,8 @@ public:
             dot(d, o) * float_type(2),
             dot(d, d),
             t0, t1);
-        if (!(t0.upper_bound() <= ray.tmax) ||
-            !(t1.lower_bound() >= ray.tmin)) {
+        if (!(t0.upper_bound() <= ray.tmax &&
+              t1.lower_bound() >= ray.tmin)) {
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
 
@@ -336,7 +406,9 @@ public:
 
         // Position.
         multi<float_type, 3> p = 
-            normalize(ray.o + ray.d * t.value()) * r_;
+            fastnormalize(
+                    ray.o + 
+                    ray.d * t.value()) * r_;
         if (p[0] == 0 && 
             p[1] == 0) {
             p[0] = float_type(1e-6) * r_;
@@ -362,7 +434,9 @@ public:
             t = t1;
 
             // Position.
-            p = normalize(ray.o + ray.d * t.value()) * r_;
+            p = fastnormalize(
+                    ray.o + 
+                    ray.d * t.value()) * r_;
             if (p[0] == 0 && 
                 p[1] == 0) {
                 p[0] = float_type(1e-6) * r_;
