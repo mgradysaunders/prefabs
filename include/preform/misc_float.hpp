@@ -66,7 +66,53 @@ __attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> finc(T x)
 {
-    return pr::nextafter(x, +pr::numeric_limits<T>::infinity());
+    if constexpr (
+            std::is_same<T, float>::value &&
+            std::numeric_limits<float>::is_iec559) {
+
+        // To bits.
+        std::uint32_t u;
+        std::memcpy(&u, &x, 4);
+
+        // Is not positive infinity?
+        if (u != (0x7f8UL << 20)) {
+
+            // Skip negative zero.
+            u *= (u != (1UL << 31));
+
+            // Bump.
+            u += (u &  (1UL << 31)) ? -1 : +1;
+        }
+
+        // To float.
+        std::memcpy(&x, &u, 4);
+        return x;
+    }
+    else if constexpr (
+            std::is_same<T, double>::value &&
+            std::numeric_limits<double>::is_iec559) {
+
+        // To bits.
+        std::uint64_t u;
+        std::memcpy(&u, &x, 8);
+
+        // Is not positive infinity?
+        if (u != (0x7ffULL << 52)) { 
+
+            // Skip negative zero.
+            u *= (u != (1ULL << 63));
+
+            // Bump.
+            u += (u &  (1ULL << 63)) ? -1 : +1;
+        }
+
+        // To float.
+        std::memcpy(&x, &u, 8);
+        return x;
+    }
+    else {
+        return pr::nextafter(x, +pr::numeric_limits<T>::infinity());
+    }
 }
 
 /**
@@ -77,7 +123,53 @@ __attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> fdec(T x)
 {
-    return pr::nextafter(x, -pr::numeric_limits<T>::infinity());
+    if constexpr (
+            std::is_same<T, float>::value &&
+            std::numeric_limits<float>::is_iec559) {
+
+        // To bits.
+        std::uint32_t u;
+        std::memcpy(&u, &x, 4);
+
+        // Is not negative infinity?
+        if (u != (0xff8UL << 20)) {
+
+            // Skip negative zero.
+            u *= (u != (1UL << 31));
+
+            // Bump.
+            u += (u &  (1UL << 31)) ? +1 : -1;
+        }
+
+        // To float.
+        std::memcpy(&x, &u, 4);
+        return x;
+    }
+    else if constexpr (
+            std::is_same<T, double>::value &&
+            std::numeric_limits<double>::is_iec559) {
+
+        // To bits.
+        std::uint64_t u;
+        std::memcpy(&u, &x, 8);
+
+        // Is not negative infinity?
+        if (u != (0xfffULL << 52)) { 
+
+            // Skip negative zero.
+            u *= (u != (1ULL << 63));
+
+            // Bump.
+            u += (u &  (1ULL << 63)) ? +1 : -1;
+        }
+
+        // To float.
+        std::memcpy(&x, &u, 8);
+        return x;
+    }
+    else {
+        return pr::nextafter(x, -pr::numeric_limits<T>::infinity());
+    }
 }
 
 /**
