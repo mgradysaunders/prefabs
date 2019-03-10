@@ -64,13 +64,17 @@ namespace pr {
  */
 /**@{*/
 
-// TODO generalize
 /**
  * @brief BLAS traits.
+ *
+ * By default, the implementation assumes `T` is floating point 
+ * or complex.
  */
 template <typename T>
 struct blas_traits
 {
+public:
+
     // Sanity check.
     static_assert(
         std::is_floating_point<T>::value ||
@@ -81,6 +85,11 @@ struct blas_traits
      * @brief Value type.
      */
     typedef T value_type;
+
+    /**
+     * @brief Field type.
+     */
+    typedef decltype(pr::real(T())) field_type;
 
     /**
      * @brief Float type.
@@ -124,35 +133,17 @@ struct blas_traits
     }
 
     /**
-     * @brief Real part.
+     * @brief Symmetric part.
      */
     __attribute__((always_inline))
-    static float_type real(const value_type& x)
+    static field_type symm(const value_type& x)
     {
         return pr::real(x);
     }
 };
 
 /**
- * @brief Dense BLAS.
- *
- * Dense BLAS, or Basic Linear Algebra Subroutines, for a 
- * generic type.
- *
- * ### Assumptions
- *
- * Let @f$ T @f$ denote the set of values 
- * representable by the generic type parameter. 
- *
- * For every @f$ x \in T @f$, let @f$ x^\dagger @f$ denote
- * the conjugate, whereby
- * 1. @f$ x @f$ and @f$ x^\dagger @f$ form a unique conjugate pair such that
- *    @f$ x = (x^\dagger)^\dagger @f$,
- * 2. @f$ x @f$ and @f$ x^\dagger @f$ commute such that 
- *    @f$ x x^\dagger = x^\dagger x @f$.
- *
- * Let the quantity @f$ x x^\dagger \in P \subseteq T @f$, where 
- * @f$ P @f$ is a _pseudo real_ subset of @f$ T @f$.
+ * @name Dense BLAS.
  */
 template <
     typename T, 
@@ -166,6 +157,11 @@ public:
      * @brief Value type.
      */
     typedef typename Ttraits::value_type value_type;
+
+    /**
+     * @brief Field type.
+     */
+    typedef typename Ttraits::field_type field_type;
 
     /**
      * @brief Float type.
@@ -188,7 +184,7 @@ public:
      * @brief Dot product.
      *
      * @f[
-     *      \mathbf{x} \cdot
+     *      \mathbf{x}^\top
      *      \mathbf{y} = \sum_{k=0}^{n-1} x_{[k]} y_{[k]}
      * @f]
      *
@@ -226,8 +222,8 @@ public:
      * @brief Dot product, conjugating left argument.
      *
      * @f[
-     *      \bar{\mathbf{x}} \cdot
-     *           \mathbf{y} = \sum_{k=0}^{n-1} \bar{x}_{[k]} y_{[k]}
+     *      \mathbf{x}^\dagger
+     *      \mathbf{y} = \sum_{k=0}^{n-1} x_{[k]}^\dagger y_{[k]}
      * @f]
      *
      * @param[in] x
@@ -264,7 +260,7 @@ public:
      * @brief @f$ L^2 @f$ length.
      *
      * @f[
-     *      \sqrt{\sum_{j=0}^{n-1} |x_{[j]}|^2}
+     *      \sqrt{\sum_{j=0}^{n-1} x_{[j]}^\dagger x_{[j]}}
      * @f]
      *
      * @param[in] x
@@ -275,23 +271,15 @@ public:
      * temporary values. If `x` is empty, the implementation 
      * resets the buffer and returns immediately.
      */
-    static float_type length(dense_vector_view<const value_type*> x)
+    static field_type length(dense_vector_view<const value_type*> x)
     {
-        switch (x.size()) {
-            case 1: 
-                // Delegate.
-                return Ttraits::abs(x[0]);
-            case 2: 
-                // Delegate.
-                return pr::hypot(
-                            Ttraits::abs(x[0]), 
-                            Ttraits::abs(x[1]));
-            default:
-                break;
+        if (x.size() == 1) {
+            // Delegate.
+            return Ttraits::abs(x[0]);
         }
 
         // Temporary buffer.
-        static thread_local std::vector<float_type> tmpbuf;
+        static thread_local std::vector<field_type> tmpbuf;
         if (tmpbuf.size() < std::size_t(x.size())) {
             tmpbuf.resize(x.size());
         }
@@ -305,51 +293,62 @@ public:
         }
 
         // Temporary values vector view.
-        dense_vector_view<float_type*> tmp = {tmpbuf.data(), 1, x.size()};
+        dense_vector_view<field_type*> tmp = {tmpbuf.data(), 1, x.size()};
 
         // Temporary extrema.
-        float_type tmpmin = pr::numeric_limits<float_type>::max();
-        float_type tmpmax = 0;
+        field_type tmpmin = float_type(0);
+        field_type tmpmax = float_type(0);
+        float_type abs_tmpmin = pr::numeric_limits<float_type>::max();
+        float_type abs_tmpmax = 0;
         {
             // Initialize.
             auto itrtmp = tmp.begin();
             auto itrx = x.begin();
             for (; itrx < x.end(); ++itrtmp, ++itrx) {
                 *itrtmp = Ttraits::abs(*itrx);
-                if (*itrtmp != 0) {
-                    tmpmin = pr::fmin(tmpmin, *itrtmp);
-                    tmpmax = pr::fmax(tmpmax, *itrtmp);
+                float_type abs_itrtmp = Ttraits::abs(*itrtmp);
+                if (abs_itrtmp != 0) {
+                    if (abs_tmpmin > abs_itrtmp) {
+                        abs_tmpmin = abs_itrtmp;
+                        tmpmin = *itrtmp;
+                    }
+                    if (abs_tmpmax < abs_itrtmp) {
+                        abs_tmpmax = abs_itrtmp;
+                        tmpmax = *itrtmp;
+                    }
                 }
             }
         }
 
         // Impending overflow or underflow?
-        if (tmpmax * 
-            tmpmax >= pr::numeric_limits<float_type>::max() / x.size() ||
-            tmpmin <= pr::numeric_limits<float_type>::min_squarable()) {
+        if (abs_tmpmax * 
+            abs_tmpmax >= pr::numeric_limits<float_type>::max() / x.size() ||
+            abs_tmpmin <= pr::numeric_limits<float_type>::min_squarable()) {
+
             // Factor out maximum.
-            if (tmpmax >= pr::numeric_limits<float_type>::min_invertible()) {
-                tmp *= 1 / tmpmax;
+            if (abs_tmpmax >= 
+                    pr::numeric_limits<float_type>::min_invertible()) {
+                tmp *= float_type(1) / tmpmax;
             }
             else {
                 tmp /= tmpmax; // Inverse overflows.
             }
 
             // Length.
-            float_type tmpsum = 0;
+            field_type tmpsum = float_type(0);
             for (auto itrtmp = tmp.begin();
                       itrtmp < tmp.end(); ++itrtmp) {
-                tmpsum = (*itrtmp) * (*itrtmp) + tmpsum;
+                tmpsum = ((*itrtmp) * (*itrtmp)) + tmpsum;
             }
             return pr::sqrt(tmpsum) * tmpmax;
         }
         else {
 
             // Length.
-            float_type tmpsum = 0;
+            field_type tmpsum = float_type(0);
             for (auto itrtmp = tmp.begin();
                       itrtmp < tmp.end(); ++itrtmp) {
-                tmpsum = (*itrtmp) * (*itrtmp) + tmpsum;
+                tmpsum = ((*itrtmp) * (*itrtmp)) + tmpsum;
             }
             return pr::sqrt(tmpsum);
         }
@@ -363,12 +362,13 @@ public:
      */
     static void normalize(dense_vector_view<value_type*> x)
     {
-        float_type tmplen = length(x);
-        if (tmplen >= pr::numeric_limits<float_type>::min_invertible()) {
-            x *= 1 / tmplen;
+        field_type len = length(x);
+        float_type abs_len = Ttraits::abs(len);
+        if (abs_len >= pr::numeric_limits<float_type>::min_invertible()) {
+            x *= float_type(1) / len;
         }
-        else if (tmplen != 0) {
-            x /= tmplen;   
+        else if (abs_len != 0) {
+            x /= len;
         }
     }
 
@@ -481,10 +481,9 @@ public:
             }
 
             // Copy.
-            for (int i = 0; i < x.size0(); i++) {
-                for (int j = 0; j < x.size1(); j++) {
-                    y[j][i] = Ttraits::conj(x[i][j]);
-                }
+            for (int i = 0; i < x.size0(); i++)
+            for (int j = 0; j < x.size1(); j++) {
+                y[j][i] = Ttraits::conj(x[i][j]);
             }
         }
     }
@@ -499,7 +498,7 @@ public:
     {
         for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = float_type(i == j);
+            x[i][j] = value_type(float_type(i == j ? 1 : 0));
         }
     }
 
@@ -881,7 +880,8 @@ public:
                 float_type fac = 0;
                 float_type tmp = 0;
                 for (int i = k; i < x.size0(); i++) {
-                    tmp = Ttraits::abs(x[i][i]);
+                    tmp = Ttraits::abs(
+                          Ttraits::abs(x[i][i]));
                     if (fac < tmp) {
                         fac = tmp;
                         l = i;
@@ -899,8 +899,8 @@ public:
                 }
 
                 // Positive semi-definite?
-                if (!(Ttraits::abs(x[k][k]) > 
-                      Ttraits::abs(x[0][0]) * 
+                if (!(Ttraits::abs(Ttraits::abs(x[k][k])) > 
+                      Ttraits::abs(Ttraits::abs(x[0][0])) * 
                       pr::numeric_limits<float_type>::epsilon())) {
                     for (int i = k; i < x.size0(); i++) 
                     for (int j = k; j < i + 1; j++) {
@@ -910,19 +910,20 @@ public:
                 }
             }
 
-            // Diagonal not real?
-            if (x[k][k] != Ttraits::real(x[k][k])) { 
-                // TODO is this the general condition?
+            if (x[k][k] != Ttraits::symm(x[k][k])) {
                 throw std::runtime_error(__PRETTY_FUNCTION__);
             }
 
             // Update diagonal entry.
-            x[k][k] = pr::sqrt(Ttraits::real(x[k][k]));
+            x[k][k] = pr::sqrt(Ttraits::symm(x[k][k]));
 
             // Update off-diagonal entries.
-            float_type invxkk = float_type(1) / Ttraits::real(x[k][k]);
+            field_type invxkk = float_type(1) / Ttraits::symm(x[k][k]);
             for (int i = k + 1; i < x.size0(); i++) {
                 x[i][k] *= invxkk;
+                if (!pr::isfinite(x[i][k])) {
+                    throw std::runtime_error(__PRETTY_FUNCTION__);
+                }
             }
             for (int i = k + 1; i < x.size0(); i++)
             for (int j = k + 1; j < i + 1; j++) {
@@ -938,7 +939,7 @@ public:
     }
 
     /**@}*/
-};
+}; 
 
 /**@}*/
 
