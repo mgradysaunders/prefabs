@@ -762,6 +762,8 @@ inline bool isnormal(const dualnum<T>& x)
 
 /**@}*/
 
+// TODO blas_traits
+
 /**@}*/
 
 } // namespace pr

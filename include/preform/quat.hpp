@@ -1138,6 +1138,8 @@ inline bool isnormal(const quat<T>& q)
 
 /**@}*/
 
+// TODO blas_traits
+
 /**@}*/
 
 } // namespace pr
