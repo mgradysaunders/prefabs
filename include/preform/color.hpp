@@ -733,6 +733,74 @@ inline std::enable_if_t<
     }
 }
 
+/**
+ * @brief RGB triple to HSV triple.
+ *
+ * TODO
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value,
+       multi<T, 3>> rgbtohsv(const multi<T, 3>& v)
+{
+    int kmax = v.argmax();
+    int kmin = v.argmin();
+
+    // Chroma.
+    T c = v[kmax] - v[kmin];
+
+    // Hue.
+    T h = 0;
+    if (c != 0) {
+        h = (v[(kmax + 1) % 3] - 
+             v[(kmax + 2) % 3]) / c;
+    }
+    switch (kmax) {
+        case 0: h = pr::fmod(h, T(6)); break;
+        case 1: h += 2; break;
+        case 2: h += 4; break;
+    }
+    h *= 60;
+    if (h < 0) {
+        h += 360;
+    }
+
+    // Saturation.
+    T s = 0;
+    if (v[kmax] != 0) {
+        s = c / v[kmax];
+    }
+    return {
+        h, 
+        s, 
+        // Value.
+        v[kmax]
+    };
+}
+
+/**
+ * @brief HSV triple to RGB triple.
+ *
+ * TODO
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value,
+       multi<T, 3>> hsvtorgb(const multi<T, 3>& v)
+{
+    auto fn = [&v](T n) {
+        T k = pr::fmod(n + v[0] / 60, T(6));
+        return v[2] * (1 - v[1] * pr::fmax(T(0),
+                                  pr::fmin(T(1), pr::fmin(k, 4 - k))));
+    };
+
+    return {
+        fn(5), 
+        fn(3), 
+        fn(1)
+    };
+}
+
 /**@}*/
 
 /**
