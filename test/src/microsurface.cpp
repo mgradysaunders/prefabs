@@ -121,7 +121,7 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
 
 int main(int argc, char** argv)
 {
-    unsigned seed = 0;
+    int seed = 0;
 
     // Option parser.
     pr::option_parser opt_parser("[OPTIONS]");
