@@ -146,11 +146,14 @@ int main(int argc, char** argv)
         std::exit(EXIT_FAILURE);
     }
 
+    // Noise.
     SimplexNoise2 noise(seed);
 
+    // Image.
     Image2x1 image;
     image.resize(image_dim);
     MitchellFilter2 image_filter;
+
     for (int i = 0; i < image_dim[0]; i++)
     for (int j = 0; j < image_dim[1]; j++) {
         // Supersample.
@@ -163,7 +166,7 @@ int main(int argc, char** argv)
             Vec2f noise_loc = image_loc / image_dim * noise_scale;
             Vec1f noise_val = {noise.evaluate(noise_loc)};
             noise_val *= Float(0.5);
-            noise_val += Float(0.5);
+            noise_val += Float(0.5); // Map into [0, 1].
             image.reconstruct(
                     noise_val / 9, 
                     image_loc,
