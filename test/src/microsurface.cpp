@@ -3,7 +3,6 @@
 #include <preform/random.hpp>
 #include <preform/neumaier_sum.hpp>
 #include <preform/microsurface.hpp>
-#include <preform/misc_string.hpp>
 #include <preform/option_parser.hpp>
 
 // Float type.
