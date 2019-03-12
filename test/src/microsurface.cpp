@@ -129,8 +129,17 @@ int main(int argc, char** argv)
     // Specify seed.
     opt_parser.on_option(
     "-s", "--seed", 1, 
-    [&](char** args) {
-        seed = std::atoi(args[0]); 
+    [&](char** argv) {
+        try {
+            seed = std::stoi(argv[0]); 
+        }
+        catch (const std::exception&) {
+            throw 
+                std::runtime_error(
+                std::string("-s/--seed expects 1 integer ")
+                    .append("(can't parse ").append(argv[0])
+                    .append(")"));
+        }
     }) 
     << "Specify seed. By default, random.\n";
 
