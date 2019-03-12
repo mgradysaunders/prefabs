@@ -299,6 +299,13 @@ CC.ccflags << "-O2"
 CC.ccflags << "-DNDEBUG"
 CC.ccflags = CC.ccflags.join " " # To string.
 
+# Test running stat.
+file "test/bin/running_stat" => 
+     "test/src/running_stat.cpp" do
+    sh "mkdir -p test/bin"
+    sh "#{CC.cc} #{CC.ccflags} test/src/running_stat.cpp -o test/bin/running_stat"
+end
+
 # Test microsurface.
 file "test/bin/microsurface" => 
      "test/src/microsurface.cpp" do
@@ -310,7 +317,9 @@ namespace :test do
 
     # Build tests.
     desc "Build tests."
-    task :build => ["test/bin/microsurface"] do
+    task :build => [
+        "test/bin/running_stat",
+        "test/bin/microsurface"] do
         # nothing
     end
 
