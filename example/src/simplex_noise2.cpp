@@ -138,6 +138,7 @@ int main(int argc, char** argv)
     << "Display this help and exit.\n";
 
     try {
+        // Parse args.
         opt_parser.parse(argc, argv);
     }
     catch (const std::exception& exception) {
