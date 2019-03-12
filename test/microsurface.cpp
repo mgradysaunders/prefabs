@@ -3,7 +3,6 @@
 #include <preform/neumaier_sum.hpp>
 #include <preform/microsurface.hpp>
 #include <preform/misc_string.hpp>
-#include <preform/bash_format.hpp>
 
 // Float type.
 typedef float Float;
@@ -59,6 +58,7 @@ Vec2f generateCanonical2()
     };
 }
 
+// Test full-sphere scattering.
 template <typename Microsurface>
 void testFullSphere(const char* name, const Microsurface& microsurface)
 {
