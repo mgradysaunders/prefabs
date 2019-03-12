@@ -11,6 +11,7 @@ DIR.src = "src"
 DIR.bin = "bin"
 DIR.build = "bin/build"
 DIR.install = "/usr/local"
+DIR.install_include = File.join(DIR.install, "include")
 
 def find_fnames pattern
     fpaths = []
@@ -118,16 +119,16 @@ task :default do
 end
 
 # Install.
-desc "Install header files to #{DIR.install}/include."
+desc "Install files to #{DIR.install}."
 task :install do
-    sh "mkdir -p #{DIR.install}/include/preform"
-    sh "cp -r -f #{DIR.include}/preform #{DIR.install}/include"
+    sh "mkdir -p #{DIR.install_include}"
+    sh "cp -r #{File.join(DIR.include, PROJECT)} #{DIR.install_include}"
 end
 
 # Uninstall.
-desc "Uninstall header files from #{DIR.install}/include."
+desc "Uninstall files from #{DIR.install}."
 task :uninstall do
-    sh "rm -r -f #{DIR.install}/include/preform"
+    sh "rm -r -f #{File.join(DIR.install_include, PROJECT)}"
 end
 
 # Doxygen.
@@ -283,3 +284,59 @@ HPP
         puts "Project has #{lines_total} lines in total."
     end
 end
+
+# Compiler variables.
+CC = OpenStruct.new
+CC.cc = "g++-8"
+CC.ccflags = []
+CC.ccflags << "-std=c++17"
+CC.ccflags << "-Iinclude"
+CC.ccflags << "-Wall"
+CC.ccflags << "-Wextra"
+CC.ccflags << "-march=native"
+CC.ccflags << "-mtune=native"
+CC.ccflags << "-O2"
+CC.ccflags << "-DNDEBUG"
+CC.ccflags = CC.ccflags.join " " # To string.
+
+# Test microsurface.
+file "test/bin/microsurface" => 
+     "test/src/microsurface.cpp" do
+    sh "mkdir -p test/bin"
+    sh "#{CC.cc} #{CC.ccflags} test/src/microsurface.cpp -o test/bin/microsurface"
+end
+
+namespace :test do 
+
+    desc "Build tests."
+    task :build => ["test/bin/microsurface"] do
+        # nothing
+    end
+
+    desc "Clean tests. (remove test/bin)"
+    task :clean do 
+        sh "rm -r -f test/bin"
+    end
+
+end # namespace :test
+
+# Example simplex noise (2-dimensional).
+file "example/bin/simplex_noise2" => 
+     "example/src/simplex_noise2.cpp" do
+    sh "mkdir -p example/bin"
+    sh "#{CC.cc} #{CC.ccflags} example/src/simplex_noise2.cpp -o example/bin/simplex_noise2"
+end
+
+namespace :example do 
+
+    desc "Build examples."
+    task :build => ["example/bin/simplex_noise2"] do
+        # nothing
+    end
+
+    desc "Clean examples. (remove example/bin)"
+    task :clean do
+        sh "rm -r -f example/bin"
+    end
+
+end # namespace :example
