@@ -152,15 +152,22 @@ int main(int argc, char** argv)
     }) 
     << "Display this help and exit.\n";
 
-    // Parse args.
-    opt_parser.parse(argc, argv);
+    try {
+        // Parse args.
+        opt_parser.parse(argc, argv);
+    }
+    catch (const std::exception& exception) {
+        std::cerr << "Unhandled exception!\n";
+        std::cerr << "exception.what(): " << exception.what() << "\n";
+        std::exit(EXIT_FAILURE);
+    }
 
     // Seed.
     if (seed == 0) {
         seed = std::random_device()();
     }
     std::cout << "seed = " << seed << "\n";
-    pcg = pcg(seed);
+    pcg = pr::pcg32(seed);
 
     // Generate refractive indices.
     Float eta0 = 1;
