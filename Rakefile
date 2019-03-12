@@ -336,13 +336,29 @@ file "example/bin/simplex_noise3" =>
     sh "#{CC.cc} #{CC.ccflags} example/src/simplex_noise3.cpp -o example/bin/simplex_noise3"
 end
 
+# Example worley noise (2-dimensional).
+file "example/bin/worley_noise2" => 
+     "example/src/worley_noise2.cpp" do
+    sh "mkdir -p example/bin"
+    sh "#{CC.cc} #{CC.ccflags} example/src/worley_noise2.cpp -o example/bin/worley_noise2"
+end
+
+# Example worley noise (3-dimensional).
+file "example/bin/worley_noise3" => 
+     "example/src/worley_noise3.cpp" do
+    sh "mkdir -p example/bin"
+    sh "#{CC.cc} #{CC.ccflags} example/src/worley_noise3.cpp -o example/bin/worley_noise3"
+end
+
 namespace :example do 
 
     # Build examples.
     desc "Build examples."
     task :build => [
         "example/bin/simplex_noise2",
-        "example/bin/simplex_noise3"] do
+        "example/bin/simplex_noise3",
+        "example/bin/worley_noise2",
+        "example/bin/worley_noise3"] do
         # nothing
     end
 
