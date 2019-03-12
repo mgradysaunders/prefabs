@@ -300,17 +300,17 @@ CC.ccflags << "-DNDEBUG"
 CC.ccflags = CC.ccflags.join " " # To string.
 
 # Test running stat.
-file "test/bin/running_stat" => 
-     "test/src/running_stat.cpp" do
-    sh "mkdir -p test/bin"
-    sh "#{CC.cc} #{CC.ccflags} test/src/running_stat.cpp -o test/bin/running_stat"
+file "bin/test/running_stat" => 
+     "src/test/running_stat.cpp" do
+    sh "mkdir -p bin/test"
+    sh "#{CC.cc} #{CC.ccflags} src/test/running_stat.cpp -o bin/test/running_stat"
 end
 
 # Test microsurface.
-file "test/bin/microsurface" => 
-     "test/src/microsurface.cpp" do
-    sh "mkdir -p test/bin"
-    sh "#{CC.cc} #{CC.ccflags} test/src/microsurface.cpp -o test/bin/microsurface"
+file "bin/test/microsurface" => 
+     "src/test/microsurface.cpp" do
+    sh "mkdir -p bin/test"
+    sh "#{CC.cc} #{CC.ccflags} src/test/microsurface.cpp -o bin/test/microsurface"
 end
 
 namespace :test do 
@@ -318,45 +318,45 @@ namespace :test do
     # Build tests.
     desc "Build tests."
     task :build => [
-        "test/bin/running_stat",
-        "test/bin/microsurface"] do
+        "bin/test/running_stat",
+        "bin/test/microsurface"] do
         # nothing
     end
 
     # Clean tests.
-    desc "Clean tests. (remove test/bin/)"
+    desc "Clean tests. (remove bin/test/)"
     task :clean do 
-        sh "rm -r -f test/bin"
+        sh "rm -r -f bin/test"
     end
 
 end # namespace :test
 
 # Example simplex noise (2-dimensional).
-file "example/bin/simplex_noise2" => 
-     "example/src/simplex_noise2.cpp" do
-    sh "mkdir -p example/bin"
-    sh "#{CC.cc} #{CC.ccflags} example/src/simplex_noise2.cpp -o example/bin/simplex_noise2"
+file "bin/example/simplex_noise2" => 
+     "src/example/simplex_noise2.cpp" do
+    sh "mkdir -p bin/example"
+    sh "#{CC.cc} #{CC.ccflags} src/example/simplex_noise2.cpp -o bin/example/simplex_noise2"
 end
 
 # Example simplex noise (3-dimensional).
-file "example/bin/simplex_noise3" => 
-     "example/src/simplex_noise3.cpp" do
-    sh "mkdir -p example/bin"
-    sh "#{CC.cc} #{CC.ccflags} example/src/simplex_noise3.cpp -o example/bin/simplex_noise3"
+file "bin/example/simplex_noise3" => 
+     "src/example/simplex_noise3.cpp" do
+    sh "mkdir -p bin/example"
+    sh "#{CC.cc} #{CC.ccflags} src/example/simplex_noise3.cpp -o bin/example/simplex_noise3"
 end
 
 # Example worley noise (2-dimensional).
-file "example/bin/worley_noise2" => 
-     "example/src/worley_noise2.cpp" do
-    sh "mkdir -p example/bin"
-    sh "#{CC.cc} #{CC.ccflags} example/src/worley_noise2.cpp -o example/bin/worley_noise2"
+file "bin/example/worley_noise2" => 
+     "src/example/worley_noise2.cpp" do
+    sh "mkdir -p bin/example"
+    sh "#{CC.cc} #{CC.ccflags} src/example/worley_noise2.cpp -o bin/example/worley_noise2"
 end
 
 # Example worley noise (3-dimensional).
-file "example/bin/worley_noise3" => 
-     "example/src/worley_noise3.cpp" do
-    sh "mkdir -p example/bin"
-    sh "#{CC.cc} #{CC.ccflags} example/src/worley_noise3.cpp -o example/bin/worley_noise3"
+file "bin/example/worley_noise3" => 
+     "src/example/worley_noise3.cpp" do
+    sh "mkdir -p bin/example"
+    sh "#{CC.cc} #{CC.ccflags} src/example/worley_noise3.cpp -o bin/example/worley_noise3"
 end
 
 namespace :example do 
@@ -364,17 +364,17 @@ namespace :example do
     # Build examples.
     desc "Build examples."
     task :build => [
-        "example/bin/simplex_noise2",
-        "example/bin/simplex_noise3",
-        "example/bin/worley_noise2",
-        "example/bin/worley_noise3"] do
+        "bin/example/simplex_noise2",
+        "bin/example/simplex_noise3",
+        "bin/example/worley_noise2",
+        "bin/example/worley_noise3"] do
         # nothing
     end
 
     # Clean examples.
-    desc "Clean examples. (remove example/bin/)"
+    desc "Clean examples. (remove bin/example/)"
     task :clean do
-        sh "rm -r -f example/bin"
+        sh "rm -r -f bin/example"
     end
 
 end # namespace :example
