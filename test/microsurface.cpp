@@ -1,0 +1,145 @@
+#include <iostream>
+#include <preform/random.hpp>
+#include <preform/neumaier_sum.hpp>
+#include <preform/microsurface.hpp>
+#include <preform/misc_string.hpp>
+#include <preform/bash_format.hpp>
+
+// Float type.
+typedef float Float;
+
+// 2-dimensional vector type.
+typedef pr::vec2<Float> Vec2f;
+
+// 3-dimensional vector type.
+typedef pr::vec3<Float> Vec3f;
+
+// Diffuse microsurface with Trowbridge-Reitz slope distribution.
+typedef pr::diffuse_brdf_microsurface_adapter<
+        pr::trowbridge_reitz_microsurface_slope<Float>,
+        pr::uniform_microsurface_height<Float>> 
+            DiffuseTrowbridgeReitz;
+
+// Diffuse microsurface with Beckmann slope distribution.
+typedef pr::diffuse_brdf_microsurface_adapter<
+        pr::beckmann_microsurface_slope<Float>,
+        pr::uniform_microsurface_height<Float>> 
+            DiffuseBeckmann;
+
+// Dielectric microsurface with Trowbridge-Reitz slope distribution.
+typedef pr::dielectric_bsdf_microsurface_adapter<
+        pr::trowbridge_reitz_microsurface_slope<Float>,
+        pr::uniform_microsurface_height<Float>> 
+            DielectricTrowbridgeReitz;
+
+// Dielectric microsurface with Beckmann slope distribution.
+typedef pr::dielectric_bsdf_microsurface_adapter<
+        pr::beckmann_microsurface_slope<Float>,
+        pr::uniform_microsurface_height<Float>> 
+            DielectricBeckmann;
+
+// Neumaier sum.
+typedef pr::neumaier_sum<Float> NeumaierSum;
+
+// Permuted congruential generator.
+pr::pcg32 pcg;
+
+// Generate canonical random number.
+Float generateCanonical()
+{
+    return pr::generate_canonical<Float>(pcg);
+}
+
+// Generate canonical random 2-dimensional vector.
+Vec2f generateCanonical2() 
+{
+    return {
+        pr::generate_canonical<Float>(pcg),
+        pr::generate_canonical<Float>(pcg)
+    };
+}
+
+template <typename Microsurface>
+void testFullSphere(const char* name, const Microsurface& microsurface)
+{
+    int n = 512;
+    std::cout << "Testing full-sphere scattering for ";
+    std::cout << name << "::fm():\n";
+    std::cout << 
+        "This test uses Monte Carlo integration to estimate the full-sphere\n"
+        "scattering integral, which is equal to 4 pi for an energy-conserving "
+        "BSDF.\n";
+    std::cout.flush();
+
+    // Stratify samples.
+    Vec2f* u0 = new Vec2f[n * n];
+    Vec2f* u1 = new Vec2f[n * n];
+    Vec2f* itru0 = u0;
+    Vec2f* itru1 = u1;
+    for (int i = 0; i < n; i++)
+    for (int j = 0; j < n; j++) {
+        *itru0++ = (generateCanonical2() + Vec2f{Float(i), Float(j)}) / n;
+        *itru1++ = (generateCanonical2() + Vec2f{Float(i), Float(j)}) / n;
+    }
+    std::shuffle(u0, u0 + n * n, pcg);
+    std::shuffle(u1, u1 + n * n, pcg);
+
+    NeumaierSum f = 0;
+    itru0 = u0;
+    itru1 = u1;
+    for (int i = 0; i < n; i++)
+    for (int j = 0; j < n; j++) {
+
+        // Directions.
+        Vec3f wo = pr::cosine_hemisphere_pdf_sample(*itru0++);
+        Vec3f wi = pr::cosine_hemisphere_pdf_sample(*itru1++);
+        Float wo_pdf = pr::cosine_hemisphere_pdf(wo[2]) / 2;
+        Float wi_pdf = pr::cosine_hemisphere_pdf(wi[2]) / 2;
+        wo = pcg(2) == 0 ? +wo : -wo;
+        wi = pcg(2) == 0 ? +wi : -wi;
+
+        // Integrand.
+        if (wo_pdf > 0 &&
+            wi_pdf > 0) {
+            Float fk = microsurface.fm(generateCanonical, wo, wi);
+            fk /= wi_pdf;
+            fk /= wo_pdf;
+            fk /= n * n;
+            f += fk;
+        }
+    }
+
+    std::cout << "Result: " << Float(f) << " (should be close to 12.56)\n";
+    std::cout << "\n\n";
+    std::cout.flush();
+
+    delete[] u0;
+    delete[] u1;
+}
+
+int main()
+{
+    Vec2f alpha = {
+        generateCanonical() * 2 + Float(0.1),
+        generateCanonical() * 2 + Float(0.1)
+    };
+    Float eta0 = 1;
+    Float eta1 = 1.1 + generateCanonical();
+    std::cout << "alpha = " << alpha << "\n";
+    std::cout << "eta0 = " << eta0 << "\n";
+    std::cout << "eta1 = " << eta1 << "\n\n";
+    std::cout.flush();
+    testFullSphere(
+        "DiffuseTrowbridgeReitz",
+        DiffuseTrowbridgeReitz(alpha));
+    testFullSphere(
+        "DiffuseBeckmann",
+        DiffuseBeckmann(alpha));
+    testFullSphere(
+        "DielectricTrowbridgeReitz",
+        DielectricTrowbridgeReitz(eta0 / eta1, alpha));
+    testFullSphere(
+        "DielectricBeckmann",
+        DielectricBeckmann(eta0 / eta1, alpha));
+    return 0;
+}
