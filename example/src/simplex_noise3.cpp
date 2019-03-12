@@ -36,7 +36,7 @@ int main(int argc, char** argv)
     // Configurable options.
     int seed = 0;
     Vec2i image_dim = {512, 512};
-    Vec2f image_filter_rad = {2, 2};
+    Vec2f image_filter_rad = {1, 1};
     Vec3f noise_scale = {8, 8};
     Float noise_locz = 0;
     std::string ofs_name = "simplex_noise3.pgm";
@@ -103,7 +103,7 @@ int main(int argc, char** argv)
                     .append(argv[1]).append(")"));
         }
     })
-    << "Specify image reconstruction filter radii. By default, 2x2.\n";
+    << "Specify image reconstruction filter radii. By default, 1x1.\n";
 
     // Specify noise scale.
     opt_parser.on_option(
