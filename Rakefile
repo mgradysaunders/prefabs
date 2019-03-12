@@ -299,38 +299,6 @@ CC.ccflags << "-O2"
 CC.ccflags << "-DNDEBUG"
 CC.ccflags = CC.ccflags.join " " # To string.
 
-# Test running stat.
-file "bin/test/running_stat" => 
-     "src/test/running_stat.cpp" do
-    sh "mkdir -p bin/test"
-    sh "#{CC.cc} #{CC.ccflags} src/test/running_stat.cpp -o bin/test/running_stat"
-end
-
-# Test microsurface.
-file "bin/test/microsurface" => 
-     "src/test/microsurface.cpp" do
-    sh "mkdir -p bin/test"
-    sh "#{CC.cc} #{CC.ccflags} src/test/microsurface.cpp -o bin/test/microsurface"
-end
-
-namespace :test do 
-
-    # Build tests.
-    desc "Build tests."
-    task :build => [
-        "bin/test/running_stat",
-        "bin/test/microsurface"] do
-        # nothing
-    end
-
-    # Clean tests.
-    desc "Clean tests. (remove bin/test/)"
-    task :clean do 
-        sh "rm -r -f bin/test"
-    end
-
-end # namespace :test
-
 # Example simplex noise (2-dimensional).
 file "bin/example/simplex_noise2" => 
      "src/example/simplex_noise2.cpp" do
@@ -359,11 +327,25 @@ file "bin/example/worley_noise3" =>
     sh "#{CC.cc} #{CC.ccflags} src/example/worley_noise3.cpp -o bin/example/worley_noise3"
 end
 
-namespace :example do 
+# Test running stat.
+file "bin/test/running_stat" => 
+     "src/test/running_stat.cpp" do
+    sh "mkdir -p bin/test"
+    sh "#{CC.cc} #{CC.ccflags} src/test/running_stat.cpp -o bin/test/running_stat"
+end
+
+# Test microsurface.
+file "bin/test/microsurface" => 
+     "src/test/microsurface.cpp" do
+    sh "mkdir -p bin/test"
+    sh "#{CC.cc} #{CC.ccflags} src/test/microsurface.cpp -o bin/test/microsurface"
+end
+
+namespace :build do
 
     # Build examples.
     desc "Build examples."
-    task :build => [
+    task :example => [
         "bin/example/simplex_noise2",
         "bin/example/simplex_noise3",
         "bin/example/worley_noise2",
@@ -371,10 +353,17 @@ namespace :example do
         # nothing
     end
 
-    # Clean examples.
-    desc "Clean examples. (remove bin/example/)"
-    task :clean do
-        sh "rm -r -f bin/example"
+    # Build tests.
+    desc "Build tests."
+    task :test => [
+        "bin/test/running_stat",
+        "bin/test/microsurface"] do
+        # nothing
     end
+end # namespace :build
 
-end # namespace :example
+# Clean.
+desc "Clean. (remove bin/)."
+task :clean do 
+    sh "rm -r -f bin"
+end
