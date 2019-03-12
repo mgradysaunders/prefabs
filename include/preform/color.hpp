@@ -427,18 +427,18 @@ inline std::enable_if_t<
 /**
  * @brief Fit of CIE 1931 X by Wyman et. al.
  *
- * @param[in] um
+ * @param[in] lambda
  * Wavelength in micrometers.
  *
  * @see [This publication][1] by Wyman, Sloan, and Shirley.
  * [1]: http://jcgt.org/published/0002/02/01/
  */
 template <typename T>
-inline std::enable_if_t<std::is_floating_point<T>::value, T> wymanx(T um)
+inline std::enable_if_t<std::is_floating_point<T>::value, T> wymanx(T lambda)
 {
-    T t1 = um - T(0.4420);
-    T t2 = um - T(0.5998);
-    T t3 = um - T(0.5011);
+    T t1 = lambda - T(0.4420);
+    T t2 = lambda - T(0.5998);
+    T t3 = lambda - T(0.5011);
     t1 *= pr::signbit(t1) ? T(62.4) : T(37.4);
     t2 *= pr::signbit(t2) ? T(26.4) : T(32.3);
     t3 *= pr::signbit(t3) ? T(49.0) : T(38.2);
@@ -450,17 +450,17 @@ inline std::enable_if_t<std::is_floating_point<T>::value, T> wymanx(T um)
 /**
  * @brief Fit of CIE 1931 Y by Wyman et. al.
  *
- * @param[in] um
+ * @param[in] lambda
  * Wavelength in micrometers.
  *
  * @see [This publication][1] by Wyman, Sloan, and Shirley.
  * [1]: http://jcgt.org/published/0002/02/01/
  */
 template <typename T>
-inline std::enable_if_t<std::is_floating_point<T>::value, T> wymany(T um)
+inline std::enable_if_t<std::is_floating_point<T>::value, T> wymany(T lambda)
 {
-    T t1 = um - T(0.5688);
-    T t2 = um - T(0.5309);
+    T t1 = lambda - T(0.5688);
+    T t2 = lambda - T(0.5309);
     t1 *= pr::signbit(t1) ? T(21.3) : T(24.7);
     t2 *= pr::signbit(t2) ? T(61.3) : T(32.2);
     return T(0.821) * pr::exp(T(-0.5) * t1 * t1) +
@@ -470,21 +470,59 @@ inline std::enable_if_t<std::is_floating_point<T>::value, T> wymany(T um)
 /**
  * @brief Fit of CIE 1931 Z by Wyman et. al.
  *
- * @param[in] um
+ * @param[in] lambda
  * Wavelength in micrometers.
  *
  * @see [This publication][1] by Wyman, Sloan, and Shirley.
  * [1]: http://jcgt.org/published/0002/02/01/
  */
 template <typename T>
-inline std::enable_if_t<std::is_floating_point<T>::value, T> wymanz(T um)
+inline std::enable_if_t<std::is_floating_point<T>::value, T> wymanz(T lambda)
 {
-    T t1 = um - T(0.4370);
-    T t2 = um - T(0.4590);
+    T t1 = lambda - T(0.4370);
+    T t2 = lambda - T(0.4590);
     t1 *= pr::signbit(t1) ? T(84.5) : T(27.8);
     t2 *= pr::signbit(t2) ? T(38.5) : T(72.5);
     return T(1.217) * pr::exp(T(-0.5) * t1 * t1) +
            T(0.681) * pr::exp(T(-0.5) * t2 * t2);
+}
+
+/**
+ * @brief Planck's law.
+ *
+ * Planck's law of blackbody radiation is
+ * @f[
+ *      b(T,\lambda) = 
+ *          \frac{1}{\lambda^5} 
+ *          \frac{2hc^2}{e^{\frac{hc}{kT\lambda}}-1}
+ * @f]
+ * where, by typical conventions, @f$ T @f$ is temperature 
+ * in degrees kelvin and @f$ \lambda @f$ is wavelength in meters. The 
+ * implementation here takes @f$ \lambda @f$ in _micrometers_ instead of 
+ * meters, but in the interest of avoiding astronomic values, the output
+ * units are @f$ \mathrm{MW}/\mathrm{sr}/\mathrm{m}^{2}/\mu\mathrm{m} @f$.
+ *
+ * @param[in] t
+ * Blackbody temperature in degrees kelvin.
+ *
+ * @param[in] lambda
+ * Wavelength in micrometers.
+ *
+ * @see Wikipedia's article for [Planck's Law][1].
+ * [1]: https://en.wikipedia.org/wiki/Planck%27s_law
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> planck(T t, T lambda)
+{
+    if (!(lambda > 0)) {
+        return 0;
+    }
+
+    constexpr T c0 = T(1.19104290768681554502861912e+02L);
+    constexpr T c1 = T(1.43877729954300303744214349e+04L);
+    return c0 / (pr::nthpow(lambda, 5) * 
+                 pr::expm1(c1 / (t * lambda)));
 }
 
 /**
@@ -731,74 +769,6 @@ inline std::enable_if_t<
         return fstretch<T>(labtoxyz(
                fstretch<double>(v)));
     }
-}
-
-/**
- * @brief RGB triple to HSV triple.
- *
- * TODO
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-       multi<T, 3>> rgbtohsv(const multi<T, 3>& v)
-{
-    int kmax = v.argmax();
-    int kmin = v.argmin();
-
-    // Chroma.
-    T c = v[kmax] - v[kmin];
-
-    // Hue.
-    T h = 0;
-    if (c != 0) {
-        h = (v[(kmax + 1) % 3] - 
-             v[(kmax + 2) % 3]) / c;
-    }
-    switch (kmax) {
-        case 0: h = pr::fmod(h, T(6)); break;
-        case 1: h += 2; break;
-        case 2: h += 4; break;
-    }
-    h *= 60;
-    if (h < 0) {
-        h += 360;
-    }
-
-    // Saturation.
-    T s = 0;
-    if (v[kmax] != 0) {
-        s = c / v[kmax];
-    }
-    return {
-        h, 
-        s, 
-        // Value.
-        v[kmax]
-    };
-}
-
-/**
- * @brief HSV triple to RGB triple.
- *
- * TODO
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-       multi<T, 3>> hsvtorgb(const multi<T, 3>& v)
-{
-    auto fn = [&v](T n) {
-        T k = pr::fmod(n + v[0] / 60, T(6));
-        return v[2] * (1 - v[1] * pr::fmax(T(0),
-                                  pr::fmin(T(1), pr::fmin(k, 4 - k))));
-    };
-
-    return {
-        fn(5), 
-        fn(3), 
-        fn(1)
-    };
 }
 
 /**@}*/
