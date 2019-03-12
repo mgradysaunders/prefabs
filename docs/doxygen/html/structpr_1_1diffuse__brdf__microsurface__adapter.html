@@ -102,7 +102,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:adb5691ef6b9b7cb24621a8bf0b8750de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a112a165d654f4bade019973b81367815"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
 <tr class="memitem:a112a165d654f4bade019973b81367815"><td class="memTemplItemLeft" align="right" valign="top">multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1diffuse__brdf__microsurface__adapter.html#a112a165d654f4bade019973b81367815">fm_sample</a> (U &amp;&amp;uk, multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt; wo, int &amp;k) const</td></tr>
-<tr class="memdesc:a112a165d654f4bade019973b81367815"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-scattering BRDF sample.  <a href="#a112a165d654f4bade019973b81367815">More...</a><br /></td></tr>
+<tr class="memdesc:a112a165d654f4bade019973b81367815"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-scattering BRDF sampling routine.  <a href="#a112a165d654f4bade019973b81367815">More...</a><br /></td></tr>
 <tr class="separator:a112a165d654f4bade019973b81367815"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_structpr_1_1microsurface__adapter"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structpr_1_1microsurface__adapter')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="structpr_1_1microsurface__adapter.html">pr::microsurface_adapter&lt; Tslope, Theight &gt;</a></td></tr>
 <tr class="memitem:a15c52abdbb2b61c72ed732fb596f6b89 inherit pub_methods_structpr_1_1microsurface__adapter"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1microsurface__adapter.html#a15c52abdbb2b61c72ed732fb596f6b89">microsurface_adapter</a> ()=default</td></tr>
@@ -145,7 +145,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a0b8b9cf4f4f61e19c12166287dc50699"><td class="mdescLeft">&#160;</td><td class="mdescRight">Phase function.  <a href="#a0b8b9cf4f4f61e19c12166287dc50699">More...</a><br /></td></tr>
 <tr class="separator:a0b8b9cf4f4f61e19c12166287dc50699"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9478470e83f45d8a490d72437c5deb83"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1diffuse__brdf__microsurface__adapter.html#a9478470e83f45d8a490d72437c5deb83">pm_sample</a> (const multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 2 &gt; &amp;u0, const multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 2 &gt; &amp;u1, const multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt; &amp;wo) const</td></tr>
-<tr class="memdesc:a9478470e83f45d8a490d72437c5deb83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Phase function sample.  <a href="#a9478470e83f45d8a490d72437c5deb83">More...</a><br /></td></tr>
+<tr class="memdesc:a9478470e83f45d8a490d72437c5deb83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Phase function sampling routine.  <a href="#a9478470e83f45d8a490d72437c5deb83">More...</a><br /></td></tr>
 <tr class="separator:a9478470e83f45d8a490d72437c5deb83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
@@ -422,7 +422,7 @@ template&lt;typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Multiple-scattering BRDF sample. </p>
+<p>Multiple-scattering BRDF sampling routine. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">uk</td><td>Sample generator.</td></tr>
@@ -534,7 +534,7 @@ template&lt;typename Tslope , typename Theight &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Phase function sample. </p>
+<p>Phase function sampling routine. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">u0</td><td>Sample in \( [0, 1)^2 \).</td></tr>
