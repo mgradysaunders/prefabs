@@ -176,6 +176,20 @@ int main(int argc, char** argv)
         }
     }
 
+    // Contrast stretch.
+    Float tmpmin = +pr::numeric_limits<Float>::infinity();
+    Float tmpmax = -pr::numeric_limits<Float>::infinity();
+    for (int i = 0; i < image_dim[0]; i++)
+    for (int j = 0; j < image_dim[1]; j++) {
+        tmpmin = pr::fmin(tmpmin, image(i, j)[0]);
+        tmpmax = pr::fmax(tmpmax, image(i, j)[0]);
+    }
+    for (int i = 0; i < image_dim[0]; i++)
+    for (int j = 0; j < image_dim[1]; j++) {
+        image(i, j) -= tmpmin;
+        image(i, j) /= tmpmax - tmpmin;
+    }
+
     try {
         std::ofstream ofs(ofs_name);
         ofs << "P2\n";
