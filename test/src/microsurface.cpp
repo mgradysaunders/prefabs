@@ -1,8 +1,10 @@
 #include <iostream>
+#include <random>
 #include <preform/random.hpp>
 #include <preform/neumaier_sum.hpp>
 #include <preform/microsurface.hpp>
 #include <preform/misc_string.hpp>
+#include <preform/option_parser.hpp>
 
 // Float type.
 typedef float Float;
@@ -117,18 +119,55 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
     delete[] u1;
 }
 
-int main()
+int main(int argc, char** argv)
 {
+    unsigned seed = 0;
+
+    // Option parser.
+    pr::option_parser opt_parser("[OPTIONS]");
+
+    // Specify seed.
+    opt_parser.on_option(
+    "-s", "--seed", 1, 
+    [&](char** args) {
+        seed = std::atoi(args[0]); 
+    }) 
+    << "Specify seed. By default, random.\n";
+
+    // Display help.
+    opt_parser.on_option(
+    "-h", "--help", 0, 
+    [&](char**) {
+        std::cout << opt_parser << std::endl;
+        std::exit(EXIT_SUCCESS);
+    }) 
+    << "Display this help and exit.\n";
+
+    // Parse args.
+    opt_parser.parse(argc, argv);
+
+    // Seed.
+    if (seed == 0) {
+        seed = std::random_device()();
+    }
+    std::cout << "seed = " << seed << "\n";
+    pcg = pcg(seed);
+
+    // Generate refractive indices.
+    Float eta0 = 1;
+    Float eta1 = 1.1 + generateCanonical();
+    std::cout << "eta0 = " << eta0 << "\n";
+    std::cout << "eta1 = " << eta1 << "\n";
+
+    // Generate roughness.
     Vec2f alpha = {
         generateCanonical() * 2 + Float(0.1),
         generateCanonical() * 2 + Float(0.1)
     };
-    Float eta0 = 1;
-    Float eta1 = 1.1 + generateCanonical();
-    std::cout << "alpha = " << alpha << "\n";
-    std::cout << "eta0 = " << eta0 << "\n";
-    std::cout << "eta1 = " << eta1 << "\n\n";
+    std::cout << "alpha = " << alpha << "\n\n";
     std::cout.flush();
+
+    // Test full-sphere scattering.
     testFullSphere(
         "DiffuseTrowbridgeReitz",
         DiffuseTrowbridgeReitz(alpha));
@@ -141,5 +180,6 @@ int main()
     testFullSphere(
         "DielectricBeckmann",
         DielectricBeckmann(eta0 / eta1, alpha));
-    return 0;
+
+    return EXIT_SUCCESS;
 }
