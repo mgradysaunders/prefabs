@@ -1105,7 +1105,7 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BRDF sample.
+     * @brief Multiple-scattering BRDF sampling routine.
      *
      * @param[in] uk
      * Sample generator.
@@ -1199,7 +1199,7 @@ private:
     }
 
     /**
-     * @brief Phase function sample.
+     * @brief Phase function sampling routine.
      *
      * @param[in] u0
      * Sample in @f$ [0, 1)^2 @f$.
@@ -1297,8 +1297,8 @@ public:
      * @f]
      *
      * If @f$ \omega_{i_z} < 0 @f$, calculate the BTDF:
-     * - @f$ \mathbf{v}_m \gets -\eta\omega_o - \omega_i @f$
-     * - @f$ \mathbf{v}_m \gets -\mathbf{v}_m @f$ if @f$ \eta > 1 @f$
+     * - @f$ \mathbf{v}_m \gets \eta\omega_o + \omega_i @f$
+     * - @f$ \mathbf{v}_m \gets -\mathbf{v}_m @f$ if @f$ v_{m_z} < 0 @f$
      * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
      * - @f$ G_2(\omega_o, \omega_i) = 
      *         \beta(1 + \Lambda(\omega_o),
@@ -1317,10 +1317,8 @@ public:
      *
      * @note
      * @f[
-     *     f_s(\omega_o, \omega_i) 
-     *     \frac{1}{|\omega_{i_z}|} \frac{\eta_o}{\eta_i} =
-     *     f_s(\omega_i, \omega_o) 
-     *     \frac{1}{|\omega_{o_z}|} \frac{\eta_i}{\eta_o}
+     *     f_s(\omega_o, \omega_i) \frac{1}{|\omega_{i_z}|\eta_i^2} =
+     *     f_s(\omega_i, \omega_o) \frac{1}{|\omega_{o_z}|\eta_o^2}
      * @f]
      *                      
      * @param[in] wo
@@ -1370,14 +1368,16 @@ public:
         else {
 
             // Half vector.
-            multi<float_type, 3> vm = (eta * wo + wi);// * (eta > 1 ? +1 : -1);
+            multi<float_type, 3> vm = eta * wo + wi;
+           if (vm[2] < 0) {
+                vm = -vm;
+            }
+
             float_type dot_vm_vm = dot(vm, vm);
             if (dot_vm_vm < float_type(1e-8)) {
                 return 0;
             }
-            if (vm[2] < 0) {
-                vm = -vm;
-            }
+ 
 
             // Microsurface normal.
             multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
@@ -1411,445 +1411,167 @@ public:
         }
     }
 
-    // TODO verify
-#if 0
-
     /**
-     * @brief Single-scattering BSDF probability density function.
+     * @brief Multiple-scattering BSDF.
      *
-     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
-     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
-     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
-     * - @f$ \eta \gets 1 / \eta @f$
-     *
-     * If @f$ \omega_{i_z} > 0 @f$, calculate BRDF density:
-     * - @f$ \mathbf{v}_m \gets \omega_o + \omega_i @f$
-     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
-     * @f[
-     *      f_{s,\text{bsdf}}(\omega_o \to \omega_i) =
-     *              D_{\omega_o}(\omega_m)
-     *              F_r(\omega_o \cdot \omega_m)
-     *              \frac{1}{4\omega_i \cdot \omega_m} 
-     * @f]
-     *
-     * If @f$ \omega_{i_z} < 0 @f$, calculate BTDF density:
-     * - @f$ \mathbf{v}_m \gets -\eta\omega_o - \omega_i @f$
-     * - @f$ \mathbf{v}_m \gets -\mathbf{v}_m @f$ if @f$ \eta > 1 @f$
-     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
-     * @f[
-     *      f_{s,\text{bsdf}}(\omega_o \to \omega_i) =
-     *              D_{\omega_o}(\omega_m)
-     *              F_t(\omega_o \cdot \omega_m)
-     *              \frac{|\omega_i \cdot \omega_m|}
-     *                   {\lVert \mathbf{v}_m \rVert^2}
-     * @f]
+     * @param[in] uk
+     * Sample generator.
      *
      * @param[in] wo
      * Outgoing direction.
      *
      * @param[in] wi
      * Incident direction.
+     *
+     * @param[in] kres
+     * Result scattering order, 0 for all orders.
+     *
+     * @param[in] nitr
+     * Number of iterations.
      */
-    float_type fs_pdf(
-                multi<float_type, 3> wo,
-                multi<float_type, 3> wi) const
-    {
-        // Flip.
-        float_type eta = eta_;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            wi[2] = -wi[2];
-            eta = 1 / eta;
-        }
-
-        // Ignore invalid samples.
-        if (wo[2] == 0 ||
-            wi[2] == 0) {
-            return 0;
-        }
-
-        if (wi[2] > 0) {
-
-            // Half vector.
-            multi<float_type, 3> vm = wo + wi;
-
-            // Microsurface normal.
-            multi<float_type, 3> wm = normalize(vm);
-
-            // Fresnel coefficients.
-            float_type cos_thetao = dot(wo, wm);
-            float_type cos_thetat;
-            float_type fr, ft;
-            fresnel_dielectric(
-                    eta,
-                    cos_thetao,
-                    cos_thetat,
-                    fr, ft);
-
-            return dwo(wo, wm) * fr / (4 * dot(wo, wm));
-        }
-        else {
-
-            // Half vector.
-            multi<float_type, 3> vm = (eta * wo + wi);// * (eta > 1 ? +1 : -1);
-            float_type dot_vm_vm = dot(vm, vm);
-            if (dot_vm_vm < float_type(1e-8)) {
-                return 0;
-            }
-            if (vm[2] < 0) {
-                vm = -vm;
-            }
-            
-            // Microsurface normal.
-            multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
-            float_type dot_wo_wm = dot(wo, wm);
-            float_type dot_wi_wm = dot(wi, wm);
-            if (!(dot_wo_wm > 0 &&
-                  dot_wi_wm < 0)) {
-                return 0;
-            }
-
-            // Fresnel coefficients.
-            float_type cos_thetao = dot_wo_wm;
-            float_type cos_thetat;
-            float_type fr, ft;
-            fresnel_dielectric(
-                    eta,
-                    cos_thetao,
-                    cos_thetat,
-                    fr, ft);
-
-            return dwo(wo, wm) * ft * (-dot_wi_wm / dot_vm_vm);
-        }
-    }
-
-    /**
-     * @brief Single-scattering BSDF probability density function
-     * sampling routine.
-     *
-     * @param[in] u0
-     * Sample in @f$ [0, 1) @f$.
-     *
-     * @param[in] u1
-     * Sample in @f$ [0, 1)^2 @f$.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     */
-    multi<float_type, 3> fs_pdf_sample(
-            float_type u0,
-            multi<float_type, 2> u1,
-            multi<float_type, 3> wo) const
-    {
-        // Flip.
-        bool neg = false;
-        float_type eta = eta_;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            eta = 1 / eta;
-            neg = true;
-        }
-
-        // Microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u1, wo);
-
-        // Fresnel coefficients.
-        float_type cos_thetao = dot(wo, wm);
-        float_type cos_thetat;
-        float_type fr, ft;
-        fresnel_dielectric(
-                eta,
-                cos_thetao,
-                cos_thetat,
-                fr, ft);
-
-        // Result.
-        multi<float_type, 3> wi;
-
-        if (u0 < fr) {
-
-            // Reflect.
-            wi = -wo + (2 * cos_thetao) * wm;
-            
-            // In wrong hemisphere?
-            if (wi[2] < 0) {
-                return {}; // Reject sample.
-            }
-        }
-        else {
-
-            // Refract.
-            wi = -eta * wo +
-                 (eta * cos_thetao + cos_thetat) * wm;
-
-            // In wrong hemisphere?
-            if (wi[2] > 0) {
-                return {}; // Reject sample.
-            }
-        }
-
-        // Unflip.
-        if (neg) {
-            wi[2] = -wi[2];
-        }
-        return wi;
-    }
-
-    /**
-     * @brief Single-scattering BRDF probability density function.
-     *
-     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
-     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
-     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
-     *
-     * If @f$ \omega_{o_z} > 0, \omega_{i_z} > 0 @f$:
-     * - @f$ \mathbf{v}_m \gets \omega_o + \omega_i @f$
-     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
-     * @f[
-     *      f_{s,\text{brdf}}(\omega_o \to \omega_i) =
-     *              D_{\omega_o}(\omega_m)
-     *              \frac{1}{4\omega_i \cdot \omega_m} 
-     * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     */
-    float_type fs_brdf_pdf(
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi) const
-    {
-        // Flip.
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            wi[2] = -wi[2];
-        }
-
-        // Ignore invalid samples.
-        if (wo[2] == 0 ||
-            wi[2] <= 0) {
-            return 0;
-        }
-
-        // Microsurface normal.
-        multi<float_type, 3> wm = normalize(wo + wi);
-
-        // Result.
-        return dwo(wo, wm) / (4 * dot(wi, wm));
-    }
-
-    /**
-     * @brief Single-scattering BRDF probability density function
-     * sampling routine.
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     */
-    multi<float_type, 3> fs_brdf_pdf_sample(
-            multi<float_type, 2> u,
-            multi<float_type, 3> wo) const
-    {
-        // Flip.
-        bool neg = false;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            neg = true;
-        }
-
-        // Microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u, wo);
-
-        // Reflect.
-        multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
-            
-        // In wrong hemisphere?
-        if (wi[2] < 0) {
-            return {}; // Reject sample.
-        }
-
-        // Unflip.
-        if (neg) {
-            wi[2] = -wi[2];
-        }
-        return wi;
-    }
-
-    /**
-     * @brief Single-scattering BTDF probability density function.
-     *
-     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
-     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
-     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
-     * - @f$ \eta \gets 1 / \eta @f$
-     *
-     * If @f$ \omega_{o_z} > 0, \omega_{i_z} < 0 @f$:
-     * - @f$ \mathbf{v}_m \gets -\eta\omega_o - \omega_i @f$
-     * - @f$ \mathbf{v}_m \gets -\mathbf{v}_m @f$ if @f$ \eta > 1 @f$
-     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
-     * @f[
-     *      f_{s,\text{btdf}}(\omega_o \to \omega_i) =
-     *              D_{\omega_o}(\omega_m)
-     *              \frac{|\omega_i \cdot \omega_m|}
-     *                   {\lVert \mathbf{v}_m \rVert^2}
-     * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     */
-    float_type fs_btdf_pdf(
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi) const
-    {
-        // Flip.
-        float_type eta = eta_;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            wi[2] = -wi[2];
-            eta = 1 / eta;
-        }
-
-        // Ignore invalid samples.
-        if (wo[2] == 0 ||
-            wi[2] >= 0) {
-            return 0;
-        }
-
-        // Half vector.
-        multi<float_type, 3> vm = (eta * wo + wi);// * (eta > 1 ? +1 : -1);
-        float_type dot_vm_vm = dot(vm, vm);
-        if (dot_vm_vm < float_type(1e-8)) {
-            return 0;
-        }
-        if (vm[2] < 0) {
-            vm = -vm;
-        }
-            
-        // Microsurface normal.
-        multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
-        float_type dot_wi_wm = dot(wi, wm);
-        if (dot_wi_wm > 0) {
-            return 0;
-        }
-
-        // Result.
-        return dwo(wo, wm) * (-dot_wi_wm / dot_vm_vm);
-    }
-
-    /**
-     * @brief Single-scattering BTDF probability density function
-     * sampling routine.
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     */
-    multi<float_type, 3> fs_btdf_pdf_sample(
-            multi<float_type, 2> u,
-            multi<float_type, 3> wo) const
-    {
-        // Flip.
-        bool neg = false;
-        float_type eta = eta_;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            eta = 1 / eta;
-            neg = true;
-        }
-
-        // Microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u, wo);
-
-        // Refract.
-        float_type cos_thetao = dot(wo, wm);
-        float_type cos_thetat = 
-                pr::sqrt(
-                pr::fmax(float_type(0),
-                         1 - eta * eta * (1 - cos_thetao * cos_thetao)));
-        if (cos_thetat == 0) {
-            return {}; // Reject sample.
-        }
-        multi<float_type, 3> wi = -eta * wo + 
-                                  (eta * cos_thetao -
-                                         cos_thetat) * wm;
-            
-        // In wrong hemisphere?
-        if (wi[2] > 0) {
-            return {}; // Reject sample.
-        }
-
-        // Unflip.
-        if (neg) {
-            wi[2] = -wi[2];
-        }
-        return wi;
-    }
-
-#endif
-
-    // TODO verify
     template <typename U>
     float_type fm(
             U&& uk,
             multi<float_type, 3> wo,
             multi<float_type, 3> wi,
-            int kres = 0) const
+            int kres = 0,
+            int nitr = 1) const
     {
         // Result.
         float_type f = 0;
 
+        // Single scattering only?
+        if (kres == 1) {
+
+            // Ignore multiple scattering iterations.
+            nitr = 0;
+        }
+
+        for (int n = 0; n < nitr; n++) {
+
+            // Initial height.
+            float_type hk = Theight::c1inv(float_type(0.99999)) + 1;
+
+            // Initial direction.
+            multi<float_type, 3> wk = -wo;
+
+            // Initial direction outside?
+            bool wk_outside = wo[2] > 0;
+            if (!wk_outside) {
+
+                // Flip height.
+                hk = -hk;
+            }
+
+            // Incident direction outside?
+            bool wi_outside = wi[2] > 0;
+
+            for (int k = 0; 
+                        kres == 0 || 
+                        kres > k;) {
+
+                // Sample next height.
+                hk = 
+                    wk_outside ?
+                    +h_sample(std::forward<U>(uk)(), +wk, +hk) :
+                    -h_sample(std::forward<U>(uk)(), -wk, -hk);
+                if (pr::isinf(hk)) {
+                    break;
+                }
+
+                // Increment.
+                ++k;
+
+                if (kres == 0 ||
+                    kres == k) {
+                    if (k > 1) {
+
+                        // Next event estimation.
+                        float_type fk =
+                            (wi_outside ?
+                            g1(+wi, +hk) :
+                            g1(-wi, -hk)) * 
+                            pm(-wk, wi, wk_outside, wi_outside);
+                        if (pr::isfinite(fk)) {
+                            f += fk;
+                        }
+                    }
+                }
+
+                // Sample next direction.
+                wk = fastnormalize(
+                     pm_sample(
+                        std::forward<U>(uk)(),
+                        {std::forward<U>(uk)(), 
+                         std::forward<U>(uk)()},
+                        -wk, wk_outside, wk_outside));
+
+                // NaN check.
+                if (pr::isnan(hk) ||
+                    pr::isnan(wk[2])) {
+                    return 0;
+                }
+            }
+        }
+
+        // Average.
+        if (nitr > 1) {
+            f /= nitr;
+        }
+        
+        // Single-scattering component.
+        if (kres == 0 ||
+            kres == 1) {
+            f += fs(wo, wi);
+        }
+
+        return f;
+    }
+
+    /**
+     * @brief Multiple-scattering BSDF sampling routine.
+     *
+     * @param[in] uk
+     * Sample generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[out] k
+     * Scattering order.
+     */
+    template <typename U>
+    multi<float_type, 3> fm_sample(
+            U&& uk, multi<float_type, 3> wo,
+            int& k) const
+    {
         // Initial height.
         float_type hk = Theight::c1inv(float_type(0.99999)) + 1;
 
         // Initial direction.
         multi<float_type, 3> wk = -wo;
 
+        // Initial direction outside?
         bool wk_outside = wo[2] > 0;
-        bool wi_outside = wi[2] > 0;
-
         if (!wk_outside) {
+
+            // Flip height.
             hk = -hk;
         }
 
-        for (int k = 0; 
-                    kres == 0 || 
-                    kres > k;) {
-
+        for (k = 0; true;) {
+            
             // Sample next height.
-            hk = h_sample(
-                    std::forward<U>(uk)(), 
-                    wk_outside ? wk : -wk, 
-                    wk_outside ? hk : -hk) * (wk_outside ? +1 : -1);
+            hk = 
+                wk_outside ?
+                +h_sample(std::forward<U>(uk)(), +wk, +hk) :
+                -h_sample(std::forward<U>(uk)(), -wk, -hk);
             if (pr::isinf(hk)) {
                 break;
             }
 
             // Increment.
             ++k;
-
-            if (kres == 0 ||
-                kres == k) {
-                if (k > 1) {
-
-                    // Next event estimation.
-                    float_type fk = 
-                        g1(wi_outside ? wi : -wi, 
-                           wi_outside ? hk : -hk) *
-                        pm(-wk, wi, wk_outside, wi_outside);
-                    if (pr::isfinite(fk)) {
-                        f += fk;
-                    }
-                }
-            }
 
             // Sample next direction.
             wk = fastnormalize(
@@ -1862,21 +1584,30 @@ public:
             // NaN check.
             if (pr::isnan(hk) ||
                 pr::isnan(wk[2])) {
-                return 0;
+                return {0, 0, 1};
             }
         }
-        
-        if (kres == 0 ||
-            kres == 1) {
-            f += fs(wo, wi);
-        }
 
-        return f;
+        return wk;
     }
 
 private:
 
-    // TODO verify
+    /**
+     * @brief Phase function.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @param[in] wo_outside
+     * Outgoing direction outside material?
+     *
+     * @param[in] wi_outside
+     * Incident direction outside material?
+     */
     float_type pm(
             multi<float_type, 3> wo,
             multi<float_type, 3> wi,
@@ -1889,6 +1620,7 @@ private:
             // Microsurface normal.
             multi<float_type, 3> wm = normalize(wo + wi);
 
+            // Flip to outside.
             if (!wo_outside) {
                 wo = -wo;
                 wm = -wm;
@@ -1910,16 +1642,19 @@ private:
         else {
 
             // Half vector.
-            multi<float_type, 3> vm = (eta * wo + wi);// * (eta > 1 ? +1 : -1);
-            float_type dot_vm_vm = dot(vm, vm);
-            if (dot_vm_vm < float_type(1e-8)) {
-                return 0;
-            }
+            multi<float_type, 3> vm = eta * wo + wi;
             if (vm[2] < 0) {
                 vm = -vm;
             }
+
+            // Flip to match wo.
             if (!wo_outside) {
                 vm = -vm;
+            }
+
+            float_type dot_vm_vm = dot(vm, vm);
+            if (dot_vm_vm < float_type(1e-8)) {
+                return 0;
             }
 
             // Microsurface normal.
@@ -1931,9 +1666,9 @@ private:
                 return 0;
             }
 
+            // Flip to outside.
             if (!wo_outside) {
                 wo = -wo;
-            //  wi = -wi;
                 wm = -wm;
             }
 
@@ -1953,7 +1688,24 @@ private:
         }
     }
 
-    // TODO verify
+    /**
+     * @brief Phase function sampling routine.
+     *
+     * @param[in] u0
+     * Sample in @f$ [0, 1) @f$.
+     *
+     * @param[in] u1
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wo_outside
+     * Outgoing direction outside material?
+     *
+     * @param[out] wi_outside
+     * Incident direction outside material?
+     */
     multi<float_type, 3> pm_sample(
             float_type u0,
             multi<float_type, 2> u1,
@@ -1961,15 +1713,16 @@ private:
             bool wo_outside, 
             bool& wi_outside) const
     {
+        // Refractive index.
         float_type eta = wo_outside ? eta_ : 1 / eta_;
-        multi<float_type, 3> wm;
-        if (wo_outside) {
-            wm = +dwo_sample(u1, +wo);
-        }
-        else {
-            wm = -dwo_sample(u1, -wo);
-        }
 
+        // Microsurface normal.
+        multi<float_type, 3> wm = 
+            wo_outside ?
+            +dwo_sample(u1, +wo) :
+            -dwo_sample(u1, -wo);
+
+        // Fresnel coefficients.
         float_type cos_thetao = dot(wo, wm);
         float_type cos_thetat;
         float_type fr, ft;
@@ -1980,9 +1733,12 @@ private:
                 fr, ft);
 
         if (u0 < fr) {
+            // Reflect.
+            wi_outside = wo_outside;
             return -wo + 2 * cos_thetao * wm;
         }
         else {
+            // Refract.
             wi_outside = !wo_outside;
             return -eta * wo + 
                    (eta * cos_thetao +
