@@ -287,7 +287,7 @@ end
 
 # Compiler variables.
 CC = OpenStruct.new
-CC.cc = "g++-8"
+CC.cc = "clang++-6.0"
 CC.ccflags = []
 CC.ccflags << "-std=c++17"
 CC.ccflags << "-Iinclude"
@@ -308,12 +308,14 @@ end
 
 namespace :test do 
 
+    # Build tests.
     desc "Build tests."
     task :build => ["test/bin/microsurface"] do
         # nothing
     end
 
-    desc "Clean tests. (remove test/bin)"
+    # Clean tests.
+    desc "Clean tests. (remove test/bin/)"
     task :clean do 
         sh "rm -r -f test/bin"
     end
@@ -327,14 +329,25 @@ file "example/bin/simplex_noise2" =>
     sh "#{CC.cc} #{CC.ccflags} example/src/simplex_noise2.cpp -o example/bin/simplex_noise2"
 end
 
+# Example simplex noise (3-dimensional).
+file "example/bin/simplex_noise3" => 
+     "example/src/simplex_noise3.cpp" do
+    sh "mkdir -p example/bin"
+    sh "#{CC.cc} #{CC.ccflags} example/src/simplex_noise3.cpp -o example/bin/simplex_noise3"
+end
+
 namespace :example do 
 
+    # Build examples.
     desc "Build examples."
-    task :build => ["example/bin/simplex_noise2"] do
+    task :build => [
+        "example/bin/simplex_noise2",
+        "example/bin/simplex_noise3"] do
         # nothing
     end
 
-    desc "Clean examples. (remove example/bin)"
+    # Clean examples.
+    desc "Clean examples. (remove example/bin/)"
     task :clean do
         sh "rm -r -f example/bin"
     end
