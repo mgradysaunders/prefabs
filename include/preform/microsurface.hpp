@@ -1095,8 +1095,8 @@ public:
                     -wk);
 
             // NaN check.
-            if (pr::isnan(hk) ||
-                pr::isnan(wk[2])) {
+            if (!pr::isfinite(hk) ||
+                !pr::isfinite(wk).all() || wk[2] == 0) {
                 return 0;
             }
         }
@@ -1152,8 +1152,8 @@ public:
                     -wk);
 
             // NaN check.
-            if (pr::isnan(hk) ||
-                pr::isnan(wk[2])) {
+            if (!pr::isfinite(hk) ||
+                !pr::isfinite(wk).all() || wk[2] == 0) {
                 return {0, 0, 1};
             }
         }
@@ -1377,7 +1377,6 @@ public:
             if (dot_vm_vm < float_type(1e-8)) {
                 return 0;
             }
- 
 
             // Microsurface normal.
             multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
@@ -1482,6 +1481,10 @@ public:
                 // Increment.
                 ++k;
 
+                if (k > 1024) {
+                    return 0;
+                }
+
                 if (kres == 0 ||
                     kres == k) {
                     if (k > 1) {
@@ -1507,8 +1510,8 @@ public:
                         -wk, wk_outside, wk_outside));
 
                 // NaN check.
-                if (pr::isnan(hk) ||
-                    pr::isnan(wk[2])) {
+                if (!pr::isfinite(hk) ||
+                    !pr::isfinite(wk).all() || wk[2] == 0) {
                     return 0;
                 }
             }
@@ -1582,8 +1585,8 @@ public:
                     -wk, wk_outside, wk_outside));
 
             // NaN check.
-            if (pr::isnan(hk) ||
-                pr::isnan(wk[2])) {
+            if (!pr::isfinite(hk) ||
+                !pr::isfinite(wk).all() || wk[2] == 0) {
                 return {0, 0, 1};
             }
         }
