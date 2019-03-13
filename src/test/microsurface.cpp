@@ -9,6 +9,9 @@
 typedef float Float;
 
 // 2-dimensional vector type.
+typedef pr::vec2<int> Vec2i;
+
+// 2-dimensional vector type.
 typedef pr::vec2<Float> Vec2f;
 
 // 3-dimensional vector type.
@@ -63,7 +66,7 @@ Vec2f generateCanonical2()
 template <typename Microsurface>
 void testFullSphere(const char* name, const Microsurface& microsurface)
 {
-    int n = 512;
+    Vec2i n = {512, 512};
     std::cout << "Testing full-sphere scattering for ";
     std::cout << name << "::fm():\n";
     std::cout << 
@@ -73,27 +76,18 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
     std::cout.flush();
 
     // Stratify samples.
-    Vec2f* u0 = new Vec2f[n * n];
-    Vec2f* u1 = new Vec2f[n * n];
-    Vec2f* itru0 = u0;
-    Vec2f* itru1 = u1;
-    for (int i = 0; i < n; i++)
-    for (int j = 0; j < n; j++) {
-        *itru0++ = (generateCanonical2() + Vec2f{Float(i), Float(j)}) / n;
-        *itru1++ = (generateCanonical2() + Vec2f{Float(i), Float(j)}) / n;
-    }
-    std::shuffle(u0, u0 + n * n, pcg);
-    std::shuffle(u1, u1 + n * n, pcg);
+    Vec2f* u0 = new Vec2f[n.prod()];
+    Vec2f* u1 = new Vec2f[n.prod()];
+    pr::stratify(pcg, n, &u0[0]);
+    pr::stratify(pcg, n, &u1[0]);
 
+    // Monte Carlo integration.
     NeumaierSum f = 0;
-    itru0 = u0;
-    itru1 = u1;
-    for (int i = 0; i < n; i++)
-    for (int j = 0; j < n; j++) {
+    for (int k = 0; k < n.prod(); k++) {
 
         // Directions.
-        Vec3f wo = pr::cosine_hemisphere_pdf_sample(*itru0++);
-        Vec3f wi = pr::cosine_hemisphere_pdf_sample(*itru1++);
+        Vec3f wo = pr::cosine_hemisphere_pdf_sample(u0[k]);
+        Vec3f wi = pr::cosine_hemisphere_pdf_sample(u1[k]);
         Float wo_pdf = pr::cosine_hemisphere_pdf(wo[2]) / 2;
         Float wi_pdf = pr::cosine_hemisphere_pdf(wi[2]) / 2;
         wo = pcg(2) == 0 ? +wo : -wo;
@@ -105,7 +99,7 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
             Float fk = microsurface.fm(generateCanonical, wo, wi);
             fk /= wi_pdf;
             fk /= wo_pdf;
-            fk /= n * n;
+            fk /= n.prod();
             f += fk;
         }
     }
