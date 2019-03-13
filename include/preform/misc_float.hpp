@@ -72,6 +72,7 @@ __attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> finc(T x)
 {
+#if 0
     if constexpr (
             std::is_same<T, float>::value &&
             std::numeric_limits<float>::is_iec559) {
@@ -117,8 +118,11 @@ inline std::enable_if_t<
         return x;
     }
     else {
+#endif
         return pr::nextafter(x, +pr::numeric_limits<T>::infinity());
+#if 0
     }
+#endif
 }
 
 /**
@@ -129,6 +133,7 @@ __attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> fdec(T x)
 {
+#if 0
     if constexpr (
             std::is_same<T, float>::value &&
             std::numeric_limits<float>::is_iec559) {
@@ -174,8 +179,11 @@ inline std::enable_if_t<
         return x;
     }
     else {
+#endif
         return pr::nextafter(x, -pr::numeric_limits<T>::infinity());
+#if 0
     }
+#endif
 }
 
 /**
