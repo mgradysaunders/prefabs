@@ -406,7 +406,7 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Generate stratified canonical random samples.
+ * @brief Stratify canonical random samples.
  *
  * @param[in] gen
  * Random number generator.
@@ -416,6 +416,9 @@ inline std::enable_if_t<
  *
  * @param[out] arr
  * Sample arrays, must point to `dim.prod()` samples. 
+ *
+ * @throw std::invalid_argument
+ * If `(dim <= 0).any()` or `!arr`.
  */
 template <
     typename G, 
