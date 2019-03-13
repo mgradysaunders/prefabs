@@ -258,9 +258,9 @@ public:
      */
     raytest_sphere(
         float_type r, 
-        float_type thetamin, 
-        float_type thetamax,
-        float_type phimax) :
+        float_type thetamin = 0, 
+        float_type thetamax = pr::numeric_constants<float_type>::M_pi(),
+        float_type phimax = 2 * pr::numeric_constants<float_type>::M_pi()) :
             r_(r),
             thetamin_(thetamin),
             thetamax_(thetamax),
