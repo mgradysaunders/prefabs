@@ -44,6 +44,9 @@
 // for pr::multi wrappers
 #include <preform/multi_misc_float.hpp>
 
+// for pr::generate_canonical
+#include <preform/random.hpp>
+
 namespace pr {
 
 /**
@@ -400,6 +403,66 @@ inline std::enable_if_t<
         {hatx[1], haty[1], hatz[1]},
         {hatx[2], haty[2], hatz[2]}
     };
+}
+
+/**
+ * @brief Generate stratified canonical random samples.
+ *
+ * @param[in] gen
+ * Random number generator.
+ *
+ * @param[in] dim
+ * Number of strata in each dimension.
+ *
+ * @param[out] arr
+ * Sample arrays, must point to `dim.prod()` samples. 
+ */
+template <
+    typename G, 
+    typename P,
+    typename T, std::size_t N
+    >
+inline std::enable_if_t<
+       std::is_integral<P>::value &&
+       std::is_floating_point<T>::value, void> stratify(
+                    G&& gen, 
+                    const multi<P, N>& dim, 
+                          multi<T, N>* arr)
+{
+    if ((dim <= P(0)).any() || !arr) {
+        throw std::invalid_argument(__PRETTY_FUNCTION__);
+    }
+
+    multi<P, N> pos = {};
+    multi<T, N>* itrarr = arr;
+    do {
+        for (T& val : *itrarr) {
+            val = pr::generate_canonical<T>(std::forward<G>(gen));
+        }
+        *itrarr += pos;
+        *itrarr /= dim;
+        ++itrarr;
+
+        // Increment.
+        auto itrpos = pos.rbegin();
+        auto itrdim = dim.rbegin();
+        for (; itrpos < pos.rend(); ++itrpos, ++itrdim) {
+            ++*itrpos;
+            if (*itrpos >= *itrdim) {
+                *itrpos = P(0);
+            }
+            else {
+                break;
+            }
+        }
+    }
+    while ((pos != P(0)).any());
+
+    // Shufle into random order.
+    std::shuffle(
+        arr, 
+        arr + dim.prod(), 
+        std::forward<G>(gen));
 }
 
 /**@}*/
