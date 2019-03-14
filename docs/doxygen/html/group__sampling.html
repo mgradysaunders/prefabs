@@ -104,6 +104,14 @@ Functions</h2></td></tr>
 <tr class="memitem:gab49c38bfd5cde1a84cc8cdb1551cd48e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#gab49c38bfd5cde1a84cc8cdb1551cd48e">pr::cosine_hemisphere_pdf_sample</a> (multi&lt; T, 2 &gt; u)</td></tr>
 <tr class="memdesc:gab49c38bfd5cde1a84cc8cdb1551cd48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cosine hemisphere probability density function sampling routine.  <a href="group__sampling.html#gab49c38bfd5cde1a84cc8cdb1551cd48e">More...</a><br /></td></tr>
 <tr class="separator:gab49c38bfd5cde1a84cc8cdb1551cd48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab0b0f7a6dfdedec64ace0284ae6cbf67"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab0b0f7a6dfdedec64ace0284ae6cbf67"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#gab0b0f7a6dfdedec64ace0284ae6cbf67">pr::uniform_cone_pdf</a> (T cos_thetamax)</td></tr>
+<tr class="memdesc:gab0b0f7a6dfdedec64ace0284ae6cbf67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uniform cone probability density function.  <a href="group__sampling.html#gab0b0f7a6dfdedec64ace0284ae6cbf67">More...</a><br /></td></tr>
+<tr class="separator:gab0b0f7a6dfdedec64ace0284ae6cbf67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c1591e2e1da08f281d5e1ddce484b8f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga7c1591e2e1da08f281d5e1ddce484b8f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#ga7c1591e2e1da08f281d5e1ddce484b8f">pr::uniform_cone_pdf_sample</a> (T cos_thetamax, multi&lt; T, 2 &gt; u)</td></tr>
+<tr class="memdesc:ga7c1591e2e1da08f281d5e1ddce484b8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uniform cone probability density function sampling routine.  <a href="group__sampling.html#ga7c1591e2e1da08f281d5e1ddce484b8f">More...</a><br /></td></tr>
+<tr class="separator:ga7c1591e2e1da08f281d5e1ddce484b8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7dc98ab882b3f272d1c7059d1f895db4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga7dc98ab882b3f272d1c7059d1f895db4"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#ga7dc98ab882b3f272d1c7059d1f895db4">pr::hg_phase_pdf</a> (T g, T w2)</td></tr>
 <tr class="memdesc:ga7dc98ab882b3f272d1c7059d1f895db4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Henyey-Greenstein phase probability density function.  <a href="group__sampling.html#ga7dc98ab882b3f272d1c7059d1f895db4">More...</a><br /></td></tr>
@@ -120,6 +128,10 @@ Functions</h2></td></tr>
 <tr class="memitem:gae7ceeb2e25b7b1a868db941fb782c968"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#gae7ceeb2e25b7b1a868db941fb782c968">pr::build_onb</a> (const multi&lt; T, 3 &gt; &amp;hatz)</td></tr>
 <tr class="memdesc:gae7ceeb2e25b7b1a868db941fb782c968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build 3-dimensional orthonormal basis.  <a href="group__sampling.html#gae7ceeb2e25b7b1a868db941fb782c968">More...</a><br /></td></tr>
 <tr class="separator:gae7ceeb2e25b7b1a868db941fb782c968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7ace24b49ecf79e8f28540304036a3cf"><td class="memTemplParams" colspan="2">template&lt;typename G , typename P , typename T , std::size_t N&gt; </td></tr>
+<tr class="memitem:ga7ace24b49ecf79e8f28540304036a3cf"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_integral&lt; P &gt;::value &amp;&amp;std::is_floating_point&lt; T &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#ga7ace24b49ecf79e8f28540304036a3cf">pr::stratify</a> (G &amp;&amp;gen, const multi&lt; P, N &gt; &amp;dim, multi&lt; T, N &gt; *arr)</td></tr>
+<tr class="memdesc:ga7ace24b49ecf79e8f28540304036a3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stratify canonical random samples.  <a href="group__sampling.html#ga7ace24b49ecf79e8f28540304036a3cf">More...</a><br /></td></tr>
+<tr class="separator:ga7ace24b49ecf79e8f28540304036a3cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/sampling.hpp&gt;</code></p>
@@ -430,6 +442,95 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="gab0b0f7a6dfdedec64ace0284ae6cbf67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab0b0f7a6dfdedec64ace0284ae6cbf67">&#9670;&nbsp;</a></span>uniform_cone_pdf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, T&gt; pr::uniform_cone_pdf </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>cos_thetamax</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Uniform cone probability density function. </p>
+<p class="formulaDsp">
+\[ f_{\text{cone}} = \frac{1}{2\pi} \frac{1}{1 - \cos(\theta_{\max})} \]
+</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cos_thetamax</td><td>Cosine of cone angle maximum. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga7c1591e2e1da08f281d5e1ddce484b8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7c1591e2e1da08f281d5e1ddce484b8f">&#9670;&nbsp;</a></span>uniform_cone_pdf_sample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, multi&lt;T, 3&gt; &gt; pr::uniform_cone_pdf_sample </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>cos_thetamax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">multi&lt; T, 2 &gt;&#160;</td>
+          <td class="paramname"><em>u</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Uniform cone probability density function sampling routine. </p>
+<p class="formulaDsp">
+\[ \omega_{\text{cone}}(\mathbf{u}) = \begin{bmatrix} \sqrt{1-(1-u_{[0]}+u_{[0]}\cos(\theta_{\max}))^2}\cos(2\pi u_{[1]}) \\ \sqrt{1-(1-u_{[0]}+u_{[0]}\cos(\theta_{\max}))^2}\sin(2\pi u_{[1]}) \\ 1-u_{[0]}+u_{[0]}\cos(\theta_{\max}) \end{bmatrix} \]
+</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cos_thetamax</td><td>Cosine of cone angle maximum.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ga7dc98ab882b3f272d1c7059d1f895db4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga7dc98ab882b3f272d1c7059d1f895db4">&#9670;&nbsp;</a></span>hg_phase_pdf()</h2>
 
@@ -613,6 +714,66 @@ template&lt;typename T &gt; </div>
 \[ \mathbf{B} \gets \begin{bmatrix} \hat{\mathbf{x}} &amp; \hat{\mathbf{y}} &amp; \hat{\mathbf{z}} \end{bmatrix} \]
 </p>
 <dl class="section note"><dt>Note</dt><dd>As the notation suggests, the implementation assumes the input vector <code>hatz</code> is unit-length. </dd></dl>
+
+</div>
+</div>
+<a id="ga7ace24b49ecf79e8f28540304036a3cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7ace24b49ecf79e8f28540304036a3cf">&#9670;&nbsp;</a></span>stratify()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename G , typename P , typename T , std::size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_integral&lt;P&gt;::value &amp;&amp; std::is_floating_point&lt;T&gt;::value, void&gt; pr::stratify </td>
+          <td>(</td>
+          <td class="paramtype">G &amp;&amp;&#160;</td>
+          <td class="paramname"><em>gen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; P, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">multi&lt; T, N &gt; *&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stratify canonical random samples. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">gen</td><td>Random number generator.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dim</td><td>Number of strata in each dimension.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">arr</td><td>Sample arrays, must point to <code>dim.prod()</code> samples.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If <code>(dim &lt;= 0).any()</code> or <code>!arr</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
