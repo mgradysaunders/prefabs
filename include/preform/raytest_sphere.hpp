@@ -317,8 +317,6 @@ public:
     /**
      * @brief Surface area probability density function sampling routine.
      *
-     * - @f$ z \gets (1 - u_{[1]})z_{\min} + u_{[1]}z_{\max} @f$
-     *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
      */
