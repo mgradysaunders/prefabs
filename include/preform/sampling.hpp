@@ -276,6 +276,61 @@ inline std::enable_if_t<
 }
 
 /**
+ * @brief Uniform cone probability density function.
+ *
+ * @f[
+ *      f_{\text{cone}} = 
+ *      \frac{1}{2\pi} \frac{1}{1 - \cos(\theta_{\max})}
+ * @f]
+ *
+ * @param[in] cos_thetamax
+ * Cosine of cone angle maximum.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> uniform_cone_pdf(T cos_thetamax)
+{
+    return pr::numeric_constants<T>::M_1_pi() / 2 / (1 - cos_thetamax);
+}
+
+/**
+ * @brief Uniform cone probability density function sampling routine.
+ *
+ * @f[
+ *      \omega_{\text{cone}}(\mathbf{u}) = 
+ *      \begin{bmatrix}
+ *          \sqrt{1-(1-u_{[0]}+u_{[0]}\cos(\theta_{\max}))^2}\cos(2\pi u_{[1]})
+ *      \\  \sqrt{1-(1-u_{[0]}+u_{[0]}\cos(\theta_{\max}))^2}\sin(2\pi u_{[1]})
+ *      \\  1-u_{[0]}+u_{[0]}\cos(\theta_{\max})
+ *      \end{bmatrix}
+ * @f]
+ *
+ * @param[in] cos_thetamax
+ * Cosine of cone angle maximum.
+ *
+ * @param[in] u
+ * Sample in @f$ [0, 1)^2 @f$.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value,
+                multi<T, 3>> uniform_cone_pdf_sample(
+                                        T cos_thetamax, multi<T, 2> u)
+{
+    T cos_theta = (1 - u[0]) + u[0] * cos_thetamax;
+    cos_theta = pr::fmax(cos_theta, T(-1));
+    cos_theta = pr::fmin(cos_theta, T(+1));
+    T sin_theta = pr::sqrt(1 - cos_theta * cos_theta);
+    T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
+    return {
+        sin_theta * pr::cos(phi),
+        sin_theta * pr::sin(phi),
+        cos_theta
+    };
+}
+
+/**
  * @brief Henyey-Greenstein phase probability density function.
  *
  * @f[
@@ -461,7 +516,7 @@ inline std::enable_if_t<
     }
     while ((pos != P(0)).any());
 
-    // Shufle into random order.
+    // Shuffle into random order.
     std::shuffle(
         arr, 
         arr + dim.prod(), 
