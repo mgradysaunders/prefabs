@@ -206,24 +206,19 @@ public:
         multi<float_type, 3> perr = {};
 
         /**
-         * @brief Surface parameter @f$ u @f$.
+         * @brief Surface parameters @f$ \mathbf{s} @f$.
          */
-        float_type u = 0;
+        multi<float_type, 2> s = {};
 
         /**
-         * @brief Surface parameter @f$ v @f$.
+         * @brief Partial @f$ \partial{\mathbf{p}}/\partial{s_{[0]}} @f$.
          */
-        float_type v = 0;
+        multi<float_type, 3> dp_ds0 = {};
 
         /**
-         * @brief Partial derivative @f$ \partial{\mathbf{p}}/\partial{u} @f$.
+         * @brief Partial @f$ \partial{\mathbf{p}}/\partial{s_{[1]}} @f$.
          */
-        multi<float_type, 3> dp_du = {};
-
-        /**
-         * @brief Partial derivative @f$ \partial{\mathbf{p}}/\partial{v} @f$.
-         */
-        multi<float_type, 3> dp_dv = {};
+        multi<float_type, 3> dp_ds1 = {};
     };
 
 public:
@@ -308,23 +303,55 @@ public:
     }
 
     /**
-     * @brief Evaluate.
+     * @brief Surface area probability density function.
+     *
+     * @f[
+     *      f = \frac{1}{A}
+     * @f]
+     */
+    float_type surface_area_pdf() const
+    {
+        return 1 / surface_area();
+    }
+
+    /**
+     * @brief Surface area probability density function sampling routine.
+     *
+     * - @f$ z \gets (1 - u_{[1]})z_{\min} + u_{[1]}z_{\max} @f$
      *
      * @param[in] u
-     * Parameter in @f$ [0, 1) @f$.
-     *
-     * @param[in] v
-     * Parameter in @f$ [0, 1) @f$.
+     * Sample in @f$ [0, 1)^2 @f$.
      */
-    hit_info evaluate(
-                float_type u, 
-                float_type v) const
+    hit_info surface_area_pdf_sample(multi<float_type, 2> u) const
+    {
+        // Uniform height.
+        float_type z = (1 - u[1]) * zmin_ + u[1] * zmax_;
+
+        // Compute polar angle.
+        float_type cos_theta = z / r_;
+        cos_theta = pr::fmax(cos_theta, float_type(-1));
+        cos_theta = pr::fmin(cos_theta, float_type(+1));
+        float_type theta = pr::acos(cos_theta);
+
+        // Delegate.
+        return operator()({u[0], (theta - thetamin_) / 
+                                 (thetamax_ - thetamin_)});
+    }
+
+    /**
+     * @brief Evaluate.
+     *
+     * @param[in] s
+     * Parameters in @f$ [0, 1)^2 @f$.
+     */
+    hit_info operator()(
+                multi<float_type, 2> s) const
     {
         hit_info hit;
-        float_type phi = u * phimax_;
+        float_type phi = s[0] * phimax_;
         float_type sin_phi = pr::sin(phi);
         float_type cos_phi = pr::cos(phi);
-        float_type theta = (1 - v) * thetamin_ + v * thetamax_;
+        float_type theta = (1 - s[1]) * thetamin_ + s[1] * thetamax_;
         float_type sin_theta = pr::sin(theta);
         float_type cos_theta = pr::cos(theta);
 
@@ -342,16 +369,15 @@ public:
                 pr::numeric_limits<float_type>::echelon(5);
 
         // Surface parameters.
-        hit.u = u;
-        hit.v = v;
+        hit.s = s;
 
         // Surface partial derivatives.
-        hit.dp_du = {
+        hit.dp_ds0 = {
             -phimax_ * hit.p[1],
             +phimax_ * hit.p[0],
             0
         };
-        hit.dp_dv = {
+        hit.dp_ds1 = {
             +(r_ * (thetamax_ - thetamin_)) * cos_theta * cos_phi,
             +(r_ * (thetamax_ - thetamin_)) * cos_theta * sin_phi,
             -(r_ * (thetamax_ - thetamin_)) * sin_theta
@@ -474,20 +500,20 @@ public:
             float_type theta = pr::acos(cos_theta);
 
             // Surface parameters.
-            hit->u = phi / phimax_;
-            hit->v = (theta - thetamin_) / 
-                     (thetamax_ - thetamin_);
+            hit->s[0] = phi / phimax_;
+            hit->s[1] = (theta - thetamin_) / 
+                        (thetamax_ - thetamin_);
 
             // Surface partial derivatives.
             float_type zr = pr::hypot(p[0], p[1]);
             float_type cos_phi = p[0] / zr;
             float_type sin_phi = p[1] / zr;
-            hit->dp_du = {
+            hit->dp_ds0 = {
                 -phimax_ * p[1],
                 +phimax_ * p[0],
                 0
             };
-            hit->dp_dv = {
+            hit->dp_ds1 = {
                 +(r_ * (thetamax_ - thetamin_)) * cos_theta * cos_phi,
                 +(r_ * (thetamax_ - thetamin_)) * cos_theta * sin_phi,
                 -(r_ * (thetamax_ - thetamin_)) * sin_theta

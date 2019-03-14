@@ -201,24 +201,19 @@ struct raytest_disk
         multi<float_type, 3> perr = {};
 
         /**
-         * @brief Surface parameter @f$ u @f$.
+         * @brief Surface parameters @f$ \mathbf{s} @f$.
          */
-        float_type u = 0;
+        multi<float_type, 2> s = {};
 
         /**
-         * @brief Surface parameter @f$ v @f$.
+         * @brief Partial @f$ \partial{\mathbf{p}}/\partial{s_{[0]}} @f$.
          */
-        float_type v = 0;
+        multi<float_type, 3> dp_ds0 = {};
 
         /**
-         * @brief Partial derivative @f$ \partial{\mathbf{p}}/\partial{u} @f$.
+         * @brief Partial @f$ \partial{\mathbf{p}}/\partial{s_{[1]}} @f$.
          */
-        multi<float_type, 3> dp_du = {};
-
-        /**
-         * @brief Partial derivative @f$ \partial{\mathbf{p}}/\partial{v} @f$.
-         */
-        multi<float_type, 3> dp_dv = {};
+        multi<float_type, 3> dp_ds1 = {};
     };
 
 public:
@@ -261,7 +256,7 @@ public:
                 h_(h),
                 phimax_(phimax)
     {
-        if (!(rmin_ > 0 &&
+        if (!(rmin_ >= 0 &&
               rmax_ > rmin_ &&
               phimax_ > 0 &&
               phimax_ <= 2 * pr::numeric_constants<float_type>::M_pi())) {
@@ -293,21 +288,70 @@ public:
     }
 
     /**
-     * @brief Evaluate.
+     * @brief Surface area probability density function.
+     *
+     * @f[
+     *      f = \frac{1}{A}
+     * @f]
+     */
+    float_type surface_area_pdf() const
+    {
+        return 1 / surface_area();
+    }
+
+    /**
+     * @brief Surface area probability density function sampling routine.
      *
      * @param[in] u
-     * Parameter in @f$ [0, 1) @f$.
-     *
-     * @param[in] v
-     * Parameter in @f$ [0, 1) @f$.
+     * Sample in @f$ [0, 1)^2 @f$.
      */
-    hit_info evaluate(
-                float_type u, 
-                float_type v) const
+    hit_info surface_area_pdf_sample(multi<float_type, 2> u) const
+    {
+        if (rmin_ == 0 &&
+            phimax_ == 2 * pr::numeric_constants<float_type>::M_pi()) {
+
+            // Uniform disk sample using concentric mapping.
+            multi<float_type, 2> p = pr::uniform_disk_pdf_sample(u);
+
+            // Compute sweep angle.
+            float_type phi = 0;
+            if (p[0] != 0 &&
+                p[1] != 0) {
+                phi = pr::atan2(p[1], p[0]);
+                if (phi < 0) {
+                    phi += 2 * pr::numeric_constants<float_type>::M_pi();
+                }
+            }
+
+            // Delegate.
+            return operator()({pr::hypot(p[0], p[1]), phi / phimax_});
+        }
+        else {
+
+            // Uniform radius.
+            float_type r = 
+                pr::sqrt(
+                (1 - u[0]) * rmin_ * rmin_ + 
+                     u[0]  * rmax_ * rmax_);
+
+            // Delegate.
+            return operator()({(r - rmin_) / 
+                               (rmax_ - rmin_), u[1]});
+        }
+    }
+
+    /**
+     * @brief Evaluate.
+     *
+     * @param[in] s
+     * Parameters in @f$ [0, 1)^2 @f$.
+     */
+    hit_info operator()(
+                multi<float_type, 2> s) const
     {
         hit_info hit;
-        float_type r = (1 - u) * rmin_ + u * rmax_;
-        float_type phi = v * phimax_;
+        float_type r = (1 - s[0]) * rmin_ + s[0] * rmax_;
+        float_type phi = s[1] * phimax_;
         float_type sin_phi = pr::sin(phi);
         float_type cos_phi = pr::cos(phi);
 
@@ -322,16 +366,15 @@ public:
         hit.perr = {};
 
         // Surface parameters.
-        hit.u = u;
-        hit.v = v;
+        hit.s = s;
 
         // Surface partial derivatives.
-        hit.dp_du = {
+        hit.dp_ds0 = {
             (rmax_ - rmin_) * cos_phi,
             (rmax_ - rmin_) * sin_phi,
             0
         };
-        hit.dp_dv = {
+        hit.dp_ds1 = {
             -phimax_ * hit.p[1],
             +phimax_ * hit.p[0],
             0
@@ -406,18 +449,18 @@ public:
             hit->perr = {};
 
             // Surface parameters.
-            hit->u = (r - rmin_) / (rmax_ - rmin_);
-            hit->v = phi / phimax_;
+            hit->s[0] = (r - rmin_) / (rmax_ - rmin_);
+            hit->s[1] = phi / phimax_;
 
             // Surface partial derivatives.
             float_type cos_phi = p[0] / r;
             float_type sin_phi = p[1] / r;
-            hit->dp_du = {
+            hit->dp_ds0 = {
                 (rmax_ - rmin_) * cos_phi,
                 (rmax_ - rmin_) * sin_phi,
                 0
             };
-            hit->dp_dv = {
+            hit->dp_ds1 = {
                 -phimax_ * p[1],
                 +phimax_ * p[0],
                 0
