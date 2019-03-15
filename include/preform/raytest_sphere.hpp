@@ -345,8 +345,7 @@ public:
      * @param[in] s
      * Parameters in @f$ [0, 1)^2 @f$.
      */
-    hit_info operator()(
-                multi<float_type, 2> s) const
+    hit_info operator()(multi<float_type, 2> s) const
     {
         hit_info hit;
         float_type phi = s[0] * phimax_;
