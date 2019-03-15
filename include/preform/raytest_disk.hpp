@@ -340,6 +340,9 @@ public:
         }
     }
 
+    // TODO solid_angle_pdf
+    // TODO solid_angle_pdf_sample
+
     /**
      * @brief Evaluate.
      *

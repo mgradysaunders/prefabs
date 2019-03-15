@@ -142,6 +142,7 @@ public:
                 tmin(tmin), 
                 tmax(tmax)
         {
+#if 0
             // Initialize permutation.
             k[2] = pr::fabs(o).argmax();
             k[0] = (k[2] + 1) % 3;
@@ -151,6 +152,7 @@ public:
             h[2] = 1 / d[k[2]];
             h[0] = d[k[0]] * h[2];
             h[1] = d[k[1]] * h[2];
+#endif
         }
 
         /**
@@ -187,6 +189,7 @@ public:
                 tmin(tmin), 
                 tmax(tmax)
         {
+#if 0
             // Initialize permutation.
             k[2] = pr::fabs(o).argmax();
             k[0] = (k[2] + 1) % 3;
@@ -196,6 +199,7 @@ public:
             h[2] = 1 / d[k[2]];
             h[0] = d[k[0]] * h[2];
             h[1] = d[k[1]] * h[2];
+#endif
         }
 
     public:
@@ -220,6 +224,7 @@ public:
          */
         multi<float_type, 3> derr = {};
 
+#if 0
         /**
          * @brief Permutation @f$ \mathbf{k} @f$.
          *
@@ -259,6 +264,7 @@ public:
          * @f]
          */
         multi<float_type, 3> h;
+#endif
 
         /**
          * @brief Parameter minimum @f$ t_{\min} @f$.
@@ -373,6 +379,44 @@ public:
     {
         // Delegate.
         return operator()({1 - pr::sqrt(u[0]), u[1] * pr::sqrt(u[0])});
+    }
+
+    // TODO solid_angle_pdf
+    // TODO solid_angle_pdf_sample
+
+    /**
+     * @brief Evaluate.
+     *
+     * @param[in] s
+     * Parameters in @f$ [0, 1)^2 @f$.
+     */
+    hit_info operator()(multi<float_type, 2> s) const
+    {
+        hit_info hit;
+        multi<float_type, 3> b = {1 - s[0] - s[1], s[0], s[1]};
+        multi<float_type, 3> bp[3] = {
+            b[0] * p_[0],
+            b[1] * p_[1],
+            b[2] * p_[2]
+        };
+
+        // Position.
+        hit.p = bp[0] + bp[1] + bp[2];
+
+        // Position absolute error.
+        hit.perr = 
+            pr::fabs(bp[0]) + 
+            pr::fabs(bp[1]) + 
+            pr::fabs(bp[2]);
+        hit.perr *= pr::numeric_limits<float_type>::echelon(6);
+
+        // Surface parameters.
+        hit.s = s;
+
+        // Surface partial derivatives.
+        hit.dp_ds0 = p_[1] - p_[0];
+        hit.dp_ds1 = p_[2] - p_[0];
+        return hit;
     }
 
     // TODO verify, incorporate prior error?
@@ -529,41 +573,6 @@ public:
         return t;
     }
 #endif
-
-    /**
-     * @brief Evaluate.
-     *
-     * @param[in] s
-     * Parameters in @f$ [0, 1)^2 @f$.
-     */
-    hit_info operator()(multi<float_type, 2> s) const
-    {
-        hit_info hit;
-        multi<float_type, 3> b = {1 - s[0] - s[1], s[0], s[1]};
-        multi<float_type, 3> bp[3] = {
-            b[0] * p_[0],
-            b[1] * p_[1],
-            b[2] * p_[2]
-        };
-
-        // Position.
-        hit.p = bp[0] + bp[1] + bp[2];
-
-        // Position absolute error.
-        hit.perr = 
-            pr::fabs(bp[0]) + 
-            pr::fabs(bp[1]) + 
-            pr::fabs(bp[2]);
-        hit.perr *= pr::numeric_limits<float_type>::echelon(6);
-
-        // Surface parameters.
-        hit.s = s;
-
-        // Surface partial derivatives.
-        hit.dp_ds0 = p_[1] - p_[0];
-        hit.dp_ds1 = p_[2] - p_[0];
-        return hit;
-    }
 
 private:
 

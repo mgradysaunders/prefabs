@@ -336,6 +336,9 @@ public:
                                  (thetamax_ - thetamin_)});
     }
 
+    // TODO solid_angle_pdf
+    // TODO solid_angle_pdf_sample
+
     /**
      * @brief Evaluate.
      *
