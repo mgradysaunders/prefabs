@@ -461,6 +461,47 @@ inline std::enable_if_t<
 }
 
 /**
+ * @brief Offset origin.
+ *
+ * @param[in] o
+ * Origin.
+ *
+ * @param[in] oerr
+ * Origin absolute error.
+ *
+ * @param[in] wi
+ * Incident direction.
+ *
+ * @param[in] wg
+ * Geometry normal direction.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value,
+                multi<T, 3>> offset_origin(
+                                    const multi<T, 3>& o,
+                                    const multi<T, 3>& oerr,
+                                    const multi<T, 3>& wi,
+                                    const multi<T, 3>& wg)
+{
+    // Offset.
+    multi<T, 3> oprime = o + wg * 
+            pr::copysign(dot(pr::fabs(wg), oerr), 
+                         dot(wg, wi));
+
+    // Round away.
+    for (int k = 0; k < 3; k++) {
+        if (oprime[k] < 0) {
+            oprime[k] = fdec(oprime[k]);
+        }
+        else if (oprime[k] > 0) {
+            oprime[k] = finc(oprime[k]);
+        }
+    }
+    return oprime;
+}
+
+/**
  * @brief Stratify canonical random samples.
  *
  * @param[in] gen
