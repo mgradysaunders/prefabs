@@ -28,7 +28,8 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        normalize: ["\\operatorname{normalize}"]
     }
   }
 });
@@ -78,9 +79,10 @@ $(function() {
 <li>ray_info()
 : <a class="el" href="structpr_1_1raytest__disk_1_1ray__info.html#a52b583bcf4022443d27098b740e7517c">pr::raytest_disk&lt; T &gt;::ray_info</a>
 , <a class="el" href="structpr_1_1raytest__sphere_1_1ray__info.html#acaf7bc98393055d0d9e4978eb6b6a578">pr::raytest_sphere&lt; T &gt;::ray_info</a>
+, <a class="el" href="structpr_1_1raytest__triangle_1_1ray__info.html#aa4cce2eaec332f3f31d026a205509086">pr::raytest_triangle&lt; T &gt;::ray_info</a>
 </li>
 <li>ray_info_type()
-: <a class="el" href="structpr_1_1aabb_1_1ray__info__type.html#af08adff72a057d14f1bdc4ac895f7fa6">pr::aabb&lt; T, N &gt;::ray_info_type</a>
+: <a class="el" href="structpr_1_1aabb_1_1ray__info__type.html#af5a66547b371a52cccf8c6041a9e2611">pr::aabb&lt; T, N &gt;::ray_info_type</a>
 </li>
 <li>raytest_disk()
 : <a class="el" href="structpr_1_1raytest__disk.html#ac62ef61fc119502858b34c2bb5089775">pr::raytest_disk&lt; T &gt;</a>
@@ -88,11 +90,14 @@ $(function() {
 <li>raytest_sphere()
 : <a class="el" href="structpr_1_1raytest__sphere.html#a64b5c3ee7444a17e5cef6c3ec3292fb9">pr::raytest_sphere&lt; T &gt;</a>
 </li>
+<li>raytest_triangle()
+: <a class="el" href="structpr_1_1raytest__triangle.html#abf8a826cf6b0589950693eb625e6cc51">pr::raytest_triangle&lt; T &gt;</a>
+</li>
 <li>rbegin()
 : <a class="el" href="classpr_1_1block__array2.html#a0b14b129b1b4076d97eb8185e74c02c9">pr::block_array2&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#a1f7059e74c53bd19f225e9018ecec501">pr::block_array3&lt; T, Talloc &gt;</a>
 , <a class="el" href="structpr_1_1dense__vector__view.html#a5fb5fed2f5095b4739ac4ee017c899bf">pr::dense_vector_view&lt; T &gt;</a>
-, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ac02a11c659298928c47e80e7c4ea5a6b">pr::multi&lt; T, M, N... &gt;</a>
+, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a485c43b78ff9628ffa799eed7c4ac5d7">pr::multi&lt; T, M, N... &gt;</a>
 , <a class="el" href="classpr_1_1static__queue.html#a59e4ac1377e8c3f54f465c05e02066b9">pr::static_queue&lt; T, N &gt;</a>
 , <a class="el" href="classpr_1_1static__stack.html#a826fb8354d8064930934f2b448dc7211">pr::static_stack&lt; T, N &gt;</a>
 </li>
@@ -115,9 +120,9 @@ $(function() {
 </li>
 <li>rend()
 : <a class="el" href="classpr_1_1block__array2.html#ae1e869955c9b93ae0d61f2dc5d40e575">pr::block_array2&lt; T, Talloc &gt;</a>
-, <a class="el" href="classpr_1_1block__array3.html#a96b5602563cbdd74c89768f365d9bea4">pr::block_array3&lt; T, Talloc &gt;</a>
+, <a class="el" href="classpr_1_1block__array3.html#ac7c13baa0290f65e1dfd150ae9ac1e1e">pr::block_array3&lt; T, Talloc &gt;</a>
 , <a class="el" href="structpr_1_1dense__vector__view.html#a85a4e2a8339d0dbcfbe5c066f32ecfc0">pr::dense_vector_view&lt; T &gt;</a>
-, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a0218886e4475dc63d37d7468c84919a7">pr::multi&lt; T, M, N... &gt;</a>
+, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#adf5ad5ae26f9ab488391ae85d7275a1a">pr::multi&lt; T, M, N... &gt;</a>
 , <a class="el" href="classpr_1_1static__queue.html#aab278169e80c5ac92379c3db8a2e4c54">pr::static_queue&lt; T, N &gt;</a>
 , <a class="el" href="classpr_1_1static__stack.html#a1c7c21d519ccff05aba5dd0b3b2d753d">pr::static_stack&lt; T, N &gt;</a>
 </li>
@@ -146,7 +151,7 @@ $(function() {
 : <a class="el" href="classpr_1_1quat.html#a8b075279ba0ee85d7d666696f636e742">pr::quat&lt; T &gt;</a>
 </li>
 <li>round_size()
-: <a class="el" href="classpr_1_1block__array2.html#afd3dc1027a7fa03a206dfba0fcaf319d">pr::block_array2&lt; T, Talloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array2.html#a1c9aadc58ecd77222897047f047d1725">pr::block_array2&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#a77d5912d17f2a23fcfd0056807c2ab32">pr::block_array3&lt; T, Talloc &gt;</a>
 </li>
 <li>row()

@@ -28,7 +28,8 @@ MathJax.Hub.Config({
         bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
         braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
         verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1]
+        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
+        normalize: ["\\operatorname{normalize}"]
     }
   }
 });
@@ -134,6 +135,7 @@ $(function() {
 , <a class="el" href="classpr_1_1piecewise__linear__distribution.html#ad3643060f71ff3acb8802d4924166171">pr::piecewise_linear_distribution&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">pr::raytest_disk&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1raytest__sphere.html#a39995f26e81716a6aebcb9a8de4fa4f4">pr::raytest_sphere&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">pr::raytest_triangle&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1simplex__noise2.html#ab182230c515bba3c3c51ddc46867a219">pr::simplex_noise2&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1simplex__noise3.html#a5e060936499eae8925f67ec32ce870e1">pr::simplex_noise3&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1simplex__noise4.html#acada4dc62fef8bc47c15c9dd57b7320e">pr::simplex_noise4&lt; T &gt;</a>
@@ -185,10 +187,10 @@ $(function() {
 <li>front()
 : <a class="el" href="classpr_1_1block__array2.html#afe949ef7c053e27438ee4994ed108d81">pr::block_array2&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#ab89a12cdb510c1b37830148ea5e07859">pr::block_array3&lt; T, Talloc &gt;</a>
-, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#acd1b9b84fe3ca0b236915fdbd74b8726">pr::multi&lt; T, M, N... &gt;</a>
+, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a6ebb32d5c57e1a744cb281dbaee169aa">pr::multi&lt; T, M, N... &gt;</a>
 , <a class="el" href="classpr_1_1range.html#abb751330d50274a4b3e2d6d6436719f5">pr::range&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1static__queue.html#a880ecdf7ed343365396890518807703c">pr::static_queue&lt; T, N &gt;</a>
-, <a class="el" href="classpr_1_1static__stack.html#ade7034e8f6412b474f79d72958140bb6">pr::static_stack&lt; T, N &gt;</a>
+, <a class="el" href="classpr_1_1static__stack.html#a2eb3333376751b12d248e44e01fccf61">pr::static_stack&lt; T, N &gt;</a>
 </li>
 <li>fs()
 : <a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html#a8c9c31f5ab399ebc83605e6b0b7436aa">pr::dielectric_bsdf_microsurface_adapter&lt; Tslope, Theight &gt;</a>
