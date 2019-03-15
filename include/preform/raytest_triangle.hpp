@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "preform/raytest_triangle.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFORM_RAYTEST_TRIANGLE_HPP
 #define PREFORM_RAYTEST_TRIANGLE_HPP
