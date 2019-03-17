@@ -32,8 +32,8 @@
 #endif // #if !(__cplusplus >= 201402L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_BLAS_HPP
-#define PREFORM_BLAS_HPP
+#ifndef PREFORM_DENSE_BLAS_HPP
+#define PREFORM_DENSE_BLAS_HPP
 
 // for std::vector
 #include <vector>
@@ -56,9 +56,9 @@
 namespace pr {
 
 /**
- * @defgroup blas Basic linear algebra subroutines
+ * @defgroup dense_blas Basic linear algebra subroutines
  *
- * `<preform/blas.hpp>`
+ * `<preform/dense_blas.hpp>`
  *
  * __C++ version__: >=C++14
  */
@@ -71,7 +71,7 @@ namespace pr {
  * or complex.
  */
 template <typename T>
-struct blas_traits
+struct dense_blas_traits
 {
 public:
 
@@ -147,7 +147,7 @@ public:
  */
 template <
     typename T, 
-    typename Ttraits = blas_traits<T>
+    typename Ttraits = dense_blas_traits<T>
     >
 struct dense_blas
 {
@@ -945,4 +945,4 @@ public:
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_BLAS_HPP
+#endif // #ifndef PREFORM_DENSE_BLAS_HPP
