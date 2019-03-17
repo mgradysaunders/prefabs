@@ -350,6 +350,8 @@ public:
         return contains<inclusive0, inclusive1>(aabb<T, N>(arr));
     }
 
+    // TODO raytest_aabb
+#if 0
     /**
      * @brief Ray information type.
      */
@@ -475,6 +477,7 @@ public:
         return tmin <= info.tmax && 
                tmax >= info.tmin;
     }
+#endif
 
     /**@}*/
 
