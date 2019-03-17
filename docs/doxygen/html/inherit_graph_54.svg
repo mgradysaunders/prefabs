@@ -12,10 +12,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="structpr_1_1raytest__disk_1_1hit__info.html" target="_top" xlink:title="Hit information. ">
+<g id="a_node1"><a xlink:href="structpr_1_1raytest__disk_1_1ray__info.html" target="_top" xlink:title="Ray information. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-.5 0,-30.5 99,-30.5 99,-.5 0,-.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::raytest_disk&lt; T</text>
-<text text-anchor="middle" x="49.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> &gt;::hit_info</text>
+<text text-anchor="middle" x="49.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> &gt;::ray_info</text>
 </a>
 </g>
 </g>
