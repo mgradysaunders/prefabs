@@ -71,6 +71,8 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="structpr_1_1raytest__triangle_1_1ray__info-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">pr::raytest_triangle&lt; T &gt;::ray_info Struct Reference</div>  </div>
@@ -112,6 +114,27 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ac886a0158c7dd2eb319e2d4f48bb225a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__triangle_1_1ray__info.html#ac886a0158c7dd2eb319e2d4f48bb225a">tmax</a> = <a class="el" href="structpr_1_1numeric__limits.html">pr::numeric_limits</a>&lt;<a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>&gt;::infinity()</td></tr>
 <tr class="memdesc:ac886a0158c7dd2eb319e2d4f48bb225a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameter maximum \( t_{\max} \).  <a href="#ac886a0158c7dd2eb319e2d4f48bb225a">More...</a><br /></td></tr>
 <tr class="separator:ac886a0158c7dd2eb319e2d4f48bb225a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a5fa49f74033f12b93a6db479ce3aaa9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__triangle_1_1ray__info.html#a5fa49f74033f12b93a6db479ce3aaa9f">cache</a> ()</td></tr>
+<tr class="memdesc:a5fa49f74033f12b93a6db479ce3aaa9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache.  <a href="#a5fa49f74033f12b93a6db479ce3aaa9f">More...</a><br /></td></tr>
+<tr class="separator:a5fa49f74033f12b93a6db479ce3aaa9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Cache variables</div></td></tr>
+<tr class="memitem:a65875395aa3fa2635172b0a1e5708fe4"><td class="memItemLeft" align="right" valign="top">multi&lt; int, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__triangle_1_1ray__info.html#a65875395aa3fa2635172b0a1e5708fe4">k</a></td></tr>
+<tr class="memdesc:a65875395aa3fa2635172b0a1e5708fe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permutation \( \mathbf{k} \).  <a href="#a65875395aa3fa2635172b0a1e5708fe4">More...</a><br /></td></tr>
+<tr class="separator:a65875395aa3fa2635172b0a1e5708fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4710505ac5a148de9cbb88dfc612b8a3"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="classpr_1_1float__bounds.html">float_bounds</a>&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a> &gt;, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__triangle_1_1ray__info.html#a4710505ac5a148de9cbb88dfc612b8a3">hr</a></td></tr>
+<tr class="memdesc:a4710505ac5a148de9cbb88dfc612b8a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shear \( \mathbf{h}_{\mathrm{r}} \).  <a href="#a4710505ac5a148de9cbb88dfc612b8a3">More...</a><br /></td></tr>
+<tr class="separator:a4710505ac5a148de9cbb88dfc612b8a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a02093ea0eb85ad6c88c8b9fda1282dde"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__triangle_1_1ray__info.html#a02093ea0eb85ad6c88c8b9fda1282dde">raytest_triangle&lt; float_type &gt;</a></td></tr>
+<tr class="separator:a02093ea0eb85ad6c88c8b9fda1282dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
@@ -284,6 +307,61 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5fa49f74033f12b93a6db479ce3aaa9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fa49f74033f12b93a6db479ce3aaa9f">&#9670;&nbsp;</a></span>cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="structpr_1_1raytest__triangle.html">pr::raytest_triangle</a>&lt; T &gt;::ray_info::cache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cache. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a02093ea0eb85ad6c88c8b9fda1282dde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02093ea0eb85ad6c88c8b9fda1282dde">&#9670;&nbsp;</a></span>raytest_triangle< float_type ></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend struct <a class="el" href="structpr_1_1raytest__triangle.html">raytest_triangle</a>&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a> &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a13efe8997acdb4d31b5ac732ec8648ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a13efe8997acdb4d31b5ac732ec8648ed">&#9670;&nbsp;</a></span>o</h2>
@@ -390,6 +468,69 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Parameter maximum \( t_{\max} \). </p>
+
+</div>
+</div>
+<a id="a65875395aa3fa2635172b0a1e5708fe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65875395aa3fa2635172b0a1e5708fe4">&#9670;&nbsp;</a></span>k</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">multi&lt;int, 3&gt; <a class="el" href="structpr_1_1raytest__triangle.html">pr::raytest_triangle</a>&lt; T &gt;::ray_info::k</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Permutation \( \mathbf{k} \). </p>
+<dl class="section note"><dt>Note</dt><dd><p class="formulaDsp">
+\[ \mathbf{k} = \begin{bmatrix} (\ell + 1) \% 3 \\ (\ell + 2) \% 3 \\ \ell \end{bmatrix} \]
+</p>
+ where <p class="formulaDsp">
+\[ \ell = \operatorname{argmax} \begin{bmatrix} |d_{[0]}| \\ |d_{[1]}| \\ |d_{[2]}| \end{bmatrix} \]
+</p>
+ </dd></dl>
+
+</div>
+</div>
+<a id="a4710505ac5a148de9cbb88dfc612b8a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4710505ac5a148de9cbb88dfc612b8a3">&#9670;&nbsp;</a></span>hr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">multi&lt;<a class="el" href="classpr_1_1float__bounds.html">float_bounds</a>&lt;<a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>&gt;, 3&gt; <a class="el" href="structpr_1_1raytest__triangle.html">pr::raytest_triangle</a>&lt; T &gt;::ray_info::hr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Shear \( \mathbf{h}_{\mathrm{r}} \). </p>
+<dl class="section note"><dt>Note</dt><dd><p class="formulaDsp">
+\[ \mathbf{h}_{\mathrm{r}} = \frac{1}{d_{[k_{[2]}]}} \begin{bmatrix} d_{[k_{[0]}]} \\ d_{[k_{[1]}]} \\ 1 \end{bmatrix} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
