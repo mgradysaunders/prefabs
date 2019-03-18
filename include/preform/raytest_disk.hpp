@@ -41,8 +41,8 @@
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::float_bounds
-#include <preform/float_bounds.hpp>
+// for pr::float_interval
+#include <preform/float_interval.hpp>
 
 // for pr::aabb
 #include <preform/aabb.hpp>
@@ -402,9 +402,9 @@ public:
     float_type intersect(const ray_info& ray, hit_info* hit = nullptr) const
     {
         // Parameter.
-        float_bounds<float_type> o2 = {ray.o[2], ray.oerr[2]};
-        float_bounds<float_type> d2 = {ray.d[2], ray.derr[2]};
-        float_bounds<float_type> t = (h_ - o2) / d2;
+        float_interval<float_type> o2 = {ray.o[2], ray.oerr[2]};
+        float_interval<float_type> d2 = {ray.d[2], ray.derr[2]};
+        float_interval<float_type> t = (h_ - o2) / d2;
 
         // Reject uncertain intersections.
         if (!(t.upper_bound() <= ray.tmax &&

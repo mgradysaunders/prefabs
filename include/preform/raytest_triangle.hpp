@@ -41,8 +41,8 @@
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::float_bounds
-#include <preform/float_bounds.hpp>
+// for pr::float_interval
+#include <preform/float_interval.hpp>
 
 // for pr::aabb
 #include <preform/aabb.hpp>
@@ -231,7 +231,7 @@ public:
          *          \end{bmatrix}
          * @f]
          */
-        multi<float_bounds<float_type>, 3> hr;
+        multi<float_interval<float_type>, 3> hr;
 
         /**@}*/
 
@@ -248,9 +248,9 @@ public:
             // Shear.
             hr[2] = 
                 float_type(1) /
-                float_bounds<float_type>{d[k[2]], derr[k[2]]};
-            hr[0] = hr[2] * float_bounds<float_type>{d[k[0]], derr[k[0]]};
-            hr[1] = hr[2] * float_bounds<float_type>{d[k[1]], derr[k[1]]};
+                float_interval<float_type>{d[k[2]], derr[k[2]]};
+            hr[0] = hr[2] * float_interval<float_type>{d[k[0]], derr[k[0]]};
+            hr[1] = hr[2] * float_interval<float_type>{d[k[1]], derr[k[1]]};
         }
 
         friend struct raytest_triangle<float_type>;
@@ -407,16 +407,16 @@ public:
                                hit_info* hit = nullptr) const
     {
         // Assemble bounds.
-        multi<float_bounds<float_type>, 3> o;
-        multi<float_bounds<float_type>, 3> d;
+        multi<float_interval<float_type>, 3> o;
+        multi<float_interval<float_type>, 3> d;
         for (int j = 0; j < 3; j++) {
             o[j] = {ray.o[j], ray.oerr[j]};
             d[j] = {ray.d[j], ray.derr[j]};
         }
 
         // Shear in XY.
-        multi<float_bounds<float_type>, 3> g[3];
-        multi<float_bounds<float_type>, 3> h[3];
+        multi<float_interval<float_type>, 3> g[3];
+        multi<float_interval<float_type>, 3> h[3];
         for (int j = 0; j < 3; j++) {
             g[j] = (p_[j] - o).swizzle(ray.k);
             h[j][0] = g[j][0] - ray.hr[0] * g[j][2];
@@ -424,7 +424,7 @@ public:
         }
 
         // Preliminary barycentric coordinates.
-        float_bounds<float_type> b[3];
+        float_interval<float_type> b[3];
         bool any_lt_zero = false;
         bool any_gt_zero = false;
         for (int j = 0; j < 3; j++) {
@@ -447,7 +447,7 @@ public:
         }
 
         // Is parallel?
-        float_bounds<float_type> q = b[0] + b[1] + b[2];
+        float_interval<float_type> q = b[0] + b[1] + b[2];
         if (q.contains(0)) {
             // No intersection.
             return pr::numeric_limits<float_type>::quiet_NaN();
@@ -461,7 +461,7 @@ public:
             b[2] /= q;
         }
         else {
-            float_bounds<float_type> qinv = 
+            float_interval<float_type> qinv = 
             float_type(1) / q;
             b[0] *= qinv;
             b[1] *= qinv;
@@ -474,7 +474,7 @@ public:
         h[2][2] = ray.hr[2] * g[2][2];
 
         // Parametric value.
-        float_bounds<float_type> t = 
+        float_interval<float_type> t = 
             b[0] * h[0][2] +
             b[1] * h[1][2] +
             b[2] * h[2][2];

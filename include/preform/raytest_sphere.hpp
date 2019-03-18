@@ -41,8 +41,8 @@
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::float_bounds
-#include <preform/float_bounds.hpp>
+// for pr::float_interval
+#include <preform/float_interval.hpp>
 
 // for pr::aabb
 #include <preform/aabb.hpp>
@@ -400,18 +400,18 @@ public:
      */
     float_type intersect(const ray_info& ray, hit_info* hit = nullptr) const
     {
-        // Assemble bounds.
-        multi<float_bounds<float_type>, 3> o;
-        multi<float_bounds<float_type>, 3> d;
+        // Assemble intervals.
+        multi<float_interval<float_type>, 3> o;
+        multi<float_interval<float_type>, 3> d;
         for (int k = 0; k < 3; k++) {
             o[k] = {ray.o[k], ray.oerr[k]};
             d[k] = {ray.d[k], ray.derr[k]};
         }
 
         // Quadratic roots.
-        float_bounds<float_type> r = r_;
-        float_bounds<float_type> t0, t1;
-        float_bounds<float_type>::solve_poly2(
+        float_interval<float_type> r = r_;
+        float_interval<float_type> t0, t1;
+        float_interval<float_type>::solve_poly2(
             dot(o, o) - r * r,
             dot(d, o) * float_type(2),
             dot(d, d),
@@ -422,7 +422,7 @@ public:
         }
 
         // Select root.
-        float_bounds<float_type> t = t0;
+        float_interval<float_type> t = t0;
         if (t.lower_bound() < ray.tmin) {
             t = t1;
             if (t.upper_bound() > ray.tmax) {
