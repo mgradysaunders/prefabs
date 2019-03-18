@@ -406,7 +406,7 @@ public:
     float_type intersect(const ray_info& ray,
                                hit_info* hit = nullptr) const
     {
-        // Assemble bounds.
+        // Assemble intervals.
         multi<float_interval<float_type>, 3> o;
         multi<float_interval<float_type>, 3> d;
         for (int j = 0; j < 3; j++) {

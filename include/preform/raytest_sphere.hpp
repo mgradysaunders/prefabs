@@ -64,6 +64,9 @@ namespace pr {
  * This implementation is based on the implementation of Pharr, Humphreys, 
  * and Jakob in _Physically based rendering: from theory to implementation 
  * (3rd edition)_.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T>
 struct raytest_sphere

@@ -60,6 +60,13 @@ namespace pr {
 
 /**
  * @brief Ray-test (disk).
+ *
+ * This implementation is based on the implementation of Pharr, Humphreys, 
+ * and Jakob in _Physically based rendering: from theory to implementation 
+ * (3rd edition)_.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T>
 struct raytest_disk
@@ -406,9 +413,9 @@ public:
         float_interval<float_type> d2 = {ray.d[2], ray.derr[2]};
         float_interval<float_type> t = (h_ - o2) / d2;
 
-        // Reject uncertain intersections.
-        if (!(t.upper_bound() <= ray.tmax &&
-              t.lower_bound() >= ray.tmin)) {
+        // Reject uncertain hits.
+        if (!(t.upper_bound() < ray.tmax &&
+              t.lower_bound() > ray.tmin)) {
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
 
