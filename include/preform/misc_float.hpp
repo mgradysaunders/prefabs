@@ -68,7 +68,6 @@ namespace pr {
  * @brief Increment to next representable value.
  */
 template <typename T>
-__attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> finc(T x)
 {
@@ -139,7 +138,6 @@ inline std::enable_if_t<
  * @brief Decrement to next representable value.
  */
 template <typename T>
-__attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> fdec(T x)
 {
