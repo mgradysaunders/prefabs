@@ -347,8 +347,42 @@ public:
         }
     }
 
-    // TODO solid_angle_pdf
-    // TODO solid_angle_pdf_sample
+    /**
+     * @brief Solid angle probability density function.
+     *
+     * @param[in] pref
+     * Reference point.
+     *
+     * @param[in] phit
+     * Hit point.
+     */
+    float_type solid_angle_pdf(
+            const multi<float_type, 3>& pref,
+            const multi<float_type, 3>& phit) const
+    {
+        multi<float_type, 3> vi = phit - pref;
+        float_type dot_vi_vi = dot(vi, vi);
+        if (dot_vi_vi == 0 || 
+            vi[2] == 0) {
+            return 0;
+        }
+        else {
+            return pr::sqrt(dot_vi_vi) / pr::fabs(vi[2]) / 
+                   surface_area();
+        }
+    }
+
+    /**
+     * @brief Solid angle probability density function sampling routine.
+     *
+     * @param[in] pref
+     * Reference point.
+     */
+    hit_info solid_angle_pdf_sample(const multi<float_type, 3>& pref) const
+    {
+        (void) pref;
+        return surface_area_pdf_sample(pref);
+    }
 
     /**
      * @brief Evaluate.
