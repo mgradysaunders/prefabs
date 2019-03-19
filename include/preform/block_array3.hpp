@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -64,11 +64,11 @@ namespace pr {
 /**
  * @brief Block array (3-dimensional).
  *
- * Block array with block size @f$ B = 2^k @f$ for an integer 
- * @f$ k > 0 @f$, which is chosen to promote cache performance. Specifically, 
- * @f$ k @f$ is chosen such that each @f$ B^2 @f$ block fits on an L1 cache 
- * line which, by default, the implementation assumes to be 64 bytes. To 
- * change this assumption, define `L1_LINE` to the appropriate 
+ * Block array with block size @f$ B = 2^k @f$ for an integer
+ * @f$ k > 0 @f$, which is chosen to promote cache performance. Specifically,
+ * @f$ k @f$ is chosen such that each @f$ B^2 @f$ block fits on an L1 cache
+ * line which, by default, the implementation assumes to be 64 bytes. To
+ * change this assumption, define `L1_LINE` to the appropriate
  * size before including the data structure.
  *
  * @note The implementation blocks _only_ the 0th and 1st dimensions. As a
@@ -76,7 +76,7 @@ namespace pr {
  * far apart.
  */
 template <
-    typename T, 
+    typename T,
     typename Talloc = std::allocator<T>
     >
 class block_array3
@@ -155,26 +155,26 @@ public:
     /**
      * @brief Binary log of the block size @f$ \log_{2}{B} @f$.
      */
-    static constexpr 
+    static constexpr
     size_type block_size_log2 = first1(roundpow2(L1_LINE / sizeof(T))) / 2;
 
     /**
      * @brief Block size @f$ B @f$.
      */
-    static constexpr 
+    static constexpr
     size_type block_size = 1 << block_size_log2;
 
 
     /**
      * @brief Binary log of the block area @f$ \log_{2}{B^{2} @f$.
      */
-    static constexpr 
+    static constexpr
     size_type block_area_log2 = block_size_log2 * 2;
 
     /**
      * @brief Block area @f$ B^2 @f$.
      */
-    static constexpr 
+    static constexpr
     size_type block_area = 1 << block_area_log2;
 
     /**
@@ -214,7 +214,7 @@ public:
     /**
      * @brief Default constructor with allocator.
      */
-    explicit 
+    explicit
     block_array3(const Talloc& alloc) noexcept : data_(alloc)
     {
     }
@@ -263,7 +263,7 @@ public:
      * @brief Construct from `count` copies of `value`.
      */
     block_array3(
-            multi<size_type, 3> count, 
+            multi<size_type, 3> count,
             const T& value = T(), const Talloc& alloc = Talloc()) :
           user_size_{count},
           data_size_{round_size(count)},
@@ -480,12 +480,12 @@ public:
     /**
      * @brief 3-dimensional index to 1-dimensional index.
      *
-     * 3-dimensional index @f$ (l_0, l_1, l_2) @f$ to 
+     * 3-dimensional index @f$ (l_0, l_1, l_2) @f$ to
      * 1-dimensional index @f$ j @f$. In particular,
      * @f[
      *      j = B^2 (q_0 + (n_0 / B) q_1) + (r_0 + B r_1) + n_0 n_1 l_2
      * @f]
-     * where the @f$ q_k, r_k @f$ denote the quotients and 
+     * where the @f$ q_k, r_k @f$ denote the quotients and
      * remainders of the @f$ l_k / B @f$ respectively.
      */
     size_type convert(multi<size_type, 3> loc) const noexcept
@@ -499,17 +499,17 @@ public:
         loc_quo[1] <<= block_size_log2;
         loc_rem[1] <<= block_size_log2;
         return loc_quo[0] + loc_quo[1] * data_size_[0] +
-               loc_rem[0] + loc_rem[1] + 
+               loc_rem[0] + loc_rem[1] +
                    // Sheet offset.
-                   loc[2] * 
-                   data_size_[0] * 
+                   loc[2] *
+                   data_size_[0] *
                    data_size_[1];
     }
 
     /**
      * @brief 1-dimensional index to 3-dimensional index.
      *
-     * 1-dimensional index @f$ j @f$ to 
+     * 1-dimensional index @f$ j @f$ to
      * 3-dimensional index @f$ (l_0, l_1, l_2) @f$. In particular,
      * @f[
      * \begin{aligned}
@@ -521,13 +521,13 @@ public:
      * where
      * - @f$ q_0 @f$ and @f$ q_1 @f$ denote the _remainder and quotient_ of
      *   @f$ q / (n_0 / B) @f$ respectively, and
-     * - @f$ r_0 @f$ and @f$ r_1 @f$ denote the _remainder and quotient_ of 
+     * - @f$ r_0 @f$ and @f$ r_1 @f$ denote the _remainder and quotient_ of
      *   @f$ r / B @f$ respectively,
      *
-     * where, in turn, 
-     * - @f$ q @f$ and @f$ r @f$ denote the _quotient and remainder_ of 
-     *   @f$ t / B^2 @f$ respectively, and 
-     * - @f$ s @f$ and @f$ t @f$ denote the _quotient and remainder_ of 
+     * where, in turn,
+     * - @f$ q @f$ and @f$ r @f$ denote the _quotient and remainder_ of
+     *   @f$ t / B^2 @f$ respectively, and
+     * - @f$ s @f$ and @f$ t @f$ denote the _quotient and remainder_ of
      *   @f$ j / (n_0 n_1) @f$ respectively.
      */
     multi<size_type, 3> convert(size_type pos) const noexcept
@@ -633,7 +633,7 @@ public:
     /**
      * @brief 3-dimensional accessor with range check.
      *
-     * @throw std::out_of_range 
+     * @throw std::out_of_range
      * If `loc` is out of range.
      */
     reference at(multi<size_type, 3> loc)
@@ -649,7 +649,7 @@ public:
     /**
      * @brief 3-dimensional accessor with range check, const variant.
      *
-     * @throw std::out_of_range 
+     * @throw std::out_of_range
      * If `loc` is out of range.
      */
     const_reference at(multi<size_type, 3> loc) const

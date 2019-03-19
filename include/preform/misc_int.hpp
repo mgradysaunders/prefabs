@@ -223,7 +223,7 @@ constexpr std::enable_if_t<
     }
     else {
         return
-            std::max<T>(0, 
+            std::max<T>(0,
             std::min<T>(k, n - 1));
     }
 }
@@ -284,10 +284,10 @@ constexpr std::enable_if_t<
  *
  * @f[
  *      \begin{aligned}
- *          \operatorname{mirror}(k; n) &= 
+ *          \operatorname{mirror}(k; n) &=
  *          \operatorname{mirror}(k + mn; n),
  *          \, m = 2\ell
- *      \\  \operatorname{mirror}(k; n) &= n - 1 - 
+ *      \\  \operatorname{mirror}(k; n) &= n - 1 -
  *          \operatorname{mirror}(k + mn; n),
  *          \, m = 2\ell + 1
  *      \\ -\operatorname{mirror}(k; n) &= \operatorname{mirror}(-k; -n)

@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -59,7 +59,7 @@ namespace pr {
  * @brief Floating point atomic.
  */
 template <
-    typename Tfloat, 
+    typename Tfloat,
     typename Tfloat_bits
     >
 class float_atomic
@@ -91,7 +91,7 @@ public:
      */
     static inline Tfloat_bits convert(Tfloat val) noexcept
     {
-        Tfloat_bits res; std::memcpy(&res, &val, sizeof(val)); 
+        Tfloat_bits res; std::memcpy(&res, &val, sizeof(val));
         return res;
     }
 
@@ -100,7 +100,7 @@ public:
      */
     static inline Tfloat convert(Tfloat_bits val) noexcept
     {
-        Tfloat res; std::memcpy(&res, &val, sizeof(val)); 
+        Tfloat res; std::memcpy(&res, &val, sizeof(val));
         return res;
     }
 
@@ -146,7 +146,7 @@ public:
      * @note
      * Copying is _not_ atomic.
      */
-    float_atomic(const float_atomic& oth) noexcept : bits_(oth.load()) 
+    float_atomic(const float_atomic& oth) noexcept : bits_(oth.load())
     {
     }
 
@@ -163,7 +163,7 @@ public:
      * @brief Store bits.
      */
     void store(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) noexcept
     {
@@ -174,7 +174,7 @@ public:
      * @brief Store bits, volatile variant.
      */
     void store(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) volatile noexcept
     {
@@ -205,7 +205,7 @@ public:
      * @brief Fetch _then_ add.
      */
     Tfloat_bits fetch_add(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) noexcept
     {
@@ -216,7 +216,7 @@ public:
      * @brief Fetch _then_ add, volatile variant.
      */
     Tfloat_bits fetch_add(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) volatile noexcept
     {
@@ -227,7 +227,7 @@ public:
      * @brief Fetch _then_ subtract.
      */
     Tfloat_bits fetch_sub(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) noexcept
     {
@@ -238,7 +238,7 @@ public:
      * @brief Fetch _then_ subtract, volatile variant.
      */
     Tfloat_bits fetch_sub(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) volatile noexcept
     {
@@ -249,7 +249,7 @@ public:
      * @brief Fetch _then_ or.
      */
     Tfloat_bits fetch_or(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) noexcept
     {
@@ -260,7 +260,7 @@ public:
      * @brief Fetch _then_ or, volatile variant.
      */
     Tfloat_bits fetch_or(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) volatile noexcept
     {
@@ -271,7 +271,7 @@ public:
      * @brief Fetch _then_ xor.
      */
     Tfloat_bits fetch_xor(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) noexcept
     {
@@ -282,7 +282,7 @@ public:
      * @brief Fetch _then_ xor, volatile variant.
      */
     Tfloat_bits fetch_xor(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) volatile noexcept
     {
@@ -293,7 +293,7 @@ public:
      * @brief Fetch _then_ and.
      */
     Tfloat_bits fetch_and(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) noexcept
     {
@@ -304,7 +304,7 @@ public:
      * @brief Fetch _then_ and, volatile variant.
      */
     Tfloat_bits fetch_and(
-            Tfloat_bits bits, 
+            Tfloat_bits bits,
             std::memory_order order =
             std::memory_order_seq_cst) volatile noexcept
     {
@@ -388,7 +388,7 @@ public:
      * @brief Store floating point value.
      */
     void storef(
-            Tfloat val, 
+            Tfloat val,
             std::memory_order order =
             std::memory_order_seq_cst) noexcept
     {
@@ -399,7 +399,7 @@ public:
      * @brief Store floating point value, volatile variant.
      */
     void storef(
-            Tfloat val, 
+            Tfloat val,
             std::memory_order order =
             std::memory_order_seq_cst) volatile noexcept
     {
@@ -433,7 +433,7 @@ public:
     {
         Tfloat_bits prev = load(std::memory_order_acquire);
         Tfloat_bits next;
-        do { next = convert(convert(prev) + val); } 
+        do { next = convert(convert(prev) + val); }
             while (!compare_exchange_weak(
                     prev, next,
                     std::memory_order_release,
@@ -448,7 +448,7 @@ public:
     {
         Tfloat_bits prev = load(std::memory_order_acquire);
         Tfloat_bits next;
-        do { next = convert(convert(prev) + val); } 
+        do { next = convert(convert(prev) + val); }
             while (!compare_exchange_weak(
                     prev, next,
                     std::memory_order_release,
@@ -463,7 +463,7 @@ public:
     {
         Tfloat_bits prev = load(std::memory_order_acquire);
         Tfloat_bits next;
-        do { next = convert(convert(prev) - val); } 
+        do { next = convert(convert(prev) - val); }
             while (!compare_exchange_weak(
                     prev, next,
                     std::memory_order_release,
@@ -478,7 +478,7 @@ public:
     {
         Tfloat_bits prev = load(std::memory_order_acquire);
         Tfloat_bits next;
-        do { next = convert(convert(prev) - val); } 
+        do { next = convert(convert(prev) - val); }
             while (!compare_exchange_weak(
                     prev, next,
                     std::memory_order_release,

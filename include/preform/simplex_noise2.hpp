@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -106,12 +106,12 @@ public:
                         multi<float_type, 2>* ds_dt = nullptr) const
     {
         // f = (sqrt(n + 1) - 1) / n
-        static const float_type f = 
-                float_type(0.5) * pr::sqrt(float_type(3)) - 
+        static const float_type f =
+                float_type(0.5) * pr::sqrt(float_type(3)) -
                 float_type(0.5);
 
         // g = (1 - 1 / sqrt(n + 1)) / n
-        static const float_type g = 
+        static const float_type g =
                 float_type(0.5) -
                 float_type(0.5) / pr::sqrt(float_type(3));
 
@@ -133,7 +133,7 @@ public:
         multi<int, 2> uorder = {0, 1};
         if (!(u[0] >= u[1])) {
             std::swap(
-                    uorder[0], 
+                    uorder[0],
                     uorder[1]);
         }
 
@@ -199,8 +199,8 @@ public:
 
                 // Add partial derivatives.
                 if (ds_dt) {
-                    *ds_dt += 
-                        (q2 * q2) * xk - 
+                    *ds_dt +=
+                        (q2 * q2) * xk -
                         float_type(8) * (q2 * q) * pk * tk;
                 }
             }

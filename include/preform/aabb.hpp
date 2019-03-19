@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -102,7 +102,7 @@ public:
     /**
      * @brief Constructor.
      */
-    constexpr aabb(const multi<T, N>& arr) : 
+    constexpr aabb(const multi<T, N>& arr) :
             arr_{arr, arr}
     {
     }
@@ -180,13 +180,13 @@ public:
      * @brief Hyper surface area.
      *
      * @note
-     * Hyper surface area in @f$ N @f$ dimensions measures the 
+     * Hyper surface area in @f$ N @f$ dimensions measures the
      * @f$ N - 1 @f$ dimensional subspace on the border of the @f$ N @f$
      * dimensional volume. That is,
      * @f[
      *      S = \sum_{k \in L} \prod_{j \in L_k} 2 (P_{\max[j]} - P_{\min[j]})
      * @f]
-     * for index sets @f$ L = [0, N) @f$ and @f$ L_k = L \setminus k @f$. 
+     * for index sets @f$ L = [0, N) @f$ and @f$ L_k = L \setminus k @f$.
      * - In @f$ N = 2 @f$ dimensions, @f$ S @f$ measures signed perimeter.
      * - In @f$ N = 3 @f$ dimensions, @f$ S @f$ measures signed surface area.
      */
@@ -268,29 +268,29 @@ public:
      * @brief Overlaps other?
      */
     template <
-        bool inclusive0 = true, 
+        bool inclusive0 = true,
         bool inclusive1 = false
         >
     constexpr bool overlaps(const aabb<T, N>& oth) const
     {
         if constexpr (inclusive0 && inclusive1) {
             // Both inclusive.
-            return (arr_[0] <= oth.arr_[1] && 
+            return (arr_[0] <= oth.arr_[1] &&
                     arr_[1] >= oth.arr_[0]).all();
         }
         else if constexpr (inclusive0 && !inclusive1) {
             // First inclusive, second exclusive.
-            return (arr_[0] <= oth.arr_[1] && 
+            return (arr_[0] <= oth.arr_[1] &&
                     arr_[1] > oth.arr_[0]).all();
         }
         else if constexpr (!inclusive0 && inclusive1) {
             // First exclusive, second inclusive.
-            return (arr_[0] < oth.arr_[1] && 
+            return (arr_[0] < oth.arr_[1] &&
                     arr_[1] >= oth.arr_[0]).all();
         }
         else {
             // Both exclusive.
-            return (arr_[0] < oth.arr_[1] && 
+            return (arr_[0] < oth.arr_[1] &&
                     arr_[1] > oth.arr_[0]).all();
         }
     }
@@ -306,22 +306,22 @@ public:
     {
         if constexpr (inclusive0 && inclusive1) {
             // Both inclusive.
-            return (arr_[0] <= oth.arr_[0] && 
+            return (arr_[0] <= oth.arr_[0] &&
                     arr_[1] >= oth.arr_[1]).all();
         }
         else if constexpr (inclusive0 && !inclusive1) {
             // First inclusive, second exclusive.
-            return (arr_[0] <= oth.arr_[0] && 
+            return (arr_[0] <= oth.arr_[0] &&
                     arr_[1] > oth.arr_[1]).all();
         }
         else if constexpr (!inclusive0 && inclusive1) {
             // First exclusive, second inclusive.
-            return (arr_[0] < oth.arr_[0] && 
+            return (arr_[0] < oth.arr_[0] &&
                     arr_[1] >= oth.arr_[1]).all();
         }
         else {
             // Both exclusive.
-            return (arr_[0] < oth.arr_[0] && 
+            return (arr_[0] < oth.arr_[0] &&
                     arr_[1] > oth.arr_[1]).all();
         }
     }
@@ -381,21 +381,21 @@ public:
     {
         C ch;
         if (!(is >> ch) ||
-            !Ctraits::eq(ch, 
+            !Ctraits::eq(ch,
              Ctraits::to_char_type('('))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         is >> box[0];
         if (!(is >> ch) ||
-            !Ctraits::eq(ch, 
+            !Ctraits::eq(ch,
              Ctraits::to_char_type(','))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         is >> box[1];
         if (!(is >> ch) ||
-            !Ctraits::eq(ch, 
+            !Ctraits::eq(ch,
              Ctraits::to_char_type(')'))) {
             is.setstate(std::ios_base::failbit);
             return is;
@@ -534,7 +534,7 @@ inline aabb<T, N> operator&(const multi<T, N>& arr, const aabb<T, N>& box)
  * @brief Generic `operator|=`.
  */
 template <
-    typename T, std::size_t N, 
+    typename T, std::size_t N,
     typename U
     >
 __attribute__((always_inline))
@@ -547,7 +547,7 @@ inline aabb<T, N>& operator|=(aabb<T, N>& box, const U& any)
  * @brief Generic `operator&=`.
  */
 template <
-    typename T, std::size_t N, 
+    typename T, std::size_t N,
     typename U
     >
 __attribute__((always_inline))

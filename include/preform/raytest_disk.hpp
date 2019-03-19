@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -61,8 +61,8 @@ namespace pr {
 /**
  * @brief Ray-test (disk).
  *
- * This implementation is based on the implementation of Pharr, Humphreys, 
- * and Jakob in _Physically based rendering: from theory to implementation 
+ * This implementation is based on the implementation of Pharr, Humphreys,
+ * and Jakob in _Physically based rendering: from theory to implementation
  * (3rd edition)_.
  *
  * @tparam T
@@ -74,7 +74,7 @@ struct raytest_disk
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -113,10 +113,10 @@ struct raytest_disk
             const multi<float_type, 3>& o,
             const multi<float_type, 3>& d,
             float_type tmin = 0,
-            float_type tmax = 
+            float_type tmax =
                 pr::numeric_limits<float_type>::infinity()) :
-                o(o), d(d), 
-                tmin(tmin), 
+                o(o), d(d),
+                tmin(tmin),
                 tmax(tmax)
         {
         }
@@ -148,11 +148,11 @@ struct raytest_disk
             const multi<float_type, 3>& d,
             const multi<float_type, 3>& derr,
             float_type tmin = 0,
-            float_type tmax = 
+            float_type tmax =
                 pr::numeric_limits<float_type>::infinity()) :
                 o(o), oerr(oerr),
                 d(d), derr(derr),
-                tmin(tmin), 
+                tmin(tmin),
                 tmax(tmax)
         {
         }
@@ -256,7 +256,7 @@ public:
             float_type rmin,
             float_type rmax,
             float_type h = 0,
-            float_type phimax = 
+            float_type phimax =
                 2 * pr::numeric_constants<float_type>::M_pi()) :
                 rmin_(rmin),
                 rmax_(rmax),
@@ -336,13 +336,13 @@ public:
         else {
 
             // Uniform radius.
-            float_type r = 
+            float_type r =
                 pr::sqrt(
-                (1 - u[0]) * rmin_ * rmin_ + 
+                (1 - u[0]) * rmin_ * rmin_ +
                      u[0]  * rmax_ * rmax_);
 
             // Delegate.
-            return operator()({(r - rmin_) / 
+            return operator()({(r - rmin_) /
                                (rmax_ - rmin_), u[1]});
         }
     }
@@ -362,12 +362,12 @@ public:
     {
         multi<float_type, 3> vi = phit - pref;
         float_type dot_vi_vi = dot(vi, vi);
-        if (dot_vi_vi == 0 || 
+        if (dot_vi_vi == 0 ||
             vi[2] == 0) {
             return 0;
         }
         else {
-            return pr::sqrt(dot_vi_vi) / pr::fabs(vi[2]) / 
+            return pr::sqrt(dot_vi_vi) / pr::fabs(vi[2]) /
                    surface_area();
         }
     }
@@ -437,7 +437,7 @@ public:
      * Hit information. _Optional_.
      *
      * @returns
-     * If intersection, returns parameteric value. Else, 
+     * If intersection, returns parameteric value. Else,
      * returns NaN.
      */
     float_type intersect(const ray_info& ray, hit_info* hit = nullptr) const

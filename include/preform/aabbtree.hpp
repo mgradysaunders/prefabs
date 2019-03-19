@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -194,7 +194,7 @@ public:
         aabb_type box;
 
         /**
-         * @brief If branch, left child. 
+         * @brief If branch, left child.
          */
         node_type* left;
 
@@ -237,14 +237,14 @@ public:
      */
     aabbtree(
         size_type leaf_cutoff,
-        const node_allocator_type& node_alloc = 
+        const node_allocator_type& node_alloc =
               node_allocator_type()) :
             leaf_cutoff_(leaf_cutoff),
             node_alloc_(node_alloc)
     {
         // Sanity check.
         assert(
-            leaf_cutoff_ < 
+            leaf_cutoff_ <
             size_type(256));
     }
 
@@ -269,7 +269,7 @@ public:
      * Initializes axis-aligned bounding box tree by
      * 1. converting input range to axis-aligned bounding box
      * proxy representation with predicate function,
-     * 2. generating tree recursively from the top down, splitting 
+     * 2. generating tree recursively from the top down, splitting
      * according to `Tsplit_mode`.
      *
      * @param[in] from
@@ -282,7 +282,7 @@ public:
      * Function converting input to axis-aligned bounding box.
      *
      * @note
-     * Function must have signature equivalent to 
+     * Function must have signature equivalent to
      * ~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
      * aabb_type(const Tvalue&)
      * ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -323,7 +323,7 @@ public:
         std::atomic<size_type> total_branches = 0;
         std::atomic<size_type> total_leaves = 0;
         size_type first_index = 0;
-        root_ = 
+        root_ =
         init_recursive(
             total_branches,
             total_leaves,
@@ -435,7 +435,7 @@ public:
          *
          * @note
          * Function must have signature
-         * equivalent to 
+         * equivalent to
          * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
          * bool(std::uint32_t, std::uint8_t)
          * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -454,7 +454,7 @@ public:
 
                 // Current.
                 std::uint32_t flat_index = todo.pop();
-                const flat_node_type& flat_node = 
+                const flat_node_type& flat_node =
                       flat_nodes[flat_index];
 
                 if (flat_node.box.intersect(info)) {
@@ -473,7 +473,7 @@ public:
                         todo.push(flat_node.right_index);
                         if (info.dmin[flat_node.split_dim]) {
                             std::swap(
-                                todo[-1], 
+                                todo[-1],
                                 todo[-2]);
                         }
                     }
@@ -497,7 +497,7 @@ public:
     {
         flat_type flat;
         flat.flat_nodes.resize(
-            total_branches_ + 
+            total_branches_ +
             total_leaves_);
         if (root_ && !flat.flat_nodes.empty()) {
             size_type flat_index = 0;
@@ -558,7 +558,7 @@ private:
     node_type* allocate()
     {
         std::unique_lock<std::mutex> lock(node_alloc_mutex_);
-        return 
+        return
             node_allocator_traits::allocate(
             node_alloc_, 1);
     }
@@ -566,7 +566,7 @@ private:
     /**
      * @brief Deallocate.
      */
-    void deallocate(node_type* node) 
+    void deallocate(node_type* node)
     {
         if (node) {
             std::unique_lock<std::mutex> lock(node_alloc_mutex_);
@@ -635,7 +635,7 @@ private:
         else {
 
             // Split dimension.
-            size_type split_dim = 
+            size_type split_dim =
                         box_center.diag().argmax();
 
             // Split.
@@ -644,7 +644,7 @@ private:
                     box_center,
                     split_dim,
                     proxies);
-            assert(split && 
+            assert(split &&
                    proxies.begin() <= split &&
                    proxies.end() > split);
 
@@ -656,7 +656,7 @@ private:
             if (count <= 16384) {
 
                 // Recurse.
-                left = 
+                left =
                 init_recursive(
                     total_branches,
                     total_leaves,
@@ -664,7 +664,7 @@ private:
                     {proxies.begin(), split});
 
                 // Recurse.
-                right = 
+                right =
                 init_recursive(
                     total_branches,
                     total_leaves,
@@ -686,7 +686,7 @@ private:
                 });
 
                 // Recurse.
-                right = 
+                right =
                 init_recursive(
                     total_branches,
                     total_leaves,
@@ -734,7 +734,7 @@ private:
                 !node->left &&
                 !node->right);
             assert(
-                node->count < 
+                node->count <
                 size_type(256));
 
             // Initialize.
@@ -749,8 +749,8 @@ private:
 
             // Flatten left branch.
             flatten(
-                node->left, 
-                flat_nodes, 
+                node->left,
+                flat_nodes,
                 flat_index);
 
             // Initialize.
@@ -759,8 +759,8 @@ private:
 
             // Flatten right branch.
             flatten(
-                node->right, 
-                flat_nodes, 
+                node->right,
+                flat_nodes,
                 flat_index);
         }
     }
@@ -789,8 +789,8 @@ struct aabbtree_split_equal_counts
         (void) box;
         (void) box_center;
 
-        Tproxy* split = 
-                proxies.begin() + 
+        Tproxy* split =
+                proxies.begin() +
                 proxies.size() / 2;
 
         // Partition.
@@ -803,7 +803,7 @@ struct aabbtree_split_equal_counts
                            proxy1.box_center[split_dim];
                 });
 
-        return split;        
+        return split;
     }
 };
 
@@ -825,7 +825,7 @@ struct aabbtree_split_equal_dimensions
             const std::size_t split_dim,
             range<Tproxy*> proxies) const
     {
-        Tfloat cen = 
+        Tfloat cen =
             (box_center[0][split_dim] +
              box_center[1][split_dim]) / 2;
 
@@ -846,9 +846,9 @@ struct aabbtree_split_equal_dimensions
         else {
             // Default to equal counts.
             return aabbtree_split_equal_counts()(
-                        box, 
-                        box_center, 
-                        split_dim, 
+                        box,
+                        box_center,
+                        split_dim,
                         proxies);
         }
     }
@@ -879,7 +879,7 @@ struct aabbtree_split_surface_area
             range<Tproxy*> proxies) const
     {
         // Degenerate?
-        if (box_center[0][split_dim] == 
+        if (box_center[0][split_dim] ==
             box_center[1][split_dim]) {
             // Default to equal counts.
             return aabbtree_split_equal_counts()(
@@ -929,18 +929,18 @@ struct aabbtree_split_surface_area
             auto itrcosts = costs.begin();
             auto itrlsweep = lsweep.begin();
             auto itrrsweep = rsweep.begin();
-            for (; itrrsweep < rsweep.end(); 
+            for (; itrrsweep < rsweep.end();
                     ++itrcosts,
                     ++itrlsweep,
                     ++itrrsweep) {
                 *itrcosts =
                     (itrlsweep->first.surface_area() * itrlsweep->second +
-                     itrrsweep->first.surface_area() * itrrsweep->second); 
+                     itrrsweep->first.surface_area() * itrrsweep->second);
             }
         }
 
         // Compute costs argmin.
-        std::size_t costs_argmin = 
+        std::size_t costs_argmin =
             std::distance(
                 costs.begin(),
                 std::min_element(
@@ -948,7 +948,7 @@ struct aabbtree_split_surface_area
                     costs.end()));
 
         // Partition.
-        Tproxy* split = 
+        Tproxy* split =
             std::partition(
                 proxies.begin(),
                 proxies.end(),

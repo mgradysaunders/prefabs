@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -53,7 +53,7 @@ namespace pr {
 /**
  * @brief Periodic noise adapter (2-dimensional).
  *
- * Periodic noise adapter which evaluates a 3-dimensional noise 
+ * Periodic noise adapter which evaluates a 3-dimensional noise
  * function on the surface of a torus.
  */
 template <typename Tnoise3>
@@ -233,7 +233,7 @@ public:
  * Requires that client code includes `<preform/simplex_noise3.hpp>`.
  */
 template <typename T>
-using periodic_simplex_noise2 = 
+using periodic_simplex_noise2 =
       periodic_noise_adapter2<simplex_noise3<T>>;
 
 // Prototype
@@ -248,7 +248,7 @@ using periodic_simplex_noise2 =
  * Requires that client code includes `<preform/worley_noise3.hpp>`.
  */
 template <typename T>
-using periodic_worley_noise2 = 
+using periodic_worley_noise2 =
       periodic_noise_adapter2<worley_noise3<T>>;
 
 /**@}*/

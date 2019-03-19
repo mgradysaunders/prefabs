@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -75,15 +75,15 @@ namespace pr {
  */
 template <typename T, typename G>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> 
-                        generate_canonical(G&& gen) 
+       std::is_floating_point<T>::value, T>
+                        generate_canonical(G&& gen)
 {
-    long double r = 
-                static_cast<long double>(gen.max()) - 
+    long double r =
+                static_cast<long double>(gen.max()) -
                 static_cast<long double>(gen.min()) + 1.0L;
     unsigned long long log2r = pr::log2(r);
     unsigned long long b = pr::numeric_limits<T>::digits;
-    unsigned long long m = std::max(1ULL, 
+    unsigned long long m = std::max(1ULL,
             (log2r + b - 1ULL) / log2r);
 
     T s = T(0);
@@ -109,7 +109,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -133,8 +133,8 @@ public:
      * @throw std::invalid_argument
      * Unless `a < b`.
      */
-    uniform_real_distribution(float_type a, float_type b) : 
-            a_(a), 
+    uniform_real_distribution(float_type a, float_type b) :
+            a_(a),
             b_(b)
     {
         if (!(a < b)) {
@@ -187,7 +187,7 @@ public:
      */
     float_type variance() const
     {
-        return (b_ - a_) * 
+        return (b_ - a_) *
                (b_ - a_) / 12;
     }
 
@@ -241,7 +241,7 @@ public:
      * @brief Cumulative distribution function.
      *
      * @f[
-     *      F(x) = 
+     *      F(x) =
      *          \begin{cases}
      *              0                  & x < a
      *          \\ \frac{x - a}{b - a} & a \le x < b
@@ -251,10 +251,10 @@ public:
      */
     float_type cdf(float_type x) const
     {
-        return 
+        return
             pr::fmax(float_type(0),
             pr::fmin(float_type(1), (x - a_) / (b_ - a_)));
-                
+
     }
 
     /**
@@ -270,7 +270,7 @@ public:
      */
     float_type cdfinv(float_type u) const
     {
-        if (!(u >= float_type(0) && 
+        if (!(u >= float_type(0) &&
               u <  float_type(1))) {
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
@@ -282,7 +282,7 @@ public:
     /**
      * @brief Generate number.
      */
-    template <typename G> 
+    template <typename G>
     value_type operator()(G&& gen) const
     {
         return cdfinv(
@@ -312,7 +312,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -336,8 +336,8 @@ public:
      * @throw std::invalid_argument
      * Unless `a < b`.
      */
-    uniform_int_distribution(int a, int b) : 
-            a_(a), 
+    uniform_int_distribution(int a, int b) :
+            a_(a),
             b_(b)
     {
         if (!(a < b)) {
@@ -395,7 +395,7 @@ public:
     float_type variance() const
     {
         return float_type(
-                    (b_ - a_) * 
+                    (b_ - a_) *
                     (b_ - a_) - 1) / 12;
     }
 
@@ -449,7 +449,7 @@ public:
      * @brief Cumulative distribution function.
      *
      * @f[
-     *      F(x) = 
+     *      F(x) =
      *          \begin{cases}
      *              0                                 & k < a
      *          \\  \frac{\lceil k \rceil - a}{b - a} & a \le k < b
@@ -459,7 +459,7 @@ public:
      */
     float_type cdf(float_type k) const
     {
-        return 
+        return
             pr::fmax(float_type(0),
             pr::fmin(float_type(1), (pr::ceil(k) - a_) / (b_ - a_)));
     }
@@ -477,7 +477,7 @@ public:
      */
     float_type cdfinv(float_type u) const
     {
-        if (!(u >= float_type(0) && 
+        if (!(u >= float_type(0) &&
               u <  float_type(1))) {
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
@@ -519,7 +519,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -639,7 +639,7 @@ public:
      * @brief Probability mass function.
      *
      * @f[
-     *      f(x) = 
+     *      f(x) =
      *          \begin{cases}
      *              q & k = 0
      *          \\  p & k = 1
@@ -658,9 +658,9 @@ public:
      * @brief Cumulative distribution function.
      *
      * @f[
-     *      F(x) = 
+     *      F(x) =
      *          \begin{cases}
-     *              0 & x < 0 
+     *              0 & x < 0
      *          \\  q & 0 \le x < 1
      *          \\  1 & 1 \le x
      *          \end{cases}
@@ -683,7 +683,7 @@ public:
      * @brief Cumulative distribution function inverse.
      *
      * @f[
-     *      F^{-1}(u) = 
+     *      F^{-1}(u) =
      *          \begin{cases}
      *              0 & 0 \le u < q
      *          \\  1 & q \le u < 1
@@ -740,7 +740,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -898,14 +898,14 @@ public:
      */
     float_type cdfinv(float_type u) const
     {
-        if (!(u >= float_type(0) && 
+        if (!(u >= float_type(0) &&
               u <  float_type(1))) {
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
             // More accurate for small arguments?
-            float_type log_term = 
-                u < float_type(0.5) ? pr::log1p(-u) : 
+            float_type log_term =
+                u < float_type(0.5) ? pr::log1p(-u) :
                 pr::log(1 - u);
             return -log_term / lambda_;
         }
@@ -914,7 +914,7 @@ public:
     /**
      * @brief Generate number.
      */
-    template <typename G> 
+    template <typename G>
     value_type operator()(G&& gen) const
     {
         return cdfinv(
@@ -974,7 +974,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -999,7 +999,7 @@ public:
      * Unless `sigma > 0`.
      */
     normal_distribution(
-                float_type mu, 
+                float_type mu,
                 float_type sigma) : mu_(mu), sigma_(sigma)
     {
         if (!(sigma > float_type(0))) {
@@ -1077,9 +1077,9 @@ public:
     float_type entropy() const
     {
         return
-            pr::log(2 * 
-            pr::numeric_constants<float_type>::M_pi() * 
-            pr::numeric_constants<float_type>::M_e() * 
+            pr::log(2 *
+            pr::numeric_constants<float_type>::M_pi() *
+            pr::numeric_constants<float_type>::M_e() *
             sigma_ * sigma_) / 2;
     }
 
@@ -1087,7 +1087,7 @@ public:
      * @brief Probability density function.
      *
      * @f[
-     *      f(x) = 
+     *      f(x) =
      *          \frac{1}{\sigma}
      *          \frac{1}{\sqrt{2\pi}}
      *          \exp\left[-\frac{1}{2}
@@ -1108,7 +1108,7 @@ public:
      * @brief Cumulative distribution function.
      *
      * @f[
-     *      F(x) = 
+     *      F(x) =
      *          \frac{1}{2}
      *          \erfc\left[-\sqrt{\frac{1}{2}}
      *               \left(\frac{x - \mu}{\sigma}
@@ -1116,7 +1116,7 @@ public:
      *               \right]
      * @f]
      */
-    float_type cdf(float_type x) const 
+    float_type cdf(float_type x) const
     {
         float_type xi = (x - mu_) / sigma_;
         return pr::erfc(
@@ -1127,9 +1127,9 @@ public:
      * @brief Cumulative distribution function inverse.
      *
      * @f[
-     *      F^{-1}(u) = 
+     *      F^{-1}(u) =
      *          \begin{cases}
-     *              \mu + \sigma 
+     *              \mu + \sigma
      *              \sqrt{2}\erf^{-1}(2 u - 1) & 0 \le u < 1
      *          \\  \text{NaN}                 & \text{otherwise}
      *          \end{cases}
@@ -1151,7 +1151,7 @@ public:
     /**
      * @brief Generate number.
      */
-    template <typename G> 
+    template <typename G>
     value_type operator()(G&& gen) const
     {
         return cdfinv(
@@ -1174,14 +1174,14 @@ protected:
 /**
  * @brief Log-normal distribution.
  */
-template <typename T = double> 
+template <typename T = double>
 class lognormal_distribution : public normal_distribution<T>
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -1237,7 +1237,7 @@ public:
      * @brief Variance.
      *
      * @f[
-     *      V[X] = 
+     *      V[X] =
      *          \left[\exp\left(\sigma^2\right) - 1\right]
      *                \exp\left(2\mu + \sigma^2\right)
      * @f]
@@ -1252,8 +1252,8 @@ public:
      * @brief Skewness.
      *
      * @f[
-     *      \gamma_1[X] = 
-     *          \sqrt{\exp\left(\sigma^2\right) - 1} 
+     *      \gamma_1[X] =
+     *          \sqrt{\exp\left(\sigma^2\right) - 1}
      *                    \left[\exp\left(\sigma^2\right) + 2\right]
      * @f]
      */
@@ -1268,7 +1268,7 @@ public:
      * @brief Differential Shannon entropy.
      *
      * @f[
-     *      h[X] = 
+     *      h[X] =
      *          \log_2\left[\sigma \sqrt{2\pi}
      *          \exp\left(\mu + \frac{1}{2}\right)\right]
      * @f]
@@ -1324,7 +1324,7 @@ public:
     /**
      * @brief Generate number.
      */
-    template <typename G> 
+    template <typename G>
     value_type operator()(G&& gen) const
     {
         return cdfinv(
@@ -1350,7 +1350,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -1426,9 +1426,9 @@ public:
      */
     float_type variance() const
     {
-        return 
+        return
             pr::numeric_constants<float_type>::M_pi() *
-            pr::numeric_constants<float_type>::M_pi() * 
+            pr::numeric_constants<float_type>::M_pi() *
             s_ * s_ / 3;
     }
 
@@ -1460,7 +1460,7 @@ public:
      * @brief Probability density function.
      *
      * @f[
-     *      f(x) = 
+     *      f(x) =
      *          \frac{1}{s}
      *          \frac{e^{-\xi}}{\left(1 + e^{-\xi}\right)^2}
      *          \Bigg|_{\xi \gets (x - \mu) / s}
@@ -1469,8 +1469,8 @@ public:
     float_type pdf(float_type x) const
     {
         float_type exp_term = pr::exp(-(x - mu_) / s_);
-        return exp_term / (s_ * 
-                        (1 + exp_term) * 
+        return exp_term / (s_ *
+                        (1 + exp_term) *
                         (1 + exp_term));
     }
 
@@ -1478,7 +1478,7 @@ public:
      * @brief Cumulative distribution function.
      *
      * @f[
-     *      F(x) = 
+     *      F(x) =
      *          \frac{1}{1 + e^{-\xi}}
      *          \Bigg|_{\xi \gets (x - \mu) / s}
      * @f]
@@ -1492,7 +1492,7 @@ public:
      * @brief Cumulative distribution function inverse.
      *
      * @f[
-     *      F^{-1}(u) = 
+     *      F^{-1}(u) =
      *          \begin{cases}
      *              \mu - s \log(1/u - 1) & 0 \le u < 1
      *          \\  \text{NaN}            & \text{otherwise}
@@ -1513,7 +1513,7 @@ public:
     /**
      * @brief Generate number.
      */
-    template <typename G> 
+    template <typename G>
     value_type operator()(G&& gen) const
     {
         return cdfinv(
@@ -1543,7 +1543,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -1619,9 +1619,9 @@ public:
      */
     float_type variance() const
     {
-        return 
-            pr::numeric_constants<float_type>::M_pi() * 
-            pr::numeric_constants<float_type>::M_pi() * 
+        return
+            pr::numeric_constants<float_type>::M_pi() *
+            pr::numeric_constants<float_type>::M_pi() *
             s_ * s_ / 12;
     }
 
@@ -1646,8 +1646,8 @@ public:
      */
     float_type entropy() const
     {
-        return pr::log(float_type(0.5) * 
-                    pr::numeric_constants<float_type>::M_e() * 
+        return pr::log(float_type(0.5) *
+                    pr::numeric_constants<float_type>::M_e() *
                     pr::numeric_constants<float_type>::M_e() * s_);
     }
 
@@ -1655,14 +1655,14 @@ public:
      * @brief Probability density function.
      *
      * @f[
-     *      f(x) = 
+     *      f(x) =
      *          \frac{1}{2s}
      *          \operatorname{sech}^{2}\left(\frac{x - \mu}{s}\right)
      * @f]
      */
     float_type pdf(float_type x) const
     {
-        return float_type(0.5) / 
+        return float_type(0.5) /
                     (s_ * pr::nthpow(pr::cosh((x - mu_) / s_), 2));
     }
 
@@ -1670,9 +1670,9 @@ public:
      * @brief Cumulative distribution function.
      *
      * @f[
-     *      F(x) = 
+     *      F(x) =
      *          \frac{1}{2}
-     *          \operatorname{tanh}\left(\frac{x - \mu}{s}\right) + 
+     *          \operatorname{tanh}\left(\frac{x - \mu}{s}\right) +
      *                  \frac{1}{2}
      * @f]
      */
@@ -1685,7 +1685,7 @@ public:
      * @brief Cumulative distribution function inverse.
      *
      * @f[
-     *      F^{-1}(u) = 
+     *      F^{-1}(u) =
      *          \begin{cases}
      *              \mu + s \operatorname{arctanh}(2u - 1)  & 0 \le u < 1
      *          \\  \text{NaN}                              & \text{otherwise}
@@ -1706,7 +1706,7 @@ public:
     /**
      * @brief Generate number.
      */
-    template <typename G> 
+    template <typename G>
     float_type operator()(G&& gen) const
     {
         return cdfinv(
@@ -1736,7 +1736,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -1761,7 +1761,7 @@ public:
      * Unless `lambda > 0 && k > 0`.
      */
     weibull_distribution(
-                float_type lambda, 
+                float_type lambda,
                 float_type k) : lambda_(lambda), k_(k)
     {
         if (!(lambda > float_type(0)) ||
@@ -1798,8 +1798,8 @@ public:
      * @brief Mean.
      *
      * @f[
-     *      E[X] = 
-     *          \lambda 
+     *      E[X] =
+     *          \lambda
      *          \Gamma\left(1 + \frac{1}{k}\right)
      * @f]
      */
@@ -1812,7 +1812,7 @@ public:
      * @brief Variance.
      *
      * @f[
-     *      V[X] = 
+     *      V[X] =
      *          \lambda^2 \left[
      *          \Gamma\left(1 + \frac{2}{k}\right) -
      *          \Gamma\left(1 + \frac{1}{k}\right)^2
@@ -1833,7 +1833,7 @@ public:
      *      \gamma_1[X] =
      *          \frac{1}{\sigma^3}
      *          \left[\lambda^3
-     *          \Gamma\left(1 + \frac{3}{k}\right) - 
+     *          \Gamma\left(1 + \frac{3}{k}\right) -
      *                  \mu^3 - 3\mu\sigma^2\right]
      * @f]
      */
@@ -1851,14 +1851,14 @@ public:
      * @brief Differential Shannon entropy.
      *
      * @f[
-     *      h[X] = 1 + 
-     *          \gamma\frac{k - 1}{k} + 
+     *      h[X] = 1 +
+     *          \gamma\frac{k - 1}{k} +
      *          \log\frac{\lambda}{k}
      * @f]
      */
     float_type entropy() const
     {
-        return 1 + 
+        return 1 +
                pr::numeric_constants<float_type>::M_gamma() * (k_ - 1) / k_ +
                pr::log(lambda_ / k_);
     }
@@ -1886,7 +1886,7 @@ public:
             return 0;
         }
         else {
-            return k_ / lambda_ * 
+            return k_ / lambda_ *
                    pr::pow(x / lambda_, k_ - 1) *
                    pr::exp(-pr::pow(x / lambda_, k_));
         }
@@ -1898,7 +1898,7 @@ public:
      * @f[
      *      F(x) =
      *          \begin{cases}
-     *              1 - 
+     *              1 -
      *              \exp\left[
      *                 -\left(\frac{x}{\lambda}
      *                      \right)^k
@@ -1943,7 +1943,7 @@ public:
     /**
      * @brief Generate number.
      */
-    template <typename G> 
+    template <typename G>
     value_type operator()(G&& gen) const
     {
         return cdfinv(
@@ -1990,7 +1990,7 @@ public:
     // Sanity check.
     static_assert(
         std::is_same<
-            value_type, 
+            value_type,
             float_type>::value,
         "Tbase must be a real distribution");
 
@@ -2074,7 +2074,7 @@ public:
      * @brief Probability density function.
      *
      * @f[
-     *      g(x) = 
+     *      g(x) =
      *          \begin{cases}
      *              \frac{1}{F_1 - F_0} f(x) & x_0 \le x < x_1
      *          \\  0                        & \text{otherwise}
@@ -2121,7 +2121,7 @@ public:
      * @brief Cumulative distribution function inverse.
      *
      * @f[
-     *      G^{-1}(u) = 
+     *      G^{-1}(u) =
      *          \begin{cases}
      *              F^{-1}((1 - u) F_0 + u F_1) & 0 \le u < 1
      *          \\  \text{NaN}                  & \text{otherwise}
@@ -2186,42 +2186,42 @@ private:
  * @brief Subset exponential distribution.
  */
 template <typename T = double>
-using subset_exponential_distribution = 
+using subset_exponential_distribution =
       subset_distribution_adapter<exponential_distribution<T>>;
 
 /**
  * @brief Subset normal distribution.
  */
 template <typename T = double>
-using subset_normal_distribution = 
+using subset_normal_distribution =
       subset_distribution_adapter<normal_distribution<T>>;
 
 /**
  * @brief Subset lognormal distribution.
  */
 template <typename T = double>
-using subset_lognormal_distribution = 
+using subset_lognormal_distribution =
       subset_distribution_adapter<lognormal_distribution<T>>;
 
 /**
  * @brief Subset logistic distribution.
  */
 template <typename T = double>
-using subset_logistic_distribution = 
+using subset_logistic_distribution =
       subset_distribution_adapter<logistic_distribution<T>>;
 
 /**
  * @brief Subset tanh distribution.
  */
 template <typename T = double>
-using subset_tanh_distribution = 
+using subset_tanh_distribution =
       subset_distribution_adapter<tanh_distribution<T>>;
 
 /**
  * @brief Subset Weibull distribution.
  */
 template <typename T = double>
-using subset_weibull_distribution = 
+using subset_weibull_distribution =
       subset_distribution_adapter<weibull_distribution<T>>;
 
 /**@}*/
@@ -2261,7 +2261,7 @@ public:
      * If `!(std::distance(xfrom, xto) > 1)`.
      */
     template <
-        typename Tinput0, 
+        typename Tinput0,
         typename Tinput1
         >
     piecewise_linear_distribution(
@@ -2289,8 +2289,8 @@ public:
         for (int k = 1; k < n; k++) {
             float_type x0 = points_[k - 1].x, y0 = points_[k - 1].pdf;
             float_type x1 = points_[k - 0].x, y1 = points_[k - 0].pdf;
-            yint += 
-                (x1 - x0) * 
+            yint +=
+                (x1 - x0) *
                 (y1 + y0) * float_type(0.5);
             points_[k - 0].cdf = float_type(yint);
         }
@@ -2319,7 +2319,7 @@ public:
         }
 
         // Lookup.
-        auto itr = 
+        auto itr =
             std::lower_bound(
                 points_.begin(),
                 points_.end(),
@@ -2357,7 +2357,7 @@ public:
         }
 
         // Lookup.
-        auto itr = 
+        auto itr =
             std::lower_bound(
                 points_.begin(),
                 points_.end(),
@@ -2376,7 +2376,7 @@ public:
         float_type x0 = itr[0].x, y0 = itr[0].pdf;
         float_type x1 = itr[1].x, y1 = itr[1].pdf;
         float_type t = (x - x0) / (x1 - x0);
-        return (x1 - x0) * (float_type(0.5) * 
+        return (x1 - x0) * (float_type(0.5) *
                (y1 - y0) * t + y0) * t + itr[0].cdf;
     }
 
@@ -2402,7 +2402,7 @@ public:
         else {
 
             // Lookup.
-            auto itr = 
+            auto itr =
                 std::lower_bound(
                     points_.begin(),
                     points_.end(),
@@ -2448,7 +2448,7 @@ public:
     {
         return cdfinv(
             pr::generate_canonical<float_type>(std::forward<G>(gen)));
-    } 
+    }
 
 private:
 
@@ -2482,16 +2482,16 @@ private:
 /**
  * @brief PCG XSH-RR engine.
  *
- * Permuted congruential generator with XOR-shift plus 
- * random-rotate output transform. The implementation here 
- * is adapted as a special case of the [implementation 
+ * Permuted congruential generator with XOR-shift plus
+ * random-rotate output transform. The implementation here
+ * is adapted as a special case of the [implementation
  * by Melissa O'Neill][1] affiliated with the [PCG project][2].
  *
  * [1]: https://github.com/imneme/pcg-cpp
  * [2]: https://pcg-random.org
  */
 template <
-    typename T, 
+    typename T,
     typename Tstate,
     Tstate Nmultiplier,
     Tstate Ndefault_increment
@@ -2512,7 +2512,7 @@ public:
 
     // Sanity check.
     static_assert(
-        sizeof(T) <= sizeof(Tstate), 
+        sizeof(T) <= sizeof(Tstate),
         "T cannot be larger than Tstate");
 
     // Sanity check.
@@ -2558,7 +2558,7 @@ public:
     /**
      * @brief Constructor.
      */
-    pcg_xsh_rr_engine(state_type seed) : 
+    pcg_xsh_rr_engine(state_type seed) :
             state_(seed)
     {
         // Advance.
@@ -2570,7 +2570,7 @@ public:
     /**
      * @brief Constructor.
      */
-    pcg_xsh_rr_engine(state_type seed, state_type seq) : 
+    pcg_xsh_rr_engine(state_type seed, state_type seq) :
             state_(seed)
     {
         // Set stream.
@@ -2656,9 +2656,9 @@ public:
         }
 
         for (;;) {
-            result_type r = operator()() - 
+            result_type r = operator()() -
                 pcg_xsh_rr_engine::min();
-            if (r >= (pcg_xsh_rr_engine::max() - 
+            if (r >= (pcg_xsh_rr_engine::max() -
                       pcg_xsh_rr_engine::min() + 1 - b) % b) {
                 return r % b;
             }
@@ -2720,8 +2720,8 @@ private:
         constexpr std::size_t target_op_bits = pr::first1(result_bits);
 
         // Actual operation bits.
-        constexpr std::size_t op_bits = 
-              spare_bits < target_op_bits 
+        constexpr std::size_t op_bits =
+              spare_bits < target_op_bits
             ? spare_bits : target_op_bits;
 
         // Amplifier.
@@ -2749,7 +2749,7 @@ private:
         pivot = pivot & mask;
 
         // XOR shift.
-        state ^= 
+        state ^=
         state >> shift;
 
         // Random rotate.

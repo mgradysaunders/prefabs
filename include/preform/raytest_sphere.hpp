@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -61,8 +61,8 @@ namespace pr {
 /**
  * @brief Ray-test (sphere).
  *
- * This implementation is based on the implementation of Pharr, Humphreys, 
- * and Jakob in _Physically based rendering: from theory to implementation 
+ * This implementation is based on the implementation of Pharr, Humphreys,
+ * and Jakob in _Physically based rendering: from theory to implementation
  * (3rd edition)_.
  *
  * @tparam T
@@ -75,7 +75,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -114,10 +114,10 @@ public:
             const multi<float_type, 3>& o,
             const multi<float_type, 3>& d,
             float_type tmin = 0,
-            float_type tmax = 
+            float_type tmax =
                 pr::numeric_limits<float_type>::infinity()) :
-                o(o), d(d), 
-                tmin(tmin), 
+                o(o), d(d),
+                tmin(tmin),
                 tmax(tmax)
         {
         }
@@ -149,11 +149,11 @@ public:
             const multi<float_type, 3>& d,
             const multi<float_type, 3>& derr,
             float_type tmin = 0,
-            float_type tmax = 
+            float_type tmax =
                 pr::numeric_limits<float_type>::infinity()) :
                 o(o), oerr(oerr),
                 d(d), derr(derr),
-                tmin(tmin), 
+                tmin(tmin),
                 tmax(tmax)
         {
         }
@@ -255,8 +255,8 @@ public:
      * - `phimax > 0 && phimax <= 2 * pi`.
      */
     raytest_sphere(
-        float_type r, 
-        float_type thetamin = 0, 
+        float_type r,
+        float_type thetamin = 0,
         float_type thetamax = pr::numeric_constants<float_type>::M_pi(),
         float_type phimax = 2 * pr::numeric_constants<float_type>::M_pi()) :
             r_(r),
@@ -265,8 +265,8 @@ public:
             phimax_(phimax)
     {
         if (!(r_ > 0 &&
-              thetamin_ >= 0 && 
-              thetamax_ >= 0 && 
+              thetamin_ >= 0 &&
+              thetamax_ >= 0 &&
               thetamin_ <= pr::numeric_constants<float_type>::M_pi() &&
               thetamax_ <= pr::numeric_constants<float_type>::M_pi() &&
               thetamax_ > thetamin_ &&
@@ -335,7 +335,7 @@ public:
         float_type theta = pr::acos(cos_theta);
 
         // Delegate.
-        return operator()({u[0], (theta - thetamin_) / 
+        return operator()({u[0], (theta - thetamin_) /
                                  (thetamax_ - thetamin_)});
     }
 
@@ -367,8 +367,8 @@ public:
         hit.p = fastnormalize(hit.p) * r_;
 
         // Position absolute error.
-        hit.perr = 
-                pr::fabs(hit.p) * 
+        hit.perr =
+                pr::fabs(hit.p) *
                 pr::numeric_limits<float_type>::echelon(5);
 
         // Surface parameters.
@@ -398,7 +398,7 @@ public:
      * Hit information. _Optional_.
      *
      * @returns
-     * If intersection, returns parameteric value. Else, 
+     * If intersection, returns parameteric value. Else,
      * returns NaN.
      */
     float_type intersect(const ray_info& ray, hit_info* hit = nullptr) const
@@ -435,11 +435,11 @@ public:
         }
 
         // Position.
-        multi<float_type, 3> p = 
+        multi<float_type, 3> p =
             fastnormalize(
-                    ray.o + 
+                    ray.o +
                     ray.d * t.value()) * r_;
-        if (p[0] == 0 && 
+        if (p[0] == 0 &&
             p[1] == 0) {
             p[0] = float_type(1e-6) * r_;
         }
@@ -454,7 +454,7 @@ public:
         if ((zmin_ > -r_ && p[2] < zmin_) ||
             (zmax_ < +r_ && p[2] > zmax_) ||
              phi > phimax_) {
-            
+
             // Already farther root?
             if (t.value() == t1.value()) {
                 return pr::numeric_limits<float_type>::quiet_NaN();
@@ -465,9 +465,9 @@ public:
 
             // Position.
             p = fastnormalize(
-                    ray.o + 
+                    ray.o +
                     ray.d * t.value()) * r_;
-            if (p[0] == 0 && 
+            if (p[0] == 0 &&
                 p[1] == 0) {
                 p[0] = float_type(1e-6) * r_;
             }
@@ -477,7 +477,7 @@ public:
             if (phi < 0) {
                 phi += 2 * pr::numeric_constants<float_type>::M_pi();
             }
-    
+
             // Clip.
             if ((zmin_ > -r_ && p[2] < zmin_) ||
                 (zmax_ < +r_ && p[2] > zmax_) ||
@@ -492,8 +492,8 @@ public:
             hit->p = p;
 
             // Position absolute error.
-            hit->perr = 
-                pr::fabs(p) * 
+            hit->perr =
+                pr::fabs(p) *
                 pr::numeric_limits<float_type>::echelon(5);
 
             // Polar angle.
@@ -505,7 +505,7 @@ public:
 
             // Surface parameters.
             hit->s[0] = phi / phimax_;
-            hit->s[1] = (theta - thetamin_) / 
+            hit->s[1] = (theta - thetamin_) /
                         (thetamax_ - thetamin_);
 
             // Surface partial derivatives.

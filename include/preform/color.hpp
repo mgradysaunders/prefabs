@@ -1,18 +1,18 @@
 /* Copyright (c) 2019 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -265,14 +265,14 @@ inline std::enable_if_t<
  * @brief Encode linear RGB as sRGB with Hable tonemapping.
  *
  * @f[
- *      \operatorname{srgbenc}_{\text{Hable}}(v) = 
+ *      \operatorname{srgbenc}_{\text{Hable}}(v) =
  *      \operatorname{srgbenc}\left(
  *      \frac{5.50710 v^2 + 0.91785 v + 0.036714}
  *           {3.99336 v^2 + 6.65560 v + 0.399336} -
  *      \frac{0.61190}{6.65560}\right)
  * @f]
  *
- * @see 
+ * @see
  * [This article][1] by John Hable.
  * [1]: http://filmicworlds.com/blog/filmic-tonemapping-operators/
  */
@@ -298,7 +298,7 @@ inline std::enable_if_t<
  *      \end{bmatrix}
  * @f]
  *
- * @see 
+ * @see
  * [This article][1] by John Hable.
  * [1]: http://filmicworlds.com/blog/filmic-tonemapping-operators/
  */
@@ -327,7 +327,7 @@ inline std::enable_if_t<
  *      \end{bmatrix}
  * @f]
  *
- * @see 
+ * @see
  * [This article][1] by John Hable.
  * [1]: http://filmicworlds.com/blog/filmic-tonemapping-operators/
  */
@@ -348,12 +348,12 @@ inline std::enable_if_t<
  * @brief Encode linear RGB as sRGB with Hejl/Burgess-Dawson tonemapping.
  *
  * @f[
- *      \operatorname{srgbenc}_{\text{Hejl/Burgess}}(v) = 
+ *      \operatorname{srgbenc}_{\text{Hejl/Burgess}}(v) =
  *      \frac{6.2 \max(v - 0.004, 0)^2 + 0.5 \max(v - 0.004, 0)}
  *           {6.2 \max(v - 0.004, 0)^2 + 1.7 \max(v - 0.004, 0) + 0.06}
  * @f]
  *
- * @see 
+ * @see
  * [This article][1] by John Hable.
  * [1]: http://filmicworlds.com/blog/filmic-tonemapping-operators/
  */
@@ -378,7 +378,7 @@ inline std::enable_if_t<
  *      \end{bmatrix}
  * @f]
  *
- * @see 
+ * @see
  * [This article][1] by John Hable.
  * [1]: http://filmicworlds.com/blog/filmic-tonemapping-operators/
  */
@@ -407,7 +407,7 @@ inline std::enable_if_t<
  *      \end{bmatrix}
  * @f]
  *
- * @see 
+ * @see
  * [This article][1] by John Hable.
  * [1]: http://filmicworlds.com/blog/filmic-tonemapping-operators/
  */
@@ -492,13 +492,13 @@ inline std::enable_if_t<std::is_floating_point<T>::value, T> wymanz(T lambda)
  *
  * Planck's law of blackbody radiation is
  * @f[
- *      b(T,\lambda) = 
- *          \frac{1}{\lambda^5} 
+ *      b(T,\lambda) =
+ *          \frac{1}{\lambda^5}
  *          \frac{2hc^2}{e^{\frac{hc}{kT\lambda}}-1}
  * @f]
- * where, by typical conventions, @f$ T @f$ is temperature 
- * in degrees kelvin and @f$ \lambda @f$ is wavelength in meters. The 
- * implementation here takes @f$ \lambda @f$ in _micrometers_ instead of 
+ * where, by typical conventions, @f$ T @f$ is temperature
+ * in degrees kelvin and @f$ \lambda @f$ is wavelength in meters. The
+ * implementation here takes @f$ \lambda @f$ in _micrometers_ instead of
  * meters, but in the interest of avoiding astronomic values, the output
  * units are @f$ \mathrm{MW}/\mathrm{sr}/\mathrm{m}^{2}/\mu\mathrm{m} @f$.
  *
@@ -521,7 +521,7 @@ inline std::enable_if_t<
 
     constexpr T c0 = T(1.19104290768681554502861912e+02L);
     constexpr T c1 = T(1.43877729954300303744214349e+04L);
-    return c0 / (pr::nthpow(lambda, 5) * 
+    return c0 / (pr::nthpow(lambda, 5) *
                  pr::expm1(c1 / (t * lambda)));
 }
 
@@ -661,7 +661,7 @@ inline std::enable_if_t<
  * @f]
  * where
  * @f[
- *      f(t) = 
+ *      f(t) =
  *      \begin{cases}
  *          t^{1/3}                     & t >   216 / 24389
  *      \\  ((24389 / 27) t + 16) / 116 & t \le 216 / 24389
@@ -725,7 +725,7 @@ inline std::enable_if_t<
  * @f]
  * and where
  * @f[
- *      f^{-1}(t) = 
+ *      f^{-1}(t) =
  *      \begin{cases}
  *          t^3                       & t^3 >   216 / 24389
  *      \\  (116 t - 16) (27 / 24389) & t^3 \le 216 / 24389
@@ -739,7 +739,7 @@ inline std::enable_if_t<
  * @note
  * If `T` is an unsigned integral type,
  * - uses `fstretch()` to convert to `double` before recursing, then
- * - uses `fstretch()` to convert to `T`. 
+ * - uses `fstretch()` to convert to `T`.
  */
 template <typename T>
 inline std::enable_if_t<
@@ -909,13 +909,13 @@ constexpr const char* to_string(composite_mode mode)
  * @f[
  *      \operatorname{premultiply}(
  *      \mathbf{v} = [\mathbf{c} \;\; \alpha]^\top) =
- *                   [\alpha \mathbf{c} \;\; \alpha]^\top 
+ *                   [\alpha \mathbf{c} \;\; \alpha]^\top
  * @f]
  *
  * @note
  * If `T` is an unsigned integral type,
  * - uses `fstretch()` to convert to `double` before recursing, then
- * - uses `fstretch()` to convert to `T`. 
+ * - uses `fstretch()` to convert to `T`.
  */
 template <typename T, std::size_t N>
 inline std::enable_if_t<
@@ -924,7 +924,7 @@ inline std::enable_if_t<
        multi<T, N>> premultiply(const multi<T, N>& v)
 {
     if constexpr (std::is_floating_point<T>::value) {
-        multi<T, N> a = 
+        multi<T, N> a =
         multi<T, N>::value(v[N - 1]);
         a[N - 1] = 1;
         return v * a;
@@ -950,7 +950,7 @@ inline std::enable_if_t<
  * @note
  * If `T` is an unsigned integral type,
  * - uses `fstretch()` to convert to `double` before recursing, then
- * - uses `fstretch()` to convert to `T`. 
+ * - uses `fstretch()` to convert to `T`.
  */
 template <typename T, std::size_t N>
 inline std::enable_if_t<
@@ -960,7 +960,7 @@ inline std::enable_if_t<
 {
     if constexpr (std::is_floating_point<T>::value) {
         if (v[N - 1] > 0) {
-            multi<T, N> a = 
+            multi<T, N> a =
             multi<T, N>::value(v[N - 1]);
             a[N - 1] = 1;
             return v / a;
@@ -987,12 +987,12 @@ inline std::enable_if_t<
  * @note
  * If `T` is an unsigned integral type,
  * - uses `fstretch()` to convert to `double` before recursing, then
- * - uses `fstretch()` to convert to `T`. 
+ * - uses `fstretch()` to convert to `T`.
  */
 template <typename T, std::size_t N>
 inline std::enable_if_t<
        std::is_unsigned<T>::value ||
-       std::is_floating_point<T>::value, 
+       std::is_floating_point<T>::value,
        multi<T, N>> composite_premul(
                     composite_mode mode,
                     const multi<T, N>& vsrc,
@@ -1008,57 +1008,57 @@ inline std::enable_if_t<
         T fdst = 0;
         switch (mode) {
             // Only source.
-            case composite_mode::src: 
+            case composite_mode::src:
                 fsrc = 1;
-                fdst = 0; 
+                fdst = 0;
                 break;
 
             // Only destination.
             case composite_mode::dst:
-                fsrc = 0; 
+                fsrc = 0;
                 fdst = 1;
                 break;
 
             // Source over destination.
-            case composite_mode::src_over: 
+            case composite_mode::src_over:
                 fsrc = 1;
-                fdst = 1 - asrc; 
+                fdst = 1 - asrc;
                 break;
 
             // Destination over source.
             case composite_mode::dst_over:
-                fsrc = 1 - adst; 
+                fsrc = 1 - adst;
                 fdst = 1;
                 break;
 
             // Source inside destination.
             case composite_mode::src_in:
                 fsrc = adst;
-                fdst = 0; 
+                fdst = 0;
                 break;
 
             // Destination inside source.
-            case composite_mode::dst_in: 
-                fsrc = 0; 
+            case composite_mode::dst_in:
+                fsrc = 0;
                 fdst = asrc;
                 break;
 
             // Source outside destination.
             case composite_mode::src_out:
                 fsrc = 1 - adst;
-                fdst = 0; 
+                fdst = 0;
                 break;
 
             // Destination outside source.
             case composite_mode::dst_out:
-                fsrc = 0; 
+                fsrc = 0;
                 fdst = 1 - asrc;
                 break;
 
             // Source atop destination.
             case composite_mode::src_atop:
                 fsrc = adst;
-                fdst = 1 - asrc; 
+                fdst = 1 - asrc;
                 break;
 
             // Destination atop source.
@@ -1070,13 +1070,13 @@ inline std::enable_if_t<
             // Exclusive or.
             case composite_mode::exclusive_or:
                 fsrc = 1 - adst;
-                fdst = 1 - asrc; 
+                fdst = 1 - asrc;
                 break;
 
             // Plus.
             case composite_mode::plus:
                 fsrc = 1;
-                fdst = 1; 
+                fdst = 1;
                 break;
 
             default:
@@ -1106,12 +1106,12 @@ inline std::enable_if_t<
  * @note
  * If `T` is an unsigned integral type,
  * - uses `fstretch()` to convert to `double` before recursing, then
- * - uses `fstretch()` to convert to `T`. 
+ * - uses `fstretch()` to convert to `T`.
  */
 template <typename T, std::size_t N>
 inline std::enable_if_t<
        std::is_unsigned<T>::value ||
-       std::is_floating_point<T>::value, 
+       std::is_floating_point<T>::value,
        multi<T, N>> composite(
                     composite_mode mode,
                     const multi<T, N>& vsrc,

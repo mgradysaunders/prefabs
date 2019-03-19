@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -68,7 +68,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
     /**
@@ -107,10 +107,10 @@ public:
             const multi<float_type, 3>& o,
             const multi<float_type, 3>& d,
             float_type tmin = 0,
-            float_type tmax = 
+            float_type tmax =
                 pr::numeric_limits<float_type>::infinity()) :
-                o(o), d(d), 
-                tmin(tmin), 
+                o(o), d(d),
+                tmin(tmin),
                 tmax(tmax)
         {
             cache();
@@ -143,11 +143,11 @@ public:
             const multi<float_type, 3>& d,
             const multi<float_type, 3>& derr,
             float_type tmin = 0,
-            float_type tmax = 
+            float_type tmax =
                 pr::numeric_limits<float_type>::infinity()) :
                 o(o), oerr(oerr),
                 d(d), derr(derr),
-                tmin(tmin), 
+                tmin(tmin),
                 tmax(tmax)
         {
             cache();
@@ -197,16 +197,16 @@ public:
          *
          * @note
          * @f[
-         *      \mathbf{k} = 
+         *      \mathbf{k} =
          *          \begin{bmatrix}
          *              (\ell + 1) \% 3
          *          \\  (\ell + 2) \% 3
          *          \\   \ell
          *          \end{bmatrix}
          * @f]
-         * where 
+         * where
          * @f[
-         *      \ell = 
+         *      \ell =
          *          \operatorname{argmax}
          *          \begin{bmatrix}
          *              |d_{[0]}|
@@ -222,7 +222,7 @@ public:
          *
          * @note
          * @f[
-         *      \mathbf{h}_{\mathrm{r}} = 
+         *      \mathbf{h}_{\mathrm{r}} =
          *          \frac{1}{d_{[k_{[2]}]}}
          *          \begin{bmatrix}
          *              d_{[k_{[0]}]}
@@ -246,7 +246,7 @@ public:
             k[1] = (k[2] + 2) % 3;
 
             // Shear.
-            hr[2] = 
+            hr[2] =
                 float_type(1) /
                 float_interval<float_type>{d[k[2]], derr[k[2]]};
             hr[0] = hr[2] * float_interval<float_type>{d[k[0]], derr[k[0]]};
@@ -350,7 +350,7 @@ public:
         float_type mu0 = pr::sqrt(u[0]);
         float_type mu1 = u[1] * mu0;
         return operator()({
-            1 - mu0, 
+            1 - mu0,
             mu1,
             mu0 - mu1
         });
@@ -395,9 +395,9 @@ public:
         hit.p = bp[0] + bp[1] + bp[2];
 
         // Position absolute error.
-        hit.perr = 
-            pr::fabs(bp[0]) + 
-            pr::fabs(bp[1]) + 
+        hit.perr =
+            pr::fabs(bp[0]) +
+            pr::fabs(bp[1]) +
             pr::fabs(bp[2]);
         hit.perr *= pr::numeric_limits<float_type>::echelon(6);
 
@@ -417,7 +417,7 @@ public:
      * Hit information. _Optional_.
      *
      * @returns
-     * If intersection, returns parameteric value. Else, 
+     * If intersection, returns parameteric value. Else,
      * returns NaN.
      */
     float_type intersect(const ray_info& ray,
@@ -447,8 +447,8 @@ public:
         for (int j = 0; j < 3; j++) {
             int jp1 = (j + 1) % 3;
             int jp2 = (j + 2) % 3;
-            b[j] = 
-                h[jp1][1] * h[jp2][0] - 
+            b[j] =
+                h[jp1][1] * h[jp2][0] -
                 h[jp1][0] * h[jp2][1];
 
             // Track.
@@ -471,14 +471,14 @@ public:
         }
 
         // Barycentric coordinates.
-        if (q.abs_lower_bound() < 
+        if (q.abs_lower_bound() <
             pr::numeric_limits<float_type>::min_invertible()) {
             b[0] /= q;
             b[1] /= q;
             b[2] /= q;
         }
         else {
-            float_interval<float_type> qinv = 
+            float_interval<float_type> qinv =
             float_type(1) / q;
             b[0] *= qinv;
             b[1] *= qinv;
@@ -491,7 +491,7 @@ public:
         h[2][2] = ray.hr[2] * g[2][2];
 
         // Parametric value.
-        float_interval<float_type> t = 
+        float_interval<float_type> t =
             b[0] * h[0][2] +
             b[1] * h[1][2] +
             b[2] * h[2][2];
@@ -499,13 +499,13 @@ public:
         // Reject uncertain hits.
         if (!(t.upper_bound() < ray.tmax &&
               t.lower_bound() > ray.tmin)) {
-            // No intersection. 
+            // No intersection.
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
 
         if (hit) {
             // Delegate.
-            *hit = 
+            *hit =
             operator()({
                 b[0].value(),
                 b[1].value(),

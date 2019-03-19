@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -70,13 +70,13 @@ namespace pr {
  * @note
  * The implementation minimizes move operations by tracking
  * the effective bottom and top of the queue. That is, popping
- * shifts the bottom up instead of moving the elements 
+ * shifts the bottom up instead of moving the elements
  * down. When pushing shifts the top past the queue capacity, the
- * implementation moves all elements down and resets the bottom 
+ * implementation moves all elements down and resets the bottom
  * to zero.
  *
  * @tparam T
- * Queue value type, which must be 
+ * Queue value type, which must be
  * - default constructible,
  * - copy assignable, and
  * - destructible.

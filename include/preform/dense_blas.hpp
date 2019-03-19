@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -67,7 +67,7 @@ namespace pr {
 /**
  * @brief BLAS traits.
  *
- * By default, the implementation assumes `T` is floating point 
+ * By default, the implementation assumes `T` is floating point
  * or complex.
  */
 template <typename T>
@@ -78,7 +78,7 @@ public:
     // Sanity check.
     static_assert(
         std::is_floating_point<T>::value ||
-        is_complex<T>::value,  
+        is_complex<T>::value,
         "T must be floating point or complex");
 
     /**
@@ -146,7 +146,7 @@ public:
  * @name Dense BLAS.
  */
 template <
-    typename T, 
+    typename T,
     typename Ttraits = dense_blas_traits<T>
     >
 struct dense_blas
@@ -231,7 +231,7 @@ public:
      *
      * @param[in] y
      * Vector @f$ \mathbf{y} @f$.
-     * 
+     *
      * @throw std::invalid_argument
      * Unless `x.size() == y.size()`.
      */
@@ -267,8 +267,8 @@ public:
      * Vector @f$ \mathbf{x} @f$.
      *
      * @note
-     * This method maintains a static thread-local buffer of 
-     * temporary values. If `x` is empty, the implementation 
+     * This method maintains a static thread-local buffer of
+     * temporary values. If `x` is empty, the implementation
      * resets the buffer and returns immediately.
      */
     static field_type length(dense_vector_view<const value_type*> x)
@@ -321,12 +321,12 @@ public:
         }
 
         // Impending overflow or underflow?
-        if (abs_tmpmax * 
+        if (abs_tmpmax *
             abs_tmpmax >= pr::numeric_limits<float_type>::max() / x.size() ||
             abs_tmpmin <= pr::numeric_limits<float_type>::min_squarable()) {
 
             // Factor out maximum.
-            if (abs_tmpmax >= 
+            if (abs_tmpmax >=
                     pr::numeric_limits<float_type>::min_invertible()) {
                 tmp *= float_type(1) / tmpmax;
             }
@@ -377,7 +377,7 @@ public:
      *
      * @f[
      *      \mathbf{y} \gets
-     *      \mathbf{y} - 2 \mathbf{x} (\mathbf{x}^\dagger \mathbf{y}) 
+     *      \mathbf{y} - 2 \mathbf{x} (\mathbf{x}^\dagger \mathbf{y})
      * @f]
      *
      * @param[in] x
@@ -392,7 +392,7 @@ public:
      * @note
      * If the implementations of `abs`, `norm`, `conj`, and `sign`
      * do not violate any fundamental assumptions and @f$ \mathbf{x} @f$
-     * is unit length, this operation is unitary and involutory, even 
+     * is unit length, this operation is unitary and involutory, even
      * if the underlying type is non-commutative.
      */
     static void reflect(
@@ -443,15 +443,15 @@ public:
      *
      * @throw std::invalid_argument
      * If `x` is not empty and the dimensions of `y`
-     * do not match. If `x` is empty and `y` is empty 
+     * do not match. If `x` is empty and `y` is empty
      * or not square.
      *
      * @note
-     * If `x` is empty and `y` is square, the implementation operates 
+     * If `x` is empty and `y` is square, the implementation operates
      * on `y` in-place.
      */
     static void adjoint(
-                dense_matrix_view<const value_type*> x, 
+                dense_matrix_view<const value_type*> x,
                 dense_matrix_view<value_type*> y)
     {
         if (x.empty()) {
@@ -459,7 +459,7 @@ public:
             // Ensure square.
             if (y.size0() != y.size1() || y.empty()) {
                 throw std::invalid_argument(__PRETTY_FUNCTION__);
-            } 
+            }
 
             // Swap.
             for (int i = 0; i < y.size0(); i++) {
@@ -520,14 +520,14 @@ public:
      * - let @f$ \mathbf{w} = X_{[p:m,q]} @f$;
      * - let @f$ \alpha = \operatorname{sign}(w_{[0]})
      *                    \lVert\mathbf{w}\rVert @f$;
-     * - update @f$ \mathbf{w} \gets 
+     * - update @f$ \mathbf{w} \gets
      *              \mathbf{w} + \alpha\mathbf{\delta}_0 @f$;
-     * - update @f$ \mathbf{w} \gets 
+     * - update @f$ \mathbf{w} \gets
      *              \mathbf{w} / \lVert\mathbf{w}\rVert @f$ to normalize.
-     * 
-     * For @f$ j \ge q @f$, reflect 
-     * the @f$ X_{[p:m,j]} @f$ over @f$ \mathbf{w} @f$. This 
-     * assumes sequential application of Householder steps, such that 
+     *
+     * For @f$ j \ge q @f$, reflect
+     * the @f$ X_{[p:m,j]} @f$ over @f$ \mathbf{w} @f$. This
+     * assumes sequential application of Householder steps, such that
      * @f$ X_{[p:m,j]} = 0 @f$ for @f$ j < q @f$.
      *
      * @param[in] p
@@ -543,8 +543,8 @@ public:
      * Matrix @f$ \mathbf{Y} @f$. _Optional_.
      *
      * @note
-     * This method maintains a static thread-local buffer of 
-     * temporary values. If `x` is empty, the implementation 
+     * This method maintains a static thread-local buffer of
+     * temporary values. If `x` is empty, the implementation
      * resets the buffer and returns immediately.
      */
     static void householderl(
@@ -642,27 +642,27 @@ public:
                 dense_matrix_view<value_type*> y = {})
     {
         // Conjugate.
-        for (int i = 0; i < x.size0(); i++) 
+        for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
             x[i][j] = Ttraits::conj(x[i][j]);
         }
-        for (int i = 0; i < y.size0(); i++) 
+        for (int i = 0; i < y.size0(); i++)
         for (int j = 0; j < y.size1(); j++) {
             y[i][j] = Ttraits::conj(y[i][j]);
         }
 
         // Delegate.
         householderl(
-                q, p, 
+                q, p,
                 x.transpose(),
                 y.transpose());
 
         // Conjugate.
-        for (int i = 0; i < x.size0(); i++) 
+        for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
             x[i][j] = Ttraits::conj(x[i][j]);
         }
-        for (int i = 0; i < y.size0(); i++) 
+        for (int i = 0; i < y.size0(); i++)
         for (int j = 0; j < y.size1(); j++) {
             y[i][j] = Ttraits::conj(y[i][j]);
         }
@@ -687,8 +687,8 @@ public:
      * Matrix @f$ \mathbf{Q} @f$. _Optional_.
      *
      * @throw std::invalid_argument
-     * If `x` is empty. If 
-     * `q.size0() != x.size0()` or 
+     * If `x` is empty. If
+     * `q.size0() != x.size0()` or
      * `q.size1() != x.size0()`, unless `q` is empty.
      */
     static void decompqr(
@@ -762,11 +762,11 @@ public:
                 dense_matrix_view<value_type*> q = {})
     {
         // Conjugate.
-        for (int i = 0; i < x.size0(); i++) 
+        for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
             x[i][j] = Ttraits::conj(x[i][j]);
         }
-        for (int i = 0; i < q.size0(); i++) 
+        for (int i = 0; i < q.size0(); i++)
         for (int j = 0; j < q.size1(); j++) {
             q[i][j] = Ttraits::conj(q[i][j]);
         }
@@ -777,11 +777,11 @@ public:
             q.block(q.size0(), q.size1(), 0, 0).transpose());
 
         // Conjugate.
-        for (int i = 0; i < x.size0(); i++) 
+        for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
             x[i][j] = Ttraits::conj(x[i][j]);
         }
-        for (int i = 0; i < q.size0(); i++) 
+        for (int i = 0; i < q.size0(); i++)
         for (int j = 0; j < q.size1(); j++) {
             q[i][j] = Ttraits::conj(q[i][j]);
         }
@@ -805,11 +805,11 @@ public:
                 dense_matrix_view<value_type*> q = {})
     {
         // Conjugate.
-        for (int i = 0; i < x.size0(); i++) 
+        for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
             x[i][j] = Ttraits::conj(x[i][j]);
         }
-        for (int i = 0; i < q.size0(); i++) 
+        for (int i = 0; i < q.size0(); i++)
         for (int j = 0; j < q.size1(); j++) {
             q[i][j] = Ttraits::conj(q[i][j]);
         }
@@ -820,11 +820,11 @@ public:
             q.transpose());
 
         // Conjugate.
-        for (int i = 0; i < x.size0(); i++) 
+        for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
             x[i][j] = Ttraits::conj(x[i][j]);
         }
-        for (int i = 0; i < q.size0(); i++) 
+        for (int i = 0; i < q.size0(); i++)
         for (int j = 0; j < q.size1(); j++) {
             q[i][j] = Ttraits::conj(q[i][j]);
         }
@@ -866,8 +866,8 @@ public:
             }
             // Initialize.
             std::iota(
-                    p.begin(), 
-                    p.end(), 
+                    p.begin(),
+                    p.end(),
                     0);
         }
 
@@ -899,10 +899,10 @@ public:
                 }
 
                 // Positive semi-definite?
-                if (!(Ttraits::abs(Ttraits::abs(x[k][k])) > 
-                      Ttraits::abs(Ttraits::abs(x[0][0])) * 
+                if (!(Ttraits::abs(Ttraits::abs(x[k][k])) >
+                      Ttraits::abs(Ttraits::abs(x[0][0])) *
                       pr::numeric_limits<float_type>::epsilon())) {
-                    for (int i = k; i < x.size0(); i++) 
+                    for (int i = k; i < x.size0(); i++)
                     for (int j = k; j < i + 1; j++) {
                         x[i][j] = value_type();
                     }
@@ -939,7 +939,7 @@ public:
     }
 
     /**@}*/
-}; 
+};
 
 /**@}*/
 

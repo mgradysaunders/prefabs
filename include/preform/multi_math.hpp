@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -64,7 +64,7 @@ namespace pr {
 
 /**
  * @defgroup multi_math_geometry Multi-dimensional array (math, geometry)
- * 
+ *
  * `<preform/multi_math.hpp>`
  *
  * __C++ version__: >=C++17
@@ -94,9 +94,9 @@ constexpr decltype(T() * U()) dot(
  * @f]
  */
 template <
-    typename T, 
-    typename U, 
-    std::size_t M, 
+    typename T,
+    typename U,
+    std::size_t M,
     std::size_t N
     >
 constexpr multi<decltype(T() * U()), M> dot(
@@ -119,9 +119,9 @@ constexpr multi<decltype(T() * U()), M> dot(
  * @f]
  */
 template <
-    typename T, 
-    typename U, 
-    std::size_t N, 
+    typename T,
+    typename U,
+    std::size_t N,
     std::size_t P
     >
 constexpr multi<decltype(T() * U()), P> dot(
@@ -144,10 +144,10 @@ constexpr multi<decltype(T() * U()), P> dot(
  * @f]
  */
 template <
-    typename T, 
-    typename U, 
-    std::size_t M, 
-    std::size_t N, 
+    typename T,
+    typename U,
+    std::size_t M,
+    std::size_t N,
     std::size_t P
     >
 constexpr multi<decltype(T() * U()), M, P> dot(
@@ -171,9 +171,9 @@ constexpr multi<decltype(T() * U()), M, P> dot(
  * @f]
  */
 template <
-    typename T, 
-    typename U, 
-    std::size_t M, 
+    typename T,
+    typename U,
+    std::size_t M,
     std::size_t P
     >
 constexpr multi<decltype(T() * U()), M, P> outer(
@@ -288,7 +288,7 @@ template <
     std::size_t M, std::size_t N,
     std::size_t P, std::size_t Q
     >
-constexpr multi<decltype(T() * U()), 
+constexpr multi<decltype(T() * U()),
                 M * P, N * Q> kron(
                         const multi<T, M, N>& arr0,
                         const multi<T, P, Q>& arr1)
@@ -319,7 +319,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
     else if constexpr (N == 2) {
         // Delegate.
         return pr::hypot(
-                    pr::abs(arr[0]), 
+                    pr::abs(arr[0]),
                     pr::abs(arr[1]));
     }
     else {
@@ -328,7 +328,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
         typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
 
         // Reduce to floating point absolutes values.
-        multi<float_type, N> tmp = 
+        multi<float_type, N> tmp =
         multi<float_type, N>(pr::abs(arr));
 
         // Determine extremal values.
@@ -342,7 +342,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
         }
 
         // Impending overflow or underflow?
-        if (tmpmax * 
+        if (tmpmax *
             tmpmax >= pr::numeric_limits<float_type>::max() / N ||
             tmpmin <= pr::numeric_limits<float_type>::min_squarable()) {
             // Factor out maximum.
@@ -400,7 +400,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) fastlength(const multi<T, N>& arr)
  * If length is zero, returns the zero vector.
  */
 template <typename T, std::size_t N>
-inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N> 
+inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
                                     normalize(const multi<T, N>& arr)
 {
     // Deduce floating point type.
@@ -434,12 +434,12 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
  *
  * _Fast_ means the implementation
  * - assumes no overflow/underflow in length calculation,
- * - assumes length is positive (and greater than or equal to 
+ * - assumes length is positive (and greater than or equal to
  * minimum invertible value).
  */
 template <typename T, std::size_t N>
 __attribute__((always_inline))
-inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N> 
+inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
                                     fastnormalize(const multi<T, N>& arr)
 {
     // Normalize.

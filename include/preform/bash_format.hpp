@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -338,13 +338,13 @@ struct terminal_dims
      * @brief Get current terminal dimensions.
      *
      * @note
-     * On Linux, uses `ioctl` to fetch terminal size. Otherwise, 
+     * On Linux, uses `ioctl` to fetch terminal size. Otherwise,
      * defaults to 24 rows by 80 columns.
      */
     static terminal_dims get()
     {
     #if __linux__
-        struct winsize winsz; 
+        struct winsize winsz;
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &winsz);
         return {
             int(winsz.ws_row),
@@ -383,7 +383,7 @@ public:
         os << '[';
 
         // Terminal dimensions.
-        terminal_dims dims = 
+        terminal_dims dims =
         terminal_dims::get();
         if (dims.cols < 8) {
             // Error?
@@ -394,7 +394,7 @@ public:
         }
 
         // Amount.
-        double amount = 
+        double amount =
             std::max(0.0,
             std::min(1.0, bar.amount));
 
@@ -436,8 +436,8 @@ public:
 
         // Print progress.
         int column0 = messageitr - message;
-        int column1 = 
-            std::max(column0, 
+        int column1 =
+            std::max(column0,
                  int(columns * amount));
         for (; column0 < column1; column0++) { os << '='; }
         for (; column1 < columns; column1++) { os << '.'; }

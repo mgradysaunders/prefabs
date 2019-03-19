@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -84,7 +84,7 @@ public:
      * @brief Constructor.
      *
      * @param[in] n
-     * Number of threads. If less than 1, uses 
+     * Number of threads. If less than 1, uses
      * `std::thread::hardware_concurrency()`.
      */
     thread_pool(int n = 0)
@@ -108,7 +108,7 @@ public:
     /**
      * @brief Destructor.
      */
-    ~thread_pool() 
+    ~thread_pool()
     {
         shutdown();
     }
@@ -122,10 +122,10 @@ public:
      * `std::future<decltype(std::forward<Func>(func)(std::forward<Args>(args)...))>`.
      */
     template <
-        typename Func, 
+        typename Func,
         typename... Args
         >
-    inline auto submit(Func&& func, Args&&... args) 
+    inline auto submit(Func&& func, Args&&... args)
 #if !DOXYGEN
         -> std::future<decltype(
                 std::forward<Func>(func)(
@@ -133,13 +133,13 @@ public:
 #endif // #if !DOXYGEN
     {
         // bind arguments
-        auto bind = 
+        auto bind =
                 std::bind(
                 std::forward<Func>(func),
                 std::forward<Args>(args)...);
 
         // allocate packaged task
-        auto bind_ptr = 
+        auto bind_ptr =
                 std::make_shared<
                 std::packaged_task<decltype(bind())()>>(bind);
 
@@ -205,7 +205,7 @@ private:
         {
             // lock
             std::unique_lock<std::mutex> lock(mutex_);
-            
+
             // delegate
             return queue_.empty();
         }
@@ -228,7 +228,7 @@ private:
          * @param[in] task
          * Pushed task.
          */
-        void push(const task_func& task) 
+        void push(const task_func& task)
         {
             // lock
             std::unique_lock<std::mutex> lock(mutex_);
@@ -301,12 +301,12 @@ private:
                 {
                     std::unique_lock<std::mutex> lock(pool_.cv_mutex_);
                     if (pool_.queue_.empty()) {
-                        pool_.cv_.wait_for(lock, 
+                        pool_.cv_.wait_for(lock,
                             std::chrono::milliseconds(50)); // avoid hanging
                     }
                     pop_okay = pool_.queue_.pop(task);
                 }
-                
+
                 if (pop_okay) {
                     task();
                 }

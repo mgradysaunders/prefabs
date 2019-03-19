@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -51,7 +51,7 @@ namespace pr {
 /**
  * @brief Running statistic.
  *
- * @see 
+ * @see
  * This Wikipedia article on [Algorithms for calculating variance][1].
  * [1]: https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance
  */
@@ -62,7 +62,7 @@ public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value, 
+        std::is_floating_point<T>::value,
         "T must be floating point");
 
 public:
@@ -92,7 +92,7 @@ public:
      */
     constexpr running_stat(
             long long n,
-            T m0, 
+            T m0,
             T m1,
             T m2,
             T m3) :
@@ -226,7 +226,7 @@ public:
             (n_ * m_[0] + x) / n1,
             m_[1] + t,
             m_[2] + s * (t * (n_ - 1) - 3 * m_[1]),
-            m_[3] + s * (s * (t * (n_ * (n_ - 1) + 1) + 
+            m_[3] + s * (s * (t * (n_ * (n_ - 1) + 1) +
             6 * m_[1]) - 4 * m_[2])
         };
     }
@@ -251,10 +251,10 @@ public:
      * - @f$ q \gets d^2 p @f$
      * - @f$ m' \gets m_A + r_B d @f$
      * - @f$ M_2' \gets M_{2,A} + M_{2,B} + q @f$
-     * - @f$ M_3' \gets M_{3,A} + M_{3,B} + q d (r_A - r_B) + 
+     * - @f$ M_3' \gets M_{3,A} + M_{3,B} + q d (r_A - r_B) +
      *         3 d (r_A M_{2,B} - r_B M_{2,A}) @f$
-     * - @f$ M_4' \gets M_{4,A} + M_{4,B} + q d^2 (r_A^2 - r_A r_B + r_B^2) + 
-     *         6 d^2 (r_A^2 M_{2,B} - r_B^2 M_{2,A}) + 
+     * - @f$ M_4' \gets M_{4,A} + M_{4,B} + q d^2 (r_A^2 - r_A r_B + r_B^2) +
+     *         6 d^2 (r_A^2 M_{2,B} - r_B^2 M_{2,A}) +
      *         4 d (r_A M_{3,B} - r_B M_{3,A}) @f$
      */
     running_stat operator+(const running_stat& b) const
@@ -265,7 +265,7 @@ public:
         T d = b.m_[0] - a.m_[0];
         T ra = a.n_ / T(a.n_ + b.n_);
         T rb = b.n_ / T(a.n_ + b.n_);
-        T p = 
+        T p =
             a.n_ > b.n_ ?
             b.n_ / (T(1) + T(b.n_) / T(a.n_)) :
             a.n_ / (T(1) + T(a.n_) / T(b.n_)); // = a.n_ * b.n_ / c.n_
@@ -276,12 +276,12 @@ public:
             a.n_ + b.n_,
             a.m_[0] + d * rb,
             a.m_[1] + b.m_[1] + q,
-            a.m_[2] + b.m_[2] + 
-            d * (q * (ra - rb) + 
+            a.m_[2] + b.m_[2] +
+            d * (q * (ra - rb) +
             3 * (ra * b.m_[1] - rb * a.m_[1])),
-            a.m_[3] + b.m_[3] + 
+            a.m_[3] + b.m_[3] +
             d * (d * (q * (ra * ra - ra * rb + rb * rb) +
-            6 * (ra * ra * b.m_[1] + rb * rb * a.m_[1])) + 
+            6 * (ra * ra * b.m_[1] + rb * rb * a.m_[1])) +
             4 * (ra * b.m_[2] + rb * a.m_[2]))
         };
     }

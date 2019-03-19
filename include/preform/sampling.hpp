@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -87,13 +87,13 @@ inline std::enable_if_t<
  * - @f$ u_{[0]}' \gets 2 u_{[0]} - 1 @f$
  * - If @f$ |u_{[0]}'| > |u_{[1]}| @f$:
  * @f[
- *      (r, \theta) = 
+ *      (r, \theta) =
  *          \left(u_{[0]}',
  *          \frac{\pi}{4}\frac{u_{[1]}}{u_{[0]}'}\right)
  * @f]
  * - If @f$ |u_{[0]}'| \le |u_{[1]}| @f$:
  * @f[
- *      (r, \theta) = 
+ *      (r, \theta) =
  *          \left(u_{[1]},
  *          \frac{\pi}{2} -
  *          \frac{\pi}{4}\frac{u_{[0]}'}{u_{[1]}}\right)
@@ -247,7 +247,7 @@ inline std::enable_if_t<
  * @brief Cosine hemisphere probability density function sampling routine.
  *
  * @f[
- *      \omega_{\text{cosine}}(\mathbf{u}) = 
+ *      \omega_{\text{cosine}}(\mathbf{u}) =
  *      \begin{bmatrix}
  *          P_{[0]}
  *      \\  P_{[1]}
@@ -279,7 +279,7 @@ inline std::enable_if_t<
  * @brief Uniform cone probability density function.
  *
  * @f[
- *      f_{\text{cone}} = 
+ *      f_{\text{cone}} =
  *      \frac{1}{2\pi} \frac{1}{1 - \cos(\theta_{\max})}
  * @f]
  *
@@ -298,7 +298,7 @@ inline std::enable_if_t<
  * @brief Uniform cone probability density function sampling routine.
  *
  * @f[
- *      \omega_{\text{cone}}(\mathbf{u}) = 
+ *      \omega_{\text{cone}}(\mathbf{u}) =
  *      \begin{bmatrix}
  *          \sqrt{1-(1-u_{[0]}+u_{[0]}\cos(\theta_{\max}))^2}\cos(2\pi u_{[1]})
  *      \\  \sqrt{1-(1-u_{[0]}+u_{[0]}\cos(\theta_{\max}))^2}\sin(2\pi u_{[1]})
@@ -334,7 +334,7 @@ inline std::enable_if_t<
  * @brief Henyey-Greenstein phase probability density function.
  *
  * @f[
- *      f_{\text{HG}}(g; \omega_{[2]}) = 
+ *      f_{\text{HG}}(g; \omega_{[2]}) =
  *      \frac{1}{4\pi}\frac{1 - g^2}{(1 + g^2 - 2g\omega_{[2]})^{3/2}}
  * @f]
  *
@@ -360,7 +360,7 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Henyey-Greenstein phase probability density function 
+ * @brief Henyey-Greenstein phase probability density function
  * sampling routine.
  *
  * @param[in] g
@@ -371,7 +371,7 @@ inline std::enable_if_t<
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, 
+       std::is_floating_point<T>::value,
                 multi<T, 3>> hg_phase_pdf_sample(T g, multi<T, 2> u)
 {
     if (pr::fabs(g) < T(0.00001)) {
@@ -403,14 +403,14 @@ inline std::enable_if_t<
  * - @f$ \hat{\mathbf{y}} \gets [\alpha_1\; \alpha_3\; -\hat{z}_{[1]}]^\top @f$
  *
  * @note
- * As the notation suggests, the implementation assumes the input 
+ * As the notation suggests, the implementation assumes the input
  * vector `hatz` is unit-length.
  */
 template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value, void> build_onb(
-                    const multi<T, 3>& hatz, 
-                    multi<T, 3>& hatx, 
+                    const multi<T, 3>& hatz,
+                    multi<T, 3>& hatx,
                     multi<T, 3>& haty)
 {
     hatx = {};
@@ -442,12 +442,12 @@ inline std::enable_if_t<
  * @f]
  *
  * @note
- * As the notation suggests, the implementation assumes the input 
+ * As the notation suggests, the implementation assumes the input
  * vector `hatz` is unit-length.
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, 
+       std::is_floating_point<T>::value,
                 multi<T, 3, 3>> build_onb(const multi<T, 3>& hatz)
 {
     multi<T, 3> hatx;
@@ -485,8 +485,8 @@ inline std::enable_if_t<
                                     const multi<T, 3>& wg)
 {
     // Offset.
-    multi<T, 3> oprime = o + wg * 
-            pr::copysign(dot(pr::fabs(wg), oerr), 
+    multi<T, 3> oprime = o + wg *
+            pr::copysign(dot(pr::fabs(wg), oerr),
                          dot(wg, wi));
 
     // Round away.
@@ -511,21 +511,21 @@ inline std::enable_if_t<
  * Number of strata in each dimension.
  *
  * @param[out] arr
- * Sample arrays, must point to `dim.prod()` samples. 
+ * Sample arrays, must point to `dim.prod()` samples.
  *
  * @throw std::invalid_argument
  * If `(dim <= 0).any()` or `!arr`.
  */
 template <
-    typename G, 
+    typename G,
     typename P,
     typename T, std::size_t N
     >
 inline std::enable_if_t<
        std::is_integral<P>::value &&
        std::is_floating_point<T>::value, void> stratify(
-                    G&& gen, 
-                    const multi<P, N>& dim, 
+                    G&& gen,
+                    const multi<P, N>& dim,
                           multi<T, N>* arr)
 {
     if ((dim <= P(0)).any() || !arr) {
@@ -559,8 +559,8 @@ inline std::enable_if_t<
 
     // Shuffle into random order.
     std::shuffle(
-        arr, 
-        arr + dim.prod(), 
+        arr,
+        arr + dim.prod(),
         std::forward<G>(gen));
 }
 

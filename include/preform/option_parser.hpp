@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -106,7 +106,7 @@ public:
      */
     std::ostream& in_group(const char* name)
     {
-        for (auto itr = opt_groups_.begin(); 
+        for (auto itr = opt_groups_.begin();
                   itr != opt_groups_.end(); ++itr) {
             if ((!itr->name && !name) ||
                  (itr->name && !std::strcmp(itr->name, name))) {
@@ -301,7 +301,7 @@ public:
 
                 // find group?
                 bool itrfound = false;
-                for (auto itr = opt_groups_.begin(); 
+                for (auto itr = opt_groups_.begin();
                           itr != opt_groups_.end(); ++itr) {
                     if (itr->name && !std::strcmp(itr->name, *argv)) {
                         // end
@@ -396,7 +396,7 @@ private:
     static bool isoptstr(const char* s)
     {
         // [-]+
-        if (!s || 
+        if (!s ||
             *s != '-') {
             return false;
         }
@@ -412,7 +412,7 @@ private:
         ++s;
 
         // (?:-?[a-zA-Z0-9]+)
-        for (const char* t = s; true; 
+        for (const char* t = s; true;
                          s = t) {
             // -?
             if (*t == '-') {
@@ -446,7 +446,7 @@ private:
         const char* name_abbrv;
 
         /**
-         * @brief Name. 
+         * @brief Name.
          */
         const char* name;
 
@@ -473,7 +473,7 @@ private:
         operator std::string() const
         {
             std::string desc;
-            if (name_abbrv && 
+            if (name_abbrv &&
                 name) {
                 desc.append(name_abbrv).append("/")
                     .append(name);

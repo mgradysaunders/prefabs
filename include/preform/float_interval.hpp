@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -53,7 +53,7 @@
 namespace pr {
 
 /**
- * @defgroup float_interval Float bounds 
+ * @defgroup float_interval Float bounds
  *
  * `<preform/float_interval.hpp>`
  *
@@ -90,9 +90,9 @@ public:
      * @param[in] x
      * Value.
      */
-    float_interval(T x) : 
-            x_(x), 
-            x0_(x), 
+    float_interval(T x) :
+            x_(x),
+            x0_(x),
             x1_(x)
     {
     }
@@ -225,22 +225,22 @@ public:
     {
         if constexpr (inclusive0 && inclusive1) {
             // Both inclusive.
-            return lower_bound() <= oth.upper_bound() && 
+            return lower_bound() <= oth.upper_bound() &&
                    upper_bound() >= oth.lower_bound();
         }
         else if constexpr (inclusive0 && !inclusive1) {
             // First inclusive, second exclusive.
-            return lower_bound() <= oth.upper_bound() && 
+            return lower_bound() <= oth.upper_bound() &&
                    upper_bound() > oth.lower_bound();
         }
         else if constexpr (!inclusive0 && inclusive1) {
             // First exclusive, second inclusive.
-            return lower_bound() < oth.upper_bound() && 
+            return lower_bound() < oth.upper_bound() &&
                    upper_bound() >= oth.lower_bound();
         }
         else {
             // Both exclusive.
-            return lower_bound() < oth.upper_bound() && 
+            return lower_bound() < oth.upper_bound() &&
                    upper_bound() > oth.lower_bound();
         }
     }
@@ -256,22 +256,22 @@ public:
     {
         if constexpr (inclusive0 && inclusive1) {
             // Both inclusive.
-            return lower_bound() <= oth.lower_bound() && 
+            return lower_bound() <= oth.lower_bound() &&
                    upper_bound() >= oth.upper_bound();
         }
         else if constexpr (inclusive0 && !inclusive1) {
             // First inclusive, second exclusive.
-            return lower_bound() <= oth.lower_bound() && 
+            return lower_bound() <= oth.lower_bound() &&
                    upper_bound() > oth.upper_bound();
         }
         else if constexpr (!inclusive0 && inclusive1) {
             // First exclusive, second inclusive.
-            return lower_bound() < oth.lower_bound() && 
+            return lower_bound() < oth.lower_bound() &&
                    upper_bound() >= oth.upper_bound();
         }
         else {
             // Both exclusive.
-            return lower_bound() < oth.lower_bound() && 
+            return lower_bound() < oth.lower_bound() &&
                    upper_bound() > oth.upper_bound();
         }
     }
@@ -403,7 +403,7 @@ public:
     static void solve_poly1(
                 const float_interval& a0,
                 const float_interval& a1,
-                float_interval& t0) 
+                float_interval& t0)
     {
         t0 = -a0 / a1;
     }
@@ -430,7 +430,7 @@ public:
      * @param[out] t1
      * Solution.
      *
-     * @post 
+     * @post
      * - `!(t1.value() > t0.value())`
      */
     static void solve_poly2(
@@ -491,7 +491,7 @@ inline float_interval<T> operator-(const float_interval<T>& b)
  * @f[
  *      [b_{00}, b_{01}] \oplus
  *      [b_{10}, b_{11}] \subset
- *      [\operatorname{fdec}(b_{00} \oplus b_{10}), 
+ *      [\operatorname{fdec}(b_{00} \oplus b_{10}),
  *       \operatorname{finc}(b_{01} \oplus b_{11})]
  * @f]
  */
@@ -514,7 +514,7 @@ inline float_interval<T> operator+(
  * @f[
  *      [b_{00}, b_{01}] \ominus
  *      [b_{10}, b_{11}] \subset
- *      [\operatorname{fdec}(b_{00} \ominus b_{11}), 
+ *      [\operatorname{fdec}(b_{00} \ominus b_{11}),
  *       \operatorname{finc}(b_{01} \ominus b_{10})]
  * @f]
  */
@@ -537,7 +537,7 @@ inline float_interval<T> operator-(
  * @f[
  *      [b_{00}, b_{01}] \otimes
  *      [b_{10}, b_{11}] \subset
- *      [\operatorname{fdec}(\min\{t_{jk}\}), 
+ *      [\operatorname{fdec}(\min\{t_{jk}\}),
  *       \operatorname{finc}(\max\{t_{jk}\})]
  * @f]
  * where
@@ -569,7 +569,7 @@ inline float_interval<T> operator*(
  * @f[
  *      [b_{00}, b_{01}] \oslash
  *      [b_{10}, b_{11}] \subset
- *      [\operatorname{fdec}(\min\{t_{jk}\}), 
+ *      [\operatorname{fdec}(\min\{t_{jk}\}),
  *       \operatorname{finc}(\max\{t_{jk}\})]
  * @f]
  * where
@@ -769,7 +769,7 @@ inline float_interval<T> fabs(const float_interval<T>& b)
         pr::fabs(b.value()),
         T(0),
         pr::fmax(
-                -b.lower_bound(), 
+                -b.lower_bound(),
                 +b.upper_bound())
     };
 }
@@ -800,11 +800,11 @@ inline void float_interval<T>::solve_poly2(
             float_interval& t1)
 {
     if (a2.contains(T(0)) ||
-        a2.abs_upper_bound() < 
-        a1.abs_lower_bound() * 
+        a2.abs_upper_bound() <
+        a1.abs_lower_bound() *
             pr::numeric_limits<T>::min_invertible() ||
-        a2.abs_upper_bound() < 
-        a0.abs_lower_bound() * 
+        a2.abs_upper_bound() <
+        a0.abs_lower_bound() *
             pr::numeric_limits<T>::min_invertible()) {
         // Solve linear.
         t0 = -a0 / a1;
@@ -844,7 +844,7 @@ inline void float_interval<T>::solve_poly2(
     t1 = c0 / t0;
 
     // Sort.
-    if (t1.value() < 
+    if (t1.value() <
         t0.value()) {
         std::swap(t0, t1);
     }

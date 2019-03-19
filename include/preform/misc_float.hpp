@@ -83,7 +83,7 @@ inline std::enable_if_t<
         if (u != (0x7f8UL << 20)) {
 
             // Skip negative zero.
-            if (u == (1UL << 31)) { 
+            if (u == (1UL << 31)) {
                 u = 0;
             }
 
@@ -109,10 +109,10 @@ inline std::enable_if_t<
         std::memcpy(&u, &x, 8);
 
         // Is not positive infinity?
-        if (u != (0x7ffULL << 52)) { 
+        if (u != (0x7ffULL << 52)) {
 
             // Skip negative zero.
-            if (u == (1ULL << 63)) { 
+            if (u == (1ULL << 63)) {
                 u = 0;
             }
 
@@ -179,7 +179,7 @@ inline std::enable_if_t<
         std::memcpy(&u, &x, 8);
 
         // Is not negative infinity?
-        if (u != (0xfffULL << 52)) { 
+        if (u != (0xfffULL << 52)) {
 
             // Skip positive zero.
             if (u == 0) {

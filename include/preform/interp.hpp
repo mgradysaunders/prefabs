@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -49,7 +49,7 @@ namespace pr {
 /**
  * @brief Generic linear interpolation.
  *
- * @param [in] t 
+ * @param [in] t
  * Factor.
  *
  * @param [in] p0
@@ -59,13 +59,13 @@ namespace pr {
  * Control point at @f$ t = 1 @f$.
  */
 template <
-    typename Tvalue, 
+    typename Tvalue,
     typename Tcontrol
     >
 __attribute__((always_inline))
 constexpr auto lerp(
-            Tvalue t, 
-            const Tcontrol& p0, 
+            Tvalue t,
+            const Tcontrol& p0,
             const Tcontrol& p1)
 {
     return (1 - t) * p0 + t * p1;
@@ -74,7 +74,7 @@ constexpr auto lerp(
 /**
  * @brief Generic cubic Hermite interpolation.
  *
- * @param [in] t 
+ * @param [in] t
  * Factor.
  *
  * @param [in] p0
@@ -86,7 +86,7 @@ constexpr auto lerp(
  * @param [in] m1
  * Slope at @f$ t = 1 @f$.
  *
- * @param [in] p1 
+ * @param [in] p1
  * Control point at @f$ t = 1 @f$.
  *
  * @see Wikipedia's article for [Cubic Hermite spline][1].
@@ -97,10 +97,10 @@ template <
     typename Tcontrol
     >
 constexpr auto hermite(
-            Tvalue t, 
-            const Tcontrol& p0, 
-            const Tcontrol& m0, 
-            const Tcontrol& m1, 
+            Tvalue t,
+            const Tcontrol& p0,
+            const Tcontrol& m0,
+            const Tcontrol& m1,
             const Tcontrol& p1)
 {
     Tvalue s = t - 1;
@@ -113,7 +113,7 @@ constexpr auto hermite(
 /**
  * @brief Generate cubic Hermite interpolation deriviatve.
  *
- * @param [in] t 
+ * @param [in] t
  * Factor.
  *
  * @param [in] p0
@@ -125,7 +125,7 @@ constexpr auto hermite(
  * @param [in] m1
  * Slope at @f$ t = 1 @f$.
  *
- * @param [in] p1 
+ * @param [in] p1
  * Control point at @f$ t = 1 @f$.
  */
 template <
@@ -133,10 +133,10 @@ template <
     typename Tcontrol
     >
 constexpr auto hermite_deriv(
-            Tvalue t, 
-            const Tcontrol& p0, 
-            const Tcontrol& m0, 
-            const Tcontrol& m1, 
+            Tvalue t,
+            const Tcontrol& p0,
+            const Tcontrol& m0,
+            const Tcontrol& m1,
             const Tcontrol& p1)
 {
     Tvalue g00 = 6 * t * (t - 1);
@@ -148,7 +148,7 @@ constexpr auto hermite_deriv(
 /**
  * @brief Generic cubic Catmull-Rom interpolation.
  *
- * @param [in] t 
+ * @param [in] t
  * Factor.
  *
  * @param [in] pprev
@@ -172,10 +172,10 @@ template <
     >
 __attribute__((always_inline))
 constexpr auto catmull(
-            Tvalue t, 
-            const Tcontrol& pprev, 
-            const Tcontrol& p0, 
-            const Tcontrol& p1, 
+            Tvalue t,
+            const Tcontrol& pprev,
+            const Tcontrol& p0,
+            const Tcontrol& p1,
             const Tcontrol& pnext)
 {
     return hermite(t, p0, p1 - pprev, pnext - p0, p1);
@@ -184,7 +184,7 @@ constexpr auto catmull(
 /**
  * @brief Generic cubic Catmull-Rom interpolation derivative.
  *
- * @param [in] t 
+ * @param [in] t
  * Factor.
  *
  * @param [in] pprev
@@ -208,10 +208,10 @@ template <
     >
 __attribute__((always_inline))
 constexpr auto catmull_deriv(
-            Tvalue t, 
-            const Tcontrol& pprev, 
-            const Tcontrol& p0, 
-            const Tcontrol& p1, 
+            Tvalue t,
+            const Tcontrol& pprev,
+            const Tcontrol& p0,
+            const Tcontrol& p1,
             const Tcontrol& pnext)
 {
     return hermite_deriv(t, p0, p1 - pprev, pnext - p0, p1);

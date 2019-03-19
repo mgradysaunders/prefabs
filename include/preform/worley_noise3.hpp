@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -119,7 +119,7 @@ public:
         multi<int, 3> w0 = t0;
         multi<int, 3> wk;
         for (wk[0] = w0[0] - 1; wk[0] <= w0[0] + 1; wk[0]++)
-        for (wk[1] = w0[1] - 1; wk[1] <= w0[1] + 1; wk[1]++) 
+        for (wk[1] = w0[1] - 1; wk[1] <= w0[1] + 1; wk[1]++)
         for (wk[2] = w0[2] - 1; wk[2] <= w0[2] + 1; wk[2]++) {
 
             // Generator.
@@ -144,17 +144,17 @@ public:
             float_type sk = pr::dot(tk, tk) / float_type(3);
             if (s > sk) {
                 s = sk;
-                if (ds_dt) { 
+                if (ds_dt) {
                     *ds_dt = (float_type(2) / float_type(3)) * tk;
                 }
             }
         }
-        
+
         // Square root.
         s = pr::sqrt(s);
 
         // Chain rule.
-        if (ds_dt) { 
+        if (ds_dt) {
             if (s == float_type(0)) {
                 *ds_dt = {};
             }

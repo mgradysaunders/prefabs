@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -53,10 +53,10 @@ namespace pr {
  * @brief Fresnel equations for dielectric interface.
  *
  * - @f$ \cos^2{\theta_t} = 1 - \eta^2 (1 - \cos^2{\theta_i}) @f$
- * - @f$ r_s = 
+ * - @f$ r_s =
  *      (\eta \cos{\theta_i} - \cos{\theta_t}) /
  *      (\eta \cos{\theta_i} + \cos{\theta_t}) @f$
- * - @f$ r_p = 
+ * - @f$ r_p =
  *      (\cos{\theta_i} - \eta \cos{\theta_t}) /
  *      (\cos{\theta_i} + \eta \cos{\theta_t}) @f$
  * - @f$ t_s = 1 + r_s @f$
@@ -84,7 +84,7 @@ namespace pr {
  * Transmission p-polarization.
  *
  * @note
- * In the case of total internal reflection, 
+ * In the case of total internal reflection,
  * - `cos_thetat = 0`,
  * - `rs = rp = 1`, and
  * - `ts = tp = 0`.
@@ -92,7 +92,7 @@ namespace pr {
 template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value, void> fresnel_dielectric(
-                T eta, 
+                T eta,
                 T cos_thetai,
                 T& cos_thetat,
                 T& rs, T& rp,
@@ -109,7 +109,7 @@ inline std::enable_if_t<
         rs = (eta * cos_thetai - cos_thetat) / (eta * cos_thetai + cos_thetat);
         rp = (cos_thetai - eta * cos_thetat) / (cos_thetai + eta * cos_thetat);
         ts = 1 + rs;
-        tp = 1 + rp; 
+        tp = 1 + rp;
         tp *= eta;
         cos_thetat = -cos_thetat;
     }
@@ -140,17 +140,17 @@ template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value, void> fresnel_dielectric(
                 T eta,
-                T cos_thetai, 
-                T& cos_thetat, 
+                T cos_thetai,
+                T& cos_thetat,
                 T& fr, T& ft)
 {
     T rs = 0, rp = 0;
     T ts = 0, tp = 0;
     fresnel_dielectric(
-        eta, 
-        cos_thetai, 
-        cos_thetat, 
-        rs, rp, 
+        eta,
+        cos_thetai,
+        cos_thetat,
+        rs, rp,
         ts, tp);
     fr = T(0.5) * (rs * rs + rp * rp);
     ft = 1 - fr;

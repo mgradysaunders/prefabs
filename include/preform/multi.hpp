@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -72,7 +72,7 @@ namespace pr {
 
 #if !DOXYGEN
 
-template <typename, std::size_t...> 
+template <typename, std::size_t...>
 struct multi;
 
 template <typename T, std::size_t... N>
@@ -93,7 +93,7 @@ struct multi_initializer_list;
 template <typename T, std::size_t M, std::size_t... N>
 struct multi_initializer_list<T, M, N...>
 {
-    using type = 
+    using type =
         std::initializer_list<
         typename multi_initializer_list<T, N...>::type>;
 };
@@ -200,7 +200,7 @@ public:
      * @brief Rebind entry type.
      */
     template <typename U>
-    struct rebind 
+    struct rebind
     {
         typedef multi<U, M, N...> other;
     };
@@ -250,8 +250,8 @@ public:
         auto itr = begin();
         auto itrlist = list.begin();
         for (; itr < end() &&
-               itrlist < list.end(); 
-               ++itr, 
+               itrlist < list.end();
+               ++itr,
                ++itrlist) {
             *itr = *itrlist;
         }
@@ -556,7 +556,7 @@ public:
     /**
      * @brief Entrywise pre-increment.
      */
-    constexpr multi& operator++() 
+    constexpr multi& operator++()
     {
         for (value_type& val : *this) { ++val; } return *this;
     }
@@ -564,7 +564,7 @@ public:
     /**
      * @brief Entrywise pre-decrement.
      */
-    constexpr multi& operator--() 
+    constexpr multi& operator--()
     {
         for (value_type& val : *this) { --val; } return *this;
     }
@@ -572,7 +572,7 @@ public:
     /**
      * @brief Entrywise post-increment.
      */
-    constexpr multi operator++(int) 
+    constexpr multi operator++(int)
     {
         multi tmp = *this; operator++(); return tmp;
     }
@@ -580,7 +580,7 @@ public:
     /**
      * @brief Entrywise post-decrement.
      */
-    constexpr multi operator--(int) 
+    constexpr multi operator--(int)
     {
         multi tmp = *this; operator--(); return tmp;
     }
@@ -828,8 +828,8 @@ public:
      */
     constexpr flatten_type flatten() const
     {
-        flatten_type res; 
-        flatten_into(&res[0]); 
+        flatten_type res;
+        flatten_into(&res[0]);
         return res;
     }
 
@@ -987,16 +987,16 @@ public:
 public:
 
     /**
-     * @name Vector members 
+     * @name Vector members
      */
     /**@{*/
 
     /**
      * @brief Alias for `operator[](0)`.
      */
-    template <bool B = (sizeof...(N) == 0) && (M <= 4)> 
+    template <bool B = (sizeof...(N) == 0) && (M <= 4)>
     __attribute__((always_inline))
-    constexpr std::enable_if_t<B, value_type&> x() 
+    constexpr std::enable_if_t<B, value_type&> x()
     {
         return v_[0];
     }
@@ -1004,7 +1004,7 @@ public:
     /**
      * @brief Alias for `operator[](0)`, const variant.
      */
-    template <bool B = (sizeof...(N) == 0) && (M <= 4)> 
+    template <bool B = (sizeof...(N) == 0) && (M <= 4)>
     __attribute__((always_inline))
     constexpr std::enable_if_t<B, const value_type&> x() const
     {
@@ -1014,9 +1014,9 @@ public:
     /**
      * @brief Alias for `operator[](1)`.
      */
-    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 2)> 
+    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 2)>
     __attribute__((always_inline))
-    constexpr std::enable_if_t<B, value_type&> y() 
+    constexpr std::enable_if_t<B, value_type&> y()
     {
         return v_[1];
     }
@@ -1024,7 +1024,7 @@ public:
     /**
      * @brief Alias for `operator[](1)`, const variant.
      */
-    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 2)> 
+    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 2)>
     __attribute__((always_inline))
     constexpr std::enable_if_t<B, const value_type&> y() const
     {
@@ -1034,9 +1034,9 @@ public:
     /**
      * @brief Alias for `operator[](2)`.
      */
-    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 3)> 
+    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 3)>
     __attribute__((always_inline))
-    constexpr std::enable_if_t<B, value_type&> z() 
+    constexpr std::enable_if_t<B, value_type&> z()
     {
         return v_[2];
     }
@@ -1044,7 +1044,7 @@ public:
     /**
      * @brief Alias for `operator[](2)`, const variant.
      */
-    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 3)> 
+    template <bool B = (sizeof...(N) == 0) && (M <= 4 && M >= 3)>
     __attribute__((always_inline))
     constexpr std::enable_if_t<B, const value_type&> z() const
     {
@@ -1054,9 +1054,9 @@ public:
     /**
      * @brief Alias for `operator[](3)`.
      */
-    template <bool B = (sizeof...(N) == 0) && (M == 4)> 
+    template <bool B = (sizeof...(N) == 0) && (M == 4)>
     __attribute__((always_inline))
-    constexpr std::enable_if_t<B, value_type&> w() 
+    constexpr std::enable_if_t<B, value_type&> w()
     {
         return v_[3];
     }
@@ -1064,7 +1064,7 @@ public:
     /**
      * @brief Alias for `operator[](3)`, const variant.
      */
-    template <bool B = (sizeof...(N) == 0) && (M == 4)> 
+    template <bool B = (sizeof...(N) == 0) && (M == 4)>
     __attribute__((always_inline))
     constexpr std::enable_if_t<B, const value_type&> w() const
     {
@@ -1135,7 +1135,7 @@ public:
             os << ',';
             os << *itr++;
         }
-        os << ']'; 
+        os << ']';
         return os;
     }
 
@@ -1155,7 +1155,7 @@ constexpr std::size_t multitoindex(const multi<bool, N>& arr)
 {
     std::size_t num = 0;
     std::size_t bit = 0;
-    for (auto itrarr = arr.begin(); 
+    for (auto itrarr = arr.begin();
               itrarr < arr.end(); ++itrarr, ++bit) {
         num |= (std::size_t(*itrarr) << bit);
     }

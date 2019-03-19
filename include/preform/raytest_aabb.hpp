@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -110,10 +110,10 @@ public:
             const multi<float_type, 3>& o,
             const multi<float_type, 3>& d,
             float_type tmin = 0,
-            float_type tmax = 
+            float_type tmax =
                 pr::numeric_limits<float_type>::infinity()) :
-                o(o), d(d), 
-                tmin(tmin), 
+                o(o), d(d),
+                tmin(tmin),
                 tmax(tmax)
         {
             // Delegate.
@@ -147,11 +147,11 @@ public:
             const multi<float_type, 3>& d,
             const multi<float_type, 3>& derr,
             float_type tmin = 0,
-            float_type tmax = 
+            float_type tmax =
                 pr::numeric_limits<float_type>::infinity()) :
                 o(o), oerr(oerr),
                 d(d), derr(derr),
-                tmin(tmin), 
+                tmin(tmin),
                 tmax(tmax)
         {
             // Delegate.
@@ -209,8 +209,8 @@ public:
          * @f[
          *      d_{\min[k]} =
          *      \begin{cases}
-         *          1 & d_{[k]} < 0 
-         *      \\  0 & d_{[k]} \ge 0 
+         *          1 & d_{[k]} < 0
+         *      \\  0 & d_{[k]} \ge 0
          *      \end{cases}
          * @f]
          */
@@ -244,7 +244,7 @@ public:
             dmax = 1 - dmin;
 #if 0
             for (int j = 0; j < 3; j++) {
-                dinv[j] = float_type(1) / 
+                dinv[j] = float_type(1) /
                           float_interval<float_type>{d[j], derr[j]};
             }
 #else
@@ -281,7 +281,7 @@ public:
      * Ray information.
      *
      * @returns
-     * If intersection, returns parameteric value. Else, 
+     * If intersection, returns parameteric value. Else,
      * returns NaN.
      */
     float_type intersect(const ray_info& ray) const
@@ -327,7 +327,7 @@ public:
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
 
-        return tmin.value() > ray.tmin ? 
+        return tmin.value() > ray.tmin ?
                tmin.value() : tmax.value();
 #else
         // Slab intersection.

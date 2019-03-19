@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -70,7 +70,7 @@ struct is_dualnum<dualnum<T>> : std::true_type
 };
 
 template <typename T>
-struct is_dualnum_param : 
+struct is_dualnum_param :
             std::integral_constant<bool,
             std::is_arithmetic<T>::value ||
             is_complex<T>::value>
@@ -89,7 +89,7 @@ public:
 
     // Sanity check.
     static_assert(
-        is_dualnum_param<T>::value, 
+        is_dualnum_param<T>::value,
         "T must be arithmetic or complex");
 
     /**
@@ -145,16 +145,16 @@ public:
      * @brief Set real part, return previous real part.
      */
     constexpr T real(T val)
-    { 
-        T a = a_; a_ = val; return a; 
+    {
+        T a = a_; a_ = val; return a;
     }
 
     /**
      * @brief Set dual part, return previous dual part.
      */
     constexpr T dual(T val)
-    { 
-        T b = b_; b_ = val; return b; 
+    {
+        T b = b_; b_ = val; return b;
     }
 
     /**@}*/
@@ -190,21 +190,21 @@ public:
     {
         C ch;
         if (!(is >> ch) ||
-            !Ctraits::eq(ch, 
+            !Ctraits::eq(ch,
              Ctraits::to_char_type('('))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         is >> x.a_;
         if (!(is >> ch) ||
-            !Ctraits::eq(ch, 
+            !Ctraits::eq(ch,
              Ctraits::to_char_type(','))) {
             is.setstate(std::ios_base::failbit);
             return is;
         }
         is >> x.b_;
         if (!(is >> ch) ||
-            !Ctraits::eq(ch, 
+            !Ctraits::eq(ch,
              Ctraits::to_char_type(')'))) {
             is.setstate(std::ios_base::failbit);
             return is;
@@ -267,9 +267,9 @@ constexpr dualnum<T> operator-(const dualnum<T>& x)
  * @brief Distribute `operator+`.
  *
  * @f[
- *      (a_0 + \varepsilon b_0) + 
- *      (a_1 + \varepsilon b_1) = 
- *      (a_0 + a_1) + \varepsilon 
+ *      (a_0 + \varepsilon b_0) +
+ *      (a_1 + \varepsilon b_1) =
+ *      (a_0 + a_1) + \varepsilon
  *      (b_0 + b_1)
  * @f]
  */
@@ -286,8 +286,8 @@ constexpr dualnum<decltype(T() + U())> operator+(
  *
  * @f[
  *      (a_0 + \varepsilon b_0) -
- *      (a_1 + \varepsilon b_1) = 
- *      (a_0 - a_1) + \varepsilon 
+ *      (a_1 + \varepsilon b_1) =
+ *      (a_0 - a_1) + \varepsilon
  *      (b_0 - b_1)
  * @f]
  */
@@ -304,8 +304,8 @@ constexpr dualnum<decltype(T() - U())> operator-(
  *
  * @f[
  *      (a_0 + \varepsilon b_0)
- *      (a_1 + \varepsilon b_1) = 
- *       a_0 a_1 + \varepsilon 
+ *      (a_1 + \varepsilon b_1) =
+ *       a_0 a_1 + \varepsilon
  *      (a_0 b_1 + b_0 a_1)
  * @f]
  */
@@ -324,9 +324,9 @@ constexpr dualnum<decltype(T() * U())> operator*(
  * @brief Distribute `operator*`, inverting right hand side.
  *
  * @f[
- *      (a_0 + \varepsilon b_0) 
- *      (a_1 + \varepsilon b_1)^{-1} = 
- *       a_0 a_1^{-1} + \varepsilon 
+ *      (a_0 + \varepsilon b_0)
+ *      (a_1 + \varepsilon b_1)^{-1} =
+ *       a_0 a_1^{-1} + \varepsilon
  *      (b_0 a_1 - a_0 b_1) a_1^{-2}
  * @f]
  */
@@ -337,7 +337,7 @@ constexpr dualnum<decltype(T() / U())> operator/(
 {
     return {
         x0.real() / x1.real(),
-        (x0.dual() * x1.real() - x0.real() * x1.dual()) / 
+        (x0.dual() * x1.real() - x0.real() * x1.dual()) /
         (x1.real() * x1.real())
     };
 }
@@ -353,7 +353,7 @@ constexpr dualnum<decltype(T() / U())> operator/(
  * @brief Distribute `operator+`.
  *
  * @f[
- *      (a_0 + \varepsilon b_0) + a_1 = 
+ *      (a_0 + \varepsilon b_0) + a_1 =
  *      (a_0 + a_1) + \varepsilon b_0
  * @f]
  */
@@ -371,7 +371,7 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator-`.
  *
  * @f[
- *      (a_0 + \varepsilon b_0) - a_1 = 
+ *      (a_0 + \varepsilon b_0) - a_1 =
  *      (a_0 - a_1) + \varepsilon b_0
  * @f]
  */
@@ -389,7 +389,7 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator*`.
  *
  * @f[
- *      (a_0 + \varepsilon b_0) a_1 = 
+ *      (a_0 + \varepsilon b_0) a_1 =
  *       a_0 a_1 + \varepsilon b_0 a_1
  * @f]
  */
@@ -407,7 +407,7 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator*`, inverting right hand side.
  *
  * @f[
- *      (a_0 + \varepsilon b_0) a_1^{-1} = 
+ *      (a_0 + \varepsilon b_0) a_1^{-1} =
  *       a_0 a_1^{-1} + \varepsilon b_0 a_1^{-1}
  * @f]
  */
@@ -432,7 +432,7 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator+`.
  *
  * @f[
- *       a_0 + (a_1 + \varepsilon b_1) = 
+ *       a_0 + (a_1 + \varepsilon b_1) =
  *      (a_0 + a_1) + \varepsilon b_1
  * @f]
  */
@@ -450,7 +450,7 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator-`.
  *
  * @f[
- *       a_0 - (a_1 + \varepsilon b_1)  = 
+ *       a_0 - (a_1 + \varepsilon b_1)  =
  *      (a_0 - a_1) - \varepsilon b_1
  * @f]
  */
@@ -468,7 +468,7 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator*`.
  *
  * @f[
- *      a_0 (a_1 + \varepsilon b_1) = 
+ *      a_0 (a_1 + \varepsilon b_1) =
  *      a_0  a_1 + \varepsilon a_0 b_1
  * @f]
  */
@@ -486,7 +486,7 @@ constexpr std::enable_if_t<
  * @brief Distribute `operator*`, inverting right hand side.
  *
  * @f[
- *      a_0 (a_1 + \varepsilon b_1)^{-1} = 
+ *      a_0 (a_1 + \varepsilon b_1)^{-1} =
  *      a_0  a_1^{-1} - \varepsilon a_0 b_1 a_1^{-2}
  * @f]
  */
@@ -499,7 +499,7 @@ constexpr std::enable_if_t<
 {
     return {
         x0 / x1.real(),
-        -x0 * x1.dual() / 
+        -x0 * x1.dual() /
         (x1.real() * x1.real())
     };
 }
@@ -665,7 +665,7 @@ constexpr T dual(const dualnum<T>& x)
  * @brief Conjugate.
  *
  * @f[
- *      (a + \varepsilon b)^\circ = 
+ *      (a + \varepsilon b)^\circ =
  *       a - \varepsilon b
  * @f]
  */
@@ -685,10 +685,10 @@ constexpr dualnum<T> conj(const dualnum<T>& x)
  * @f]
  *
  * @note
- * If `T` is complex, returns a floating 
+ * If `T` is complex, returns a floating
  * point type.
  */
-template <typename T> 
+template <typename T>
 __attribute__((always_inline))
 constexpr auto norm(const dualnum<T>& x)
 {
@@ -702,7 +702,7 @@ constexpr auto norm(const dualnum<T>& x)
  *      |a + \varepsilon b| = |a|
  * @f]
  *
- * @note 
+ * @note
  * If `T` is complex, returns a floating
  * point type.
  */

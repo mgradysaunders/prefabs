@@ -510,7 +510,7 @@ public:
                     this->convert(cycle(ind)));
 
                 // Add.
-                target = 
+                target =
                     fstretch<entry_type>(weight * val +
                     fstretch<float_type>(target));
             }

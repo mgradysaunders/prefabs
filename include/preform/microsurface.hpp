@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -58,7 +58,7 @@ namespace pr {
  * __C++ version__: >=C++17
  *
  * This implementation is based on the work of Heitz, Hanika, d'Eon, and
- * Dachsbacher in _Multiple-scattering microfacet BSDFs with the Smith model_. 
+ * Dachsbacher in _Multiple-scattering microfacet BSDFs with the Smith model_.
  *
  * @see
  * Eric Heitz's [page][1].
@@ -93,7 +93,7 @@ public:
      * @brief Smith shadowing term.
      *
      * @f[
-     *      \Lambda_{11}(\omega_o) = 
+     *      \Lambda_{11}(\omega_o) =
      *      \frac{1}{2}\operatorname{sign}(\omega_{o_z})
      *      \sqrt{1 + 1/a^2} - \frac{1}{2} =
      *      \frac{1}{2}\frac{\lVert{\omega_o}\rVert}{\omega_{o_z}} -
@@ -104,7 +104,7 @@ public:
      *      a = \frac{\omega_{o_z}}{
      *          \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}}
      * @f]
-     * 
+     *
      * @param[in] wo
      * Viewing direction.
      */
@@ -117,8 +117,8 @@ public:
      * @brief Projected area.
      *
      * @f[
-     *      A_{\perp11}(\omega_o) = 
-     *          (1 + \Lambda_{11}(\omega_o))\omega_{o_z} = 
+     *      A_{\perp11}(\omega_o) =
+     *          (1 + \Lambda_{11}(\omega_o))\omega_{o_z} =
      *          \frac{1}{2}\lVert{\omega_o}\rVert +
      *          \frac{1}{2}\omega_{o_z}
      * @f]
@@ -135,7 +135,7 @@ public:
      * @brief Distribution of slopes.
      *
      * @f[
-     *      P_{11}([m_x\; m_y]^\top) = 
+     *      P_{11}([m_x\; m_y]^\top) =
      *      \frac{1}{\pi}
      *      \frac{1}{(1 + m_x^2 + m_y^2)^2}
      * @f]
@@ -145,7 +145,7 @@ public:
      */
     static float_type p11(multi<float_type, 2> m)
     {
-        return pr::numeric_constants<float_type>::M_1_pi() / 
+        return pr::numeric_constants<float_type>::M_1_pi() /
                pr::nthpow(1 + pr::dot(m, m), 2);
     }
 
@@ -169,7 +169,7 @@ public:
         // Handle cos(thetao) ~= +1.
         if (cos_thetao > float_type(0.99999)) {
             float_type r = pr::sqrt(u[0] / (1 - u[0]));
-            float_type phi = 
+            float_type phi =
                 2 * pr::numeric_constants<float_type>::M_pi() * u[1];
             return {
                 r * pr::cos(phi),
@@ -189,7 +189,7 @@ public:
         // Slope x.
         float_type mu = u[0] * (1 + sec_thetao) - 1;
         float_type nu = 1 / (1 - mu * mu);
-        float_type q = 
+        float_type q =
                 pr::sqrt(
                 pr::fmax(float_type(0),
                     mu * mu * nu -
@@ -207,17 +207,17 @@ public:
             u[1] = 1 - 2 * u[1];
             m[1] = -1;
         }
-        m[1] *= pr::sqrt(1 + m[0] * m[0]) * 
-            (u[1] * 
-            (u[1] * 
-            (u[1] * float_type(0.273850) - 
-                    float_type(0.733690)) + 
-                    float_type(0.463410))) / 
+        m[1] *= pr::sqrt(1 + m[0] * m[0]) *
             (u[1] *
-            (u[1] * 
-            (u[1] * float_type(0.093073) + 
-                    float_type(0.309420)) - 
-                    float_type(1.000000)) + 
+            (u[1] *
+            (u[1] * float_type(0.273850) -
+                    float_type(0.733690)) +
+                    float_type(0.463410))) /
+            (u[1] *
+            (u[1] *
+            (u[1] * float_type(0.093073) +
+                    float_type(0.309420)) -
+                    float_type(1.000000)) +
                     float_type(0.597999));
 
         return m;
@@ -251,7 +251,7 @@ public:
      * @brief Smith shadowing term.
      *
      * @f[
-     *      \Lambda_{11}(\omega_o) = 
+     *      \Lambda_{11}(\omega_o) =
      *          \frac{1}{2a\sqrt{\pi}}e^{-a^2} -
      *          \frac{1}{2}\operatorname{erfc}(a)
      * @f]
@@ -260,14 +260,14 @@ public:
      *      a = \frac{\omega_{o_z}}{
      *          \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}}
      * @f]
-     * 
+     *
      * @param[in] wo
      * Viewing direction.
      */
     static float_type lambda11(multi<float_type, 3> wo)
     {
         float_type a = wo[2] / pr::hypot(wo[0], wo[1]);
-        return (pr::numeric_constants<float_type>::M_2_sqrtpi() / 2 * 
+        return (pr::numeric_constants<float_type>::M_2_sqrtpi() / 2 *
                 pr::exp(-a * a) / a - pr::erfc(a)) / 2;
     }
 
@@ -275,11 +275,11 @@ public:
      * @brief Projected area.
      *
      * @f[
-     *      A_{\perp11}(\omega_o) = 
+     *      A_{\perp11}(\omega_o) =
      *          (1 + \Lambda_{11}(\omega_o))\omega_{o_z} =
      *          \frac{1}{2\sqrt{\pi}}
-     *          \sqrt{\omega_{o_x}^2 + 
-     *                \omega_{o_y}^2}e^{-a^2} + 
+     *          \sqrt{\omega_{o_x}^2 +
+     *                \omega_{o_y}^2}e^{-a^2} +
      *          \frac{1}{2}\omega_{o_z}\operatorname{erfc}(-a)
      * @f]
      * where
@@ -303,7 +303,7 @@ public:
      * @brief Distribution of slopes.
      *
      * @f[
-     *      P_{11}([m_x\; m_y]^\top) = 
+     *      P_{11}([m_x\; m_y]^\top) =
      *      \frac{1}{\pi} e^{-m_x^2 - m_y^2}
      * @f]
      *
@@ -336,7 +336,7 @@ public:
         // Handle cos(thetao) ~= +1.
         if (cos_thetao > float_type(0.99999)) {
             float_type r = pr::sqrt(pr::log(-u[0]));
-            float_type phi = 
+            float_type phi =
                 2 * pr::numeric_constants<float_type>::M_pi() * u[1];
             return {
                 r * pr::cos(phi),
@@ -344,14 +344,14 @@ public:
             };
         }
 
-        // Trig terms. 
+        // Trig terms.
         float_type cos2_thetao = cos_thetao * cos_thetao;
         float_type sin2_thetao = 1 - cos2_thetao;
         float_type sin_thetao = pr::sqrt(sin2_thetao);
         float_type cot_thetao = cos_thetao / sin_thetao;
 
         auto c11 = [=](float_type a) {
-            return 
+            return
                 (pr::numeric_constants<float_type>::M_2_sqrtpi() / 2 *
                  sin_thetao * pr::exp(-a * a) + cos_thetao * pr::erfc(-a)) / 2;
         };
@@ -366,17 +366,17 @@ public:
         // Search.
         float_type erf_amin = float_type(-0.99999);
         float_type erf_amax = pr::fmax(erf_amin, pr::erf(cot_thetao));
-        float_type erf_a = 
-            float_type(0.5) * erf_amin + 
+        float_type erf_a =
+            float_type(0.5) * erf_amin +
             float_type(0.5) * erf_amax;
         while (erf_amax - erf_amin > float_type(0.00001)) {
 
             // Out of bounds?
-            if (!(erf_a >= erf_amin && 
+            if (!(erf_a >= erf_amin &&
                   erf_a <= erf_amax))  {
                 // Center.
-                erf_a = 
-                    float_type(0.5) * erf_amin + 
+                erf_a =
+                    float_type(0.5) * erf_amin +
                     float_type(0.5) * erf_amax;
             }
 
@@ -408,8 +408,8 @@ public:
             }
 
             // Newton-Raphson update.
-            float_type dc_derf_a = 
-            float_type(0.5) * cnorm * 
+            float_type dc_derf_a =
+            float_type(0.5) * cnorm *
                     (cos_thetao - a * sin_thetao);
             erf_a -= c / dc_derf_a;
         }
@@ -419,7 +419,7 @@ public:
         erf_a = pr::fmax(erf_a, erf_amin);
         return {
             pr::erfinv(erf_a),
-            pr::erfinv(2 * u[1] - 1)    
+            pr::erfinv(2 * u[1] - 1)
         };
     }
 };
@@ -588,7 +588,7 @@ public:
      * @brief Smith shadowing term.
      *
      * @f[
-     *      \Lambda(\omega_o) = 
+     *      \Lambda(\omega_o) =
      *      \Lambda_{11}(
      *      [\alpha_x\omega_{o_x}\;
      *       \alpha_y\omega_{o_y}\;
@@ -636,7 +636,7 @@ public:
      * @brief Distribution of slopes.
      *
      * @f[
-     *      P_{22}([m_x\; m_y]^\top) = \frac{1}{\alpha_x \alpha_y} 
+     *      P_{22}([m_x\; m_y]^\top) = \frac{1}{\alpha_x \alpha_y}
      *      P_{11}([m_x/\alpha_x\; m_y/\alpha_y]^\top)
      * @f]
      *
@@ -661,8 +661,8 @@ public:
      * @brief Distribution of normals.
      *
      * @f[
-     *      D(\omega_m) = 
-     *      \frac{1}{\cos^4{\theta_m}} 
+     *      D(\omega_m) =
+     *      \frac{1}{\cos^4{\theta_m}}
      *      P_{22}(-[\omega_{m_x}\;
      *               \omega_{m_y}]^\top / \cos{\theta_m})
      * @f]
@@ -879,7 +879,7 @@ public:
         // Intersect.
         return Theight::c1inv(
                Theight::c1(h0) /
-                    pr::pow(1 - u, 
+                    pr::pow(1 - u,
                             1 / lambda(wo)));
     }
 
@@ -895,7 +895,7 @@ private:
  * @brief Diffuse BRDF microsurface adapter.
  */
 template <typename Tslope, typename Theight>
-struct diffuse_brdf_microsurface_adapter : 
+struct diffuse_brdf_microsurface_adapter :
                     public microsurface_adapter<Tslope, Theight>
 {
 public:
@@ -960,8 +960,8 @@ public:
         // Evaluate.
         float_type lambda_wo = lambda(wo);
         float_type lambda_wi = lambda(wi);
-        float_type g2_given_g1 = 
-                (1 + lambda_wo) / 
+        float_type g2_given_g1 =
+                (1 + lambda_wo) /
                 (1 + lambda_wo + lambda_wi);
         return pr::numeric_constants<float_type>::M_1_pi() *
                pr::fmax(pr::dot(wm, wi), float_type(0)) * g2_given_g1;
@@ -976,8 +976,8 @@ public:
      * @param[in] wi
      * Incident direction.
      *
-     * @note 
-     * For simplicity, this implementation samples 
+     * @note
+     * For simplicity, this implementation samples
      * the single-scattering BRDF as if it is Lambertian.
      */
     float_type fs_pdf(
@@ -998,7 +998,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF probability density function 
+     * @brief Single-scattering BRDF probability density function
      * sampling routine.
      *
      * @param[in] u
@@ -1007,8 +1007,8 @@ public:
      * @param[in] wo
      * Outgoing direction.
      *
-     * @note 
-     * For simplicity, this implementation samples 
+     * @note
+     * For simplicity, this implementation samples
      * the single-scattering BRDF as if it is Lambertian.
      */
     multi<float_type, 3> fs_pdf_sample(
@@ -1062,8 +1062,8 @@ public:
         // Initial direction.
         multi<float_type, 3> wk = -wo;
 
-        for (int k = 0; 
-                    kres == 0 || 
+        for (int k = 0;
+                    kres == 0 ||
                     kres > k;) {
 
             // Sample next height.
@@ -1079,8 +1079,8 @@ public:
                 kres == k) {
 
                 // Next event estimation.
-                float_type fk = 
-                    g1(wi, hk) * 
+                float_type fk =
+                    g1(wi, hk) *
                     pm({std::forward<U>(uk)(),
                         std::forward<U>(uk)()}, -wk, wi);
                 if (pr::isfinite(fk)) {
@@ -1118,7 +1118,7 @@ public:
      */
     template <typename U>
     multi<float_type, 3> fm_sample(
-            U&& uk, multi<float_type, 3> wo, 
+            U&& uk, multi<float_type, 3> wo,
             int& k) const
     {
         // Flip.
@@ -1171,7 +1171,7 @@ private:
      * @brief Phase function.
      *
      * @f[
-     *      p_m(\omega_o, \omega_i) = 
+     *      p_m(\omega_o, \omega_i) =
      *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
      * @f]
      * where @f$ \omega_m \sim D_{\omega_o} @f$
@@ -1248,7 +1248,7 @@ public:
      */
     template <typename... Targs>
     dielectric_bsdf_microsurface_adapter(
-            float_type eta, 
+            float_type eta,
             Targs&&... args) :
                 microsurface_adapter<Tslope, Theight>::
                 microsurface_adapter(std::forward<Targs>(args)...),
@@ -1285,14 +1285,14 @@ public:
      * If @f$ \omega_{i_z} > 0 @f$, calculate the BRDF:
      * - @f$ \mathbf{v}_m \gets \omega_o + \omega_i @f$
      * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
-     * - @f$ G_2(\omega_o, \omega_i) = 1 / 
+     * - @f$ G_2(\omega_o, \omega_i) = 1 /
      *          (1 + \Lambda(\omega_o) + \Lambda(\omega_i)) @f$
      *
      * @f[
-     *      f_s(\omega_o, \omega_i) = 
+     *      f_s(\omega_o, \omega_i) =
      *          \frac{1}{\omega_{o_z}}
-     *          D(\omega_m) 
-     *          F_r(\omega_o \cdot \omega_m) 
+     *          D(\omega_m)
+     *          F_r(\omega_o \cdot \omega_m)
      *          G_2(\omega_o, \omega_i)
      * @f]
      *
@@ -1300,15 +1300,15 @@ public:
      * - @f$ \mathbf{v}_m \gets \eta\omega_o + \omega_i @f$
      * - @f$ \mathbf{v}_m \gets -\mathbf{v}_m @f$ if @f$ v_{m_z} < 0 @f$
      * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
-     * - @f$ G_2(\omega_o, \omega_i) = 
+     * - @f$ G_2(\omega_o, \omega_i) =
      *         \beta(1 + \Lambda(\omega_o),
      *               1 + \Lambda(\omega_i)) @f$
      *
      * @f[
-     *      f_s(\omega_o, \omega_i) = 
+     *      f_s(\omega_o, \omega_i) =
      *          \frac{1}{\omega_{o_z}}
-     *          D(\omega_m) 
-     *          F_t(\omega_o \cdot \omega_m) 
+     *          D(\omega_m)
+     *          F_t(\omega_o \cdot \omega_m)
      *          G_2(\omega_o, \omega_i)
      *          |\omega_o \cdot \omega_m|
      *          |\omega_i \cdot \omega_m|
@@ -1320,7 +1320,7 @@ public:
      *     f_s(\omega_o, \omega_i) \frac{1}{|\omega_{i_z}|\eta_i^2} =
      *     f_s(\omega_i, \omega_o) \frac{1}{|\omega_{o_z}|\eta_o^2}
      * @f]
-     *                      
+     *
      * @param[in] wo
      * Outgoing direction.
      *
@@ -1345,10 +1345,10 @@ public:
         }
 
         if (wi[2] > 0) {
-            
+
             // Microsurface normal.
             multi<float_type, 3> wm = normalize(wo + wi);
-        
+
             // Masking-shadowing.
             float_type lambda_wo = lambda(wo);
             float_type lambda_wi = lambda(wi);
@@ -1359,9 +1359,9 @@ public:
             float_type cos_thetat;
             float_type fr, ft;
             fresnel_dielectric(
-                eta, 
-                cos_thetao, 
-                cos_thetat, 
+                eta,
+                cos_thetao,
+                cos_thetat,
                 fr, ft);
             return d(wm) * fr * g2 / (4 * wo[2]);
         }
@@ -1391,7 +1391,7 @@ public:
             float_type lambda_wo = lambda(+wo);
             float_type lambda_wi = lambda(-wi);
             float_type g2 = pr::exp(
-                    pr::lgamma(1 + lambda_wo) + 
+                    pr::lgamma(1 + lambda_wo) +
                     pr::lgamma(1 + lambda_wi) -
                     pr::lgamma(2 + lambda_wo + lambda_wi));
 
@@ -1401,10 +1401,10 @@ public:
             float_type fr, ft;
             fresnel_dielectric(
                     eta,
-                    cos_thetao, 
+                    cos_thetao,
                     cos_thetat,
                     fr, ft);
-            return d(wm) * ft * g2 * 
+            return d(wm) * ft * g2 *
                    (dot_wo_wm * -dot_wi_wm /
                     dot_vm_vm / wo[2]);
         }
@@ -1465,12 +1465,12 @@ public:
             // Incident direction outside?
             bool wi_outside = wi[2] > 0;
 
-            for (int k = 0; 
-                        kres == 0 || 
+            for (int k = 0;
+                        kres == 0 ||
                         kres > k;) {
 
                 // Sample next height.
-                hk = 
+                hk =
                     wk_outside ?
                     +h_sample(std::forward<U>(uk)(), +wk, +hk) :
                     -h_sample(std::forward<U>(uk)(), -wk, -hk);
@@ -1493,7 +1493,7 @@ public:
                         float_type fk =
                             (wi_outside ?
                             g1(+wi, +hk) :
-                            g1(-wi, -hk)) * 
+                            g1(-wi, -hk)) *
                             pm(-wk, wi, wk_outside, wi_outside);
                         if (pr::isfinite(fk)) {
                             f += fk;
@@ -1505,7 +1505,7 @@ public:
                 wk = fastnormalize(
                      pm_sample(
                         std::forward<U>(uk)(),
-                        {std::forward<U>(uk)(), 
+                        {std::forward<U>(uk)(),
                          std::forward<U>(uk)()},
                         -wk, wk_outside, wk_outside));
 
@@ -1521,7 +1521,7 @@ public:
         if (nitr > 1) {
             f /= nitr;
         }
-        
+
         // Single-scattering component.
         if (kres == 0 ||
             kres == 1) {
@@ -1563,9 +1563,9 @@ public:
         }
 
         for (k = 0; true;) {
-            
+
             // Sample next height.
-            hk = 
+            hk =
                 wk_outside ?
                 +h_sample(std::forward<U>(uk)(), +wk, +hk) :
                 -h_sample(std::forward<U>(uk)(), -wk, -hk);
@@ -1580,7 +1580,7 @@ public:
             wk = fastnormalize(
                  pm_sample(
                     std::forward<U>(uk)(),
-                    {std::forward<U>(uk)(), 
+                    {std::forward<U>(uk)(),
                      std::forward<U>(uk)()},
                     -wk, wk_outside, wk_outside));
 
@@ -1686,7 +1686,7 @@ private:
                     fr, ft);
 
             // Transmission.
-            return dwo(wo, wm) * ft * 
+            return dwo(wo, wm) * ft *
                   -dot_wi_wm / dot_vm_vm;
         }
     }
@@ -1712,15 +1712,15 @@ private:
     multi<float_type, 3> pm_sample(
             float_type u0,
             multi<float_type, 2> u1,
-            multi<float_type, 3> wo, 
-            bool wo_outside, 
+            multi<float_type, 3> wo,
+            bool wo_outside,
             bool& wi_outside) const
     {
         // Refractive index.
         float_type eta = wo_outside ? eta_ : 1 / eta_;
 
         // Microsurface normal.
-        multi<float_type, 3> wm = 
+        multi<float_type, 3> wm =
             wo_outside ?
             +dwo_sample(u1, +wo) :
             -dwo_sample(u1, -wo);
@@ -1743,7 +1743,7 @@ private:
         else {
             // Refract.
             wi_outside = !wo_outside;
-            return -eta * wo + 
+            return -eta * wo +
                    (eta * cos_thetao +
                           cos_thetat) * wm;
         }
@@ -1755,7 +1755,7 @@ private:
      * @brief Refractive index @f$ \eta @f$.
      *
      * @f[
-     *      \eta = 
+     *      \eta =
      *      \frac{\eta_{+}}
      *           {\eta_{-}}
      * @f]
