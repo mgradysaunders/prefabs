@@ -92,8 +92,8 @@ int main(int argc, char** argv)
     Float rmin = generateCanonical() * Float(0.5);
     Float rmax = generateCanonical() * Float(2.5) + 1;
     Float h = generateCanonical() * 100 - 50;
-    std::cout << "rmin = " << rmin << '\n';
-    std::cout << "rmax = " << rmax << '\n';
+    std::cout << "rmin = " << rmin << "\n";
+    std::cout << "rmax = " << rmax << "\n";
     std::cout << "h = " << h << "\n\n";
 
     std::cout << "Testing RaytestDisk:\n";
