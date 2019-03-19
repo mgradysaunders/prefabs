@@ -367,7 +367,7 @@ public:
      *
      * - @f$ \mathbf{v}_i \gets 
      *       \mathbf{p}_{\text{hit}} - \mathbf{p}_{\text{ref}} @f$
-     * - @f$ \omega_i \gets \mathbf{v}_i / \lVert \mathbf{v}_i \rVert @f$
+     * - @f$ \omega_i \gets \normalize(\mathbf{v}_i) @f$
      * - @f$ \omega_g \gets [0\; 0\; 1]^\top @f$
      * @f[
      *      f_{\omega}(

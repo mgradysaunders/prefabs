@@ -378,8 +378,8 @@ public:
      * - @f$ \mathbf{v}_g \gets \mathbf{q}_1 \times \mathbf{q}_2 @f$
      * - @f$ \mathbf{v}_i \gets 
      *       \mathbf{p}_{\text{hit}} - \mathbf{p}_{\text{ref}} @f$
-     * - @f$ \omega_i \gets \mathbf{v}_i / \lVert \mathbf{v}_i \rVert @f$
-     * - @f$ \omega_g \gets \mathbf{v}_g / \lVert \mathbf{v}_g \rVert @f$
+     * - @f$ \omega_i \gets \normalize(\mathbf{v}_i) @f$
+     * - @f$ \omega_g \gets \normalize(\mathbf{v}_g) @f$
      * - @f$ A \gets \lVert \mathbf{v}_g \rVert @f$
      * @f[
      *      f_{\omega}(
