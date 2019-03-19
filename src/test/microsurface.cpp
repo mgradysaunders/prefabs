@@ -20,25 +20,25 @@ typedef pr::vec3<Float> Vec3f;
 // Diffuse microsurface with Trowbridge-Reitz slope distribution.
 typedef pr::diffuse_brdf_microsurface_adapter<
         pr::trowbridge_reitz_microsurface_slope<Float>,
-        pr::uniform_microsurface_height<Float>> 
+        pr::uniform_microsurface_height<Float>>
             DiffuseTrowbridgeReitz;
 
 // Diffuse microsurface with Beckmann slope distribution.
 typedef pr::diffuse_brdf_microsurface_adapter<
         pr::beckmann_microsurface_slope<Float>,
-        pr::uniform_microsurface_height<Float>> 
+        pr::uniform_microsurface_height<Float>>
             DiffuseBeckmann;
 
 // Dielectric microsurface with Trowbridge-Reitz slope distribution.
 typedef pr::dielectric_bsdf_microsurface_adapter<
         pr::trowbridge_reitz_microsurface_slope<Float>,
-        pr::uniform_microsurface_height<Float>> 
+        pr::uniform_microsurface_height<Float>>
             DielectricTrowbridgeReitz;
 
 // Dielectric microsurface with Beckmann slope distribution.
 typedef pr::dielectric_bsdf_microsurface_adapter<
         pr::beckmann_microsurface_slope<Float>,
-        pr::uniform_microsurface_height<Float>> 
+        pr::uniform_microsurface_height<Float>>
             DielectricBeckmann;
 
 // Neumaier sum.
@@ -54,7 +54,7 @@ Float generateCanonical()
 }
 
 // Generate canonical random 2-dimensional vector.
-Vec2f generateCanonical2() 
+Vec2f generateCanonical2()
 {
     return {
         pr::generate_canonical<Float>(pcg),
@@ -69,7 +69,7 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
     Vec2i n = {512, 512};
     std::cout << "Testing full-sphere scattering for ";
     std::cout << name << "::fm():\n";
-    std::cout << 
+    std::cout <<
         "This test uses Monte Carlo integration to estimate the full-sphere\n"
         "scattering integral, which is equal to 4 pi for an energy-conserving "
         "BSDF.\n";
@@ -121,28 +121,28 @@ int main(int argc, char** argv)
 
     // Specify seed.
     opt_parser.on_option(
-    "-s", "--seed", 1, 
+    "-s", "--seed", 1,
     [&](char** argv) {
         try {
-            seed = std::stoi(argv[0]); 
+            seed = std::stoi(argv[0]);
         }
         catch (const std::exception&) {
-            throw 
+            throw
                 std::runtime_error(
                 std::string("-s/--seed expects 1 integer ")
                     .append("(can't parse ").append(argv[0])
                     .append(")"));
         }
-    }) 
+    })
     << "Specify seed. By default, random.\n";
 
     // Display help.
     opt_parser.on_option(
-    "-h", "--help", 0, 
+    "-h", "--help", 0,
     [&](char**) {
         std::cout << opt_parser << std::endl;
         std::exit(EXIT_SUCCESS);
-    }) 
+    })
     << "Display this help and exit.\n";
 
     try {

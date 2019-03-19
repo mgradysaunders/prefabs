@@ -47,28 +47,28 @@ int main(int argc, char** argv)
 
     // Specify seed.
     opt_parser.on_option(
-    "-s", "--seed", 1, 
+    "-s", "--seed", 1,
     [&](char** argv) {
         try {
-            seed = std::stoi(argv[0]); 
+            seed = std::stoi(argv[0]);
         }
         catch (const std::exception&) {
-            throw 
+            throw
                 std::runtime_error(
                 std::string("-s/--seed expects 1 integer ")
                     .append("(can't parse ").append(argv[0])
                     .append(")"));
         }
-    }) 
+    })
     << "Specify seed. By default, random.\n";
 
     // Display help.
     opt_parser.on_option(
-    "-h", "--help", 0, 
+    "-h", "--help", 0,
     [&](char**) {
         std::cout << opt_parser << std::endl;
         std::exit(EXIT_SUCCESS);
-    }) 
+    })
     << "Display this help and exit.\n";
 
     try {
@@ -111,7 +111,7 @@ int main(int argc, char** argv)
         Vec3f wierr = {};
         RaytestDisk::hit_info hit = disk.surface_area_pdf_sample(u1);
         RaytestDisk::ray_info ray = {
-            hit.p, 
+            hit.p,
             hit.perr,
             wi,
             wierr

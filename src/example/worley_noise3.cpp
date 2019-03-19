@@ -52,7 +52,7 @@ int main(int argc, char** argv)
             seed = std::stoi(argv[0]);
         }
         catch (const std::exception&) {
-            throw 
+            throw
                 std::runtime_error(
                 std::string("-s/--seed expects 1 integer ")
                     .append("(can't parse ").append(argv[0])
@@ -73,7 +73,7 @@ int main(int argc, char** argv)
             }
         }
         catch (const std::exception&) {
-            throw 
+            throw
                 std::runtime_error(
                 std::string("--image-dim expects 2 positive integers ")
                     .append("(can't parse ")
@@ -95,7 +95,7 @@ int main(int argc, char** argv)
             }
         }
         catch (const std::exception&) {
-            throw 
+            throw
                 std::runtime_error(
                 std::string("--image-filter-rad expects 2 positive floats ")
                     .append("(can't parse ")
@@ -114,7 +114,7 @@ int main(int argc, char** argv)
             noise_scale[1] = std::stof(argv[1]);
         }
         catch (const std::exception&) {
-            throw 
+            throw
                 std::runtime_error(
                 std::string("--noise-scale expects 2 floats ")
                     .append("(can't parse ")
@@ -132,7 +132,7 @@ int main(int argc, char** argv)
             noise_locz = std::stof(argv[0]);
         }
         catch (const std::exception&) {
-            throw 
+            throw
                 std::runtime_error(
                 std::string("--noise-locz expects 1 float ")
                     .append("(can't parse ").append(argv[0])
@@ -192,7 +192,7 @@ int main(int argc, char** argv)
                 noise_locz
             })};
             image.reconstruct(
-                    noise_val / 9, 
+                    noise_val / 9,
                     image_loc,
                     image_filter_rad,
                     image_filter);
@@ -219,7 +219,7 @@ int main(int argc, char** argv)
         ofs << image_dim[0] << ' ';
         ofs << image_dim[1] << '\n';
         ofs << "255\n";
-        for (int j = 0; j < image_dim[1]; j++) 
+        for (int j = 0; j < image_dim[1]; j++)
         for (int i = 0; i < image_dim[0]; i++) {
             ofs << int(pr::pack_uint8(
                        pr::srgbenc(image(i, j)[0]))) << ' ';
