@@ -359,7 +359,7 @@ inline std::enable_if_t<
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> srgenc_hejl_burgess(T v)
+       std::is_floating_point<T>::value, T> srgbenc_hejl_burgess(T v)
 {
     v = pr::fmax(v - T(0.004), T(0));
     return (v * (v * T(6.2) + T(0.5))) /
