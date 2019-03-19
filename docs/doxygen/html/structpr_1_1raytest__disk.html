@@ -117,6 +117,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a41ede7a765596f9485f9bd7da95672d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__disk_1_1hit__info.html">hit_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__disk.html#a41ede7a765596f9485f9bd7da95672d3">surface_area_pdf_sample</a> (multi&lt; <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>, 2 &gt; u) const</td></tr>
 <tr class="memdesc:a41ede7a765596f9485f9bd7da95672d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface area probability density function sampling routine.  <a href="#a41ede7a765596f9485f9bd7da95672d3">More...</a><br /></td></tr>
 <tr class="separator:a41ede7a765596f9485f9bd7da95672d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56ef6f48f2c2e06e33bca3c79c428125"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__disk.html#a56ef6f48f2c2e06e33bca3c79c428125">solid_angle_pdf</a> (const multi&lt; <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>, 3 &gt; &amp;pref, const multi&lt; <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>, 3 &gt; &amp;phit) const</td></tr>
+<tr class="memdesc:a56ef6f48f2c2e06e33bca3c79c428125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solid angle probability density function.  <a href="#a56ef6f48f2c2e06e33bca3c79c428125">More...</a><br /></td></tr>
+<tr class="separator:a56ef6f48f2c2e06e33bca3c79c428125"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab07ca5ff8ad8bcb1221b8eaeb0b6362"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__disk_1_1hit__info.html">hit_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__disk.html#aab07ca5ff8ad8bcb1221b8eaeb0b6362">solid_angle_pdf_sample</a> (const multi&lt; <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>, 2 &gt; &amp;u, const multi&lt; <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>, 3 &gt; &amp;pref) const</td></tr>
+<tr class="memdesc:aab07ca5ff8ad8bcb1221b8eaeb0b6362"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solid angle probability density function sampling routine.  <a href="#aab07ca5ff8ad8bcb1221b8eaeb0b6362">More...</a><br /></td></tr>
+<tr class="separator:aab07ca5ff8ad8bcb1221b8eaeb0b6362"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1efbadc36df0da95b046eeabfeda123d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__disk_1_1hit__info.html">hit_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__disk.html#a1efbadc36df0da95b046eeabfeda123d">operator()</a> (multi&lt; <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>, 2 &gt; s) const</td></tr>
 <tr class="memdesc:a1efbadc36df0da95b046eeabfeda123d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate.  <a href="#a1efbadc36df0da95b046eeabfeda123d">More...</a><br /></td></tr>
 <tr class="separator:a1efbadc36df0da95b046eeabfeda123d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -261,7 +267,7 @@ template&lt;typename T &gt; </div>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::invalid_argument</td><td>Unless<ul>
-<li><code>rmin &gt; 0</code>,</li>
+<li><code>rmin &gt;= 0</code>,</li>
 <li><code>rmax &gt; rmin</code>,</li>
 <li><code>phimax &gt; 0</code>, and</li>
 <li><code>phimax &lt;= 2 * pi</code>. </li>
@@ -362,7 +368,7 @@ template&lt;typename T &gt; </div>
 
 <p>Surface area probability density function. </p>
 <p class="formulaDsp">
-\[ f = \frac{1}{A} \]
+\[ f_A = \frac{1}{A} \]
 </p>
  
 </div>
@@ -394,9 +400,120 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Surface area probability density function sampling routine. </p>
+<ul>
+<li>\( r \gets \sqrt{(1 - u_{[0]}) r_{\min}^2 + u_{[0]} r_{\max}^2} \)</li>
+<li>\( \phi \gets u_{[1]} \phi_{\max} \) <p class="formulaDsp">
+\[ \mathbf{p}_{\text{hit}}(\mathbf{u}) = \begin{bmatrix} r \cos{\phi} \\ r \sin{\phi} \\ h \end{bmatrix} \]
+</p>
+</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>rmin_ == 0</code> and <code>phimax_ == 2 * pi</code>, the implementation uses the concentric disk sampling routine <code>uniform_disk_pdf_sample()</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a56ef6f48f2c2e06e33bca3c79c428125"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56ef6f48f2c2e06e33bca3c79c428125">&#9670;&nbsp;</a></span>solid_angle_pdf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a> <a class="el" href="structpr_1_1raytest__disk.html">pr::raytest_disk</a>&lt; T &gt;::solid_angle_pdf </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pref</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>phit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Solid angle probability density function. </p>
+<ul>
+<li>\( \mathbf{v}_i \gets \mathbf{p}_{\text{hit}} - \mathbf{p}_{\text{ref}} \)</li>
+<li>\( \omega_i \gets \normalize(\mathbf{v}_i) \)</li>
+<li>\( \omega_g \gets [0\; 0\; 1]^\top \) <p class="formulaDsp">
+\[ f_{\omega}( \mathbf{p}_{\text{ref}} \to \mathbf{p}_{\text{hit}}) = \frac{1}{A} \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|} {|\omega_i \cdot \omega_g|} = \frac{1}{A} \frac{\lVert \mathbf{v}_i \rVert} {|\mathbf{v}_{i[2]}|} \]
+</p>
+</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pref</td><td>Reference point.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">phit</td><td>Hit point.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>For efficiency, the implementation assumes \( \mathbf{p}_{\text{hit}} \) is actually on the surface. </dd></dl>
+
+</div>
+</div>
+<a id="aab07ca5ff8ad8bcb1221b8eaeb0b6362"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab07ca5ff8ad8bcb1221b8eaeb0b6362">&#9670;&nbsp;</a></span>solid_angle_pdf_sample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpr_1_1raytest__disk_1_1hit__info.html">hit_info</a> <a class="el" href="structpr_1_1raytest__disk.html">pr::raytest_disk</a>&lt; T &gt;::solid_angle_pdf_sample </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>, 2 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>u</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; <a class="el" href="structpr_1_1raytest__disk.html#ab1c25de3200008395c4b36519e54c8ec">float_type</a>, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pref</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Solid angle probability density function sampling routine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pref</td><td>Reference point. </td></tr>
   </table>
   </dd>
 </dl>

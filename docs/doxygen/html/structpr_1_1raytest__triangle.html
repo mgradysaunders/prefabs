@@ -117,6 +117,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac47dba7c720dc58067444c5df6d3f53b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__triangle_1_1hit__info.html">hit_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__triangle.html#ac47dba7c720dc58067444c5df6d3f53b">surface_area_pdf_sample</a> (multi&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>, 2 &gt; u) const</td></tr>
 <tr class="memdesc:ac47dba7c720dc58067444c5df6d3f53b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface area probability density function sampling routine.  <a href="#ac47dba7c720dc58067444c5df6d3f53b">More...</a><br /></td></tr>
 <tr class="separator:ac47dba7c720dc58067444c5df6d3f53b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addf9f84ae6f91342dd9b491f73b77a21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__triangle.html#addf9f84ae6f91342dd9b491f73b77a21">solid_angle_pdf</a> (const multi&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>, 3 &gt; &amp;pref, const multi&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>, 3 &gt; &amp;phit) const</td></tr>
+<tr class="memdesc:addf9f84ae6f91342dd9b491f73b77a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solid angle probability density function.  <a href="#addf9f84ae6f91342dd9b491f73b77a21">More...</a><br /></td></tr>
+<tr class="separator:addf9f84ae6f91342dd9b491f73b77a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a436ca1685e197fe48677083e26d90d5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__triangle_1_1hit__info.html">hit_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__triangle.html#a436ca1685e197fe48677083e26d90d5f">solid_angle_pdf_sample</a> (const multi&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>, 2 &gt; &amp;u, const multi&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>, 3 &gt; &amp;pref) const</td></tr>
+<tr class="memdesc:a436ca1685e197fe48677083e26d90d5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solid angle probability density function sampling routine.  <a href="#a436ca1685e197fe48677083e26d90d5f">More...</a><br /></td></tr>
+<tr class="separator:a436ca1685e197fe48677083e26d90d5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b56c5fea610bda77a7d3269869db22b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raytest__triangle_1_1hit__info.html">hit_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raytest__triangle.html#a8b56c5fea610bda77a7d3269869db22b">operator()</a> (multi&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>, 3 &gt; b) const</td></tr>
 <tr class="memdesc:a8b56c5fea610bda77a7d3269869db22b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate.  <a href="#a8b56c5fea610bda77a7d3269869db22b">More...</a><br /></td></tr>
 <tr class="separator:a8b56c5fea610bda77a7d3269869db22b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,6 +141,12 @@ Private Attributes</h2></td></tr>
 struct pr::raytest_triangle&lt; T &gt;</h3>
 
 <p>Ray-test (triangle). </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Float type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a88113563e5a47caec1c5f0cf8cb02ce3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a88113563e5a47caec1c5f0cf8cb02ce3">&#9670;&nbsp;</a></span>float_type</h2>
@@ -286,12 +298,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Surface area. </p>
-<p class="formulaDsp">
+<ul>
+<li>\( \mathbf{q}_1 \gets \mathbf{p}_1 - \mathbf{p}_0 \)</li>
+<li>\( \mathbf{q}_2 \gets \mathbf{p}_2 - \mathbf{p}_0 \) <p class="formulaDsp">
 \[ A = \lVert \mathbf{q}_1 \times \mathbf{q}_2 \rVert \]
 </p>
-<p> where</p><ul>
-<li>\( \mathbf{q}_1 = \mathbf{p}_1 - \mathbf{p}_0 \)</li>
-<li>\( \mathbf{q}_2 = \mathbf{p}_2 - \mathbf{p}_0 \) </li>
+ </li>
 </ul>
 
 </div>
@@ -323,7 +335,7 @@ template&lt;typename T &gt; </div>
 
 <p>Surface area probability density function. </p>
 <p class="formulaDsp">
-\[ f = \frac{1}{A} \]
+\[ f_{A} = \frac{1}{A} \]
 </p>
  
 </div>
@@ -355,9 +367,126 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Surface area probability density function sampling routine. </p>
+<ul>
+<li>\( \mu_0 \gets \sqrt{u_{[0]}} \)</li>
+<li>\( \mu_1 \gets u_{[1]} \mu_0 \)</li>
+<li>\( b_0 \gets 1 - \mu_0 \)</li>
+<li>\( b_1 \gets \mu_1 \)</li>
+<li>\( b_2 \gets \mu_0 - \mu_1 \) <p class="formulaDsp">
+\[ \mathbf{p}_{\text{hit}}(\mathbf{u}) = b_0 \mathbf{p}_0 + b_1 \mathbf{p}_1 + b_2 \mathbf{p}_2 \]
+</p>
+</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="addf9f84ae6f91342dd9b491f73b77a21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addf9f84ae6f91342dd9b491f73b77a21">&#9670;&nbsp;</a></span>solid_angle_pdf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a> <a class="el" href="structpr_1_1raytest__triangle.html">pr::raytest_triangle</a>&lt; T &gt;::solid_angle_pdf </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pref</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>phit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Solid angle probability density function. </p>
+<ul>
+<li>\( \mathbf{q}_1 \gets \mathbf{p}_1 - \mathbf{p}_0 \)</li>
+<li>\( \mathbf{q}_2 \gets \mathbf{p}_2 - \mathbf{p}_0 \)</li>
+<li>\( \mathbf{v}_g \gets \mathbf{q}_1 \times \mathbf{q}_2 \)</li>
+<li>\( \mathbf{v}_i \gets \mathbf{p}_{\text{hit}} - \mathbf{p}_{\text{ref}} \)</li>
+<li>\( \omega_i \gets \normalize(\mathbf{v}_i) \)</li>
+<li>\( \omega_g \gets \normalize(\mathbf{v}_g) \)</li>
+<li>\( A \gets \lVert \mathbf{v}_g \rVert \) <p class="formulaDsp">
+\[ f_{\omega}( \mathbf{p}_{\text{ref}} \to \mathbf{p}_{\text{hit}}) = \frac{1}{A} \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|} {|\omega_i \cdot \omega_g|} = \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|^{3/2}} {|\mathbf{v}_i \cdot \mathbf{v}_g|} \]
+</p>
+</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pref</td><td>Reference point.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">phit</td><td>Hit point.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>For efficiency, the implementation assumes \( \mathbf{p}_{\text{hit}} \) is actually on the surface. </dd></dl>
+
+</div>
+</div>
+<a id="a436ca1685e197fe48677083e26d90d5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a436ca1685e197fe48677083e26d90d5f">&#9670;&nbsp;</a></span>solid_angle_pdf_sample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpr_1_1raytest__triangle_1_1hit__info.html">hit_info</a> <a class="el" href="structpr_1_1raytest__triangle.html">pr::raytest_triangle</a>&lt; T &gt;::solid_angle_pdf_sample </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>, 2 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>u</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const multi&lt; <a class="el" href="structpr_1_1raytest__triangle.html#a88113563e5a47caec1c5f0cf8cb02ce3">float_type</a>, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pref</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Solid angle probability density function sampling routine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pref</td><td>Reference point. </td></tr>
   </table>
   </dd>
 </dl>
