@@ -38,6 +38,89 @@ Vec2f generateCanonical2()
     };
 }
 
+// Test epsilon spawning.
+void testEpsilonSpawning(const RaytestSphere& sphere)
+{
+    std::cout << "Testing epsilon spawning for RaytestSphere:\n";
+    std::cout << "This test fires rays away from random surface points. By\n";
+    std::cout << "construction, none of the rays should intersect with the\n";
+    std::cout << "surface. If a ray does intersect with the surface, this\n";
+    std::cout << "test fails, indicating a bug in the ray-epsilon code.\n";
+    std::cout.flush();
+
+    for (int k = 0; k < 262144; k++) {
+        Vec2f u0 = generateCanonical2();
+        Vec2f u1 = generateCanonical2();
+        Vec3f wi = pr::uniform_hemisphere_pdf_sample(u0);
+        Vec3f wierr = {};
+        RaytestSphere::hit_info hit = sphere.surface_area_pdf_sample(u1);
+        wi = pr::dot(
+             pr::build_onb(pr::normalize(hit.p)), wi);
+        RaytestSphere::ray_info ray = {
+            hit.p,
+            hit.perr,
+            wi,
+            wierr
+        };
+        Float t = sphere.intersect(ray);
+        if (!pr::isnan(t)) {
+            std::cerr << "Failure!\n";
+            std::cerr << "ray.o = " << ray.o << "\n";
+            std::cerr << "ray.d = " << ray.d << "\n";
+            std::cerr << "ray.oerr = " << ray.oerr << "\n";
+            std::cerr << "ray.derr = " << ray.derr << "\n";
+            std::cerr << "t = " << t << "\n\n";
+            std::exit(EXIT_FAILURE);
+        }
+    }
+
+    std::cout << "Success (262144 tests).\n\n";
+    std::cout.flush();
+}
+
+// Test epsilon shadowing.
+void testEpsilonShadowing(const RaytestSphere& sphere)
+{
+    std::cout << "Testing epsilon shadowing for RaytestSphere:\n";
+    std::cout << "This test fires rays toward random surface points with\n";
+    std::cout << "tmax equal to the distance to the surface point. By\n";
+    std::cout << "construction, none of the rays should intersect with the\n";
+    std::cout << "surface. If a ray does intersect with the surface, this\n";
+    std::cout << "test fails, indicating a bug in the ray-epsilon code.\n";
+    std::cout.flush();
+
+    for (int k = 0; k < 262144; k++) {
+        Vec2f u0 = generateCanonical2();
+        Vec2f u1 = generateCanonical2();
+        Vec3f wi = pr::uniform_hemisphere_pdf_sample(u0);
+        RaytestSphere::hit_info hit = sphere.surface_area_pdf_sample(u1);
+        Vec3f wg = -pr::fastnormalize(hit.p);
+        wi = pr::dot(pr::build_onb(wg), wi);
+        wi = pr::fastnormalize(wi);
+        Vec3f vi = wi * (generateCanonical() * 400 + Float(0.0001));
+        RaytestSphere::ray_info ray = {
+            hit.p - vi,
+            wi,
+            Float(0),
+            Float(pr::length(vi)) // NOTE: must renormalize wi for this to work
+        };
+        Float t = sphere.intersect(ray);
+        if (!pr::isnan(t)) {
+            std::cerr << "Failure!\n";
+            std::cerr << "ray.o = " << ray.o << "\n";
+            std::cerr << "ray.d = " << ray.d << "\n";
+            std::cerr << "ray.oerr = " << ray.oerr << "\n";
+            std::cerr << "ray.derr = " << ray.derr << "\n";
+            std::cerr << "ray.tmax = " << ray.tmax << "\n";
+            std::cerr << "t = " << t << "\n\n";
+            std::exit(EXIT_FAILURE);
+        }
+    }
+
+    std::cout << "Success (262144 tests).\n\n";
+    std::cout.flush();
+}
+
 int main(int argc, char** argv)
 {
     int seed = 0;
@@ -88,45 +171,13 @@ int main(int argc, char** argv)
     std::cout << "seed = " << seed << "\n";
     pcg = pr::pcg32(seed);
 
-    // Disk parameters.
+    // Sphere parameters.
     Float r = generateCanonical() * Float(10) + 1;
     std::cout << "r = " << r << "\n\n";
 
-    std::cout << "Testing RaytestSphere:\n";
-    std::cout << "This test fires rays away from random surface points. By\n";
-    std::cout << "construction, none of the rays should intersect with the\n";
-    std::cout << "surface. If a ray does intersect with the surface, this\n";
-    std::cout << "test fails, indicating a bug in the ray-epsilon code.\n";
-    std::cout.flush();
+    // Test.
     RaytestSphere sphere(r);
-
-    for (int k = 0; k < 262144; k++) {
-        Vec2f u0 = generateCanonical2();
-        Vec2f u1 = generateCanonical2();
-        Vec3f wi = pr::uniform_hemisphere_pdf_sample(u0);
-        Vec3f wierr = {};
-        RaytestSphere::hit_info hit = sphere.surface_area_pdf_sample(u1);
-        wi = pr::dot(
-             pr::build_onb(pr::normalize(hit.p)), wi);
-        RaytestSphere::ray_info ray = {
-            hit.p,
-            hit.perr,
-            wi,
-            wierr
-        };
-        Float t = sphere.intersect(ray);
-        if (!pr::isnan(t)) {
-            std::cerr << "Failure!\n";
-            std::cerr << "ray.o = " << ray.o << '\n';
-            std::cerr << "ray.d = " << ray.d << '\n';
-            std::cerr << "ray.oerr = " << ray.oerr << '\n';
-            std::cerr << "ray.derr = " << ray.derr << '\n';
-            std::cerr << "t = " << t << '\n';
-            std::exit(EXIT_FAILURE);
-        }
-    }
-
-    std::cout << "Success (262144 tests).\n\n";
-    std::cout.flush();
+    testEpsilonSpawning(sphere);
+    testEpsilonShadowing(sphere);
     return EXIT_SUCCESS;
 }

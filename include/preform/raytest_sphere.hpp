@@ -309,21 +309,33 @@ public:
      * @brief Surface area probability density function.
      *
      * @f[
-     *      f = \frac{1}{A}
+     *      f_{A} = \frac{1}{A}
      * @f]
      */
     float_type surface_area_pdf() const
     {
-        return 1 / surface_area();
+        return float_type(1) / surface_area();
     }
 
     /**
      * @brief Surface area probability density function sampling routine.
      *
+     * - @f$ z \gets (1 - u_{[1]})z_{\min} + u_{[1]}z_{\max} @f$
+     * - @f$ \theta \gets \arccos(z / r) @f$
+     * - @f$ \phi \gets u_{[0]} \phi_{\max} @f$
+     * @f[
+     *      \mathbf{p}_{\text{hit}} =
+     *      \begin{bmatrix}
+     *          r \sin(\theta) \cos(\phi)
+     *      \\  r \sin(\theta) \sin(\phi)
+     *      \\  r \cos(\theta)
+     *      \end{bmatrix}
+     * @f]
+     *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
      */
-    hit_info surface_area_pdf_sample(multi<float_type, 2> u) const
+    hit_info surface_area_pdf_sample(const multi<float_type, 2>& u) const
     {
         // Uniform height.
         float_type z = (1 - u[1]) * zmin_ + u[1] * zmax_;
@@ -342,13 +354,70 @@ public:
     // TODO solid_angle_pdf
     // TODO solid_angle_pdf_sample
 
+#if 0
+    hit_info solid_angle_pdf_sample(
+            const multi<float_type, 2>& u,
+            const multi<float_type, 3>& pref,
+            const multi<float_type, 3>& preferr = {}) const
+    {
+        // Assemble intervals.
+        multi<float_interval<float_type>, 3> ptmp = 
+        for (int j = 0; j < 3; j++) {
+            ptmp[j] = {
+                pref[j], 
+                preferr[j]
+            };
+        }
+
+        // Length.
+        float_interval<float_type> ltmp = pr::sqrt(dot(ptmp, ptmp));
+
+        // Is on surface or inside?
+        if (!(ltmp.lower_bound() > r_)) {
+            // Delegate.
+            return surface_area_pdf_sample(u);
+        }
+        else {
+            float_type l = ltmp.value();
+            float_type linv = 1 / l;
+
+            // Build orthnormal basis.
+            multi<float_type, 3> wz = -pref * linv;
+            multi<float_type, 3> wx;
+            multi<float_type, 3> wy;
+            build_onb(wz, wx, wy);
+
+            float_type sin_thetamax = r_ * linv;
+            sin_thetamax = pr::fmax(sin_thetamax, float_type(0));
+            sin_thetamax = pr::fmin(sin_thetamax, float_type(1));
+            float_type sin2_thetamax = sin_thetamax * sin_thetamax;
+            float_type cos2_thetamax = 1 - sin2_thetamax;
+            float_type cos_thetamax = pr::sqrt(cos2_thetamax);
+
+            float_type sin2_theta;
+            float_type cos2_theta;
+            float_type cos_theta;
+            if (sin2_thetamax < float_type(0.00068523)) {
+                sin2_theta = u[0] * sin2_thetamax;
+                cos2_theta = 1 - sin2_theta;
+                cos_theta = pr::sqrt(cos2_theta);
+            }
+            else {
+                cos_theta = (1 - u[0]) + u[0] * cos_thetamax;
+                cos2_theta = cos_theta * cos_theta;
+                sin2_theta = 1 - cos2_theta;
+            }
+        }
+    }
+#endif
+
     /**
      * @brief Evaluate.
      *
      * @param[in] s
      * Parameters in @f$ [0, 1)^2 @f$.
      */
-    hit_info operator()(multi<float_type, 2> s) const
+    hit_info operator()(const multi<float_type, 2>& s) const
     {
         hit_info hit;
         float_type phi = s[0] * phimax_;
@@ -401,7 +470,8 @@ public:
      * If intersection, returns parameteric value. Else,
      * returns NaN.
      */
-    float_type intersect(const ray_info& ray, hit_info* hit = nullptr) const
+    float_type intersect(const ray_info& ray, 
+                               hit_info* hit = nullptr) const
     {
         // Assemble intervals.
         multi<float_interval<float_type>, 3> o;
@@ -427,9 +497,11 @@ public:
 
         // Select root.
         float_interval<float_type> t = t0;
-        if (t.lower_bound() < ray.tmin) {
+        if (!(t.upper_bound() < ray.tmax &&
+              t.lower_bound() > ray.tmin)) {
             t = t1;
-            if (t.upper_bound() > ray.tmax) {
+            if (!(t.upper_bound() < ray.tmax &&
+                  t.lower_bound() > ray.tmin)) {
                 return pr::numeric_limits<float_type>::quiet_NaN();
             }
         }
@@ -462,6 +534,10 @@ public:
 
             // Farther root.
             t = t1;
+            if (!(t.upper_bound() < ray.tmax &&
+                  t.lower_bound() > ray.tmin)) {
+                return pr::numeric_limits<float_type>::quiet_NaN();
+            }
 
             // Position.
             p = fastnormalize(

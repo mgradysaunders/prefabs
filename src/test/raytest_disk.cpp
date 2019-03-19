@@ -38,6 +38,84 @@ Vec2f generateCanonical2()
     };
 }
 
+// Test spawning.
+void testEpsilonSpawning(const RaytestDisk& disk)
+{
+    std::cout << "Testing epsilon spawning for RaytestDisk:\n";
+    std::cout << "This test fires rays away from random surface points. By\n";
+    std::cout << "construction, none of the rays should intersect with the\n";
+    std::cout << "surface. If a ray does intersect with the surface, this\n";
+    std::cout << "test fails, indicating a bug in the ray-epsilon code.\n";
+    std::cout.flush();
+
+    for (int k = 0; k < 262144; k++) {
+        Vec2f u0 = generateCanonical2();
+        Vec2f u1 = generateCanonical2();
+        Vec3f wi = pr::uniform_sphere_pdf_sample(u0);
+        Vec3f wierr = {};
+        RaytestDisk::hit_info hit = disk.surface_area_pdf_sample(u1);
+        RaytestDisk::ray_info ray = {
+            hit.p,
+            hit.perr,
+            wi,
+            wierr
+        };
+        Float t = disk.intersect(ray);
+        if (!pr::isnan(t)) {
+            std::cerr << "Failure!\n";
+            std::cerr << "ray.o = " << ray.o << "\n";
+            std::cerr << "ray.d = " << ray.d << "\n";
+            std::cerr << "ray.oerr = " << ray.oerr << "\n";
+            std::cerr << "ray.derr = " << ray.derr << "\n";
+            std::cerr << "t = " << t << "\n\n";
+            std::exit(EXIT_FAILURE);
+        }
+    }
+
+    std::cout << "Success (262144 tests).\n\n";
+    std::cout.flush();
+}
+
+// Test epsilon shadowing.
+void testEpsilonShadowing(const RaytestDisk& disk)
+{
+    std::cout << "Testing epsilon shadowing for RaytestDisk:\n";
+    std::cout << "This test fires rays toward random surface points with\n";
+    std::cout << "tmax equal to the distance to the surface point. By\n";
+    std::cout << "construction, none of the rays should intersect with the\n";
+    std::cout << "surface. If a ray does intersect with the surface, this\n";
+    std::cout << "test fails, indicating a bug in the ray-epsilon code.\n";
+    std::cout.flush();
+
+    for (int k = 0; k < 262144; k++) {
+        Vec2f u0 = generateCanonical2();
+        Vec2f u1 = generateCanonical2();
+        Vec3f wi = pr::uniform_sphere_pdf_sample(u0);
+        Vec3f vi = wi * (generateCanonical() * 400 + Float(0.0001));
+        RaytestDisk::hit_info hit = disk.surface_area_pdf_sample(u1);
+        RaytestDisk::ray_info ray = {
+            hit.p - vi,
+            wi,
+            Float(0),
+            Float(pr::length(vi))
+        };
+        Float t = disk.intersect(ray);
+        if (!pr::isnan(t)) {
+            std::cerr << "Failure!\n";
+            std::cerr << "ray.o = " << ray.o << "\n";
+            std::cerr << "ray.d = " << ray.d << "\n";
+            std::cerr << "ray.oerr = " << ray.oerr << "\n";
+            std::cerr << "ray.derr = " << ray.derr << "\n";
+            std::cerr << "ray.tmax = " << ray.tmax << "\n";
+            std::cerr << "t = " << t << "\n\n";
+            std::exit(EXIT_FAILURE);
+        }
+    }
+
+    std::cout << "Success (262144 tests).\n\n";
+    std::cout.flush();
+}
+
 int main(int argc, char** argv)
 {
     int seed = 0;
@@ -96,39 +174,9 @@ int main(int argc, char** argv)
     std::cout << "rmax = " << rmax << "\n";
     std::cout << "h = " << h << "\n\n";
 
-    std::cout << "Testing RaytestDisk:\n";
-    std::cout << "This test fires rays away from random surface points. By\n";
-    std::cout << "construction, none of the rays should intersect with the\n";
-    std::cout << "surface. If a ray does intersect with the surface, this\n";
-    std::cout << "test fails, indicating a bug in the ray-epsilon code.\n";
-    std::cout.flush();
-    RaytestDisk disk = {rmin, rmax, h};
-
-    for (int k = 0; k < 262144; k++) {
-        Vec2f u0 = generateCanonical2();
-        Vec2f u1 = generateCanonical2();
-        Vec3f wi = pr::uniform_sphere_pdf_sample(u0);
-        Vec3f wierr = {};
-        RaytestDisk::hit_info hit = disk.surface_area_pdf_sample(u1);
-        RaytestDisk::ray_info ray = {
-            hit.p,
-            hit.perr,
-            wi,
-            wierr
-        };
-        Float t = disk.intersect(ray);
-        if (!pr::isnan(t)) {
-            std::cerr << "Failure!\n";
-            std::cerr << "ray.o = " << ray.o << '\n';
-            std::cerr << "ray.d = " << ray.d << '\n';
-            std::cerr << "ray.oerr = " << ray.oerr << '\n';
-            std::cerr << "ray.derr = " << ray.derr << '\n';
-            std::cerr << "t = " << t << '\n';
-            std::exit(EXIT_FAILURE);
-        }
-    }
-
-    std::cout << "Success (262144 tests).\n\n";
-    std::cout.flush();
+    // Test.
+    RaytestDisk disk(rmin, rmax, h);
+    testEpsilonSpawning(disk);
+    testEpsilonShadowing(disk);
     return EXIT_SUCCESS;
 }

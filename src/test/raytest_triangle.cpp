@@ -48,6 +48,84 @@ Vec3f generateCanonical3()
     };
 }
 
+// Test epsilon spawning.
+void testEpsilonSpawning(const RaytestTriangle& triangle)
+{
+    std::cout << "Testing epsilon spawning for RaytestTriangle:\n";
+    std::cout << "This test fires rays away from random surface points. By\n";
+    std::cout << "construction, none of the rays should intersect with the\n";
+    std::cout << "surface. If a ray does intersect with the surface, this\n";
+    std::cout << "test fails, indicating a bug in the ray-epsilon code.\n";
+    std::cout.flush();
+
+    for (int k = 0; k < 262144; k++) {
+        Vec2f u0 = generateCanonical2();
+        Vec2f u1 = generateCanonical2();
+        Vec3f wi = pr::uniform_sphere_pdf_sample(u0);
+        Vec3f wierr = {};
+        RaytestTriangle::hit_info hit = triangle.surface_area_pdf_sample(u1);
+        RaytestTriangle::ray_info ray = {
+            hit.p,
+            hit.perr,
+            wi,
+            wierr
+        };
+        Float t = triangle.intersect(ray);
+        if (!pr::isnan(t)) {
+            std::cerr << "Failure!\n";
+            std::cerr << "ray.o = " << ray.o << "\n";
+            std::cerr << "ray.d = " << ray.d << "\n";
+            std::cerr << "ray.oerr = " << ray.oerr << "\n";
+            std::cerr << "ray.derr = " << ray.derr << "\n";
+            std::cerr << "t = " << t << "\n\n";
+            std::exit(EXIT_FAILURE);
+        }
+    }
+
+    std::cout << "Success (262144 tests).\n\n";
+    std::cout.flush();
+}
+
+// Test epsilon shadowing.
+void testEpsilonShadowing(const RaytestTriangle& triangle)
+{
+    std::cout << "Testing epsilon shadowing for RaytestTriangle:\n";
+    std::cout << "This test fires rays toward random surface points with\n";
+    std::cout << "tmax equal to the distance to the surface point. By\n";
+    std::cout << "construction, none of the rays should intersect with the\n";
+    std::cout << "surface. If a ray does intersect with the surface, this\n";
+    std::cout << "test fails, indicating a bug in the ray-epsilon code.\n";
+    std::cout.flush();
+
+    for (int k = 0; k < 262144; k++) {
+        Vec2f u0 = generateCanonical2();
+        Vec2f u1 = generateCanonical2();
+        Vec3f wi = pr::uniform_sphere_pdf_sample(u0);
+        Vec3f vi = wi * (generateCanonical() * 400 + Float(0.0001));
+        RaytestTriangle::hit_info hit = triangle.surface_area_pdf_sample(u1);
+        RaytestTriangle::ray_info ray = {
+            hit.p - vi,
+            wi,
+            Float(0),
+            Float(pr::length(vi))
+        };
+        Float t = triangle.intersect(ray);
+        if (!pr::isnan(t)) {
+            std::cerr << "Failure!\n";
+            std::cerr << "ray.o = " << ray.o << "\n";
+            std::cerr << "ray.d = " << ray.d << "\n";
+            std::cerr << "ray.oerr = " << ray.oerr << "\n";
+            std::cerr << "ray.derr = " << ray.derr << "\n";
+            std::cerr << "ray.tmax = " << ray.tmax << "\n";
+            std::cerr << "t = " << t << "\n\n";
+            std::exit(EXIT_FAILURE);
+        }
+    }
+
+    std::cout << "Success (262144 tests).\n\n";
+    std::cout.flush();
+}
+
 int main(int argc, char** argv)
 {
     int seed = 0;
@@ -98,7 +176,7 @@ int main(int argc, char** argv)
     std::cout << "seed = " << seed << "\n";
     pcg = pr::pcg32(seed);
 
-    // Disk parameters.
+    // Triangle vertices.
     Vec3f p0 = generateCanonical3() * 2 - Vec3f{10, 3, 2};
     Vec3f p1 = generateCanonical3() * 5 + Vec3f{15, 10, -10};
     Vec3f p2 = generateCanonical3() * 3 + Vec3f{-8, 19, 5};
@@ -106,39 +184,9 @@ int main(int argc, char** argv)
     std::cout << "p1 = " << p1 << "\n";
     std::cout << "p2 = " << p2 << "\n\n";
 
-    std::cout << "Testing RaytestTriangle:\n";
-    std::cout << "This test fires rays away from random surface points. By\n";
-    std::cout << "construction, none of the rays should intersect with the\n";
-    std::cout << "surface. If a ray does intersect with the surface, this\n";
-    std::cout << "test fails, indicating a bug in the ray-epsilon code.\n";
-    std::cout.flush();
+    // Test.
     RaytestTriangle triangle(p0, p1, p2);
-
-    for (int k = 0; k < 262144; k++) {
-        Vec2f u0 = generateCanonical2();
-        Vec2f u1 = generateCanonical2();
-        Vec3f wi = pr::uniform_sphere_pdf_sample(u0);
-        Vec3f wierr = {};
-        RaytestTriangle::hit_info hit = triangle.surface_area_pdf_sample(u1);
-        RaytestTriangle::ray_info ray = {
-            hit.p,
-            hit.perr,
-            wi,
-            wierr
-        };
-        Float t = triangle.intersect(ray);
-        if (!pr::isnan(t)) {
-            std::cerr << "Failure!\n";
-            std::cerr << "ray.o = " << ray.o << '\n';
-            std::cerr << "ray.d = " << ray.d << '\n';
-            std::cerr << "ray.oerr = " << ray.oerr << '\n';
-            std::cerr << "ray.derr = " << ray.derr << '\n';
-            std::cerr << "t = " << t << '\n';
-            std::exit(EXIT_FAILURE);
-        }
-    }
-
-    std::cout << "Success (262144 tests).\n\n";
-    std::cout.flush();
+    testEpsilonSpawning(triangle);
+    testEpsilonShadowing(triangle);
     return EXIT_SUCCESS;
 }
