@@ -13,6 +13,7 @@ DIR.build = "bin/build"
 DIR.install = "/usr/local"
 DIR.install_include = File.join(DIR.install, "include")
 
+# TODO Use FileList more effectively?
 def find_fnames pattern
     fpaths = []
     fpaths += Dir[File.join(DIR.include, "**", "*")]
@@ -199,16 +200,6 @@ HPP
         end
     end
 
-=begin
-    # Generate inline files.
-    desc "Generate inline files from scripts."
-    task :generate_inline do 
-        for fname in Rake::FileList[File.join(DIR.include, "**/*.inl.rb")]
-            sh "ruby #{fname} > #{fname.pathmap("%X")}"
-        end
-    end
-=end
-
     # Generate files from scripts.
     desc "Generate files from scripts."
     task :generate_from_scripts do 
@@ -224,6 +215,26 @@ HPP
 
             # Delegate.
             file.write `ruby #{fname}`
+
+            # Close.
+            file.close
+        end
+    end
+
+    desc "Clean whitespace."
+    task :clean_whitespace do
+        for fname in find_fnames(/\.(?:hpp|cpp)/i)
+            # Read file.
+            text = File.read(fname)
+
+            # Omit trailing whitespace.
+            text.gsub! /[ \t]+$/, ""
+
+            # Wipe file, prepare to rewrite.
+            file = File.open(fname, "wb")
+
+            # Write.
+            file.write text
 
             # Close.
             file.close
@@ -299,67 +310,35 @@ CC.ccflags << "-O2"
 CC.ccflags << "-DNDEBUG"
 CC.ccflags = CC.ccflags.join " " # To string.
 
-# Example simplex noise (2-dimensional).
-file "bin/example/simplex_noise2" => 
-     "src/example/simplex_noise2.cpp" do
-    sh "mkdir -p bin/example"
-    sh "#{CC.cc} #{CC.ccflags} src/example/simplex_noise2.cpp -o bin/example/simplex_noise2"
-end
-
-# Example simplex noise (3-dimensional).
-file "bin/example/simplex_noise3" => 
-     "src/example/simplex_noise3.cpp" do
-    sh "mkdir -p bin/example"
-    sh "#{CC.cc} #{CC.ccflags} src/example/simplex_noise3.cpp -o bin/example/simplex_noise3"
-end
-
-# Example worley noise (2-dimensional).
-file "bin/example/worley_noise2" => 
-     "src/example/worley_noise2.cpp" do
-    sh "mkdir -p bin/example"
-    sh "#{CC.cc} #{CC.ccflags} src/example/worley_noise2.cpp -o bin/example/worley_noise2"
-end
-
-# Example worley noise (3-dimensional).
-file "bin/example/worley_noise3" => 
-     "src/example/worley_noise3.cpp" do
-    sh "mkdir -p bin/example"
-    sh "#{CC.cc} #{CC.ccflags} src/example/worley_noise3.cpp -o bin/example/worley_noise3"
-end
-
-# Test running stat.
-file "bin/test/running_stat" => 
-     "src/test/running_stat.cpp" do
-    sh "mkdir -p bin/test"
-    sh "#{CC.cc} #{CC.ccflags} src/test/running_stat.cpp -o bin/test/running_stat"
-end
-
-# Test microsurface.
-file "bin/test/microsurface" => 
-     "src/test/microsurface.cpp" do
-    sh "mkdir -p bin/test"
-    sh "#{CC.cc} #{CC.ccflags} src/test/microsurface.cpp -o bin/test/microsurface"
+# File rules.
+SRC_FNAMES = Rake::FileList["src/**/*.cpp"] 
+BIN_FNAMES = SRC_FNAMES.pathmap("%{^src,bin}X")
+BIN_FNAMES_DIR = BIN_FNAMES
+BIN_FNAMES.size.times do |n|
+    src_fname = SRC_FNAMES[n]
+    bin_fname = BIN_FNAMES[n]
+    file bin_fname => src_fname do
+        sh "mkdir -p #{bin_fname.pathmap "%d"}"
+        sh "#{CC.cc} #{CC.ccflags} #{src_fname} -o #{bin_fname}"
+    end
 end
 
 namespace :build do
 
     # Build examples.
     desc "Build examples."
-    task :example => [
-        "bin/example/simplex_noise2",
-        "bin/example/simplex_noise3",
-        "bin/example/worley_noise2",
-        "bin/example/worley_noise3"] do
+    task :example => 
+    Rake::FileList["src/example/*.cpp"].pathmap("%{^src,bin}X") do
         # nothing
     end
 
     # Build tests.
     desc "Build tests."
-    task :test => [
-        "bin/test/running_stat",
-        "bin/test/microsurface"] do
+    task :test =>
+    Rake::FileList["src/test/*.cpp"].pathmap("%{^src,bin}X") do
         # nothing
     end
+
 end # namespace :build
 
 # Clean.
