@@ -247,7 +247,7 @@ public:
      *
      * @throw std::invalid_argument
      * Unless
-     * - `rmin > 0`,
+     * - `rmin >= 0`,
      * - `rmax > rmin`,
      * - `phimax > 0`, and
      * - `phimax <= 2 * pi`.
@@ -298,19 +298,34 @@ public:
      * @brief Surface area probability density function.
      *
      * @f[
-     *      f = \frac{1}{A}
+     *      f_A = \frac{1}{A}
      * @f]
      */
     float_type surface_area_pdf() const
     {
-        return 1 / surface_area();
+        return float_type(1) / surface_area();
     }
 
     /**
      * @brief Surface area probability density function sampling routine.
      *
+     * - @f$ r \gets \sqrt{(1 - u_{[0]}) r_{\min}^2 + u_{[0]} r_{\max}^2} @f$
+     * - @f$ \phi \gets u_{[1]} \phi_{\max} @f$
+     * @f[
+     *      \mathbf{p}_{\text{hit}}(\mathbf{u}) = 
+     *      \begin{bmatrix}
+     *          r \cos{\phi}
+     *      \\  r \sin{\phi}
+     *      \\  h
+     *      \end{bmatrix}
+     * @f]
+     *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
+     * 
+     * @note
+     * If `rmin_ == 0` and `phimax_ == 2 * pi`, the implementation
+     * uses the concentric disk sampling routine `uniform_disk_pdf_sample()`.
      */
     hit_info surface_area_pdf_sample(multi<float_type, 2> u) const
     {
@@ -350,11 +365,31 @@ public:
     /**
      * @brief Solid angle probability density function.
      *
+     * - @f$ \mathbf{v}_i \gets 
+     *       \mathbf{p}_{\text{hit}} - \mathbf{p}_{\text{ref}} @f$
+     * - @f$ \omega_i \gets \mathbf{v}_i / \lVert \mathbf{v}_i \rVert @f$
+     * - @f$ \omega_g \gets [0\; 0\; 1]^\top @f$
+     * @f[
+     *      f_{\omega}(
+     *          \mathbf{p}_{\text{ref}} \to
+     *          \mathbf{p}_{\text{hit}}) = 
+     *          \frac{1}{A} 
+     *          \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|}
+     *               {|\omega_i \cdot \omega_g|} =
+     *          \frac{1}{A}
+     *          \frac{\lVert \mathbf{v}_i \rVert}
+     *               {|\mathbf{v}_{i[2]}|}
+     * @f]
+     *
      * @param[in] pref
      * Reference point.
      *
      * @param[in] phit
      * Hit point.
+     *
+     * @note
+     * For efficiency, the implementation assumes 
+     * @f$ \mathbf{p}_{\text{hit}} @f$ is actually on the surface.
      */
     float_type solid_angle_pdf(
             const multi<float_type, 3>& pref,
@@ -375,13 +410,18 @@ public:
     /**
      * @brief Solid angle probability density function sampling routine.
      *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
      * @param[in] pref
      * Reference point.
      */
-    hit_info solid_angle_pdf_sample(const multi<float_type, 3>& pref) const
+    hit_info solid_angle_pdf_sample(
+            const multi<float_type, 2>& u,
+            const multi<float_type, 3>& pref) const
     {
         (void) pref;
-        return surface_area_pdf_sample(pref);
+        return surface_area_pdf_sample(u);
     }
 
     /**

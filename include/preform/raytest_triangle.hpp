@@ -60,6 +60,9 @@ namespace pr {
 
 /**
  * @brief Ray-test (triangle).
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T>
 struct raytest_triangle
@@ -312,12 +315,11 @@ public:
     /**
      * @brief Surface area.
      *
+     * - @f$ \mathbf{q}_1 \gets \mathbf{p}_1 - \mathbf{p}_0 @f$
+     * - @f$ \mathbf{q}_2 \gets \mathbf{p}_2 - \mathbf{p}_0 @f$
      * @f[
      *      A = \lVert \mathbf{q}_1 \times \mathbf{q}_2 \rVert
      * @f]
-     * where
-     * - @f$ \mathbf{q}_1 = \mathbf{p}_1 - \mathbf{p}_0 @f$
-     * - @f$ \mathbf{q}_2 = \mathbf{p}_2 - \mathbf{p}_0 @f$
      */
     float_type surface_area() const
     {
@@ -330,16 +332,28 @@ public:
      * @brief Surface area probability density function.
      *
      * @f[
-     *      f = \frac{1}{A}
+     *      f_{A} = \frac{1}{A}
      * @f]
      */
     float_type surface_area_pdf() const
     {
-        return 1 / surface_area();
+        return float_type(1) / surface_area();
     }
 
     /**
      * @brief Surface area probability density function sampling routine.
+     *
+     * - @f$ \mu_0 \gets \sqrt{u_{[0]}} @f$
+     * - @f$ \mu_1 \gets u_{[1]} \mu_0 @f$
+     * - @f$ b_0 \gets 1 - \mu_0 @f$
+     * - @f$ b_1 \gets \mu_1 @f$
+     * - @f$ b_2 \gets \mu_0 - \mu_1 @f$
+     * @f[
+     *      \mathbf{p}_{\text{hit}}(\mathbf{u}) = 
+     *          b_0 \mathbf{p}_0 + 
+     *          b_1 \mathbf{p}_1 +
+     *          b_2 \mathbf{p}_2
+     * @f]
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -356,24 +370,74 @@ public:
         });
     }
 
-#if 0
+    /**
+     * @brief Solid angle probability density function.
+     *
+     * - @f$ \mathbf{q}_1 \gets \mathbf{p}_1 - \mathbf{p}_0 @f$
+     * - @f$ \mathbf{q}_2 \gets \mathbf{p}_2 - \mathbf{p}_0 @f$
+     * - @f$ \mathbf{v}_g \gets \mathbf{q}_1 \times \mathbf{q}_2 @f$
+     * - @f$ \mathbf{v}_i \gets 
+     *       \mathbf{p}_{\text{hit}} - \mathbf{p}_{\text{ref}} @f$
+     * - @f$ \omega_i \gets \mathbf{v}_i / \lVert \mathbf{v}_i \rVert @f$
+     * - @f$ \omega_g \gets \mathbf{v}_g / \lVert \mathbf{v}_g \rVert @f$
+     * - @f$ A \gets \lVert \mathbf{v}_g \rVert @f$
+     * @f[
+     *      f_{\omega}(
+     *          \mathbf{p}_{\text{ref}} \to
+     *          \mathbf{p}_{\text{hit}}) = 
+     *          \frac{1}{A} 
+     *          \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|}
+     *               {|\omega_i \cdot \omega_g|} =
+     *          \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|^{3/2}}
+     *               {|\mathbf{v}_i \cdot \mathbf{v}_g|}
+     * @f]
+     *
+     * @param[in] pref
+     * Reference point.
+     *
+     * @param[in] phit
+     * Hit point.
+     *
+     * @note
+     * For efficiency, the implementation assumes 
+     * @f$ \mathbf{p}_{\text{hit}} @f$ is actually on the surface.
+     */
     float_type solid_angle_pdf(
             const multi<float_type, 3>& pref,
             const multi<float_type, 3>& phit) const
     {
+        multi<float_type, 3> q1 = p_[1] - p_[0];
+        multi<float_type, 3> q2 = p_[2] - p_[0];
+        multi<float_type, 3> vg = cross(q1, q2);
+        multi<float_type, 3> vi = phit - pref;
+        float_type dot_vi_vg = dot(vi, vg);
+        float_type dot_vi_vi = dot(vi, vi);
+        if (dot_vi_vg == 0 ||
+            dot_vi_vi == 0) {
+            return 0;
+        }
+        else {
+            return dot_vi_vi * 
+                pr::sqrt(dot_vi_vi) / 
+                pr::fabs(dot_vi_vg);
+        }
     }
-#endif
 
     /**
      * @brief Solid angle probability density function sampling routine.
      *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
      * @param[in] pref
      * Reference point.
      */
-    hit_info solid_angle_pdf_sample(const multi<float_type, 3>& pref) const
+    hit_info solid_angle_pdf_sample(
+            const multi<float_type, 2>& u,
+            const multi<float_type, 3>& pref) const
     {
         (void) pref;
-        return surface_area_pdf_sample(pref);
+        return surface_area_pdf_sample(u);
     }
 
     /**
