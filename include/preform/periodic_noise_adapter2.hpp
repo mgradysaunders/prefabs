@@ -26,6 +26,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "preform/periodic_noise_adapter2.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFORM_PERIODIC_NOISE_ADAPTER2_HPP
 #define PREFORM_PERIODIC_NOISE_ADAPTER2_HPP
