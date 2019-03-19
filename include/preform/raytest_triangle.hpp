@@ -356,8 +356,25 @@ public:
         });
     }
 
-    // TODO solid_angle_pdf
-    // TODO solid_angle_pdf_sample
+#if 0
+    float_type solid_angle_pdf(
+            const multi<float_type, 3>& pref,
+            const multi<float_type, 3>& phit) const
+    {
+    }
+#endif
+
+    /**
+     * @brief Solid angle probability density function sampling routine.
+     *
+     * @param[in] pref
+     * Reference point.
+     */
+    hit_info solid_angle_pdf_sample(const multi<float_type, 3>& pref) const
+    {
+        (void) pref;
+        return surface_area_pdf_sample(pref);
+    }
 
     /**
      * @brief Evaluate.
@@ -439,7 +456,7 @@ public:
             any_gt_zero |= !(b[j].lower_bound() <= 0);
         }
 
-        // Is outside?
+        // Reject certain misses.
         if (any_lt_zero &&
             any_gt_zero) {
             // No intersection.
@@ -479,10 +496,10 @@ public:
             b[1] * h[1][2] +
             b[2] * h[2][2];
 
-        // Is out of range?
-        if (!(t.lower_bound() >= ray.tmin &&
-              t.upper_bound() <= ray.tmax)) {
-            // No intersection.
+        // Reject uncertain hits.
+        if (!(t.upper_bound() < ray.tmax &&
+              t.lower_bound() > ray.tmin)) {
+            // No intersection. 
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
 

@@ -419,8 +419,9 @@ public:
             dot(d, o) * float_type(2),
             dot(d, d),
             t0, t1);
-        if (!(t0.upper_bound() <= ray.tmax &&
-              t1.lower_bound() >= ray.tmin)) {
+        // Reject uncertain hits.
+        if (!(t0.upper_bound() < ray.tmax &&
+              t1.lower_bound() > ray.tmin)) {
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
 
