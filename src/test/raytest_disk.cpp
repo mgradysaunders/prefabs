@@ -9,9 +9,6 @@
 typedef float Float;
 
 // 2-dimensional vector type.
-typedef pr::vec2<int> Vec2i;
-
-// 2-dimensional vector type.
 typedef pr::vec2<Float> Vec2f;
 
 // 3-dimensional vector type.
