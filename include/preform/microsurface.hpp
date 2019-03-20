@@ -1369,7 +1369,7 @@ public:
 
             // Half vector.
             multi<float_type, 3> vm = eta * wo + wi;
-           if (vm[2] < 0) {
+            if (vm[2] < 0) {
                 vm = -vm;
             }
 
@@ -1408,6 +1408,189 @@ public:
                    (dot_wo_wm * -dot_wi_wm /
                     dot_vm_vm / wo[2]);
         }
+    }
+
+
+    /**
+     * @brief Single-scattering BSDF probability density function.
+     *
+     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
+     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
+     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
+     * - @f$ \eta \gets 1 / \eta @f$
+     *
+     * If @f$ \omega_{i_z} > 0 @f$, calculate BRDF density:
+     * - @f$ \mathbf{v}_m \gets \omega_o + \omega_i @f$
+     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
+     * @f[
+     *      f_{s,\text{bsdf}}(\omega_o \to \omega_i) =
+     *              D_{\omega_o}(\omega_m)
+     *              F_r(\omega_o \cdot \omega_m)
+     *              \frac{1}{4\omega_i \cdot \omega_m} 
+     * @f]
+     *
+     * If @f$ \omega_{i_z} < 0 @f$, calculate BTDF density:
+     * - @f$ \mathbf{v}_m \gets -\eta\omega_o - \omega_i @f$
+     * - @f$ \mathbf{v}_m \gets -\mathbf{v}_m @f$ if @f$ \eta > 1 @f$
+     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
+     * @f[
+     *      f_{s,\text{bsdf}}(\omega_o \to \omega_i) =
+     *              D_{\omega_o}(\omega_m)
+     *              F_t(\omega_o \cdot \omega_m)
+     *              \frac{|\omega_i \cdot \omega_m|}
+     *                   {\lVert \mathbf{v}_m \rVert^2}
+     * @f]
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fs_pdf(
+                multi<float_type, 3> wo,
+                multi<float_type, 3> wi) const
+    {
+        // Flip.
+        float_type eta = eta_;
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+            eta = 1 / eta;
+        }
+
+        // Ignore invalid samples.
+        if (wo[2] == 0 ||
+            wi[2] == 0) {
+            return 0;
+        }
+
+        if (wi[2] > 0) {
+
+            // Half vector.
+            multi<float_type, 3> vm = wo + wi;
+
+            // Microsurface normal.
+            multi<float_type, 3> wm = normalize(vm);
+
+            // Fresnel coefficients.
+            float_type cos_thetao = dot(wo, wm);
+            float_type cos_thetat;
+            float_type fr, ft;
+            fresnel_dielectric(
+                    eta,
+                    cos_thetao,
+                    cos_thetat,
+                    fr, ft);
+
+            return dwo(wo, wm) * fr / (4 * dot(wo, wm));
+        }
+        else {
+
+            // Half vector.
+            multi<float_type, 3> vm = eta * wo + wi;
+            if (vm[2] < 0) {
+                vm = -vm;
+            }
+
+            float_type dot_vm_vm = dot(vm, vm);
+            if (dot_vm_vm < float_type(1e-8)) {
+                return 0;
+            }
+            
+            // Microsurface normal.
+            multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
+            float_type dot_wo_wm = dot(wo, wm);
+            float_type dot_wi_wm = dot(wi, wm);
+            if (!(dot_wo_wm > 0 &&
+                  dot_wi_wm < 0)) {
+                return 0;
+            }
+
+            // Fresnel coefficients.
+            float_type cos_thetao = dot_wo_wm;
+            float_type cos_thetat;
+            float_type fr, ft;
+            fresnel_dielectric(
+                    eta,
+                    cos_thetao,
+                    cos_thetat,
+                    fr, ft);
+
+            return dwo(wo, wm) * ft * (-dot_wi_wm / dot_vm_vm);
+        }
+    }
+
+    /**
+     * @brief Single-scattering BSDF probability density function
+     * sampling routine.
+     *
+     * @param[in] u0
+     * Sample in @f$ [0, 1) @f$.
+     *
+     * @param[in] u1
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     */
+    multi<float_type, 3> fs_pdf_sample(
+            float_type u0,
+            multi<float_type, 2> u1,
+            multi<float_type, 3> wo) const
+    {
+        // Flip.
+        bool neg = false;
+        float_type eta = eta_;
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            eta = 1 / eta;
+            neg = true;
+        }
+
+        // Microsurface normal.
+        multi<float_type, 3> wm = dwo_sample(u1, wo);
+
+        // Fresnel coefficients.
+        float_type cos_thetao = dot(wo, wm);
+        float_type cos_thetat;
+        float_type fr, ft;
+        fresnel_dielectric(
+                eta,
+                cos_thetao,
+                cos_thetat,
+                fr, ft);
+
+        // Result.
+        multi<float_type, 3> wi;
+
+        if (u0 < fr) {
+
+            // Reflect.
+            wi = -wo + (2 * cos_thetao) * wm;
+            
+            // In wrong hemisphere?
+            if (wi[2] < 0) {
+                return {}; // Reject sample.
+            }
+        }
+        else {
+
+            // Refract.
+            wi = -eta * wo +
+                 (eta * cos_thetao + cos_thetat) * wm;
+
+            // In wrong hemisphere?
+            if (wi[2] > 0) {
+                return {}; // Reject sample.
+            }
+        }
+
+        // Unflip.
+        if (neg) {
+            wi[2] = -wi[2];
+        }
+        return wi;
     }
 
     /**
