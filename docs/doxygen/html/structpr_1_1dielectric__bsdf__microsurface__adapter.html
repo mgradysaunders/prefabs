@@ -99,6 +99,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8c9c31f5ab399ebc83605e6b0b7436aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html#a8c9c31f5ab399ebc83605e6b0b7436aa">fs</a> (multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt; wo, multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt; wi) const</td></tr>
 <tr class="memdesc:a8c9c31f5ab399ebc83605e6b0b7436aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single-scattering BSDF.  <a href="#a8c9c31f5ab399ebc83605e6b0b7436aa">More...</a><br /></td></tr>
 <tr class="separator:a8c9c31f5ab399ebc83605e6b0b7436aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a575327ff7733fd42a76a732552636aaf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html#a575327ff7733fd42a76a732552636aaf">fs_pdf</a> (multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt; wo, multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt; wi) const</td></tr>
+<tr class="memdesc:a575327ff7733fd42a76a732552636aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single-scattering BSDF probability density function.  <a href="#a575327ff7733fd42a76a732552636aaf">More...</a><br /></td></tr>
+<tr class="separator:a575327ff7733fd42a76a732552636aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf52c1bc21dacd69f3a3b25fb157ccc5"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html#aaf52c1bc21dacd69f3a3b25fb157ccc5">fs_pdf_sample</a> (<a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a> u0, multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 2 &gt; u1, multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt; wo) const</td></tr>
+<tr class="memdesc:aaf52c1bc21dacd69f3a3b25fb157ccc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single-scattering BSDF probability density function sampling routine.  <a href="#aaf52c1bc21dacd69f3a3b25fb157ccc5">More...</a><br /></td></tr>
+<tr class="separator:aaf52c1bc21dacd69f3a3b25fb157ccc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae158fa79f662665138915f6d4e053120"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
 <tr class="memitem:ae158fa79f662665138915f6d4e053120"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html#ae158fa79f662665138915f6d4e053120">fm</a> (U &amp;&amp;uk, multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt; wo, multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt; wi, int kres=0, int nitr=1) const</td></tr>
 <tr class="memdesc:ae158fa79f662665138915f6d4e053120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-scattering BSDF.  <a href="#ae158fa79f662665138915f6d4e053120">More...</a><br /></td></tr>
@@ -311,6 +317,127 @@ template&lt;typename Tslope , typename Theight &gt; </div>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a575327ff7733fd42a76a732552636aaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a575327ff7733fd42a76a732552636aaf">&#9670;&nbsp;</a></span>fs_pdf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tslope , typename Theight &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a> <a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html">pr::dielectric_bsdf_microsurface_adapter</a>&lt; Tslope, Theight &gt;::fs_pdf </td>
+          <td>(</td>
+          <td class="paramtype">multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt;&#160;</td>
+          <td class="paramname"><em>wo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt;&#160;</td>
+          <td class="paramname"><em>wi</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Single-scattering BSDF probability density function. </p>
+<p>If \( \omega_{o_z} &lt; 0 \), flip everything:</p><ul>
+<li>\( \omega_{o_z} \gets -\omega_{o_z} \)</li>
+<li>\( \omega_{i_z} \gets -\omega_{i_z} \)</li>
+<li>\( \eta \gets 1 / \eta \)</li>
+</ul>
+<p>If \( \omega_{i_z} &gt; 0 \), calculate BRDF density:</p><ul>
+<li>\( \mathbf{v}_m \gets \omega_o + \omega_i \)</li>
+<li>\( \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert \) <p class="formulaDsp">
+\[ f_{s,\text{bsdf}}(\omega_o \to \omega_i) = D_{\omega_o}(\omega_m) F_r(\omega_o \cdot \omega_m) \frac{1}{4\omega_i \cdot \omega_m} \]
+</p>
+</li>
+</ul>
+<p>If \( \omega_{i_z} &lt; 0 \), calculate BTDF density:</p><ul>
+<li>\( \mathbf{v}_m \gets -\eta\omega_o - \omega_i \)</li>
+<li>\( \mathbf{v}_m \gets -\mathbf{v}_m \) if \( \eta &gt; 1 \)</li>
+<li>\( \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert \) <p class="formulaDsp">
+\[ f_{s,\text{bsdf}}(\omega_o \to \omega_i) = D_{\omega_o}(\omega_m) F_t(\omega_o \cdot \omega_m) \frac{|\omega_i \cdot \omega_m|} {\lVert \mathbf{v}_m \rVert^2} \]
+</p>
+</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aaf52c1bc21dacd69f3a3b25fb157ccc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf52c1bc21dacd69f3a3b25fb157ccc5">&#9670;&nbsp;</a></span>fs_pdf_sample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tslope , typename Theight &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">multi&lt;<a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3&gt; <a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html">pr::dielectric_bsdf_microsurface_adapter</a>&lt; Tslope, Theight &gt;::fs_pdf_sample </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>&#160;</td>
+          <td class="paramname"><em>u0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 2 &gt;&#160;</td>
+          <td class="paramname"><em>u1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">multi&lt; <a class="el" href="structpr_1_1microsurface__adapter.html#af794dc61ac51d4e0aa96bfc31964d736">float_type</a>, 3 &gt;&#160;</td>
+          <td class="paramname"><em>wo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Single-scattering BSDF probability density function sampling routine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u0</td><td>Sample in \( [0, 1) \).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u1</td><td>Sample in \( [0, 1)^2 \).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction. </td></tr>
   </table>
   </dd>
 </dl>
