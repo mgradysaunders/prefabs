@@ -1593,6 +1593,208 @@ public:
         return wi;
     }
 
+
+    /**
+     * @brief Single-scattering BRDF probability density function.
+     *
+     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
+     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
+     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
+     *
+     * If @f$ \omega_{o_z} > 0, \omega_{i_z} > 0 @f$:
+     * - @f$ \mathbf{v}_m \gets \omega_o + \omega_i @f$
+     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
+     * @f[
+     *      f_{s,\text{brdf}}(\omega_o \to \omega_i) =
+     *              D_{\omega_o}(\omega_m)
+     *              \frac{1}{4\omega_i \cdot \omega_m} 
+     * @f]
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fs_brdf_pdf(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
+
+        // Ignore invalid samples.
+        if (wo[2] == 0 ||
+            wi[2] <= 0) {
+            return 0;
+        }
+
+        // Microsurface normal.
+        multi<float_type, 3> wm = normalize(wo + wi);
+
+        // Result.
+        return dwo(wo, wm) / (4 * dot(wi, wm));
+    }
+
+    /**
+     * @brief Single-scattering BRDF probability density function
+     * sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     */
+    multi<float_type, 3> fs_brdf_pdf_sample(
+            multi<float_type, 2> u,
+            multi<float_type, 3> wo) const
+    {
+        // Flip.
+        bool neg = false;
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            neg = true;
+        }
+
+        // Microsurface normal.
+        multi<float_type, 3> wm = dwo_sample(u, wo);
+
+        // Reflect.
+        multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
+            
+        // In wrong hemisphere?
+        if (wi[2] < 0) {
+            return {}; // Reject sample.
+        }
+
+        // Unflip.
+        if (neg) {
+            wi[2] = -wi[2];
+        }
+        return wi;
+    }
+
+
+    /**
+     * @brief Single-scattering BTDF probability density function.
+     *
+     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
+     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
+     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
+     * - @f$ \eta \gets 1 / \eta @f$
+     *
+     * If @f$ \omega_{o_z} > 0, \omega_{i_z} < 0 @f$:
+     * - @f$ \mathbf{v}_m \gets -\eta\omega_o - \omega_i @f$
+     * - @f$ \mathbf{v}_m \gets -\mathbf{v}_m @f$ if @f$ \eta > 1 @f$
+     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
+     * @f[
+     *      f_{s,\text{btdf}}(\omega_o \to \omega_i) =
+     *              D_{\omega_o}(\omega_m)
+     *              \frac{|\omega_i \cdot \omega_m|}
+     *                   {\lVert \mathbf{v}_m \rVert^2}
+     * @f]
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fs_btdf_pdf(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        // Flip.
+        float_type eta = eta_;
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+            eta = 1 / eta;
+        }
+
+        // Ignore invalid samples.
+        if (wo[2] == 0 ||
+            wi[2] >= 0) {
+            return 0;
+        }
+
+        // Half vector.
+        multi<float_type, 3> vm = eta * wo + wi;
+        if (vm[2] < 0) {
+            vm = -vm;
+        }
+
+        float_type dot_vm_vm = dot(vm, vm);
+        if (dot_vm_vm < float_type(1e-8)) {
+            return 0;
+        }
+            
+        // Microsurface normal.
+        multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
+        float_type dot_wi_wm = dot(wi, wm);
+        if (dot_wi_wm > 0) {
+            return 0;
+        }
+
+        // Result.
+        return dwo(wo, wm) * (-dot_wi_wm / dot_vm_vm);
+    }
+
+    /**
+     * @brief Single-scattering BTDF probability density function
+     * sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     */
+    multi<float_type, 3> fs_btdf_pdf_sample(
+            multi<float_type, 2> u,
+            multi<float_type, 3> wo) const
+    {
+        // Flip.
+        bool neg = false;
+        float_type eta = eta_;
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            eta = 1 / eta;
+            neg = true;
+        }
+
+        // Microsurface normal.
+        multi<float_type, 3> wm = dwo_sample(u, wo);
+
+        // Refract.
+        float_type cos_thetao = dot(wo, wm);
+        float_type cos_thetat = 
+                pr::sqrt(
+                pr::fmax(float_type(0),
+                         1 - eta * eta * (1 - cos_thetao * cos_thetao)));
+        if (cos_thetat == 0) {
+            return {}; // Reject sample.
+        }
+        multi<float_type, 3> wi = -eta * wo + 
+                                  (eta * cos_thetao -
+                                         cos_thetat) * wm;
+
+        // In wrong hemisphere?
+        if (wi[2] > 0) {
+            return {}; // Reject sample.
+        }
+
+        // Unflip.
+        if (neg) {
+            wi[2] = -wi[2];
+        }
+        return wi;
+    }
+
     /**
      * @brief Multiple-scattering BSDF.
      *
