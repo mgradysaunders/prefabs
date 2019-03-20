@@ -82,14 +82,14 @@ public:
     /**
      * @brief Ray information.
      */
-    struct ray_info
+    struct ray_type
     {
     public:
 
         /**
          * @brief Default constructor.
          */
-        ray_info() = default;
+        ray_type() = default;
 
         /**
          * @brief Constructor.
@@ -106,7 +106,7 @@ public:
          * @param[in] tmax
          * Parameter maximum.
          */
-        ray_info(
+        ray_type(
             const multi<float_type, 3>& o,
             const multi<float_type, 3>& d,
             float_type tmin = 0,
@@ -141,7 +141,7 @@ public:
          * @param[in] tmax
          * Parameter maximum.
          */
-        ray_info(
+        ray_type(
             const multi<float_type, 3>& o,
             const multi<float_type, 3>& oerr,
             const multi<float_type, 3>& d,
@@ -284,7 +284,7 @@ public:
      * If intersection, returns parameteric value. Else,
      * returns NaN.
      */
-    float_type intersect(const ray_info& ray) const
+    float_type intersect(const ray_type& ray) const
     {
 #if 0
         // Assemble intervals.

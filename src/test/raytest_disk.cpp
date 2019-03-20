@@ -50,8 +50,8 @@ void testEpsilonSpawning(const RaytestDisk& disk)
         Vec2f u1 = generateCanonical2();
         Vec3f wi = pr::uniform_sphere_pdf_sample(u0);
         Vec3f wierr = {};
-        RaytestDisk::hit_info hit = disk.surface_area_pdf_sample(u1);
-        RaytestDisk::ray_info ray = {
+        RaytestDisk::hit_type hit = disk.surface_area_pdf_sample(u1);
+        RaytestDisk::ray_type ray = {
             hit.p,
             hit.perr,
             wi,
@@ -89,8 +89,8 @@ void testEpsilonShadowing(const RaytestDisk& disk)
         Vec2f u1 = generateCanonical2();
         Vec3f wi = pr::uniform_sphere_pdf_sample(u0);
         Vec3f vi = wi * (generateCanonical() * 400 + Float(0.0001));
-        RaytestDisk::hit_info hit = disk.surface_area_pdf_sample(u1);
-        RaytestDisk::ray_info ray = {
+        RaytestDisk::hit_type hit = disk.surface_area_pdf_sample(u1);
+        RaytestDisk::ray_type ray = {
             hit.p - vi,
             wi,
             Float(0),

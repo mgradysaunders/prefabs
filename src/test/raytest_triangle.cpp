@@ -60,8 +60,8 @@ void testEpsilonSpawning(const RaytestTriangle& triangle)
         Vec2f u1 = generateCanonical2();
         Vec3f wi = pr::uniform_sphere_pdf_sample(u0);
         Vec3f wierr = {};
-        RaytestTriangle::hit_info hit = triangle.surface_area_pdf_sample(u1);
-        RaytestTriangle::ray_info ray = {
+        RaytestTriangle::hit_type hit = triangle.surface_area_pdf_sample(u1);
+        RaytestTriangle::ray_type ray = {
             hit.p,
             hit.perr,
             wi,
@@ -99,8 +99,8 @@ void testEpsilonShadowing(const RaytestTriangle& triangle)
         Vec2f u1 = generateCanonical2();
         Vec3f wi = pr::uniform_sphere_pdf_sample(u0);
         Vec3f vi = wi * (generateCanonical() * 400 + Float(0.0001));
-        RaytestTriangle::hit_info hit = triangle.surface_area_pdf_sample(u1);
-        RaytestTriangle::ray_info ray = {
+        RaytestTriangle::hit_type hit = triangle.surface_area_pdf_sample(u1);
+        RaytestTriangle::ray_type ray = {
             hit.p - vi,
             wi,
             Float(0),

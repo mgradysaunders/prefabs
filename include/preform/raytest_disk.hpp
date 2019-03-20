@@ -47,6 +47,9 @@
 // for pr::aabb
 #include <preform/aabb.hpp>
 
+// for pr::uniform_disk_pdf_sample
+#include <preform/sampling.hpp>
+
 namespace pr {
 
 /**
@@ -85,14 +88,14 @@ struct raytest_disk
     /**
      * @brief Ray information.
      */
-    struct ray_info
+    struct ray_type
     {
     public:
 
         /**
          * @brief Default constructor.
          */
-        ray_info() = default;
+        ray_type() = default;
 
         /**
          * @brief Constructor.
@@ -109,7 +112,7 @@ struct raytest_disk
          * @param[in] tmax
          * Parameter maximum.
          */
-        ray_info(
+        ray_type(
             const multi<float_type, 3>& o,
             const multi<float_type, 3>& d,
             float_type tmin = 0,
@@ -142,7 +145,7 @@ struct raytest_disk
          * @param[in] tmax
          * Parameter maximum.
          */
-        ray_info(
+        ray_type(
             const multi<float_type, 3>& o,
             const multi<float_type, 3>& oerr,
             const multi<float_type, 3>& d,
@@ -193,7 +196,7 @@ struct raytest_disk
     /**
      * @brief Hit information.
      */
-    struct hit_info
+    struct hit_type
     {
     public:
 
@@ -327,7 +330,7 @@ public:
      * If `rmin_ == 0` and `phimax_ == 2 * pi`, the implementation
      * uses the concentric disk sampling routine `uniform_disk_pdf_sample()`.
      */
-    hit_info surface_area_pdf_sample(multi<float_type, 2> u) const
+    hit_type surface_area_pdf_sample(multi<float_type, 2> u) const
     {
         if (rmin_ == 0 &&
             phimax_ == 2 * pr::numeric_constants<float_type>::M_pi()) {
@@ -416,7 +419,7 @@ public:
      * @param[in] pref
      * Reference point.
      */
-    hit_info solid_angle_pdf_sample(
+    hit_type solid_angle_pdf_sample(
             const multi<float_type, 2>& u,
             const multi<float_type, 3>& pref) const
     {
@@ -430,10 +433,10 @@ public:
      * @param[in] s
      * Parameters in @f$ [0, 1)^2 @f$.
      */
-    hit_info operator()(
+    hit_type operator()(
                 multi<float_type, 2> s) const
     {
-        hit_info hit;
+        hit_type hit;
         float_type r = (1 - s[0]) * rmin_ + s[0] * rmax_;
         float_type phi = s[1] * phimax_;
         float_type sin_phi = pr::sin(phi);
@@ -480,7 +483,7 @@ public:
      * If intersection, returns parameteric value. Else,
      * returns NaN.
      */
-    float_type intersect(const ray_info& ray, hit_info* hit = nullptr) const
+    float_type intersect(const ray_type& ray, hit_type* hit = nullptr) const
     {
         // Parameter.
         float_interval<float_type> o2 = {ray.o[2], ray.oerr[2]};

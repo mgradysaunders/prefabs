@@ -50,10 +50,10 @@ void testEpsilonSpawning(const RaytestSphere& sphere)
         Vec2f u1 = generateCanonical2();
         Vec3f wi = pr::uniform_hemisphere_pdf_sample(u0);
         Vec3f wierr = {};
-        RaytestSphere::hit_info hit = sphere.surface_area_pdf_sample(u1);
+        RaytestSphere::hit_type hit = sphere.surface_area_pdf_sample(u1);
         wi = pr::dot(
              pr::build_onb(pr::normalize(hit.p)), wi);
-        RaytestSphere::ray_info ray = {
+        RaytestSphere::ray_type ray = {
             hit.p,
             hit.perr,
             wi,
@@ -90,12 +90,12 @@ void testEpsilonShadowing(const RaytestSphere& sphere)
         Vec2f u0 = generateCanonical2();
         Vec2f u1 = generateCanonical2();
         Vec3f wi = pr::uniform_hemisphere_pdf_sample(u0);
-        RaytestSphere::hit_info hit = sphere.surface_area_pdf_sample(u1);
+        RaytestSphere::hit_type hit = sphere.surface_area_pdf_sample(u1);
         Vec3f wg = -pr::fastnormalize(hit.p);
         wi = pr::dot(pr::build_onb(wg), wi);
         wi = pr::fastnormalize(wi);
         Vec3f vi = wi * (generateCanonical() * 400 + Float(0.0001));
-        RaytestSphere::ray_info ray = {
+        RaytestSphere::ray_type ray = {
             hit.p - vi,
             wi,
             Float(0),

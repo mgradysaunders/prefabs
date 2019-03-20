@@ -86,14 +86,14 @@ public:
     /**
      * @brief Ray information.
      */
-    struct ray_info
+    struct ray_type
     {
     public:
 
         /**
          * @brief Default constructor.
          */
-        ray_info() = default;
+        ray_type() = default;
 
         /**
          * @brief Constructor.
@@ -110,7 +110,7 @@ public:
          * @param[in] tmax
          * Parameter maximum.
          */
-        ray_info(
+        ray_type(
             const multi<float_type, 3>& o,
             const multi<float_type, 3>& d,
             float_type tmin = 0,
@@ -143,7 +143,7 @@ public:
          * @param[in] tmax
          * Parameter maximum.
          */
-        ray_info(
+        ray_type(
             const multi<float_type, 3>& o,
             const multi<float_type, 3>& oerr,
             const multi<float_type, 3>& d,
@@ -194,7 +194,7 @@ public:
     /**
      * @brief Hit information.
      */
-    struct hit_info
+    struct hit_type
     {
     public:
 
@@ -335,7 +335,7 @@ public:
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
      */
-    hit_info surface_area_pdf_sample(const multi<float_type, 2>& u) const
+    hit_type surface_area_pdf_sample(const multi<float_type, 2>& u) const
     {
         // Uniform height.
         float_type z = (1 - u[1]) * zmin_ + u[1] * zmax_;
@@ -360,9 +360,9 @@ public:
      * @param[in] s
      * Parameters in @f$ [0, 1)^2 @f$.
      */
-    hit_info operator()(const multi<float_type, 2>& s) const
+    hit_type operator()(const multi<float_type, 2>& s) const
     {
-        hit_info hit;
+        hit_type hit;
         float_type phi = s[0] * phimax_;
         float_type sin_phi = pr::sin(phi);
         float_type cos_phi = pr::cos(phi);
@@ -413,8 +413,8 @@ public:
      * If intersection, returns parameteric value. Else,
      * returns NaN.
      */
-    float_type intersect(const ray_info& ray, 
-                               hit_info* hit = nullptr) const
+    float_type intersect(const ray_type& ray, 
+                               hit_type* hit = nullptr) const
     {
         // Assemble intervals.
         multi<float_interval<float_type>, 3> o;
