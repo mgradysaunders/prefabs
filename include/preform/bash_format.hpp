@@ -407,7 +407,7 @@ public:
         message[2] = '.';
         char* messageitr = &message[1];
         int tmp = amount * 1000;
-        while (tmp >= 10) {
+        while (tmp > 0) {
 
             // Reduce.
             int quo = tmp / 10;
