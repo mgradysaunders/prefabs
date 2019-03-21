@@ -407,22 +407,25 @@ public:
         message[2] = '.';
         char* messageitr = &message[1];
         int tmp = amount * 1000;
-        while (tmp > 0) {
-
-            // Reduce.
-            int quo = tmp / 10;
-            int rem = tmp % 10;
-            tmp = quo;
-
-            // Digit.
-            *messageitr++ = rem + '0';
-            if (messageitr == &message[2]) {
-                messageitr++; // Skip decimal point.
-            }
+        if (tmp < 10) {
+            message[1] = "0123456789"[tmp];
+            message[3] = '0';
+            messageitr = &message[4];
         }
-        if (tmp > 0) {
-            // Digit.
-            *messageitr++ = tmp + '0';
+        else {
+            while (tmp > 0) {
+
+                // Reduce.
+                int quo = tmp / 10;
+                int rem = tmp % 10;
+                tmp = quo;
+
+                // Digit.
+                *messageitr++ = "0123456789"[rem];
+                if (messageitr == &message[2]) {
+                    messageitr++; // Skip decimal point.
+                }
+            }
         }
         *messageitr = '\0';
 
