@@ -936,6 +936,11 @@ public:
 public:
 
     /**
+     * @name Constructors
+     */
+    /**@{*/
+
+    /**
      * @brief Default constructor.
      */
     linear_aabbtree() = default;
@@ -959,6 +964,15 @@ public:
                    tree.total_leaves_);
         }
     }
+
+    /**@}*/
+
+public:
+
+    /**
+     * @name Container interface
+     */
+    /**@{*/
 
     /**
      * @brief Empty?
@@ -1020,6 +1034,8 @@ public:
     {
         return nodes_[pos];
     }
+
+    /**@}*/
 
 private:
 
