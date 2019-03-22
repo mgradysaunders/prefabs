@@ -129,14 +129,18 @@ Functions</h2></td></tr>
 <tr class="memitem:gae7ceeb2e25b7b1a868db941fb782c968"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#gae7ceeb2e25b7b1a868db941fb782c968">pr::build_onb</a> (const multi&lt; T, 3 &gt; &amp;hatz)</td></tr>
 <tr class="memdesc:gae7ceeb2e25b7b1a868db941fb782c968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build 3-dimensional orthonormal basis.  <a href="group__sampling.html#gae7ceeb2e25b7b1a868db941fb782c968">More...</a><br /></td></tr>
 <tr class="separator:gae7ceeb2e25b7b1a868db941fb782c968"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabf304dad4263643c7bfc27430d9d5605"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gabf304dad4263643c7bfc27430d9d5605"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#gabf304dad4263643c7bfc27430d9d5605">pr::offset_origin</a> (const multi&lt; T, 3 &gt; &amp;o, const multi&lt; T, 3 &gt; &amp;oerr, const multi&lt; T, 3 &gt; &amp;wi, const multi&lt; T, 3 &gt; &amp;wg)</td></tr>
-<tr class="memdesc:gabf304dad4263643c7bfc27430d9d5605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset origin.  <a href="group__sampling.html#gabf304dad4263643c7bfc27430d9d5605">More...</a><br /></td></tr>
-<tr class="separator:gabf304dad4263643c7bfc27430d9d5605"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7ace24b49ecf79e8f28540304036a3cf"><td class="memTemplParams" colspan="2">template&lt;typename G , typename P , typename T , std::size_t N&gt; </td></tr>
 <tr class="memitem:ga7ace24b49ecf79e8f28540304036a3cf"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_integral&lt; P &gt;::value &amp;&amp;std::is_floating_point&lt; T &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#ga7ace24b49ecf79e8f28540304036a3cf">pr::stratify</a> (G &amp;&amp;gen, const multi&lt; P, N &gt; &amp;dim, multi&lt; T, N &gt; *arr)</td></tr>
 <tr class="memdesc:ga7ace24b49ecf79e8f28540304036a3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stratify canonical random samples.  <a href="group__sampling.html#ga7ace24b49ecf79e8f28540304036a3cf">More...</a><br /></td></tr>
 <tr class="separator:ga7ace24b49ecf79e8f28540304036a3cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3fcc3ad2e3cf9fc7d603552da4c70645"><td class="memTemplParams" colspan="2">template&lt;typename Tk , typename... Ts&gt; </td></tr>
+<tr class="memitem:ga3fcc3ad2e3cf9fc7d603552da4c70645"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt;(std::is_floating_point&lt; Tk &gt;::value &amp;&amp;... &amp;&amp;std::is_floating_point&lt; Ts &gt;::value), std::common_type_t&lt; Tk, Ts... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#ga3fcc3ad2e3cf9fc7d603552da4c70645">pr::balance_heuristic</a> (Tk fk, Ts... fs)</td></tr>
+<tr class="memdesc:ga3fcc3ad2e3cf9fc7d603552da4c70645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-importance balance heuristic.  <a href="group__sampling.html#ga3fcc3ad2e3cf9fc7d603552da4c70645">More...</a><br /></td></tr>
+<tr class="separator:ga3fcc3ad2e3cf9fc7d603552da4c70645"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga691d4ebc7b66097a3b82c2a2811757ea"><td class="memTemplParams" colspan="2">template&lt;typename Tk , typename... Ts&gt; </td></tr>
+<tr class="memitem:ga691d4ebc7b66097a3b82c2a2811757ea"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt;(std::is_floating_point&lt; Tk &gt;::value &amp;&amp;... &amp;&amp;std::is_floating_point&lt; Ts &gt;::value), std::common_type_t&lt; Tk, Ts... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#ga691d4ebc7b66097a3b82c2a2811757ea">pr::power_heuristic</a> (Tk fk, Ts... fs)</td></tr>
+<tr class="memdesc:ga691d4ebc7b66097a3b82c2a2811757ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-importance power heuristic.  <a href="group__sampling.html#ga691d4ebc7b66097a3b82c2a2811757ea">More...</a><br /></td></tr>
+<tr class="separator:ga691d4ebc7b66097a3b82c2a2811757ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/sampling.hpp&gt;</code></p>
@@ -722,67 +726,6 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="gabf304dad4263643c7bfc27430d9d5605"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gabf304dad4263643c7bfc27430d9d5605">&#9670;&nbsp;</a></span>offset_origin()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, multi&lt;T, 3&gt; &gt; pr::offset_origin </td>
-          <td>(</td>
-          <td class="paramtype">const multi&lt; T, 3 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>o</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const multi&lt; T, 3 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>oerr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const multi&lt; T, 3 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>wi</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const multi&lt; T, 3 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>wg</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Offset origin. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">o</td><td>Origin.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">oerr</td><td>Origin absolute error.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wg</td><td>Geometry normal direction. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="ga7ace24b49ecf79e8f28540304036a3cf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga7ace24b49ecf79e8f28540304036a3cf">&#9670;&nbsp;</a></span>stratify()</h2>
 
@@ -841,6 +784,92 @@ template&lt;typename G , typename P , typename T , std::size_t N&gt; </div>
   </dd>
 </dl>
 
+</div>
+</div>
+<a id="ga3fcc3ad2e3cf9fc7d603552da4c70645"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3fcc3ad2e3cf9fc7d603552da4c70645">&#9670;&nbsp;</a></span>balance_heuristic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tk , typename... Ts&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; (std::is_floating_point&lt;Tk&gt;::value &amp;&amp; ... &amp;&amp; std::is_floating_point&lt;Ts&gt;::value), std::common_type_t&lt;Tk, Ts...&gt; &gt; pr::balance_heuristic </td>
+          <td>(</td>
+          <td class="paramtype">Tk&#160;</td>
+          <td class="paramname"><em>fk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ts...&#160;</td>
+          <td class="paramname"><em>fs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Multiple-importance balance heuristic. </p>
+<p class="formulaDsp">
+\[ w_k = \frac{f_k}{\sum_\ell f_\ell} \]
+</p>
+ 
+</div>
+</div>
+<a id="ga691d4ebc7b66097a3b82c2a2811757ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga691d4ebc7b66097a3b82c2a2811757ea">&#9670;&nbsp;</a></span>power_heuristic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tk , typename... Ts&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; (std::is_floating_point&lt;Tk&gt;::value &amp;&amp; ... &amp;&amp; std::is_floating_point&lt;Ts&gt;::value), std::common_type_t&lt;Tk, Ts...&gt; &gt; pr::power_heuristic </td>
+          <td>(</td>
+          <td class="paramtype">Tk&#160;</td>
+          <td class="paramname"><em>fk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ts...&#160;</td>
+          <td class="paramname"><em>fs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Multiple-importance power heuristic. </p>
+<p class="formulaDsp">
+\[ w_k = \frac{f_k^2}{\sum_\ell f_\ell^2} \]
+</p>
+ 
 </div>
 </div>
 </div><!-- contents -->
