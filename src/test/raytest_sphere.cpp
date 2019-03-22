@@ -97,9 +97,9 @@ void testEpsilonShadowing(const RaytestSphere& sphere)
         Vec3f vi = wi * (generateCanonical() * 400 + Float(0.0001));
         RaytestSphere::ray_type ray = {
             hit.p - vi,
-            wi,
+            vi,
             Float(0),
-            Float(pr::length(vi)) // NOTE: must renormalize wi for this to work
+            Float(1) // NOTE: must renormalize wi for this to work
         };
         Float t = sphere.intersect(ray);
         if (!pr::isnan(t)) {

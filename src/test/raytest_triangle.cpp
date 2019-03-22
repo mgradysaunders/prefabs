@@ -102,9 +102,9 @@ void testEpsilonShadowing(const RaytestTriangle& triangle)
         RaytestTriangle::hit_type hit = triangle.surface_area_pdf_sample(u1);
         RaytestTriangle::ray_type ray = {
             hit.p - vi,
-            wi,
+            vi,
             Float(0),
-            Float(pr::length(vi))
+            Float(1)
         };
         Float t = triangle.intersect(ray);
         if (!pr::isnan(t)) {
