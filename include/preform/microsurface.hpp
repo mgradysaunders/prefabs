@@ -1339,7 +1339,7 @@ public:
             wi[2] = -wi[2];
             eta = 1 / eta;
         }
-        if (wo[2] == 0 ||
+        if (wo[2] < float_type(0.0000001) || // Avoid exploding.
             wi[2] == 0) {
             return 0;
         }
