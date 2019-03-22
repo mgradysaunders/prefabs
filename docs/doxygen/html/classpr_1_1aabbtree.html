@@ -73,6 +73,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classpr_1_1aabbtree-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">pr::aabbtree&lt; Tfloat, N, Tsplit_mode, Tnode_alloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__aabbtree.html">Axis-aligned bounding box tree</a></div></div>  </div>
@@ -100,12 +101,6 @@ Public Types</h2></td></tr>
 <tr class="memitem:aaba82d7ff3701221941bc4ae8a04e708"><td class="memItemLeft" align="right" valign="top">typedef Tfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#aaba82d7ff3701221941bc4ae8a04e708">float_type</a></td></tr>
 <tr class="memdesc:aaba82d7ff3701221941bc4ae8a04e708"><td class="mdescLeft">&#160;</td><td class="mdescRight">Floating point type.  <a href="#aaba82d7ff3701221941bc4ae8a04e708">More...</a><br /></td></tr>
 <tr class="separator:aaba82d7ff3701221941bc4ae8a04e708"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a998d9e22ff9e7a2675feab9564a5b6cd"><td class="memItemLeft" align="right" valign="top">typedef multi&lt; Tfloat, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a998d9e22ff9e7a2675feab9564a5b6cd">multi_type</a></td></tr>
-<tr class="memdesc:a998d9e22ff9e7a2675feab9564a5b6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-dimensional array type.  <a href="#a998d9e22ff9e7a2675feab9564a5b6cd">More...</a><br /></td></tr>
-<tr class="separator:a998d9e22ff9e7a2675feab9564a5b6cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab73bcee2a237b63ef83786a1e203c243"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; Tfloat, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#ab73bcee2a237b63ef83786a1e203c243">aabb_type</a></td></tr>
-<tr class="memdesc:ab73bcee2a237b63ef83786a1e203c243"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axis-aligned bounding box type.  <a href="#ab73bcee2a237b63ef83786a1e203c243">More...</a><br /></td></tr>
-<tr class="separator:ab73bcee2a237b63ef83786a1e203c243"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c4823f9a830b19b0f8d7135855475e9"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; Tnode_alloc &gt;::template rebind_alloc&lt; <a class="el" href="structpr_1_1aabbtree_1_1node__type.html">node_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a9c4823f9a830b19b0f8d7135855475e9">node_allocator_type</a></td></tr>
 <tr class="memdesc:a9c4823f9a830b19b0f8d7135855475e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node allocator type.  <a href="#a9c4823f9a830b19b0f8d7135855475e9">More...</a><br /></td></tr>
 <tr class="separator:a9c4823f9a830b19b0f8d7135855475e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -180,6 +175,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a3e5fc137c8f7d68aff504ff3b8d503de"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structpr_1_1aabbtree_1_1proxy__type.html">proxy_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a3e5fc137c8f7d68aff504ff3b8d503de">proxies_</a></td></tr>
 <tr class="memdesc:a3e5fc137c8f7d68aff504ff3b8d503de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proxies.  <a href="#a3e5fc137c8f7d68aff504ff3b8d503de">More...</a><br /></td></tr>
 <tr class="separator:a3e5fc137c8f7d68aff504ff3b8d503de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a37dc2be6cc07acd89123e03d67b49e4d"><td class="memTemplParams" colspan="2">template&lt;typename , std::size_t , typename &gt; </td></tr>
+<tr class="memitem:a37dc2be6cc07acd89123e03d67b49e4d"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a37dc2be6cc07acd89123e03d67b49e4d">linear_aabbtree</a></td></tr>
+<tr class="separator:a37dc2be6cc07acd89123e03d67b49e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename Tfloat, std::size_t N, typename Tsplit_mode, typename Tnode_alloc = std::allocator&lt;char&gt;&gt;<br />
@@ -220,42 +221,6 @@ template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tno
 </div><div class="memdoc">
 
 <p>Floating point type. </p>
-
-</div>
-</div>
-<a id="a998d9e22ff9e7a2675feab9564a5b6cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a998d9e22ff9e7a2675feab9564a5b6cd">&#9670;&nbsp;</a></span>multi_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef multi&lt;Tfloat, N&gt; <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Tnode_alloc &gt;::<a class="el" href="classpr_1_1aabbtree.html#a998d9e22ff9e7a2675feab9564a5b6cd">multi_type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Multi-dimensional array type. </p>
-
-</div>
-</div>
-<a id="ab73bcee2a237b63ef83786a1e203c243"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab73bcee2a237b63ef83786a1e203c243">&#9670;&nbsp;</a></span>aabb_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt;Tfloat, N&gt; <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Tnode_alloc &gt;::<a class="el" href="classpr_1_1aabbtree.html#ab73bcee2a237b63ef83786a1e203c243">aabb_type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Axis-aligned bounding box type. </p>
 
 </div>
 </div>
@@ -489,7 +454,7 @@ template&lt;typename Tforward_itr , typename Tfunc &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line"><a class="code" href="classpr_1_1aabbtree.html#ab73bcee2a237b63ef83786a1e203c243" title="Axis-aligned bounding box type. ">aabb_type</a>(<span class="keyword">const</span> Tvalue&amp;)</div></div><!-- fragment --> where <code>Tvalue</code> is the value type corresponding to <code>Tforward_itr</code>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line">aabb&lt;float_type, N&gt;(<span class="keyword">const</span> Tvalue&amp;)</div></div><!-- fragment --> where <code>Tvalue</code> is the value type corresponding to <code>Tforward_itr</code>. </dd></dl>
 
 </div>
 </div>
@@ -718,6 +683,33 @@ template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tno
 </div><div class="memdoc">
 
 <p>Initialize recursively. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a37dc2be6cc07acd89123e03d67b49e4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37dc2be6cc07acd89123e03d67b49e4d">&#9670;&nbsp;</a></span>linear_aabbtree</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;typename , std::size_t , typename &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classpr_1_1linear__aabbtree.html">linear_aabbtree</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
