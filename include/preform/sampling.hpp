@@ -571,32 +571,32 @@ inline std::enable_if_t<
  * @brief Multiple-importance balance heuristic.
  *
  * @f[
- *      w_k = \frac{f_k}{\sum_\ell f_\ell}
+ *      w_k = \frac{f_k}{f_k + \sum_{\ell \ne k} f_\ell}
  * @f]
  */
-template <typename Tk, typename... Ts>
+template <typename Tk, typename... Tl>
 inline std::enable_if_t<
        (std::is_floating_point<Tk>::value && ... &&
-        std::is_floating_point<Ts>::value), 
-        std::common_type_t<Tk, Ts...>> balance_heuristic(Tk fk, Ts... fs)
+        std::is_floating_point<Tl>::value), 
+        std::common_type_t<Tk, Tl...>> balance_heuristic(Tk fk, Tl... fl)
 {
-    return fk / (fk + ... + fs);
+    return fk / (fk + ... + fl);
 }
 
 /**
  * @brief Multiple-importance power heuristic.
  *
  * @f[
- *      w_k = \frac{f_k^2}{\sum_\ell f_\ell^2}
+ *      w_k = \frac{f_k^2}{f_k^2 + \sum_{\ell \ne k} f_\ell^2}
  * @f]
  */
-template <typename Tk, typename... Ts>
+template <typename Tk, typename... Tl>
 inline std::enable_if_t<
        (std::is_floating_point<Tk>::value && ... &&
-        std::is_floating_point<Ts>::value), 
-        std::common_type_t<Tk, Ts...>> power_heuristic(Tk fk, Ts... fs)
+        std::is_floating_point<Tl>::value), 
+        std::common_type_t<Tk, Tl...>> power_heuristic(Tk fk, Tl... fl)
 {
-    return (fk * fk) / ((fk * fk) + ... + (fs * fs));
+    return (fk * fk) / ((fk * fk) + ... + (fl * fl));
 }
 
 /**@}*/
