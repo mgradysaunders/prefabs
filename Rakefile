@@ -308,6 +308,7 @@ CC.ccflags << "-march=native"
 CC.ccflags << "-mtune=native"
 CC.ccflags << "-O2"
 CC.ccflags << "-DNDEBUG"
+CC.ccflags << "-pthread"
 CC.ccflags = CC.ccflags.join " " # To string.
 
 # File rules.

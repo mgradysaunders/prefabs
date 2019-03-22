@@ -117,26 +117,6 @@ public:
      */
     typedef Tfloat float_type;
 
-    /**
-     * @brief Multi-dimensional array type.
-     */
-    typedef multi<Tfloat, N> multi_type;
-
-    /**
-     * @brief Axis-aligned bounding box type.
-     */
-    typedef aabb<Tfloat, N> aabb_type;
-
-#if 0
-
-    /**
-     * @brief Axis-aligned bounding box ray information type.
-     */
-    typedef typename aabb_type::
-            ray_info_type ray_info_type;
-
-#endif
-
 #if !DOXYGEN
     // prototype
     struct node_type;
@@ -168,12 +148,12 @@ public:
         /**
          * @brief Box.
          */
-        aabb_type box;
+        aabb<float_type, N> box;
 
         /**
          * @brief Box center.
          */
-        multi_type box_center;
+        multi<float_type, N> box_center;
 
         /**
          * @brief Value index.
@@ -191,7 +171,7 @@ public:
         /**
          * @brief Box.
          */
-        aabb_type box;
+        aabb<float_type, N> box;
 
         /**
          * @brief If branch, left child.
@@ -284,7 +264,7 @@ public:
      * @note
      * Function must have signature equivalent to
      * ~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
-     * aabb_type(const Tvalue&)
+     * aabb<float_type, N>(const Tvalue&)
      * ~~~~~~~~~~~~~~~~~~~~~~~~
      * where `Tvalue` is the value type corresponding to
      * `Tforward_itr`.
@@ -307,7 +287,7 @@ public:
         // Initialize proxies.
         size_type value_index = 0;
         while (from != to) {
-            aabb_type box = std::forward<Tfunc>(func)(*from);
+            aabb<float_type, N> box = std::forward<Tfunc>(func)(*from);
             assert((box[0] < box[1]).all());
             proxies_.emplace_back(
             proxy_type{
@@ -375,143 +355,6 @@ public:
     }
 
     /**@}*/
-
-public:
-
-#if 0
-
-    /**
-     * @name Flattening
-     */
-    /**@{*/
-
-    /**
-     * @brief Flat node type.
-     */
-    struct flat_node_type
-    {
-        /**
-         * @brief Box.
-         */
-        aabb_type box;
-
-        union {
-
-            /**
-             * @brief If branch, right child index.
-             */
-            std::uint32_t right_index;
-
-            /**
-             * @brief If leaf, first proxy index.
-             */
-            std::uint32_t first_index;
-        };
-
-        /**
-         * @brief Proxy count.
-         */
-        std::uint8_t count;
-
-        /**
-         * @brief If branch, split dimension.
-         */
-        std::uint8_t split_dim;
-    };
-
-    /**
-     * @brief Flat type.
-     */
-    struct flat_type
-    {
-        /**
-         * @brief Traverse hierarchy.
-         *
-         * @param[in] info
-         * Ray information.
-         *
-         * @param[in] func
-         * Function processing leaf primitives.
-         *
-         * @note
-         * Function must have signature
-         * equivalent to
-         * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
-         * bool(std::uint32_t, std::uint8_t)
-         * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         * where the return value is true to continue
-         * traversal and false to stop traversal.
-         */
-        template <typename Tfunc>
-        __attribute__((always_inline))
-        void traverse(
-                    const ray_info_type& info,
-                    Tfunc&& func) const
-        {
-            static_stack<std::uint32_t, 64> todo;
-            todo.push(0);
-            while (!todo.empty()) {
-
-                // Current.
-                std::uint32_t flat_index = todo.pop();
-                const flat_node_type& flat_node =
-                      flat_nodes[flat_index];
-
-                if (flat_node.box.intersect(info)) {
-                    if (flat_node.count) {
-                        // Leaf.
-                        bool stop = !std::forward<Tfunc>(func)(
-                                flat_node.first_index,
-                                flat_node.count);
-                        if (stop) {
-                            return;
-                        }
-                    }
-                    else {
-                        // Branch.
-                        todo.push(flat_index + 1);
-                        todo.push(flat_node.right_index);
-                        if (info.dmin[flat_node.split_dim]) {
-                            std::swap(
-                                todo[-1],
-                                todo[-2]);
-                        }
-                    }
-                }
-            }
-        }
-
-        /**
-         * @brief Flat nodes.
-         */
-        std::vector<flat_node_type> flat_nodes;
-    };
-
-    /**
-     * @brief Flatten.
-     *
-     * After initialization, flatten hierarchy to sequential
-     * array for traversal.
-     */
-    flat_type flatten()
-    {
-        flat_type flat;
-        flat.flat_nodes.resize(
-            total_branches_ +
-            total_leaves_);
-        if (root_ && !flat.flat_nodes.empty()) {
-            size_type flat_index = 0;
-            flatten(
-                root_,
-                flat.flat_nodes.data(),
-                flat_index);
-        }
-        return flat;
-    }
-
-    /**@}*/
-
-#endif
 
 private:
 
@@ -603,8 +446,8 @@ private:
         node_type* node = allocate();
 
         // Surround boxes and box centers.
-        aabb_type box;
-        aabb_type box_center;
+        aabb<float_type, N> box;
+        aabb<float_type, N> box_center;
         assert((box[0] > box[1]).all());
         for (const proxy_type& proxy : proxies) {
             box |= proxy.box;
@@ -713,60 +556,29 @@ private:
         return node;
     }
 
-#if 0
-
-    /**
-     * @brief Flatten.
-     */
-    void flatten(
-            node_type* node,
-            flat_node_type* flat_nodes,
-            size_type& flat_index)
-    {
-        // Current.
-        assert(node);
-        assert(flat_nodes);
-        flat_node_type& flat_node = flat_nodes[flat_index++];
-        flat_node.box = node->box;
-        if (node->count) {
-            // Sanity check.
-            assert(
-                !node->left &&
-                !node->right);
-            assert(
-                node->count <
-                size_type(256));
-
-            // Initialize.
-            flat_node.first_index = node->first_index;
-            flat_node.count = node->count;
-        }
-        else {
-            // Sanity check.
-            assert(
-                node->left &&
-                node->right);
-
-            // Flatten left branch.
-            flatten(
-                node->left,
-                flat_nodes,
-                flat_index);
-
-            // Initialize.
-            flat_node.right_index = flat_index;
-            flat_node.split_dim = node->split_dim;
-
-            // Flatten right branch.
-            flatten(
-                node->right,
-                flat_nodes,
-                flat_index);
-        }
-    }
-
-#endif
+    template <typename, std::size_t, typename>
+    friend class linear_aabbtree;
 };
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <
+    typename Tfloat, 
+    typename Tsplit_mode,
+    typename Tnode_alloc = std::allocator<char>
+    >
+using aabbtree2 = aabbtree<Tfloat, 2, Tsplit_mode, Tnode_alloc>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <
+    typename Tfloat, 
+    typename Tsplit_mode,
+    typename Tnode_alloc = std::allocator<char>
+    >
+using aabbtree3 = aabbtree<Tfloat, 3, Tsplit_mode, Tnode_alloc>;
 
 /**
  * @brief Split by equal counts.
@@ -978,6 +790,312 @@ struct aabbtree_split_surface_area
         }
     }
 };
+
+/**
+ * @brief Linear axis-aligned bounding box tree.
+ */
+template <
+    typename Tfloat, std::size_t N,
+    typename Tnode_alloc = std::allocator<char>
+    >
+class linear_aabbtree
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
+
+    /**
+     * @name Container typedefs
+     */
+    /**@{*/
+
+    /**
+     * @brief Size type.
+     */
+    typedef std::size_t size_type;
+
+    /**
+     * @brief Floating point type.
+     */
+    typedef Tfloat float_type;
+
+#if !DOXYGEN
+    // prototype
+    struct node_type;
+#endif // #if !DOXYGEN
+
+    /**
+     * @brief Node allocator type.
+     */
+    typedef typename std::allocator_traits<Tnode_alloc>::
+            template rebind_alloc<node_type> node_allocator_type;
+
+    /**
+     * @brief Node allocator traits.
+     */
+    typedef typename std::allocator_traits<Tnode_alloc>::
+            template rebind_traits<node_type> node_allocator_traits;
+
+    /**@}*/
+
+public:
+
+    /**
+     * @brief Node type.
+     */
+    struct node_type
+    {
+    public:
+
+        /**
+         * @brief Box.
+         */
+        aabb<float_type, N> box;
+
+        union {
+
+            /**
+             * @brief If branch, right child index.
+             */
+            std::uint32_t right_offset;
+
+            /**
+             * @brief If leaf, first proxy index.
+             */
+            std::uint32_t first_index;
+        };
+
+        /**
+         * @brief Proxy count.
+         */
+        std::uint8_t count;
+
+        /**
+         * @brief If branch, split dimension.
+         */
+        std::uint8_t split_dim;
+
+    public:
+
+        /**
+         * @name Traversal helpers
+         */
+        /**@{*/
+
+        /**
+         * @brief Is branch?
+         */
+        __attribute__((always_inline))
+        bool is_branch() const noexcept
+        {
+            return count == 0;
+        }
+
+        /**
+         * @brief Left child.
+         *
+         * @note
+         * This is only valid for branch nodes.
+         *
+         * @note
+         * This function assumes that `this` is a valid pointer 
+         * to a node inside the parent node array. Hence, calling this 
+         * on a copy is ill-defined.
+         */
+        __attribute__((always_inline))
+        const node_type* left_child() const noexcept
+        {
+            assert(count == 0);
+            return this + 1;
+        }
+
+        /**
+         * @brief Right child.
+         *
+         * @note
+         * This is only valid for branch nodes.
+         *
+         * @note
+         * This function assumes that `this` is a valid pointer 
+         * to a node inside the parent node array. Hence, calling this
+         * on a copy is ill-defined.
+         */
+        __attribute__((always_inline))
+        const node_type* right_child() const noexcept
+        {
+            assert(count == 0);
+            return this + right_offset;
+        }
+
+        /**@}*/
+    };
+
+public:
+
+    /**
+     * @brief Default constructor.
+     */
+    linear_aabbtree() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    template <typename... Tother>
+    linear_aabbtree(const aabbtree<Tfloat, N, Tother...>& tree)
+    {
+        // Reserve memory.
+        nodes_.reserve(
+            tree.total_branches_ + 
+            tree.total_leaves_);
+
+        // Initialize.
+        if (tree.root_) {
+            init_recursive(tree.root_);
+            assert(nodes_.size() ==
+                   tree.total_branches_ + 
+                   tree.total_leaves_);
+        }
+    }
+
+    /**
+     * @brief Empty?
+     */
+    __attribute__((always_inline))
+    bool empty() const noexcept
+    {
+        return nodes_.empty();
+    }
+
+    /**
+     * @brief Size.
+     */
+    __attribute__((always_inline))
+    size_type size() const noexcept
+    {
+        return nodes_.size();
+    }
+
+    /**
+     * @brief Begin iterator.
+     *
+     * @note
+     * If `nodes_` is empty, returns nullptr.
+     */
+    __attribute__((always_inline))
+    const node_type* begin() const noexcept
+    {
+        if (nodes_.empty()) {
+            return nullptr;
+        }
+        else {
+            return &nodes_[0];
+        }
+    }
+
+    /**
+     * @brief End iterator.
+     *
+     * @note
+     * If `nodes_` is empty, returns nullptr.
+     */
+    __attribute__((always_inline))
+    const node_type* end() const noexcept
+    {
+        if (nodes_.empty()) {
+            return nullptr;
+        }
+        else {
+            return &nodes_[0] + nodes_.size();
+        }
+    }
+
+    /**
+     * @brief Index accessor.
+     */
+    __attribute__((always_inline))
+    const node_type& operator[](size_type pos) const noexcept
+    {
+        return nodes_[pos];
+    }
+
+private:
+
+    /**
+     * @brief Nodes.
+     */
+    std::vector<
+            node_type,
+            node_allocator_type> nodes_;
+
+private:
+
+    /**
+     * @brief Flatten.
+     */
+    template <typename Ttree_node>
+    void init_recursive(Ttree_node* tree_node)
+    {
+        // Sanity check.
+        assert(tree_node);
+
+        // Next node.
+        nodes_.emplace_back();
+        size_type node_index = nodes_.size() - 1; // Remember index.
+        node_type& node = nodes_.back();
+        node.box = tree_node->box;
+
+        if (tree_node->count) {
+            // Sanity check.
+            assert(
+                !tree_node->left &&
+                !tree_node->right);
+            assert(
+                tree_node->count <
+                size_type(256));
+
+            // Initialize.
+            node.first_index = tree_node->first_index;
+            node.count = tree_node->count;
+        }
+        else {
+            // Sanity check.
+            assert(
+                tree_node->left &&
+                tree_node->right);
+
+            // Initialize left branch.
+            init_recursive(tree_node->left);
+
+            // Initialize.
+            node.right_offset = nodes_.size() - node_index;
+            node.split_dim = tree_node->split_dim;
+
+            // Initialize right branch.
+            init_recursive(tree_node->right);
+        }
+    }
+};
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <
+    typename Tfloat, 
+    typename Tnode_alloc = std::allocator<char>
+    >
+using linear_aabbtree2 = pr::linear_aabbtree<Tfloat, 2, Tnode_alloc>;
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <
+    typename Tfloat, 
+    typename Tnode_alloc = std::allocator<char>
+    >
+using linear_aabbtree3 = pr::linear_aabbtree<Tfloat, 3, Tnode_alloc>;
 
 /**@}*/
 
