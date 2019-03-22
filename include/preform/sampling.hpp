@@ -460,6 +460,8 @@ inline std::enable_if_t<
     };
 }
 
+// Not necessary?
+#if 0
 /**
  * @brief Offset origin.
  *
@@ -500,6 +502,7 @@ inline std::enable_if_t<
     }
     return oprime;
 }
+#endif
 
 /**
  * @brief Stratify canonical random samples.
@@ -562,6 +565,38 @@ inline std::enable_if_t<
         arr,
         arr + dim.prod(),
         std::forward<G>(gen));
+}
+
+/**
+ * @brief Multiple-importance balance heuristic.
+ *
+ * @f[
+ *      w_k = \frac{f_k}{\sum_\ell f_\ell}
+ * @f]
+ */
+template <typename Tk, typename... Ts>
+inline std::enable_if_t<
+       (std::is_floating_point<Tk>::value && ... &&
+        std::is_floating_point<Ts>::value), 
+        std::common_type_t<Tk, Ts...>> balance_heuristic(Tk fk, Ts... fs)
+{
+    return fk / (fk + ... + fs);
+}
+
+/**
+ * @brief Multiple-importance power heuristic.
+ *
+ * @f[
+ *      w_k = \frac{f_k^2}{\sum_\ell f_\ell^2}
+ * @f]
+ */
+template <typename Tk, typename... Ts>
+inline std::enable_if_t<
+       (std::is_floating_point<Tk>::value && ... &&
+        std::is_floating_point<Ts>::value), 
+        std::common_type_t<Tk, Ts...>> power_heuristic(Tk fk, Ts... fs)
+{
+    return (fk * fk) / ((fk * fk) + ... + (fs * fs));
 }
 
 /**@}*/
