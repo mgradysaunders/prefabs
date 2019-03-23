@@ -50,7 +50,7 @@
 namespace pr {
 
 /**
- * @defgroup raytest_aabb Ray-test (AABB)
+ * @defgroup raytest_aabb Ray-test (axis-aligned bounding box)
  *
  * `<preform/raytest_aabb.hpp>`
  *
@@ -59,7 +59,7 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Ray-test (AABB).
+ * @brief Ray-test (axis-aligned bounding box).
  *
  * @tparam T
  * Float type.
@@ -91,169 +91,6 @@ public:
          */
         ray_type() = default;
 
-        /**
-         * @brief Constructor.
-         *
-         * @param[in] o
-         * Origin.
-         *
-         * @param[in] d
-         * Direction.
-         *
-         * @param[in] tmin
-         * Parameter minimum.
-         *
-         * @param[in] tmax
-         * Parameter maximum.
-         */
-        ray_type(
-            const multi<float_type, 3>& o,
-            const multi<float_type, 3>& d,
-            float_type tmin = 0,
-            float_type tmax =
-                pr::numeric_limits<float_type>::infinity()) :
-                o(o), d(d),
-                tmin(tmin),
-                tmax(tmax)
-        {
-            // Delegate.
-            cache();
-        }
-#if 0
-        /**
-         * @brief Constructor.
-         *
-         * @param[in] o
-         * Origin.
-         *
-         * @param[in] oerr
-         * Origin absolute error.
-         *
-         * @param[in] d
-         * Direction.
-         *
-         * @param[in] derr
-         * Direction absolute error.
-         *
-         * @param[in] tmin
-         * Parameter minimum.
-         *
-         * @param[in] tmax
-         * Parameter maximum.
-         */
-        ray_type(
-            const multi<float_type, 3>& o,
-            const multi<float_type, 3>& oerr,
-            const multi<float_type, 3>& d,
-            const multi<float_type, 3>& derr,
-            float_type tmin = 0,
-            float_type tmax =
-                pr::numeric_limits<float_type>::infinity()) :
-                o(o), oerr(oerr),
-                d(d), derr(derr),
-                tmin(tmin),
-                tmax(tmax)
-        {
-            // Delegate.
-            cache();
-        }
-#endif
-
-    public:
-
-        /**
-         * @brief Origin @f$ \mathbf{o} @f$.
-         */
-        multi<float_type, 3> o = {};
-
-#if 0
-        /**
-         * @brief Origin absolute error @f$ \mathbf{o}_{\text{err}} @f$.
-         */
-        multi<float_type, 3> oerr = {};
-#endif
-
-        /**
-         * @brief Direction @f$ \mathbf{d} @f$.
-         */
-        multi<float_type, 3> d = {};
-
-#if 0
-        /**
-         * @brief Direction absolute error @f$ \mathbf{d}_{\text{err}} @f$.
-         */
-        multi<float_type, 3> derr = {};
-#endif
-
-        /**
-         * @brief Parameter minimum @f$ t_{\min} @f$.
-         */
-        float_type tmin = 0;
-
-        /**
-         * @brief Parameter maximum @f$ t_{\max} @f$.
-         */
-        float_type tmax = pr::numeric_limits<float_type>::infinity();
-
-    private:
-
-        /**
-         * @name Cache variables
-         */
-        /**@{*/
-
-        /**
-         * @brief Direction minimum index @f$ \mathbf{d}_{\min} @f$.
-         *
-         * @note
-         * @f[
-         *      d_{\min[k]} =
-         *      \begin{cases}
-         *          1 & d_{[k]} < 0
-         *      \\  0 & d_{[k]} \ge 0
-         *      \end{cases}
-         * @f]
-         */
-        multi<int, 3> dmin;
-
-        /**
-         * @brief Direction maximum index @f$ \mathbf{d}_{\max} @f$.
-         *
-         * @note
-         * @f[
-         *      d_{\max[k]} = 1 - d_{\min[k]}
-         * @f]
-         */
-        multi<int, 3> dmax;
-
-        /**
-         * @brief Direction inverse @f$ \mathbf{d}^{-1} @f$.
-         */
-#if 0
-        multi<float_interval<float_type>, 3> dinv;
-#else
-        multi<float_type, 3> dinv;
-#endif
-
-        /**
-         * @brief Cache.
-         */
-        void cache()
-        {
-            dmin = pr::signbit(d);
-            dmax = 1 - dmin;
-#if 0
-            for (int j = 0; j < 3; j++) {
-                dinv[j] = float_type(1) /
-                          float_interval<float_type>{d[j], derr[j]};
-            }
-#else
-            dinv = 1 / d;
-#endif
-        }
-
-        friend struct raytest_aabb<T>;
-
         /**@}*/
     };
 
@@ -274,6 +111,7 @@ public:
     {
     }
 
+#if 0
     /**
      * @brief Intersect.
      *
@@ -286,87 +124,9 @@ public:
      */
     float_type intersect(const ray_type& ray) const
     {
-#if 0
-        // Assemble intervals.
-        multi<float_interval<float_type>, 3> o;
-     /* multi<float_interval<float_type>, 3> d; */
-        for (int j = 0; j < 3; j++) {
-            o[j] = {ray.o[j], ray.oerr[j]};
-         /* d[j] = {ray.d[j], ray.derr[j]}; */
-        }
-
-        // Slab intersection.
-        float_interval<float_type> tmin, tkmin;
-        float_interval<float_type> tmax, tkmax;
-
-        // Slab 0.
-        tmin = (box_[ray.dmin[0]][0] - o[0]) * ray.dinv[0];
-        tmax = (box_[ray.dmax[0]][0] - o[0]) * ray.dinv[0];
-        for (int k = 1; k < 3; k++) {
-
-            // Slab k.
-            tkmin = (box_[ray.dmin[k]][k] - o[k]) * ray.dinv[k];
-            tkmax = (box_[ray.dmax[k]][k] - o[k]) * ray.dinv[k];
-
-            // Reject certain misses.
-            if (!(tmin.lower_bound() < tkmax.upper_bound() &&
-                  tmax.upper_bound() > tkmin.lower_bound())) {
-                // No intersection.
-                return pr::numeric_limits<float_type>::quiet_NaN();
-            }
-
-            // Update.
-            if (tmin.value() < tkmin.value()) tmin = tkmin;
-            if (tmax.value() > tkmax.value()) tmax = tkmax;
-        }
-
-        // Reject uncertain hits.
-        if (!(tmin.upper_bound() < ray.tmax &&
-              tmax.lower_bound() > ray.tmin)) {
-            // No intersection.
-            return pr::numeric_limits<float_type>::quiet_NaN();
-        }
-
-        return tmin.value() > ray.tmin ?
-               tmin.value() : tmax.value();
-#else
-        // Slab intersection.
-        float_type tmin, tkmin;
-        float_type tmax, tkmax;
-
-        // Slab 0.
-        tmin = (box_[ray.dmin[0]][0] - ray.o[0]) * ray.dinv[0];
-        tmax = (box_[ray.dmax[0]][0] - ray.o[0]) * ray.dinv[0];
-        tmax *= 1 + 2 * pr::numeric_limits<float_type>::echelon(3);
-        for (int k = 1; k < 3; k++) {
-
-            // Slab k.
-            tkmin = (box_[ray.dmin[k]][k] - ray.o[k]) * ray.dinv[k];
-            tkmax = (box_[ray.dmax[k]][k] - ray.o[k]) * ray.dinv[k];
-            tkmax *= 1 + 2 * pr::numeric_limits<float_type>::echelon(3);
-
-            // Reject certain misses.
-            if (!(tmin < tkmax &&
-                  tmax > tkmin)) {
-                // No intersection.
-                return pr::numeric_limits<float_type>::quiet_NaN();
-            }
-
-            // Update.
-            tmin = pr::fmax(tmin, tkmin);
-            tmax = pr::fmin(tmax, tkmax);
-        }
-
-        // Reject uncertain hits.
-        if (!(tmin < ray.tmax &&
-              tmax > ray.tmin)) {
-            // No intersection.
-            return pr::numeric_limits<float_type>::quiet_NaN();
-        }
-
-        return tmin > ray.tmin ? tmin : tmax;
-#endif
+        return 0;
     }
+#endif
 
 private:
 
