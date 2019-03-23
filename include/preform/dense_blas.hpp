@@ -56,7 +56,7 @@
 namespace pr {
 
 /**
- * @defgroup dense_blas Basic linear algebra subroutines
+ * @defgroup dense_blas Dense BLAS
  *
  * `<preform/dense_blas.hpp>`
  *
@@ -65,7 +65,7 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief BLAS traits.
+ * @brief Dense BLAS traits.
  *
  * By default, the implementation assumes `T` is floating point
  * or complex.
