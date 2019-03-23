@@ -143,7 +143,7 @@ public:
 };
 
 /**
- * @name Dense BLAS.
+ * @brief Dense BLAS.
  */
 template <
     typename T,
