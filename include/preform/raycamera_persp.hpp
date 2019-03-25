@@ -75,6 +75,33 @@ public:
      */
     typedef T float_type;
 
+public:
+
+    /**
+     * @brief Ray information.
+     */
+    struct ray_info
+    {
+    public:
+
+        /**
+         * @brief Origin @f$ \mathbf{o} @f$.
+         */
+        multi<float_type, 3> o = {};
+
+        /**
+         * @brief Direction @f$ \mathbf{d} @f$.
+         */
+        multi<float_type, 3> d = {};
+
+        /**
+         * @brief Pixel location @f$ \mathbf{p}_{\text{pix}} @f$.
+         */
+        multi<float_type, 2> ppix = {};
+    };
+
+public:
+
     /**
      * @brief Default constructor.
      */
@@ -213,8 +240,29 @@ public:
         };
     }
 
+    /**
+     * @brief Evaluate.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     */
+    ray_info operator()(const multi<float_type, 2>& u) const
+    {
+        ray_info ray;
+        ray.o = o_;
+        multi<float_type, 2> q = (1 - u) * qmin_ + u * qmax_;
+        multi<float_type, 3> dx = w_ * (q[0] - float_type(0.5)) * hatx_;
+        multi<float_type, 3> dy = h_ * (q[1] - float_type(0.5)) * haty_;
+        multi<float_type, 3> dz = l_ * hatz_;
+        ray.d = fastnormalize(dx + dy + dz);
+        ray.ppix = {
+            w_ * q[0],
+            h_ * q[1]
+        };
+        return ray;
+    }
+
     // TODO importance functions
-    // TODO sampling 
 
 private:
 

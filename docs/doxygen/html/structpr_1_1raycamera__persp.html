@@ -69,6 +69,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -82,6 +83,12 @@ $(function() {
 <p>Ray-camera (perspective).  
  <a href="structpr_1_1raycamera__persp.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raycamera__persp_1_1ray__info.html">ray_info</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ray information.  <a href="structpr_1_1raycamera__persp_1_1ray__info.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:ac79c1d34d1a48da3cefbc7ffbbadbf49"><td class="memItemLeft" align="right" valign="top">typedef T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a></td></tr>
@@ -96,6 +103,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a59783351c7bb77011a3d8523085f9d6e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raycamera__persp.html#a59783351c7bb77011a3d8523085f9d6e">raycamera_persp</a> (const multi&lt; <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a>, 3 &gt; &amp;o, const multi&lt; <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a>, 3 &gt; &amp;hatx, const multi&lt; <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a>, 3 &gt; &amp;haty, const multi&lt; <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a>, 3 &gt; &amp;hatz, <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a> w, <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a> h, <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a> f, const multi&lt; <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a>, 2 &gt; &amp;qmin={0, 0}, const multi&lt; <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a>, 2 &gt; &amp;qmax={1, 1})</td></tr>
 <tr class="memdesc:a59783351c7bb77011a3d8523085f9d6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a59783351c7bb77011a3d8523085f9d6e">More...</a><br /></td></tr>
 <tr class="separator:a59783351c7bb77011a3d8523085f9d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f74179e3935933d53e2ae3f7b2282ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1raycamera__persp_1_1ray__info.html">ray_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1raycamera__persp.html#a7f74179e3935933d53e2ae3f7b2282ef">operator()</a> (const multi&lt; <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a>, 2 &gt; &amp;u) const</td></tr>
+<tr class="memdesc:a7f74179e3935933d53e2ae3f7b2282ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate.  <a href="#a7f74179e3935933d53e2ae3f7b2282ef">More...</a><br /></td></tr>
+<tr class="separator:a7f74179e3935933d53e2ae3f7b2282ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -399,6 +409,42 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>For convenience, the implementation crosses with \( -\mathbf{y}_0 \), such that the camera coordinate system is upside-down (since pixel coordinates increase downward). </dd></dl>
+
+</div>
+</div>
+<a id="a7f74179e3935933d53e2ae3f7b2282ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f74179e3935933d53e2ae3f7b2282ef">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpr_1_1raycamera__persp_1_1ray__info.html">ray_info</a> <a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp</a>&lt; T &gt;::operator() </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; <a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a>, 2 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>u</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Evaluate. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
