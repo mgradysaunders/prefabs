@@ -28,12 +28,12 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201703L)
-#error "preform/raycam_pinhole.hpp requires >=C++17"
+#error "preform/raycamera_persp.hpp requires >=C++17"
 #endif // #if !(__cplusplus >= 201703L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_RAYCAM_PINHOLE_HPP
-#define PREFORM_RAYCAM_PINHOLE_HPP
+#ifndef PREFORM_RAYCAMERA_PERSP_HPP
+#define PREFORM_RAYCAMERA_PERSP_HPP
 
 // for pr::multi
 #include <preform/multi.hpp>
@@ -44,24 +44,24 @@
 namespace pr {
 
 /**
- * @defgroup raycam_pinhole Ray-camera (pinhole)
+ * @defgroup raycamera_persp Ray-camera (perspective)
  *
- * `<preform/raycam_pinhole.hpp>`
+ * `<preform/raycamera_persp.hpp>`
  *
  * __C++ version__: >=C++17
  */
 /**@{*/
 
 /**
- * @brief Ray-camera (pinhole).
+ * @brief Ray-camera (perspective).
  *
- * @image html raycam_pinhole.svg
+ * @image html raycamera_persp.svg
  *
  * @tparam T
  * Float type.
  */
 template <typename T>
-struct raycam_pinhole
+struct raycamera_persp
 {
 public:
 
@@ -78,7 +78,7 @@ public:
     /**
      * @brief Default constructor.
      */
-    raycam_pinhole() = default;
+    raycamera_persp() = default;
 
     /**
      * @brief Constructor.
@@ -118,7 +118,7 @@ public:
      * - `qmin[0] < qmax[0]`, and
      * - `qmin[1] < qmax[1]`.
      */
-    raycam_pinhole(
+    raycamera_persp(
         const multi<float_type, 3>& o,
         const multi<float_type, 3>& hatx,
         const multi<float_type, 3>& haty,
@@ -187,7 +187,7 @@ public:
      * such that the camera coordinate system is upside-down (since pixel 
      * coordinates increase downward).
      */
-    static raycam_pinhole look_at(
+    static raycamera_persp look_at(
                 const multi<float_type, 3>& p0,
                 const multi<float_type, 3>& p1,
                 const multi<float_type, 3>& y0,
@@ -268,4 +268,4 @@ private:
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_RAYCAM_PINHOLE_HPP
+#endif // #ifndef PREFORM_RAYCAMERA_PERSP_HPP
