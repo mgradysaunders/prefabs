@@ -628,7 +628,7 @@ inline std::complex<T> step(const std::complex<T>& x)
 /**@}*/
 
 /**
- * @name Special functions
+ * @name Misc special functions
  */
 /**@{*/
 
