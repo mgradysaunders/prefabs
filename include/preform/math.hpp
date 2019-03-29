@@ -762,6 +762,40 @@ inline std::enable_if_t<
     }
 }
 
+/**
+ * @brief Error function inverse.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> erfinv(T y)
+{
+    T w = -pr::log((1 - y) * (1 + y));
+    T p;
+    if (w < T(5)) {
+        w = w - T(2.5);
+        p = pr::fma(w, T(+2.81022636e-08), T(+3.43273939e-7));
+        p = pr::fma(w, p, T(-3.52338770e-6));
+        p = pr::fma(w, p, T(-4.39150654e-6));
+        p = pr::fma(w, p, T(+2.18580870e-4));
+        p = pr::fma(w, p, T(-1.25372503e-3));
+        p = pr::fma(w, p, T(-4.17768164e-3));
+        p = pr::fma(w, p, T(+2.46640727e-1));
+        p = pr::fma(w, p, T(+1.50140941));
+    }
+    else {
+        w = pr::sqrt(w) - 3;
+        p = pr::fma(w, T(-2.00214257e-4), T(+1.00950558e-4));
+        p = pr::fma(w, p, T(+1.34934322e-3));
+        p = pr::fma(w, p, T(-3.67342844e-3));
+        p = pr::fma(w, p, T(+5.73950773e-3));
+        p = pr::fma(w, p, T(-7.62246130e-3));
+        p = pr::fma(w, p, T(+9.43887047e-3));
+        p = pr::fma(w, p, T(+1.00167406));
+        p = pr::fma(w, p, T(+2.83297682));
+    }
+    return p * y;
+}
+
 /**@}*/
 
 /**@}*/

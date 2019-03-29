@@ -639,7 +639,7 @@ public:
      * @brief Probability mass function.
      *
      * @f[
-     *      f(x) =
+     *      f(k) =
      *          \begin{cases}
      *              q & k = 0
      *          \\  p & k = 1
@@ -930,39 +930,236 @@ private:
 };
 
 /**
- * @brief Error function inverse.
+ * @brief Poisson distribution.
  */
-template <typename T>
-inline std::enable_if_t<std::is_floating_point<T>::value, T> erfinv(T y)
+template <typename T = double>
+class poisson_distribution
 {
-    T w = -pr::log((T(1) - y) * (T(1) + y));
-    T p;
-    if (w < T(5)) {
-        w = w - T(2.5);
-        p = T(2.81022636e-08);
-        p = pr::fma(p, w, T(3.43273939e-07));
-        p = pr::fma(p, w, T(-3.5233877e-06));
-        p = pr::fma(p, w, T(-4.39150654e-06));
-        p = pr::fma(p, w, T(0.00021858087));
-        p = pr::fma(p, w, T(-0.00125372503));
-        p = pr::fma(p, w, T(-0.00417768164));
-        p = pr::fma(p, w, T(0.246640727));
-        p = pr::fma(p, w, T(1.50140941));
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Value type.
+     */
+    typedef int value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    poisson_distribution() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @throw std::invalid_argument
+     * Unless `lambda > 0`.
+     */
+    poisson_distribution(float_type lambda) : lambda_(lambda)
+    {
+        if (!(lambda > float_type(0))) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
     }
-    else {
-        w = pr::sqrt(w) - 3;
-        p = T(-0.000200214257);
-        p = pr::fma(p, w, T(0.000100950558));
-        p = pr::fma(p, w, T(0.00134934322));
-        p = pr::fma(p, w, T(-0.00367342844));
-        p = pr::fma(p, w, T(0.00573950773));
-        p = pr::fma(p, w, T(-0.0076224613));
-        p = pr::fma(p, w, T(0.00943887047));
-        p = pr::fma(p, w, T(1.00167406));
-        p = pr::fma(p, w, T(2.83297682));
+
+    /**
+     * @brief Lower bound.
+     *
+     * @f[
+     *      \min[X] = 0
+     * @f]
+     */
+    float_type lower_bound() const
+    {
+        return 0;
     }
-    return p * y;
-}
+
+    /**
+     * @brief Upper bound.
+     *
+     * @f[
+     *      \max[X] = \infty
+     * @f]
+     */
+    float_type upper_bound() const
+    {
+        return pr::numeric_limits<float_type>::infinity();
+    }
+
+    /**
+     * @brief Mean.
+     *
+     * @f[
+     *      E[X] = \lambda
+     * @f]
+     */
+    float_type mean() const
+    {
+        return lambda_;
+    }
+
+    /**
+     * @brief Variance.
+     *
+     * @f[
+     *      V[X] = \lambda
+     * @f]
+     */
+    float_type variance() const
+    {
+        return lambda_;
+    }
+
+    /**
+     * @brief Skewness.
+     *
+     * @f[
+     *      \gamma_1[X] = 1 / \sqrt{\lambda}
+     * @f]
+     */
+    float_type skewness() const
+    {
+        return 1 / pr::sqrt(lambda_);
+    }
+
+    /**
+     * @brief Entropy.
+     *
+     * @f[
+     *      H[X] = 
+     *      \lambda(1 - \log(\lambda)) +
+     *      e^{-\lambda}\sum_{k=0}^{\infty}\frac{\lambda^k}{k!}\log(k!)
+     * @f]
+     */
+    float_type entropy() const
+    {
+        if (lambda_ < float_type(20)) {
+            // Direct evaluation.
+            float_type alpha0 = pr::exp(-lambda_);
+            float_type alpha1 = 0;
+            float_type s = 0;
+            for (int k = 1; k < 100; k++) {
+                alpha0 *= lambda_ / k;
+                alpha1 += pr::log(float_type(k));
+                s += alpha0 * alpha1;
+                if ((alpha0 * alpha1) < s * float_type(1e-16)) {
+                    break;
+                }
+            }
+            s += lambda_ * (1 - pr::log(lambda_));
+            return s;
+        }
+        else {
+            // Asymptotic.
+            float_type lambdainv = 1 / lambda_;
+            float_type lambdainv2 = lambdainv * lambdainv;
+            float_type lambdainv3 = lambdainv * lambdainv2;
+            return 
+                pr::log(2 * 
+                pr::numeric_constants<float_type>::M_pi() *
+                pr::numeric_constants<float_type>::M_e() * lambda_) / 2 -
+                            (1 / float_type(12)) * lambdainv - 
+                            (1 / float_type(24)) * lambdainv2 -
+                            (19 / float_type(360)) * lambdainv3;
+        }
+    }
+
+    /**
+     * @brief Probability mass function.
+     *
+     * @f[
+     *      f(k) = 
+     *          \begin{cases}
+     *              0                  & k < 0 
+     *          \\  e^{-\lambda} 
+     *                  \lambda^k / k! & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    float_type pmf(int k) const
+    {
+        if (k < 0) {
+            return 0;
+        }
+        else {
+            return pr::exp(
+                   pr::log(lambda_) * k - lambda_ -
+                   pr::lgamma(T(k + 1)));
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function.
+     *
+     * @f[
+     *      F(x) = 
+     *          e^{-\lambda}
+     *          \sum_{j=0}^{\lfloor x \rfloor}\frac{\lambda^j}{j!}
+     * @f]
+     */
+    float_type cdf(float_type x) const
+    {
+        if (!(x >= float_type(0))) {
+            return 0;
+        }
+        else {
+            float_type p = pr::exp(-lambda_);
+            float_type s = p;
+            for (int j = 1; j <= int(x); j++) {
+                p *= lambda_ / j;
+                s += p;
+            }
+            return s;
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function inverse.
+     */
+    float_type cdfinv(float_type u) const
+    {
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
+        }
+        else {
+            int x = 0;
+            float_type p = pr::exp(-lambda_);
+            float_type s = p;
+            while (u > s) {
+                x++;
+                p *= lambda_ / x;
+                s += p;
+            }
+            return x;
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    value_type operator()(G&& gen) const
+    {
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+    }
+
+private:
+
+    /**
+     * @brief Rate @f$ \lambda @f$.
+     */
+    float_type lambda_ = 1;
+};
 
 /**
  * @brief Normal distribution.
