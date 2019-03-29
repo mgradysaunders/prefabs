@@ -178,6 +178,25 @@ Sign/step functions (complex)</h2></td></tr>
 <tr class="separator:ga757b123c933a72f0a33b4f940a2919c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Special functions</h2></td></tr>
+<tr class="memitem:ga23ecc46f91a9c847ca7da5fb6afa05f0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga23ecc46f91a9c847ca7da5fb6afa05f0"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga23ecc46f91a9c847ca7da5fb6afa05f0">pr::lbeta</a> (T p, T q)</td></tr>
+<tr class="memdesc:ga23ecc46f91a9c847ca7da5fb6afa05f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log beta function.  <a href="group__math.html#ga23ecc46f91a9c847ca7da5fb6afa05f0">More...</a><br /></td></tr>
+<tr class="separator:ga23ecc46f91a9c847ca7da5fb6afa05f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae3785624aee3eebc6f713bc8f4c1eda3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae3785624aee3eebc6f713bc8f4c1eda3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gae3785624aee3eebc6f713bc8f4c1eda3">pr::beta</a> (T p, T q)</td></tr>
+<tr class="memdesc:gae3785624aee3eebc6f713bc8f4c1eda3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Beta function.  <a href="group__math.html#gae3785624aee3eebc6f713bc8f4c1eda3">More...</a><br /></td></tr>
+<tr class="separator:gae3785624aee3eebc6f713bc8f4c1eda3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga479ee2c5e470bae9091534b8d9aced45"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga479ee2c5e470bae9091534b8d9aced45"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga479ee2c5e470bae9091534b8d9aced45">pr::betai</a> (T x, T p, T q)</td></tr>
+<tr class="memdesc:ga479ee2c5e470bae9091534b8d9aced45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regularized incomplete beta function.  <a href="group__math.html#ga479ee2c5e470bae9091534b8d9aced45">More...</a><br /></td></tr>
+<tr class="separator:ga479ee2c5e470bae9091534b8d9aced45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaad37b313a3cf826541e5263ae1768eb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaaad37b313a3cf826541e5263ae1768eb"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaaad37b313a3cf826541e5263ae1768eb">pr::erfinv</a> (T y)</td></tr>
+<tr class="memdesc:gaaad37b313a3cf826541e5263ae1768eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error function inverse.  <a href="group__math.html#gaaad37b313a3cf826541e5263ae1768eb">More...</a><br /></td></tr>
+<tr class="separator:gaaad37b313a3cf826541e5263ae1768eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math wrappers</h2></td></tr>
 <tr class="memitem:ga6dac19507f6fff9d5f82d360abe03dbe"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga6dac19507f6fff9d5f82d360abe03dbe"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga6dac19507f6fff9d5f82d360abe03dbe">pr::abs</a> (T x) -&gt; decltype(std::abs(x))</td></tr>
@@ -1022,6 +1041,183 @@ template&lt;typename T &gt; </div>
 \[ \operatorname{step}(x) = \frac{1}{2} \operatorname{sign}(x) + \frac{1}{2} \]
 </p>
 <dl class="section note"><dt>Note</dt><dd>If <code>pr::imag(x) == 0</code>, computes <code>pr::step(pr::real(x))</code> and preserves sign of <code>pr::imag(x)</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ga23ecc46f91a9c847ca7da5fb6afa05f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga23ecc46f91a9c847ca7da5fb6afa05f0">&#9670;&nbsp;</a></span>lbeta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, T&gt; pr::lbeta </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>q</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Log beta function. </p>
+<p class="formulaDsp">
+\[ \log\beta(p, q) = \log\frac{\Gamma(p)\Gamma(q)}{\Gamma(p + q)} \]
+</p>
+ 
+</div>
+</div>
+<a id="gae3785624aee3eebc6f713bc8f4c1eda3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae3785624aee3eebc6f713bc8f4c1eda3">&#9670;&nbsp;</a></span>beta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, T&gt; pr::beta </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>q</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Beta function. </p>
+<p class="formulaDsp">
+\[ \beta(p, q) = \frac{\Gamma(p)\Gamma(q)}{\Gamma(p + q)} \]
+</p>
+ 
+</div>
+</div>
+<a id="ga479ee2c5e470bae9091534b8d9aced45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga479ee2c5e470bae9091534b8d9aced45">&#9670;&nbsp;</a></span>betai()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, T&gt; pr::betai </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>q</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Regularized incomplete beta function. </p>
+<p class="formulaDsp">
+\[ I(x;p,q) = \frac{1}{\beta(p, q)} \int_0^x t^{p-1} (1 - t)^{q-1}\, dt \]
+</p>
+<p> for</p><ul>
+<li>\( x \in [0, 1] \)</li>
+<li>\( p \in (0, \infty) \)</li>
+<li>\( q \in (0, \infty) \)</li>
+</ul>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>If implementation fails to converge.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Codeplea's <a href="https://codeplea.com/incomplete-beta-function-c">article</a>. </dd></dl>
+
+</div>
+</div>
+<a id="gaaad37b313a3cf826541e5263ae1768eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaad37b313a3cf826541e5263ae1768eb">&#9670;&nbsp;</a></span>erfinv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, T&gt; pr::erfinv </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>y</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Error function inverse. </p>
 
 </div>
 </div>

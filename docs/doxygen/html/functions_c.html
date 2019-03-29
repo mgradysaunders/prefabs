@@ -104,6 +104,7 @@ $(function() {
 , <a class="el" href="classpr_1_1normal__distribution.html#a349104a86e72c2266ce7f89e8452bf8d">pr::normal_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1piecewise__linear__distribution.html#a45047626dd8ba17bbf2e39ed66c7aa31">pr::piecewise_linear_distribution&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1piecewise__linear__distribution_1_1point__type.html#a21d9227bec2482e1b199ee8d6700f5b7">pr::piecewise_linear_distribution&lt; T &gt;::point_type</a>
+, <a class="el" href="classpr_1_1poisson__distribution.html#a04abacdfb6a040d7296c36b6b0808f0e">pr::poisson_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1subset__distribution__adapter.html#aaa73199d036c6cd96dede82acadd0f18">pr::subset_distribution_adapter&lt; Tbase &gt;</a>
 , <a class="el" href="classpr_1_1tanh__distribution.html#a451965d9a0986512c4306c2c6f63e7c2">pr::tanh_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1uniform__int__distribution.html#ab5f5e6a9808540adba0e4d813d1877c3">pr::uniform_int_distribution&lt; T &gt;</a>
@@ -123,6 +124,7 @@ $(function() {
 , <a class="el" href="classpr_1_1lognormal__distribution.html#afbeb6a6812a6060cee944afbb4a435d1">pr::lognormal_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1normal__distribution.html#a2502b936ed73949a494fb8297474e37b">pr::normal_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1piecewise__linear__distribution.html#a79206708e06397cc9dabb9dd72be6219">pr::piecewise_linear_distribution&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1poisson__distribution.html#afbd5e0975199486824da440ee0dd3aef">pr::poisson_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1subset__distribution__adapter.html#ac70c6412cc63f7fc713a01b9600fd52e">pr::subset_distribution_adapter&lt; Tbase &gt;</a>
 , <a class="el" href="classpr_1_1tanh__distribution.html#aae9f1200460ae06845ec13b18ebfe7fa">pr::tanh_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1uniform__int__distribution.html#a7a9e7a7aacc82084b204698a1e452396">pr::uniform_int_distribution&lt; T &gt;</a>
@@ -157,10 +159,10 @@ $(function() {
 : <a class="el" href="structpr_1_1terminal__dims.html#a69171461f667e88ac54a797f14b06dae">pr::terminal_dims</a>
 </li>
 <li>compare_exchange_strong()
-: <a class="el" href="classpr_1_1float__atomic.html#adfa829ffde091a9fd598de7750a9edc8">pr::float_atomic&lt; Tfloat, Tfloat_bits &gt;</a>
+: <a class="el" href="classpr_1_1float__atomic.html#a1f80b6e83b05cd7f5235a4515012f296">pr::float_atomic&lt; Tfloat, Tfloat_bits &gt;</a>
 </li>
 <li>compare_exchange_weak()
-: <a class="el" href="classpr_1_1float__atomic.html#a0425ffeba9931a16d680dde6c43eb951">pr::float_atomic&lt; Tfloat, Tfloat_bits &gt;</a>
+: <a class="el" href="classpr_1_1float__atomic.html#a7d1cd0a69678537b2aec26672f595371">pr::float_atomic&lt; Tfloat, Tfloat_bits &gt;</a>
 </li>
 <li>conj()
 : <a class="el" href="structpr_1_1dense__blas__traits.html#a009755a54c3bef25bdb1750074b8f496">pr::dense_blas_traits&lt; T &gt;</a>
@@ -198,12 +200,12 @@ $(function() {
 , <a class="el" href="classpr_1_1block__array3.html#a2171d8609225405246498a478c7173d7">pr::block_array3&lt; T, Talloc &gt;</a>
 </li>
 <li>contains()
-: <a class="el" href="classpr_1_1aabb.html#ae20b4ba289b3da74f5a3dc5fbcd3b0cd">pr::aabb&lt; T, N &gt;</a>
+: <a class="el" href="classpr_1_1aabb.html#a5f75c5ec37eaa1bbee0bbcf715fddca1">pr::aabb&lt; T, N &gt;</a>
 , <a class="el" href="classpr_1_1float__interval.html#afd8a2bc06e939f1189d09b77cfca1903">pr::float_interval&lt; T &gt;</a>
 </li>
 <li>convert()
 : <a class="el" href="classpr_1_1block__array2.html#a449e39a0b7bb62d098922d52729d7cbe">pr::block_array2&lt; T, Talloc &gt;</a>
-, <a class="el" href="classpr_1_1block__array3.html#ae917fd6bd34a81bfcab02fe36711462c">pr::block_array3&lt; T, Talloc &gt;</a>
+, <a class="el" href="classpr_1_1block__array3.html#ac5f6b4a9af10a9c922766c87b42fcc8e">pr::block_array3&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1float__atomic.html#ab2f04bc36c638a6fd90841e198e60e62">pr::float_atomic&lt; Tfloat, Tfloat_bits &gt;</a>
 </li>
 <li>count
@@ -232,7 +234,7 @@ $(function() {
 : <a class="el" href="classpr_1_1thread__pool.html#a290c17e98a2512dc8530661cd627d381">pr::thread_pool</a>
 </li>
 <li>cycle_mode()
-: <a class="el" href="classpr_1_1image2.html#a637c45889cdcd08710337b7ee5589166">pr::image2&lt; Tfloat, T, N, Talloc &gt;</a>
+: <a class="el" href="classpr_1_1image2.html#a413e4568045bde3ace83cedda312f689">pr::image2&lt; Tfloat, T, N, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1image3.html#a2d76d163cdf04a2aaef989f38d2aa569">pr::image3&lt; Tfloat, T, N, Talloc &gt;</a>
 </li>
 <li>cycle_mode_
