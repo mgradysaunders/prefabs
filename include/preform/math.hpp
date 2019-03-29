@@ -679,7 +679,7 @@ inline std::enable_if_t<
  * @throw std::runtime_error
  * If implementation fails to converge.
  *
- * @note
+ * @see
  * Codeplea's [article][1].
  * [1]: https://codeplea.com/incomplete-beta-function-c
  */
