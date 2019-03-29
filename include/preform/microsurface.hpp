@@ -1390,10 +1390,7 @@ public:
             // Masking-shadowing.
             float_type lambda_wo = lambda(+wo);
             float_type lambda_wi = lambda(-wi);
-            float_type g2 = pr::exp(
-                    pr::lgamma(1 + lambda_wo) +
-                    pr::lgamma(1 + lambda_wi) -
-                    pr::lgamma(2 + lambda_wo + lambda_wi));
+            float_type g2 = pr::beta(1 + lambda_wo, 1 + lambda_wi);
 
             // Transmission.
             float_type cos_thetao = dot_wo_wm;

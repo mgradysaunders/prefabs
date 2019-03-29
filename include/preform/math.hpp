@@ -627,6 +627,143 @@ inline std::complex<T> step(const std::complex<T>& x)
 
 /**@}*/
 
+/**
+ * @name Special functions
+ */
+/**@{*/
+
+/**
+ * @brief Log beta function.
+ *
+ * @f[
+ *      \log\beta(p, q) = 
+ *      \log\frac{\Gamma(p)\Gamma(q)}{\Gamma(p + q)}
+ * @f]
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> lbeta(T p, T q)
+{
+    return pr::lgamma(p) + pr::lgamma(q) - pr::lgamma(p + q);
+}
+
+/**
+ * @brief Beta function.
+ *
+ * @f[
+ *      \beta(p, q) = 
+ *      \frac{\Gamma(p)\Gamma(q)}{\Gamma(p + q)}
+ * @f]
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> beta(T p, T q)
+{
+    return pr::exp(pr::lbeta(p, q));
+}
+
+/**
+ * @brief Regularized incomplete beta function.
+ *
+ * @f[
+ *      I(x;p,q) = \frac{1}{\beta(p, q)}
+ *                 \int_0^x t^{p-1} (1 - t)^{q-1}\, dt
+ * @f]
+ * for
+ * - @f$ x \in [0, 1] @f$
+ * - @f$ p \in (0, \infty) @f$
+ * - @f$ q \in (0, \infty) @f$
+ *
+ * @throw std::runtime_error
+ * If implementation fails to converge.
+ *
+ * @note
+ * Codeplea's [article][1].
+ * [1]: https://codeplea.com/incomplete-beta-function-c
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> betai(T x, T p, T q)
+{
+    // Limit case?
+    if (x == T(0) ||
+        x == T(1)) { 
+        return x; 
+    }
+    // Invalid?
+    else if (!(x > T(0) && x < T(1) && 
+               p > T(0) && q > T(0))) {
+        return pr::numeric_limits<T>::quiet_NaN();
+    }
+    // Simplify.
+    else if (q == T(1)) {
+        return pr::pow(x, p);
+    }
+    // Simplify.
+    else if (p == T(1)) {
+        return 1 - pr::pow(1 - x, q);
+    }
+    else {
+        // Lentz's continued fraction convergence condition.
+        bool flip = x > (p + 1) / (p + q + 2);
+        if (flip) {
+            x = 1 - x;
+            std::swap(p, q);
+        }
+
+        // Lentz's continued fraction.
+        T f = 2;
+        T c = 2, d = 1;
+        int k = 1;
+        int m = 0;
+        for (; k < 200; k++) {
+
+            T a;
+            m = k / 2;
+            if (k % 2 == 0) {
+                a = +x * ((m * (q - m)) / 
+                         ((p + (2 * m - 1)) * (p + 2 * m)));
+            }
+            else {
+                a = -x * ((p + m) * (p + q + m) / 
+                         ((p + (2 * m + 1)) * (p + 2 * m)));
+            }
+
+            d = 1 + a * d;
+            if (pr::fabs(d) < // TODO Is this ever negative?
+                    pr::numeric_limits<T>::min_invertible()) { 
+                d = pr::numeric_limits<T>::min_invertible();
+            }
+            d = 1 / d;
+            if (pr::fabs(c) < // TODO Is this ever negative?
+                    pr::fabs(a) * pr::numeric_limits<T>::min_invertible()) {
+                c = pr::fabs(a) * pr::numeric_limits<T>::min_invertible();
+            }
+
+            c = 1 + a / c;
+            f = f * c * d;
+            if (pr::fabs(1 - c * d) < T(1e-8)) {
+                break;
+            }
+        }
+
+        if (k >= 200) {
+            // Failure.
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+
+        // Success.
+        T y = 
+            pr::exp(p * pr::log(x) + 
+                    q * pr::log1p(-x) - pr::lbeta(p, q)) / p * (f - 1);
+        return flip ? 1 - y : y;
+    }
+}
+
+/**@}*/
+
 /**@}*/
 
 } // namespace pr
