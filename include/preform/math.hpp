@@ -762,6 +762,209 @@ inline std::enable_if_t<
     }
 }
 
+#if !DOXYGEN
+
+namespace detail {
+
+// Binomial coefficient for unsigned integers.
+template <typename T>
+inline std::enable_if_t<
+       std::is_integral<T>::value &&
+       std::is_unsigned<T>::value, T> binom(T n, T k)
+{
+    // Special case.
+    if (k > n) {
+        return 0;
+    }
+
+    // Reduce with symmetry.
+    if (k > n / 2) {
+        k = n - k;
+    }
+
+    // Special case.
+    if (k == 0) {
+        return 1;
+    }
+
+    // Special case.
+    if (k == 1) {
+        return n;
+    }
+
+    // Find greatest common divisor.
+    auto find_gcd = [](T a, T b) {
+        while (a) {
+            T r = b % a;
+            b = a;
+            a = r;
+        }
+        return b;
+    };
+
+    T r = 1; // Result.
+    T x = 0; // Temporary numerator.
+    T y = 0; // Temporary denominator.
+    T g = 0; // Temporary divisor.
+    for (T j = 1; j <= k; ++j, --n) {
+        if (r >= pr::numeric_limits<T>::max() / n) {
+
+            // Reduce.
+            g = find_gcd(n, j), x = n / g, y = j / g;
+            g = find_gcd(r, y), r = r / g, y = y / g;
+            if (r >= pr::numeric_limits<T>::max() / x) {
+                // Overflow.
+                throw std::runtime_error(__PRETTY_FUNCTION__);
+            }
+
+            // Update.
+            r = r * x;
+            r = r / y;
+        }
+        else {
+
+            // Update.
+            r = r * n;
+            r = r / j;
+        }
+    }
+    return r;
+}
+
+// Binomial coefficient for signed integers.
+template <typename T>
+inline std::enable_if_t<
+       std::is_integral<T>::value &&
+       std::is_signed<T>::value, T> binom(T n, T k)
+{
+    if (n >= 0 && 
+        k >= 0) {
+        // Delegate.
+        T r = T(binom(
+                std::make_unsigned_t<T>(n),
+                std::make_unsigned_t<T>(k)));
+        // Overflow in unsigned to signed conversion?
+        if (r < 0) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+        return r;
+    }
+    else if (n < 0) {
+        if (k >= 0) {
+            // Delegate.
+            T r = T(binom(
+                    std::make_unsigned_t<T>(k - n - 1),
+                    std::make_unsigned_t<T>(k)));
+            // Overflow in unsigned to signed conversion?
+            if (r < 0) {
+                throw std::runtime_error(__PRETTY_FUNCTION__);
+            }
+            if (k & 1) {
+                return -r; // (-1)^k
+            }
+            else {
+                return +r;
+            }
+        }
+        else if (k <= n) {
+            // Delegate.
+            T r = T(binom(
+                    std::make_unsigned_t<T>(-k - 1),
+                    std::make_unsigned_t<T>(-k + n)));
+            // Overflow in unsigned to signed conversion?
+            if (r < 0) {
+                throw std::runtime_error(__PRETTY_FUNCTION__);
+            }
+            if ((n - k) & 1) {
+                return -r; // (-1)^(n - k)
+            }
+            else {
+                return +r;
+            }
+        }
+        else {
+            return 0;
+        }
+    }
+    else {
+        return 0;
+    }
+}
+
+// Binomial coefficient for floating point numbers.
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> binom(T n, T k)
+{
+    if (n == pr::trunc(n)) {
+        if (k == pr::trunc(k)) {
+            try {
+                // Delegate.
+                return binom(
+                        pr::llrint(n), 
+                        pr::llrint(k));
+            }
+            catch (const std::runtime_error&) {
+                // Overflow.
+                return pr::numeric_limits<T>::infinity();
+            }
+        }
+
+        // Negative integer n and non-integer k?
+        if (pr::signbit(n)) {
+            return pr::numeric_limits<T>::infinity();
+        }
+    }
+
+    // Evaluate with gamma functions.
+    T a = n + 1;
+    T b = k + 1;
+    T c = n - k + 1;
+    T r = pr::exp(
+            pr::lgamma(a) -
+            pr::lgamma(b) -
+            pr::lgamma(c));
+    // Evaluate sign.
+    int m = 
+        int(pr::signbit(a) && (pr::llrint(pr::floor(a)) & 1)) ^
+        int(pr::signbit(b) && (pr::llrint(pr::floor(b)) & 1)) ^
+        int(pr::signbit(c) && (pr::llrint(pr::floor(c)) & 1));
+    if (m & 1) {
+        return -r;
+    }
+    else {
+        return +r;
+    }
+}
+
+} // namespace detail
+
+#endif// #if !DOXYGEN
+
+/**
+ * @brief Binomial coefficient.
+ *
+ * @f[
+ *      {n \choose k} = 
+ *              \frac{n!}{k!(n - k)!} = 
+ *              \frac{\Gamma(n + 1)}{\Gamma(k + 1)\Gamma(n - k + 1)}
+ * @f]
+ *
+ * @throw std::runtime_error
+ * If `T` is integral and calculation overflows.
+ *
+ * @note
+ * If `T` is floating point and calculation overflows, returns 
+ * infinity (and does not throw).
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_arithmetic<T>::value, T> binom(T n, T k)
+{
+    return detail::binom(n, k);
+}
+
 /**
  * @brief Error function inverse.
  */
