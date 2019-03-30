@@ -114,14 +114,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:acaf52ce92a144023610e7629ed5758cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skewness.  <a href="#acaf52ce92a144023610e7629ed5758cc">More...</a><br /></td></tr>
 <tr class="separator:acaf52ce92a144023610e7629ed5758cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a795b5323c23273ea8c06a328bcad5ab4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1uniform__int__distribution.html#a3d914fffb9dd266ce6bc76ddcee95e6a">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1uniform__int__distribution.html#a795b5323c23273ea8c06a328bcad5ab4">entropy</a> () const</td></tr>
-<tr class="memdesc:a795b5323c23273ea8c06a328bcad5ab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shannon entropy.  <a href="#a795b5323c23273ea8c06a328bcad5ab4">More...</a><br /></td></tr>
+<tr class="memdesc:a795b5323c23273ea8c06a328bcad5ab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entropy.  <a href="#a795b5323c23273ea8c06a328bcad5ab4">More...</a><br /></td></tr>
 <tr class="separator:a795b5323c23273ea8c06a328bcad5ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acacb6ab0256b296c83d014197a139a7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1uniform__int__distribution.html#a3d914fffb9dd266ce6bc76ddcee95e6a">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1uniform__int__distribution.html#acacb6ab0256b296c83d014197a139a7e">pmf</a> (int k) const</td></tr>
 <tr class="memdesc:acacb6ab0256b296c83d014197a139a7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probability mass function.  <a href="#acacb6ab0256b296c83d014197a139a7e">More...</a><br /></td></tr>
 <tr class="separator:acacb6ab0256b296c83d014197a139a7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5f5e6a9808540adba0e4d813d1877c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1uniform__int__distribution.html#a3d914fffb9dd266ce6bc76ddcee95e6a">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1uniform__int__distribution.html#ab5f5e6a9808540adba0e4d813d1877c3">cdf</a> (<a class="el" href="classpr_1_1uniform__int__distribution.html#a3d914fffb9dd266ce6bc76ddcee95e6a">float_type</a> k) const</td></tr>
-<tr class="memdesc:ab5f5e6a9808540adba0e4d813d1877c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative distribution function.  <a href="#ab5f5e6a9808540adba0e4d813d1877c3">More...</a><br /></td></tr>
-<tr class="separator:ab5f5e6a9808540adba0e4d813d1877c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add80600dfe60fa7195d05a4ad59e14d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1uniform__int__distribution.html#a3d914fffb9dd266ce6bc76ddcee95e6a">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1uniform__int__distribution.html#add80600dfe60fa7195d05a4ad59e14d3">cdf</a> (<a class="el" href="classpr_1_1uniform__int__distribution.html#a3d914fffb9dd266ce6bc76ddcee95e6a">float_type</a> x) const</td></tr>
+<tr class="memdesc:add80600dfe60fa7195d05a4ad59e14d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative distribution function.  <a href="#add80600dfe60fa7195d05a4ad59e14d3">More...</a><br /></td></tr>
+<tr class="separator:add80600dfe60fa7195d05a4ad59e14d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a9e7a7aacc82084b204698a1e452396"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1uniform__int__distribution.html#a3d914fffb9dd266ce6bc76ddcee95e6a">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1uniform__int__distribution.html#a7a9e7a7aacc82084b204698a1e452396">cdfinv</a> (<a class="el" href="classpr_1_1uniform__int__distribution.html#a3d914fffb9dd266ce6bc76ddcee95e6a">float_type</a> u) const</td></tr>
 <tr class="memdesc:a7a9e7a7aacc82084b204698a1e452396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative distribution function inverse.  <a href="#a7a9e7a7aacc82084b204698a1e452396">More...</a><br /></td></tr>
 <tr class="separator:a7a9e7a7aacc82084b204698a1e452396"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -444,7 +444,7 @@ template&lt;typename T  = double&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Shannon entropy. </p>
+<p>Entropy. </p>
 <p class="formulaDsp">
 \[ H[X] = \log(b - a) \]
 </p>
@@ -484,8 +484,8 @@ template&lt;typename T  = double&gt; </div>
  
 </div>
 </div>
-<a id="ab5f5e6a9808540adba0e4d813d1877c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5f5e6a9808540adba0e4d813d1877c3">&#9670;&nbsp;</a></span>cdf()</h2>
+<a id="add80600dfe60fa7195d05a4ad59e14d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add80600dfe60fa7195d05a4ad59e14d3">&#9670;&nbsp;</a></span>cdf()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -499,7 +499,7 @@ template&lt;typename T  = double&gt; </div>
           <td class="memname"><a class="el" href="classpr_1_1uniform__int__distribution.html#a3d914fffb9dd266ce6bc76ddcee95e6a">float_type</a> <a class="el" href="classpr_1_1uniform__int__distribution.html">pr::uniform_int_distribution</a>&lt; T &gt;::cdf </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classpr_1_1uniform__int__distribution.html#a3d914fffb9dd266ce6bc76ddcee95e6a">float_type</a>&#160;</td>
-          <td class="paramname"><em>k</em></td><td>)</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -512,7 +512,7 @@ template&lt;typename T  = double&gt; </div>
 
 <p>Cumulative distribution function. </p>
 <p class="formulaDsp">
-\[ F(x) = \begin{cases} 0 &amp; k &lt; a \\ \frac{\lceil k \rceil - a}{b - a} &amp; a \le k &lt; b \\ 1 &amp; b \le k \end{cases} \]
+\[ F(x) = \begin{cases} 0 &amp; x &lt; a \\ \frac{\lceil x \rceil - a}{b - a} &amp; a \le x &lt; b \\ 1 &amp; b \le x \end{cases} \]
 </p>
  
 </div>
