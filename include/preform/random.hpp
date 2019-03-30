@@ -617,7 +617,7 @@ public:
     }
 
     /**
-     * @brief Shannon entropy.
+     * @brief Entropy.
      *
      * @f[
      *      H[X] = -p\log(p) - q\log(q)
@@ -833,7 +833,7 @@ public:
     }
 
     /**
-     * @brief Differential Shannon entropy.
+     * @brief Differential entropy.
      *
      * @f[
      *      h[X] = 1 - \log(\lambda)
@@ -1499,7 +1499,7 @@ public:
     }
 
     /**
-     * @brief Differential Shannon entropy.
+     * @brief Differential entropy.
      *
      * @f[
      *      h[X] = \frac{1}{2} \log\left(2\pi e \sigma^2\right)
@@ -1696,7 +1696,7 @@ public:
     }
 
     /**
-     * @brief Differential Shannon entropy.
+     * @brief Differential entropy.
      *
      * @f[
      *      h[X] =
@@ -1876,7 +1876,7 @@ public:
     }
 
     /**
-     * @brief Differential Shannon entropy.
+     * @brief Differential entropy.
      *
      * @f[
      *      h[X] = \log(s) + 2
@@ -2069,7 +2069,7 @@ public:
     }
 
     /**
-     * @brief Differential Shannon entropy.
+     * @brief Differential entropy.
      *
      * @f[
      *      h[X] = \log\left(\frac{1}{2} e^2 s\right)
@@ -2279,7 +2279,7 @@ public:
     }
 
     /**
-     * @brief Differential Shannon entropy.
+     * @brief Differential entropy.
      *
      * @f[
      *      h[X] = 1 +
