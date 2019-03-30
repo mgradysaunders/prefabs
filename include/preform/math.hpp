@@ -644,7 +644,13 @@ __attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> lbeta(T p, T q)
 {
-    return pr::lgamma(p) + pr::lgamma(q) - pr::lgamma(p + q);
+    if (p == 0 || 
+        q == 0) {
+        return 0;
+    }
+    else {
+        return pr::lgamma(p) + pr::lgamma(q) - pr::lgamma(p + q);
+    }
 }
 
 /**
@@ -761,6 +767,8 @@ inline std::enable_if_t<
     }
 }
 
+// TODO Unnecessary?
+#if 0
 #if !DOXYGEN
 
 namespace detail {
@@ -968,6 +976,7 @@ inline std::enable_if_t<
 {
     return detail::binom(n, k);
 }
+#endif // #if 0
 
 /**
  * @brief Error function inverse.

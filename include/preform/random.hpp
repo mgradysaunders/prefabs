@@ -412,7 +412,7 @@ public:
     }
 
     /**
-     * @brief Shannon entropy.
+     * @brief Entropy.
      *
      * @f[
      *      H[X] = \log(b - a)
@@ -451,17 +451,18 @@ public:
      * @f[
      *      F(x) =
      *          \begin{cases}
-     *              0                                 & k < a
-     *          \\  \frac{\lceil k \rceil - a}{b - a} & a \le k < b
-     *          \\  1                                 & b \le k
+     *              0                                 & x < a
+     *          \\  \frac{\lceil x \rceil - a}{b - a} & a \le x < b
+     *          \\  1                                 & b \le x
      *          \end{cases}
      * @f]
      */
-    float_type cdf(float_type k) const
+    float_type cdf(float_type x) const
     {
+        // TODO Fix behavior at x = a?
         return
             pr::fmax(float_type(0),
-            pr::fmin(float_type(1), (pr::ceil(k) - a_) / (b_ - a_)));
+            pr::fmin(float_type(1), (pr::ceil(x) - a_) / (b_ - a_)));
     }
 
     /**
@@ -1159,6 +1160,239 @@ private:
      * @brief Rate @f$ \lambda @f$.
      */
     float_type lambda_ = 1;
+};
+
+/**
+ * @brief Binomial distribution.
+ */
+template <typename T = double>
+class binomial_distribution
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Value type.
+     */
+    typedef int value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    binomial_distribution() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @throw std::invalid_argument
+     * Unless
+     * - `n > 0` and 
+     * - `p >= 0 && p <= 1`.
+     */
+    binomial_distribution(int n, float_type p) : n_(n), p_(p), q_(1 - p)
+    {
+        if (!(n > 0 &&
+              p >= 0 && 
+              p <= 1)) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+    }
+
+    /**
+     * @brief Lower bound.
+     *
+     * @f[
+     *      \min[X] = 0
+     * @f]
+     */
+    float_type lower_bound() const
+    {
+        return 0;
+    }
+
+    /**
+     * @brief Upper bound.
+     *
+     * @f[
+     *      \max[X] = n + 1
+     * @f]
+     *
+     * @note
+     * Just as in real distributions, the implementation follows the
+     * convention that the upper bound is open such that @f$ f(n + 1) = 0 @f$.
+     */
+    float_type upper_bound() const
+    {
+        return n_ + 1;
+    }
+
+    /**
+     * @brief Mean.
+     *
+     * @f[
+     *      E[X] = np
+     * @f]
+     */
+    float_type mean() const
+    {
+        return n_ * p_;
+    }
+
+    /**
+     * @brief Variance.
+     *
+     * @f[
+     *      V[X] = npq
+     * @f]
+     */
+    float_type variance() const
+    {
+        return n_ * p_ * q_;
+    }
+
+    /**
+     * @brief Skewness.
+     *
+     * @f[
+     *      \gamma_1[X] = (1 - 2p) / \sqrt{npq}
+     * @f]
+     */
+    float_type skewness() const
+    {
+        return (1 - 2 * p_) / pr::sqrt(n_ * p_ * q_);
+    }
+
+    /**
+     * @brief Entropy.
+     *
+     * @f[
+     *      H[X] = \log(2\pi enpq)/2 + O(1/n)
+     * @f]
+     */
+    float_type entropy() const
+    {
+        return float_type(0.5) * pr::log(2 * 
+            pr::numeric_constants<float_type>::M_pi() * 
+            pr::numeric_constants<float_type>::M_e() *
+            n_ * p_ * q_);
+    }
+
+    /**
+     * @brief Probability mass function.
+     *
+     * TODO
+     */
+    float_type pmf(int k) const
+    {
+        if (k < 0 ||
+            k > n_) {
+            return 0;
+        }
+        else {
+            if (p_ == 0) {
+                return k == 0;
+            }
+            if (p_ == 1) {
+                return k == n_;
+            }
+            return 
+                pr::exp(
+                pr::lgamma(float_type(n_ + 1)) -
+                pr::lgamma(float_type(n_ - k + 1)) -
+                pr::lgamma(float_type(k + 1)) +
+                pr::log(p_) * k +
+                pr::log(q_) * (n_ - k));
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function.
+     *
+     * TODO
+     */
+    float_type cdf(float_type x) const
+    {
+        if (!(x >= float_type(0))) {
+            return 0;
+        }
+        else if (!(x < float_type(n_))) {
+            return 1;
+        }
+        else {
+            return betai(
+                q_, 
+                float_type(n_ - int(x)), 
+                float_type(1  + int(x)));
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function inverse.
+     */
+    float_type cdfinv(float_type u) const
+    {
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            if (u == 1) {
+                return n_;
+            }
+            return pr::numeric_limits<float_type>::quiet_NaN();
+        }
+        else {
+
+            // Binary search.
+            int a = 0;
+            int b = n_ + 1;
+            while (b > 0) {
+                int c = b / 2;
+                int k = a + c;
+                if (cdf(k) < u) {
+                    a = k + 1;
+                    b = b - c - 1;
+                }
+                else {
+                    b = c;
+                }
+            }
+            return a;
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    value_type operator()(G&& gen) const
+    {
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+    }
+
+private:
+
+    /**
+     * @brief Number of trials @f$ n @f$.
+     */
+    int n_ = 1;
+
+    /**
+     * @brief Probability of success @f$ p @f$.
+     */
+    float_type p_ = float_type(0.5);
+
+    /**
+     * @brief Probability of failure @f$ q = 1 - p @f$.
+     */
+    float_type q_ = float_type(0.5);
 };
 
 /**
