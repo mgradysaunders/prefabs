@@ -492,21 +492,6 @@ inline bool isnormal(const std::complex<T>& x)
 
 /**@}*/
 
-/**@}*/
-
-} // namespace pr
-
-#if !DOXYGEN
-#include "math.inl"
-#endif // #if !DOXYGEN
-
-namespace pr {
-
-/**
- * @addtogroup math
- */
-/**@{*/
-
 /**
  * @name Sign/step functions (arithmetic)
  */
@@ -627,8 +612,22 @@ inline std::complex<T> step(const std::complex<T>& x)
 
 /**@}*/
 
+/**@}*/
+
+} // namespace pr
+
+#if !DOXYGEN
+#include "math.inl"
+#endif // #if !DOXYGEN
+
+namespace pr {
+
 /**
- * @name Misc special functions
+ * @defgroup math_special Math (other special functions)
+ *
+ * `<preform/math.hpp>`
+ *
+ * __C++ version__: >=C++14
  */
 /**@{*/
 
