@@ -946,12 +946,17 @@ inline std::enable_if_t<
  *
  * @f[
  *      {n \choose k} = 
- *              \frac{n!}{k!(n - k)!} = 
- *              \frac{\Gamma(n + 1)}{\Gamma(k + 1)\Gamma(n - k + 1)}
+ *         \frac{n!}{k!(n - k)!} = 
+ *         \frac{\Gamma(n + 1)}{\Gamma(k + 1)\Gamma(n - k + 1)}
  * @f]
  *
  * @throw std::runtime_error
- * If `T` is integral and calculation overflows.
+ * If `T` is integral and the calculation overflows.
+ *
+ * @note
+ * If `T` is floating point, but both `n` and `k` are exactly representable 
+ * as integers, delegates to integral implementation. If, in turn, the integral
+ * calculation overflows, returns infinity (and does not throw).
  *
  * @note
  * If `T` is floating point and calculation overflows, returns 
