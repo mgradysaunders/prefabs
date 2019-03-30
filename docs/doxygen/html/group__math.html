@@ -191,6 +191,10 @@ Misc special functions</h2></td></tr>
 <tr class="memitem:ga479ee2c5e470bae9091534b8d9aced45"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga479ee2c5e470bae9091534b8d9aced45">pr::betai</a> (T x, T p, T q)</td></tr>
 <tr class="memdesc:ga479ee2c5e470bae9091534b8d9aced45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regularized incomplete beta function.  <a href="group__math.html#ga479ee2c5e470bae9091534b8d9aced45">More...</a><br /></td></tr>
 <tr class="separator:ga479ee2c5e470bae9091534b8d9aced45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa665a20145b9b50fb2ca9fece3b10994"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaa665a20145b9b50fb2ca9fece3b10994"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_arithmetic&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaa665a20145b9b50fb2ca9fece3b10994">pr::binom</a> (T n, T k)</td></tr>
+<tr class="memdesc:gaa665a20145b9b50fb2ca9fece3b10994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binomial coefficient.  <a href="group__math.html#gaa665a20145b9b50fb2ca9fece3b10994">More...</a><br /></td></tr>
+<tr class="separator:gaa665a20145b9b50fb2ca9fece3b10994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaad37b313a3cf826541e5263ae1768eb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gaaad37b313a3cf826541e5263ae1768eb"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaaad37b313a3cf826541e5263ae1768eb">pr::erfinv</a> (T y)</td></tr>
 <tr class="memdesc:gaaad37b313a3cf826541e5263ae1768eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error function inverse.  <a href="group__math.html#gaaad37b313a3cf826541e5263ae1768eb">More...</a><br /></td></tr>
@@ -1188,6 +1192,58 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd>Codeplea's <a href="https://codeplea.com/incomplete-beta-function-c">article</a>. </dd></dl>
+
+</div>
+</div>
+<a id="gaa665a20145b9b50fb2ca9fece3b10994"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa665a20145b9b50fb2ca9fece3b10994">&#9670;&nbsp;</a></span>binom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_arithmetic&lt;T&gt;::value, T&gt; pr::binom </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>k</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Binomial coefficient. </p>
+<p class="formulaDsp">
+\[ {n \choose k} = \frac{n!}{k!(n - k)!} = \frac{\Gamma(n + 1)}{\Gamma(k + 1)\Gamma(n - k + 1)} \]
+</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>If <code>T</code> is integral and the calculation overflows.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>T</code> is floating point, but both <code>n</code> and <code>k</code> are exactly representable as integers, delegates to integral implementation. If, in turn, the integral calculation overflows, returns infinity (and does not throw).</dd>
+<dd>
+If <code>T</code> is floating point and calculation overflows, returns infinity (and does not throw). </dd></dl>
 
 </div>
 </div>
