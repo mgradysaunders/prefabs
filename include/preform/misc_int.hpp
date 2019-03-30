@@ -137,16 +137,18 @@ template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, T> roundpow2(T n)
 {
-    if (n <= 0)
+    if (n <= 0) {
         return 1;
-
-    n--;
-    T p = 1;
-    while (n) {
-        n >>= 1;
-        p <<= 1;
     }
-    return p;
+    else {
+        n--;
+        T p = 1;
+        while (n) {
+            n >>= 1;
+            p <<= 1;
+        }
+        return p;
+    }
 }
 
 /**
