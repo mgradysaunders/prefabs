@@ -9,7 +9,8 @@
 <title>preform: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
+<!--Broken...-->
+<!--<script type="text/javascript" src="dynsections.js"></script>-->
 <!--Load MathJax manually...-->
 <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
 MathJax.Hub.Config({
@@ -24,16 +25,12 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
-        parens: ["{\\left({#1}\\right)}", 1],
-        bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
-        braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
-        verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
         normalize: ["\\operatorname{normalize}"]
     }
   }
 });
 </script>
+<script type="text/javascript" src="DoxygenFix.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="DoxygenStyle.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -75,20 +72,23 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a> typedef</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a4d5a36bc74ef81ecf2b409d5bdee44d9">h_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a178f8e6118176c346e0a76e364075141">a_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#ac79c1d34d1a48da3cefbc7ffbbadbf49">float_type</a> typedef</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a32f647892f502c0e4e76c0ad98070bbb">hatx_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#adff1694478c2a5d3bd6bd57e9d9bf5bd">haty_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#aae6888695fcb5bdeacd36560eefc6acf">hatz_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#ae01eb2e83ed48804096d5553e48c214e">l_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a49413ac9c6d14a29e596c8a309dd9d32">look_at</a>(const multi&lt; float_type, 3 &gt; &amp;p0, const multi&lt; float_type, 3 &gt; &amp;p1, const multi&lt; float_type, 3 &gt; &amp;y0, float_type w, float_type h, float_type f, const multi&lt; float_type, 2 &gt; &amp;qmin={0, 0}, const multi&lt; float_type, 2 &gt; &amp;qmax={1, 1})</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a2956c089851b46357bba629eaa1c6624">o_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a7f74179e3935933d53e2ae3f7b2282ef">operator()</a>(const multi&lt; float_type, 2 &gt; &amp;u) const</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#acf1c09656f627b340335e51b4497b58e">look_at</a>(const multi&lt; float_type, 3 &gt; &amp;p0, const multi&lt; float_type, 3 &gt; &amp;p1, const multi&lt; float_type, 3 &gt; &amp;y0, float_type sx, float_type sy, float_type f, const multi&lt; float_type, 2 &gt; &amp;qmin={0, 0}, const multi&lt; float_type, 2 &gt; &amp;qmax={1, 1})</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a7ddd16b69e3924f1f71d489d6531ec04">pc_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#aa6af834878cc99b84dd1315fba660a27">qmax_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a546f0a9841b4e257acfc7ead5fa8cec2">qmin_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#aaccb51672c7363a059a9252e03ca25c3">raycamera_persp</a>()=default</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a59783351c7bb77011a3d8523085f9d6e">raycamera_persp</a>(const multi&lt; float_type, 3 &gt; &amp;o, const multi&lt; float_type, 3 &gt; &amp;hatx, const multi&lt; float_type, 3 &gt; &amp;haty, const multi&lt; float_type, 3 &gt; &amp;hatz, float_type w, float_type h, float_type f, const multi&lt; float_type, 2 &gt; &amp;qmin={0, 0}, const multi&lt; float_type, 2 &gt; &amp;qmax={1, 1})</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a862491077c2a1d26c312d118b05450bd">w_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#aac8f674a0b90c7794c7f420a6f817459">raycamera_persp</a>(const multi&lt; float_type, 3 &gt; &amp;pc, const multi&lt; float_type, 3 &gt; &amp;hatx, const multi&lt; float_type, 3 &gt; &amp;haty, const multi&lt; float_type, 3 &gt; &amp;hatz, float_type sx, float_type sy, float_type f, const multi&lt; float_type, 2 &gt; &amp;qmin={0, 0}, const multi&lt; float_type, 2 &gt; &amp;qmax={1, 1})</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a5c281950daff85adc5c33cfa4cbe6987">sx_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a63507b63150421034c6613578b71b9c5">sy_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a851f44ee944a59ad89d13f38060afabb">sz_</a></td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a457d9b7e93389e061ba3c357b9383c7f">ze</a>(const multi&lt; float_type, 3 &gt; &amp;w, multi&lt; float_type, 2 &gt; *r=nullptr) const</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#a8c007b9ed8946a6b2dd836465d7b8bb3">ze_sample</a>(const multi&lt; float_type, 2 &gt; &amp;u, multi&lt; float_type, 3 &gt; &amp;p, multi&lt; float_type, 3 &gt; &amp;w, multi&lt; float_type, 2 &gt; *r=nullptr) const</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html#ac1edbda4c35a6064a5e6324bbd9cc8b0">zi_sample</a>(const multi&lt; float_type, 3 &gt; &amp;pref, multi&lt; float_type, 3 &gt; &amp;wi) const</td><td class="entry"><a class="el" href="structpr_1_1raycamera__persp.html">pr::raycamera_persp&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->

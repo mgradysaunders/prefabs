@@ -9,7 +9,8 @@
 <title>preform: Class Members</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
+<!--Broken...-->
+<!--<script type="text/javascript" src="dynsections.js"></script>-->
 <!--Load MathJax manually...-->
 <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
 MathJax.Hub.Config({
@@ -24,16 +25,12 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
-        parens: ["{\\left({#1}\\right)}", 1],
-        bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
-        braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
-        verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
         normalize: ["\\operatorname{normalize}"]
     }
   }
 });
 </script>
+<script type="text/javascript" src="DoxygenFix.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="DoxygenStyle.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -95,8 +92,11 @@ $(function() {
 <li>parse()
 : <a class="el" href="classpr_1_1option__parser.html#ae3bdc99213faa0ac5d5a511a930a43c6">pr::option_parser</a>
 </li>
+<li>pc_
+: <a class="el" href="structpr_1_1raycamera__persp.html#a7ddd16b69e3924f1f71d489d6531ec04">pr::raycamera_persp&lt; T &gt;</a>
+</li>
 <li>pcg_xsh_rr_engine()
-: <a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#a0cbfe0e1a457bdef707c917d588ae0ca">pr::pcg_xsh_rr_engine&lt; T, Tstate, Nmultiplier, Ndefault_increment &gt;</a>
+: <a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#ab1daaf58c82b315ca1baa9a08f9cf7ea">pr::pcg_xsh_rr_engine&lt; T, Tstate, Nmultiplier, Ndefault_increment &gt;</a>
 </li>
 <li>pdf()
 : <a class="el" href="classpr_1_1exponential__distribution.html#ae2ad3105d5838fd0f936676aecd52243">pr::exponential_distribution&lt; T &gt;</a>
@@ -112,7 +112,7 @@ $(function() {
 </li>
 <li>period()
 : <a class="el" href="classpr_1_1periodic__noise__adapter1.html#add34369592e88f85a18e3e4c9ed0c6ac">pr::periodic_noise_adapter1&lt; Tnoise2 &gt;</a>
-, <a class="el" href="classpr_1_1periodic__noise__adapter2.html#a9164d45f13aa2f16d1751fe9187554af">pr::periodic_noise_adapter2&lt; Tnoise3 &gt;</a>
+, <a class="el" href="classpr_1_1periodic__noise__adapter2.html#ab395b7636d42d26009641dfc8a42d223">pr::periodic_noise_adapter2&lt; Tnoise3 &gt;</a>
 </li>
 <li>periodic_noise_adapter1()
 : <a class="el" href="classpr_1_1periodic__noise__adapter1.html#a1748179daaab3bc417eb16d68edd2e33">pr::periodic_noise_adapter1&lt; Tnoise2 &gt;</a>
@@ -130,7 +130,7 @@ $(function() {
 , <a class="el" href="structpr_1_1raytest__sphere.html#a936b1d6611936fa8ee08b6b254b85f8d">pr::raytest_sphere&lt; T &gt;</a>
 </li>
 <li>piecewise_linear_distribution()
-: <a class="el" href="classpr_1_1piecewise__linear__distribution.html#a632f293e8e946e752f4339563745e2c5">pr::piecewise_linear_distribution&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1piecewise__linear__distribution.html#a40ba56fab4c0b08e992a1ba43b4336c9">pr::piecewise_linear_distribution&lt; T &gt;</a>
 </li>
 <li>pm()
 : <a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html#a7d603fc3b967cfb93be6fb04cab315a7">pr::dielectric_bsdf_microsurface_adapter&lt; Tslope, Theight &gt;</a>
@@ -161,7 +161,7 @@ $(function() {
 : <a class="el" href="classpr_1_1piecewise__linear__distribution.html#a8f1b9bc5fccbba8872913217ec80ee69">pr::piecewise_linear_distribution&lt; T &gt;</a>
 </li>
 <li>poisson_distribution()
-: <a class="el" href="classpr_1_1poisson__distribution.html#a83dee6273b17a129954a7c56bc53722c">pr::poisson_distribution&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1poisson__distribution.html#ac5ffc5ea32899ea4fa6f5358fcdba291">pr::poisson_distribution&lt; T &gt;</a>
 </li>
 <li>pool_
 : <a class="el" href="classpr_1_1thread__pool_1_1worker.html#ae9597046e18b2cb3f1b7399e003f2fb1">pr::thread_pool::worker</a>
@@ -173,9 +173,6 @@ $(function() {
 </li>
 <li>pos_
 : <a class="el" href="classpr_1_1dense__iterator.html#addbaa067a8fd4aaecdc9a85c5c7b3c46">pr::dense_iterator&lt; T &gt;</a>
-</li>
-<li>ppix
-: <a class="el" href="structpr_1_1raycamera__persp_1_1ray__info.html#a67dbbcb1d1558ac26df0ba77976c4f2c">pr::raycamera_persp&lt; T &gt;::ray_info</a>
 </li>
 <li>prod()
 : <a class="el" href="structpr_1_1dense__vector__view.html#a8dc5a8efe0f42c5ccc335e3cdf913db7">pr::dense_vector_view&lt; T &gt;</a>
