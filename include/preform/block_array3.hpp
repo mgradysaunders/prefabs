@@ -166,7 +166,7 @@ public:
 
 
     /**
-     * @brief Binary log of the block area @f$ \log_{2}{B^{2} @f$.
+     * @brief Binary log of the block area @f$ \log_{2}{B^{2}} @f$.
      */
     static constexpr
     size_type block_area_log2 = block_size_log2 * 2;
