@@ -10,7 +10,8 @@
 <!--BEGIN !PROJECT_NAME--><title>$title</title><!--END !PROJECT_NAME-->
 <link href="$relpath^tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="$relpath^jquery.js"></script>
-<script type="text/javascript" src="$relpath^dynsections.js"></script>
+<!--Broken...-->
+<!--<script type="text/javascript" src="$relpath^dynsections.js"></script>-->
 $treeview
 $search
 <!--Load MathJax manually...-->
@@ -27,16 +28,12 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
-        parens: ["{\\left({#1}\\right)}", 1],
-        bracks: ["{\\left\\lbrack{#1}\\right\\rbrack}", 1],
-        braces: ["{\\left\\lbrace{#1}\\right\\rbrace}", 1],
-        verts: ["{\\left\\lvert{#1}\\right\\rvert}", 1],
-        Verts: ["{\\left\\Vert{#1}\\right\\Vert}", 1],
         normalize: ["\\operatorname{normalize}"]
     }
   }
 });
 </script>
+<script type="text/javascript" src="$relpath^DoxygenFix.js"></script>
 <link href="$relpath^$stylesheet" rel="stylesheet" type="text/css" />
 $extrastylesheet
 </head>

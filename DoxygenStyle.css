@@ -319,8 +319,9 @@ html, body, p, dt, dd, td, li {
 
 div.contents {
 	margin-top: 10px;
-	margin-left: 12px;
-	margin-right: 8px;
+	margin-left: auto;
+	margin-right: auto;
+    max-width: 800px;
 }
 
 td.indexkey {
@@ -481,6 +482,7 @@ hr.footer {
 table.memberdecls {
 	border-spacing: 0px;
 	padding: 0px;
+    width: 100%; /* Fill */
 }
 
 .memberdecls td, .fieldtable tr {
