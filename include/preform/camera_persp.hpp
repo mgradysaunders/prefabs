@@ -28,12 +28,12 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201703L)
-#error "preform/raycamera_persp.hpp requires >=C++17"
+#error "preform/camera_persp.hpp requires >=C++17"
 #endif // #if !(__cplusplus >= 201703L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_RAYCAMERA_PERSP_HPP
-#define PREFORM_RAYCAMERA_PERSP_HPP
+#ifndef PREFORM_CAMERA_PERSP_HPP
+#define PREFORM_CAMERA_PERSP_HPP
 
 // for pr::multi
 #include <preform/multi.hpp>
@@ -44,24 +44,24 @@
 namespace pr {
 
 /**
- * @defgroup raycamera_persp Ray-camera (perspective)
+ * @defgroup camera_persp Ray-camera (perspective)
  *
- * `<preform/raycamera_persp.hpp>`
+ * `<preform/camera_persp.hpp>`
  *
  * __C++ version__: >=C++17
  */
 /**@{*/
 
 /**
- * @brief Ray-camera (perspective).
+ * @brief Camera (perspective).
  *
- * @image html raycamera_persp.svg
+ * @image html camera_persp.svg
  *
  * @tparam T
  * Float type.
  */
 template <typename T>
-struct raycamera_persp
+struct camera_persp
 {
 public:
 
@@ -80,7 +80,7 @@ public:
     /**
      * @brief Default constructor.
      */
-    raycamera_persp() = default;
+    camera_persp() = default;
 
     /**
      * @brief Constructor.
@@ -120,7 +120,7 @@ public:
      * - `qmin[0] < qmax[0]`, and
      * - `qmin[1] < qmax[1]`.
      */
-    raycamera_persp(
+    camera_persp(
         const multi<float_type, 3>& pc,
         const multi<float_type, 3>& hatx,
         const multi<float_type, 3>& haty,
@@ -190,7 +190,7 @@ public:
      * such that the camera coordinate system is upside-down (since pixel 
      * coordinates increase downward).
      */
-    static raycamera_persp look_at(
+    static camera_persp look_at(
                 const multi<float_type, 3>& p0,
                 const multi<float_type, 3>& p1,
                 const multi<float_type, 3>& y0,
@@ -426,4 +426,4 @@ private:
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_RAYCAMERA_PERSP_HPP
+#endif // #ifndef PREFORM_CAMERA_PERSP_HPP
