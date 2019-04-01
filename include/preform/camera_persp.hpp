@@ -218,11 +218,28 @@ public:
     }
 
     /**
-     * @brief Importance weight.
+     * @brief Emissive importance.
      *
+     * Emissive importance is given by 
      * @f[
      *      Z_e(\mathbf{p}, \omega) = 
-     *          \delta(\mathbf{p} - \mathbf{p}_c) \frac{1}{A\cos^3\theta}
+     *          \delta(\mathbf{p} - \mathbf{p}_c) 
+     *          \frac{\chi^+(\omega \in \Omega_c)}{A\cos^3\theta}
+     * @f]
+     * where @f$ \chi^+(\omega \in \Omega_c) @f$ is an abuse of 
+     * notation (of the Heaviside step function) indicating @f$ \omega @f$ 
+     * must be within @f$ \Omega_c @f$, the region of solid angle 
+     * corresponding to the projection of the rectangular screen 
+     * onto the unit sphere.
+     *
+     * By this definition, @f$ Z_e @f$ satisfies the normalization
+     * condition
+     * @f[
+     *      \int_{\mathcal{A}} 
+     *      \int_{\mathcal{S}^2}
+     *      Z_e(\mathbf{p}, \omega)
+     *      \,d{\omega}
+     *      \,d\mathcal{A}(\mathbf{p}) = 1.
      * @f]
      *
      * @param[in] w
@@ -232,9 +249,31 @@ public:
      * Raster coordinate. _Optional_.
      *
      * @note
-     * As the position distribution is a delta on 
-     * @f$ \mathbf{p}_c @f$, the implementation here calculates 
-     * only the part of @f$ Z_e @f$ which depends on @f$ \omega @f$.
+     * As the position distribution is a delta, this 
+     * calculates only the part of @f$ Z_e @f$ which depends on 
+     * @f$ \omega @f$.
+     *
+     * @note
+     * In _Physically based rendering: from theory to 
+     * implementation (3rd edition)_, Pharr, Humphreys, and Jakob 
+     * define emissive importance for perspective cameras as
+     * @f[
+     *      W_e(\mathbf{p}, \omega) = 
+     *          \delta(\mathbf{p} - \mathbf{p}_c) 
+     *          \frac{\chi^+(\omega \in \Omega_c)}{A\cos^4\theta}
+     * @f]
+     * which satisfies the alternative normalization condition
+     * @f[
+     *      \int_{\mathcal{A}} 
+     *      \int_{\mathcal{S}^2}
+     *      W_e(\mathbf{p}, \omega)|\cos\theta|
+     *      \,d{\omega}
+     *      \,d\mathcal{A}(\mathbf{p}) = 1.
+     * @f]
+     * This is sensible in their implementation, as they allow 
+     * perspective cameras to have &ldquo;lenses&rdquo; with non-zero
+     * area. The implementation here, however, requires that perspective
+     * cameras are pinholes, i.e., point sources of importance.
      */
     float_type ze(const multi<float_type, 3>& w,
                         multi<float_type, 2>* r = nullptr) const
@@ -271,7 +310,7 @@ public:
     }
 
     /**
-     * @brief Importance weight sampling routine.
+     * @brief Emissive importance sampling routine.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -284,6 +323,9 @@ public:
      *
      * @param[out] r
      * Raster coordinate. _Optional_.
+     *
+     * @returns
+     * Returns emissive importance @f$ Z_e @f$.
      */
     float_type ze_sample(
             const multi<float_type, 2>& u,
@@ -322,25 +364,63 @@ public:
     }
 
     /**
-     * @brief Importance weight solid angle sampling routine.
+     * @brief Incident importance sampling routine.
      *
-     * With respect to a reference point @f$ \mathbf{p}_{\text{ref}} @f$,
-     * sample a direction @f$ \omega_i @f$ within the solid-angle the camera
-     * subtends, and calculate the corresponding importance @f$ Z_i @f$.
+     * Incident importance is given by
      * @f[
      *      Z_i(\omega_i; \mathbf{p}_{\text{ref}}) = 
      *      \frac{1}{d^2} Z_e(\mathbf{p}_{\text{hit}}, -\omega_i)
      * @f]
+     * where @f$ \mathbf{p}_{\text{hit}} @f$ is the hit point on the
+     * camera (from the ray @f$ (\mathbf{p}_{\text{ref}}, \omega_i) @f$)
+     * and @f$ d @f$ is the distance between @f$ \mathbf{p}_{\text{ref}} @f$
+     * and @f$ \mathbf{p}_{\text{hit}} @f$.
+     *
+     * This definition uses the convention that a pinhole camera is a
+     * point source of importance, giving rise to the @f$ 1 / d^2 @f$ falloff. 
+     * As a direct result, the associated solid angle sampling density is 
+     * trivially @f$ f_\omega = 
+     * \delta(\omega - \omega_i) =
+     * \delta(\mathbf{p}_{\text{hit}} - \mathbf{p}_c) @f$.
      *
      * @param[in] pref
      * Reference point.
      *
      * @param[out] wi
      * Incident direction.
+     *
+     * @param[out] r
+     * Raster coordinate. _Optional_.
+     *
+     * @returns
+     * Returns incident importance.
+     *
+     * @note
+     * In _Physically based rendering: from theory to 
+     * implementation (3rd edition)_, Pharr, Humphreys, and Jakob 
+     * define incident importance for perspective cameras as
+     * @f[
+     *      W_i(\omega_i; \mathbf{p}_{\text{ref}}) = 
+     *                W_e(\mathbf{p}_{\text{hit}}, -\omega_i).
+     * @f]
+     * This is sensible in their implementation, as they allow 
+     * perspective cameras to have &ldquo;lenses&rdquo; with non-zero
+     * area. Thus, they obtain solid angle sampling density from area 
+     * sampling density as 
+     * @f[
+     *      f_\omega = \frac{d^2}{|\hat{\mathbf{z}}\cdot-\omega_i|}
+     *      f_{\mathcal{A}}
+     * @f]
+     * where, for pinhole cameras, 
+     * @f$ f_{\mathcal{A}} = \delta(\mathbf{p}_{\text{hit}} - 
+     * \mathbf{p}_c) @f$. Moreover,
+     * the ratio of @f$ W_i @f$ to its sampling density is equivalent to 
+     * the ratio of @f$ Z_i @f$ to its sampling density.
      */
     float_type zi_sample(
             const multi<float_type, 3>& pref,
-                  multi<float_type, 3>& wi) const
+                  multi<float_type, 3>& wi,
+                  multi<float_type, 2>* r = nullptr) const
     {
         wi = pc_ - pref;
         float_type d2 = dot(wi, wi);
@@ -348,8 +428,11 @@ public:
             return 0;
         }
 
+        // Normalize.
+        wi /= pr::sqrt(d2);
+
         // Inverse square falloff.
-        return ze(-(wi /= pr::sqrt(d2))) / d2;
+        return ze(-wi, r) / d2;
     }
 
 private:
@@ -417,7 +500,6 @@ private:
      * where @f$ \alpha = 
      * ({q_{\max}}_x - {q_{\min}}_x) 
      * ({q_{\max}}_y - {q_{\min}}_y) @f$
-     * 
      */
     float_type a_ = 0;
 };
