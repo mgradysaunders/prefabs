@@ -1,9 +1,10 @@
 /* EDIT */
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,400i,700,700i');
+/* @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,400i,700,700i'); */
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i');
 
 .sm-dox a,
 .sm-dox a:hover {
-    font-family: 'IBM Plex Sans';
+    font-family: 'Fira Sans';
 }
 
 /* The standard CSS for doxygen 1.8.13 */
@@ -11,13 +12,13 @@
 body, table, div, p, dl {
     /* EDIT */
 	/* font: 400 14px/22px Roboto,sans-serif; */
-	font: 400 14px/22px 'IBM Plex Sans',sans-serif;
+	font: 400 14px/22px 'Fira Sans',sans-serif;
 }
 
 p.reference, p.definition {
     /* EDIT */
 	/* font: 400 14px/22px Roboto,sans-serif; */
-	font: 400 14px/22px 'IBM Plex Sans',sans-serif;
+	font: 400 14px/22px 'Fira Sans',sans-serif;
 }
 
 /* @group Heading Levels */
@@ -28,7 +29,7 @@ h1.groupheader {
 
 .title {
 /*  font: 400 14px/28px Roboto,sans-serif; */
-	font: 400 14px/28px 'IBM Plex Sans',sans-serif;
+	font: 400 14px/28px 'Fira Sans',sans-serif;
 	font-size: 150%;
 	font-weight: bold;
 	margin: 10px 2px;
@@ -57,7 +58,7 @@ h1, h2, h3, h4, h5, h6 {
 	transition: text-shadow 0.5s linear;
 	margin-right: 15px;
     /* EDIT */
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Fira Sans', sans-serif;
 }
 
 h1.glow, h2.glow, h3.glow, h4.glow, h5.glow, h6.glow {
@@ -313,7 +314,7 @@ body {
 
 /* EDIT */
 html, body, p, dt, dd, td, li {
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
   font-size: 14px;
 }
 
@@ -836,7 +837,7 @@ div.directory {
 }
 
 .icon {
-    font-family: 'IBM Plex Sans',Arial, Helvetica;
+    font-family: 'Fira Sans',Arial, Helvetica;
     font-weight: bold;
     font-size: 14px;
     height: 18px;
@@ -891,7 +892,7 @@ div.directory {
 
 table.directory {
 /*  font: 400 14px Roboto,sans-serif; */
-    font: 400 14px 'IBM Plex Sans',sans-serif;
+    font: 400 14px 'Fira Sans',sans-serif;
 }
 
 /* @end */
@@ -1043,7 +1044,7 @@ table.fieldtable {
 	text-decoration: none;
 	outline: none;
 	color: #283A5D;
-	font-family: 'IBM Plex Sans',Geneva,Helvetica,Arial,sans-serif;
+	font-family: 'Fira Sans',Geneva,Helvetica,Arial,sans-serif;
 	text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
 	text-decoration: none;        
 }
@@ -1211,21 +1212,21 @@ dl.section dd {
 
 #projectname
 {
-	font: 300% 'IBM Plex Sans',Tahoma,Arial,sans-serif;
+	font: 300% 'Fira Sans',Tahoma,Arial,sans-serif;
 	margin: 0px;
 	padding: 2px 0px;
 }
     
 #projectbrief
 {
-	font: 120% 'IBM Plex Sans',Tahoma,Arial,sans-serif;
+	font: 120% 'Fira Sans',Tahoma,Arial,sans-serif;
 	margin: 0px;
 	padding: 0px;
 }
 
 #projectnumber
 {
-	font: 50% 'IBM Plex Sans',Tahoma,Arial,sans-serif;
+	font: 50% 'Fira Sans',Tahoma,Arial,sans-serif;
 	margin: 0px;
 	padding: 0px;
 }
