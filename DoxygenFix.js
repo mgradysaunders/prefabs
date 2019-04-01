@@ -44,6 +44,7 @@ $(document).ready(function() {
                     .replace(/std::is_unsigned\<(.+?)\>::value/g, "UNSIGNED<$1>")
                     .replace(/std::is_signed\<(.+?)\>::value/g, "SIGNED<$1>")
                     .replace(/std::is_arithmetic\<(.+?)\>::value/g, "ARITHMETIC<$1>")
+                    .replace(/is_multi\<(.+?)\>::value/g, "MULTI<$1>")
                     .replace(/is_dualnum_param\<(.+?)\>::value/g, "DUALNUM_PARAM<$1>")
                     .replace(/is_quat_param\<(.+?)\>::value/g, "QUAT_PARAM<$1>")
                     .replace(/([a-zA-Z_>])[|][|]/g, "$1 ||")
@@ -53,4 +54,5 @@ $(document).ready(function() {
                     nodes[index]);
         }
     });
+    $(".classindex").wrap("<div style='overflow-x:auto'></div>");
 });
