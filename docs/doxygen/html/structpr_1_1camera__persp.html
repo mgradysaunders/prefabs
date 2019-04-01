@@ -12,7 +12,9 @@
 <!--Broken...-->
 <!--<script type="text/javascript" src="dynsections.js"></script>-->
 <!--Load MathJax manually...-->
-<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+<!--cdn.mathjax.org shutting down April 30th, 2019
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">-->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML">
 MathJax.Hub.Config({
   displayAlign: "left",
   displayIndent: "2em",
@@ -94,14 +96,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a73b7431ed79dc3212f62344952d23bef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a73b7431ed79dc3212f62344952d23bef">More...</a><br /></td></tr>
 <tr class="separator:a73b7431ed79dc3212f62344952d23bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ca3a9ec8897fc92033298c1ffe8d67c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1camera__persp.html#a0ca3a9ec8897fc92033298c1ffe8d67c">ze</a> (const multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 3 &gt; &amp;w, multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 2 &gt; *r=nullptr) const</td></tr>
-<tr class="memdesc:a0ca3a9ec8897fc92033298c1ffe8d67c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Importance weight.  <a href="#a0ca3a9ec8897fc92033298c1ffe8d67c">More...</a><br /></td></tr>
+<tr class="memdesc:a0ca3a9ec8897fc92033298c1ffe8d67c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emissive importance.  <a href="#a0ca3a9ec8897fc92033298c1ffe8d67c">More...</a><br /></td></tr>
 <tr class="separator:a0ca3a9ec8897fc92033298c1ffe8d67c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab11eb6564d8708dcf2d9ab4a7112cd6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1camera__persp.html#aab11eb6564d8708dcf2d9ab4a7112cd6">ze_sample</a> (const multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 2 &gt; &amp;u, multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 3 &gt; &amp;p, multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 3 &gt; &amp;w, multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 2 &gt; *r=nullptr) const</td></tr>
-<tr class="memdesc:aab11eb6564d8708dcf2d9ab4a7112cd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Importance weight sampling routine.  <a href="#aab11eb6564d8708dcf2d9ab4a7112cd6">More...</a><br /></td></tr>
+<tr class="memdesc:aab11eb6564d8708dcf2d9ab4a7112cd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emissive importance sampling routine.  <a href="#aab11eb6564d8708dcf2d9ab4a7112cd6">More...</a><br /></td></tr>
 <tr class="separator:aab11eb6564d8708dcf2d9ab4a7112cd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac32369f3c18fab1f963ea3fe20e2045b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1camera__persp.html#ac32369f3c18fab1f963ea3fe20e2045b">zi_sample</a> (const multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 3 &gt; &amp;pref, multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 3 &gt; &amp;wi) const</td></tr>
-<tr class="memdesc:ac32369f3c18fab1f963ea3fe20e2045b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Importance weight solid angle sampling routine.  <a href="#ac32369f3c18fab1f963ea3fe20e2045b">More...</a><br /></td></tr>
-<tr class="separator:ac32369f3c18fab1f963ea3fe20e2045b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b3ae710436e0fb1510219b166158c90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1camera__persp.html#a7b3ae710436e0fb1510219b166158c90">zi_sample</a> (const multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 3 &gt; &amp;pref, multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 3 &gt; &amp;wi, multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 2 &gt; *r=nullptr) const</td></tr>
+<tr class="memdesc:a7b3ae710436e0fb1510219b166158c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incident importance sampling routine.  <a href="#a7b3ae710436e0fb1510219b166158c90">More...</a><br /></td></tr>
+<tr class="separator:a7b3ae710436e0fb1510219b166158c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -447,9 +449,13 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Importance weight. </p>
-<p class="formulaDsp">
-\[ Z_e(\mathbf{p}, \omega) = \delta(\mathbf{p} - \mathbf{p}_c) \frac{1}{A\cos^3\theta} \]
+<p>Emissive importance. </p>
+<p>Emissive importance is given by </p><p class="formulaDsp">
+\[ Z_e(\mathbf{p}, \omega) = \delta(\mathbf{p} - \mathbf{p}_c) \frac{\chi^+(\omega \in \Omega_c)}{A\cos^3\theta} \]
+</p>
+<p> where \( \chi^+(\omega \in \Omega_c) \) is an abuse of notation (of the Heaviside step function) indicating \( \omega \) must be within \( \Omega_c \), the region of solid angle corresponding to the projection of the rectangular screen onto the unit sphere.</p>
+<p>By this definition, \( Z_e \) satisfies the normalization condition </p><p class="formulaDsp">
+\[ \int_{\mathcal{A}} \int_{\mathcal{S}^2} Z_e(\mathbf{p}, \omega) \,d{\omega} \,d\mathcal{A}(\mathbf{p}) = 1. \]
 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -458,7 +464,15 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>As the position distribution is a delta on \( \mathbf{p}_c \), the implementation here calculates only the part of \( Z_e \) which depends on \( \omega \). </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>As the position distribution is a delta, this calculates only the part of \( Z_e \) which depends on \( \omega \).</dd>
+<dd>
+In <em>Physically based rendering: from theory to implementation (3rd edition)</em>, Pharr, Humphreys, and Jakob define emissive importance for perspective cameras as <p class="formulaDsp">
+\[ W_e(\mathbf{p}, \omega) = \delta(\mathbf{p} - \mathbf{p}_c) \frac{\chi^+(\omega \in \Omega_c)}{A\cos^4\theta} \]
+</p>
+ which satisfies the alternative normalization condition <p class="formulaDsp">
+\[ \int_{\mathcal{A}} \int_{\mathcal{S}^2} W_e(\mathbf{p}, \omega)|\cos\theta| \,d{\omega} \,d\mathcal{A}(\mathbf{p}) = 1. \]
+</p>
+ This is sensible in their implementation, as they allow perspective cameras to have &ldquo;lenses&rdquo; with non-zero area. The implementation here, however, requires that perspective cameras are pinholes, i.e., point sources of importance. </dd></dl>
 
 </div>
 </div>
@@ -510,21 +524,22 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Importance weight sampling routine. </p>
+<p>Emissive importance sampling routine. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \).</td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">p</td><td>Position.</td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">w</td><td>Direction.</td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">r</td><td>Raster coordinate. <em>Optional</em>. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">r</td><td>Raster coordinate. <em>Optional</em>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns emissive importance \( Z_e \). </dd></dl>
 
 </div>
 </div>
-<a id="ac32369f3c18fab1f963ea3fe20e2045b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac32369f3c18fab1f963ea3fe20e2045b">&#9670;&nbsp;</a></span>zi_sample()</h2>
+<a id="a7b3ae710436e0fb1510219b166158c90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b3ae710436e0fb1510219b166158c90">&#9670;&nbsp;</a></span>zi_sample()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -544,7 +559,13 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 3 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>wi</em>&#160;</td>
+          <td class="paramname"><em>wi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">multi&lt; <a class="el" href="structpr_1_1camera__persp.html#abd3b600aef09c3a77b93f76d549b6c90">float_type</a>, 2 &gt; *&#160;</td>
+          <td class="paramname"><em>r</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -559,17 +580,28 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Importance weight solid angle sampling routine. </p>
-<p>With respect to a reference point \( \mathbf{p}_{\text{ref}} \), sample a direction \( \omega_i \) within the solid-angle the camera subtends, and calculate the corresponding importance \( Z_i \). </p><p class="formulaDsp">
+<p>Incident importance sampling routine. </p>
+<p>Incident importance is given by </p><p class="formulaDsp">
 \[ Z_i(\omega_i; \mathbf{p}_{\text{ref}}) = \frac{1}{d^2} Z_e(\mathbf{p}_{\text{hit}}, -\omega_i) \]
 </p>
+<p> where \( \mathbf{p}_{\text{hit}} \) is the hit point on the camera (from the ray \( (\mathbf{p}_{\text{ref}}, \omega_i) \)) and \( d \) is the distance between \( \mathbf{p}_{\text{ref}} \) and \( \mathbf{p}_{\text{hit}} \).</p>
+<p>This definition uses the convention that a pinhole camera is a point source of importance, giving rise to the \( 1 / d^2 \) falloff. As a direct result, the associated solid angle sampling density is trivially \( f_\omega = \delta(\omega - \omega_i) = \delta(\mathbf{p}_{\text{hit}} - \mathbf{p}_c) \).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">pref</td><td>Reference point.</td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">wi</td><td>Incident direction. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">r</td><td>Raster coordinate. <em>Optional</em>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns incident importance.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In <em>Physically based rendering: from theory to implementation (3rd edition)</em>, Pharr, Humphreys, and Jakob define incident importance for perspective cameras as <p class="formulaDsp">
+\[ W_i(\omega_i; \mathbf{p}_{\text{ref}}) = W_e(\mathbf{p}_{\text{hit}}, -\omega_i). \]
+</p>
+ This is sensible in their implementation, as they allow perspective cameras to have &ldquo;lenses&rdquo; with non-zero area. Thus, they obtain solid angle sampling density from area sampling density as <p class="formulaDsp">
+\[ f_\omega = \frac{d^2}{|\hat{\mathbf{z}}\cdot-\omega_i|} f_{\mathcal{A}} \]
+</p>
+ where, for pinhole cameras, \( f_{\mathcal{A}} = \delta(\mathbf{p}_{\text{hit}} - \mathbf{p}_c) \). Moreover, the ratio of \( W_i \) to its sampling density is equivalent to the ratio of \( Z_i \) to its sampling density. </dd></dl>
 
 </div>
 </div>
