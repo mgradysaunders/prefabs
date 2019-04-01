@@ -44,7 +44,7 @@
 namespace pr {
 
 /**
- * @defgroup camera_persp Ray-camera (perspective)
+ * @defgroup camera_persp Camera (perspective)
  *
  * `<preform/camera_persp.hpp>`
  *
