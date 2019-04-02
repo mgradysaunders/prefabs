@@ -101,6 +101,9 @@ inline std::enable_if_t<
 
 /**
  * @brief Uniform real distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class uniform_real_distribution
@@ -304,6 +307,9 @@ private:
 
 /**
  * @brief Uniform int distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class uniform_int_distribution
@@ -512,6 +518,9 @@ private:
 
 /**
  * @brief Bernoulli distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class bernoulli_distribution
@@ -733,6 +742,9 @@ private:
 
 /**
  * @brief Exponential distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class exponential_distribution
@@ -932,6 +944,18 @@ private:
 
 /**
  * @brief Poisson distribution.
+ *
+ * @note
+ * This implementation is not tenable for large @f$ \lambda @f$ 
+ * (say @f$ \lambda > 20 @f$), due to the direct calculation of 
+ * the cumulative distribution function and its inverse. For 
+ * @f$ \lambda > 20 @f$, it is preferable to approximate the Poisson
+ * distribution @f$ P(\lambda) @f$ with the binomial distribution 
+ * @f$ B(n, p) @f$ by choosing @f$ p \approx 0.25 @f$, 
+ * @f$ n = \lambda / p @f$.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class poisson_distribution
@@ -1105,6 +1129,10 @@ public:
      *          e^{-\lambda}
      *          \sum_{j=0}^{\lfloor x \rfloor}\frac{\lambda^j}{j!}
      * @f]
+     *
+     * @note
+     * This implementation computes @f$ F @f$ directly. Thus, the
+     * time complexity is @f$ O(\lfloor x \rfloor) @f$. 
      */
     float_type cdf(float_type x) const
     {
@@ -1124,6 +1152,11 @@ public:
 
     /**
      * @brief Cumulative distribution function inverse.
+     *
+     * @note
+     * This implementation inverts @f$ F @f$ by forward search (with
+     * incremental calculation), whereby the time complexity is roughly 
+     * @f$ O(\lambda) @f$.
      */
     float_type cdfinv(float_type u) const
     {
@@ -1139,6 +1172,12 @@ public:
                 x++;
                 p *= lambda_ / x;
                 s += p;
+
+                // Underflow?
+                if (!(p > s * 
+                      pr::numeric_limits<float_type>::machine_epsilon())) {
+                    break;
+                }
             }
             return x;
         }
@@ -1164,6 +1203,9 @@ private:
 
 /**
  * @brief Binomial distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class binomial_distribution
@@ -1289,7 +1331,13 @@ public:
     /**
      * @brief Probability mass function.
      *
-     * TODO
+     * @f[
+     *      f(k) = 
+     *          \begin{cases}
+     *              {n \choose k} p^k q^{n - k} & 0 \le k \le n
+     *          \\  0                           & \text{otherwise}
+     *          \end{cases}
+     * @f]
      */
     float_type pmf(int k) const
     {
@@ -1317,7 +1365,14 @@ public:
     /**
      * @brief Cumulative distribution function.
      *
-     * TODO
+     * @f[
+     *      F(x) = 
+     *          \begin{cases}
+     *              0                   & x < 0
+     *          \\  I(q; n - x, 1 + x)  & 0 \le x < n
+     *          \\  1                   & n \le x
+     *          \end{cases}
+     * @f]
      */
     float_type cdf(float_type x) const
     {
@@ -1337,6 +1392,10 @@ public:
 
     /**
      * @brief Cumulative distribution function inverse.
+     *
+     * @note
+     * This implementation inverts @f$ F @f$ by binary search,
+     * whereby the time complexity is @f$ O(\log{n}) @f$.
      */
     float_type cdfinv(float_type u) const
     {
@@ -1397,6 +1456,9 @@ private:
 
 /**
  * @brief Normal distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class normal_distribution
@@ -1604,6 +1666,9 @@ protected:
 
 /**
  * @brief Log-normal distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class lognormal_distribution : public normal_distribution<T>
@@ -1773,6 +1838,9 @@ private:
 
 /**
  * @brief Logistic distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class logistic_distribution
@@ -1966,6 +2034,9 @@ private:
 
 /**
  * @brief Tanh distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class tanh_distribution
@@ -2159,6 +2230,9 @@ private:
 
 /**
  * @brief Weibull distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class weibull_distribution
@@ -2393,7 +2467,6 @@ private:
      */
     float_type k_ = 1;
 };
-
 
 /**
  * @brief Subset distribution wrapper.
@@ -2659,6 +2732,9 @@ using subset_weibull_distribution =
 
 /**
  * @brief Piecewise linear distribution.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T = double>
 class piecewise_linear_distribution
@@ -2737,7 +2813,13 @@ public:
     /**
      * @brief Probability density function.
      *
-     * TODO
+     * @f[
+     *      f(x) = (1 - t)y_j + ty_{j + 1}
+     * @f]
+     * where
+     * @f[
+     *      t = \frac{x - x_j}{x_{j + 1} - x_j}
+     * @f]
      *
      * @throw std::runtime_error
      * If `!(points_.size() > 1)`.
@@ -2775,7 +2857,16 @@ public:
     /**
      * @brief Cumulative distribution function.
      *
-     * TODO
+     * @f[
+     *      F(x) = 
+     *          \left(x_{j + 1} - x_j\right)
+     *          \left[\frac{1}{2}
+     *          \left(y_{j + 1} - y_j\right)t + y_j\right]t + C
+     * @f]
+     * where
+     * @f[
+     *      t = \frac{x - x_j}{x_{j + 1} - x_j}
+     * @f]
      *
      * @throw std::runtime_error
      * If `!(points_.size() > 1)`.
@@ -2814,7 +2905,17 @@ public:
     /**
      * @brief Cumulative distribution function inverse.
      *
-     * TODO
+     * @f[
+     *      F^{-1}(u) = (1 - t)x_j + tx_{j + 1}
+     * @f]
+     * where
+     * @f[
+     *      t \in [0, 1) \implies a_2 t^2 + a_1 t + a_0 = u
+     * @f]
+     * where, in turn,
+     * - @f$ a_2 \gets (x_{j + 1} - x_j) (y_{j + 1} - y_j) / 2 @f$
+     * - @f$ a_1 \gets (x_{j + 1} - x_j) y_j @f$
+     * - @f$ a_0 \gets C @f$
      *
      * @throw std::runtime_error
      * If `!(points_.size() > 1)`.
@@ -2920,6 +3021,18 @@ private:
  *
  * [1]: https://github.com/imneme/pcg-cpp
  * [2]: https://pcg-random.org
+ *
+ * @tparam T
+ * Output type.
+ *
+ * @tparam Tstate
+ * State type.
+ *
+ * @tparam Nmultiplier
+ * LCG multiplier.
+ *
+ * @tparam Ndefault_increment
+ * LCG default increment.
  */
 template <
     typename T,
