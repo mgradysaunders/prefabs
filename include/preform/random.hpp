@@ -100,212 +100,6 @@ inline std::enable_if_t<
 }
 
 /**
- * @brief Uniform real distribution.
- *
- * @tparam T
- * Float type.
- */
-template <typename T = double>
-class uniform_real_distribution
-{
-public:
-
-    // Sanity check.
-    static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
-
-    /**
-     * @brief Value type.
-     */
-    typedef T value_type;
-
-    /**
-     * @brief Float type.
-     */
-    typedef T float_type;
-
-    /**
-     * @brief Default constructor.
-     */
-    uniform_real_distribution() = default;
-
-    /**
-     * @brief Constructor.
-     *
-     * @throw std::invalid_argument
-     * Unless `a < b`.
-     */
-    uniform_real_distribution(float_type a, float_type b) :
-            a_(a),
-            b_(b)
-    {
-        if (!(a < b)) {
-            throw std::invalid_argument(__PRETTY_FUNCTION__);
-        }
-    }
-
-    /**
-     * @brief Lower bound.
-     *
-     * @f[
-     *      \min[X] = a
-     * @f]
-     */
-    float_type lower_bound() const
-    {
-        return a_;
-    }
-
-    /**
-     * @brief Upper bound.
-     *
-     * @f[
-     *      \max[X] = b
-     * @f]
-     */
-    float_type upper_bound() const
-    {
-        return b_;
-    }
-
-    /**
-     * @brief Mean.
-     *
-     * @f[
-     *      E[X] = \frac{1}{2}(a + b)
-     * @f]
-     */
-    float_type mean() const
-    {
-        return float_type(0.5) * (a_ + b_);
-    }
-
-    /**
-     * @brief Variance.
-     *
-     * @f[
-     *      V[X] = \frac{1}{12}(b - a)^2
-     * @f]
-     */
-    float_type variance() const
-    {
-        return (b_ - a_) *
-               (b_ - a_) / 12;
-    }
-
-    /**
-     * @brief Skewness.
-     *
-     * @f[
-     *      \gamma_1[X] = 0
-     * @f]
-     */
-    float_type skewness() const
-    {
-        return 0;
-    }
-
-    /**
-     * @brief Entropy.
-     *
-     * @f[
-     *      h[X] = \log(b - a)
-     * @f]
-     */
-    float_type entropy() const
-    {
-        return pr::log(b_ - a_);
-    }
-
-    /**
-     * @brief Probability density function.
-     *
-     * @f[
-     *      f(x) =
-     *      \begin{cases}
-     *          \frac{1}{b - a} & a \le x < b
-     *      \\  0               & \text{otherwise}
-     *      \end{cases}
-     * @f]
-     */
-    float_type pdf(float_type x) const
-    {
-        if (!(x >= a_ &&
-              x <  b_)) {
-            return 0;
-        }
-        else {
-            return 1 / (b_ - a_);
-        }
-    }
-
-    /**
-     * @brief Cumulative distribution function.
-     *
-     * @f[
-     *      F(x) =
-     *          \begin{cases}
-     *              0                  & x < a
-     *          \\ \frac{x - a}{b - a} & a \le x < b
-     *          \\  1                  & b \le x
-     *          \end{cases}
-     * @f]
-     */
-    float_type cdf(float_type x) const
-    {
-        return
-            pr::fmax(float_type(0),
-            pr::fmin(float_type(1), (x - a_) / (b_ - a_)));
-
-    }
-
-    /**
-     * @brief Cumulative distribution function inverse.
-     *
-     * @f[
-     *      F^{-1}(u) =
-     *          \begin{cases}
-     *              (1 - u) a + u b & 0 \le u < 1
-     *          \\  \text{NaN}      & \text{otherwise}
-     *          \end{cases}
-     * @f]
-     */
-    float_type cdfinv(float_type u) const
-    {
-        if (!(u >= float_type(0) &&
-              u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
-        }
-        else {
-            return (1 - u) * a_ + u * b_;
-        }
-    }
-
-    /**
-     * @brief Generate number.
-     */
-    template <typename G>
-    value_type operator()(G&& gen) const
-    {
-        return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
-    }
-
-private:
-
-    /**
-     * @brief Lower bound @f$ a @f$.
-     */
-    float_type a_ = 0;
-
-    /**
-     * @brief Upper bound @f$ b @f$.
-     */
-    float_type b_ = 1;
-};
-
-/**
  * @brief Uniform int distribution.
  *
  * @tparam T
@@ -517,237 +311,13 @@ private:
 };
 
 /**
- * @brief Bernoulli distribution.
+ * @brief Uniform real distribution.
  *
  * @tparam T
  * Float type.
  */
 template <typename T = double>
-class bernoulli_distribution
-{
-public:
-
-    // Sanity check.
-    static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
-
-    /**
-     * @brief Value type.
-     */
-    typedef int value_type;
-
-    /**
-     * @brief Float type.
-     */
-    typedef T float_type;
-
-    /**
-     * @brief Default constructor.
-     */
-    bernoulli_distribution() = default;
-
-    /**
-     * @brief Constructor.
-     *
-     * @throw std::invalid_argument
-     * Unless `p >= 0 && p <= 1`.
-     */
-    bernoulli_distribution(float_type p) : p_(p), q_(1 - p)
-    {
-        if (!(p >= float_type(0)) ||
-            !(p <= float_type(1))) {
-            throw std::invalid_argument(__PRETTY_FUNCTION__);
-        }
-    }
-
-    /**
-     * @brief Lower bound.
-     *
-     * @f[
-     *      \min[X] = 0
-     * @f]
-     */
-    float_type lower_bound() const
-    {
-        return 0;
-    }
-
-    /**
-     * @brief Upper bound.
-     *
-     * @f[
-     *      \max[X] = 2
-     * @f]
-     *
-     * @note
-     * Just as in real distributions, the implementation follows the
-     * convention that the upper bound is open such that @f$ f(b) = 0 @f$.
-     */
-    float_type upper_bound() const
-    {
-        return 2;
-    }
-
-    /**
-     * @brief Mean.
-     *
-     * @f[
-     *      E[X] = p
-     * @f]
-     */
-    float_type mean() const
-    {
-        return p_;
-    }
-
-    /**
-     * @brief Variance.
-     *
-     * @f[
-     *      V[X] = pq
-     * @f]
-     */
-    float_type variance() const
-    {
-        return p_ * q_;
-    }
-
-    /**
-     * @brief Skewness.
-     *
-     * @f[
-     *      \gamma_1[X] = \frac{1 - 2p}{\sqrt{pq}}
-     * @f]
-     */
-    float_type skewness() const
-    {
-        return (1 - 2 * p_) / pr::sqrt(p_ * q_);
-    }
-
-    /**
-     * @brief Entropy.
-     *
-     * @f[
-     *      H[X] = -p\log(p) - q\log(q)
-     * @f]
-     */
-    float_type entropy() const
-    {
-        float_type pval = p_ * pr::log(p_);
-        float_type qval = q_ * pr::log(q_);
-        if (!pr::isfinite(pval) ||
-            !pr::isfinite(qval)) {
-            return 1;
-        }
-        else {
-            return -pval - qval;
-        }
-    }
-
-    /**
-     * @brief Probability mass function.
-     *
-     * @f[
-     *      f(k) =
-     *          \begin{cases}
-     *              q & k = 0
-     *          \\  p & k = 1
-     *          \\  0 & \text{otherwise}
-     *          \end{cases}
-     * @f]
-     */
-    float_type pmf(int k) const
-    {
-        if (k == 0) return q_;
-        if (k == 1) return p_;
-        return 0;
-    }
-
-    /**
-     * @brief Cumulative distribution function.
-     *
-     * @f[
-     *      F(x) =
-     *          \begin{cases}
-     *              0 & x < 0
-     *          \\  q & 0 \le x < 1
-     *          \\  1 & 1 \le x
-     *          \end{cases}
-     * @f]
-     */
-    float_type cdf(float_type x) const
-    {
-        if (!(x >= float_type(0))) {
-            return 0;
-        }
-        else if (!(x < float_type(1))) {
-            return 1;
-        }
-        else {
-            return q_;
-        }
-    }
-
-    /**
-     * @brief Cumulative distribution function inverse.
-     *
-     * @f[
-     *      F^{-1}(u) =
-     *          \begin{cases}
-     *              0 & 0 \le u < q
-     *          \\  1 & q \le u < 1
-     *          \\ \text{NaN} & \text{otherwise}
-     *          \end{cases}
-     * @f]
-     */
-    float_type cdfinv(float_type u) const
-    {
-        if (!(u >= float_type(0) &&
-              u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
-        }
-        else {
-            if (u < q_) {
-                return 0;
-            }
-            else {
-                return 1;
-            }
-        }
-    }
-
-    /**
-     * @brief Generate number.
-     */
-    template <typename G>
-    value_type operator()(G&& gen) const
-    {
-        return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
-    }
-
-private:
-
-    /**
-     * @brief Probability of success @f$ p @f$.
-     */
-    float_type p_ = float_type(0.5);
-
-    /**
-     * @brief Probability of failure @f$ q = 1 - p @f$.
-     */
-    float_type q_ = float_type(0.5);
-};
-
-/**
- * @brief Exponential distribution.
- *
- * @tparam T
- * Float type.
- */
-template <typename T = double>
-class exponential_distribution
+class uniform_real_distribution
 {
 public:
 
@@ -769,17 +339,19 @@ public:
     /**
      * @brief Default constructor.
      */
-    exponential_distribution() = default;
+    uniform_real_distribution() = default;
 
     /**
      * @brief Constructor.
      *
      * @throw std::invalid_argument
-     * Unless `lambda > 0`.
+     * Unless `a < b`.
      */
-    exponential_distribution(float_type lambda) : lambda_(lambda)
+    uniform_real_distribution(float_type a, float_type b) :
+            a_(a),
+            b_(b)
     {
-        if (!(lambda > float_type(0))) {
+        if (!(a < b)) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
     }
@@ -788,72 +360,73 @@ public:
      * @brief Lower bound.
      *
      * @f[
-     *      \min[X] = 0
+     *      \min[X] = a
      * @f]
      */
     float_type lower_bound() const
     {
-        return 0;
+        return a_;
     }
 
     /**
      * @brief Upper bound.
      *
      * @f[
-     *      \max[X] = \infty
+     *      \max[X] = b
      * @f]
      */
     float_type upper_bound() const
     {
-        return pr::numeric_limits<float_type>::infinity();
+        return b_;
     }
 
     /**
      * @brief Mean.
      *
      * @f[
-     *      E[X] = \frac{1}{\lambda}
+     *      E[X] = \frac{1}{2}(a + b)
      * @f]
      */
     float_type mean() const
     {
-        return 1 / lambda_;
+        return float_type(0.5) * (a_ + b_);
     }
 
     /**
      * @brief Variance.
      *
      * @f[
-     *      V[X] = \frac{1}{\lambda^2}
+     *      V[X] = \frac{1}{12}(b - a)^2
      * @f]
      */
     float_type variance() const
     {
-        return 1 / (lambda_ * lambda_);
+        return (b_ - a_) *
+               (b_ - a_) / 12;
     }
 
     /**
      * @brief Skewness.
      *
      * @f[
-     *      \gamma_1[X] = 2
+     *      \gamma_1[X] = 0
      * @f]
      */
     float_type skewness() const
     {
-        return 2;
+        return 0;
     }
 
     /**
-     * @brief Differential entropy.
+     * @brief Entropy.
      *
      * @f[
-     *      h[X] = 1 - \log(\lambda)
+     *      h[X] = \log(b - a)
      * @f]
      */
     float_type entropy() const
     {
-        return 1 - pr::log(lambda_);
+        return pr::log(b_ - a_);
     }
 
     /**
@@ -861,19 +434,20 @@ public:
      *
      * @f[
      *      f(x) =
-     *          \begin{cases}
-     *              \lambda e^{-\lambda x} & 0 \le x
-     *          \\  0                      & \text{otherwise}
-     *          \end{cases}
+     *      \begin{cases}
+     *          \frac{1}{b - a} & a \le x < b
+     *      \\  0               & \text{otherwise}
+     *      \end{cases}
      * @f]
      */
     float_type pdf(float_type x) const
     {
-        if (!(x >= float_type(0))) {
+        if (!(x >= a_ &&
+              x <  b_)) {
             return 0;
         }
         else {
-            return lambda_ * pr::exp(-lambda_ * x);
+            return 1 / (b_ - a_);
         }
     }
 
@@ -883,19 +457,18 @@ public:
      * @f[
      *      F(x) =
      *          \begin{cases}
-     *              1 - e^{-\lambda x} & 0 \le x
-     *          \\  0                  & \text{otherwise}
+     *              0                  & x < a
+     *          \\ \frac{x - a}{b - a} & a \le x < b
+     *          \\  1                  & b \le x
      *          \end{cases}
      * @f]
      */
     float_type cdf(float_type x) const
     {
-        if (!(x >= float_type(0))) {
-            return 0;
-        }
-        else {
-            return -pr::expm1(-lambda_ * x);
-        }
+        return
+            pr::fmax(float_type(0),
+            pr::fmin(float_type(1), (x - a_) / (b_ - a_)));
+
     }
 
     /**
@@ -904,8 +477,8 @@ public:
      * @f[
      *      F^{-1}(u) =
      *          \begin{cases}
-     *             -\frac{1}{\lambda} \log(1 - u) & 0 \le u < 1
-     *          \\  \text{NaN}                    & \text{otherwise}
+     *              (1 - u) a + u b & 0 \le u < 1
+     *          \\  \text{NaN}      & \text{otherwise}
      *          \end{cases}
      * @f]
      */
@@ -916,11 +489,7 @@ public:
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            // More accurate for small arguments?
-            float_type log_term =
-                u < float_type(0.5) ? pr::log1p(-u) :
-                pr::log(1 - u);
-            return -log_term / lambda_;
+            return (1 - u) * a_ + u * b_;
         }
     }
 
@@ -937,9 +506,14 @@ public:
 private:
 
     /**
-     * @brief Rate @f$ \lambda @f$.
+     * @brief Lower bound @f$ a @f$.
      */
-    float_type lambda_ = 1;
+    float_type a_ = 0;
+
+    /**
+     * @brief Upper bound @f$ b @f$.
+     */
+    float_type b_ = 1;
 };
 
 /**
@@ -1199,6 +773,432 @@ private:
      * @brief Rate @f$ \lambda @f$.
      */
     float_type lambda_ = 1;
+};
+
+/**
+ * @brief Exponential distribution.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T = double>
+class exponential_distribution
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Value type.
+     */
+    typedef T value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    exponential_distribution() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @throw std::invalid_argument
+     * Unless `lambda > 0`.
+     */
+    exponential_distribution(float_type lambda) : lambda_(lambda)
+    {
+        if (!(lambda > float_type(0))) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+    }
+
+    /**
+     * @brief Lower bound.
+     *
+     * @f[
+     *      \min[X] = 0
+     * @f]
+     */
+    float_type lower_bound() const
+    {
+        return 0;
+    }
+
+    /**
+     * @brief Upper bound.
+     *
+     * @f[
+     *      \max[X] = \infty
+     * @f]
+     */
+    float_type upper_bound() const
+    {
+        return pr::numeric_limits<float_type>::infinity();
+    }
+
+    /**
+     * @brief Mean.
+     *
+     * @f[
+     *      E[X] = \frac{1}{\lambda}
+     * @f]
+     */
+    float_type mean() const
+    {
+        return 1 / lambda_;
+    }
+
+    /**
+     * @brief Variance.
+     *
+     * @f[
+     *      V[X] = \frac{1}{\lambda^2}
+     * @f]
+     */
+    float_type variance() const
+    {
+        return 1 / (lambda_ * lambda_);
+    }
+
+    /**
+     * @brief Skewness.
+     *
+     * @f[
+     *      \gamma_1[X] = 2
+     * @f]
+     */
+    float_type skewness() const
+    {
+        return 2;
+    }
+
+    /**
+     * @brief Differential entropy.
+     *
+     * @f[
+     *      h[X] = 1 - \log(\lambda)
+     * @f]
+     */
+    float_type entropy() const
+    {
+        return 1 - pr::log(lambda_);
+    }
+
+    /**
+     * @brief Probability density function.
+     *
+     * @f[
+     *      f(x) =
+     *          \begin{cases}
+     *              \lambda e^{-\lambda x} & 0 \le x
+     *          \\  0                      & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    float_type pdf(float_type x) const
+    {
+        if (!(x >= float_type(0))) {
+            return 0;
+        }
+        else {
+            return lambda_ * pr::exp(-lambda_ * x);
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function.
+     *
+     * @f[
+     *      F(x) =
+     *          \begin{cases}
+     *              1 - e^{-\lambda x} & 0 \le x
+     *          \\  0                  & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    float_type cdf(float_type x) const
+    {
+        if (!(x >= float_type(0))) {
+            return 0;
+        }
+        else {
+            return -pr::expm1(-lambda_ * x);
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function inverse.
+     *
+     * @f[
+     *      F^{-1}(u) =
+     *          \begin{cases}
+     *             -\frac{1}{\lambda} \log(1 - u) & 0 \le u < 1
+     *          \\  \text{NaN}                    & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    float_type cdfinv(float_type u) const
+    {
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
+        }
+        else {
+            // More accurate for small arguments?
+            float_type log_term =
+                u < float_type(0.5) ? pr::log1p(-u) :
+                pr::log(1 - u);
+            return -log_term / lambda_;
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    value_type operator()(G&& gen) const
+    {
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+    }
+
+private:
+
+    /**
+     * @brief Rate @f$ \lambda @f$.
+     */
+    float_type lambda_ = 1;
+};
+
+/**
+ * @brief Bernoulli distribution.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T = double>
+class bernoulli_distribution
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Value type.
+     */
+    typedef int value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    bernoulli_distribution() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @throw std::invalid_argument
+     * Unless `p >= 0 && p <= 1`.
+     */
+    bernoulli_distribution(float_type p) : p_(p), q_(1 - p)
+    {
+        if (!(p >= float_type(0)) ||
+            !(p <= float_type(1))) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+    }
+
+    /**
+     * @brief Lower bound.
+     *
+     * @f[
+     *      \min[X] = 0
+     * @f]
+     */
+    float_type lower_bound() const
+    {
+        return 0;
+    }
+
+    /**
+     * @brief Upper bound.
+     *
+     * @f[
+     *      \max[X] = 2
+     * @f]
+     *
+     * @note
+     * Just as in real distributions, the implementation follows the
+     * convention that the upper bound is open such that @f$ f(b) = 0 @f$.
+     */
+    float_type upper_bound() const
+    {
+        return 2;
+    }
+
+    /**
+     * @brief Mean.
+     *
+     * @f[
+     *      E[X] = p
+     * @f]
+     */
+    float_type mean() const
+    {
+        return p_;
+    }
+
+    /**
+     * @brief Variance.
+     *
+     * @f[
+     *      V[X] = pq
+     * @f]
+     */
+    float_type variance() const
+    {
+        return p_ * q_;
+    }
+
+    /**
+     * @brief Skewness.
+     *
+     * @f[
+     *      \gamma_1[X] = \frac{1 - 2p}{\sqrt{pq}}
+     * @f]
+     */
+    float_type skewness() const
+    {
+        return (1 - 2 * p_) / pr::sqrt(p_ * q_);
+    }
+
+    /**
+     * @brief Entropy.
+     *
+     * @f[
+     *      H[X] = -p\log(p) - q\log(q)
+     * @f]
+     */
+    float_type entropy() const
+    {
+        float_type pval = p_ * pr::log(p_);
+        float_type qval = q_ * pr::log(q_);
+        if (!pr::isfinite(pval) ||
+            !pr::isfinite(qval)) {
+            return 1;
+        }
+        else {
+            return -pval - qval;
+        }
+    }
+
+    /**
+     * @brief Probability mass function.
+     *
+     * @f[
+     *      f(k) =
+     *          \begin{cases}
+     *              q & k = 0
+     *          \\  p & k = 1
+     *          \\  0 & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    float_type pmf(int k) const
+    {
+        if (k == 0) return q_;
+        if (k == 1) return p_;
+        return 0;
+    }
+
+    /**
+     * @brief Cumulative distribution function.
+     *
+     * @f[
+     *      F(x) =
+     *          \begin{cases}
+     *              0 & x < 0
+     *          \\  q & 0 \le x < 1
+     *          \\  1 & 1 \le x
+     *          \end{cases}
+     * @f]
+     */
+    float_type cdf(float_type x) const
+    {
+        if (!(x >= float_type(0))) {
+            return 0;
+        }
+        else if (!(x < float_type(1))) {
+            return 1;
+        }
+        else {
+            return q_;
+        }
+    }
+
+    /**
+     * @brief Cumulative distribution function inverse.
+     *
+     * @f[
+     *      F^{-1}(u) =
+     *          \begin{cases}
+     *              0 & 0 \le u < q
+     *          \\  1 & q \le u < 1
+     *          \\ \text{NaN} & \text{otherwise}
+     *          \end{cases}
+     * @f]
+     */
+    float_type cdfinv(float_type u) const
+    {
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
+        }
+        else {
+            if (u < q_) {
+                return 0;
+            }
+            else {
+                return 1;
+            }
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    value_type operator()(G&& gen) const
+    {
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+    }
+
+private:
+
+    /**
+     * @brief Probability of success @f$ p @f$.
+     */
+    float_type p_ = float_type(0.5);
+
+    /**
+     * @brief Probability of failure @f$ q = 1 - p @f$.
+     */
+    float_type q_ = float_type(0.5);
 };
 
 /**
