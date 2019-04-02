@@ -130,9 +130,13 @@ Functions</h2></td></tr>
 <tr class="memitem:gae7ceeb2e25b7b1a868db941fb782c968"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#gae7ceeb2e25b7b1a868db941fb782c968">pr::build_onb</a> (const multi&lt; T, 3 &gt; &amp;hatz)</td></tr>
 <tr class="memdesc:gae7ceeb2e25b7b1a868db941fb782c968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build 3-dimensional orthonormal basis.  <a href="group__sampling.html#gae7ceeb2e25b7b1a868db941fb782c968">More...</a><br /></td></tr>
 <tr class="separator:gae7ceeb2e25b7b1a868db941fb782c968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2696932f5a57449989c481ea3466d4d3"><td class="memTemplParams" colspan="2">template&lt;typename G , typename P , typename T &gt; </td></tr>
+<tr class="memitem:ga2696932f5a57449989c481ea3466d4d3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_integral&lt; P &gt;::value &amp;&amp;std::is_floating_point&lt; T &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#ga2696932f5a57449989c481ea3466d4d3">pr::stratify</a> (G &amp;&amp;gen, const P &amp;dim, T *arr)</td></tr>
+<tr class="memdesc:ga2696932f5a57449989c481ea3466d4d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stratify 1-dimensional canonical random samples.  <a href="group__sampling.html#ga2696932f5a57449989c481ea3466d4d3">More...</a><br /></td></tr>
+<tr class="separator:ga2696932f5a57449989c481ea3466d4d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7ace24b49ecf79e8f28540304036a3cf"><td class="memTemplParams" colspan="2">template&lt;typename G , typename P , typename T , std::size_t N&gt; </td></tr>
 <tr class="memitem:ga7ace24b49ecf79e8f28540304036a3cf"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_integral&lt; P &gt;::value &amp;&amp;std::is_floating_point&lt; T &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#ga7ace24b49ecf79e8f28540304036a3cf">pr::stratify</a> (G &amp;&amp;gen, const multi&lt; P, N &gt; &amp;dim, multi&lt; T, N &gt; *arr)</td></tr>
-<tr class="memdesc:ga7ace24b49ecf79e8f28540304036a3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stratify canonical random samples.  <a href="group__sampling.html#ga7ace24b49ecf79e8f28540304036a3cf">More...</a><br /></td></tr>
+<tr class="memdesc:ga7ace24b49ecf79e8f28540304036a3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stratify n-dimensional canonical random samples.  <a href="group__sampling.html#ga7ace24b49ecf79e8f28540304036a3cf">More...</a><br /></td></tr>
 <tr class="separator:ga7ace24b49ecf79e8f28540304036a3cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga37183aba8c01527bdbe5f253dbcb4764"><td class="memTemplParams" colspan="2">template&lt;typename Tk , typename... Tl&gt; </td></tr>
 <tr class="memitem:ga37183aba8c01527bdbe5f253dbcb4764"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt;(std::is_floating_point&lt; Tk &gt;::value &amp;&amp;... &amp;&amp;std::is_floating_point&lt; Tl &gt;::value), std::common_type_t&lt; Tk, Tl... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sampling.html#ga37183aba8c01527bdbe5f253dbcb4764">pr::balance_heuristic</a> (Tk fk, Tl... fl)</td></tr>
@@ -727,8 +731,68 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ga2696932f5a57449989c481ea3466d4d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2696932f5a57449989c481ea3466d4d3">&#9670;&nbsp;</a></span>stratify() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename G , typename P , typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_integral&lt;P&gt;::value &amp;&amp; std::is_floating_point&lt;T&gt;::value, void&gt; pr::stratify </td>
+          <td>(</td>
+          <td class="paramtype">G &amp;&amp;&#160;</td>
+          <td class="paramname"><em>gen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const P &amp;&#160;</td>
+          <td class="paramname"><em>dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stratify 1-dimensional canonical random samples. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">gen</td><td>Generator.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dim</td><td>Number of strata.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">arr</td><td>Sample array, must point to <code>dim</code> samples.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If <code>dim &lt;= 0</code> or <code>!arr</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ga7ace24b49ecf79e8f28540304036a3cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7ace24b49ecf79e8f28540304036a3cf">&#9670;&nbsp;</a></span>stratify()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7ace24b49ecf79e8f28540304036a3cf">&#9670;&nbsp;</a></span>stratify() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -769,10 +833,10 @@ template&lt;typename G , typename P , typename T , std::size_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Stratify canonical random samples. </p>
+<p>Stratify n-dimensional canonical random samples. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">gen</td><td>Random number generator.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gen</td><td>Generator.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">dim</td><td>Number of strata in each dimension.</td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">arr</td><td>Sample arrays, must point to <code>dim.prod()</code> samples.</td></tr>
   </table>
