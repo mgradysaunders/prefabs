@@ -27,7 +27,9 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
-        normalize: ["\\operatorname{normalize}"]
+        normalize: ["\\operatorname{normalize}"],
+        argmin: ["\\operatorname{argmin}"],
+        argmax: ["\\operatorname{argmax}"]
     }
   }
 });
@@ -146,6 +148,12 @@ Private Attributes</h2></td></tr>
 class pr::binomial_distribution&lt; T &gt;</h3>
 
 <p>Binomial distribution. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Float type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a1c770004aeed74440bf7192e5917a6e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c770004aeed74440bf7192e5917a6e7">&#9670;&nbsp;</a></span>value_type</h2>
@@ -484,8 +492,10 @@ template&lt;typename T  = double&gt; </div>
 </div><div class="memdoc">
 
 <p>Probability mass function. </p>
-<p>TODO </p>
-
+<p class="formulaDsp">
+\[ f(k) = \begin{cases} {n \choose k} p^k q^{n - k} &amp; 0 \le k \le n \\ 0 &amp; \text{otherwise} \end{cases} \]
+</p>
+ 
 </div>
 </div>
 <a id="afb6eae57c29ae915207912b360c23454"></a>
@@ -515,8 +525,10 @@ template&lt;typename T  = double&gt; </div>
 </div><div class="memdoc">
 
 <p>Cumulative distribution function. </p>
-<p>TODO </p>
-
+<p class="formulaDsp">
+\[ F(x) = \begin{cases} 0 &amp; x &lt; 0 \\ I(q; n - x, 1 + x) &amp; 0 \le x &lt; n \\ 1 &amp; n \le x \end{cases} \]
+</p>
+ 
 </div>
 </div>
 <a id="a8a4503ae2aacda40ab1cb71d6e6f5803"></a>
@@ -546,6 +558,7 @@ template&lt;typename T  = double&gt; </div>
 </div><div class="memdoc">
 
 <p>Cumulative distribution function inverse. </p>
+<dl class="section note"><dt>Note</dt><dd>This implementation inverts \( F \) by binary search, whereby the time complexity is \( O(\log{n}) \). </dd></dl>
 
 </div>
 </div>

@@ -27,7 +27,9 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
-        normalize: ["\\operatorname{normalize}"]
+        normalize: ["\\operatorname{normalize}"],
+        argmin: ["\\operatorname{argmin}"],
+        argmax: ["\\operatorname{argmax}"]
     }
   }
 });
@@ -130,6 +132,12 @@ Private Attributes</h2></td></tr>
 class pr::piecewise_linear_distribution&lt; T &gt;</h3>
 
 <p>Piecewise linear distribution. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Float type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a03e22cca490b883ce2136589e93c118e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03e22cca490b883ce2136589e93c118e">&#9670;&nbsp;</a></span>value_type</h2>
@@ -279,7 +287,12 @@ template&lt;typename T  = double&gt; </div>
 </div><div class="memdoc">
 
 <p>Probability density function. </p>
-<p>TODO</p>
+<p class="formulaDsp">
+\[ f(x) = (1 - t)y_j + ty_{j + 1} \]
+</p>
+<p> where </p><p class="formulaDsp">
+\[ t = \frac{x - x_j}{x_{j + 1} - x_j} \]
+</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::runtime_error</td><td>If <code>!(points_.size() &gt; 1)</code>. </td></tr>
@@ -316,7 +329,12 @@ template&lt;typename T  = double&gt; </div>
 </div><div class="memdoc">
 
 <p>Cumulative distribution function. </p>
-<p>TODO</p>
+<p class="formulaDsp">
+\[ F(x) = \left(x_{j + 1} - x_j\right) \left[\frac{1}{2} \left(y_{j + 1} - y_j\right)t + y_j\right]t + C \]
+</p>
+<p> where </p><p class="formulaDsp">
+\[ t = \frac{x - x_j}{x_{j + 1} - x_j} \]
+</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::runtime_error</td><td>If <code>!(points_.size() &gt; 1)</code>. </td></tr>
@@ -353,7 +371,17 @@ template&lt;typename T  = double&gt; </div>
 </div><div class="memdoc">
 
 <p>Cumulative distribution function inverse. </p>
-<p>TODO</p>
+<p class="formulaDsp">
+\[ F^{-1}(u) = (1 - t)x_j + tx_{j + 1} \]
+</p>
+<p> where </p><p class="formulaDsp">
+\[ t \in [0, 1) \implies a_2 t^2 + a_1 t + a_0 = u \]
+</p>
+<p> where, in turn,</p><ul>
+<li>\( a_2 \gets (x_{j + 1} - x_j) (y_{j + 1} - y_j) / 2 \)</li>
+<li>\( a_1 \gets (x_{j + 1} - x_j) y_j \)</li>
+<li>\( a_0 \gets C \)</li>
+</ul>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::runtime_error</td><td>If <code>!(points_.size() &gt; 1)</code>. </td></tr>

@@ -27,7 +27,9 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
-        normalize: ["\\operatorname{normalize}"]
+        normalize: ["\\operatorname{normalize}"],
+        argmin: ["\\operatorname{argmin}"],
+        argmax: ["\\operatorname{argmax}"]
     }
   }
 });
@@ -140,6 +142,13 @@ Private Attributes</h2></td></tr>
 class pr::poisson_distribution&lt; T &gt;</h3>
 
 <p>Poisson distribution. </p>
+<dl class="section note"><dt>Note</dt><dd>This implementation is not tenable for large \( \lambda \) (say \( \lambda &gt; 20 \)), due to the direct calculation of the cumulative distribution function and its inverse. For \( \lambda &gt; 20 \), it is preferable to approximate the Poisson distribution \( P(\lambda) \) with the binomial distribution \( B(n, p) \) by choosing \( p \approx 0.25 \), \( n = \lambda / p \).</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Float type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a875d5a594272dc8c2a51f4d36abc5e9f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a875d5a594272dc8c2a51f4d36abc5e9f">&#9670;&nbsp;</a></span>value_type</h2>
@@ -499,7 +508,8 @@ template&lt;typename T  = double&gt; </div>
 <p class="formulaDsp">
 \[ F(x) = e^{-\lambda} \sum_{j=0}^{\lfloor x \rfloor}\frac{\lambda^j}{j!} \]
 </p>
- 
+<dl class="section note"><dt>Note</dt><dd>This implementation computes \( F \) directly. Thus, the time complexity is \( O(\lfloor x \rfloor) \). </dd></dl>
+
 </div>
 </div>
 <a id="afbd5e0975199486824da440ee0dd3aef"></a>
@@ -529,6 +539,7 @@ template&lt;typename T  = double&gt; </div>
 </div><div class="memdoc">
 
 <p>Cumulative distribution function inverse. </p>
+<dl class="section note"><dt>Note</dt><dd>This implementation inverts \( F \) by forward search (with incremental calculation), whereby the time complexity is roughly \( O(\lambda) \). </dd></dl>
 
 </div>
 </div>

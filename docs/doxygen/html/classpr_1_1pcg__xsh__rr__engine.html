@@ -27,7 +27,9 @@ MathJax.Hub.Config({
         skew: ["\\operatorname{Skew}"],
         erf: ["\\operatorname{erf}"],
         erfc: ["\\operatorname{erfc}"],
-        normalize: ["\\operatorname{normalize}"]
+        normalize: ["\\operatorname{normalize}"],
+        argmin: ["\\operatorname{argmin}"],
+        argmax: ["\\operatorname{argmax}"]
     }
   }
 });
@@ -166,7 +168,16 @@ Private Attributes</h2></td></tr>
 class pr::pcg_xsh_rr_engine&lt; T, Tstate, Nmultiplier, Ndefault_increment &gt;</h3>
 
 <p>PCG XSH-RR engine. </p>
-<p>Permuted congruential generator with XOR-shift plus random-rotate output transform. The implementation here is adapted as a special case of the <a href="https://github.com/imneme/pcg-cpp">implementation by Melissa O'Neill</a> affiliated with the <a href="https://pcg-random.org">PCG project</a>. </p>
+<p>Permuted congruential generator with XOR-shift plus random-rotate output transform. The implementation here is adapted as a special case of the <a href="https://github.com/imneme/pcg-cpp">implementation by Melissa O'Neill</a> affiliated with the <a href="https://pcg-random.org">PCG project</a>.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Output type.</td></tr>
+    <tr><td class="paramname">Tstate</td><td>State type.</td></tr>
+    <tr><td class="paramname">Nmultiplier</td><td>LCG multiplier.</td></tr>
+    <tr><td class="paramname">Ndefault_increment</td><td>LCG default increment. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a7717a33b144a9e83a4be11c92503203f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7717a33b144a9e83a4be11c92503203f">&#9670;&nbsp;</a></span>result_type</h2>
