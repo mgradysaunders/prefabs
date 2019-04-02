@@ -505,10 +505,54 @@ inline std::enable_if_t<
 #endif
 
 /**
- * @brief Stratify canonical random samples.
+ * @brief Stratify 1-dimensional canonical random samples.
  *
  * @param[in] gen
- * Random number generator.
+ * Generator.
+ *
+ * @param[in] dim
+ * Number of strata.
+ *
+ * @param[out] arr
+ * Sample array, must point to `dim` samples.
+ *
+ * @throw std::invalid_argument
+ * If `dim <= 0` or `!arr`.
+ */
+template <
+    typename G,
+    typename P,
+    typename T
+    >
+inline std::enable_if_t<
+       std::is_integral<P>::value &&
+       std::is_floating_point<T>::value, void> stratify(
+                    G&& gen, 
+                    const P& dim, 
+                          T* arr)
+{
+    if (dim <= P(0) || !arr) {
+        throw std::invalid_argument(__PRETTY_FUNCTION__);
+    }
+
+    // Stratify.
+    for (P pos = 0; pos < dim; pos++) {
+        arr[pos] = (pos + 
+                pr::generate_canonical<T>(std::forward<G>(gen))) / dim;
+    }
+
+    // Shuffle into random order.
+    std::shuffle(
+        arr,
+        arr + dim,
+        std::forward<G>(gen));
+}
+
+/**
+ * @brief Stratify n-dimensional canonical random samples.
+ *
+ * @param[in] gen
+ * Generator.
  *
  * @param[in] dim
  * Number of strata in each dimension.
@@ -535,6 +579,7 @@ inline std::enable_if_t<
         throw std::invalid_argument(__PRETTY_FUNCTION__);
     }
 
+    // Stratify.
     multi<P, N> pos = {};
     multi<T, N>* itrarr = arr;
     do {
