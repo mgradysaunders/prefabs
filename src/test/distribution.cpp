@@ -9,9 +9,11 @@
 // Float type.
 typedef double Float;
 
-// TODO UniformIntDistribution
+// Uniform int distribution.
+typedef pr::uniform_int_distribution<Float> UniformIntDistribution;
 
-// TODO UniformRealDistribution
+// Uniform real distribution.
+typedef pr::uniform_real_distribution<Float> UniformRealDistribution;
 
 // Poisson distribution.
 typedef pr::poisson_distribution<Float> PoissonDistribution;
@@ -19,7 +21,8 @@ typedef pr::poisson_distribution<Float> PoissonDistribution;
 // Exponential distribution.
 typedef pr::exponential_distribution<Float> ExponentialDistribution;
 
-// TODO BernoulliDistribution
+// Bernoulli distribution.
+typedef pr::bernoulli_distribution<Float> BernoulliDistribution;
 
 // Binomial distribution.
 typedef pr::binomial_distribution<Float> BinomialDistribution;
@@ -33,9 +36,11 @@ typedef pr::lognormal_distribution<Float> LognormalDistribution;
 // Logistic distribution.
 typedef pr::logistic_distribution<Float> LogisticDistribution;
 
-// TODO TanhDistribution
+// Tanh distribution.
+typedef pr::tanh_distribution<Float> TanhDistribution;
 
-// TODO WeibullDistribution
+// Weibull distribution.
+typedef pr::weibull_distribution<Float> WeibullDistribution;
 
 // Timer.
 typedef pr::steady_timer Timer;
@@ -53,7 +58,7 @@ void testIntDistribution(
                 const Distribution& distribution)
 {
     const int n = 262144;
-    std::cout << "Testing distribution statistics for ";
+    std::cout << "Testing statistics for ";
     std::cout << name << ":\n";
     std::cout <<
         "This test compares sample statistics of 262144 stratified\n"
@@ -138,7 +143,7 @@ void testRealDistribution(
                 const Distribution& distribution)
 {
     const int n = 262144;
-    std::cout << "Testing distribution statistics for ";
+    std::cout << "Testing statistics for ";
     std::cout << name << ":\n";
     std::cout <<
         "This test compares sample statistics of 262144 stratified\n"
@@ -218,23 +223,84 @@ void testRealDistribution(
 
 int main(int argc, char** argv)
 {
-    // TODO options
-    
-    // TODO Test uniform int distribution.
+    int seed = 0;
 
-    // TODO Test uniform real distribution.
+    // Option parser.
+    pr::option_parser opt_parser("[OPTIONS]");
+
+    // Specify seed.
+    opt_parser.on_option(
+    "-s", "--seed", 1,
+    [&](char** argv) {
+        try {
+            seed = std::stoi(argv[0]);
+        }
+        catch (const std::exception&) {
+            throw
+                std::runtime_error(
+                std::string("-s/--seed expects 1 integer ")
+                    .append("(can't parse ").append(argv[0])
+                    .append(")"));
+        }
+    })
+    << "Specify seed. By default, random.\n";
+
+    // Display help.
+    opt_parser.on_option(
+    "-h", "--help", 0,
+    [&](char**) {
+        std::cout << opt_parser << std::endl;
+        std::exit(EXIT_SUCCESS);
+    })
+    << "Display this help and exit.\n";
+
+    try {
+        // Parse args.
+        opt_parser.parse(argc, argv);
+    }
+    catch (const std::exception& exception) {
+        std::cerr << "Unhandled exception!\n";
+        std::cerr << "exception.what(): " << exception.what() << "\n";
+        std::exit(EXIT_FAILURE);
+    }
+
+    // Seed.
+    if (seed == 0) {
+        seed = std::random_device()();
+    }
+    std::cout << "seed = " << seed << "\n\n";
+    std::cout.flush();
+    pcg = pr::pcg32(seed);
+    
+    // Test uniform int distribution.
+    testIntDistribution(
+        "UniformIntDistribution(-4, 15)",
+         UniformIntDistribution(-4, 15));
+
+    // Test uniform real distribution.
+    testRealDistribution(
+        "UniformRealDistribution(17, 29)",
+         UniformRealDistribution(17, 29));
 
     // Test poisson distribution.
     testIntDistribution(
         "PoissonDistribution(7)",
          PoissonDistribution(7));
 
-    // Test exponential distribution.
+    // Test exponentialdistribution.
     testRealDistribution(
         "ExponentialDistribution(5.3)",
          ExponentialDistribution(5.3));
 
-    // TODO Test Bernoulli distribution.
+    // Test Bernoulli distribution.
+    testIntDistribution(
+        "BernoulliDistribution(0.37)",
+         BernoulliDistribution(0.37));
+
+    // Test binomial distribution.
+    testIntDistribution(
+        "BinomialDistribution(1, 0.37)",
+         BinomialDistribution(1, 0.37));
 
     // Test binomial distribution.
     testIntDistribution(
@@ -261,9 +327,15 @@ int main(int argc, char** argv)
         "LogisticDistribution(2.7, 3.3)",
          LogisticDistribution(2.7, 3.3));
 
-    // TODO Test tanh distribution.
+    // Test tanh distribution.
+    testRealDistribution(
+        "TanhDistribution(7, 4)",
+         TanhDistribution(7, 4));
 
-    // TODO Test Weibull distribution.
+    // Test Weibull distribution.
+    testRealDistribution(
+        "WeibullDistribution(0.9, 0.7)",
+         WeibullDistribution(0.9, 0.7));
 
-    return 0;
+    return EXIT_SUCCESS;
 }
