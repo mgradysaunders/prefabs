@@ -295,6 +295,30 @@ struct numeric_constants
     {
         return T(0.5772156649015328606065120900824024L);
     }
+
+    /**
+     * @brief @f$ h @f$ (Planck's constant).
+     *
+     * @f[
+     *      h = 6.62607015\times10^{-34}\,\mathrm{J}\cdot\mathrm{s}
+     * @f]
+     */
+    static constexpr T M_h() noexcept
+    {
+        return T(6.62607015e-34L);
+    }
+
+    /**
+     * @brief @f$ c @f$ (light speed).
+     *
+     * @f[
+     *      c = 299792458\,\mathrm{m}/\mathrm{s}
+     * @f]
+     */
+    static constexpr T M_c() noexcept
+    {
+        return T(299792458);
+    }
 };
 
 /**

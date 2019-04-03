@@ -340,6 +340,30 @@ struct numeric_constants<__float128>
     {
         return 0.57721566490153286060651209008240243104215q;
     }
+
+    /**
+     * @brief @f$ h @f$ (Planck's constant).
+     *
+     * @f[
+     *      h = 6.62607015\times10^{-34}\,\mathrm{J}\cdot\mathrm{s}
+     * @f]
+     */
+    static constexpr __float128 M_h() noexcept
+    {
+        return 6.62607015e-34q;
+    }
+
+    /**
+     * @brief @f$ c @f$ (light speed).
+     *
+     * @f[
+     *      c = 299792458\,\mathrm{m}/\mathrm{s}
+     * @f]
+     */
+    static constexpr __float128 M_c() noexcept
+    {
+        return 299792458.0q;
+    }
 };
 
 /**
