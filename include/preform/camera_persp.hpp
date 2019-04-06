@@ -52,6 +52,7 @@ namespace pr {
  */
 /**@{*/
 
+#if 0
 /**
  * @brief Camera (perspective).
  *
@@ -356,6 +357,8 @@ public:
             };
         }
 
+        // TODO Optionally output cos(theta) / (sx * sy * Q)?
+
         // Importance.
         float_type cos_theta = v[2] / fastlength(v);
         float_type cos2_theta = cos_theta * cos_theta;
@@ -503,6 +506,7 @@ private:
      */
     float_type a_ = 0;
 };
+#endif
 
 /**@}*/
 
