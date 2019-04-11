@@ -75,49 +75,12 @@ public:
     /**
      * @brief Default constructor.
      */
-    constexpr half() = default;
-
-    /**
-     * @brief Default copy constructor.
-     */
-    constexpr half(const half&) = default;
-
-    /**
-     * @brief Default move constructor.
-     */
-    constexpr half(half&&) = default;
+    half() noexcept = default;
 
     /**
      * @brief Constructor.
      */
-    half(float f);
-
-    /**@}*/
-
-public:
-
-    /**
-     * @name Assign operators
-     */
-    /**@{*/
-
-    /**
-     * @brief Default copy assign.
-     */
-    constexpr half& operator=(const half&) = default;
-
-    /**
-     * @brief Default move assign.
-     */
-    constexpr half& operator=(half&&) = default;
-
-    /**
-     * @brief Assign float.
-     */
-    half& operator=(float f)
-    {
-        return *this = half(f);
-    }
+    half(float f) noexcept;
 
     /**@}*/
 
@@ -126,12 +89,12 @@ public:
     /**
      * @brief Cast to float.
      */
-    operator float() const;
+    operator float() const noexcept;
 
     /**
      * @brief Cast to bit pattern.
      */
-    explicit operator std::uint16_t&()
+    explicit operator std::uint16_t&() noexcept
     {
         return b_;
     }
@@ -139,7 +102,7 @@ public:
     /**
      * @brief Cast to bit pattern.
      */
-    explicit operator const std::uint16_t&() const
+    explicit operator const std::uint16_t&() const noexcept
     {
         return b_;
     }
@@ -152,33 +115,33 @@ public:
     /**@{*/
 
     /**
-     * @brief In-place half addition.
+     * @brief In-place addition.
      */
-    half& operator+=(half h)
+    half& operator+=(half h) noexcept
     {
         return *this = float(*this) + float(h);
     }
 
     /**
-     * @brief In-place half subtraction.
+     * @brief In-place subtraction.
      */
-    half& operator-=(half h)
+    half& operator-=(half h) noexcept
     {
         return *this = float(*this) - float(h);
     }
 
     /**
-     * @brief In-place half multiplication.
+     * @brief In-place multiplication.
      */
-    half& operator*=(half h)
+    half& operator*=(half h) noexcept
     {
         return *this = float(*this) * float(h);
     }
 
     /**
-     * @brief In-place half division.
+     * @brief In-place division.
      */
-    half& operator/=(half h)
+    half& operator/=(half h) noexcept
     {
         return *this = float(*this) / float(h);
     }
@@ -195,7 +158,7 @@ public:
     /**
      * @brief Absolute value.
      */
-    half abs() const
+    half abs() const noexcept
     {
         half h = *this;
         h.b_ = h.b_ & ~0x8000;
@@ -205,7 +168,7 @@ public:
     /**
      * @brief Is negative? (possibly `-0.0`)
      */
-    bool signbit() const
+    bool signbit() const noexcept
     {
         return (b_ & 0x8000);
     }
@@ -213,7 +176,7 @@ public:
     /**
      * @brief Is infinite?
      */
-    bool isinf() const
+    bool isinf() const noexcept
     {
         return (b_ & 0x7FFF) == 0x7C00;
     }
@@ -221,7 +184,7 @@ public:
     /**
      * @brief Is not-a-number?
      */
-    bool isnan() const
+    bool isnan() const noexcept
     {
         return (b_ & 0x7FFF) != 0x7C00 && (b_ & 0x7C00) == 0x7C00;
     }
@@ -229,7 +192,7 @@ public:
     /**
      * @brief Is neither infinite nor not-a-number?
      */
-    bool isfinite() const
+    bool isfinite() const noexcept
     {
         return (b_ & 0x7C00) != 0x7C00;
     }
@@ -237,7 +200,7 @@ public:
     /**
      * @brief Is neither infinite nor not-a-number nor subnormal?
      */
-    bool isnormal() const
+    bool isnormal() const noexcept
     {
         return (b_ & 0x7C00) != 0x7C00 && (b_ & 0x7C00) != 0;
     }
@@ -251,14 +214,15 @@ private:
      */
     std::uint16_t b_ = 0;
 
-    // sanity check
-    static_assert(std::numeric_limits<float>::is_iec559,
-        "Requires IEC-559/IEEE-754 single precision floats");
+    // Sanity check.
+    static_assert(
+        std::numeric_limits<float>::is_iec559,
+        "half requires IEC-559/IEEE-754 single precision floats");
 };
 
 #if !DOXYGEN
 
-inline half::half(float f)
+inline half::half(float f) noexcept
 {
     std::uint32_t u; std::memcpy(&u, &f, sizeof(f));
     if (f == 0) {
@@ -283,12 +247,12 @@ inline half::half(float f)
             e &= 255;
             e -= 112;
             if (e < 1) {
-                // zero
                 if (e < -10) {
+                    // Zero.
                     b_ = s;
                 }
-                // subnormal
                 else {
+                    // Subnormal.
                     m |= 0x00800000;
                     b_ = s | ((m +
                         ((1 << (13 - e)) +
@@ -297,28 +261,29 @@ inline half::half(float f)
                 }
             }
             else if (e == 0x8F) {
-                // inf
                 if (m == 0) {
+                    // Inf.
                     b_ = s | 0x7C00;
                 }
-                // nan
                 else {
+                    // NaN.
                     m >>= 13;
                     b_ = s | 0x7C00 | m | (m == 0);
                 }
             }
             else {
                 m += ((m >> 13) & 1) + 0x0FFF;
-                if (m & 0x0080000) {
+                if (m & 0x00800000) {
                     m = 0;
                     e++;
                 }
-                // overflow
+                // Overflow?
                 if (e > 30) {
+                    // Inf.
                     b_ = s | 0x7C00;
                 }
-                // normal
                 else {
+                    // Normal.
                     b_ = s | (e << 10) | (m >> 13);
                 }
             }
@@ -326,7 +291,7 @@ inline half::half(float f)
     }
 }
 
-inline half::operator float() const
+inline half::operator float() const noexcept
 {
     float f;
     std::uint32_t u;
@@ -334,12 +299,12 @@ inline half::operator float() const
     std::int32_t s = (b_ >> 15) & 0x0001;
     std::int32_t m =  b_ & 0x03FF;
     if (e == 0) {
-        // zero
         if (m == 0) {
+            // Zero.
             u = s << 31;
         }
-        // subnormal
         else {
+            // Subnormal.
             e += 112;
             while (!(m & 0x0400))
                 e--, m <<= 1;
@@ -349,17 +314,17 @@ inline half::operator float() const
         }
     }
     else if (e == 31) {
-        // inf
         if (m == 0) {
+            // Inf.
             u = (s << 31) | 0x7F800000;
         }
-        // nan
         else {
+            // NaN.
             u = (s << 31) | 0x7F800000 | (m << 13);
         }
     }
     else {
-        // normal
+        // Normal.
         e += 112;
         u = (s << 31) | (e << 23) | (m << 13);
     }
