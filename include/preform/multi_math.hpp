@@ -413,8 +413,8 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
     }
 
     // Normalize.
-    multi<decltype(T()/pr::sqrt(pr::abs(T()))), N> res =
-    multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>(arr);
+    multi<decltype(T()/float_type()), N> res =
+    multi<decltype(T()/float_type()), N>(arr);
     if (len >= pr::numeric_limits<float_type>::min_invertible()) {
         res *= 1 / len;
     }
