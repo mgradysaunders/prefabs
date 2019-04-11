@@ -185,7 +185,7 @@ int main(int argc, char** argv)
                 Float(i) + Float(k) / 3,
                 Float(j) + Float(l) / 3
             };
-            Vec2f noise_loc = image_loc / image_dim * noise_scale;
+            Vec2f noise_loc =  noise_scale * (image_loc / image_dim);
             Vec1f noise_val = {noise.evaluate({
                 noise_loc[0],
                 noise_loc[1],
