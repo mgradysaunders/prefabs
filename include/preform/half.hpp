@@ -87,6 +87,11 @@ public:
 public:
 
     /**
+     * @name Cast operators
+     */
+    /**@{*/
+
+    /**
      * @brief Cast to float.
      */
     operator float() const noexcept;
@@ -107,6 +112,9 @@ public:
         return b_;
     }
 
+    /**@}*/
+
+#if 0
 public:
 
     /**
@@ -147,6 +155,7 @@ public:
     }
 
     /**@}*/
+#endif
 
 public:
 
