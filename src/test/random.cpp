@@ -61,7 +61,7 @@ void testIntDistribution(
     std::cout << "Testing statistics for ";
     std::cout << name << ":\n";
     std::cout <<
-        "This test compares sample statistics of 262144 stratified\n"
+        "This test compares sample statistics of stratified\n"
         "random samples (by inverse transform) to analytical\n"
         "distribution statistics.\n";
     std::cout.flush();
@@ -146,7 +146,7 @@ void testRealDistribution(
     std::cout << "Testing statistics for ";
     std::cout << name << ":\n";
     std::cout <<
-        "This test compares sample statistics of 262144 stratified\n"
+        "This test compares sample statistics of stratified\n"
         "random samples (by inverse transform) to analytical\n"
         "distribution statistics.\n";
     std::cout.flush();
