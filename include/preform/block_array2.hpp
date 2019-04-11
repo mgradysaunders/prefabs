@@ -270,6 +270,25 @@ public:
 public:
 
     /**
+     * @name Assignment operators
+     */
+    /**@{*/
+
+    /**
+     * @brief Default copy assignment operator.
+     */
+    block_array2& operator=(const block_array2&) = default;
+
+    /**
+     * @brief Default move assignment operator.
+     */
+    block_array2& operator=(block_array2&&) = default;
+
+    /**@}*/
+
+public:
+
+    /**
      * @name Container interface
      */
     /**@{*/
