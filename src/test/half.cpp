@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <random>
 #include <preform/random.hpp>
 #include <preform/option_parser.hpp>
@@ -35,9 +36,15 @@ void testHalfAccuracy()
 }
 
 // Test half special cases.
-void testHalfSpecialCases()
+void testHalfSpecialCase(float f)
 {
-    // TODO
+    pr::half h = f;
+    std::cout << "Testing half " << f << ":\n";
+    std::cout << "half(" << f << ").isinf(): " << h.isinf() << "\n";
+    std::cout << "half(" << f << ").isnan(): " << h.isnan() << "\n";
+    std::cout << "half(" << f << ").signbit(): " << h.signbit() << "\n";
+    std::cout << "float(half(" << h << ")): " << float(h) << "\n\n";
+    std::cout.flush();
 }
 
 int main(int argc, char** argv)
@@ -95,7 +102,14 @@ int main(int argc, char** argv)
     testHalfAccuracy();
 
     // Test half special cases.
-    testHalfSpecialCases();
+    std::cout << std::showpos;
+    std::cout << std::boolalpha;
+    testHalfSpecialCase(+0.0f);
+    testHalfSpecialCase(-0.0f);
+    testHalfSpecialCase(+pr::numeric_limits<float>::infinity());
+    testHalfSpecialCase(-pr::numeric_limits<float>::infinity());
+    testHalfSpecialCase(+pr::numeric_limits<float>::quiet_NaN());
+    testHalfSpecialCase(-pr::numeric_limits<float>::quiet_NaN());
 
     return EXIT_SUCCESS;
 }
