@@ -44,6 +44,9 @@
 // for std::memcpy
 #include <cstring>
 
+// for std::basic_string
+#include <string>
+
 // for std::is_arithmetic, ...
 #include <type_traits>
 
@@ -86,24 +89,7 @@ struct endian_format_impl
     endian en;
 };
 
-template <typename T, typename U>
-inline std::enable_if_t<
-       std::is_arithmetic<U>::value,
-       endian_format_impl<T>> operator>>(
-       endian_format_impl<T> is, U& value)
-{
-    char chars[sizeof(U)] = {};
-    is.st->read(&chars[0], sizeof(U));
-    if (is.en != host_endian()) {
-        // reverse endian
-        std::reverse(
-                &chars[0],
-                &chars[0] + sizeof(U));
-    }
-    std::memcpy(&value, &chars[0], sizeof(U));
-    return is;
-}
-
+// Write arithmetic value.
 template <typename T, typename U>
 inline std::enable_if_t<
        std::is_arithmetic<U>::value,
@@ -113,7 +99,7 @@ inline std::enable_if_t<
     char chars[sizeof(U)] = {};
     std::memcpy(&chars[0], &value, sizeof(U));
     if (os.en != host_endian()) {
-        // reverse endian
+        // Reverse endian.
         std::reverse(
                 &chars[0],
                 &chars[0] + sizeof(U));
@@ -122,9 +108,75 @@ inline std::enable_if_t<
     return os;
 }
 
-// TODO operator>> std::string&
-// TODO operator<< const std::string&
-// TODO operator<< const char*
+// Read arithmetic value.
+template <typename T, typename U>
+inline std::enable_if_t<
+       std::is_arithmetic<U>::value,
+       endian_format_impl<T>> operator>>(
+       endian_format_impl<T> is, U& value)
+{
+    char chars[sizeof(U)] = {};
+    is.st->read(&chars[0], sizeof(U));
+    if (is.en != host_endian()) {
+        // Reverse endian.
+        std::reverse(
+                &chars[0],
+                &chars[0] + sizeof(U));
+    }
+    std::memcpy(&value, &chars[0], sizeof(U));
+    return is;
+}
+
+// Write zero-terminated string.
+template <typename T, typename C>
+inline std::enable_if_t<
+       std::is_integral<C>::value,
+       endian_format_impl<T>> operator<<(
+       endian_format_impl<T> os, const C* c)
+{
+    if (!c) {
+        throw std::invalid_argument(__PRETTY_FUNCTION__);
+    }
+    while (*c != C(0)) { os << *c++; }
+    return os << C(0);
+}
+
+// Write zero-terminated string.
+template <
+    typename T,
+    typename C,
+    typename Ctraits,
+    typename Calloc
+    >
+inline endian_format_impl<T> operator<<(
+       endian_format_impl<T> os, 
+       const std::basic_string<C, Ctraits, Calloc>& str)
+{
+    return os << str.c_str();
+}
+
+// Read zero-terminated string.
+template <
+    typename T,
+    typename C,
+    typename Ctraits,
+    typename Calloc
+    >
+inline endian_format_impl<T> operator>>(
+       endian_format_impl<T> is, std::basic_string<C, Ctraits, Calloc>& str)
+{
+    while (is.st->good()) {
+        C c;
+        is >> c;
+        if (c != C(0)) {
+            str.push_back(c);
+        }
+        else {
+            break;
+        }
+    }
+    return is;
+}
 
 #endif // #if !DOXYGEN
 
