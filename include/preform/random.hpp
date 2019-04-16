@@ -2841,8 +2841,12 @@ public:
     /**
      * @brief Probability density function.
      *
+     * @f[
+     *      f(x) = f_j
+     * @f]
+     *
      * @throw std::runtime_error
-     * If `!(points_.size() > 1)`.
+     * Unless `points_.size() > 1`.
      */
     float_type pdf(float_type x) const
     {
@@ -2874,8 +2878,17 @@ public:
     /**
      * @brief Cumulative distribution function.
      *
+     * @f[
+     *      F(x) = (1 - t) F_j + t F_{j + 1} 
+     * @f]
+     * where
+     * @f[
+     *      t = \frac{x - x_j}
+     *               {x_{j + 1} - x_j}
+     * @f]
+     *
      * @throw std::runtime_error
-     * If `!(points_.size() > 1)`.
+     * Unless `points_.size() > 1`.
      */
     float_type cdf(float_type x) const
     {
@@ -2910,8 +2923,17 @@ public:
     /**
      * @brief Cumulative distribution function inverse.
      *
+     * @f[
+     *      F^{-1}(u) = (1 - t) x_j + t x_{j + 1}
+     * @f]
+     * where
+     * @f[
+     *      t = \frac{u - F_j}
+     *               {F_{j + 1} - F_j}
+     * @f]
+     *
      * @throw std::runtime_error
-     * If `!(points_.size() > 1)`.
+     * Unless `points_.size() > 1`.
      */
     float_type cdfinv(float_type u) const
     {
@@ -3103,15 +3125,16 @@ public:
      * @brief Probability density function.
      *
      * @f[
-     *      f(x) = (1 - t)y_j + ty_{j + 1}
+     *      f(x) = (1 - t)f_j + t f_{j + 1}
      * @f]
      * where
      * @f[
-     *      t = \frac{x - x_j}{x_{j + 1} - x_j}
+     *      t = \frac{x - x_j}
+     *               {x_{j + 1} - x_j}
      * @f]
      *
      * @throw std::runtime_error
-     * If `!(points_.size() > 1)`.
+     * Unless `points_.size() > 1`.
      */
     float_type pdf(float_type x) const
     {
@@ -3149,15 +3172,16 @@ public:
      * @f[
      *      F(x) = 
      *          \left(x_{j + 1} - x_j\right) \left[\frac{1}{2}
-     *          \left(y_{j + 1} - y_j\right)t + y_j\right]t + C
+     *          \left(f_{j + 1} - f_j\right) t + f_j\right] t + F_j
      * @f]
      * where
      * @f[
-     *      t = \frac{x - x_j}{x_{j + 1} - x_j}
+     *      t = \frac{x - x_j}
+     *               {x_{j + 1} - x_j}
      * @f]
      *
      * @throw std::runtime_error
-     * If `!(points_.size() > 1)`.
+     * Unless `points_.size() > 1`.
      */
     float_type cdf(float_type x) const
     {
@@ -3194,19 +3218,19 @@ public:
      * @brief Cumulative distribution function inverse.
      *
      * @f[
-     *      F^{-1}(u) = (1 - t)x_j + tx_{j + 1}
+     *      F^{-1}(u) = (1 - t) x_j + t x_{j + 1}
      * @f]
      * where
      * @f[
      *      t \in [0, 1) \implies a_2 t^2 + a_1 t + a_0 = u
      * @f]
      * where, in turn,
-     * - @f$ a_2 \gets (x_{j + 1} - x_j) (y_{j + 1} - y_j) / 2 @f$
-     * - @f$ a_1 \gets (x_{j + 1} - x_j) y_j @f$
-     * - @f$ a_0 \gets C @f$
+     * - @f$ a_2 \gets (x_{j + 1} - x_j) (f_{j + 1} - f_j) / 2 @f$
+     * - @f$ a_1 \gets (x_{j + 1} - x_j) f_j @f$
+     * - @f$ a_0 \gets F_j @f$
      *
      * @throw std::runtime_error
-     * If `!(points_.size() > 1)`.
+     * Unless `points_.size() > 1`.
      */
     float_type cdfinv(float_type u) const
     {
