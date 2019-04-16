@@ -90,6 +90,8 @@ public:
          * @brief Default constructor.
          */
         ray_type() = default;
+
+        // TODO
     };
 
 public:
@@ -109,6 +111,7 @@ public:
     {
     }
 
+    // TODO
 #if 0
     /**
      * @brief Intersect.
