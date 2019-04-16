@@ -252,7 +252,13 @@ template&lt;typename Tinput0 , typename Tinput1 &gt; </div>
 <p>Constructor. </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>If <code>!(std::distance(xfrom, xto) &gt; 1)</code>. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Unless<ul>
+<li><code>std::distance(xfrom, xto) &gt; 1</code>,</li>
+<li><code>x</code> coordinates are strictly increasing,</li>
+<li><code>y</code> coordinates are non-negative, and</li>
+<li>normalization factor is non-zero. </li>
+</ul>
+</td></tr>
   </table>
   </dd>
 </dl>
@@ -288,14 +294,14 @@ template&lt;typename T  = double&gt; </div>
 
 <p>Probability density function. </p>
 <p class="formulaDsp">
-\[ f(x) = (1 - t)y_j + ty_{j + 1} \]
+\[ f(x) = (1 - t)f_j + t f_{j + 1} \]
 </p>
 <p> where </p><p class="formulaDsp">
-\[ t = \frac{x - x_j}{x_{j + 1} - x_j} \]
+\[ t = \frac{x - x_j} {x_{j + 1} - x_j} \]
 </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>If <code>!(points_.size() &gt; 1)</code>. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>Unless <code>points_.size() &gt; 1</code>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -330,14 +336,14 @@ template&lt;typename T  = double&gt; </div>
 
 <p>Cumulative distribution function. </p>
 <p class="formulaDsp">
-\[ F(x) = \left(x_{j + 1} - x_j\right) \left[\frac{1}{2} \left(y_{j + 1} - y_j\right)t + y_j\right]t + C \]
+\[ F(x) = \left(x_{j + 1} - x_j\right) \left[\frac{1}{2} \left(f_{j + 1} - f_j\right) t + f_j\right] t + F_j \]
 </p>
 <p> where </p><p class="formulaDsp">
-\[ t = \frac{x - x_j}{x_{j + 1} - x_j} \]
+\[ t = \frac{x - x_j} {x_{j + 1} - x_j} \]
 </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>If <code>!(points_.size() &gt; 1)</code>. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>Unless <code>points_.size() &gt; 1</code>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -372,19 +378,19 @@ template&lt;typename T  = double&gt; </div>
 
 <p>Cumulative distribution function inverse. </p>
 <p class="formulaDsp">
-\[ F^{-1}(u) = (1 - t)x_j + tx_{j + 1} \]
+\[ F^{-1}(u) = (1 - t) x_j + t x_{j + 1} \]
 </p>
 <p> where </p><p class="formulaDsp">
 \[ t \in [0, 1) \implies a_2 t^2 + a_1 t + a_0 = u \]
 </p>
 <p> where, in turn,</p><ul>
-<li>\( a_2 \gets (x_{j + 1} - x_j) (y_{j + 1} - y_j) / 2 \)</li>
-<li>\( a_1 \gets (x_{j + 1} - x_j) y_j \)</li>
-<li>\( a_0 \gets C \)</li>
+<li>\( a_2 \gets (x_{j + 1} - x_j) (f_{j + 1} - f_j) / 2 \)</li>
+<li>\( a_1 \gets (x_{j + 1} - x_j) f_j \)</li>
+<li>\( a_0 \gets F_j \)</li>
 </ul>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>If <code>!(points_.size() &gt; 1)</code>. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>Unless <code>points_.size() &gt; 1</code>. </td></tr>
   </table>
   </dd>
 </dl>
