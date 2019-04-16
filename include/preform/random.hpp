@@ -2731,6 +2731,265 @@ using subset_weibull_distribution =
 /**@}*/
 
 /**
+ * @brief Piecewise constant distribution.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T = double>
+class piecewise_constant_distribution
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Value type.
+     */
+    typedef T value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    piecewise_constant_distribution() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @throw std::invalid_argument
+     * Unless 
+     * - `std::distance(xfrom, xto) > 1`,
+     * - `x` coordinates are strictly increasing,
+     * - `y` coordinates are non-negative, and
+     * - normalization factor is non-zero.
+     */
+    template <
+        typename Tinput0,
+        typename Tinput1
+        >
+    piecewise_constant_distribution(
+            Tinput0 xfrom, Tinput0 xto,
+            Tinput1 yfrom)
+    {
+        // Invalid?
+        if (!(std::distance(xfrom, xto) > 1)) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+
+        // Resize.
+        points_.resize(
+            std::distance(xfrom, xto));
+
+        // Copy.
+        int n = points_.size();
+        for (int k = 0; k < n; k++) {
+            points_[k].x = *xfrom++;
+            points_[k].pdf = *yfrom++;
+        }
+
+        // Check x coordinates.
+        for (int k = 0; k + 1 < n; k++) {
+            if (!(points_[k].x < 
+                  points_[k + 1].x)) {
+                throw std::invalid_argument(__PRETTY_FUNCTION__);
+            }
+        }
+        // Check y coordinates.
+        for (int k = 0; k < n; k++) {
+            if (!(points_[k].pdf >= 0)) {
+                throw std::invalid_argument(__PRETTY_FUNCTION__);
+            }
+        }
+
+        // Integrate.
+        neumaier_sum<float_type> yint = 0;
+        for (int k = 1; k < n; k++) {
+            float_type x0 = points_[k - 1].x, y0 = points_[k - 1].pdf;
+            float_type x1 = points_[k - 0].x;
+            yint += (x1 - x0) * y0;
+            points_[k - 0].cdf = float_type(yint);
+        }
+
+        // Normalize.
+        float_type fac = points_[n - 1].cdf;
+        if (fac == 0) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+        else if (fac < pr::numeric_limits<float_type>::min_invertible()) {
+            for (point_type& point : points_) {
+                point.pdf /= fac;
+                point.cdf /= fac;
+            }
+        }
+        else {
+            fac = 1 / fac;
+            for (point_type& point : points_) {
+                point.pdf *= fac;
+                point.cdf *= fac;
+            }
+        }
+    }
+
+    /**
+     * @brief Probability density function.
+     *
+     * @throw std::runtime_error
+     * If `!(points_.size() > 1)`.
+     */
+    float_type pdf(float_type x) const
+    {
+        // Invalid?
+        if (!(points_.size() > 1)) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+
+        // Lookup.
+        auto itr =
+            std::lower_bound(
+                points_.begin(),
+                points_.end(),
+                x,
+                [](const point_type& point,
+                   const float_type& otherx) {
+                    return point.x <= otherx;
+                });
+        if (itr == points_.begin() ||
+            itr == points_.end()) {
+            return 0;
+        }
+        --itr;
+
+        // Evaluate.
+        return itr[0].pdf;
+    }
+
+    /**
+     * @brief Cumulative distribution function.
+     *
+     * @throw std::runtime_error
+     * If `!(points_.size() > 1)`.
+     */
+    float_type cdf(float_type x) const
+    {
+        // Invalid?
+        if (!(points_.size() > 1)) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+
+        // Lookup.
+        auto itr =
+            std::lower_bound(
+                points_.begin(),
+                points_.end(),
+                x,
+                [](const point_type& point,
+                   const float_type& otherx) {
+                    return point.x <= otherx;
+                });
+        if (itr == points_.begin() ||
+            itr == points_.end()) {
+            return float_type(itr == points_.end());
+        }
+        --itr;
+
+        // Evaluate.
+        float_type x0 = itr[0].x, y0 = itr[0].cdf;
+        float_type x1 = itr[1].x, y1 = itr[1].cdf;
+        float_type t = (x - x0) / (x1 - x0);
+        return (1 - t) * y0 + t * y1;
+    }
+
+    /**
+     * @brief Cumulative distribution function inverse.
+     *
+     * @throw std::runtime_error
+     * If `!(points_.size() > 1)`.
+     */
+    float_type cdfinv(float_type u) const
+    {
+        // Invalid?
+        if (!(points_.size() > 1)) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+
+        if (!(u >= float_type(0) &&
+              u <  float_type(1))) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
+        }
+        else {
+
+            // Lookup.
+            auto itr =
+                std::lower_bound(
+                    points_.begin(),
+                    points_.end(),
+                    u,
+                    [](const point_type& point,
+                       const float_type& othercdf) {
+                        return point.cdf <= othercdf;
+                    });
+            if (itr == points_.begin() ||
+                itr == points_.end()) {
+                return 0;
+            }
+            --itr;
+
+            // Evaluate.
+            float_type x0 = itr[0].x, y0 = itr[0].cdf;
+            float_type x1 = itr[1].x, y1 = itr[1].cdf;
+            float_type t = (u - y0) / (y1 - y0);
+            return (1 - t) * x0 + t * x1;
+        }
+    }
+
+    /**
+     * @brief Generate number.
+     */
+    template <typename G>
+    value_type operator()(G&& gen) const
+    {
+        return cdfinv(
+            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+    }
+
+private:
+
+    /**
+     * @brief Point type.
+     */
+    struct point_type
+    {
+        /**
+         * @brief Abscissa @f$ x_k @f$.
+         */
+        float_type x = 0;
+
+        /**
+         * @brief Ordinate @f$ f_k @f$.
+         */
+        float_type pdf = 0;
+
+        /**
+         * @brief Ordinate @f$ F_k @f$.
+         */
+        float_type cdf = 0;
+    };
+
+    /**
+     * @brief Points.
+     */
+    std::vector<point_type> points_;
+};
+
+/**
  * @brief Piecewise linear distribution.
  *
  * @tparam T
@@ -2765,7 +3024,11 @@ public:
      * @brief Constructor.
      *
      * @throw std::invalid_argument
-     * If `!(std::distance(xfrom, xto) > 1)`.
+     * Unless 
+     * - `std::distance(xfrom, xto) > 1`,
+     * - `x` coordinates are strictly increasing,
+     * - `y` coordinates are non-negative, and 
+     * - normalization factor is non-zero.
      */
     template <
         typename Tinput0,
@@ -2788,7 +3051,21 @@ public:
         int n = points_.size();
         for (int k = 0; k < n; k++) {
             points_[k].x = *xfrom++;
-            points_[k].pdf = *yfrom++; // TODO verify?
+            points_[k].pdf = *yfrom++;
+        }
+
+        // Check x coordinates.
+        for (int k = 0; k + 1 < n; k++) {
+            if (!(points_[k].x < 
+                  points_[k + 1].x)) {
+                throw std::invalid_argument(__PRETTY_FUNCTION__);
+            }
+        }
+        // Check y coordinates.
+        for (int k = 0; k < n; k++) {
+            if (!(points_[k].pdf >= 0)) {
+                throw std::invalid_argument(__PRETTY_FUNCTION__);
+            }
         }
 
         // Integrate by trapezoid rule.
@@ -2803,10 +3080,22 @@ public:
         }
 
         // Normalize.
-        float_type fac = float_type(1) / points_[n - 1].cdf;
-        for (int k = 0; k < n; k++) {
-            points_[k].pdf *= fac;
-            points_[k].cdf *= fac;
+        float_type fac = points_[n - 1].cdf;
+        if (fac == 0) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+        else if (fac < pr::numeric_limits<float_type>::min_invertible()) {
+            for (point_type& point : points_) {
+                point.pdf /= fac;
+                point.cdf /= fac;
+            }
+        }
+        else {
+            fac = 1 / fac;
+            for (point_type& point : points_) {
+                point.pdf *= fac;
+                point.cdf *= fac;
+            }
         }
     }
 
@@ -2859,8 +3148,7 @@ public:
      *
      * @f[
      *      F(x) = 
-     *          \left(x_{j + 1} - x_j\right)
-     *          \left[\frac{1}{2}
+     *          \left(x_{j + 1} - x_j\right) \left[\frac{1}{2}
      *          \left(y_{j + 1} - y_j\right)t + y_j\right]t + C
      * @f]
      * where
