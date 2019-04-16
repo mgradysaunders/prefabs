@@ -90,8 +90,6 @@ public:
          * @brief Default constructor.
          */
         ray_type() = default;
-
-        /**@}*/
     };
 
 public:
@@ -127,6 +125,209 @@ public:
         return 0;
     }
 #endif
+
+private:
+
+    /**
+     * @brief Axis-aligned bounding box.
+     */
+    aabb<float_type, 3> box_ = {
+        {-1, -1, -1},
+        {+1, +1, +1}
+    };
+};
+
+/**
+ * @brief Fast ray-test (axis-aligned bounding box).
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct fast_raytest_aabb
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Ray information.
+     */
+    struct ray_type
+    {
+    public:
+
+        /**
+         * @brief Default constructor.
+         */
+        ray_type() = default;
+
+        /**
+         * @brief Constructor.
+         *
+         * @param[in] o
+         * Origin.
+         *
+         * @param[in] d
+         * Direction.
+         *
+         * @param[in] tmin
+         * Parameter minimum.
+         *
+         * @param[in] tmax
+         * Parameter maximum.
+         */
+        ray_type(
+            const multi<float_type, 3>& o,
+            const multi<float_type, 3>& d,
+            float_type tmin = 0,
+            float_type tmax =
+                pr::numeric_limits<float_type>::infinity()) :
+                o(o), d(d),
+                tmin(tmin),
+                tmax(tmax)
+        {
+            dmin = pr::signbit(d);
+            dmax = 1 - dmin;
+            dinv = 1 / d;
+        }
+
+    public:
+
+        /**
+         * @brief Origin @f$ \mathbf{o} @f$.
+         */
+        multi<float_type, 3> o = {};
+
+        /**
+         * @brief Direction @f$ \mathbf{d} @f$.
+         */
+        multi<float_type, 3> d = {};
+
+        /**
+         * @brief Parameter minimum @f$ t_{\min} @f$.
+         */
+        float_type tmin = 0;
+
+        /**
+         * @brief Parameter maximum @f$ t_{\max} @f$.
+         */
+        float_type tmax = pr::numeric_limits<float_type>::infinity();
+
+    private:
+
+        /**
+         * @name Cache variables
+         */
+        /**@{*/
+
+        /**
+         * @brief Direction minimum index @f$ \mathbf{d}_{\min} @f$.
+         *
+         * @note
+         * @f[
+         *      d_{\min[k]} =
+         *      \begin{cases}
+         *          1 & d_{[k]} < 0
+         *      \\  0 & d_{[k]} \ge 0
+         *      \end{cases}
+         * @f]
+         */
+        multi<int, 3> dmin;
+
+        /**
+         * @brief Direction maximum index @f$ \mathbf{d}_{\max} @f$.
+         *
+         * @note
+         * @f[
+         *      d_{\max[k]} = 1 - d_{\min[k]}
+         * @f]
+         */
+        multi<int, 3> dmax;
+
+        /**
+         * @brief Direction inverse @f$ \mathbf{d}^{-1} @f$.
+         */
+        multi<float_type, 3> dinv;
+
+        /**@}*/
+
+        friend struct fast_raytest_aabb<T>;
+    };
+
+public:
+
+    /**
+     * @brief Default constructor.
+     */
+    fast_raytest_aabb() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @param[in] box
+     * Axis-aligned bounding box.
+     */
+    fast_raytest_aabb(const aabb<float_type, 3>& box) : box_(box)
+    {
+    }
+
+    /**
+     * @brief Intersect.
+     *
+     * @param[in] ray
+     * Ray information.
+     *
+     * @returns
+     * If intersection, returns parameteric value. Else,
+     * returns NaN.
+     */
+    float_type intersect(const ray_type& ray) const
+    {
+        // Slab intersection.
+        float_type tmin, tkmin;
+        float_type tmax, tkmax;
+
+        // Slab 0.
+        tmin = (box_[ray.dmin[0]][0] - ray.o[0]) * ray.dinv[0];
+        tmax = (box_[ray.dmax[0]][0] - ray.o[0]) * ray.dinv[0];
+        tmax *= 1 + 2 * pr::numeric_limits<float_type>::echelon(3);
+        for (int k = 1; k < 3; k++) {
+
+            // Slab k.
+            tkmin = (box_[ray.dmin[k]][k] - ray.o[k]) * ray.dinv[k];
+            tkmax = (box_[ray.dmax[k]][k] - ray.o[k]) * ray.dinv[k];
+            tkmax *= 1 + 2 * pr::numeric_limits<float_type>::echelon(3);
+
+            // Reject certain misses.
+            if (!(tmin < tkmax &&
+                  tmax > tkmin)) {
+                // No intersection.
+                return pr::numeric_limits<float_type>::quiet_NaN();
+            }
+
+            // Update.
+            tmin = pr::fmax(tmin, tkmin);
+            tmax = pr::fmin(tmax, tkmax);
+        }
+
+        // Reject uncertain hits.
+        if (!(tmin < ray.tmax &&
+              tmax > ray.tmin)) {
+            // No intersection.
+            return pr::numeric_limits<float_type>::quiet_NaN();
+        }
+
+        return tmin > ray.tmin ? tmin : tmax;
+    }
 
 private:
 
