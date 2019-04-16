@@ -2839,6 +2839,24 @@ public:
     }
 
     /**
+     * @brief Constructor.
+     * 
+     * @throw std::invalid_argument
+     * Unless `xs.size() == ys.size()`.
+     */
+    piecewise_constant_distribution(
+        std::initializer_list<float_type> xs,
+        std::initializer_list<float_type> ys) :
+            piecewise_constant_distribution(
+                        xs.begin(), xs.end(),
+                        ys.begin())
+    {
+        if (!(xs.size() == ys.size())) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+    }
+
+    /**
      * @brief Probability density function.
      *
      * @f[
@@ -3118,6 +3136,24 @@ public:
                 point.pdf *= fac;
                 point.cdf *= fac;
             }
+        }
+    }
+
+    /**
+     * @brief Constructor.
+     * 
+     * @throw std::invalid_argument
+     * Unless `xs.size() == ys.size()`.
+     */
+    piecewise_linear_distribution(
+        std::initializer_list<float_type> xs,
+        std::initializer_list<float_type> ys) :
+            piecewise_linear_distribution(
+                        xs.begin(), xs.end(),
+                        ys.begin())
+    {
+        if (!(xs.size() == ys.size())) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
     }
 
