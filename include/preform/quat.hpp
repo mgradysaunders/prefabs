@@ -82,16 +82,6 @@ struct is_quat_param :
 {
 };
 
-template <typename T>
-struct is_floating_point_dualnum : std::false_type
-{
-};
-
-template <typename T>
-struct is_floating_point_dualnum<dualnum<T>> : std::is_floating_point<T>
-{
-};
-
 #endif // #if !DOXYGEN
 
 /**
