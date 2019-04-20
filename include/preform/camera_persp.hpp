@@ -52,7 +52,6 @@ namespace pr {
  */
 /**@{*/
 
-#if 0
 /**
  * @brief Camera (perspective).
  *
@@ -218,6 +217,124 @@ public:
         };
     }
 
+    /**
+     * @brief Forward direction.
+     */
+    const multi<float_type, 3>& hatz() const
+    {
+        return hatz_;
+    }
+
+    /**
+     * @brief Emissive importance.
+     *
+     * @param[in] w
+     * Direction.
+     *
+     * @param[out] r
+     * Raster coordinate. _Optional_.
+     */
+    float_type ze(const multi<float_type, 3>& w,
+                        multi<float_type, 2>* r = nullptr) const
+    {
+        float_type cos_theta = dot(hatz_, w);
+        if (!(cos_theta > 0)) {
+            return 0;
+        }
+
+        // Normalized raster coordinate.
+        multi<float_type, 2> q = {
+            sz_ * dot(hatx_, w) / (sx_ * cos_theta) + float_type(0.5),
+            sz_ * dot(haty_, w) / (sy_ * cos_theta) + float_type(0.5)
+        };
+
+        // Clip.
+        if (!((q >= qmin_).all() &&
+              (q <= qmax_).all())) {
+            return 0;
+        }
+
+        // Raster coordinate.
+        if (r) {
+            *r = {
+                sx_ * q[0],
+                sy_ * q[1]
+            };
+        }
+
+        // Importance.
+        return 1;
+    }
+
+    /**
+     * @brief Emissive importance sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[out] p
+     * Position.
+     *
+     * @param[out] w
+     * Direction.
+     *
+     * @param[out] pdfp
+     * Position density.
+     *
+     * @param[out] pdfw
+     * Direction density.
+     *
+     * @param[out] r
+     * Raster coordinate. _Optional_.
+     *
+     * @returns
+     * Returns emissive importance @f$ Z_e @f$.
+     */
+    float_type ze_sample(
+            const multi<float_type, 2>& u,
+            multi<float_type, 3>& p,
+            multi<float_type, 3>& w,
+            float_type& pdfp,
+            float_type& pdfw,
+            multi<float_type, 2>* r = nullptr) const
+    {
+        // Position.
+        p = pc_;
+
+        // Position density.
+        pdfp = 1;
+
+        multi<float_type, 2> q = (1 - u) * qmin_ + u * qmax_;
+        multi<float_type, 3> v = {
+            sx_ * (q[0] - float_type(0.5)),
+            sy_ * (q[1] - float_type(0.5)),
+            sz_
+        };
+        // Direction.
+        w = fastnormalize(
+                hatx_ * v[0] + 
+                haty_ * v[1] +
+                hatz_ * v[2]);
+
+        // Raster coordinate.
+        if (r) {
+            *r = {
+                sx_ * q[0],
+                sy_ * q[1]
+            };
+        }
+
+        // Direction density.
+        float_type cos_theta = v[2] / fastlength(v);
+        float_type cos2_theta = cos_theta * cos_theta;
+        float_type cos3_theta = cos_theta * cos2_theta;
+        pdfw = 1 / (a_ * cos3_theta);
+
+        // Importance.
+        return 1;
+    }
+
+#if 0
     /**
      * @brief Emissive importance.
      *
@@ -437,6 +554,7 @@ public:
         // Inverse square falloff.
         return ze(-wi, r) / d2;
     }
+#endif
 
 private:
 
@@ -506,7 +624,6 @@ private:
      */
     float_type a_ = 0;
 };
-#endif
 
 /**@}*/
 
