@@ -3258,7 +3258,8 @@ public:
      * @f]
      * where
      * @f[
-     *      t \in [0, 1) \implies a_2 t^2 + a_1 t + a_0 = u
+     *      t \in [0, 1) \implies 
+     *              a_2 t^2 + a_1 t + a_0 = u
      * @f]
      * where, in turn,
      * - @f$ a_2 \gets (x_{j + 1} - x_j) (f_{j + 1} - f_j) / 2 @f$
