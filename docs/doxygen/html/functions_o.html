@@ -113,6 +113,7 @@ $(function() {
 </li>
 <li>operator multi&lt; U, 4 &gt;()
 : <a class="el" href="classpr_1_1quat.html#a5c81bbbcdd3f58fd06505e0544967247">pr::quat&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1quat_3_01dualnum_3_01T_01_4_01_4.html#a363afcc049364cd191e637fc5ebe9ebf">pr::quat&lt; dualnum&lt; T &gt; &gt;</a>
 </li>
 <li>operator multi&lt; U, K... &gt;()
 : <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a1356482fa6fbb09b6fea833f3b94793a">pr::multi&lt; T, M, N... &gt;</a>
@@ -122,6 +123,7 @@ $(function() {
 </li>
 <li>operator quat&lt; U &gt;()
 : <a class="el" href="classpr_1_1quat.html#a5229703a7abd00646a2ca6646ce1d2ec">pr::quat&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1quat_3_01dualnum_3_01T_01_4_01_4.html#aa2b123a05a1de9d43e02904a2f403f26">pr::quat&lt; dualnum&lt; T &gt; &gt;</a>
 </li>
 <li>operator running_stat&lt; U &gt;()
 : <a class="el" href="classpr_1_1running__stat.html#aeb793f617e1bcce360d7c191d96bffbd">pr::running_stat&lt; T &gt;</a>
@@ -160,6 +162,7 @@ $(function() {
 , <a class="el" href="classpr_1_1piecewise__constant__distribution.html#a0a6751428d71da85c28da17f438f3b14">pr::piecewise_constant_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1piecewise__linear__distribution.html#ab256185a5b585220781915d79d1a58bd">pr::piecewise_linear_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1poisson__distribution.html#ab197937a8329d7ec4f67c719d6466d6b">pr::poisson_distribution&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1quat.html#a26246340e7926553280a4bc5c63e52b6">pr::quat&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1subset__distribution__adapter.html#a2f47180dd451b36d6b8ecea52f0d5fc9">pr::subset_distribution_adapter&lt; Tbase &gt;</a>
 , <a class="el" href="classpr_1_1tanh__distribution.html#a17b4c26211ba65b2a10c2560a467f4c6">pr::tanh_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1thread__pool_1_1worker.html#af17e1ce86d72e7ac35219ac559405a6e">pr::thread_pool::worker</a>
@@ -211,7 +214,6 @@ $(function() {
 , <a class="el" href="classpr_1_1float__interval.html#a4b5bf60184c7bf634afebc500399cd71">pr::float_interval&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a9e1f5d9da2895e3540099e2a7f229d04">pr::multi&lt; T, M, N... &gt;</a>
 , <a class="el" href="classpr_1_1option__parser.html#a9ed57c91cc602d2bac04a35d838401c3">pr::option_parser</a>
-, <a class="el" href="classpr_1_1quat.html#abdd90ca730b2a177045764cd8f867e76">pr::quat&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1terminal__progress__bar.html#ad7ad7793ebe71ff5a91aab0f4a355cbc">pr::terminal_progress_bar</a>
 </li>
 <li>operator&lt;=()
@@ -240,19 +242,18 @@ $(function() {
 , <a class="el" href="classpr_1_1dualnum.html#a7c21818ac6cd5401182050a12d758550">pr::dualnum&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1float__interval.html#a341492f7b87506761c4ea2011cb10ad1">pr::float_interval&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a7ded58356a37341d5d0ed6bf7bc26462">pr::multi&lt; T, M, N... &gt;</a>
-, <a class="el" href="classpr_1_1quat.html#a77b2377f4fba0bbbd173e14d1c1bab7d">pr::quat&lt; T &gt;</a>
 </li>
 <li>operator[]()
-: <a class="el" href="classpr_1_1aabb.html#a8843bac398c1307e786282135fca9b98">pr::aabb&lt; T, N &gt;</a>
-, <a class="el" href="classpr_1_1block__array2.html#afdcae96f0019ff339686453fc841656f">pr::block_array2&lt; T, Talloc &gt;</a>
+: <a class="el" href="classpr_1_1aabb.html#a4ee8306558f3e342b13b84b8786267ee">pr::aabb&lt; T, N &gt;</a>
+, <a class="el" href="classpr_1_1block__array2.html#afea4c2d007844425c9e354710ffd42f4">pr::block_array2&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#ab9e7ea8dd3df0b64df91d79f36095397">pr::block_array3&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1dense__iterator.html#a70a5e9602ee5eaa87fbd4f106d70e669">pr::dense_iterator&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1dense__matrix__view.html#acd674d6ba6e0e1214bb01afe4b55d598">pr::dense_matrix_view&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1dense__vector__view.html#a860e7af877c9048599ea2ef64d6b7c01">pr::dense_vector_view&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1linear__aabbtree.html#a7f657bdbc4f256528a47f8611b36f22f">pr::linear_aabbtree&lt; Tfloat, N, Tnode_alloc &gt;</a>
-, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ac2080a9671097fa52728a4cca59bd016">pr::multi&lt; T, M, N... &gt;</a>
+, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#af1c6f6400a0526b154ee5a5f065f887a">pr::multi&lt; T, M, N... &gt;</a>
 , <a class="el" href="classpr_1_1range.html#a4503adc00ed757e9b61843248fbb418e">pr::range&lt; T &gt;</a>
-, <a class="el" href="classpr_1_1static__queue.html#afd654c5ff7470b49eed713028a7f2caf">pr::static_queue&lt; T, N &gt;</a>
+, <a class="el" href="classpr_1_1static__queue.html#af4c6ea8d2be146c77d03baa9adb1f303">pr::static_queue&lt; T, N &gt;</a>
 , <a class="el" href="classpr_1_1static__stack.html#a9c4aee73ff951c0e86c15a8bf8b50280">pr::static_stack&lt; T, N &gt;</a>
 </li>
 <li>opt_groups_
@@ -271,7 +272,7 @@ $(function() {
 : <a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#adc721cb97f77199e4378807605379910">pr::pcg_xsh_rr_engine&lt; T, Tstate, Nmultiplier, Ndefault_increment &gt;</a>
 </li>
 <li>overlaps()
-: <a class="el" href="classpr_1_1aabb.html#afab00d05261e6d9f2efaa665db22bac2">pr::aabb&lt; T, N &gt;</a>
+: <a class="el" href="classpr_1_1aabb.html#a8e1491f0e5fb860c7cb1d8bd287524e3">pr::aabb&lt; T, N &gt;</a>
 , <a class="el" href="classpr_1_1float__interval.html#a47df0ae114719777915ef959d3359fe8">pr::float_interval&lt; T &gt;</a>
 </li>
 </ul>
