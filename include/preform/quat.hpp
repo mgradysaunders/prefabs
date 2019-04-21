@@ -184,7 +184,7 @@ public:
     }
 
     /**
-     * @brief Get imaginary part.
+     * @brief Get imag part.
      */
     constexpr multi<value_type, 3> imag() const
     {
@@ -200,7 +200,7 @@ public:
     }
 
     /**
-     * @brief Set imaginary part.
+     * @brief Set imag part.
      */
     constexpr multi<value_type, 3> imag(const multi<value_type, 3>& val)
     {
@@ -338,7 +338,7 @@ private:
     value_type s_ = {};
 
     /**
-     * @brief Imaginary part.
+     * @brief Imag part.
      */
     multi<value_type, 3> v_ = {};
 
@@ -517,6 +517,13 @@ public:
     {
     }
 
+    // TODO 
+#if 0
+    constexpr explicit quat(const multi<float_type, 4, 4>& x)
+    {
+    }
+#endif
+
     /**@}*/
 
 public:
@@ -534,7 +541,7 @@ public:
     }
 
     /**
-     * @brief Get imaginary part.
+     * @brief Get imag part.
      */
     constexpr multi<value_type, 3> imag() const
     {
@@ -550,7 +557,7 @@ public:
     }
 
     /**
-     * @brief Set imaginary part.
+     * @brief Set imag part.
      */
     constexpr multi<value_type, 3> imag(const multi<value_type, 3>& val)
     {
@@ -715,6 +722,16 @@ public:
         };
     }
 
+    // TODO
+#if 0
+    /**
+     * @brief Cast as matrix.
+     */
+    constexpr explicit operator multi<float_type, 4, 4>() const
+    {
+    }
+#endif
+
     /**@}*/
 
 private:
@@ -725,7 +742,7 @@ private:
     value_type s_ = {};
 
     /**
-     * @brief Imaginary part.
+     * @brief Imag part.
      */
     multi<value_type, 3> v_ = {};
 
