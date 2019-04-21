@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- *
+ * 
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- *
+ * 
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -35,16 +35,13 @@
 #ifndef PREFORM_QUAT_HPP
 #define PREFORM_QUAT_HPP
 
-// for pr::value_type_of, pr::inner_value_type_of
-#include <preform/type_traits.hpp>
-
 // for pr::dualnum
 #include <preform/dualnum.hpp>
 
 // for pr::multi
 #include <preform/multi.hpp>
 
-// for pr::dot, pr::cross, ...
+// for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
 namespace pr {
@@ -77,7 +74,7 @@ template <typename T>
 struct is_quat_param :
             std::integral_constant<bool,
             std::is_arithmetic<T>::value ||
-            is_complex<T>::value ||
+        /*  is_complex<T>::value ||  */
             is_dualnum<T>::value>
 {
 };
@@ -86,6 +83,9 @@ struct is_quat_param :
 
 /**
  * @brief Quaternion.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T>
 class quat
@@ -94,8 +94,8 @@ public:
 
     // Sanity check.
     static_assert(
-        is_quat_param<T>::value,
-        "T must be arithmetic, complex, or dualnum");
+        std::is_floating_point<T>::value,
+        "T must be floating point");
 
     /**
      * @brief Value type.
@@ -103,14 +103,9 @@ public:
     typedef T value_type;
 
     /**
-     * @brief Real type.
+     * @brief Float type.
      */
-    typedef T real_type;
-
-    /**
-     * @brief Imag type.
-     */
-    typedef multi<T, 3> imag_type;
+    typedef T float_type;
 
 public:
 
@@ -126,16 +121,17 @@ public:
 
     /**
      * @brief Constructor.
-     *
-     * @param[in] s
-     * Real part.
-     *
-     * @param[in] v
-     * Imag part.
+     */
+    constexpr quat(const value_type& s) : s_(s)
+    {
+    }
+
+    /**
+     * @brief Constructor.
      */
     constexpr quat(
-            const T& s,
-            const multi<T, 3>& v = {}) :
+            const value_type& s,
+            const multi<value_type, 3>& v) :
         s_(s),
         v_(v)
     {
@@ -143,24 +139,12 @@ public:
 
     /**
      * @brief Constructor.
-     *
-     * @param[in] s
-     * Real part.
-     *
-     * @param[in] v0
-     * Imag part, 0th component.
-     *
-     * @param[in] v1
-     * Imag part, 1st component.
-     *
-     * @param[in] v2
-     * Imag part, 2nd component.
      */
     constexpr quat(
-            const T& s,
-            const T& v0,
-            const T& v1,
-            const T& v2) :
+            const value_type& s,
+            const value_type& v0,
+            const value_type& v1,
+            const value_type& v2) :
         s_(s),
         v_{v0, v1, v2}
     {
@@ -168,37 +152,19 @@ public:
 
     /**
      * @brief Constructor.
-     *
-     * @param[in] x
-     * Component array.
      */
-    constexpr quat(const multi<T, 4>& x) :
+    constexpr quat(const multi<value_type, 4>& x) :
         s_(x[0]),
         v_{x[1], x[2], x[3]}
     {
     }
 
-    /**
-     * @brief Constructor.
-     *
-     * @note
-     * Through SFINAE, this only compiles for dual quaternions.
-     */
-    template <
-        bool B = is_dualnum<T>::value,
-        typename = std::enable_if_t<B, void>
-        >
-    constexpr quat(
-            const quat<typename value_type_of<T>::type>& a,
-            const quat<typename value_type_of<T>::type>& b)
+    // TODO 
+#if 0
+    constexpr explicit quat(const multi<value_type, 3, 3>& x)
     {
-        s_ = T(a.real(), b.real());
-        v_ = {
-            T(a.imag()[0], b.imag()[0]),
-            T(a.imag()[1], b.imag()[1]),
-            T(a.imag()[2], b.imag()[2])
-        };
     }
+#endif
 
     /**@}*/
 
@@ -212,50 +178,36 @@ public:
     /**
      * @brief Get real part.
      */
-    constexpr const T& real() const
+    constexpr value_type real() const
     {
         return s_;
     }
 
     /**
-     * @brief Get imag part.
+     * @brief Get imaginary part.
      */
-    constexpr const multi<T, 3>& imag() const
+    constexpr multi<value_type, 3> imag() const
     {
         return v_;
     }
 
     /**
-     * @brief Set real part, return previous real part.
+     * @brief Set real part.
      */
-    constexpr T real(const T& val)
+    constexpr value_type real(const value_type& val)
     {
-        const T s = s_; s_ = val; return s;
+        const value_type s = s_; s_ = val; return s;
     }
 
     /**
-     * @brief Set imag part, return previous imag part.
+     * @brief Set imaginary part.
      */
-    constexpr multi<T, 3> imag(const multi<T, 3>& val)
+    constexpr multi<value_type, 3> imag(const multi<value_type, 3>& val)
     {
-        const multi<T, 3> v = v_; v_ = val; return v;
+        const multi<value_type, 3> v = v_; v_ = val; return v;
     }
 
     /**@}*/
-
-public:
-
-    /**
-     * @brief Multiplicative inverse.
-     */
-    constexpr quat inverse() const
-    {
-        const T fac = s_ * s_ + pr::dot(v_, v_);
-        return {
-            +s_ / fac,
-            -v_ / fac
-        };
-    }
 
 public:
 
@@ -265,7 +217,478 @@ public:
     /**@{*/
 
     /**
-     * @brief Cast as different real type.
+     * @brief Cast as different value type.
+     */
+    template <typename U>
+    constexpr operator quat<U>() const
+    {
+        return {
+            static_cast<U>(s_),
+            static_cast<U>(v_[0]),
+            static_cast<U>(v_[1]),
+            static_cast<U>(v_[2])
+        };
+    }
+
+    /**
+     * @brief Cast as component array.
+     */
+    template <typename U>
+    constexpr explicit operator multi<U, 4>() const
+    {
+        return {
+            static_cast<U>(s_),
+            static_cast<U>(v_[0]),
+            static_cast<U>(v_[1]),
+            static_cast<U>(v_[2])
+        };
+    }
+
+    // TODO
+#if 0
+    /**
+     * @brief Cast as matrix.
+     */
+    constexpr explicit operator multi<value_type, 3, 3>() const
+    {
+    }
+#endif
+
+    /**@}*/
+
+public:
+
+    /**
+     * @name Basic operations
+     */
+    /**@{*/
+
+    /**
+     * @brief Conjugate.
+     *
+     * @f[
+     *      q^\dagger = s - \mathbf{v}
+     * @f]
+     */
+    constexpr quat conj() const
+    {
+        return {
+            +real(),
+            -imag()
+        };
+    }
+
+    /**
+     * @brief Norm.
+     *
+     * @f[
+     *      q q^\dagger = s^2 + \mathbf{v} \cdot \mathbf{v}
+     * @f]
+     */
+    constexpr value_type norm() const
+    {
+        return real() * real() + dot(imag(), imag());
+    }
+
+    /**
+     * @brief Multiplicative inverse.
+     *
+     * @f[
+     *      q^{-1} = \frac{q^\dagger}{q q^\dagger}
+     * @f]
+     */
+    constexpr quat inverse() const
+    {
+        value_type fac = norm();
+        return {
+            +real() / fac,
+            -imag() / fac
+        };
+    }
+
+    /**
+     * @brief Apply transform operator.
+     *
+     * @f[
+     *      q(\mathbf{u}) 
+     *      = q \mathbf{u} q^\dagger 
+     *      = s^2 \mathbf{u} +
+     *        2 s \mathbf{v} \times \mathbf{u} +
+     *        \mathbf{v} \times 
+     *        \mathbf{v} \times \mathbf{u} +
+     *        (\mathbf{v} \cdot \mathbf{u}) \mathbf{v}
+     * @f]
+     */
+    template <typename U>
+    constexpr multi<U, 3> operator()(const multi<U, 3>& u) const
+    {
+        U s = s_;
+        multi<U, 3> v = v_;
+        multi<U, 3> w = cross(v, u);
+        return (s * s) * u + (U(2) * s) * w + (cross(v, w) + dot(v, u) * v);
+    }
+
+    /**@}*/
+
+private:
+
+    /**
+     * @brief Real part.
+     */
+    value_type s_ = {};
+
+    /**
+     * @brief Imaginary part.
+     */
+    multi<value_type, 3> v_ = {};
+
+public:
+
+    /**
+     * @brief Rotation.
+     *
+     * @param[in] phi
+     * Radians.
+     *
+     * @param[in] w
+     * Normalized axis.
+     */
+    static quat rotation(
+                value_type phi, 
+                const multi<value_type, 3>& w)
+    {
+        return {
+            pr::cos(phi * value_type(0.5)),
+            pr::sin(phi * value_type(0.5)) * w
+        };
+    }
+
+    /**
+     * @brief Spherical linear interpolation.
+     *
+     * @param[in] mu
+     * Factor @f$ \mu \in [0, 1] @f$.
+     *
+     * @param[in] q0
+     * Versor @f$ q_0 @f$ for @f$ \mu = 0 @f$.
+     *
+     * @param[in] q1
+     * Versor @f$ q_1 @f$ for @f$ \mu = 1 @f$.
+     *
+     * @param[out] dq_dmu
+     * Derivative @f$ dq/d\mu @f$. _Optional_.
+     */
+    static quat slerp(
+                value_type mu,
+                const quat& q0,
+                const quat& q1,
+                quat* dq_dmu = nullptr)
+    {
+        value_type cos_theta = dot(q0, q1);
+        cos_theta = pr::fmax(cos_theta, value_type(-1));
+        cos_theta = pr::fmin(cos_theta, value_type(+1));
+        if (cos_theta > value_type(0.9999)) {
+            quat q = (1 - mu) * q0 + mu * q1;
+            value_type invlen2 = 1 / dot(q, q);
+            value_type invlen1 = pr::sqrt(invlen2);
+            quat hatq = q * invlen1;
+            if (dq_dmu) {
+                *dq_dmu =
+                    invlen1 * (q1 - q0) +
+                    invlen2 * (1 - 2 * mu) *
+                              (1 - cos_theta) * hatq;
+            }
+            return hatq;
+        }
+        else {
+            value_type theta = pr::acos(cos_theta);
+            value_type sin_mutheta = pr::sin(mu * theta);
+            value_type cos_mutheta = pr::cos(mu * theta);
+            quat qperp = q1 - q0 * cos_theta;
+            qperp *= 1 / pr::sqrt(qperp.norm());
+            quat q =
+                cos_mutheta * q0 +
+                sin_mutheta * qperp;
+            if (dq_dmu) {
+                *dq_dmu =
+                    theta * cos_mutheta * qperp -
+                    theta * sin_mutheta * q0;
+            }
+            return q;
+        }
+    }
+};
+
+/**
+ * @brief Dual quaternion.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+class quat<dualnum<T>>
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Value type.
+     */
+    typedef dualnum<T> value_type;
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+public:
+
+    /**
+     * @name Constructors
+     */
+    /**@{*/
+
+    /**
+     * @brief Default constructor.
+     */
+    constexpr quat() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    constexpr quat(const float_type& s) : s_(s)
+    {
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    constexpr quat(const value_type& s) : s_(s)
+    {
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    constexpr quat(
+            const value_type& s,
+            const multi<value_type, 3>& v) :
+        s_(s),
+        v_(v)
+    {
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    constexpr quat(
+            const value_type& s,
+            const value_type& v0,
+            const value_type& v1,
+            const value_type& v2) :
+        s_(s),
+        v_{v0, v1, v2}
+    {
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    constexpr quat(const multi<value_type, 4>& x) :
+        s_(x[0]),
+        v_{x[1], x[2], x[3]}
+    {
+    }
+
+    /**
+     * @brief Constructor.
+     */
+    constexpr quat(
+            const quat<float_type>& a,
+            const quat<float_type>& b) :
+        s_(value_type(a.real(), b.real())),
+        v_{value_type(a.imag()[0], b.imag()[0]),
+           value_type(a.imag()[1], b.imag()[1]),
+           value_type(a.imag()[2], b.imag()[2])}
+    {
+    }
+
+    /**@}*/
+
+public:
+
+    /**
+     * @name Accessors
+     */
+
+    /**
+     * @brief Get real part.
+     */
+    constexpr value_type real() const
+    {
+        return s_;
+    }
+
+    /**
+     * @brief Get imaginary part.
+     */
+    constexpr multi<value_type, 3> imag() const
+    {
+        return v_;
+    }
+
+    /**
+     * @brief Set real part.
+     */
+    constexpr value_type real(const value_type& val)
+    {
+        const value_type s = s_; s_ = val; return s;
+    }
+
+    /**
+     * @brief Set imaginary part.
+     */
+    constexpr multi<value_type, 3> imag(const multi<value_type, 3>& val)
+    {
+        const multi<value_type, 3> v = v_; v_ = val; return v;
+    }
+
+    /**
+     * @brief Get real quaternion part.
+     */
+    constexpr quat<float_type> realquat() const
+    {
+        return {
+            s_.real(),
+            v_[0].real(),
+            v_[1].real(),
+            v_[2].real()
+        };
+    }
+
+    /**
+     * @brief Get dual quaternion part.
+     */
+    constexpr quat<float_type> dualquat() const
+    {
+        return {
+            s_.dual(),
+            v_[0].dual(),
+            v_[1].dual(),
+            v_[2].dual()
+        };
+    }
+
+    /**
+     * @brief Set real quaternion part.
+     */
+    constexpr quat<float_type> realquat(const quat<float_type>& val)
+    {
+        return {
+            s_.real(val.real()),
+            v_[0].real(val.imag()[0]),
+            v_[1].real(val.imag()[1]),
+            v_[2].real(val.imag()[2])
+        };
+    }
+
+    /**
+     * @brief Set dual quaternion part.
+     */
+    constexpr quat<float_type> dualquat(const quat<float_type>& val)
+    {
+        return {
+            s_.dual(val.real()),
+            v_[0].dual(val.imag()[0]),
+            v_[1].dual(val.imag()[1]),
+            v_[2].dual(val.imag()[2])
+        };
+    }
+
+    /**@}*/
+
+public:
+
+    /**
+     * @name Basic operations
+     */
+    /**@{*/
+
+    /**
+     * @brief Conjugate.
+     *
+     * @f[
+     *      q^\dagger = s - \mathbf{v}
+     * @f]
+     */
+    constexpr quat conj() const
+    {
+        return {
+            +real(),
+            -imag()
+        };
+    }
+
+    /**
+     * @brief Dual conjugate.
+     *
+     * @f[
+     *      q^\circ 
+     *      = s^\circ + \mathbf{v}^\circ
+     *      = a - \varepsilon b
+     * @f]
+     */
+    constexpr quat dualconj() const
+    {
+        return {
+            +realquat(),
+            -dualquat()
+        };
+    }
+
+    /**
+     * @brief Norm.
+     *
+     * @f[
+     *      q q^\dagger = s^2 + \mathbf{v} \cdot \mathbf{v}
+     * @f]
+     */
+    constexpr value_type norm() const
+    {
+        return real() * real() + dot(imag(), imag());
+    }
+
+    /**
+     * @brief Multiplicative inverse.
+     *
+     * @f[
+     *      q^{-1} = \frac{q^\dagger}{q q^\dagger}
+     * @f]
+     */
+    constexpr quat inverse() const
+    {
+        value_type fac = norm();
+        return {
+            +real() / fac,
+            -imag() / fac
+        };
+    }
+
+    /**@}*/
+
+public:
+
+    /**
+     * @name Cast operators
+     */
+    /**@{*/
+
+    /**
+     * @brief Cast as different value type.
      */
     template <typename U>
     constexpr operator quat<U>() const
@@ -299,122 +722,108 @@ private:
     /**
      * @brief Real part.
      */
-    T s_ = {};
+    value_type s_ = {};
 
     /**
-     * @brief Imag part.
+     * @brief Imaginary part.
      */
-    multi<T, 3> v_ = {};
-
-public:
-
-    /**
-     * @name Stream operators
-     */
-    /**@{*/
-
-    /**
-     * @brief Parse from `std::basic_istream`.
-     *
-     * Format is `(s,v)`. Sets `std::ios_base::failbit` on error.
-     */
-    template <typename C, typename Ctraits>
-    friend
-    inline std::basic_istream<C, Ctraits>& operator>>(
-           std::basic_istream<C, Ctraits>& is, quat& q)
-    {
-        C ch;
-        if (!(is >> ch) ||
-            !Ctraits::eq(ch,
-             Ctraits::to_char_type('('))) {
-            is.setstate(std::ios_base::failbit);
-            return is;
-        }
-        is >> q.s_;
-        if (!(is >> ch) ||
-            !Ctraits::eq(ch,
-             Ctraits::to_char_type(','))) {
-            is.setstate(std::ios_base::failbit);
-            return is;
-        }
-        is >> q.v_;
-        if (!(is >> ch) ||
-            !Ctraits::eq(ch,
-             Ctraits::to_char_type(')'))) {
-            is.setstate(std::ios_base::failbit);
-            return is;
-        }
-        return is;
-    }
-
-    /**
-     * @brief Write into `std::basic_ostream`.
-     *
-     * Format is `(s,v)`.
-     */
-    template <typename C, typename Ctraits>
-    friend
-    inline std::basic_ostream<C, Ctraits>& operator<<(
-           std::basic_ostream<C, Ctraits>& os, const quat& q)
-    {
-        os << '(';
-        os << q.s_ << ',';
-        os << q.v_ << ')';
-        return os;
-    }
-
-    /**@}*/
+    multi<value_type, 3> v_ = {};
 
 public:
 
     /**
      * @brief Rotation.
      *
-     * @param[in] theta
+     * @param[in] phi
      * Radians.
      *
-     * @param[in] axis
+     * @param[in] w
      * Normalized axis.
-     *
-     * @note
-     * Through SFINAE, this only compiles for non-complex quaternions.
      */
-    template <
-        bool B =
-        std::is_floating_point<T>::value ||
-             is_floating_point_dualnum<T>::value
-        >
-    static std::enable_if_t<B, quat> rotation(
-                typename value_type_of<T>::type theta,
-                const multi<typename value_type_of<T>::type, 3>& axis)
+    static quat rotation(
+                float_type phi, 
+                const multi<float_type, 3>& w)
     {
         return {
-            T(pr::cos(theta)),
-            multi<T, 3>(pr::sin(theta) * axis) // Assume normalized.
+            quat<float_type>::rotation(phi, w),
+            quat<float_type>()
         };
     }
 
     /**
      * @brief Translation.
      *
-     * @param[in] offset
+     * @param[in] x
      * Offset.
-     *
-     * @note
-     * Through SFINAE, this only compiles for dual non-complex quaternions.
      */
-    template <bool B = is_floating_point_dualnum<T>::value>
-    static std::enable_if_t<B, quat> translation(
-                const multi<typename value_type_of<T>::type, 3>& offset)
+    static quat translation(const multi<float_type, 3>& x)
     {
         return {
-            T(1, 0),
-            T(0, typename value_type_of<T>::type(0.5) * offset[0]),
-            T(0, typename value_type_of<T>::type(0.5) * offset[1]),
-            T(0, typename value_type_of<T>::type(0.5) * offset[2])
+            value_type(1, 0),
+            value_type(0, x[0] * float_type(0.5)),
+            value_type(0, x[1] * float_type(0.5)),
+            value_type(0, x[2] * float_type(0.5))
         };
     }
 };
+
+/**
+ * @name Stream operators (quat)
+ */
+/**@{*/
+
+/**
+ * @brief Parse from `std::basic_istream`.
+ *
+ * Format is `(s,v)`. Sets `std::ios_base::failbit` on error.
+ */
+template <typename T, typename C, typename Ctraits>
+inline std::basic_istream<C, Ctraits>& operator>>(
+       std::basic_istream<C, Ctraits>& is, quat<T>& q)
+{
+    C ch;
+    if (!(is >> ch) ||
+        !Ctraits::eq(ch,
+         Ctraits::to_char_type('('))) {
+        is.setstate(std::ios_base::failbit);
+        return is;
+    }
+    T s;
+    is >> s;
+    if (!(is >> ch) ||
+        !Ctraits::eq(ch,
+         Ctraits::to_char_type(','))) {
+        is.setstate(std::ios_base::failbit);
+        return is;
+    }
+    multi<T, 3> v;
+    is >> v;
+    if (!(is >> ch) ||
+        !Ctraits::eq(ch,
+         Ctraits::to_char_type(')'))) {
+        is.setstate(std::ios_base::failbit);
+        return is;
+    }
+    q = {s, v};
+    return is;
+}
+
+/**
+ * @brief Write into `std::basic_ostream`.
+ *
+ * Format is `(s,v)`.
+ */
+template <typename T, typename C, typename Ctraits>
+inline std::basic_ostream<C, Ctraits>& operator<<(
+       std::basic_ostream<C, Ctraits>& os, const quat<T>& q)
+{
+    os << '(';
+    os << q.real() << ',';
+    os << q.imag() << ')';
+    return os;
+}
+
+/**@}*/
 
 /**
  * @name Unary operators (quat)
@@ -428,7 +837,10 @@ template <typename T>
 __attribute__((always_inline))
 constexpr quat<T> operator+(const quat<T>& q)
 {
-    return {+q.real(), +q.imag()};
+    return {
+        +q.real(), 
+        +q.imag()
+    };
 }
 
 /**
@@ -438,7 +850,10 @@ template <typename T>
 __attribute__((always_inline))
 constexpr quat<T> operator-(const quat<T>& q)
 {
-    return {-q.real(), -q.imag()};
+    return {
+        -q.real(), 
+        -q.imag()
+    };
 }
 
 /**@}*/
@@ -462,7 +877,10 @@ __attribute__((always_inline))
 constexpr quat<decltype(T() + U())> operator+(
                         const quat<T>& q0, const quat<U>& q1)
 {
-    return {q0.real() + q1.real(), q0.imag() + q1.imag()};
+    return {
+        q0.real() + q1.real(), 
+        q0.imag() + q1.imag()
+    };
 }
 
 /**
@@ -479,7 +897,10 @@ __attribute__((always_inline))
 constexpr quat<decltype(T() - U())> operator-(
                         const quat<T>& q0, const quat<U>& q1)
 {
-    return {q0.real() - q1.real(), q0.imag() - q1.imag()};
+    return {
+        q0.real() - q1.real(), 
+        q0.imag() - q1.imag()
+    };
 }
 
 /**
@@ -501,10 +922,10 @@ constexpr quat<decltype(T() * U())> operator*(
                         const quat<T>& q0, const quat<U>& q1)
 {
     return {
-        q0.real() * q1.real() - pr::dot(q0.imag(), q1.imag()),
+        q0.real() * q1.real() - dot(q0.imag(), q1.imag()),
         q0.real() * q1.imag() +
         q0.imag() * q1.real() +
-        pr::cross(q0.imag(), q1.imag())
+        cross(q0.imag(), q1.imag())
     };
 }
 
@@ -535,11 +956,15 @@ constexpr quat<decltype(T() * U())> operator/(
  */
 template <typename T, typename U>
 __attribute__((always_inline))
-constexpr std::enable_if_t<is_quat_param<U>::value,
-                    quat<decltype(T() + U())>> operator+(
-                            const quat<T>& q0, const U& q1)
+constexpr std::enable_if_t<
+                      is_quat_param<U>::value,
+                      quat<decltype(T() + U())>> operator+(
+                                    const quat<T>& q0, const U& q1)
 {
-    return {q0.real() + q1, q0.imag()};
+    return {
+        q0.real() + q1, 
+        q0.imag()
+    };
 }
 
 /**
@@ -552,11 +977,14 @@ constexpr std::enable_if_t<is_quat_param<U>::value,
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                        is_quat_param<U>::value,
-                        quat<decltype(T() - U())>> operator-(
-                            const quat<T>& q0, const U& q1)
+                      is_quat_param<U>::value,
+                      quat<decltype(T() - U())>> operator-(
+                                    const quat<T>& q0, const U& q1)
 {
-    return {q0.real() - q1, q0.imag()};
+    return {
+        q0.real() - q1, 
+        q0.imag()
+    };
 }
 
 /**
@@ -569,11 +997,14 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                        is_quat_param<U>::value,
-                        quat<decltype(T() * U())>> operator*(
-                            const quat<T>& q0, const U& q1)
+                      is_quat_param<U>::value,
+                      quat<decltype(T() * U())>> operator*(
+                                    const quat<T>& q0, const U& q1)
 {
-    return {q0.real() * q1, q0.imag() * q1};
+    return {
+        q0.real() * q1, 
+        q0.imag() * q1
+    };
 }
 
 /**
@@ -582,11 +1013,14 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                        is_quat_param<U>::value,
-                        quat<decltype(T() * U())>> operator/(
-                            const quat<T>& q0, const U& q1)
+                      is_quat_param<U>::value,
+                      quat<decltype(T() * U())>> operator/(
+                                    const quat<T>& q0, const U& q1)
 {
-    return {q0.real() / q1, q0.imag() / q1};
+    return {
+        q0.real() / q1, 
+        q0.imag() / q1
+    };
 }
 
 /**@}*/
@@ -606,11 +1040,14 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                        is_quat_param<T>::value,
-                        quat<decltype(T() + U())>> operator+(
-                            const T& q0, const quat<U>& q1)
+                      is_quat_param<T>::value,
+                      quat<decltype(T() + U())>> operator+(
+                                    const T& q0, const quat<U>& q1)
 {
-    return {q0 + q1.real(), q1.imag()};
+    return {
+        q0 + q1.real(), 
+             q1.imag()
+    };
 }
 
 /**
@@ -623,11 +1060,14 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                        is_quat_param<T>::value,
-                        quat<decltype(T() - U())>> operator-(
-                            const T& q0, const quat<U>& q1)
+                      is_quat_param<T>::value,
+                      quat<decltype(T() - U())>> operator-(
+                                    const T& q0, const quat<U>& q1)
 {
-    return {q0 - q1.real(), -q1.imag()};
+    return {
+        q0 - q1.real(), 
+           - q1.imag()
+    };
 }
 
 /**
@@ -640,11 +1080,14 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                        is_quat_param<T>::value,
-                        quat<decltype(T() * U())>> operator*(
-                            const T& q0, const quat<U>& q1)
+                      is_quat_param<T>::value,
+                      quat<decltype(T() * U())>> operator*(
+                                    const T& q0, const quat<U>& q1)
 {
-    return {q0 * q1.real(), q0 * q1.imag()};
+    return {
+        q0 * q1.real(), 
+        q0 * q1.imag()
+    };
 }
 
 /**
@@ -653,9 +1096,9 @@ constexpr std::enable_if_t<
 template <typename T, typename U>
 __attribute__((always_inline))
 constexpr std::enable_if_t<
-                        is_quat_param<T>::value,
-                        quat<decltype(T() * U())>> operator/(
-                            const T& q0, const quat<U>& q1)
+                      is_quat_param<T>::value,
+                      quat<decltype(T() * U())>> operator/(
+                                    const T& q0, const quat<U>& q1)
 {
     return q0 * q1.inverse();
 }
@@ -721,31 +1164,7 @@ template <typename T, typename U>
 __attribute__((always_inline))
 constexpr bool operator==(const quat<T>& q0, const quat<U>& q1)
 {
-    return q0.real() == q1.real() && q0.imag() == q1.imag();
-}
-
-/**
- * @brief Compare `operator==`.
- */
-template <typename T, typename U>
-__attribute__((always_inline))
-constexpr std::enable_if_t<
-                        is_quat_param<U>::value, bool> operator==(
-                        const quat<T>& q0, const U& q1)
-{
-    return q0.real() == q1 && (q0.imag() == T()).all();
-}
-
-/**
- * @brief Compare `operator==`.
- */
-template <typename T, typename U>
-__attribute__((always_inline))
-constexpr std::enable_if_t<
-                        is_quat_param<T>::value, bool> operator==(
-                        const T& q0, const quat<U>& q1)
-{
-    return q0 == q1.real() && (U() == q1.imag()).all();
+    return q0.real() == q1.real() && (q0.imag() == q1.imag()).all();
 }
 
 /**
@@ -755,121 +1174,69 @@ template <typename T, typename U>
 __attribute__((always_inline))
 constexpr bool operator!=(const quat<T>& q0, const quat<U>& q1)
 {
-    return !(q0 == q1);
-}
-
-/**
- * @brief Compare `operator!=`.
- */
-template <typename T, typename U>
-__attribute__((always_inline))
-constexpr std::enable_if_t<
-                        is_quat_param<U>::value, bool> operator!=(
-                        const quat<T>& q0, const U& q1)
-{
-    return !(q0 == q1);
-}
-
-/**
- * @brief Compare `operator!=`.
- */
-template <typename T, typename U>
-__attribute__((always_inline))
-constexpr std::enable_if_t<
-                        is_quat_param<T>::value, bool> operator!=(
-                        const T& q0, const quat<U>& q1)
-{
-    return !(q0 == q1);
+    return q0.real() != q1.real() || (q0.imag() != q1.imag()).any();
 }
 
 /**@}*/
 
 /**
- * @name Accessors (quat)
+ * @name Comparison operators (quat/num)
  */
 /**@{*/
 
 /**
- * @brief Real part.
- *
- * @f[
- *      \real(s + \mathbf{v}) = s
- * @f]
+ * @brief Compare `operator==`.
  */
-template <typename T>
+template <typename T, typename U>
 __attribute__((always_inline))
-constexpr T real(const quat<T>& q)
+constexpr std::enable_if_t<
+                      is_quat_param<U>::value, bool> operator==(
+                                        const quat<T>& q0, const U& q1)
 {
-    return q.real();
+    return q0.real() == q1 && (q0.imag() == T()).all();
 }
 
 /**
- * @brief Imag part.
- *
- * @f[
- *      \imag(s + \mathbf{v}) = \mathbf{v}
- * @f]
+ * @brief Compare `operator!=`.
  */
-template <typename T>
+template <typename T, typename U>
 __attribute__((always_inline))
-constexpr multi<T, 3> imag(const quat<T>& q)
+constexpr std::enable_if_t<
+                      is_quat_param<U>::value, bool> operator!=(
+                                        const quat<T>& q0, const U& q1)
 {
-    return q.imag();
+    return q0.real() != q1 || (q0.imag() != T()).any();
+}
+
+/**@}*/
+
+/**
+ * @name Comparison operators (num/quat)
+ */
+/**@{*/
+
+/**
+ * @brief Compare `operator==`.
+ */
+template <typename T, typename U>
+__attribute__((always_inline))
+constexpr std::enable_if_t<
+                      is_quat_param<T>::value, bool> operator==(
+                                        const T& q0, const quat<U>& q1)
+{
+    return q1 == q0;
 }
 
 /**
- * @brief Conjugate.
- *
- * @f[
- *      (s + \mathbf{v})^\dagger =
- *       s - \mathbf{v}
- * @f]
+ * @brief Compare `operator!=`.
  */
-template <typename T>
+template <typename T, typename U>
 __attribute__((always_inline))
-constexpr quat<T> conj(const quat<T>& q)
+constexpr std::enable_if_t<
+                      is_quat_param<U>::value, bool> operator!=(
+                                        const T& q0, const quat<U>& q1)
 {
-    return {+q.real(), -q.imag()};
-}
-
-/**
- * @brief Norm square.
- *
- * @f[
- *      |(s + \mathbf{v})
- *       (s + \mathbf{v})^\dagger| = |s^2 + v^2|
- * @f]
- *
- * @note
- * If `T` is complex or dualnum, returns floating
- * point type.
- */
-template <typename T>
-__attribute__((always_inline))
-constexpr typename inner_value_type_of<T>::type norm(const quat<T>& q)
-{
-    return pr::abs(pr::dot(
-                static_cast<multi<T, 4>>(q),
-                static_cast<multi<T, 4>>(q)));
-}
-
-/**
- * @brief Absolute value.
- *
- * @f[
- *      |s + \mathbf{v}| =
- *      |\sqrt{s^2 + v^2}|
- * @f]
- *
- * @note
- * If `T` is complex or dualnum, returns floating
- * point type.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename inner_value_type_of<T>::type abs(const quat<T>& q)
-{
-    return pr::length(static_cast<multi<T, 4>>(q));
+    return q1 != q0;
 }
 
 /**@}*/
@@ -886,200 +1253,15 @@ template <typename T, typename U>
 __attribute__((always_inline))
 constexpr decltype(T() * U()) dot(const quat<T>& q0, const quat<U>& q1)
 {
-    return pr::dot(
-                static_cast<multi<T, 4>>(q0),
-                static_cast<multi<U, 4>>(q1));
-}
-
-/**
- * @brief @f$ L^2 @f$ length.
- *
- * @note
- * If `T` is complex or dualnum, returns floating
- * point type.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename inner_value_type_of<T>::type length(const quat<T>& q)
-{
-    return pr::length(static_cast<multi<T, 4>>(q));
-}
-
-/**
- * @brief @f$ L^2 @f$ length, fast (and somewhat unsafe) variant.
- *
- * @note
- * If `T` is complex or dualnum, returns floating
- * point type.
- */
-template <typename T>
-__attribute__((always_inline))
-inline typename inner_value_type_of<T>::type fastlength(const quat<T>& q)
-{
-    return pr::fastlength(static_cast<multi<T, 4>>(q));
-}
-
-/**
- * @brief @f$ L^2 @f$ normalize.
- */
-template <typename T>
-__attribute__((always_inline))
-inline quat<T> normalize(const quat<T>& q)
-{
-    return pr::normalize(static_cast<multi<T, 4>>(q));
-}
-
-/**
- * @brief @f$ L^2 @f$ normalize, fast (and somewhat unsafe) variant.
- */
-template <typename T>
-__attribute__((always_inline))
-inline quat<T> fastnormalize(const quat<T>& q)
-{
-    return pr::fastnormalize(static_cast<multi<T, 4>>(q));
-}
-
-/**
- * @brief Inverse.
- *
- * @f[
- *      (s + \mathbf{v})^{-1} =
- *      (s - \mathbf{v}) / (s^2 + v^2)
- * @f]
- */
-template <typename T>
-__attribute__((always_inline))
-constexpr quat<T> inverse(const quat<T>& q)
-{
-    return q.inverse();
-}
-
-/**
- * @brief Spherical linear interpolation.
- *
- * @param[in] mu
- * Factor @f$ \mu \in [0, 1] @f$.
- *
- * @param[in] q0
- * Versor @f$ q_0 @f$ for @f$ \mu = 0 @f$.
- *
- * @param[in] q1
- * Versor @f$ q_1 @f$ for @f$ \mu = 1 @f$.
- *
- * @param[out] dq_dmu
- * Derivative @f$ dq/d\mu @f$. _Optional_.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-       quat<T>> slerp(
-                T mu,
-                const quat<T>& q0,
-                const quat<T>& q1,
-                quat<T>* dq_dmu = nullptr)
-{
-    T cos_theta = dot(q0, q1);
-    cos_theta = pr::fmax(cos_theta, T(-1));
-    cos_theta = pr::fmin(cos_theta, T(+1));
-    if (cos_theta > T(0.9999)) {
-        quat<T> q = (T(1) - mu) * q0 + mu * q1;
-        T invlen2 = T(1) / dot(q, q);
-        T invlen1 = pr::sqrt(invlen2);
-        quat<T> hatq = q * invlen1;
-        if (dq_dmu) {
-            *dq_dmu =
-                invlen1 * (q1 - q0) +
-                invlen2 * (T(1) - T(2) * mu) *
-                          (T(1) - cos_theta) * hatq;
-        }
-        return hatq;
-    }
-    else {
-        T theta = pr::acos(cos_theta);
-        T sin_mutheta = pr::sin(mu * theta);
-        T cos_mutheta = pr::cos(mu * theta);
-        quat<T> qperp = normalize(q1 - q0 * cos_theta);
-        quat<T> q =
-            cos_mutheta * q0 +
-            sin_mutheta * qperp;
-        if (dq_dmu) {
-            *dq_dmu =
-                theta * cos_mutheta * qperp -
-                theta * sin_mutheta * q0;
-        }
-        return q;
-    }
+    return dot(static_cast<multi<T, 4>>(q0),
+               static_cast<multi<U, 4>>(q1));
 }
 
 /**@}*/
 
-/**
- * @name Math wrappers (quat)
- */
-/**@{*/
+// TODO exp
 
-/**
- * @brief Exponential.
- *
- * @f[
- *      \exp(s + \mathbf{v}) =
- *      \exp(s) (\cos(\sqrt{v^2}) +
- *               \sin(\sqrt{v^2}) \mathbf{v} /
- *                    \sqrt{v^2})
- * @f]
- *
- * @note
- * This implementation is valid for all quaternion
- * parameters.
- */
-template <typename T>
-inline quat<T> exp(const quat<T>& q)
-{
-    T lenv = pr::dot(q.imag(), q.imag());
-    if (pr::abs(lenv) > 0) {
-        lenv = pr::sqrt(lenv);
-        return pr::exp(q.real()) *
-                quat<T>(
-                pr::cos(lenv),
-                pr::sin(lenv) * (q.imag() / lenv));
-    }
-    else {
-        return pr::exp(q.real());
-    }
-}
-
-/**
- * @brief Natural logarithm.
- *
- * @f[
- *      \log(s + \mathbf{v}) =
- *      \log(\sqrt{s^2 + v^2}) + \arccos(s / \sqrt{s^2 + v^2})
- *      \mathbf{v} / \sqrt{v^2}
- * @f]
- *
- * @note
- * This implementation is valid for all quaternion
- * parameters.
- */
-template <typename T>
-inline quat<T> log(const quat<T>& q)
-{
-    T lenq = pr::dot(q, q);
-    T lenv = pr::dot(q.imag(), q.imag());
-    if (pr::abs(lenv) > 0) {
-        lenq = pr::sqrt(lenq);
-        lenv = pr::sqrt(lenv);
-        return quat<T>(
-                pr::log(lenq),
-                pr::acos(q.real() / lenq) * (q.imag() / lenv));
-    }
-    else {
-        lenq = pr::sqrt(lenq);
-        return pr::log(lenq);
-    }
-}
-
-/**@}*/
+// TODO log
 
 /**
  * @name Float checks (quat)
@@ -1127,8 +1309,6 @@ inline bool isnormal(const quat<T>& q)
 }
 
 /**@}*/
-
-// TODO blas_traits
 
 /**@}*/
 
