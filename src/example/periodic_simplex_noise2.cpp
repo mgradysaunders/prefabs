@@ -216,5 +216,5 @@ int main(int argc, char** argv)
         std::cerr << "exception.what(): " << exception.what() << "\n";
         std::exit(EXIT_FAILURE);
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
