@@ -442,7 +442,7 @@ public:
         int column1 =
             std::max(column0,
                  int(columns * amount));
-        for (; column0 < column1; column0++) { os << '='; }
+        for (; column0 < column1; column0++) { os << '#'; }
         for (; column1 < columns; column1++) { os << '.'; }
 
         // Print bracket.
