@@ -1,7 +1,6 @@
 #include <iostream>
 #include <random>
 #include <preform/random.hpp>
-#include <preform/sampling.hpp>
 #include <preform/neumaier_sum.hpp>
 #include <preform/option_parser.hpp>
 #include <preform/timer.hpp>
@@ -69,7 +68,10 @@ void testIntDistribution(
     // Initialize samples.
     int* x = new int[n];
     Float* u = new Float[n];
-    pr::stratify(pcg, n, u);
+    for (int k = 0; k < n; k++) {
+        u[k] = (pr::generate_canonical<Float>(pcg) + k) / n;
+    }
+    std::shuffle(u, u + n, pcg);
 
     // Inverse transform.
     std::cout << "Sampling by inverse transform... ";
@@ -154,7 +156,10 @@ void testRealDistribution(
     // Initialize samples.
     Float* x = new Float[n];
     Float* u = new Float[n];
-    pr::stratify(pcg, n, u);
+    for (int k = 0; k < n; k++) {
+        u[k] = (pr::generate_canonical<Float>(pcg) + k) / n;
+    }
+    std::shuffle(u, u + n, pcg);
 
     // Inverse transform.
     std::cout << "Sampling by inverse transform... ";
