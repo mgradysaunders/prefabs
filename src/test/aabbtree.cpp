@@ -1,11 +1,11 @@
 #include <iostream>
 #include <random>
-#include <preform/random.hpp>
-#include <preform/aabbtree.hpp>
-#include <preform/memory_arena.hpp>
-#include <preform/memory_arena_allocator.hpp>
-#include <preform/timer.hpp>
-#include <preform/option_parser.hpp>
+#include <pr/random.hpp>
+#include <pr/aabbtree.hpp>
+#include <pr/memory_arena.hpp>
+#include <pr/memory_arena_allocator.hpp>
+#include <pr/timer.hpp>
+#include <pr/option_parser.hpp>
 
 // Float type.
 typedef float Float;

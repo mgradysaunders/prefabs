@@ -1,9 +1,9 @@
 #include <iostream>
 #include <iomanip>
 #include <random>
-#include <preform/random.hpp>
-#include <preform/option_parser.hpp>
-#include <preform/half.hpp>
+#include <pr/random.hpp>
+#include <pr/option_parser.hpp>
+#include <pr/half.hpp>
 
 // Permuted congruential generator.
 pr::pcg32 pcg;

@@ -1,11 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <preform/color.hpp>
-#include <preform/image2.hpp>
-#include <preform/image_filters.hpp>
-#include <preform/worley_noise2.hpp>
-#include <preform/option_parser.hpp>
+#include <pr/color.hpp>
+#include <pr/image2.hpp>
+#include <pr/image_filters.hpp>
+#include <pr/worley_noise2.hpp>
+#include <pr/option_parser.hpp>
 
 // Float type.
 typedef float Float;

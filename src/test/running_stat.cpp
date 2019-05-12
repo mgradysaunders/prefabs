@@ -1,8 +1,8 @@
 #include <iostream>
 #include <random>
-#include <preform/random.hpp>
-#include <preform/running_stat.hpp>
-#include <preform/option_parser.hpp>
+#include <pr/random.hpp>
+#include <pr/running_stat.hpp>
+#include <pr/option_parser.hpp>
 
 // Float type.
 typedef double Float;
