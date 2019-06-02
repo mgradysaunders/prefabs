@@ -1,9 +1,9 @@
 #include <iostream>
 #include <random>
-#include <pr/random.hpp>
-#include <pr/neumaier_sum.hpp>
-#include <pr/option_parser.hpp>
-#include <pr/timer.hpp>
+#include <preform/random.hpp>
+#include <preform/neumaier_sum.hpp>
+#include <preform/option_parser.hpp>
+#include <preform/timer.hpp>
 
 // Float type.
 typedef double Float;
