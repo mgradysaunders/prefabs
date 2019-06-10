@@ -80,8 +80,7 @@ namespace pr {
  */
 template <typename T, typename U, std::size_t N>
 constexpr decltype(T() * U()) dot(
-                        const multi<T, N>& arr0,
-                        const multi<U, N>& arr1)
+                        const multi<T, N>& arr0, const multi<U, N>& arr1)
 {
     return (arr0 * arr1).sum();
 }
@@ -100,8 +99,7 @@ template <
     std::size_t N
     >
 constexpr multi<decltype(T() * U()), M> dot(
-                        const multi<T, M, N>& arr0,
-                        const multi<U, N>& arr1)
+                        const multi<T, M, N>& arr0, const multi<U, N>& arr1)
 {
     multi<decltype(T() * U()), M> res;
     for (std::size_t i = 0; i < M; i++)
@@ -125,8 +123,7 @@ template <
     std::size_t P
     >
 constexpr multi<decltype(T() * U()), P> dot(
-                        const multi<T, N>& arr0,
-                        const multi<U, N, P>& arr1)
+                        const multi<T, N>& arr0, const multi<U, N, P>& arr1)
 {
     multi<decltype(T() * U()), P> res;
     for (std::size_t j = 0; j < P; j++)
@@ -151,8 +148,7 @@ template <
     std::size_t P
     >
 constexpr multi<decltype(T() * U()), M, P> dot(
-                        const multi<T, M, N>& arr0,
-                        const multi<U, N, P>& arr1)
+                        const multi<T, M, N>& arr0, const multi<U, N, P>& arr1)
 {
     multi<decltype(T() * U()), M, P> res;
     for (std::size_t i = 0; i < M; i++)
@@ -177,8 +173,7 @@ template <
     std::size_t P
     >
 constexpr multi<decltype(T() * U()), M, P> outer(
-                        const multi<T, M>& arr0,
-                        const multi<U, P>& arr1)
+                        const multi<T, M>& arr0, const multi<U, P>& arr1)
 {
     multi<decltype(T() * U()), M, P> res;
     for (std::size_t i = 0; i < M; i++)
@@ -216,8 +211,7 @@ template <
     typename U
     >
 constexpr decltype(T() * U()) cross(
-                        const multi<T, 2>& arr0,
-                        const multi<U, 2>& arr1)
+                        const multi<T, 2>& arr0, const multi<U, 2>& arr1)
 {
     return dot(arr0, cross(arr1));
 }
@@ -248,8 +242,7 @@ constexpr multi<T, 3, 3> cross(const multi<T, 3>& arr)
  */
 template <typename T, typename U>
 constexpr multi<decltype(T() * U()), 3> cross(
-                        const multi<T, 3>& arr0,
-                        const multi<U, 3>& arr1)
+                        const multi<T, 3>& arr0, const multi<U, 3>& arr1)
 {
 //  return dot(arr0, cross(arr1));
     return {
@@ -268,8 +261,7 @@ constexpr multi<decltype(T() * U()), 3> cross(
  */
 template <typename T, typename U, typename V>
 constexpr decltype(T() * U() * V()) cross(
-                        const multi<T, 3>& arr0,
-                        const multi<U, 3>& arr1,
+                        const multi<T, 3>& arr0, const multi<U, 3>& arr1,
                         const multi<V, 3>& arr2)
 {
     return dot(arr0, cross(arr1, arr2));
@@ -303,14 +295,46 @@ constexpr multi<decltype(T() * U()),
 }
 
 /**
- * @brief @f$ L^2 @f$ length.
+ * @brief @f$ L^2 @f$ length, fast (and somewhat unsafe) variant.
  *
  * @f[
- *      \sqrt{\sum_k |x_{[k]}|^2}
+ *      \lVert\mathbf{x}\rVert = \sqrt{\sum_k |x_{[k]}|^2}
  * @f]
+ *
+ * _Fast_ means the implementation
+ * - calculates the sum of square moduli directly, implicitly assuming
+ * the square terms neither overflow nor underflow, and the sum of square 
+ * terms does not overflow.
  */
 template <typename T, std::size_t N>
-inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
+__attribute__((always_inline))
+inline decltype(pr::sqrt(pr::abs(T()))) length_fast(const multi<T, N>& arr)
+{
+    if constexpr (N == 1) {
+        // Delegate.
+        return pr::abs(arr[0]);
+    }
+    else {
+
+        // Length.
+        return pr::sqrt(pr::norm(arr).sum());
+    }
+}
+
+/**
+ * @brief @f$ L^2 @f$ length, safe variant.
+ *
+ * @f[
+ *      \lVert\mathbf{x}\rVert = \sqrt{\sum_k |x_{[k]}|^2}
+ * @f]
+ *
+ * _Safe_ means the implementation
+ * - calculates the moduli as a preprocessing step,
+ * - if impending overflow or underflow, factors the maximum modulus out 
+ * from under the radical.
+ */
+template <typename T, std::size_t N>
+inline decltype(pr::sqrt(pr::abs(T()))) length_safe(const multi<T, N>& arr)
 {
     if constexpr (N == 1) {
         // Delegate.
@@ -363,51 +387,77 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
 }
 
 /**
- * @brief @f$ L^2 @f$ length, fast (and somewhat unsafe) variant.
+ * @brief @f$ L^2 @f$ length.
  *
  * @f[
- *      \sqrt{\sum_k |x_{[k]}|^2}
- * @f]
- *
- * _Fast_ means the implementation
- * - assumes no overflow/underflow,
- * - does _not_ calculate the absolute values of complex numbers
- * separately.
- */
-template <typename T, std::size_t N>
-__attribute__((always_inline))
-inline decltype(pr::sqrt(pr::abs(T()))) fastlength(const multi<T, N>& arr)
-{
-    if constexpr (N == 1) {
-        // Delegate.
-        return pr::abs(arr[0]);
-    }
-    else {
-
-        // Length.
-        return pr::sqrt(pr::norm(arr).sum());
-    }
-}
-
-/**
- * @brief @f$ L^2 @f$ normalize.
- *
- * @f[
- *      \mathbf{x} / \lVert\mathbf{x}\rVert
+ *      \lVert\mathbf{x}\rVert = \sqrt{\sum_k |x_{[k]}|^2}
  * @f]
  *
  * @note
- * If length is zero, returns the zero vector.
+ * By default, calls `length_safe()`. 
+ * Define `PR_DEFAULT_LENGTH_FAST` before including to call
+ * `length_fast()`.
+ *
+ * @see `length_safe()`
+ * @see `length_fast()`
+ */
+template <typename T, std::size_t N>
+inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
+{
+#if PR_DEFAULT_LENGTH_FAST
+    return length_fast(arr);
+#else
+    return length_safe(arr);
+#endif // #if PR_DEFAULT_LENGTH_FAST
+}
+
+/**
+ * @brief @f$ L^2 @f$ normalize, fast (and somewhat unsafe) variant.
+ *
+ * @f[
+ *      \hat{\mathbf{x}} = \frac{\mathbf{x}}{\lVert\mathbf{x}\rVert}
+ * @f]
+ *
+ * _Fast_ means the implementation
+ * - calls `length_fast()` to calculate length,
+ * - multiplies by reciprocal of length, implicitly assuming 
+ * reciprocal does not overflow.
+ *
+ * @see `length_fast()`
+ */
+template <typename T, std::size_t N>
+__attribute__((always_inline))
+inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
+                                    normalize_fast(const multi<T, N>& arr)
+{
+    // Normalize.
+    return arr * (1 / length_fast(arr));
+}
+
+/**
+ * @brief @f$ L^2 @f$ normalize, safe variant.
+ *
+ * @f[
+ *      \hat{\mathbf{x}} = \frac{\mathbf{x}}{\lVert\mathbf{x}\rVert}
+ * @f]
+ *
+ * _Safe_ means the implementation
+ * - calls `length_safe()` to calculate length,
+ * - if length is zero, returns array of zeros, 
+ * - if length is less than the minimum invertible floating point value,
+ * divides by length instead of multiplying by reciprocal.
+ *
+ * @see `length_safe()`
  */
 template <typename T, std::size_t N>
 inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
-                                    normalize(const multi<T, N>& arr)
+                                    normalize_safe(const multi<T, N>& arr)
 {
     // Deduce floating point type.
     typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
 
     // Length.
-    float_type len = length(arr);
+    float_type len = length_safe(arr);
     if (len == 0) {
         return {}; // Zero vector.
     }
@@ -426,34 +476,43 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
 }
 
 /**
- * @brief @f$ L^2 @f$ normalize, fast (and somewhat unsafe) variant.
+ * @brief @f$ L^2 @f$ normalize.
  *
  * @f[
- *      \mathbf{x} / \lVert\mathbf{x}\rVert
+ *      \hat{\mathbf{x}} = \frac{\mathbf{x}}{\lVert\mathbf{x}\rVert}
  * @f]
  *
- * _Fast_ means the implementation
- * - assumes no overflow/underflow in length calculation,
- * - assumes length is positive (and greater than or equal to
- * minimum invertible value).
+ * @note
+ * By default, calls `normalize_safe()`. 
+ * Define `PR_DEFAULT_NORMALIZE_FAST` before including to call
+ * `normalize_fast()`.
+ *
+ * @see `normalize_fast()`
+ * @see `normalize_safe()`
  */
 template <typename T, std::size_t N>
-__attribute__((always_inline))
 inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
-                                    fastnormalize(const multi<T, N>& arr)
+                                    normalize(const multi<T, N>& arr)
 {
-    // Normalize.
-    return arr * (1 / fastlength(arr));
+#if PR_DEFAULT_NORMALIZE_FAST
+    return normalize_fast(arr);
+#else
+    return normalize_safe(arr);
+#endif // #if PR_DEFAULT_NORMALIZE_FAST
 }
 
 /**
  * @brief Trace.
  *
  * @f[
- *      \sum_k x_{[k, k]}
+ *      \operatorname{Tr}(\mathbf{x}) = \sum_k x_{[k, k]}
  * @f]
  */
-template <typename T, std::size_t M, std::size_t N>
+template <
+    typename T, 
+    std::size_t M, 
+    std::size_t N
+    >
 constexpr T trace(const multi<T, M, N>& arr)
 {
     T res = arr[0][0];
@@ -467,10 +526,14 @@ constexpr T trace(const multi<T, M, N>& arr)
  * @brief Transpose.
  *
  * @f[
- *      x_{[j,i]}
+ *      x_{[i,j]} \to x_{[j,i]}
  * @f]
  */
-template <typename T, std::size_t M, std::size_t N>
+template <
+    typename T, 
+    std::size_t M, 
+    std::size_t N
+    >
 constexpr multi<T, N, M> transpose(const multi<T, M, N>& arr)
 {
     multi<T, N, M> res;
@@ -485,10 +548,14 @@ constexpr multi<T, N, M> transpose(const multi<T, M, N>& arr)
  * @brief Adjoint.
  *
  * @f[
- *      x_{[j,i]}^*
+ *      x_{[i,j]} \to x_{[j,i]}^*
  * @f]
  */
-template <typename T, std::size_t M, std::size_t N>
+template <
+    typename T, 
+    std::size_t M, 
+    std::size_t N
+    >
 constexpr multi<T, N, M> adjoint(const multi<T, M, N>& arr)
 {
     multi<T, N, M> res;
