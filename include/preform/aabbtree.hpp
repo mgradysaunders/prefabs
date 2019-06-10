@@ -263,9 +263,9 @@ public:
      *
      * @note
      * Function must have signature equivalent to
-     * ~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
      * aabb<float_type, N>(const Tvalue&)
-     * ~~~~~~~~~~~~~~~~~~~~~~~~
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * where `Tvalue` is the value type corresponding to
      * `Tforward_itr`.
      */
