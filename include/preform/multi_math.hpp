@@ -190,10 +190,7 @@ constexpr multi<decltype(T() * U()), M, P> outer(
  *      \sum_j \varepsilon_{[i,j]} x_{[j]}
  * @f]
  */
-template <
-    typename T,
-    typename U
-    >
+template <typename T>
 constexpr multi<T, 2> cross(const multi<T, 2>& arr)
 {
     return {arr[1], -arr[0]};
@@ -206,10 +203,7 @@ constexpr multi<T, 2> cross(const multi<T, 2>& arr)
  *      \sum_{i,j} \varepsilon_{[i,j]} x_{0[i]} x_{1[j]}
  * @f]
  */
-template <
-    typename T,
-    typename U
-    >
+template <typename T, typename U>
 constexpr decltype(T() * U()) cross(
                         const multi<T, 2>& arr0, const multi<U, 2>& arr1)
 {
@@ -295,7 +289,7 @@ constexpr multi<decltype(T() * U()),
 }
 
 /**
- * @brief @f$ L^2 @f$ length, fast (and somewhat unsafe) variant.
+ * @brief @f$ L^2 @f$ length, fast variant.
  *
  * @f[
  *      \lVert\mathbf{x}\rVert = \sqrt{\sum_k |x_{[k]}|^2}
@@ -397,9 +391,6 @@ inline decltype(pr::sqrt(pr::abs(T()))) length_safe(const multi<T, N>& arr)
  * By default, calls `length_safe()`. 
  * Define `PR_DEFAULT_LENGTH_FAST` before including to call
  * `length_fast()`.
- *
- * @see `length_safe()`
- * @see `length_fast()`
  */
 template <typename T, std::size_t N>
 inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
@@ -412,7 +403,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
 }
 
 /**
- * @brief @f$ L^2 @f$ normalize, fast (and somewhat unsafe) variant.
+ * @brief @f$ L^2 @f$ normalize, fast variant.
  *
  * @f[
  *      \hat{\mathbf{x}} = \frac{\mathbf{x}}{\lVert\mathbf{x}\rVert}
@@ -422,8 +413,6 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
  * - calls `length_fast()` to calculate length,
  * - multiplies by reciprocal of length, implicitly assuming 
  * reciprocal does not overflow.
- *
- * @see `length_fast()`
  */
 template <typename T, std::size_t N>
 __attribute__((always_inline))
@@ -443,11 +432,9 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
  *
  * _Safe_ means the implementation
  * - calls `length_safe()` to calculate length,
- * - if length is zero, returns array of zeros, 
+ * - if length is zero, returns all zeros, 
  * - if length is less than the minimum invertible floating point value,
  * divides by length instead of multiplying by reciprocal.
- *
- * @see `length_safe()`
  */
 template <typename T, std::size_t N>
 inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
@@ -486,9 +473,6 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
  * By default, calls `normalize_safe()`. 
  * Define `PR_DEFAULT_NORMALIZE_FAST` before including to call
  * `normalize_fast()`.
- *
- * @see `normalize_fast()`
- * @see `normalize_safe()`
  */
 template <typename T, std::size_t N>
 inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
@@ -564,6 +548,64 @@ constexpr multi<T, N, M> adjoint(const multi<T, M, N>& arr)
         res[i][j] = pr::conj(arr[j][i]);
     }
     return res;
+}
+
+/**
+ * @brief Inverse by Cramer's rule.
+ *
+ * @f[
+ *      \mathbf{x}^{-1} = 
+ *      \frac{\operatorname{cof}^\top(\mathbf{x})}
+ *           {\operatorname{det}(\mathbf{x})}
+ * @f]
+ *
+ * @note
+ * This method is unstable if the matrix is ill-conditioned.
+ */
+template <typename T>
+inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), 2, 2>
+                inverse(const multi<T, 2, 2>& arr)
+{
+    // Deduce floating point type.
+    typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
+
+    // Cofactor matrix.
+    multi<decltype(T()/float_type()), 2, 2> cof = {
+        {+arr[1][1], -arr[1][0]},
+        {-arr[0][1], +arr[0][0]},
+    };
+
+    // Cofactor transpose over determinant.
+    return transpose(cof) * (float_type(1) / dot(cof[0], arr[0]));
+}
+
+/**
+ * @brief Inverse by Cramer's rule.
+ *
+ * @f[
+ *      \mathbf{x}^{-1} = 
+ *      \frac{\operatorname{cof}^\top(\mathbf{x})}
+ *           {\operatorname{det}(\mathbf{x})}
+ * @f]
+ *
+ * @note
+ * This method is unstable if the matrix is ill-conditioned.
+ */
+template <typename T>
+inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), 3, 3>
+                inverse(const multi<T, 3, 3>& arr)
+{
+    // Deduce floating point type.
+    typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
+
+    // Cofactor matrix.
+    multi<decltype(T()/float_type()), 3, 3> cof;
+    cof[0] = cross(arr[1], arr[2]);
+    cof[1] = cross(arr[2], arr[0]);
+    cof[2] = cross(arr[0], arr[1]);
+
+    // Cofactor transpose over determinant.
+    return transpose(cof) * (float_type(1) / dot(cof[0], arr[0]));
 }
 
 /**
