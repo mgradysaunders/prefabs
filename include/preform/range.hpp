@@ -160,6 +160,18 @@ public:
         return *std::next(begin_, pos);
     }
 
+    /**
+     * @brief Cast operator.
+     */
+    template <typename U>
+    constexpr operator range<U>()
+    {
+        return {
+            static_cast<U>(begin_),
+            static_cast<U>(end_)
+        };
+    }
+
 private:
 
     /**
@@ -180,6 +192,24 @@ template <typename T>
 constexpr range<T> make_range(T from, T to)
 {
     return {from, to};
+}
+
+/**
+ * @brief Make range.
+ */
+template <typename T>
+constexpr range<typename T::iterator> make_range(T& container)
+{
+    return {container.begin(), container.end()};
+}
+
+/**
+ * @brief Make range.
+ */
+template <typename T>
+constexpr range<typename T::const_iterator> make_range(const T& container)
+{
+    return {container.begin(), container.end()};
 }
 
 /**@}*/
