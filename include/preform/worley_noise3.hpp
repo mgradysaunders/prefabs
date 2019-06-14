@@ -86,7 +86,9 @@ public:
     /**
      * @brief Constructor.
      */
-    worley_noise3(int seed) : seed_(seed)
+    worley_noise3(int seed, multi<int, 3> period = {}) : 
+            seed_(seed),
+            period_(period)
     {
     }
 
@@ -126,9 +128,9 @@ public:
             pcg32 gen(
                 seed_,
                 cantor(
-                    wk[0],
-                    wk[1],
-                    wk[2]));
+                    period_[0] <= 0 ? wk[0] : repeat(wk[0], period_[0]),
+                    period_[1] <= 0 ? wk[1] : repeat(wk[1], period_[1]),
+                    period_[2] <= 0 ? wk[2] : repeat(wk[2], period_[2])));
 
             // Vertex.
             multi<float_type, 3> vk = {
@@ -172,6 +174,11 @@ private:
      * @brief Seed.
      */
     int seed_ = 0;
+
+    /**
+     * @brief Period. If non-positive, aperiodic.
+     */
+    multi<int, 3> period_ = {};
 };
 
 /**@}*/
