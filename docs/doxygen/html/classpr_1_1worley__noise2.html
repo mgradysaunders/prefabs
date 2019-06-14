@@ -93,9 +93,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3f87db84783c0299c096c15024f3fa93"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1worley__noise2.html#a3f87db84783c0299c096c15024f3fa93">worley_noise2</a> ()=default</td></tr>
 <tr class="memdesc:a3f87db84783c0299c096c15024f3fa93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a3f87db84783c0299c096c15024f3fa93">More...</a><br /></td></tr>
 <tr class="separator:a3f87db84783c0299c096c15024f3fa93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e198e31ecd3f165eec8d1a650ee52d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1worley__noise2.html#a2e198e31ecd3f165eec8d1a650ee52d5">worley_noise2</a> (int seed)</td></tr>
-<tr class="memdesc:a2e198e31ecd3f165eec8d1a650ee52d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a2e198e31ecd3f165eec8d1a650ee52d5">More...</a><br /></td></tr>
-<tr class="separator:a2e198e31ecd3f165eec8d1a650ee52d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa587373216aae55315fcab32ec5b3d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1worley__noise2.html#afa587373216aae55315fcab32ec5b3d2">worley_noise2</a> (int seed, multi&lt; int, 2 &gt; period={})</td></tr>
+<tr class="memdesc:afa587373216aae55315fcab32ec5b3d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#afa587373216aae55315fcab32ec5b3d2">More...</a><br /></td></tr>
+<tr class="separator:afa587373216aae55315fcab32ec5b3d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8d23d6607d1f0f4ee996f7f1a7084cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1worley__noise2.html#a94e040c190100ef3e0bb5723cf9117c5">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1worley__noise2.html#af8d23d6607d1f0f4ee996f7f1a7084cb">evaluate</a> (multi&lt; <a class="el" href="classpr_1_1worley__noise2.html#a94e040c190100ef3e0bb5723cf9117c5">float_type</a>, 2 &gt; t, multi&lt; <a class="el" href="classpr_1_1worley__noise2.html#a94e040c190100ef3e0bb5723cf9117c5">float_type</a>, 2 &gt; *ds_dt=nullptr) const</td></tr>
 <tr class="memdesc:af8d23d6607d1f0f4ee996f7f1a7084cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate.  <a href="#af8d23d6607d1f0f4ee996f7f1a7084cb">More...</a><br /></td></tr>
 <tr class="separator:af8d23d6607d1f0f4ee996f7f1a7084cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,6 +105,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a4c4066fb07f1d5c90277decea86dee86"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1worley__noise2.html#a4c4066fb07f1d5c90277decea86dee86">seed_</a> = 0</td></tr>
 <tr class="memdesc:a4c4066fb07f1d5c90277decea86dee86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seed.  <a href="#a4c4066fb07f1d5c90277decea86dee86">More...</a><br /></td></tr>
 <tr class="separator:a4c4066fb07f1d5c90277decea86dee86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61f8612550346ed61f75950bf9799053"><td class="memItemLeft" align="right" valign="top">multi&lt; int, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1worley__noise2.html#a61f8612550346ed61f75950bf9799053">period_</a> = {}</td></tr>
+<tr class="memdesc:a61f8612550346ed61f75950bf9799053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Period. If non-positive, aperiodic.  <a href="#a61f8612550346ed61f75950bf9799053">More...</a><br /></td></tr>
+<tr class="separator:a61f8612550346ed61f75950bf9799053"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
@@ -163,8 +166,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a2e198e31ecd3f165eec8d1a650ee52d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e198e31ecd3f165eec8d1a650ee52d5">&#9670;&nbsp;</a></span>worley_noise2() <span class="overload">[2/2]</span></h2>
+<a id="afa587373216aae55315fcab32ec5b3d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa587373216aae55315fcab32ec5b3d2">&#9670;&nbsp;</a></span>worley_noise2() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,8 +181,18 @@ template&lt;typename T &gt; </div>
           <td class="memname"><a class="el" href="classpr_1_1worley__noise2.html">pr::worley_noise2</a>&lt; T &gt;::<a class="el" href="classpr_1_1worley__noise2.html">worley_noise2</a> </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>seed</em></td><td>)</td>
+          <td class="paramname"><em>seed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">multi&lt; int, 2 &gt;&#160;</td>
+          <td class="paramname"><em>period</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -266,6 +279,32 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Seed. </p>
+
+</div>
+</div>
+<a id="a61f8612550346ed61f75950bf9799053"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61f8612550346ed61f75950bf9799053">&#9670;&nbsp;</a></span>period_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">multi&lt;int, 2&gt; <a class="el" href="classpr_1_1worley__noise2.html">pr::worley_noise2</a>&lt; T &gt;::period_ = {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Period. If non-positive, aperiodic. </p>
 
 </div>
 </div>
