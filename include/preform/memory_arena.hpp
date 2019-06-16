@@ -28,7 +28,7 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201103L)
-#error "preform/aabb.hpp requires >=C++11"
+#error "preform/memory_arena.hpp requires >=C++11"
 #endif // #if !(__cplusplus >= 201103L)
 #endif // #if !DOXYGEN
 #pragma once
