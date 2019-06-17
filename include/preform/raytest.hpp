@@ -28,12 +28,12 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201703L)
-#error "preform/hittest.hpp requires >=C++17"
+#error "preform/raytest.hpp requires >=C++17"
 #endif // #if !(__cplusplus >= 201703L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_HITTEST_HPP
-#define PREFORM_HITTEST_HPP
+#ifndef PREFORM_RAYTEST_HPP
+#define PREFORM_RAYTEST_HPP
 
 // for pr::multi
 #include <preform/multi.hpp>
@@ -50,9 +50,9 @@
 namespace pr {
 
 /**
- * @defgroup hittest Hit-test
+ * @defgroup raytest Ray-test
  * 
- * `<preform/hittest.hpp>`
+ * `<preform/raytest.hpp>`
  *
  * __C++ version__: >=C++17
  */
@@ -63,7 +63,8 @@ namespace pr {
 } // namespace pr
 
 #if !DOXYGEN
-#include "hittest_triangle.inl"
+#include "raytest_disk.inl"
+#include "raytest_triangle.inl"
 #endif // #if !DOXYGEN
 
-#endif // #ifndef PREFORM_HITTEST_HPP
+#endif // #ifndef PREFORM_RAYTEST_HPP
