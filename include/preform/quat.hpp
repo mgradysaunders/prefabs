@@ -244,15 +244,33 @@ public:
         };
     }
 
-    // TODO
-#if 0
     /**
      * @brief Cast as matrix.
+     *
+     * @f[
+     *      \mathbf{M} = 
+     *          s^2 \mathbf{I} + 
+     *          2 s \mathbf{v}_{\times} +
+     *              \mathbf{v}_{\times}^2 +
+     *              \mathbf{v} \mathbf{v}^\top
+     * @f]
      */
     constexpr explicit operator multi<value_type, 3, 3>() const
     {
+        value_type s = s_;
+        value_type x = v_[0];
+        value_type y = v_[1];
+        value_type z = v_[2];
+        value_type s2 = s * s, sx = s * x, sy = s * y, sz = s * z;
+        value_type x2 = x * x, xy = x * y, xz = x * z;
+        value_type y2 = y * y, yz = y * z;
+        value_type z2 = z * z;
+        return {
+            {(s2 + x2) - (y2 + z2), 2 * (xy - sz), 2 * (xz + sy)},
+            {2 * (xy + sz), (s2 - x2) + (y2 - z2), 2 * (yz - sx)},
+            {2 * (xz - sy), 2 * (yz + sx), (s2 - x2) - (y2 - z2)}
+        };
     }
-#endif
 
     /**@}*/
 
@@ -316,7 +334,7 @@ public:
      *        2 s \mathbf{v} \times \mathbf{u} +
      *        \mathbf{v} \times 
      *        \mathbf{v} \times \mathbf{u} +
-     *        (\mathbf{v} \cdot \mathbf{u}) \mathbf{v}
+     *        \mathbf{v} \mathbf{v}^\top \mathbf{u}
      * @f]
      */
     template <typename U>
@@ -325,7 +343,7 @@ public:
         U s = s_;
         multi<U, 3> v = v_;
         multi<U, 3> w = cross(v, u);
-        return (s * s) * u + (U(2) * s) * w + (cross(v, w) + dot(v, u) * v);
+        return (s * s) * u + (U(2) * s) * w + (cross(v, w) + v * dot(v, u));
     }
 
     /**@}*/
