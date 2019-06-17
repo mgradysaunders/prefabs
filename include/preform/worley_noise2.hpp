@@ -35,14 +35,14 @@
 #ifndef PREFORM_WORLEY_NOISE2_HPP
 #define PREFORM_WORLEY_NOISE2_HPP
 
+// for pr::wrap, pr::cantor
+#include <preform/misc_int.hpp>
+
 // for pr::multi
 #include <preform/multi.hpp>
 
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
-
-// for pr::wrap
-#include <preform/misc_int.hpp>
 
 // for pr::pcg32, pr::generate_canonical
 #include <preform/random.hpp>
