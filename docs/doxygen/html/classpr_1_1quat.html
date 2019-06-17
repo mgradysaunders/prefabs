@@ -131,6 +131,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c81bbbcdd3f58fd06505e0544967247"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#a5c81bbbcdd3f58fd06505e0544967247">operator multi&lt; U, 4 &gt;</a> () const</td></tr>
 <tr class="memdesc:a5c81bbbcdd3f58fd06505e0544967247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast as component array.  <a href="#a5c81bbbcdd3f58fd06505e0544967247">More...</a><br /></td></tr>
 <tr class="separator:a5c81bbbcdd3f58fd06505e0544967247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4f93beca91a2a17d4e1245437c12aac"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#ab4f93beca91a2a17d4e1245437c12aac">operator multi&lt; value_type, 3, 3 &gt;</a> () const</td></tr>
+<tr class="memdesc:ab4f93beca91a2a17d4e1245437c12aac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast as matrix.  <a href="#ab4f93beca91a2a17d4e1245437c12aac">More...</a><br /></td></tr>
+<tr class="separator:ab4f93beca91a2a17d4e1245437c12aac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Basic operations</div></td></tr>
 <tr class="memitem:a31ffa94553e820cfa5e63696941b28b3"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1quat.html">quat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#a31ffa94553e820cfa5e63696941b28b3">conj</a> () const</td></tr>
 <tr class="memdesc:a31ffa94553e820cfa5e63696941b28b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conjugate.  <a href="#a31ffa94553e820cfa5e63696941b28b3">More...</a><br /></td></tr>
@@ -575,6 +578,38 @@ template&lt;typename U &gt; </div>
 
 </div>
 </div>
+<a id="ab4f93beca91a2a17d4e1245437c12aac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4f93beca91a2a17d4e1245437c12aac">&#9670;&nbsp;</a></span>operator multi< value_type, 3, 3 >()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1quat.html">pr::quat</a>&lt; T &gt;::operator multi&lt; <a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a>, 3, 3 &gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cast as matrix. </p>
+<p class="formulaDsp">
+\[ \mathbf{M} = s^2 \mathbf{I} + 2 s \mathbf{v}_{\times} + \mathbf{v}_{\times}^2 + \mathbf{v} \mathbf{v}^\top \]
+</p>
+ 
+</div>
+</div>
 <a id="a31ffa94553e820cfa5e63696941b28b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31ffa94553e820cfa5e63696941b28b3">&#9670;&nbsp;</a></span>conj()</h2>
 
@@ -701,7 +736,7 @@ template&lt;typename U &gt; </div>
 
 <p>Apply transform operator. </p>
 <p class="formulaDsp">
-\[ q(\mathbf{u}) = q \mathbf{u} q^\dagger = s^2 \mathbf{u} + 2 s \mathbf{v} \times \mathbf{u} + \mathbf{v} \times \mathbf{v} \times \mathbf{u} + (\mathbf{v} \cdot \mathbf{u}) \mathbf{v} \]
+\[ q(\mathbf{u}) = q \mathbf{u} q^\dagger = s^2 \mathbf{u} + 2 s \mathbf{v} \times \mathbf{u} + \mathbf{v} \times \mathbf{v} \times \mathbf{u} + \mathbf{v} \mathbf{v}^\top \mathbf{u} \]
 </p>
  
 </div>
