@@ -97,8 +97,8 @@ inline std::enable_if_t<
         }
     }
     else {
-        return pr::fstretch<T>(srgbenc(
-               pr::fstretch<double>(v)));
+        return fstretch<T>(srgbenc(
+               fstretch<double>(v)));
     }
 }
 
@@ -194,8 +194,8 @@ inline std::enable_if_t<
         }
     }
     else {
-        return pr::fstretch<T>(srgbdec(
-               pr::fstretch<double>(v)));
+        return fstretch<T>(srgbdec(
+               fstretch<double>(v)));
     }
 }
 
