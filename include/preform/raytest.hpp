@@ -63,6 +63,7 @@ namespace pr {
 } // namespace pr
 
 #if !DOXYGEN
+#include "raytest_aabb.inl"
 #include "raytest_disk.inl"
 #include "raytest_triangle.inl"
 #endif // #if !DOXYGEN

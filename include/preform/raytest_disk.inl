@@ -35,7 +35,7 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Ray-test (disk).
+ * @brief Test ray intersection with disk in XY plane.
  *
  * This implementation is based on the implementation of Pharr, Humphreys,
  * and Jakob in _Physically based rendering: from theory to implementation

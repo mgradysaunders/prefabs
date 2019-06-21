@@ -35,7 +35,17 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Ray-test (triangle).
+ * @brief Test ray intersection with triangle.
+ *
+ * This implementation is based on the implementation of Pharr, Humphreys,
+ * and Jakob in _Physically based rendering: from theory to implementation
+ * (3rd edition)_, which in turn is based on the work of Woop, Benthin, and
+ * Wald in _Watertight ray/triangle intersection_. This implementation
+ * further uses floating point intervals to guarantee watertight borders, and
+ * thus no longer relies on the use of double precision to fill in the gaps
+ * left by single precision. Note that this should guarantee watertightness
+ * but not uniqueness, i.e., a ray may pass intersection tests with multiple
+ * triangles which share vertices and/or edges.
  *
  * @tparam T
  * Float type.
