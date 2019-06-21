@@ -76,11 +76,11 @@ $(function() {
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="structpr_1_1raytest__triangle-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::raytest_triangle&lt; T &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__raytest.html">Ray-test</a></div></div>  </div>
+<div class="title">pr::raytest_triangle&lt; T &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__raytest__triangle.html">Ray-test (triangle)</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Test ray intersection with triangle.  
+<p>Ray-test (triangle).  
  <a href="structpr_1_1raytest__triangle.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -141,7 +141,8 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 struct pr::raytest_triangle&lt; T &gt;</h3>
 
-<p>Test ray intersection with triangle. </p>
+<p>Ray-test (triangle). </p>
+<p>Test ray intersection with triangle.</p>
 <p>This implementation is based on the implementation of Pharr, Humphreys, and Jakob in <em>Physically based rendering: from theory to implementation (3rd edition)</em>, which in turn is based on the work of Woop, Benthin, and Wald in <em>Watertight ray/triangle intersection</em>. This implementation further uses floating point intervals to guarantee watertight borders, and thus no longer relies on the use of double precision to fill in the gaps left by single precision. Note that this should guarantee watertightness but not uniqueness, i.e., a ray may pass intersection tests with multiple triangles which share vertices and/or edges.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
