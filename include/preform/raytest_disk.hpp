@@ -26,34 +26,53 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "preform/raytest_disk.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
+#pragma once
+#ifndef PREFORM_RAYTEST_DISK_HPP
+#define PREFORM_RAYTEST_DISK_HPP
+
+// for pr::multi
+#include <preform/multi.hpp>
+
+// for pr::multi wrappers
+#include <preform/multi_math.hpp>
+
+// for pr::float_interval
+#include <preform/float_interval.hpp>
+
+// for pr::aabb
+#include <preform/aabb.hpp>
 
 namespace pr {
 
 /**
- * @addtogroup raytest
+ * @defgroup raytest_disk Ray-test (disk)
+ *
+ * `<preform/raytest_disk.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 
 /**
- * @brief Test ray intersection with triangle.
+ * @brief Ray-test (disk).
+ *
+ * Test ray intersection with disk in the XY plane.
  *
  * This implementation is based on the implementation of Pharr, Humphreys,
  * and Jakob in _Physically based rendering: from theory to implementation
- * (3rd edition)_, which in turn is based on the work of Woop, Benthin, and
- * Wald in _Watertight ray/triangle intersection_. This implementation
- * further uses floating point intervals to guarantee watertight borders, and
- * thus no longer relies on the use of double precision to fill in the gaps
- * left by single precision. Note that this should guarantee watertightness
- * but not uniqueness, i.e., a ray may pass intersection tests with multiple
- * triangles which share vertices and/or edges.
+ * (3rd edition)_.
  *
  * @tparam T
  * Float type.
  */
 template <typename T>
-struct raytest_triangle
+struct raytest_disk
 {
-public:
 
     // Sanity check.
     static_assert(
@@ -102,7 +121,6 @@ public:
                 tmin(tmin),
                 tmax(tmax)
         {
-            cache();
         }
 
         /**
@@ -137,7 +155,6 @@ public:
                 tmin(tmin),
                 tmax(tmax)
         {
-            cache();
         }
 
     public:
@@ -171,76 +188,6 @@ public:
          * @brief Parameter maximum @f$ t_{\max} @f$.
          */
         float_type tmax = pr::numeric_limits<float_type>::infinity();
-
-    private:
-
-        /**
-         * @name Cache variables
-         */
-        /**@{*/
-
-        /**
-         * @brief Permutation @f$ \mathbf{k} @f$.
-         *
-         * @note
-         * @f[
-         *      \mathbf{k} =
-         *          \begin{bmatrix}
-         *              (\ell + 1) \% 3
-         *          \\  (\ell + 2) \% 3
-         *          \\   \ell
-         *          \end{bmatrix}
-         * @f]
-         * where
-         * @f[
-         *      \ell =
-         *          \operatorname{argmax}
-         *          \begin{bmatrix}
-         *              |d_{[0]}|
-         *          \\  |d_{[1]}|
-         *          \\  |d_{[2]}|
-         *          \end{bmatrix}
-         * @f]
-         */
-        multi<int, 3> k;
-
-        /**
-         * @brief Shear @f$ \mathbf{h}_{\mathrm{r}} @f$.
-         *
-         * @note
-         * @f[
-         *      \mathbf{h}_{\mathrm{r}} =
-         *          \frac{1}{d_{[k_{[2]}]}}
-         *          \begin{bmatrix}
-         *              d_{[k_{[0]}]}
-         *          \\  d_{[k_{[1]}]}
-         *          \\  1
-         *          \end{bmatrix}
-         * @f]
-         */
-        multi<float_interval<float_type>, 3> hr;
-
-        /**@}*/
-
-        /**
-         * @brief Cache.
-         */
-        void cache()
-        {
-            // Permutation.
-            k[2] = pr::fabs(d).argmax();
-            k[0] = (k[2] + 1) % 3;
-            k[1] = (k[2] + 2) % 3;
-
-            // Shear.
-            hr[2] =
-                float_type(1) /
-                float_interval<float_type>{d[k[2]], derr[k[2]]};
-            hr[0] = hr[2] * float_interval<float_type>{d[k[0]], derr[k[0]]};
-            hr[1] = hr[2] * float_interval<float_type>{d[k[1]], derr[k[1]]};
-        }
-
-        friend struct raytest_triangle<float_type>;
     };
 
     /**
@@ -261,9 +208,19 @@ public:
         multi<float_type, 3> perr = {};
 
         /**
-         * @brief Surface parameters @f$ \mathbf{b} @f$.
+         * @brief Surface parameters @f$ \mathbf{s} @f$.
          */
-        multi<float_type, 3> b = {};
+        multi<float_type, 2> s = {};
+
+        /**
+         * @brief Partial @f$ \partial{\mathbf{p}}/\partial{s_{[0]}} @f$.
+         */
+        multi<float_type, 3> dp_ds0 = {};
+
+        /**
+         * @brief Partial @f$ \partial{\mathbf{p}}/\partial{s_{[1]}} @f$.
+         */
+        multi<float_type, 3> dp_ds1 = {};
     };
 
 public:
@@ -271,17 +228,47 @@ public:
     /**
      * @brief Default constructor.
      */
-    raytest_triangle() = default;
+    raytest_disk() = default;
 
     /**
      * @brief Constructor.
+     *
+     * @param[in] rmin
+     * Radius minimum.
+     *
+     * @param[in] rmax
+     * Radius maximum.
+     *
+     * @param[in] h
+     * Height.
+     *
+     * @param[in] phimax
+     * Sweep maximum.
+     *
+     * @throw std::invalid_argument
+     * Unless
+     * - `rmin >= 0`,
+     * - `rmax > rmin`,
+     * - `phimax > 0`, and
+     * - `phimax <= 2 * pi`.
      */
-    raytest_triangle(
-            const multi<float_type, 3>& p0,
-            const multi<float_type, 3>& p1,
-            const multi<float_type, 3>& p2) :
-                p_{p0, p1, p2}
+    raytest_disk(
+            float_type rmin,
+            float_type rmax,
+            float_type h = 0,
+            float_type phimax =
+                2 * pr::numeric_constants<float_type>::M_pi()) :
+                rmin_(rmin),
+                rmax_(rmax),
+                h_(h),
+                phimax_(phimax)
     {
+        if (!(rmin_ >= 0 &&
+              rmax_ > rmin_ &&
+              phimax_ > 0 &&
+              phimax_ <= 2 * pr::numeric_constants<float_type>::M_pi())) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
     }
 
     /**
@@ -289,34 +276,29 @@ public:
      */
     aabb<float_type, 3> bounding_box() const
     {
-        aabb<float_type, 3> box;
-        box |= p_[0];
-        box |= p_[1];
-        box |= p_[2];
-        return box;
+        return {
+            {-rmax_, -rmax_, h_},
+            {+rmax_, +rmax_, h_}
+        };
     }
 
     /**
      * @brief Surface area.
      *
-     * - @f$ \mathbf{q}_1 \gets \mathbf{p}_1 - \mathbf{p}_0 @f$
-     * - @f$ \mathbf{q}_2 \gets \mathbf{p}_2 - \mathbf{p}_0 @f$
      * @f[
-     *      A = \lVert \mathbf{q}_1 \times \mathbf{q}_2 \rVert
+     *      A = \frac{1}{2} \phi_{\max} (r_{\max}^2 - r_{\min}^2)
      * @f]
      */
     float_type surface_area() const
     {
-        multi<float_type, 3> q1 = p_[1] - p_[0];
-        multi<float_type, 3> q2 = p_[2] - p_[0];
-        return length(cross(q1, q2));
+        return float_type(0.5) * phimax_ * (rmax_ * rmax_ - rmin_ * rmin_);
     }
 
     /**
      * @brief Surface area probability density function.
      *
      * @f[
-     *      f_{A} = \frac{1}{A}
+     *      f_A = \frac{1}{A}
      * @f]
      */
     float_type surface_area_pdf() const
@@ -327,44 +309,66 @@ public:
     /**
      * @brief Surface area probability density function sampling routine.
      *
-     * - @f$ \mu_0 \gets \sqrt{u_{[0]}} @f$
-     * - @f$ \mu_1 \gets u_{[1]} \mu_0 @f$
-     * - @f$ b_0 \gets 1 - \mu_0 @f$
-     * - @f$ b_1 \gets \mu_1 @f$
-     * - @f$ b_2 \gets \mu_0 - \mu_1 @f$
+     * - @f$ r \gets \sqrt{(1 - u_{[0]}) r_{\min}^2 + u_{[0]} r_{\max}^2} @f$
+     * - @f$ \phi \gets u_{[1]} \phi_{\max} @f$
      * @f[
      *      \mathbf{p}_{\text{hit}}(\mathbf{u}) = 
-     *          b_0 \mathbf{p}_0 + 
-     *          b_1 \mathbf{p}_1 +
-     *          b_2 \mathbf{p}_2
+     *      \begin{bmatrix}
+     *          r \cos{\phi}
+     *      \\  r \sin{\phi}
+     *      \\  h
+     *      \end{bmatrix}
      * @f]
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
+     * 
+     * @note
+     * If `rmin_ == 0` and `phimax_ == 2 * pi`, the implementation
+     * uses the concentric disk sampling routine `uniform_disk_pdf_sample()`.
      */
     hit_type surface_area_pdf_sample(multi<float_type, 2> u) const
     {
-        // Delegate.
-        float_type mu0 = pr::sqrt(u[0]);
-        float_type mu1 = u[1] * mu0;
-        return operator()({
-            1 - mu0,
-            mu1,
-            mu0 - mu1
-        });
+        if (rmin_ == 0 &&
+            phimax_ == 2 * pr::numeric_constants<float_type>::M_pi()) {
+
+            // Uniform disk sample using concentric mapping.
+            multi<float_type, 2> p = uniform_disk_pdf_sample(u);
+
+            // Compute sweep angle.
+            float_type phi = 0;
+            if (p[0] != 0 &&
+                p[1] != 0) {
+                phi = pr::atan2(p[1], p[0]);
+                if (phi < 0) {
+                    phi += 2 * pr::numeric_constants<float_type>::M_pi();
+                }
+            }
+
+            // Delegate.
+            return operator()({pr::hypot(p[0], p[1]), phi / phimax_});
+        }
+        else {
+
+            // Uniform radius.
+            float_type r =
+                pr::sqrt(
+                (1 - u[0]) * rmin_ * rmin_ +
+                     u[0]  * rmax_ * rmax_);
+
+            // Delegate.
+            return operator()({(r - rmin_) /
+                               (rmax_ - rmin_), u[1]});
+        }
     }
 
     /**
      * @brief Solid angle probability density function.
      *
-     * - @f$ \mathbf{q}_1 \gets \mathbf{p}_1 - \mathbf{p}_0 @f$
-     * - @f$ \mathbf{q}_2 \gets \mathbf{p}_2 - \mathbf{p}_0 @f$
-     * - @f$ \mathbf{v}_g \gets \mathbf{q}_1 \times \mathbf{q}_2 @f$
      * - @f$ \mathbf{v}_i \gets 
      *       \mathbf{p}_{\text{hit}} - \mathbf{p}_{\text{ref}} @f$
      * - @f$ \omega_i \gets \normalize(\mathbf{v}_i) @f$
-     * - @f$ \omega_g \gets \normalize(\mathbf{v}_g) @f$
-     * - @f$ A \gets \lVert \mathbf{v}_g \rVert @f$
+     * - @f$ \omega_g \gets [0\; 0\; 1]^\top @f$
      * @f[
      *      f_{\omega}(
      *          \mathbf{p}_{\text{ref}} \to
@@ -372,8 +376,9 @@ public:
      *          \frac{1}{A} 
      *          \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|}
      *               {|\omega_i \cdot \omega_g|} =
-     *          \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|^{3/2}}
-     *               {|\mathbf{v}_i \cdot \mathbf{v}_g|}
+     *          \frac{1}{A}
+     *          \frac{\lVert \mathbf{v}_i \rVert}
+     *               {|\mathbf{v}_{i[2]}|}
      * @f]
      *
      * @param[in] pref
@@ -390,20 +395,15 @@ public:
             const multi<float_type, 3>& pref,
             const multi<float_type, 3>& phit) const
     {
-        multi<float_type, 3> q1 = p_[1] - p_[0];
-        multi<float_type, 3> q2 = p_[2] - p_[0];
-        multi<float_type, 3> vg = cross(q1, q2);
         multi<float_type, 3> vi = phit - pref;
-        float_type dot_vi_vg = dot(vi, vg);
         float_type dot_vi_vi = dot(vi, vi);
-        if (dot_vi_vg == 0 ||
-            dot_vi_vi == 0) {
+        if (dot_vi_vi == 0 ||
+            vi[2] == 0) {
             return 0;
         }
         else {
-            return dot_vi_vi * 
-                pr::sqrt(dot_vi_vi) / 
-                pr::fabs(dot_vi_vg);
+            return pr::sqrt(dot_vi_vi) / pr::fabs(vi[2]) /
+                   surface_area();
         }
     }
 
@@ -427,30 +427,42 @@ public:
     /**
      * @brief Evaluate.
      *
-     * @param[in] b
-     * Parameters in @f$ [0, 1)^3 @f$.
+     * @param[in] s
+     * Parameters in @f$ [0, 1)^2 @f$.
      */
-    hit_type operator()(multi<float_type, 3> b) const
+    hit_type operator()(
+                multi<float_type, 2> s) const
     {
         hit_type hit;
-        multi<float_type, 3> bp[3] = {
-            b[0] * p_[0],
-            b[1] * p_[1],
-            b[2] * p_[2]
-        };
+        float_type r = (1 - s[0]) * rmin_ + s[0] * rmax_;
+        float_type phi = s[1] * phimax_;
+        float_type sin_phi = pr::sin(phi);
+        float_type cos_phi = pr::cos(phi);
 
         // Position.
-        hit.p = bp[0] + bp[1] + bp[2];
+        hit.p = {
+            r * cos_phi,
+            r * sin_phi,
+            h_
+        };
 
         // Position absolute error.
-        hit.perr =
-            pr::fabs(bp[0]) +
-            pr::fabs(bp[1]) +
-            pr::fabs(bp[2]);
-        hit.perr *= pr::numeric_limits<float_type>::echelon(6);
+        hit.perr = {};
 
         // Surface parameters.
-        hit.b = b;
+        hit.s = s;
+
+        // Surface partial derivatives.
+        hit.dp_ds0 = {
+            (rmax_ - rmin_) * cos_phi,
+            (rmax_ - rmin_) * sin_phi,
+            0
+        };
+        hit.dp_ds1 = {
+            -phimax_ * hit.p[1],
+            +phimax_ * hit.p[0],
+            0
+        };
 
         return hit;
     }
@@ -468,97 +480,76 @@ public:
      * If intersection, returns parameteric value. Else,
      * returns NaN.
      */
-    float_type intersect(const ray_type& ray,
+    float_type intersect(const ray_type& ray, 
                                hit_type* hit = nullptr) const
     {
-        // Assemble intervals.
-        multi<float_interval<float_type>, 3> o;
-        multi<float_interval<float_type>, 3> d;
-        for (int j = 0; j < 3; j++) {
-            o[j] = {ray.o[j], ray.oerr[j]};
-            d[j] = {ray.d[j], ray.derr[j]};
-        }
-
-        // Shear in XY.
-        multi<float_interval<float_type>, 3> g[3];
-        multi<float_interval<float_type>, 3> h[3];
-        for (int j = 0; j < 3; j++) {
-            g[j] = (p_[j] - o).swizzle(ray.k);
-            h[j][0] = g[j][0] - ray.hr[0] * g[j][2];
-            h[j][1] = g[j][1] - ray.hr[1] * g[j][2];
-        }
-
-        // Preliminary barycentric coordinates.
-        float_interval<float_type> b[3];
-        bool any_lt_zero = false;
-        bool any_gt_zero = false;
-        for (int j = 0; j < 3; j++) {
-            int jp1 = (j + 1) % 3;
-            int jp2 = (j + 2) % 3;
-            b[j] =
-                h[jp1][1] * h[jp2][0] -
-                h[jp1][0] * h[jp2][1];
-
-            // Track.
-            any_lt_zero |= !(b[j].upper_bound() >= 0);
-            any_gt_zero |= !(b[j].lower_bound() <= 0);
-        }
-
-        // Reject certain misses.
-        if (any_lt_zero &&
-            any_gt_zero) {
-            // No intersection.
-            return pr::numeric_limits<float_type>::quiet_NaN();
-        }
-
-        // Is parallel?
-        float_interval<float_type> q = b[0] + b[1] + b[2];
-        if (q.contains(0)) {
-            // No intersection.
-            return pr::numeric_limits<float_type>::quiet_NaN();
-        }
-
-        // Barycentric coordinates.
-        if (q.abs_lower_bound() <
-            pr::numeric_limits<float_type>::min_invertible()) {
-            b[0] /= q;
-            b[1] /= q;
-            b[2] /= q;
-        }
-        else {
-            float_interval<float_type> qinv =
-            float_type(1) / q;
-            b[0] *= qinv;
-            b[1] *= qinv;
-            b[2] *= qinv;
-        }
-
-        // Shear in Z.
-        h[0][2] = ray.hr[2] * g[0][2];
-        h[1][2] = ray.hr[2] * g[1][2];
-        h[2][2] = ray.hr[2] * g[2][2];
-
-        // Parametric value.
-        float_interval<float_type> t =
-            b[0] * h[0][2] +
-            b[1] * h[1][2] +
-            b[2] * h[2][2];
+        // Parameter.
+        float_interval<float_type> o2 = {ray.o[2], ray.oerr[2]};
+        float_interval<float_type> d2 = {ray.d[2], ray.derr[2]};
+        float_interval<float_type> t = (h_ - o2) / d2;
 
         // Reject uncertain hits.
         if (!(t.upper_bound() < ray.tmax &&
               t.lower_bound() > ray.tmin)) {
-            // No intersection.
+            return pr::numeric_limits<float_type>::quiet_NaN();
+        }
+
+        // Position.
+        multi<float_type, 3> p = {
+            ray.o[0] + ray.d[0] * t.value(),
+            ray.o[1] + ray.d[1] * t.value(),
+            h_
+        };
+        if (p[0] == 0 &&
+            p[1] == 0) {
+            p[0] = float_type(1e-6);
+        }
+
+        // Radius.
+        float_type r = pr::hypot(p[0], p[1]);
+
+        // Clip.
+        if (!(r <= rmax_ &&
+              r >= rmin_)) {
+            return pr::numeric_limits<float_type>::quiet_NaN();
+        }
+
+        // Sweep angle.
+        float_type phi = pr::atan2(p[1], p[0]);
+        if (phi < 0) {
+            phi += 2 * pr::numeric_constants<float_type>::M_pi();
+        }
+
+        // Clip.
+        if (phi > phimax_) {
             return pr::numeric_limits<float_type>::quiet_NaN();
         }
 
         if (hit) {
-            // Delegate.
-            *hit =
-            operator()({
-                b[0].value(),
-                b[1].value(),
-                b[2].value()
-            });
+
+            // Position.
+            hit->p = p;
+
+            // Position absolute error.
+            hit->perr = {};
+
+            // Surface parameters.
+            hit->s[0] = (r - rmin_) / (rmax_ - rmin_);
+            hit->s[1] = phi / phimax_;
+
+            // Surface partial derivatives.
+            float_type cos_phi = p[0] / r;
+            float_type sin_phi = p[1] / r;
+            hit->dp_ds0 = {
+                (rmax_ - rmin_) * cos_phi,
+                (rmax_ - rmin_) * sin_phi,
+                0
+            };
+            hit->dp_ds1 = {
+                -phimax_ * p[1],
+                +phimax_ * p[0],
+                0
+            };
         }
 
         // Success.
@@ -568,15 +559,28 @@ public:
 private:
 
     /**
-     * @brief Points @f$ \mathbf{p}_j @f$.
+     * @brief Radius minimum @f$ r_{\min} @f$.
      */
-    multi<float_type, 3> p_[3] = {
-        {0, 0, 0},
-        {1, 0, 0},
-        {0, 1, 0}
-    };
+    float_type rmin_ = 0;
+
+    /**
+     * @brief Radius maximum @f$ r_{\max} @f$.
+     */
+    float_type rmax_ = 1;
+
+    /**
+     * @brief Height @f$ h @f$.
+     */
+    float_type h_ = 0;
+
+    /**
+     * @brief Sweep maximum @f$ \phi_{\max} @f$.
+     */
+    float_type phimax_ = 2 * pr::numeric_constants<float_type>::M_pi();
 };
 
 /**@}*/
 
 } // namespace pr
+
+#endif // #ifndef PREFORM_RAYTEST_DISK_HPP

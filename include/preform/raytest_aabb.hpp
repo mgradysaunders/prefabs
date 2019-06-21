@@ -26,16 +26,42 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*+-+*/
+#if !DOXYGEN
+#if !(__cplusplus >= 201703L)
+#error "preform/raytest_aabb.hpp requires >=C++17"
+#endif // #if !(__cplusplus >= 201703L)
+#endif // #if !DOXYGEN
+#pragma once
+#ifndef PREFORM_RAYTEST_AABB_HPP
+#define PREFORM_RAYTEST_AABB_HPP
+
+// for pr::multi
+#include <preform/multi.hpp>
+
+// for pr::multi wrappers
+#include <preform/multi_math.hpp>
+
+// for pr::float_interval
+#include <preform/float_interval.hpp>
+
+// for pr::aabb
+#include <preform/aabb.hpp>
 
 namespace pr {
 
 /**
- * @addtogroup raytest
+ * @defgroup raytest_aabb Ray-test (axis-aligned bounding box)
+ *
+ * `<preform/raytest_aabb.hpp>`
+ *
+ * __C++ version__: >=C++17
  */
 /**@{*/
 
 /**
- * @brief Test ray intersection with axis-aligned bounding box. 
+ * @brief Ray-test (axis-aligned bounding box).
+ *
+ * Test ray intersection with axis-aligned bounding box.
  *
  * This implementation is only intended to be useful as a boolean 
  * test for bounding box tree traversal, and not as an interface for 
@@ -302,3 +328,5 @@ private:
 /**@}*/
 
 } // namespace pr
+
+#endif // #ifndef PREFORM_RAYTEST_AABB_HPP
