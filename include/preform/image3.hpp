@@ -47,9 +47,6 @@
 // for pr::multi wrappers
 #include <preform/multi_misc_float.hpp>
 
-// for pr::lerp, pr::catmull
-#include <preform/interp.hpp>
-
 namespace pr {
 
 /**
