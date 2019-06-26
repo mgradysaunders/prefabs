@@ -100,6 +100,9 @@ $(function() {
 <li>operator float()
 : <a class="el" href="classpr_1_1half.html#a729f92f9b654566534a9a4aad97ce2f8">pr::half</a>
 </li>
+<li>operator iterator_range&lt; U &gt;()
+: <a class="el" href="classpr_1_1iterator__range.html#a61078902feb3b1d6cd8888f27b36ebac">pr::iterator_range&lt; T &gt;</a>
+</li>
 <li>operator multi&lt; U, 4 &gt;()
 : <a class="el" href="classpr_1_1quat.html#a5c81bbbcdd3f58fd06505e0544967247">pr::quat&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1quat_3_01dualnum_3_01T_01_4_01_4.html#a363afcc049364cd191e637fc5ebe9ebf">pr::quat&lt; dualnum&lt; T &gt; &gt;</a>
@@ -116,9 +119,6 @@ $(function() {
 <li>operator quat&lt; U &gt;()
 : <a class="el" href="classpr_1_1quat.html#a5229703a7abd00646a2ca6646ce1d2ec">pr::quat&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1quat_3_01dualnum_3_01T_01_4_01_4.html#aa2b123a05a1de9d43e02904a2f403f26">pr::quat&lt; dualnum&lt; T &gt; &gt;</a>
-</li>
-<li>operator range&lt; U &gt;()
-: <a class="el" href="classpr_1_1range.html#a46e925efaf8f292972e8469f6c4e6c27">pr::range&lt; T &gt;</a>
 </li>
 <li>operator running_stat&lt; U &gt;()
 : <a class="el" href="classpr_1_1running__stat.html#aeb793f617e1bcce360d7c191d96bffbd">pr::running_stat&lt; T &gt;</a>
@@ -139,9 +139,9 @@ $(function() {
 , <a class="el" href="classpr_1_1pcg__xsh__rr__engine.html#af3b1b18d4d17b87353de9a7558b3592a">pr::pcg_xsh_rr_engine&lt; T, Tstate, Nmultiplier, Ndefault_increment &gt;</a>
 </li>
 <li>operator()()
-: <a class="el" href="structpr_1_1aabbtree__split__equal__counts.html#a73146234965c3ed14a8de60361768475">pr::aabbtree_split_equal_counts</a>
-, <a class="el" href="structpr_1_1aabbtree__split__equal__dimensions.html#a6194a0669f5e79212a7a6d778cc5c2c0">pr::aabbtree_split_equal_dimensions</a>
-, <a class="el" href="structpr_1_1aabbtree__split__surface__area.html#a270517341acce341f724896714053f3d">pr::aabbtree_split_surface_area&lt; Nbins &gt;</a>
+: <a class="el" href="structpr_1_1aabbtree__split__equal__counts.html#a52af4c66c7e694f91ee168f56fab2292">pr::aabbtree_split_equal_counts</a>
+, <a class="el" href="structpr_1_1aabbtree__split__equal__dimensions.html#a273c952752343b5efc11fee739deeef3">pr::aabbtree_split_equal_dimensions</a>
+, <a class="el" href="structpr_1_1aabbtree__split__surface__area.html#a4a2c0340354481fa632b28dab2ad8673">pr::aabbtree_split_surface_area&lt; Nbins &gt;</a>
 , <a class="el" href="classpr_1_1bernoulli__distribution.html#ab31919ba543825cee44bf633b1911c7e">pr::bernoulli_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1binomial__distribution.html#acb7cd4d5964f5ba96cba24b5c6e92b63">pr::binomial_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1block__array2.html#a7329d557b9fef5cb0c6db9c4f2b7bd00">pr::block_array2&lt; T, Talloc &gt;</a>
@@ -229,11 +229,11 @@ $(function() {
 , <a class="el" href="classpr_1_1dense__iterator.html#a70a5e9602ee5eaa87fbd4f106d70e669">pr::dense_iterator&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1dense__matrix__view.html#acd674d6ba6e0e1214bb01afe4b55d598">pr::dense_matrix_view&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1dense__vector__view.html#a860e7af877c9048599ea2ef64d6b7c01">pr::dense_vector_view&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1iterator__range.html#aa3a843d513c3163664ecd9b64a4a3761">pr::iterator_range&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1linear__aabbtree.html#a7f657bdbc4f256528a47f8611b36f22f">pr::linear_aabbtree&lt; Tfloat, N, Tnode_alloc &gt;</a>
-, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#ac2080a9671097fa52728a4cca59bd016">pr::multi&lt; T, M, N... &gt;</a>
-, <a class="el" href="classpr_1_1range.html#a4503adc00ed757e9b61843248fbb418e">pr::range&lt; T &gt;</a>
-, <a class="el" href="classpr_1_1static__queue.html#afd654c5ff7470b49eed713028a7f2caf">pr::static_queue&lt; T, N &gt;</a>
-, <a class="el" href="classpr_1_1static__stack.html#a30d4e65511fdff260c896b60b3b9567a">pr::static_stack&lt; T, N &gt;</a>
+, <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a7c506aaa5cef82753c35b81cc54faf8a">pr::multi&lt; T, M, N... &gt;</a>
+, <a class="el" href="classpr_1_1static__queue.html#af4c6ea8d2be146c77d03baa9adb1f303">pr::static_queue&lt; T, N &gt;</a>
+, <a class="el" href="classpr_1_1static__stack.html#a9c4aee73ff951c0e86c15a8bf8b50280">pr::static_stack&lt; T, N &gt;</a>
 </li>
 <li>option_parser()
 : <a class="el" href="classpr_1_1option__parser.html#a3a87c71344583972ba4b1800adc9a81b">pr::option_parser</a>
