@@ -65,8 +65,8 @@
 // for std::future, std::async
 #include <future>
 
-// for pr::range
-#include <preform/range.hpp>
+// for pr::iterator_range
+#include <preform/iterator_range.hpp>
 
 // for pr::static_stack
 #include <preform/static_stack.hpp>
@@ -440,7 +440,7 @@ private:
             std::atomic<size_type>& total_branches,
             std::atomic<size_type>& total_leaves,
             size_type& first_index,
-            range<proxy_type*> proxies)
+            iterator_range<proxy_type*> proxies)
     {
         // Allocate.
         node_type* node = allocate();
@@ -596,7 +596,7 @@ struct aabbtree_split_equal_counts
             const aabb<Tfloat, N>& box,
             const aabb<Tfloat, N>& box_center,
             const std::size_t split_dim,
-            range<Tproxy*> proxies) const
+            iterator_range<Tproxy*> proxies) const
     {
         (void) box;
         (void) box_center;
@@ -635,7 +635,7 @@ struct aabbtree_split_equal_dimensions
             const aabb<Tfloat, N>& box,
             const aabb<Tfloat, N>& box_center,
             const std::size_t split_dim,
-            range<Tproxy*> proxies) const
+            iterator_range<Tproxy*> proxies) const
     {
         Tfloat cen =
             (box_center[0][split_dim] +
@@ -688,7 +688,7 @@ struct aabbtree_split_surface_area
             const aabb<Tfloat, N>& box,
             const aabb<Tfloat, N>& box_center,
             const std::size_t split_dim,
-            range<Tproxy*> proxies) const
+            iterator_range<Tproxy*> proxies) const
     {
         // Degenerate?
         if (box_center[0][split_dim] ==

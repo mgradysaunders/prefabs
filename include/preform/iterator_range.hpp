@@ -28,12 +28,12 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201402L)
-#error "preform/range.hpp requires >=C++14"
+#error "preform/iterator_range.hpp requires >=C++14"
 #endif // #if !(__cplusplus >= 201402L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_RANGE_HPP
-#define PREFORM_RANGE_HPP
+#ifndef PREFORM_ITERATOR_RANGE_HPP
+#define PREFORM_ITERATOR_RANGE_HPP
 
 // for std::iterator_traits
 #include <iterator>
@@ -41,19 +41,19 @@
 namespace pr {
 
 /**
- * @defgroup range Range
+ * @defgroup iterator_range Iterator range
  *
- * `<preform/range.hpp>`
+ * `<preform/iterator_range.hpp>`
  *
  * __C++ version__: >=C++14
  */
 /**@{*/
 
 /**
- * @brief Range.
+ * @brief Iterator range.
  */
 template <typename T>
-class range
+class iterator_range
 {
 public:
 
@@ -88,12 +88,12 @@ public:
     /**
      * @brief Default constructor.
      */
-    constexpr range() = default;
+    constexpr iterator_range() = default;
 
     /**
      * @brief Constructor.
      */
-    constexpr range(iterator from, iterator to) :
+    constexpr iterator_range(iterator from, iterator to) :
         begin_(from),
         end_(to)
     {
@@ -164,11 +164,11 @@ public:
      * @brief Cast operator.
      */
     template <typename U>
-    constexpr operator range<U>()
+    constexpr operator iterator_range<U>()
     {
         return {
-            static_cast<U>(begin_),
-            static_cast<U>(end_)
+            U(begin_),
+            U(end_)
         };
     }
 
@@ -186,28 +186,30 @@ private:
 };
 
 /**
- * @brief Make range.
+ * @brief Make iterator range.
  */
 template <typename T>
-constexpr range<T> make_range(T from, T to)
+constexpr iterator_range<T> make_iterator_range(T from, T to)
 {
     return {from, to};
 }
 
 /**
- * @brief Make range.
+ * @brief Make iterator range.
  */
 template <typename T>
-constexpr range<typename T::iterator> make_range(T& container)
+constexpr iterator_range<typename T::iterator> 
+                    make_iterator_range(T& container)
 {
     return {container.begin(), container.end()};
 }
 
 /**
- * @brief Make range.
+ * @brief Make iterator range.
  */
 template <typename T>
-constexpr range<typename T::const_iterator> make_range(const T& container)
+constexpr iterator_range<typename T::const_iterator> 
+                    make_iterator_range(const T& container)
 {
     return {container.begin(), container.end()};
 }
@@ -216,4 +218,4 @@ constexpr range<typename T::const_iterator> make_range(const T& container)
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_RANGE_HPP
+#endif // #ifndef PREFORM_ITERATOR_RANGE_HPP
