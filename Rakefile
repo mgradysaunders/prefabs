@@ -298,7 +298,7 @@ end
 
 # Compiler variables.
 CC = OpenStruct.new
-CC.cc = "clang++-6.0"
+CC.cc = "clang++"
 CC.ccflags = []
 CC.ccflags << "-std=c++17"
 CC.ccflags << "-Iinclude"
