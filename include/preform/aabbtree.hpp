@@ -295,8 +295,8 @@ public:
                 box.center(),
                 value_index
             });
-            ++from;
             ++value_index;
+            ++from;
         }
 
         // Initialize.
@@ -327,20 +327,17 @@ public:
     /**
      * @brief Reorder values to match proxies.
      */
-    template <
-        typename Tvalue,
-        typename Tvalue_alloc
-        >
-    void reorder(std::vector<Tvalue, Tvalue_alloc>& values)
+    template <typename Tforward_itr>
+    void reorder(
+            Tforward_itr from, 
+            Tforward_itr to)
     {
-        assert(values.size() == proxies.size());
-        std::vector<Tvalue, Tvalue_alloc> 
-                     values_reorder(values.size());
-        for (size_type pos = 0; pos < proxies.size(); pos++) {
-            values_reorder[pos] = 
-            values[proxies[pos].value_index];
+        assert(std::distance(from, to) == proxies_.size());
+        std::vector<typename 
+        std::iterator_traits<Tforward_itr>::value_type> values(from, to);
+        for (size_type pos = 0; pos < proxies_.size(); pos++) {
+            *from++ = values[proxies_[pos].value_index];
         }
-        values = std::move(values_reorder);
     }
 
 public:
