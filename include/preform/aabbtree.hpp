@@ -324,6 +324,25 @@ public:
         proxies_.shrink_to_fit();
     }
 
+    /**
+     * @brief Reorder values to match proxies.
+     */
+    template <
+        typename Tvalue,
+        typename Tvalue_alloc
+        >
+    void reorder(std::vector<Tvalue, Tvalue_alloc>& values)
+    {
+        assert(values.size() == proxies.size());
+        std::vector<Tvalue, Tvalue_alloc> 
+                     values_reorder(values.size());
+        for (size_type pos = 0; pos < proxies.size(); pos++) {
+            values_reorder[pos] = 
+            values[proxies[pos].value_index];
+        }
+        values = std::move(values_reorder);
+    }
+
 public:
 
     /**
