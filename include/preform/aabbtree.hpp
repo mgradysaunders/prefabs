@@ -934,6 +934,7 @@ public:
             init_recursive(tree.root_);
             assert(nodes_.size() ==
                    size_type(tree.total_nodes_));
+            nodes_.shrink_to_fit();
         }
     }
 
