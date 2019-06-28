@@ -332,7 +332,7 @@ public:
             Tforward_itr from, 
             Tforward_itr to)
     {
-        assert(std::distance(from, to) == proxies_.size());
+        assert(size_type(std::distance(from, to)) == proxies_.size());
         std::vector<typename 
         std::iterator_traits<Tforward_itr>::value_type> values(from, to);
         for (size_type pos = 0; pos < proxies_.size(); pos++) {
