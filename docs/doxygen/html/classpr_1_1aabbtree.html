@@ -127,13 +127,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5f464bfe2344a608213c6c84af905bbd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a5f464bfe2344a608213c6c84af905bbd">init</a> (Tforward_itr from, Tforward_itr to, Tfunc &amp;&amp;func)</td></tr>
 <tr class="memdesc:a5f464bfe2344a608213c6c84af905bbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize.  <a href="#a5f464bfe2344a608213c6c84af905bbd">More...</a><br /></td></tr>
 <tr class="separator:a5f464bfe2344a608213c6c84af905bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa85e540376e57fe7e47c74ab987a3ddf"><td class="memTemplParams" colspan="2">template&lt;typename Tforward_itr &gt; </td></tr>
+<tr class="memitem:aa85e540376e57fe7e47c74ab987a3ddf"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#aa85e540376e57fe7e47c74ab987a3ddf">sort</a> (Tforward_itr from, Tforward_itr to)</td></tr>
+<tr class="memdesc:aa85e540376e57fe7e47c74ab987a3ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort values to match proxies.  <a href="#aa85e540376e57fe7e47c74ab987a3ddf">More...</a><br /></td></tr>
+<tr class="separator:aa85e540376e57fe7e47c74ab987a3ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae73d91027714606e05106f4c0a37cc4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#ae73d91027714606e05106f4c0a37cc4b">clear</a> ()</td></tr>
 <tr class="memdesc:ae73d91027714606e05106f4c0a37cc4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear.  <a href="#ae73d91027714606e05106f4c0a37cc4b">More...</a><br /></td></tr>
 <tr class="separator:ae73d91027714606e05106f4c0a37cc4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8400805e5fca479beb38aad53c883fd"><td class="memTemplParams" colspan="2">template&lt;typename Tforward_itr &gt; </td></tr>
-<tr class="memitem:ad8400805e5fca479beb38aad53c883fd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#ad8400805e5fca479beb38aad53c883fd">reorder</a> (Tforward_itr from, Tforward_itr to)</td></tr>
-<tr class="memdesc:ad8400805e5fca479beb38aad53c883fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reorder values to match proxies.  <a href="#ad8400805e5fca479beb38aad53c883fd">More...</a><br /></td></tr>
-<tr class="separator:ad8400805e5fca479beb38aad53c883fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Accessors</div></td></tr>
 <tr class="memitem:a0c2ddad94f669c4e1685b761476da5ae"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpr_1_1aabbtree_1_1node__type.html">node_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a0c2ddad94f669c4e1685b761476da5ae">root</a> () const</td></tr>
 <tr class="memdesc:a0c2ddad94f669c4e1685b761476da5ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root.  <a href="#a0c2ddad94f669c4e1685b761476da5ae">More...</a><br /></td></tr>
@@ -450,13 +450,62 @@ template&lt;typename Tforward_itr , typename Tfunc &gt; </div>
 </ol>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Input range begin.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">to</td><td>Input range end.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Input value range from.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">to</td><td>Input value range to.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">func</td><td>Function converting input to axis-aligned bounding box.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line">aabb&lt;float_type, N&gt;(<span class="keyword">const</span> Tvalue&amp;)</div></div><!-- fragment --> where <code>Tvalue</code> is the value type corresponding to <code>Tforward_itr</code>. </dd></dl>
+
+</div>
+</div>
+<a id="aa85e540376e57fe7e47c74ab987a3ddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa85e540376e57fe7e47c74ab987a3ddf">&#9670;&nbsp;</a></span>sort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;typename Tforward_itr &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Tnode_alloc &gt;::sort </td>
+          <td>(</td>
+          <td class="paramtype">Tforward_itr&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Tforward_itr&#160;</td>
+          <td class="paramname"><em>to</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sort values to match proxies. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Input value range from.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">to</td><td>Input value range to. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -486,48 +535,6 @@ template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tno
 </div><div class="memdoc">
 
 <p>Clear. </p>
-
-</div>
-</div>
-<a id="ad8400805e5fca479beb38aad53c883fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8400805e5fca479beb38aad53c883fd">&#9670;&nbsp;</a></span>reorder()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
-<div class="memtemplate">
-template&lt;typename Tforward_itr &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Tnode_alloc &gt;::reorder </td>
-          <td>(</td>
-          <td class="paramtype">Tforward_itr&#160;</td>
-          <td class="paramname"><em>from</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Tforward_itr&#160;</td>
-          <td class="paramname"><em>to</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reorder values to match proxies. </p>
 
 </div>
 </div>
