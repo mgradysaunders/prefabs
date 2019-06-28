@@ -253,10 +253,10 @@ public:
      * according to `Tsplit_mode`.
      *
      * @param[in] from
-     * Input range begin.
+     * Input value range from.
      *
      * @param[in] to
-     * Input range end.
+     * Input value range to.
      *
      * @param[in] func
      * Function converting input to axis-aligned bounding box.
@@ -310,6 +310,28 @@ public:
     }
 
     /**
+     * @brief Sort values to match proxies.
+     *
+     * @param[in] from
+     * Input value range from.
+     *
+     * @param[in] to
+     * Input value range to.
+     */
+    template <typename Tforward_itr>
+    void sort(
+            Tforward_itr from, 
+            Tforward_itr to)
+    {
+        assert(size_type(std::distance(from, to)) == proxies_.size());
+        std::vector<typename 
+        std::iterator_traits<Tforward_itr>::value_type> values(from, to);
+        for (size_type pos = 0; pos < proxies_.size(); pos++) {
+            *from++ = values[proxies_[pos].value_index];
+        }
+    }
+
+    /**
      * @brief Clear.
      */
     void clear()
@@ -322,22 +344,6 @@ public:
         // Destroy proxies.
         proxies_.clear();
         proxies_.shrink_to_fit();
-    }
-
-    /**
-     * @brief Reorder values to match proxies.
-     */
-    template <typename Tforward_itr>
-    void reorder(
-            Tforward_itr from, 
-            Tforward_itr to)
-    {
-        assert(size_type(std::distance(from, to)) == proxies_.size());
-        std::vector<typename 
-        std::iterator_traits<Tforward_itr>::value_type> values(from, to);
-        for (size_type pos = 0; pos < proxies_.size(); pos++) {
-            *from++ = values[proxies_[pos].value_index];
-        }
     }
 
 public:
