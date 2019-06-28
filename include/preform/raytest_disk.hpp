@@ -41,6 +41,9 @@
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
+// for pr::multi wrappers
+#include <preform/multi_misc_float.hpp>
+
 // for pr::float_interval
 #include <preform/float_interval.hpp>
 
