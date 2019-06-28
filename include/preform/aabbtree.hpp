@@ -300,19 +300,13 @@ public:
         }
 
         // Initialize.
-        std::atomic<size_type> total_branches = 0;
-        std::atomic<size_type> total_leaves = 0;
         size_type first_index = 0;
         root_ =
         init_recursive(
-            total_branches,
-            total_leaves,
             first_index,
             {&proxies_[0],
              &proxies_[0] + proxies_.size()});
         assert(first_index == proxies_.size());
-        total_branches_ = total_branches;
-        total_leaves_ = total_leaves;
     }
 
     /**
@@ -323,8 +317,7 @@ public:
         // Destroy root.
         deallocate_recursive(root_);
         root_ = nullptr;
-        total_branches_ = 0;
-        total_leaves_ = 0;
+        total_nodes_ = 0;
 
         // Destroy proxies.
         proxies_.clear();
@@ -379,14 +372,9 @@ private:
     node_type* root_ = nullptr;
 
     /**
-     * @brief Total branches.
+     * @brief Total nodes.
      */
-    size_type total_branches_ = 0;
-
-    /**
-     * @brief Total leaves.
-     */
-    size_type total_leaves_ = 0;
+    std::atomic<size_type> total_nodes_ = 0;
 
     /**
      * @brief Proxies.
@@ -400,6 +388,7 @@ private:
      */
     node_type* allocate()
     {
+        ++total_nodes_;
         std::unique_lock<std::mutex> lock(node_alloc_mutex_);
         return
             node_allocator_traits::allocate(
@@ -412,6 +401,7 @@ private:
     void deallocate(node_type* node)
     {
         if (node) {
+            --total_nodes_;
             std::unique_lock<std::mutex> lock(node_alloc_mutex_);
             node_allocator_traits::deallocate(
             node_alloc_, node, 1);
@@ -437,8 +427,6 @@ private:
      * @brief Initialize recursively.
      */
     node_type* init_recursive(
-            std::atomic<size_type>& total_branches,
-            std::atomic<size_type>& total_leaves,
             size_type& first_index,
             iterator_range<proxy_type*> proxies)
     {
@@ -471,9 +459,6 @@ private:
 
             // Shift first index.
             first_index += count;
-
-            // Increment.
-            total_leaves++;
         }
         else {
 
@@ -501,16 +486,12 @@ private:
                 // Recurse.
                 left =
                 init_recursive(
-                    total_branches,
-                    total_leaves,
                     first_index,
                     {proxies.begin(), split});
 
                 // Recurse.
                 right =
                 init_recursive(
-                    total_branches,
-                    total_leaves,
                     first_index,
                     {split, proxies.end()});
             }
@@ -522,8 +503,6 @@ private:
                 std::future<node_type*> future_left =
                 std::async([&]() {
                     return init_recursive(
-                                total_branches,
-                                total_leaves,
                                 first_index_left,
                                 {proxies.begin(), split});
                 });
@@ -531,8 +510,6 @@ private:
                 // Recurse.
                 right =
                 init_recursive(
-                    total_branches,
-                    total_leaves,
                     first_index,
                     {split, proxies.end()});
 
@@ -549,9 +526,6 @@ private:
                 size_type(0),
                 size_type(0)
             };
-
-            // Increment.
-            total_branches++;
         }
         return node;
     }
@@ -953,15 +927,13 @@ public:
     {
         // Reserve memory.
         nodes_.reserve(
-            tree.total_branches_ + 
-            tree.total_leaves_);
+            size_type(tree.total_nodes_));
 
         // Initialize.
         if (tree.root_) {
             init_recursive(tree.root_);
             assert(nodes_.size() ==
-                   tree.total_branches_ + 
-                   tree.total_leaves_);
+                   size_type(tree.total_nodes_));
         }
     }
 
