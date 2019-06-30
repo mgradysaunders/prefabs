@@ -998,6 +998,7 @@ public:
 
 public:
 
+#if 0
     /**
      * @name Vector members
      */
@@ -1084,6 +1085,7 @@ public:
     }
 
     /**@}*/
+#endif
 
 public:
 
