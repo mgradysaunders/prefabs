@@ -891,18 +891,20 @@ public:
     }
 
     /**
-     * @brief Swizzle.
+     * @brief Cast operator.
+     *
+     * Allows implicit cast of 1-dimensional arrays to entry type.
      */
-    template <typename P, typename... Q>
-    __attribute__((always_inline))
-    constexpr multi<T, 1 + sizeof...(Q), N...> swizzle(P p, Q&&... q) const
+    template <bool B = (M == 1 && (... && (N == 1)))> 
+    constexpr operator std::enable_if_t<B, const T&>() const
     {
-        return {{
-            operator[](p),
-            operator[](std::forward<Q>(q))...
-        }};
+        return *static_cast<const T*>(
+                static_cast<const void*>(this));
     }
 
+    /**
+     * @brief Swizzle.
+     */
     template <typename P, std::size_t K>
     constexpr multi<T, K, N...> swizzle(const multi<P, K>& k)  const
     {
@@ -913,6 +915,16 @@ public:
             *itrres = operator[](*itrk);
         }
         return res;
+    }
+
+    /**
+     * @brief Swizzle.
+     */
+    template <typename P, typename... Q>
+    __attribute__((always_inline))
+    constexpr multi<T, 1 + sizeof...(Q), N...> swizzle(P p, Q&&... q) const
+    {
+        return swizzle(multi<P, 1 + sizeof...(Q)>{p, q...});
     }
 
     /**@}*/
