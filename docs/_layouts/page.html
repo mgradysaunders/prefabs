@@ -13,6 +13,11 @@
                 <div class="page-head-2">
                     <p><i>{{ page.subtitle }}</i></p>
                 </div>
+                <ul class="ulnav">
+                    {% for nav in site.nav %}
+                    <li><a {% if page.name == nav.name %}class="active" {% endif %}href="{{ nav.href }}">{{ nav.linkname }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="page-body">
             {{ content }}
