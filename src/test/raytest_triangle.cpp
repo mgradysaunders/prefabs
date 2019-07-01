@@ -15,7 +15,7 @@ typedef pr::vec2<Float> Vec2f;
 // 3-dimensional vector type.
 typedef pr::vec3<Float> Vec3f;
 
-// Hit-test (triangle).
+// Ray-test (triangle).
 typedef pr::raytest_triangle<Float> RaytestTriangle;
 
 // Permuted congruential generator.

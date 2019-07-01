@@ -15,7 +15,7 @@ typedef pr::vec2<Float> Vec2f;
 // 3-dimensional vector type.
 typedef pr::vec3<Float> Vec3f;
 
-// Hit-test (disk).
+// Ray-test (disk).
 typedef pr::raytest_disk<Float> RaytestDisk;
 
 // Permuted congruential generator.
