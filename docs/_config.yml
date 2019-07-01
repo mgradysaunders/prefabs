@@ -15,6 +15,6 @@ nav:
         name: index.md
         href: https://mgradysaunders.github.io/preform
     -
-        linkname: Coding conventions
-        name: coding_conventions.md
-        href: https://mgradysaunders.github.io/preform/coding_conventions
+        linkname: About
+        name: about.md
+        href: https://mgradysaunders.github.io/preform/about

@@ -26,3 +26,23 @@ more information.
 
 [1]: http://doxygen.nl
 [2]: https://mgradysaunders.github.io/preform/doxygen/html
+
+### Quickstart
+
+To get started with preform, clone the 
+repository and build and run the tests and examples. To do so successfully, 
+you'll need `git`, `rake`, and `clang++` version 5 or newer to be available
+on the command line.
+
+```
+$ git clone https://github.com/mgradysaunders/preform
+$ cd preform
+$ rake build:test
+$ rake build:example
+```
+
+The `Rakefile` uses `clang++` to compile by default because clang
+typically follows the C++ standard more strictly, and is thus useful for
+catching bugs and/or questionable metaprogramming techniques. You may edit 
+the `Rakefile` to replace `clang++` with `g++` if you cannot (or would rather 
+not) install a sufficiently recent version of `clang++`.
