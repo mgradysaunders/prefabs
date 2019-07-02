@@ -164,6 +164,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a942b41f23fa5d2b381c6deb00a3702a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1image3.html#a942b41f23fa5d2b381c6deb00a3702a1">resample</a> (int samp, multi&lt; <a class="el" href="classpr_1_1block__array3.html#acf99be811f242c6a389c3dc2c7271e7e">size_type</a>, 3 &gt; count)</td></tr>
 <tr class="memdesc:a942b41f23fa5d2b381c6deb00a3702a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample.  <a href="#a942b41f23fa5d2b381c6deb00a3702a1">More...</a><br /></td></tr>
 <tr class="separator:a942b41f23fa5d2b381c6deb00a3702a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedecc836dfa65763b74ec7311a8c6499"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1image3.html#aedecc836dfa65763b74ec7311a8c6499">mip_downsample</a> ()</td></tr>
+<tr class="memdesc:aedecc836dfa65763b74ec7311a8c6499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mip downsample.  <a href="#aedecc836dfa65763b74ec7311a8c6499">More...</a><br /></td></tr>
+<tr class="separator:aedecc836dfa65763b74ec7311a8c6499"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Reconstruction</div></td></tr>
 <tr class="memitem:a9e32aefd5e07217b494ecc04c8a6fd6a"><td class="memTemplParams" colspan="2">template&lt;typename Tfilt &gt; </td></tr>
 <tr class="memitem:a9e32aefd5e07217b494ecc04c8a6fd6a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1image3.html#a9e32aefd5e07217b494ecc04c8a6fd6a">reconstruct</a> (multi&lt; <a class="el" href="classpr_1_1image3.html#ab8182afdc10f9f665c2f340da7263f03">float_type</a>, N &gt; val, multi&lt; <a class="el" href="classpr_1_1image3.html#ab8182afdc10f9f665c2f340da7263f03">float_type</a>, 3 &gt; loc, multi&lt; <a class="el" href="classpr_1_1image3.html#ab8182afdc10f9f665c2f340da7263f03">float_type</a>, 3 &gt; filtrad, Tfilt &amp;&amp;filt)</td></tr>
@@ -723,6 +726,43 @@ template&lt;typename Tfloat , typename T , std::size_t N, typename Talloc  = std
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">samp</td><td>Sampling method, either 0, 1, or 3.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>Count. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aedecc836dfa65763b74ec7311a8c6499"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedecc836dfa65763b74ec7311a8c6499">&#9670;&nbsp;</a></span>mip_downsample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , typename T , std::size_t N, typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1image3.html">pr::image3</a>&lt; Tfloat, T, N, Talloc &gt;::mip_downsample </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mip downsample. </p>
+<p>As in mipmap construction, reduce image dimensions by a factor of 2, and average 2x2x2 pixel blocks.</p>
+<dl class="section note"><dt>Note</dt><dd>This is equivalent to calling <code>resample()</code> with appropriately reduced image dimensions. However, this implementation is much more efficient, as it averages directly and uses integer operations instead of floating point operations if possible.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>If any image dimension is not a multiple of 2. </td></tr>
   </table>
   </dd>
 </dl>

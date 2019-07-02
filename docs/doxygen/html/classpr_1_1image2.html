@@ -164,6 +164,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5bbd4ff5c387364530fa5ee227ea42e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1image2.html#a5bbd4ff5c387364530fa5ee227ea42e3">resample</a> (int samp, multi&lt; <a class="el" href="classpr_1_1block__array2.html#aedc69fe9ffc2a7e87e421faf38442be4">size_type</a>, 2 &gt; count)</td></tr>
 <tr class="memdesc:a5bbd4ff5c387364530fa5ee227ea42e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resample.  <a href="#a5bbd4ff5c387364530fa5ee227ea42e3">More...</a><br /></td></tr>
 <tr class="separator:a5bbd4ff5c387364530fa5ee227ea42e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1f28474520ab3f57fbb2bc978cb28e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1image2.html#ac1f28474520ab3f57fbb2bc978cb28e6">mip_downsample</a> ()</td></tr>
+<tr class="memdesc:ac1f28474520ab3f57fbb2bc978cb28e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mip downsample.  <a href="#ac1f28474520ab3f57fbb2bc978cb28e6">More...</a><br /></td></tr>
+<tr class="separator:ac1f28474520ab3f57fbb2bc978cb28e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Reconstruction</div></td></tr>
 <tr class="memitem:a329e19a7d84a3f4aaab036e0a7709028"><td class="memTemplParams" colspan="2">template&lt;typename Tfilt &gt; </td></tr>
 <tr class="memitem:a329e19a7d84a3f4aaab036e0a7709028"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1image2.html#a329e19a7d84a3f4aaab036e0a7709028">reconstruct</a> (multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, N &gt; val, multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, 2 &gt; loc, multi&lt; <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">float_type</a>, 2 &gt; filtrad, Tfilt &amp;&amp;filt)</td></tr>
@@ -723,6 +726,43 @@ template&lt;typename Tfloat , typename T , std::size_t N, typename Talloc  = std
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">samp</td><td>Sampling method, either 0, 1, or 3.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>Count. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac1f28474520ab3f57fbb2bc978cb28e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1f28474520ab3f57fbb2bc978cb28e6">&#9670;&nbsp;</a></span>mip_downsample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , typename T , std::size_t N, typename Talloc  = std::allocator&lt;T&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1image2.html">pr::image2</a>&lt; Tfloat, T, N, Talloc &gt;::mip_downsample </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mip downsample. </p>
+<p>As in mipmap construction, reduce image dimensions by a factor of 2, and average 2x2 pixel blocks.</p>
+<dl class="section note"><dt>Note</dt><dd>This is equivalent to calling <code>average()</code> with appropriately reduced image dimensions. However, this implementation is much more efficient, as it averages directly and uses integer operations instead of floating point operations if possible.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>If any image dimension is not a multiple of 2. </td></tr>
   </table>
   </dd>
 </dl>
