@@ -57,3 +57,24 @@ lengthy type expressions.
 
 [1]: http://doxygen.nl
 [2]: https://mgradysaunders.github.io/preform/doxygen/html
+
+### Development environment
+
+Preform is developed and tested on Linux, and is thus
+written to be compiled with either `g++` or `clang++`. In particular, 
+preform occassionally makes use of `__attribute__` syntax and the
+`__PRETTY_FUNCTION__` macro for clearer function names in error messages. It
+should be possible to compile preform with another sufficiently recent
+C++ compiler, though it may be necessary to define
+
+```
+#define __attribute__(x)
+#define __PRETTY_FUNCTION__ __func__
+```
+
+before including preform headers. On that note, `preform/quadmath.hpp` is 
+only suitable for use with `g++`, as it depends on the availability 
+`libquadmath` and the associated GNU extensions for quadruple precision 
+floating point literals. That is, to successfully compile code using
+`preform/quadmath.hpp`, you must compile with `-std=gnu++14` 
+(or `-std=gnu++17`) and link with `-lquadmath`.
