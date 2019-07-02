@@ -44,6 +44,16 @@ body of a struct, class, or function definition, the opening brace appears
 on the next line. No line should exceed 80 characters, being standard 
 terminal width. 
 
-TODO documentation
+Preform uses [doxygen][1] to build the [API documentation][2]. Thus,
+C-style asterisk comment blocks containing doxygen-syntax appear throughout 
+the implementation. The `Doxyfile` predefines `DOXYGEN`, which is used to elide 
+unimportant structures and preprocessing macros from the documentation.
+Doxygen modules are the preferred structure for organizing documentation. 
+Each header file contains at least 1 module. The description of each module 
+designates the a ssociated header file as well as the necessary C++ version. 
+The `DoxygenFix.js` javascript file is a script which adjusts 
+formatting and substitutes concise alternatives for
+lengthy type expressions.
 
-TODO file organization
+[1]: http://doxygen.nl
+[2]: https://mgradysaunders.github.io/preform/doxygen/html
