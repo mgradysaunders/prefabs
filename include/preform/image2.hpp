@@ -173,9 +173,6 @@ public:
         }
         else {
 
-            // Shift.
-            locmin -= float_type(0.5);
-            locmax -= float_type(0.5);
             if (locmin[0] > locmax[0]) std::swap(locmin[0], locmax[0]);
             if (locmin[1] > locmax[1]) std::swap(locmin[1], locmax[1]);
 
@@ -404,6 +401,87 @@ public:
                         fstretch<entry_type>(
                                  image.sample(samp, loc));
                 }
+            }
+        }
+    }
+
+    /**
+     * @brief Mip downsample.
+     *
+     * As in mipmap construction, reduce image dimensions
+     * by a factor of 2, and average 2x2 pixel blocks.
+     *
+     * @note
+     * This is equivalent to calling `average()` with 
+     * appropriately reduced image dimensions. However, this 
+     * implementation is much more efficient, as it averages 
+     * directly and uses integer operations instead of floating
+     * point operations if possible.
+     *
+     * @throw std::runtime_error
+     * If any image dimension is not a multiple of 2.
+     */
+    void mip_downsample()
+    {
+        // Target size.
+        multi<size_type, 2> count = this->user_size_ >> 1;
+
+        if ((this->user_size_ & 1).any()) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+
+        // Temporary image.
+        image2 image(std::move(*this));
+
+        // Resize.
+        this->resize(count);
+
+        for (size_type i = 0; i < this->user_size_[0]; i++)
+        for (size_type j = 0; j < this->user_size_[1]; j++) {
+            size_type i0 = 2 * i, i1 = 2 * i + 1;
+            size_type j0 = 2 * j, j1 = 2 * j + 1;
+            // Entry type is floating point?
+            if constexpr (
+                    std::is_floating_point<entry_type>::value) {
+                // Use floating point arithmetic.
+                multi<entry_type, N> 
+                    v00 = image(i0, j0),
+                    v01 = image(i0, j1),
+                    v10 = image(i1, j0),
+                    v11 = image(i1, j1);
+                (*this)(i, j) = (v00 + v01 + v10 + v11) * entry_type(0.25);
+            }
+            // Entry type is 64-bit integral?
+            else if constexpr (
+                    std::is_integral<entry_type>::value &&
+                    sizeof(std::uint64_t) == sizeof(entry_type)) {
+                // Use floating point arithmetic.
+                multi<long double, N> 
+                    v00 = image(i0, j0),
+                    v01 = image(i0, j1),
+                    v10 = image(i1, j0),
+                    v11 = image(i1, j1);
+                (*this)(i, j) = (v00 + v01 + v10 + v11) * 0.25L;
+            }
+            // Entry type is 32-bit, 16-bit, or 8-bit integral?
+            else if constexpr (
+                    std::is_integral<entry_type>::value &&
+                    sizeof(std::uint32_t) >= sizeof(entry_type)) {
+                // Use integer arithmetic.
+                typedef std::conditional_t<
+                        std::is_signed<entry_type>::value,
+                        typename sized_int<sizeof(entry_type) + 1>::type,
+                        typename sized_uint<sizeof(entry_type) + 1>::type>
+                        tmp_entry_type;
+                multi<tmp_entry_type, N> 
+                    v00 = image(i0, j0),
+                    v01 = image(i0, j1),
+                    v10 = image(i1, j0),
+                    v11 = image(i1, j1);
+                (*this)(i, j) = (v00 + v01 + v10 + v11) >> 2;
+            }
+            else {
+                // Error?
             }
         }
     }

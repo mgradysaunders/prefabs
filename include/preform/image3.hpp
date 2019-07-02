@@ -173,9 +173,6 @@ public:
         }
         else {
 
-            // Shift.
-            locmin -= float_type(0.5);
-            locmax -= float_type(0.5);
             if (locmin[0] > locmax[0]) std::swap(locmin[0], locmax[0]);
             if (locmin[1] > locmax[1]) std::swap(locmin[1], locmax[1]);
             if (locmin[2] > locmax[2]) std::swap(locmin[2], locmax[2]);
@@ -448,6 +445,99 @@ public:
             }
         }
     }
+
+    /**
+     * @brief Mip downsample.
+     *
+     * As in mipmap construction, reduce image dimensions
+     * by a factor of 2, and average 2x2x2 pixel blocks.
+     *
+     * @note
+     * This is equivalent to calling `resample()` with 
+     * appropriately reduced image dimensions. However, this 
+     * implementation is much more efficient, as it averages 
+     * directly and uses integer operations instead of floating
+     * point operations if possible.
+     *
+     * @throw std::runtime_error
+     * If any image dimension is not a multiple of 2.
+     */
+    void mip_downsample()
+    {
+        // Target size.
+        multi<size_type, 3> count = this->user_size_ >> 1;
+
+        if ((this->user_size_ & 1).any()) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
+        }
+
+        // Temporary image.
+        image3 image(std::move(*this));
+
+        // Resize.
+        this->resize(count);
+
+        for (size_type k = 0; k < this->user_size_[2]; k++)
+        for (size_type i = 0; i < this->user_size_[0]; i++)
+        for (size_type j = 0; j < this->user_size_[1]; j++) {
+            // Entry type is floating point?
+            if constexpr (
+                    std::is_floating_point<entry_type>::value) {
+                // Use floating point arithmetic.
+                multi<entry_type, N> vsum = {};
+                for (size_type kk = 0; kk < 2; kk++)
+                for (size_type ii = 0; ii < 2; ii++)
+                for (size_type jj = 0; jj < 2; jj++) {
+                    vsum += image(
+                            2 * i + ii, 
+                            2 * j + jj, 
+                            2 * k + kk);
+                }
+                (*this)(i, j, k) = vsum * entry_type(0.125);
+            }
+            // Entry type is 64-bit integral?
+            else if constexpr (
+                    std::is_integral<entry_type>::value &&
+                    sizeof(std::uint64_t) == sizeof(entry_type)) {
+                // Use floating point arithmetic.
+                multi<long double, N> vsum = {};
+                for (size_type kk = 0; kk < 2; kk++)
+                for (size_type ii = 0; ii < 2; ii++)
+                for (size_type jj = 0; jj < 2; jj++) {
+                    vsum += image(
+                            2 * i + ii, 
+                            2 * j + jj, 
+                            2 * k + kk);
+                }
+                (*this)(i, j, k) = vsum * 0.125L;
+            }
+            // Entry type is 32-bit, 16-bit, or 8-bit integral?
+            else if constexpr (
+                    std::is_integral<entry_type>::value &&
+                    sizeof(std::uint32_t) >= sizeof(entry_type)) {
+                // Use integer arithmetic.
+                typedef std::conditional_t<
+                        std::is_signed<entry_type>::value,
+                        typename sized_int<sizeof(entry_type) + 1>::type,
+                        typename sized_uint<sizeof(entry_type) + 1>::type>
+                        tmp_entry_type;
+                multi<tmp_entry_type, N> vsum;
+                for (size_type kk = 0; kk < 2; kk++)
+                for (size_type ii = 0; ii < 2; ii++)
+                for (size_type jj = 0; jj < 2; jj++) {
+                    vsum += image(
+                            2 * i + ii, 
+                            2 * j + jj, 
+                            2 * k + kk);
+                }
+                (*this)(i, j, k) = vsum >> 3;
+            }
+            else {
+                // Error?
+            }
+        }
+    }
+
 
     /**@}*/
 
