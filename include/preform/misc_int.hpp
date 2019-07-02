@@ -434,6 +434,70 @@ constexpr std::enable_if_t<
     return cantor(cantor(x, y), z, ws...);
 }
 
+/**
+ * @brief Sized int type selector.
+ *
+ * Defines member type `type` to be the smallest signed integral 
+ * type occupying at least `Nbytes`, or `void` if no such type exists.
+ *
+ * @tparam Nbytes
+ * Least number of bytes.
+ */
+template <std::size_t Nbytes>
+struct sized_int;
+
+/**
+ * @brief Sized unsigned int type selector.
+ *
+ * Defines member type `type` to be the smallest unsigned integral 
+ * type occupying at least `Nbytes`, or `void` if no such type exists.
+ *
+ * @tparam Nbytes
+ * Least number of bytes.
+ */
+template <std::size_t Nbytes>
+struct sized_uint;
+
+#if !DOXYGEN
+
+// Implementation.
+template <std::size_t Nbytes>
+struct sized_int {
+    typedef std::conditional_t<
+                sizeof(std::int_least8_t) >= Nbytes,
+                std::int_least8_t,
+                std::conditional_t<
+                    sizeof(std::int_least16_t) >= Nbytes,
+                    std::int_least16_t,
+                    std::conditional_t<
+                        sizeof(std::int_least32_t) >= Nbytes,
+                        std::int_least32_t,
+                        std::conditional_t<
+                            sizeof(std::int_least64_t) >= Nbytes,
+                            std::int_least64_t,
+                            void>>>> type;
+};
+
+// Implementation.
+template <std::size_t Nbytes>
+struct sized_uint {
+    typedef std::conditional_t<
+                sizeof(std::uint_least8_t) >= Nbytes,
+                std::uint_least8_t,
+                std::conditional_t<
+                    sizeof(std::uint_least16_t) >= Nbytes,
+                    std::uint_least16_t,
+                    std::conditional_t<
+                        sizeof(std::uint_least32_t) >= Nbytes,
+                        std::uint_least32_t,
+                        std::conditional_t<
+                            sizeof(std::uint_least64_t) >= Nbytes,
+                            std::uint_least64_t,
+                            void>>>> type;
+};
+
+#endif // #if !DOXYGEN
+
 /**@}*/
 
 } // namespace pr
