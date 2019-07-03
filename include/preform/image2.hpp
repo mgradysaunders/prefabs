@@ -412,7 +412,7 @@ public:
      * by a factor of 2, and average 2x2 pixel blocks.
      *
      * @note
-     * This is equivalent to calling `average()` with 
+     * This is equivalent to calling `resample()` with 
      * appropriately reduced image dimensions. However, this 
      * implementation is much more efficient, as it averages 
      * directly and uses integer operations instead of floating
