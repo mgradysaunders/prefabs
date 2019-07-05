@@ -392,42 +392,39 @@ public:
     /**
      * @brief Constructor.
      *
-     * @param[in] d
-     * Degree.
-     *
      * @param[in] n
      * Number of control points.
+     *
+     * @param[in] d
+     * Degree.
      *
      * @param[in] alloc
      * Allocator.
      *
      * @throw std::invalid_argument
-     * Unless `d > 0` and `n > 1`.
+     * Unless `n > 1`.
      */
     explicit
     bspline_curve(
-            size_type d,
             size_type n, 
+            size_type d,
             const Talloc& alloc = {})
     {
-        // Validate arguments.
-        if (!(d > 0 && 
-              n > 1)) {
+        // Validate.
+        if (!(n > 1)) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
         // Number of knots.
         size_type m = n + d + 1;
     
-        // Initialize basis table values.
+        // Initialize basis functions.
         new (&basis_vals_)
         std::vector<
             float_type, 
             float_allocator_type>(
                 m + m * (d + 1), 
                 float_allocator_type(alloc));
-
-        // Initialize basis table.
         basis_.u_ = &basis_vals_[0];
         basis_.b_ = {
             // offset
@@ -452,14 +449,123 @@ public:
     }
 
     /**
+     * @brief Copy constructor.
+     */
+    bspline_curve(const bspline_curve& other) :
+            basis_(other.basis_),
+            basis_vals_(other.basis_vals_),
+            p_(other.p_)
+    {
+        // Fix pointers.
+        if (basis_vals_.size() > 0) {
+            basis_.u_ = &basis_vals_[0];
+            basis_.b_.offset_ = &basis_vals_[basis_.num_knots()];
+        }
+    }
+
+    /**
+     * @brief Move constructor.
+     */
+    bspline_curve(bspline_curve&& other) :
+            basis_(std::move(other.basis_)),
+            basis_vals_(std::move(other.basis_vals_)),
+            p_(std::move(other.p_))
+    {
+        // Nullify.
+        other.basis_ = {};
+    }
+
+    /**
+     * @brief Copy assignment operator.
+     */
+    bspline_curve& operator=(const bspline_curve& other)
+    {
+        if (this != &other) {
+
+            // Default copy.
+            basis_ = other.basis_;
+            basis_vals_ = other.basis_vals_;
+            p_ = other.p_;
+
+            // Fix pointers.
+            if (basis_vals_.size() > 0) {
+                basis_.u_ = &basis_vals_[0];
+                basis_.b_.offset_ = &basis_vals_[basis_.num_knots()];
+            }
+        }
+
+        // Done.
+        return *this;
+    }
+
+    /**
+     * @brief Move assignment operator.
+     */
+    bspline_curve& operator=(bspline_curve&& other)
+    {
+        // Default move.
+        basis_ = std::move(other.basis_);
+        basis_vals_ = std::move(other.basis_vals_);
+        p_ = std::move(other.p_);
+
+        // Nullify.
+        other.basis_ = {};
+
+        // Done.
+        return *this;
+    }
+
+    /**
+     * @brief Resize.
+     *
+     * @param[in] n
+     * Number of control points.
+     *
+     * @param[in] d
+     * Degree.
+     *
+     * @throw std::invalid_argument
+     * Unless `n > 1`.
+     */
+    void resize(size_type n, size_type d)
+    {
+        // Validate.
+        if (!(n > 1)) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+
+        // Number of knots.
+        size_type m = n + d + 1;
+
+        // Resize basis functions.
+        basis_vals_.resize(m + m * (d + 1));
+        basis_.u_ = &basis_vals_[0];
+        basis_.b_ = {
+            // offset
+            &basis_vals_[m],
+            // stride0
+            difference_type(1),
+            // stride1
+            difference_type(d + 1), 
+            // size0
+            difference_type(d + 1),
+            // size1
+            difference_type(m)
+        };
+
+        // Resize control points.
+        p_.resize(n);
+    }
+
+    /**
      * @brief Clear.
      */
     void clear()
     {
-        // Clear basis table.
+        // Clear basis functions.
         basis_ = {};
 
-        // Clear basis table values.
+        // Clear basis functions values.
         basis_vals_.clear();
 
         // Clear control points.
@@ -622,34 +728,33 @@ public:
     /**
      * @brief Constructor.
      *
-     * @param[in] d
-     * Degree in each dimension.
-     *
      * @param[in] n
      * Number of control points in each dimension.
+     *
+     * @param[in] d
+     * Degree in each dimension.
      *
      * @param[in] alloc
      * Allocator.
      *
      * @throw std::invalid_argument
-     * Unless `(d > 0).all()` and `(n > 1).all()`.
+     * Unless `(n > 1).all()`.
      */
     explicit
     bspline_patch(
-            multi<size_type, 2> d,
             multi<size_type, 2> n,
+            multi<size_type, 2> d,
             const Talloc& alloc = {})
     {
-        // Validate arguments.
-        if (!((d > size_type(0)).all() &&
-              (n > size_type(1)).all())) {
+        // Validate.
+        if (!(n > size_type(1)).all()) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
         // Number of knots.
         multi<size_type, 2> m = n + d + 1;
 
-        // Initialize basis table values.
+        // Initialize basis functions.
         new (&basis_vals_)
         std::vector<
             float_type, 
@@ -657,8 +762,6 @@ public:
                 m[0] + m[0] * (d[0] + 1) + 
                 m[1] + m[1] * (d[1] + 1),
                 float_allocator_type(alloc));
-
-        // Initialize basis table 0.
         basis0_.u_ = &basis_vals_[0];
         basis0_.b_ = {
             // offset
@@ -672,8 +775,6 @@ public:
             // size1
             difference_type(m[0])
         };
-
-        // Initialize basis table 1.
         basis1_.u_ = &basis_vals_[m[0] + m[0] * (d[0] + 1)];
         basis1_.b_ = {
             // offset
@@ -698,17 +799,167 @@ public:
     }
 
     /**
+     * @brief Copy constructor.
+     */
+    bspline_patch(const bspline_patch& other) :
+            basis0_(other.basis0_),
+            basis1_(other.basis1_),
+            basis_vals_(other.basis_vals_),
+            p_(other.p_)
+    {
+        // Fix pointers.
+        if (basis_vals_.size() > 0) {
+            difference_type d0 = basis0_.degree();
+            difference_type m0 = basis0_.num_knots();
+            difference_type m1 = basis1_.num_knots();
+            basis0_.u_ = 
+                &basis_vals_[0];
+            basis0_.b_.offset_ = 
+                &basis_vals_[m0];
+            basis1_.u_ = 
+                &basis_vals_[m0 + m0 * (d0 + 1)];
+            basis1_.b_.offset_ = 
+                &basis_vals_[m0 + m0 * (d0 + 1) + m1];
+        }
+    }
+
+    /**
+     * @brief Move constructor.
+     */
+    bspline_patch(bspline_patch&& other) :
+            basis0_(std::move(other.basis0_)),
+            basis1_(std::move(other.basis1_)),
+            basis_vals_(std::move(other.basis_vals_)),
+            p_(std::move(other.p_))
+    {
+        // Nullify.
+        other.basis0_ = {};
+        other.basis1_ = {};
+    }
+
+    /**
+     * @brief Copy assignment operator.
+     */
+    bspline_patch& operator=(const bspline_patch& other)
+    {
+        if (this != &other) {
+
+            // Default copy.
+            basis0_ = other.basis0_;
+            basis1_ = other.basis1_;
+            basis_vals_ = other.basis_vals_;
+            p_ = other.p_;
+
+            // Fix pointers.
+            if (basis_vals_.size() > 0) {
+                difference_type d0 = basis0_.degree();
+                difference_type m0 = basis0_.num_knots();
+                difference_type m1 = basis1_.num_knots();
+                basis0_.u_ = 
+                    &basis_vals_[0];
+                basis0_.b_.offset_ = 
+                    &basis_vals_[m0];
+                basis1_.u_ = 
+                    &basis_vals_[m0 + m0 * (d0 + 1)];
+                basis1_.b_.offset_ = 
+                    &basis_vals_[m0 + m0 * (d0 + 1) + m1];
+            }
+        }
+
+        // Done.
+        return *this;
+    }
+
+    /**
+     * @brief Move assignment operator.
+     */
+    bspline_patch& operator=(bspline_patch&& other)
+    {
+        // Default move.
+        basis0_ = std::move(other.basis0_);
+        basis1_ = std::move(other.basis1_);
+        basis_vals_ = std::move(other.basis_vals_);
+        p_ = std::move(other.p_);
+
+        // Nullify.
+        other.basis0_ = {};
+        other.basis1_ = {};
+
+        // Done.
+        return *this;
+    }
+
+    /**
+     * @brief Resize.
+     *
+     * @param[in] n
+     * Number of control points in each dimension.
+     *
+     * @param[in] d
+     * Degree in each dimension.
+     *
+     * @throw std::invalid_argument
+     * Unless `(n > 1).all()`.
+     */
+    void resize(
+            multi<size_type, 2> n,
+            multi<size_type, 2> d)
+    {
+        // Validate.
+        if (!(n > size_type(1)).all()) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+
+        // Number of knots.
+        multi<size_type, 2> m = n + d + 1;
+
+        // Resize basis functions.
+        basis_vals_.resize(
+                m[0] + m[0] * (d[0] + 1) + 
+                m[1] + m[1] * (d[1] + 1));
+        basis0_.u_ = &basis_vals_[0];
+        basis0_.b_ = {
+            // offset
+            &basis_vals_[m[0]],
+            // stride0
+            difference_type(1),
+            // stride1
+            difference_type(d[0] + 1), 
+            // size0
+            difference_type(d[0] + 1),
+            // size1
+            difference_type(m[0])
+        };
+        basis1_.u_ = &basis_vals_[m[0] + m[0] * (d[0] + 1)];
+        basis1_.b_ = {
+            // offset
+            &basis_vals_[m[0] + m[0] * (d[0] + 1) + m[1]],
+            // stride0
+            difference_type(1),
+            // stride1
+            difference_type(d[1] + 1), 
+            // size0
+            difference_type(d[1] + 1),
+            // size1
+            difference_type(m[1])
+        };
+
+        // Resize control points.
+        p_.resize(n.prod());
+    }
+
+    /**
      * @brief Clear.
      */
     void clear()
     {
-        // Clear basis table 0.
+        // Clear basis functions in dimension 0.
         basis0_ = {};
 
-        // Clear basis table 1.
+        // Clear basis functions in dimension 1.
         basis1_ = {};
 
-        // Clear basis table values.
+        // Clear basis functions values.
         basis_vals_.clear();
 
         // Clear control points.
