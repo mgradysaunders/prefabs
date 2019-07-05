@@ -438,7 +438,7 @@ public:
      * Allocator.
      *
      * @throw std::invalid_argument
-     * Unless `n > 1`.
+     * Unless `n > 1` and `n > d`.
      */
     explicit
     bspline_curve(
@@ -447,7 +447,8 @@ public:
             const Talloc& alloc = {})
     {
         // Validate.
-        if (!(n > 1)) {
+        if (!(n > 1) ||
+            !(n > d)) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
@@ -561,14 +562,15 @@ public:
      * Degree.
      *
      * @throw std::invalid_argument
-     * Unless `n > 1`.
+     * Unless `n > 1` and `n > d`.
      */
     void resize(
             size_type n, 
             size_type d)
     {
         // Validate.
-        if (!(n > 1)) {
+        if (!(n > 1) ||
+            !(n > d)) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
@@ -785,7 +787,7 @@ public:
      * Allocator.
      *
      * @throw std::invalid_argument
-     * Unless `(n > 1).all()`.
+     * Unless `(n > 1).all()` and `(n > d).all()`.
      */
     explicit
     bspline_patch(
@@ -794,7 +796,8 @@ public:
             const Talloc& alloc = {})
     {
         // Validate.
-        if (!(n > size_type(1)).all()) {
+        if (!(n > size_type(1)).all() ||
+            !(n > d).all()) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
@@ -946,14 +949,15 @@ public:
      * Degree in each dimension.
      *
      * @throw std::invalid_argument
-     * Unless `(n > 1).all()`.
+     * Unless `(n > 1).all()` and `(n > d).all()`.
      */
     void resize(
             multi<size_type, 2> n,
             multi<size_type, 2> d)
     {
         // Validate.
-        if (!(n > size_type(1)).all()) {
+        if (!(n > size_type(1)).all() ||
+            !(n > d).all()) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
@@ -1214,7 +1218,7 @@ public:
      * Allocator.
      *
      * @throw std::invalid_argument
-     * Unless `n > 1`.
+     * Unless `n > 1` and `n > d`.
      */
     explicit
     nurbs_curve(
@@ -1223,7 +1227,8 @@ public:
             const Talloc& alloc = {})
     {
         // Validate.
-        if (!(n > 1)) {
+        if (!(n > 1) ||
+            !(n > d)) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
@@ -1350,14 +1355,15 @@ public:
      * Degree.
      *
      * @throw std::invalid_argument
-     * Unless `n > 1`.
+     * Unless `n > 1` and `n > d`.
      */
     void resize(
             size_type n, 
             size_type d)
     {
         // Validate.
-        if (!(n > 1)) {
+        if (!(n > 1) ||
+            !(n > d)) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
@@ -1623,7 +1629,7 @@ public:
      * Allocator.
      *
      * @throw std::invalid_argument
-     * Unless `(n > 1).all()`.
+     * Unless `(n > 1).all()` and `(n > d).all()`.
      */
     explicit
     nurbs_patch(
@@ -1632,7 +1638,8 @@ public:
             const Talloc& alloc = {})
     {
         // Validate.
-        if (!(n > size_type(1)).all()) {
+        if (!(n > size_type(1)).all() ||
+            !(n > d).all()) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
@@ -1797,14 +1804,15 @@ public:
      * Degree in each dimension.
      *
      * @throw std::invalid_argument
-     * Unless `(n > 1).all()`.
+     * Unless `(n > 1).all()` and `(n > d).all()`.
      */
     void resize(
             multi<size_type, 2> n,
             multi<size_type, 2> d)
     {
         // Validate.
-        if (!(n > size_type(1)).all()) {
+        if (!(n > size_type(1)).all() ||
+            !(n > d).all()) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
