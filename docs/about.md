@@ -50,7 +50,7 @@ the implementation. The `Doxyfile` predefines `DOXYGEN`, which is used to elide
 unimportant structures and preprocessing macros from the documentation.
 Doxygen modules are the preferred structure for organizing documentation. 
 Each header file contains at least 1 module. The description of each module 
-designates the a ssociated header file as well as the necessary C++ version. 
+designates the associated header file as well as the necessary C++ version. 
 The `DoxygenFix.js` javascript file is a script which adjusts 
 formatting and substitutes concise alternatives for
 lengthy type expressions.
