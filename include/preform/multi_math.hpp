@@ -1378,7 +1378,7 @@ struct multi_initializers<
     }
 
     /**
-     * @brief Orthographic projection frustum.
+     * @brief Orthographic projection.
      *
      * @f[
      *      \begin{bmatrix}
@@ -1421,7 +1421,7 @@ struct multi_initializers<
     }
 
     /**
-     * @brief Perspective projection frustum.
+     * @brief Perspective projection.
      *
      * @f[
      *      \begin{bmatrix}
