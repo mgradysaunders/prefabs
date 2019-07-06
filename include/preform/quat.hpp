@@ -363,21 +363,21 @@ private:
 public:
 
     /**
-     * @brief Rotation.
+     * @brief Rotate counter-clockwise about arbitrary axis.
      *
      * @param[in] phi
-     * Radians.
+     * Angle in radians.
      *
-     * @param[in] w
-     * Normalized axis.
+     * @param[in] hatv
+     * Normalized rotation axis.
      */
-    static quat rotation(
-                value_type phi, 
-                const multi<value_type, 3>& w)
+    static quat rotate(
+                value_type theta, 
+                const multi<value_type, 3>& hatv)
     {
         return {
-            pr::cos(phi * value_type(0.5)),
-            pr::sin(phi * value_type(0.5)) * w
+            pr::cos(theta * value_type(0.5)),
+            pr::sin(theta * value_type(0.5)) * hatv
         };
     }
 
