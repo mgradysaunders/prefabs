@@ -101,10 +101,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1687b1db7cef5e67fa23aa7a79a43c72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look-at transform.  <a href="#a1687b1db7cef5e67fa23aa7a79a43c72">More...</a><br /></td></tr>
 <tr class="separator:a1687b1db7cef5e67fa23aa7a79a43c72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeef38f5030cceaadff8f8a448688056c"><td class="memItemLeft" align="right" valign="top">static multi&lt; T, 4, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi__initializers_3_01multi_3_01T_00_014_00_014_01_4_00_01std_1_1enable__if__t_3_0db738ecdf089b1486b153b097ced8d28.html#aeef38f5030cceaadff8f8a448688056c">ortho</a> (T x0, T x1, T y0, T y1, T z0, T z1)</td></tr>
-<tr class="memdesc:aeef38f5030cceaadff8f8a448688056c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orthographic projection frustum.  <a href="#aeef38f5030cceaadff8f8a448688056c">More...</a><br /></td></tr>
+<tr class="memdesc:aeef38f5030cceaadff8f8a448688056c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orthographic projection.  <a href="#aeef38f5030cceaadff8f8a448688056c">More...</a><br /></td></tr>
 <tr class="separator:aeef38f5030cceaadff8f8a448688056c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2ca0df4983ec01c5d024e9dec74cede"><td class="memItemLeft" align="right" valign="top">static multi&lt; T, 4, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi__initializers_3_01multi_3_01T_00_014_00_014_01_4_00_01std_1_1enable__if__t_3_0db738ecdf089b1486b153b097ced8d28.html#ae2ca0df4983ec01c5d024e9dec74cede">persp</a> (T x0, T x1, T y0, T y1, T z0, T z1)</td></tr>
-<tr class="memdesc:ae2ca0df4983ec01c5d024e9dec74cede"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perspective projection frustum.  <a href="#ae2ca0df4983ec01c5d024e9dec74cede">More...</a><br /></td></tr>
+<tr class="memdesc:ae2ca0df4983ec01c5d024e9dec74cede"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perspective projection.  <a href="#ae2ca0df4983ec01c5d024e9dec74cede">More...</a><br /></td></tr>
 <tr class="separator:ae2ca0df4983ec01c5d024e9dec74cede"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef44ce8f691d5269fdf81b50220878e3"><td class="memItemLeft" align="right" valign="top">static multi&lt; T, 4, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1multi__initializers_3_01multi_3_01T_00_014_00_014_01_4_00_01std_1_1enable__if__t_3_0db738ecdf089b1486b153b097ced8d28.html#aef44ce8f691d5269fdf81b50220878e3">persp</a> (T f, T r, T z0, T z1)</td></tr>
 <tr class="memdesc:aef44ce8f691d5269fdf81b50220878e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perspective projection.  <a href="#aef44ce8f691d5269fdf81b50220878e3">More...</a><br /></td></tr>
@@ -447,7 +447,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Orthographic projection frustum. </p>
+<p>Orthographic projection. </p>
 <p class="formulaDsp">
 \[ \begin{bmatrix} 2 / (x1 - x0) &amp; 0 &amp; 0 &amp; -(x1 + x0) / (x1 - x0) \\ 0 &amp; 2 / (y1 - y0) &amp; 0 &amp; -(y1 + y0) / (y1 - y0) \\ 0 &amp; 0 &amp;-2 / (z1 - z0) &amp; -(z1 + z0) / (z1 - z0) \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \]
 </p>
@@ -526,7 +526,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Perspective projection frustum. </p>
+<p>Perspective projection. </p>
 <p class="formulaDsp">
 \[ \begin{bmatrix} 2 z_0 / (x_1 - x_0) &amp; 0 &amp; (x_1 + x_0) / (x_1 - x_0) &amp; 0 \\ 0 &amp; 2 z_0 / (y_1 - y_0) &amp; (y_1 + y_0) / (y_1 - y_0) &amp; 0 \\ 0 &amp; 0 &amp; -(z_1 + z_0) / (z_1 - z_0) &amp; -2 z_1 z_0 / (z_1 - z_0) \\ 0 &amp; 0 &amp; -1 &amp; 0 \end{bmatrix} \]
 </p>
