@@ -151,9 +151,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a6c496164b12d7c4b3f449f9ebca23c09"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classpr_1_1quat.html">quat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#a6c496164b12d7c4b3f449f9ebca23c09">rotation</a> (<a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a> phi, const multi&lt; <a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a>, 3 &gt; &amp;w)</td></tr>
-<tr class="memdesc:a6c496164b12d7c4b3f449f9ebca23c09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation.  <a href="#a6c496164b12d7c4b3f449f9ebca23c09">More...</a><br /></td></tr>
-<tr class="separator:a6c496164b12d7c4b3f449f9ebca23c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab96b5984972c61cad41503588a04a978"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classpr_1_1quat.html">quat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#ab96b5984972c61cad41503588a04a978">rotate</a> (<a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a> theta, const multi&lt; <a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a>, 3 &gt; &amp;hatv)</td></tr>
+<tr class="memdesc:ab96b5984972c61cad41503588a04a978"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate counter-clockwise about arbitrary axis.  <a href="#ab96b5984972c61cad41503588a04a978">More...</a><br /></td></tr>
+<tr class="separator:ab96b5984972c61cad41503588a04a978"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff71411816c427554ee3a998fe2341d0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classpr_1_1quat.html">quat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#aff71411816c427554ee3a998fe2341d0">slerp</a> (<a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a> mu, const <a class="el" href="classpr_1_1quat.html">quat</a> &amp;q0, const <a class="el" href="classpr_1_1quat.html">quat</a> &amp;q1, <a class="el" href="classpr_1_1quat.html">quat</a> *dq_dmu=nullptr)</td></tr>
 <tr class="memdesc:aff71411816c427554ee3a998fe2341d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spherical linear interpolation.  <a href="#aff71411816c427554ee3a998fe2341d0">More...</a><br /></td></tr>
 <tr class="separator:aff71411816c427554ee3a998fe2341d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -741,8 +741,8 @@ template&lt;typename U &gt; </div>
  
 </div>
 </div>
-<a id="a6c496164b12d7c4b3f449f9ebca23c09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c496164b12d7c4b3f449f9ebca23c09">&#9670;&nbsp;</a></span>rotation()</h2>
+<a id="ab96b5984972c61cad41503588a04a978"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab96b5984972c61cad41503588a04a978">&#9670;&nbsp;</a></span>rotate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -753,16 +753,16 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="classpr_1_1quat.html">quat</a> <a class="el" href="classpr_1_1quat.html">pr::quat</a>&lt; T &gt;::rotation </td>
+          <td class="memname">static <a class="el" href="classpr_1_1quat.html">quat</a> <a class="el" href="classpr_1_1quat.html">pr::quat</a>&lt; T &gt;::rotate </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a>&#160;</td>
-          <td class="paramname"><em>phi</em>, </td>
+          <td class="paramname"><em>theta</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const multi&lt; <a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a>, 3 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>w</em>&#160;</td>
+          <td class="paramname"><em>hatv</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -777,11 +777,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Rotation. </p>
+<p>Rotate counter-clockwise about arbitrary axis. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">phi</td><td>Radians.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">w</td><td>Normalized axis. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">phi</td><td>Angle in radians.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">hatv</td><td>Normalized rotation axis. </td></tr>
   </table>
   </dd>
 </dl>
