@@ -676,6 +676,17 @@ inline std::enable_if_t<
     };
 }
 
+/**@}*/
+
+} // namespace pr
+
+namespace pr {
+
+/**
+ * @addtogroup multi_math_geometry 
+ */
+/**@{*/
+
 /**
  * @brief Initializers for 2-dimensional floating point arrays.
  */
