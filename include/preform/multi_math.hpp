@@ -676,342 +676,130 @@ inline std::enable_if_t<
     };
 }
 
-/**@}*/
-
 /**
- * @defgroup multi_math_sampling Multi-dimensional array (math, sampling)
- *
- * `<preform/multi_math.hpp>`
- *
- * __C++ version__: >=C++17
- */
-/**@{*/
-
-/**
- * @brief Uniform disk probability density function.
- *
- * @f[
- *      f_{\text{disk}} = \frac{1}{\pi}
- * @f]
+ * @brief Initializers for 2-dimensional floating point arrays.
  */
 template <typename T>
-__attribute__((always_inline))
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> uniform_disk_pdf()
+struct multi_initializers<
+            multi<T, 2>,
+            std::enable_if_t<
+            std::is_floating_point<T>::value, void>>
 {
-    return pr::numeric_constants<T>::M_1_pi();
-}
-
-/**
- * @brief Uniform disk probability density function sampling routine.
- *
- * @f[
- *      \mathbf{P}_{\text{disk}}(\mathbf{u}) =
- *      \begin{bmatrix}
- *          r \cos{\theta}
- *      \\  r \sin{\theta}
- *      \end{bmatrix}
- * @f]
- * where
- * - @f$ u_{[0]}' \gets 2 u_{[0]} - 1 @f$
- * - If @f$ |u_{[0]}'| > |u_{[1]}| @f$:
- * @f[
- *      (r, \theta) =
- *          \left(u_{[0]}',
- *          \frac{\pi}{4}\frac{u_{[1]}}{u_{[0]}'}\right)
- * @f]
- * - If @f$ |u_{[0]}'| \le |u_{[1]}| @f$:
- * @f[
- *      (r, \theta) =
- *          \left(u_{[1]},
- *          \frac{\pi}{2} -
- *          \frac{\pi}{4}\frac{u_{[0]}'}{u_{[1]}}\right)
- * @f]
- *
- * @param[in] u
- * Sample in @f$ [0, 1)^2 @f$.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-                multi<T, 2>> uniform_disk_pdf_sample(multi<T, 2> u)
-{
-    u = 2 * u - 1;
-    if (u[0] == T(0) &&
-        u[1] == T(0)) {
-        return u;
+    /**
+     * @brief Uniform disk probability density function.
+     *
+     * @f[
+     *      f_{\text{disk}} = \frac{1}{\pi}
+     * @f]
+     */
+    static T uniform_disk_pdf()
+    {
+        return pr::numeric_constants<T>::M_1_pi();
     }
-    else {
-        T r;
-        T theta;
-        if (pr::fabs(u[0]) > pr::fabs(u[1])) {
-            r = u[0];
-            theta = pr::numeric_constants<T>::M_pi_4() * (u[1] / u[0]);
+
+    /**
+     * @brief Uniform disk probability density function sampling routine.
+     *
+     * @f[
+     *      \mathbf{P}_{\text{disk}}(\mathbf{u}) =
+     *      \begin{bmatrix}
+     *          r \cos{\theta}
+     *      \\  r \sin{\theta}
+     *      \end{bmatrix}
+     * @f]
+     * where
+     * - @f$ u_{[0]}' \gets 2 u_{[0]} - 1 @f$
+     * - If @f$ |u_{[0]}'| > |u_{[1]}| @f$:
+     * @f[
+     *      (r, \theta) =
+     *          \left(u_{[0]}',
+     *          \frac{\pi}{4}\frac{u_{[1]}}{u_{[0]}'}\right)
+     * @f]
+     * - If @f$ |u_{[0]}'| \le |u_{[1]}| @f$:
+     * @f[
+     *      (r, \theta) =
+     *          \left(u_{[1]},
+     *          \frac{\pi}{2} -
+     *          \frac{\pi}{4}\frac{u_{[0]}'}{u_{[1]}}\right)
+     * @f]
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     */
+    static multi<T, 2> uniform_disk_pdf_sample(multi<T, 2> u)
+    {
+        u = 2 * u - 1;
+        if (u[0] == T(0) &&
+            u[1] == T(0)) {
+            return u;
         }
         else {
-            r = u[1];
-            theta = pr::numeric_constants<T>::M_pi_4() * (u[0] / u[1]);
-            theta = pr::numeric_constants<T>::M_pi_2() - theta;
+            T r;
+            T theta;
+            if (pr::fabs(u[0]) > pr::fabs(u[1])) {
+                r = u[0];
+                theta = pr::numeric_constants<T>::M_pi_4() * (u[1] / u[0]);
+            }
+            else {
+                r = u[1];
+                theta = pr::numeric_constants<T>::M_pi_4() * (u[0] / u[1]);
+                theta = pr::numeric_constants<T>::M_pi_2() - theta;
+            }
+            return {
+                r * pr::cos(theta),
+                r * pr::sin(theta)
+            };
         }
-        return {
-            r * pr::cos(theta),
-            r * pr::sin(theta)
-        };
     }
-}
+};
 
 /**
- * @brief Uniform hemisphere probability density function.
- *
- * @f[
- *      f_{\text{hemisphere}} = \frac{1}{2\pi}
- * @f]
+ * @brief Initializers for 3-dimensional floating point arrays.
  */
 template <typename T>
-__attribute__((always_inline))
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> uniform_hemisphere_pdf()
+struct multi_initializers<
+            multi<T, 3>,
+            std::enable_if_t<
+            std::is_floating_point<T>::value, void>>
 {
-    return pr::numeric_constants<T>::M_1_pi() / 2;
-}
-
-/**
- * @brief Uniform hemisphere probability density function sampling routine.
- *
- * @f[
- *      \omega_{\text{hemisphere}}(\mathbf{u}) =
- *      \begin{bmatrix}
- *          \sqrt{1 - u_{[0]}^2} \cos(2\pi u_{[1]})
- *      \\  \sqrt{1 - u_{[0]}^2} \sin(2\pi u_{[1]})
- *      \\  u_{[0]}
- *      \end{bmatrix}
- * @f]
- *
- * @param[in] u
- * Sample in @f$ [0, 1)^2 @f$.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-                multi<T, 3>> uniform_hemisphere_pdf_sample(multi<T, 2> u)
-{
-    T cos_theta = u[0];
-    cos_theta = pr::fmax(cos_theta, T(0));
-    cos_theta = pr::fmin(cos_theta, T(1));
-    T sin_theta = pr::sqrt(1 - cos_theta * cos_theta);
-    T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
-    return {
-        sin_theta * pr::cos(phi),
-        sin_theta * pr::sin(phi),
-        cos_theta
-    };
-}
-
-/**
- * @brief Uniform sphere probability density function.
- *
- * @f[
- *      f_{\text{sphere}} = \frac{1}{4\pi}
- * @f]
- */
-template <typename T>
-__attribute__((always_inline))
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> uniform_sphere_pdf()
-{
-    return pr::numeric_constants<T>::M_1_pi() / T(4);
-}
-
-/**
- * @brief Uniform sphere probability density function sampling routine.
- *
- * @f[
- *      \omega_{\text{sphere}}(\mathbf{u}) =
- *      \begin{bmatrix}
- *          \sqrt{1 - (2u_{[0]} - 1)^2} \cos(2\pi u_{[1]})
- *      \\  \sqrt{1 - (2u_{[0]} - 1)^2} \sin(2\pi u_{[1]})
- *      \\  2u_{[0]} - 1
- *      \end{bmatrix}
- * @f]
- *
- * @param[in] u
- * Sample in @f$ [0, 1)^2 @f$.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-                multi<T, 3>> uniform_sphere_pdf_sample(multi<T, 2> u)
-{
-    T cos_theta = 2 * u[0] - 1;
-    cos_theta = pr::fmax(cos_theta, T(-1));
-    cos_theta = pr::fmin(cos_theta, T(+1));
-    T sin_theta = pr::sqrt(1 - cos_theta * cos_theta);
-    T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
-    return {
-        sin_theta * pr::cos(phi),
-        sin_theta * pr::sin(phi),
-        cos_theta
-    };
-}
-
-/**
- * @brief Cosine hemisphere probability density function.
- *
- * @f[
- *      f_{\text{cosine}}(\omega_{[2]}) = \frac{\omega_{[2]}}{\pi}
- * @f]
- *
- * @param[in] w2
- * Direction component.
- */
-template <typename T>
-__attribute__((always_inline))
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> cosine_hemisphere_pdf(T w2)
-{
-    return pr::numeric_constants<T>::M_1_pi() * w2;
-}
-
-/**
- * @brief Cosine hemisphere probability density function sampling routine.
- *
- * @f[
- *      \omega_{\text{cosine}}(\mathbf{u}) =
- *      \begin{bmatrix}
- *          P_{[0]}
- *      \\  P_{[1]}
- *      \\ \sqrt{1 - P_{[0]}^2 - P_{[1]}^2}
- *      \end{bmatrix}
- * @f]
- * where
- * @f[
- *      \mathbf{P} = \mathbf{P}_{\text{disk}}(\mathbf{u})
- * @f]
- *
- * @param[in] u
- * Sample in @f$ [0, 1)^2 @f$.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-                multi<T, 3>> cosine_hemisphere_pdf_sample(multi<T, 2> u)
-{
-    multi<T, 2> p = uniform_disk_pdf_sample(u);
-    return {
-        p[0],
-        p[1],
-        pr::sqrt(T(1) - pr::fmin(dot(p, p), T(1)))
-    };
-}
-
-/**
- * @brief Uniform cone probability density function.
- *
- * @f[
- *      f_{\text{cone}} =
- *      \frac{1}{2\pi} \frac{1}{1 - \cos(\theta_{\max})}
- * @f]
- *
- * @param[in] cos_thetamax
- * Cosine of cone angle maximum.
- */
-template <typename T>
-__attribute__((always_inline))
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> uniform_cone_pdf(T cos_thetamax)
-{
-    return pr::numeric_constants<T>::M_1_pi() / 2 / (1 - cos_thetamax);
-}
-
-/**
- * @brief Uniform cone probability density function sampling routine.
- *
- * @f[
- *      \omega_{\text{cone}}(\mathbf{u}) =
- *      \begin{bmatrix}
- *          \sqrt{1-(1-u_{[0]}+u_{[0]}\cos(\theta_{\max}))^2}\cos(2\pi u_{[1]})
- *      \\  \sqrt{1-(1-u_{[0]}+u_{[0]}\cos(\theta_{\max}))^2}\sin(2\pi u_{[1]})
- *      \\  1-u_{[0]}+u_{[0]}\cos(\theta_{\max})
- *      \end{bmatrix}
- * @f]
- *
- * @param[in] cos_thetamax
- * Cosine of cone angle maximum.
- *
- * @param[in] u
- * Sample in @f$ [0, 1)^2 @f$.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-                multi<T, 3>> uniform_cone_pdf_sample(
-                                        T cos_thetamax, multi<T, 2> u)
-{
-    T cos_theta = (1 - u[0]) + u[0] * cos_thetamax;
-    cos_theta = pr::fmax(cos_theta, T(-1));
-    cos_theta = pr::fmin(cos_theta, T(+1));
-    T sin_theta = pr::sqrt(1 - cos_theta * cos_theta);
-    T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
-    return {
-        sin_theta * pr::cos(phi),
-        sin_theta * pr::sin(phi),
-        cos_theta
-    };
-}
-
-/**
- * @brief Henyey-Greenstein phase probability density function.
- *
- * @f[
- *      f_{\text{HG}}(g; \omega_{[2]}) =
- *      \frac{1}{4\pi}\frac{1 - g^2}{(1 + g^2 - 2g\omega_{[2]})^{3/2}}
- * @f]
- *
- * @param[in] g
- * Parameter in @f$ (-1, 1) @f$.
- *
- * @param[in] w2
- * Direction component.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> hg_phase_pdf(T g, T w2)
-{
-    if (pr::fabs(g) < T(0.00001)) {
-        return uniform_sphere_pdf<T>();
+    /**
+     * @brief Uniform hemisphere probability density function.
+     *
+     * @f[
+     *      f_{\text{hemisphere}} = \frac{1}{2\pi}
+     * @f]
+     */
+    static T uniform_hemisphere_pdf()
+    {
+        return pr::numeric_constants<T>::M_1_pi() / 2;
     }
-    else {
-        T a = 1 - g * g;
-        T b = 1 + g * g - 2 * g * w2;
-        T b3_2 = pr::sqrt(b * b * b);
-        return T(0.25) * pr::numeric_constants<T>::M_1_pi() * (a / b3_2);
-    }
-}
 
-/**
- * @brief Henyey-Greenstein phase probability density function
- * sampling routine.
- *
- * @param[in] g
- * Parameter in @f$ (-1, 1) @f$.
- *
- * @param[in] u
- * Sample in @f$ [0, 1)^2 @f$.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-                multi<T, 3>> hg_phase_pdf_sample(T g, multi<T, 2> u)
-{
-    if (pr::fabs(g) < T(0.00001)) {
-        return uniform_sphere_pdf_sample(u);
-    }
-    else {
-        T tmp = (1 - g * g) / (1 - g + 2 * g * u[0]);
-        T cos_theta = (1 + g * g - tmp * tmp) / (2 * g);
-        cos_theta = pr::fmax(cos_theta, T(-1));
-        cos_theta = pr::fmin(cos_theta, T(+1));
-        T sin_theta = pr::sqrt(T(1) - cos_theta * cos_theta);
+    /**
+     * @brief Uniform hemisphere probability density function sampling routine.
+     *
+     * @f[
+     *      \omega_{\text{hemisphere}}(\mathbf{u}) =
+     *      \begin{bmatrix}
+     *          \sin(\theta) \cos(\phi)
+     *      \\  \sin(\theta) \sin(\phi)
+     *      \\  \cos(\theta)
+     *      \end{bmatrix}
+     * @f]
+     * where
+     * - @f$ \cos(\theta) \gets u_{[0]} @f$
+     * - @f$ \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} @f$
+     * - @f$ \phi \gets 2 \pi u_{[1]} @f$
+     *
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     */
+    static multi<T, 3> uniform_hemisphere_pdf_sample(multi<T, 2> u)
+    {
+        T cos_theta = u[0];
+        cos_theta = pr::fmax(cos_theta, T(0));
+        cos_theta = pr::fmin(cos_theta, T(1));
+        T sin_theta = pr::sqrt(1 - cos_theta * cos_theta);
         T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
         return {
             sin_theta * pr::cos(phi),
@@ -1019,7 +807,699 @@ inline std::enable_if_t<
             cos_theta
         };
     }
-}
+
+    /**
+     * @brief Uniform sphere probability density function.
+     *
+     * @f[
+     *      f_{\text{sphere}} = \frac{1}{4\pi}
+     * @f]
+     */
+    static T uniform_sphere_pdf()
+    {
+        return pr::numeric_constants<T>::M_1_pi() / T(4);
+    }
+
+    /**
+     * @brief Uniform sphere probability density function sampling routine.
+     *
+     * @f[
+     *      \omega_{\text{sphere}}(\mathbf{u}) =
+     *      \begin{bmatrix}
+     *          \sin(\theta) \cos(\phi)
+     *      \\  \sin(\theta) \sin(\phi)
+     *      \\  \cos(\theta)
+     *      \end{bmatrix}
+     * @f]
+     * where
+     * - @f$ \cos(\theta) \gets 2 u_{[0]} - 1 @f$
+     * - @f$ \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} @f$
+     * - @f$ \phi \gets 2 \pi u_{[1]} @f$
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     */
+    static multi<T, 3> uniform_sphere_pdf_sample(multi<T, 2> u)
+    {
+        T cos_theta = 2 * u[0] - 1;
+        cos_theta = pr::fmax(cos_theta, T(-1));
+        cos_theta = pr::fmin(cos_theta, T(+1));
+        T sin_theta = pr::sqrt(1 - cos_theta * cos_theta);
+        T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
+        return {
+            sin_theta * pr::cos(phi),
+            sin_theta * pr::sin(phi),
+            cos_theta
+        };
+    }
+
+    /**
+     * @brief Cosine hemisphere probability density function.
+     *
+     * @f[
+     *      f_{\text{cos}}(\omega_{[2]}) = \frac{\omega_{[2]}}{\pi}
+     * @f]
+     *
+     * @param[in] w2
+     * Direction component.
+     */
+    static T cosine_hemisphere_pdf(T w2)
+    {
+        return pr::numeric_constants<T>::M_1_pi() * w2;
+    }
+
+    /**
+     * @brief Cosine hemisphere probability density function sampling routine.
+     *
+     * @f[
+     *      \omega_{\text{cos}}(\mathbf{u}) =
+     *      \begin{bmatrix}
+     *          P_{[0]}
+     *      \\  P_{[1]}
+     *      \\ \sqrt{1 - P_{[0]}^2 - P_{[1]}^2}
+     *      \end{bmatrix}
+     * @f]
+     * where
+     * - @f$ \mathbf{P} = \mathbf{P}_{\text{disk}}(\mathbf{u}) @f$
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     */
+    static multi<T, 3> cosine_hemisphere_pdf_sample(multi<T, 2> u)
+    {
+        multi<T, 2> p = multi<T, 2>::uniform_disk_pdf_sample(u);
+        return {
+            p[0],
+            p[1],
+            pr::sqrt(T(1) - pr::fmin(dot(p, p), T(1)))
+        };
+    }
+
+    /**
+     * @brief Uniform cone probability density function.
+     *
+     * @f[
+     *      f_{\text{cone}} =
+     *      \frac{1}{2\pi} 
+     *      \frac{1}{1 - \cos(\theta_{\text{max}})}
+     * @f]
+     *
+     * @param[in] cos_thetamax
+     * Cosine of maximum cone angle.
+     */
+    static T uniform_cone_pdf(T cos_thetamax)
+    {
+        return pr::numeric_constants<T>::M_1_pi() / 2 / (1 - cos_thetamax);
+    }
+
+    /**
+     * @brief Uniform cone probability density function sampling routine.
+     *
+     * @f[
+     *      \omega_{\text{cone}}(\mathbf{u}) =
+     *      \begin{bmatrix}
+     *          \sin(\theta) \cos(\phi)
+     *      \\  \sin(\theta) \sin(\phi)
+     *      \\  \cos(\theta)
+     *      \end{bmatrix}
+     * @f]
+     * where
+     * - @f$ \cos(\theta) \gets 1 - u_{[0]} + u_{[0]} \cos(\theta_{\max}) @f$
+     * - @f$ \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} @f$
+     * - @f$ \phi \gets 2 \pi u_{[1]} @f$
+     *
+     * @param[in] cos_thetamax
+     * Cosine of maximum cone angle.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     */
+    static multi<T, 3> uniform_cone_pdf_sample(T cos_thetamax, multi<T, 2> u)
+    {
+        T cos_theta = (1 - u[0]) + u[0] * cos_thetamax;
+        cos_theta = pr::fmax(cos_theta, T(-1));
+        cos_theta = pr::fmin(cos_theta, T(+1));
+        T sin_theta = pr::sqrt(1 - cos_theta * cos_theta);
+        T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
+        return {
+            sin_theta * pr::cos(phi),
+            sin_theta * pr::sin(phi),
+            cos_theta
+        };
+    }
+
+    /**
+     * @brief Henyey-Greenstein phase probability density function.
+     *
+     * @f[
+     *      f_{\text{HG}}(\omega_{[2]}) =
+     *      \frac{1}{4\pi}
+     *      \frac{1 - g^2}{(1 + g^2 - 2g\omega_{[2]})^{3/2}}
+     * @f]
+     *
+     * @param[in] g
+     * Parameter in @f$ (-1, 1) @f$.
+     *
+     * @param[in] w2
+     * Direction component.
+     */
+    static T hg_phase_pdf(T g, T w2)
+    {
+        if (pr::fabs(g) < T(0.00001)) {
+            return uniform_sphere_pdf();
+        }
+        else {
+            T a = 1 - g * g;
+            T b = 1 + g * g - 2 * g * w2;
+            T b3_2 = pr::sqrt(b * b * b);
+            return T(0.25) * pr::numeric_constants<T>::M_1_pi() * (a / b3_2);
+        }
+    }
+
+    /**
+     * @brief Henyey-Greenstein phase probability density function
+     * sampling routine.
+     *
+     * @param[in] g
+     * Parameter in @f$ (-1, 1) @f$.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     */
+    static multi<T, 3> hg_phase_pdf_sample(T g, multi<T, 2> u)
+    {
+        if (pr::fabs(g) < T(0.00001)) {
+            return uniform_sphere_pdf_sample(u);
+        }
+        else {
+            T tmp = (1 - g * g) / (1 - g + 2 * g * u[0]);
+            T cos_theta = (1 + g * g - tmp * tmp) / (2 * g);
+            cos_theta = pr::fmax(cos_theta, T(-1));
+            cos_theta = pr::fmin(cos_theta, T(+1));
+            T sin_theta = pr::sqrt(T(1) - cos_theta * cos_theta);
+            T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
+            return {
+                sin_theta * pr::cos(phi),
+                sin_theta * pr::sin(phi),
+                cos_theta
+            };
+        }
+    }
+};
+
+/**
+ * @brief Initializers for 3x3-dimensional floating point arrays.
+ */
+template <typename T>
+struct multi_initializers<
+            multi<T, 3, 3>, 
+            std::enable_if_t<
+            std::is_floating_point<T>::value, void>>
+{
+    /**
+     * @brief Rotate counter-clockwise around arbitrary axis.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          v_x^2   (1 - \cos{\theta}) + \cos{\theta}
+     *      &   v_x v_y (1 - \cos{\theta}) - v_z \sin{\theta}
+     *      &   v_x v_z (1 - \cos{\theta}) + v_y \sin{\theta}
+     *      \\  v_x v_y (1 - \cos{\theta}) + v_z \cos{\theta}
+     *      &   v_y^2   (1 - \cos{\theta}) + \cos{\theta}
+     *      &   v_y v_z (1 - \cos{\theta}) - v_x \sin{\theta}
+     *      \\  v_x v_z (1 - \cos{\theta}) - v_y \sin{\theta}
+     *      &   v_y v_z (1 - \cos{\theta}) + v_x \sin{\theta}
+     *      &   v_z^2   (1 - \cos{\theta}) + \cos{\theta}
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] theta
+     * Angle in radians.
+     *
+     * @param[in] hatv
+     * Normalized rotation axis.
+     */
+    static multi<T, 3, 3> rotate(T theta, const multi<T, 3>& hatv)
+    {
+        T cos_theta = pr::cos(theta);
+        T sin_theta = pr::sin(theta);
+        T vx = hatv[0];
+        T vy = hatv[1];
+        T vz = hatv[2];
+        T vxvx = vx * vx, vxvy = vx * vy, vxvz = vx * vz;
+        T vyvy = vy * vy, vyvz = vy * vz;
+        T vzvz = vz * vz;
+        return {
+            {vxvx * (1 - cos_theta) + cos_theta,
+             vxvy * (1 - cos_theta) - vz * sin_theta,
+             vxvz * (1 - cos_theta) + vy * sin_theta},
+            {vxvy * (1 - cos_theta) + vz * sin_theta,
+             vyvy * (1 - cos_theta) + cos_theta,
+             vyvz * (1 - cos_theta) - vx * sin_theta},
+            {vxvz * (1 - cos_theta) - vy * sin_theta,
+             vyvz * (1 - cos_theta) + vx * sin_theta,
+             vzvz * (1 - cos_theta) + cos_theta}
+        };
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around X-axis.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          1 & 0 & 0
+     *      \\  0 & +\cos{\theta} & -\sin{\theta}
+     *      \\  0 & +\sin{\theta} & +\cos{\theta}
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    static multi<T, 3, 3> rotatex(T theta)
+    {
+        T cos_theta = pr::cos(theta);
+        T sin_theta = pr::sin(theta);
+        return {
+            {T(1), T(0), T(0)},
+            {T(0), +cos_theta, -sin_theta},
+            {T(0), +sin_theta, +cos_theta}
+        };
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around Y-axis.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          +\cos{\theta} & 0 & +\sin{\theta}
+     *      \\  0 & 1 & 0
+     *      \\  -\sin{\theta} & 0 & +\cos{\theta}
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    static multi<T, 3, 3> rotatey(T theta)
+    {
+        T cos_theta = pr::cos(theta);
+        T sin_theta = pr::sin(theta);
+        return {
+            {+cos_theta, T(0), +sin_theta},
+            {T(0), T(1), T(0)},
+            {-sin_theta, T(0), +cos_theta}
+        };
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around Z-axis.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          +\cos{\theta} & -\sin{\theta} & 0
+     *      \\  +\sin{\theta} & +\cos{\theta} & 0
+     *      \\  0 & 0 & 1
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    static multi<T, 3, 3> rotatez(T theta)
+    {
+        T cos_theta = pr::cos(theta);
+        T sin_theta = pr::sin(theta);
+        return {
+            {+cos_theta, -sin_theta, T(0)},
+            {+sin_theta, +cos_theta, T(0)},
+            {T(0), T(0), T(1)}
+        };
+    }
+
+    /**
+     * @brief Uniform scale.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          s & 0 & 0
+     *      \\  0 & s & 0
+     *      \\  0 & 0 & s
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] s
+     * Factor.
+     */
+    static multi<T, 3, 3> scale(T s)
+    {
+        return {
+            {s, T(0), T(0)},
+            {T(0), s, T(0)},
+            {T(0), T(0), s}
+        };
+    }
+
+    /**
+     * @brief Non-uniform scale.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          s_x & 0 & 0
+     *      \\  0 & s_y & 0
+     *      \\  0 & 0 & s_z
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] s
+     * Factor.
+     */
+    static multi<T, 3, 3> scale(multi<T, 3> s)
+    {
+        return {
+            {s[0], T(0), T(0)},
+            {T(0), s[1], T(0)},
+            {T(0), T(0), s[2]}
+        };
+    }
+};
+
+/**
+ * @brief Initializers for 4x4-dimensional floating point arrays.
+ */
+template <typename T>
+struct multi_initializers<
+            multi<T, 4, 4>, 
+            std::enable_if_t<
+            std::is_floating_point<T>::value, void>>
+{
+    /**
+     * @brief Translate.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          1 & 0 & 0 & v_x
+     *      \\  0 & 1 & 0 & v_y
+     *      \\  0 & 0 & 1 & v_z
+     *      \\  0 & 0 & 0 & 1
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] v
+     * Displacement vector.
+     */
+    static multi<T, 4, 4> translate(multi<T, 3> v)
+    {
+        return {
+            {T(1), T(0), T(0), v[0]},
+            {T(0), T(1), T(0), v[1]},
+            {T(0), T(0), T(1), v[2]},
+            {T(0), T(0), T(0), T(1)}
+        };
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around arbitrary axis.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          v_x^2   (1 - \cos{\theta}) + \cos{\theta}
+     *      &   v_x v_y (1 - \cos{\theta}) - v_z \sin{\theta}
+     *      &   v_x v_z (1 - \cos{\theta}) + v_y \sin{\theta}
+     *      &   0
+     *      \\  v_x v_y (1 - \cos{\theta}) + v_z \cos{\theta}
+     *      &   v_y^2   (1 - \cos{\theta}) + \cos{\theta}
+     *      &   v_y v_z (1 - \cos{\theta}) - v_x \sin{\theta}
+     *      &   0
+     *      \\  v_x v_z (1 - \cos{\theta}) - v_y \sin{\theta}
+     *      &   v_y v_z (1 - \cos{\theta}) + v_x \sin{\theta}
+     *      &   v_z^2   (1 - \cos{\theta}) + \cos{\theta}
+     *      &   0
+     *      \\  0 & 0 & 0 & 1
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] theta
+     * Angle in radians.
+     *
+     * @param[in] hatv
+     * Normalized rotation axis.
+     */
+    static multi<T, 4, 4> rotate(T theta, multi<T, 3> hatv)
+    {
+        // Delegate.
+        multi<T, 4, 4> res = 
+        multi<T, 3, 3>::rotate(theta, hatv);
+        res[3][3] = 1;
+        return res;
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around X-axis.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          1 & 0 & 0 & 0
+     *      \\  0 & +\cos{\theta} & -\sin{\theta} & 0
+     *      \\  0 & +\sin{\theta} & +\cos{\theta} & 0
+     *      \\  0 & 0 & 0 & 1
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    static multi<T, 4, 4> rotatex(T theta)
+    {
+        // Delegate.
+        multi<T, 4, 4> res = 
+        multi<T, 3, 3>::rotatex(theta);
+        res[3][3] = 1;
+        return res;
+    }
+    
+    /**
+     * @brief Rotate counter-clockwise around Y-axis.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          +\cos{\theta} & 0 & +\sin{\theta} & 0
+     *      \\  0 & 1 & 0 & 0
+     *      \\  -\sin{\theta} & 0 & +\cos{\theta} & 0
+     *      \\  0 & 0 & 0 & 1
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    static multi<T, 4, 4> rotatey(T theta)
+    {
+        // Delegate.
+        multi<T, 4, 4> res = 
+        multi<T, 3, 3>::rotatey(theta);
+        res[3][3] = 1;
+        return res;
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around Z-axis.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          +\cos{\theta} & -\sin{\theta} & 0 & 0
+     *      \\  +\sin{\theta} & +\cos{\theta} & 0 & 0
+     *      \\  0 & 0 & 1 & 0
+     *      \\  0 & 0 & 0 & 1
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    static multi<T, 4, 4> rotatez(T theta)
+    {
+        // Delegate.
+        multi<T, 4, 4> res = 
+        multi<T, 3, 3>::rotatez(theta);
+        res[3][3] = 1;
+        return res;
+    }
+
+    /**
+     * @brief Look-at transform.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          \hat{\mathbf{x}}^\top
+     *      &  -\hat{\mathbf{x}}^\top \mathbf{p}_{\text{from}}
+     *      \\  \hat{\mathbf{y}}^\top
+     *      &  -\hat{\mathbf{y}}^\top \mathbf{p}_{\text{from}}
+     *      \\  \hat{\mathbf{z}}^\top
+     *      &  -\hat{\mathbf{z}}^\top \mathbf{p}_{\text{from}}
+     *      \\  \mathbf{0}^\top & 1
+     *      \end{bmatrix}
+     * @f]
+     * where
+     * - @f$ \mathbf{z}\gets\mathbf{p}_{\text{from}}-\mathbf{p}_{\text{to}} @f$
+     * - @f$ \mathbf{x}\gets\mathbf{v}_{\text{up}}\times\mathbf{z} @f$
+     * - @f$ \hat{\mathbf{z}}\gets\operatorname{normalize}(\mathbf{z}) @f$
+     * - @f$ \hat{\mathbf{x}}\gets\operatorname{normalize}(\mathbf{x}) @f$
+     * - @f$ \hat{\mathbf{y}}\gets\hat{\mathbf{z}}\times\hat{\mathbf{x}} @f$
+     *
+     * @param[in] pfrom
+     * Look-from point.
+     *
+     * @param[in] pto
+     * Look-to point.
+     *
+     * @param[in] vup
+     * Up vector.
+     *
+     * @note
+     * This implementation is consistent with OpenGL conventions.
+     */
+    static multi<T, 4, 4> lookat(
+                const multi<T, 3>& pfrom, 
+                const multi<T, 3>& pto,
+                const multi<T, 3>& vup)
+    {
+        multi<T, 3> z = pfrom - pto;
+        multi<T, 3> x = cross(vup, z);
+        multi<T, 3> hatz = normalize(z);
+        multi<T, 3> hatx = normalize(x);
+        multi<T, 3> haty = cross(hatz, hatx);
+        return {
+            {hatx[0], hatx[1], hatx[2], -dot(hatx, pfrom)},
+            {haty[0], haty[1], haty[2], -dot(haty, pfrom)},
+            {hatz[0], hatz[1], hatz[2], -dot(hatz, pfrom)},
+            {T(0), T(0), T(0), T(1)}
+        };
+    }
+
+    /**
+     * @brief Orthographic projection frustum.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          2 / (x1 - x0) & 0 & 0 & -(x1 + x0) / (x1 - x0)
+     *      \\  0 & 2 / (y1 - y0) & 0 & -(y1 + y0) / (y1 - y0)
+     *      \\  0 & 0 &-2 / (z1 - z0) & -(z1 + z0) / (z1 - z0)
+     *      \\  0 & 0 & 0 & 1
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] x0
+     * Frustum X-coordinate 0.
+     *
+     * @param[in] x1
+     * Frustum X-coordinate 1.
+     *
+     * @param[in] y0
+     * Frustum Y-coordinate 0.
+     *
+     * @param[in] y1
+     * Frustum Y-coordinate 1.
+     *
+     * @param[in] z0
+     * Frustum Z-coordinate 0.
+     *
+     * @Param[in] z1
+     * Frustum Z-coordinate 1.
+     *
+     * @note
+     * This implementation is consistent with OpenGL conventions.
+     */
+    static multi<T, 4, 4> ortho(T x0, T x1, T y0, T y1, T z0, T z1)
+    {
+        multi<T, 4, 4> res;
+        res[0][0] = 2 / (x1 - x0); res[0][3] = -(x1 + x0) / (x1 - x0);
+        res[1][1] = 2 / (y1 - y0); res[1][3] = -(y1 + y0) / (y1 - y0);
+        res[2][2] =-2 / (z1 - z0); res[2][3] = -(z1 + z0) / (z1 - z0);
+        res[3][3] = 1;
+        return res;
+    }
+
+    /**
+     * @brief Perspective projection frustum.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          2 z_0 / (x_1 - x_0) & 0 & (x_1 + x_0) / (x_1 - x_0) & 0
+     *      \\  0 & 2 z_0 / (y_1 - y_0) & (y_1 + y_0) / (y_1 - y_0) & 0
+     *      \\  0 & 0 & -(z_1 + z_0) / (z_1 - z_0) & -2 z_1 z_0 / (z_1 - z_0)
+     *      \\  0 & 0 & -1 & 0
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] x0
+     * Frustum X-coordinate 0 at Z-coordinate 0.
+     *
+     * @param[in] x1
+     * Frustum X-coordinate 1 at Z-coordinate 0.
+     *
+     * @param[in] y0
+     * Frustum Y-coordinate 0 at Z-coordinate 0.
+     *
+     * @param[in] y1
+     * Frustum Y-coordinate 1 at Z-coordinate 0.
+     *
+     * @param[in] z0
+     * Frustum Z-coordinate 0.
+     *
+     * @param[in] z1
+     * Frustum Z-coordinate 1.
+     *
+     * @note
+     * This implementation is consistent with OpenGL conventions.
+     */
+    static multi<T, 4, 4> persp(T x0, T x1, T y0, T y1, T z0, T z1)
+    {
+        multi<T, 4, 4> res;
+        res[0][0] = 2 * z0 / (x1 - x0); res[0][2] = (x1 + x0) / (x1 - x0);
+        res[1][1] = 2 * z0 / (y1 - y0); res[1][2] = (y1 + y0) / (y1 - y0);
+        res[2][2] = -(z1 + z0) / (z1 - z0);
+        res[2][3] = -2 * z1 * z0 / (z1 - z0);
+        res[3][2] = -1;
+        return res;
+    }
+
+    /**
+     * @brief Perspective projection.
+     *
+     * @f[
+     *      \begin{bmatrix}
+     *          \cot(f / 2) / r & 0 & 0 & 0
+     *      \\  0 & \cot(f / 2) & 0 & 0
+     *      \\  0 & 0 & -(z_1 + z_0) / (z_1 - z_0) & -2 z_1 z_0 / (z_1 - z_0)
+     *      \\  0 & 0 & -1 & 0
+     *      \end{bmatrix}
+     * @f]
+     *
+     * @param[in] f
+     * Frustum Y-FOV in radians.
+     *
+     * @param[in] r
+     * Frustum X-to-Y ratio.
+     *
+     * @param[in] z0
+     * Frustum Z-coordinate 0.
+     *
+     * @param[in] z1
+     * Frustum Z-coordinate 1.
+     */
+    static multi<T, 4, 4> persp(T f, T r, T z0, T z1)
+    {
+        multi<T, 4, 4> res;
+        T cot_f_2 = pr::cot(f * T(0.5));
+        res[0][0] = cot_f_2 / r;
+        res[1][1] = cot_f_2;
+        res[2][2] = -(z1 + z0) / (z1 - z0);
+        res[2][3] = -2 * z1 * z0 / (z1 - z0);
+        res[3][2] = -1;
+        return res;
+    }
+};
 
 /**@}*/
 

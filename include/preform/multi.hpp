@@ -116,11 +116,16 @@ struct is_multi<multi<T, N...>> : std::true_type
 
 #endif // #if !DOXYGEN
 
+template <typename T, typename = void>
+struct multi_initializers
+{
+};
+
 /**
  * @brief Multi-dimensional array.
  */
 template <typename T, std::size_t M, std::size_t... N>
-struct multi<T, M, N...>
+struct multi<T, M, N...> : multi_initializers<multi<T, M, N...>>
 {
 public:
 

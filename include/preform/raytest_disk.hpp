@@ -336,7 +336,8 @@ public:
             phimax_ == 2 * pr::numeric_constants<float_type>::M_pi()) {
 
             // Uniform disk sample using concentric mapping.
-            multi<float_type, 2> p = uniform_disk_pdf_sample(u);
+            multi<float_type, 2> p = 
+            multi<float_type, 2>::uniform_disk_pdf_sample(u);
 
             // Compute sweep angle.
             float_type phi = 0;
