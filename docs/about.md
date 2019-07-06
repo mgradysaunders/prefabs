@@ -77,4 +77,4 @@ only suitable for use with `g++`, as it depends on the availability
 `libquadmath` and the associated GNU extensions for quadruple precision 
 floating point literals. That is, to successfully compile code using
 `preform/quadmath.hpp`, you must compile with `-std=gnu++14` 
-(or `-std=gnu++17`) and link with `-lquadmath`.
+(or `-std=gnu++17`, or any newer standard) and link with `-lquadmath`.
