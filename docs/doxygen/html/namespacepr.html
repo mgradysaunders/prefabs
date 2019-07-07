@@ -116,6 +116,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1bspline__patch.html">bspline_patch</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">B-spline patch.  <a href="classpr_1_1bspline__patch.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1byte__stream__wrapper.html">byte_stream_wrapper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte stream wrapper.  <a href="structpr_1_1byte__stream__wrapper.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dense iterator.  <a href="classpr_1_1dense__iterator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -629,6 +632,14 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:ga713f3755abaa3ee29da5faa4664409b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bash format enum.  <a href="group__bash__format.html#ga713f3755abaa3ee29da5faa4664409b5">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:ga713f3755abaa3ee29da5faa4664409b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad92b89eb701935a3c5b02b530a02c076"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__byte__order.html#gad92b89eb701935a3c5b02b530a02c076">byte_order</a> { <br />
+&#160;&#160;<a class="el" href="group__byte__order.html#ggad92b89eb701935a3c5b02b530a02c076aaae6635e044ac56046b2893a529b5114">byte_order::little</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__byte__order.html#ggad92b89eb701935a3c5b02b530a02c076ad861877da56b8b4ceb35c8cbfdf65bb4">byte_order::big</a>
+<br />
+ }<tr class="memdesc:gad92b89eb701935a3c5b02b530a02c076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte order.  <a href="group__byte__order.html#gad92b89eb701935a3c5b02b530a02c076">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gad92b89eb701935a3c5b02b530a02c076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga09c109ef2e17c54f12210b6f7c805905"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> : int { <br />
 &#160;&#160;<a class="el" href="group__color.html#gga09c109ef2e17c54f12210b6f7c805905a25d902c24283ab8cfbac54dfa101ad31">composite_mode::src</a>, 
 <br />
@@ -657,14 +668,6 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:ga09c109ef2e17c54f12210b6f7c805905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite modes.  <a href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:ga09c109ef2e17c54f12210b6f7c805905"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga436fb0acd392a3993e4589e812796da8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__endian.html#ga436fb0acd392a3993e4589e812796da8">endian</a> { <br />
-&#160;&#160;<a class="el" href="group__endian.html#gga436fb0acd392a3993e4589e812796da8aaae6635e044ac56046b2893a529b5114">endian::little</a>, 
-<br />
-&#160;&#160;<a class="el" href="group__endian.html#gga436fb0acd392a3993e4589e812796da8ad861877da56b8b4ceb35c8cbfdf65bb4">endian::big</a>
-<br />
- }<tr class="memdesc:ga436fb0acd392a3993e4589e812796da8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endianness.  <a href="group__endian.html#ga436fb0acd392a3993e4589e812796da8">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ga436fb0acd392a3993e4589e812796da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -672,16 +675,23 @@ Functions</h2></td></tr>
 <tr class="memitem:ga22babe46d6f1b41c6e4644732aaeb842"><td class="memTemplItemLeft" align="right" valign="top">std::basic_ostream&lt; C, Ctraits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__bash__format.html#ga22babe46d6f1b41c6e4644732aaeb842">operator&lt;&lt;</a> (std::basic_ostream&lt; C, Ctraits &gt; &amp;os, <a class="el" href="group__bash__format.html#ga713f3755abaa3ee29da5faa4664409b5">bash_format</a> fmt)</td></tr>
 <tr class="memdesc:ga22babe46d6f1b41c6e4644732aaeb842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write into <code>std::basic_ostream</code>.  <a href="group__bash__format.html#ga22babe46d6f1b41c6e4644732aaeb842">More...</a><br /></td></tr>
 <tr class="separator:ga22babe46d6f1b41c6e4644732aaeb842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c14df9cb61012c7a4e44c317e3d2014"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__byte__order.html#ga5c14df9cb61012c7a4e44c317e3d2014">to_string</a> (<a class="el" href="group__byte__order.html#gad92b89eb701935a3c5b02b530a02c076">byte_order</a> order)</td></tr>
+<tr class="memdesc:ga5c14df9cb61012c7a4e44c317e3d2014"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte order to string.  <a href="group__byte__order.html#ga5c14df9cb61012c7a4e44c317e3d2014">More...</a><br /></td></tr>
+<tr class="separator:ga5c14df9cb61012c7a4e44c317e3d2014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8e0fe61919ea9086e9b564183257ec6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__byte__order.html#gad92b89eb701935a3c5b02b530a02c076">byte_order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__byte__order.html#gae8e0fe61919ea9086e9b564183257ec6">host_byte_order</a> ()</td></tr>
+<tr class="memdesc:gae8e0fe61919ea9086e9b564183257ec6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Host byte order.  <a href="group__byte__order.html#gae8e0fe61919ea9086e9b564183257ec6">More...</a><br /></td></tr>
+<tr class="separator:gae8e0fe61919ea9086e9b564183257ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9d048468afeb1d5ea0804c91a5fd5a0a"><td class="memTemplParams" colspan="2">template&lt;typename Tstream &gt; </td></tr>
+<tr class="memitem:ga9d048468afeb1d5ea0804c91a5fd5a0a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1byte__stream__wrapper.html">byte_stream_wrapper</a>&lt; Tstream &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__byte__order.html#ga9d048468afeb1d5ea0804c91a5fd5a0a">byte_stream</a> (Tstream &amp;ref, bool rev)</td></tr>
+<tr class="memdesc:ga9d048468afeb1d5ea0804c91a5fd5a0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make byte stream.  <a href="group__byte__order.html#ga9d048468afeb1d5ea0804c91a5fd5a0a">More...</a><br /></td></tr>
+<tr class="separator:ga9d048468afeb1d5ea0804c91a5fd5a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c56a23a109f627e6803eac87bc22319"><td class="memTemplParams" colspan="2">template&lt;typename Tstream &gt; </td></tr>
+<tr class="memitem:ga0c56a23a109f627e6803eac87bc22319"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1byte__stream__wrapper.html">byte_stream_wrapper</a>&lt; Tstream &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__byte__order.html#ga0c56a23a109f627e6803eac87bc22319">byte_stream</a> (Tstream &amp;ref, <a class="el" href="group__byte__order.html#gad92b89eb701935a3c5b02b530a02c076">byte_order</a> ord)</td></tr>
+<tr class="memdesc:ga0c56a23a109f627e6803eac87bc22319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make byte stream.  <a href="group__byte__order.html#ga0c56a23a109f627e6803eac87bc22319">More...</a><br /></td></tr>
+<tr class="separator:ga0c56a23a109f627e6803eac87bc22319"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac8c7ffc6449a317efafbf42fe99a6d72"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__color.html#gac8c7ffc6449a317efafbf42fe99a6d72">to_string</a> (<a class="el" href="group__color.html#ga09c109ef2e17c54f12210b6f7c805905">composite_mode</a> mode)</td></tr>
 <tr class="memdesc:gac8c7ffc6449a317efafbf42fe99a6d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite mode to string.  <a href="group__color.html#gac8c7ffc6449a317efafbf42fe99a6d72">More...</a><br /></td></tr>
 <tr class="separator:gac8c7ffc6449a317efafbf42fe99a6d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab3a4a39f6716202507052ba68a9cb668"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__endian.html#ga436fb0acd392a3993e4589e812796da8">endian</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__endian.html#gab3a4a39f6716202507052ba68a9cb668">host_endian</a> ()</td></tr>
-<tr class="memdesc:gab3a4a39f6716202507052ba68a9cb668"><td class="mdescLeft">&#160;</td><td class="mdescRight">Host endianness.  <a href="group__endian.html#gab3a4a39f6716202507052ba68a9cb668">More...</a><br /></td></tr>
-<tr class="separator:gab3a4a39f6716202507052ba68a9cb668"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga52dc54e9c56092609c0bd5cabf9dfdfc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga52dc54e9c56092609c0bd5cabf9dfdfc"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__endian.html#ga52dc54e9c56092609c0bd5cabf9dfdfc">endian_format</a> (T &amp;st, <a class="el" href="group__endian.html#ga436fb0acd392a3993e4589e812796da8">endian</a> en)</td></tr>
-<tr class="memdesc:ga52dc54e9c56092609c0bd5cabf9dfdfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endian format.  <a href="group__endian.html#ga52dc54e9c56092609c0bd5cabf9dfdfc">More...</a><br /></td></tr>
-<tr class="separator:ga52dc54e9c56092609c0bd5cabf9dfdfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafe4bd4df640c6431e1e56008b8427467"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gafe4bd4df640c6431e1e56008b8427467"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__fresnel.html#gafe4bd4df640c6431e1e56008b8427467">fresnel_dielectric</a> (T eta, T cos_thetai, T &amp;cos_thetat, T &amp;rs, T &amp;rp, T &amp;ts, T &amp;tp)</td></tr>
 <tr class="memdesc:gafe4bd4df640c6431e1e56008b8427467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fresnel equations for dielectric interface.  <a href="group__fresnel.html#gafe4bd4df640c6431e1e56008b8427467">More...</a><br /></td></tr>
