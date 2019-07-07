@@ -365,7 +365,7 @@ public:
     /**
      * @brief Rotate counter-clockwise about arbitrary axis.
      *
-     * @param[in] phi
+     * @param[in] theta
      * Angle in radians.
      *
      * @param[in] hatv
@@ -767,20 +767,20 @@ private:
 public:
 
     /**
-     * @brief Rotation.
+     * @brief Rotate counter-clockwise about arbitrary axis.
      *
-     * @param[in] phi
-     * Radians.
+     * @param[in] theta
+     * Angle in radians.
      *
-     * @param[in] w
-     * Normalized axis.
+     * @param[in] hatv
+     * Normalized rotation axis.
      */
     static quat rotation(
-                float_type phi,
-                const multi<float_type, 3>& w)
+                float_type theta,
+                const multi<float_type, 3>& hatv)
     {
         return {
-            quat<float_type>::rotation(phi, w),
+            quat<float_type>::rotate(theta, hatv),
             quat<float_type>()
         };
     }
