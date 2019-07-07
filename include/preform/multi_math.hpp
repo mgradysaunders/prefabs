@@ -680,6 +680,7 @@ inline std::enable_if_t<
 
 } // namespace pr
 
+// Math initializers, possible move to separate file?
 namespace pr {
 
 /**
