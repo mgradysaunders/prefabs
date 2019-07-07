@@ -437,7 +437,7 @@ constexpr std::enable_if_t<
 /**
  * @brief Sized int type selector.
  *
- * Defines member type `type` to be the smallest signed integral 
+ * Defines member type `type` to be the smallest signed integral
  * type occupying at least `Nbytes`, or `void` if no such type exists.
  *
  * @tparam Nbytes
@@ -449,7 +449,7 @@ struct sized_int;
 /**
  * @brief Sized unsigned int type selector.
  *
- * Defines member type `type` to be the smallest unsigned integral 
+ * Defines member type `type` to be the smallest unsigned integral
  * type occupying at least `Nbytes`, or `void` if no such type exists.
  *
  * @tparam Nbytes

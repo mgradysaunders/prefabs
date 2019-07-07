@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -362,8 +362,8 @@ public:
      * - @f$ b_1 \gets \mu_1 @f$
      * - @f$ b_2 \gets \mu_0 - \mu_1 @f$
      * @f[
-     *      \mathbf{p}_{\text{hit}}(\mathbf{u}) = 
-     *          b_0 \mathbf{p}_0 + 
+     *      \mathbf{p}_{\text{hit}}(\mathbf{u}) =
+     *          b_0 \mathbf{p}_0 +
      *          b_1 \mathbf{p}_1 +
      *          b_2 \mathbf{p}_2
      * @f]
@@ -389,7 +389,7 @@ public:
      * - @f$ \mathbf{q}_1 \gets \mathbf{p}_1 - \mathbf{p}_0 @f$
      * - @f$ \mathbf{q}_2 \gets \mathbf{p}_2 - \mathbf{p}_0 @f$
      * - @f$ \mathbf{v}_g \gets \mathbf{q}_1 \times \mathbf{q}_2 @f$
-     * - @f$ \mathbf{v}_i \gets 
+     * - @f$ \mathbf{v}_i \gets
      *       \mathbf{p}_{\text{hit}} - \mathbf{p}_{\text{ref}} @f$
      * - @f$ \omega_i \gets \normalize(\mathbf{v}_i) @f$
      * - @f$ \omega_g \gets \normalize(\mathbf{v}_g) @f$
@@ -397,8 +397,8 @@ public:
      * @f[
      *      f_{\omega}(
      *          \mathbf{p}_{\text{ref}} \to
-     *          \mathbf{p}_{\text{hit}}) = 
-     *          \frac{1}{A} 
+     *          \mathbf{p}_{\text{hit}}) =
+     *          \frac{1}{A}
      *          \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|}
      *               {|\omega_i \cdot \omega_g|} =
      *          \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|^{3/2}}
@@ -412,7 +412,7 @@ public:
      * Hit point.
      *
      * @note
-     * For efficiency, the implementation assumes 
+     * For efficiency, the implementation assumes
      * @f$ \mathbf{p}_{\text{hit}} @f$ is actually on the surface.
      */
     float_type solid_angle_pdf(
@@ -430,8 +430,8 @@ public:
             return 0;
         }
         else {
-            return dot_vi_vi * 
-                pr::sqrt(dot_vi_vi) / 
+            return dot_vi_vi *
+                pr::sqrt(dot_vi_vi) /
                 pr::fabs(dot_vi_vg);
         }
     }

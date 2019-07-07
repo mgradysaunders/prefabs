@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -159,7 +159,7 @@ public:
     {
     }
 
-    // TODO 
+    // TODO
 #if 0
     constexpr explicit quat(const multi<value_type, 3, 3>& x)
     {
@@ -248,8 +248,8 @@ public:
      * @brief Cast as matrix.
      *
      * @f[
-     *      \mathbf{M} = 
-     *          s^2 \mathbf{I} + 
+     *      \mathbf{M} =
+     *          s^2 \mathbf{I} +
      *          2 s \mathbf{v}_{\times} +
      *              \mathbf{v}_{\times}^2 +
      *              \mathbf{v} \mathbf{v}^\top
@@ -328,11 +328,11 @@ public:
      * @brief Apply transform operator.
      *
      * @f[
-     *      q(\mathbf{u}) 
-     *      = q \mathbf{u} q^\dagger 
+     *      q(\mathbf{u})
+     *      = q \mathbf{u} q^\dagger
      *      = s^2 \mathbf{u} +
      *        2 s \mathbf{v} \times \mathbf{u} +
-     *        \mathbf{v} \times 
+     *        \mathbf{v} \times
      *        \mathbf{v} \times \mathbf{u} +
      *        \mathbf{v} \mathbf{v}^\top \mathbf{u}
      * @f]
@@ -372,7 +372,7 @@ public:
      * Normalized rotation axis.
      */
     static quat rotate(
-                value_type theta, 
+                value_type theta,
                 const multi<value_type, 3>& hatv)
     {
         return {
@@ -535,7 +535,7 @@ public:
     {
     }
 
-    // TODO 
+    // TODO
 #if 0
     constexpr explicit quat(const multi<float_type, 4, 4>& x)
     {
@@ -662,7 +662,7 @@ public:
      * @brief Dual conjugate.
      *
      * @f[
-     *      q^\circ 
+     *      q^\circ
      *      = s^\circ + \mathbf{v}^\circ
      *      = a - \varepsilon b
      * @f]
@@ -776,7 +776,7 @@ public:
      * Normalized axis.
      */
     static quat rotation(
-                float_type phi, 
+                float_type phi,
                 const multi<float_type, 3>& w)
     {
         return {
@@ -873,7 +873,7 @@ __attribute__((always_inline))
 constexpr quat<T> operator+(const quat<T>& q)
 {
     return {
-        +q.real(), 
+        +q.real(),
         +q.imag()
     };
 }
@@ -886,7 +886,7 @@ __attribute__((always_inline))
 constexpr quat<T> operator-(const quat<T>& q)
 {
     return {
-        -q.real(), 
+        -q.real(),
         -q.imag()
     };
 }
@@ -913,7 +913,7 @@ constexpr quat<decltype(T() + U())> operator+(
                         const quat<T>& q0, const quat<U>& q1)
 {
     return {
-        q0.real() + q1.real(), 
+        q0.real() + q1.real(),
         q0.imag() + q1.imag()
     };
 }
@@ -933,7 +933,7 @@ constexpr quat<decltype(T() - U())> operator-(
                         const quat<T>& q0, const quat<U>& q1)
 {
     return {
-        q0.real() - q1.real(), 
+        q0.real() - q1.real(),
         q0.imag() - q1.imag()
     };
 }
@@ -997,7 +997,7 @@ constexpr std::enable_if_t<
                                     const quat<T>& q0, const U& q1)
 {
     return {
-        q0.real() + q1, 
+        q0.real() + q1,
         q0.imag()
     };
 }
@@ -1017,7 +1017,7 @@ constexpr std::enable_if_t<
                                     const quat<T>& q0, const U& q1)
 {
     return {
-        q0.real() - q1, 
+        q0.real() - q1,
         q0.imag()
     };
 }
@@ -1037,7 +1037,7 @@ constexpr std::enable_if_t<
                                     const quat<T>& q0, const U& q1)
 {
     return {
-        q0.real() * q1, 
+        q0.real() * q1,
         q0.imag() * q1
     };
 }
@@ -1053,7 +1053,7 @@ constexpr std::enable_if_t<
                                     const quat<T>& q0, const U& q1)
 {
     return {
-        q0.real() / q1, 
+        q0.real() / q1,
         q0.imag() / q1
     };
 }
@@ -1080,7 +1080,7 @@ constexpr std::enable_if_t<
                                     const T& q0, const quat<U>& q1)
 {
     return {
-        q0 + q1.real(), 
+        q0 + q1.real(),
              q1.imag()
     };
 }
@@ -1100,7 +1100,7 @@ constexpr std::enable_if_t<
                                     const T& q0, const quat<U>& q1)
 {
     return {
-        q0 - q1.real(), 
+        q0 - q1.real(),
            - q1.imag()
     };
 }
@@ -1120,7 +1120,7 @@ constexpr std::enable_if_t<
                                     const T& q0, const quat<U>& q1)
 {
     return {
-        q0 * q1.real(), 
+        q0 * q1.real(),
         q0 * q1.imag()
     };
 }

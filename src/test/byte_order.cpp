@@ -13,7 +13,7 @@ int main(int argc, char** argv)
     // Option parser.
     pr::option_parser opt_parser("[OPTIONS]");
 
-    // Specify write byte order. 
+    // Specify write byte order.
     opt_parser.on_option(
     "-w", "--write-order", 1,
     [&](char** argv) {
@@ -29,16 +29,16 @@ int main(int argc, char** argv)
             }
         }
         catch (const std::exception&) {
-            throw 
+            throw
                 std::runtime_error(
                 std::string("-w/--write-order expects 'little' or 'big' ")
                     .append("(can't parse ").append(argv[0])
                     .append(")"));
         }
-    }) 
+    })
     << "Specify write byte order. By default, little.\n";
 
-    // Specify read byte order. 
+    // Specify read byte order.
     opt_parser.on_option(
     "-r", "--read-order", 1,
     [&](char** argv) {
@@ -54,13 +54,13 @@ int main(int argc, char** argv)
             }
         }
         catch (const std::exception&) {
-            throw 
+            throw
                 std::runtime_error(
                 std::string("-r/--read-order expects 'little' or 'big' ")
                     .append("(can't parse ").append(argv[0])
                     .append(")"));
         }
-    }) 
+    })
     << "Specify read endianness. By default, little.\n";
 
     // Specify filename.
@@ -94,7 +94,7 @@ int main(int argc, char** argv)
     std::cout << "Host byte order " << pr::to_string(pr::host_byte_order());
     std::cout << "\n\n";
     std::cout.flush();
-    
+
     std::cout << std::hex;
 
     {
@@ -122,7 +122,7 @@ int main(int argc, char** argv)
         std::cout.flush();
 
         // Write.
-        std::ofstream ofs(filename, 
+        std::ofstream ofs(filename,
             std::ios_base::out |
             std::ios_base::binary);
         pr::byte_stream(ofs, write_order) << u32;
@@ -150,7 +150,7 @@ int main(int argc, char** argv)
 
         // Read.
         std::ifstream ifs(
-                filename, 
+                filename,
                 std::ios_base::in |
                 std::ios_base::binary);
         pr::byte_stream(ifs, read_order) >> u32;

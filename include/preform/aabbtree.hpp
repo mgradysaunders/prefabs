@@ -320,11 +320,11 @@ public:
      */
     template <typename Tforward_itr>
     void sort(
-            Tforward_itr from, 
+            Tforward_itr from,
             Tforward_itr to)
     {
         assert(size_type(std::distance(from, to)) == proxies_.size());
-        std::vector<typename 
+        std::vector<typename
         std::iterator_traits<Tforward_itr>::value_type> values(from, to);
         for (size_type pos = 0; pos < proxies_.size(); pos++) {
             *from++ = values[proxies_[pos].value_index];
@@ -560,7 +560,7 @@ private:
  * @brief Template alias for convenience.
  */
 template <
-    typename Tfloat, 
+    typename Tfloat,
     typename Tsplit_mode,
     typename Tnode_alloc = std::allocator<char>
     >
@@ -570,7 +570,7 @@ using aabbtree2 = aabbtree<Tfloat, 2, Tsplit_mode, Tnode_alloc>;
  * @brief Template alias for convenience.
  */
 template <
-    typename Tfloat, 
+    typename Tfloat,
     typename Tsplit_mode,
     typename Tnode_alloc = std::allocator<char>
     >
@@ -897,8 +897,8 @@ public:
          * This is only valid for branch nodes.
          *
          * @note
-         * This function assumes that `this` is a valid pointer 
-         * to a node inside the parent node array. Hence, calling this 
+         * This function assumes that `this` is a valid pointer
+         * to a node inside the parent node array. Hence, calling this
          * on a copy is ill-defined.
          */
         __attribute__((always_inline))
@@ -915,7 +915,7 @@ public:
          * This is only valid for branch nodes.
          *
          * @note
-         * This function assumes that `this` is a valid pointer 
+         * This function assumes that `this` is a valid pointer
          * to a node inside the parent node array. Hence, calling this
          * on a copy is ill-defined.
          */
@@ -1094,7 +1094,7 @@ private:
  * @brief Template alias for convenience.
  */
 template <
-    typename Tfloat, 
+    typename Tfloat,
     typename Tnode_alloc = std::allocator<char>
     >
 using linear_aabbtree2 = pr::linear_aabbtree<Tfloat, 2, Tnode_alloc>;
@@ -1103,7 +1103,7 @@ using linear_aabbtree2 = pr::linear_aabbtree<Tfloat, 2, Tnode_alloc>;
  * @brief Template alias for convenience.
  */
 template <
-    typename Tfloat, 
+    typename Tfloat,
     typename Tnode_alloc = std::allocator<char>
     >
 using linear_aabbtree3 = pr::linear_aabbtree<Tfloat, 3, Tnode_alloc>;

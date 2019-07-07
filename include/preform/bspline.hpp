@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -65,12 +65,12 @@ namespace pr {
  * @brief B-spline basis functions.
  *
  * This helper-structure represents the B-spline basis functions for
- * a specific degree @f$ d @f$ and knot sequence @f$ \{ u_k \} @f$ where 
+ * a specific degree @f$ d @f$ and knot sequence @f$ \{ u_k \} @f$ where
  * @f$ k = 0, 1, \ldots, m - 1 @f$.
  *
- * Moreover, this structure is an interface for accessing the 
- * knot vector, and is used internally by the `bspline_curve` and 
- * `bspline_patch` classes to compute the B-spline basis functions 
+ * Moreover, this structure is an interface for accessing the
+ * knot vector, and is used internally by the `bspline_curve` and
+ * `bspline_patch` classes to compute the B-spline basis functions
  * @f$ B_{i,j} @f$ efficiently. It is important to note that this
  * structure does _not_ manage any memory, and should not be directly
  * constructed by client code.
@@ -151,7 +151,7 @@ public:
      * @throw std::invalid_argument
      * Unless knot sequence is non-decreasing.
      */
-    template <typename Tinput_itr> 
+    template <typename Tinput_itr>
     void set_knots(Tinput_itr srcitr)
     {
         // Number of knots.
@@ -172,7 +172,7 @@ public:
                 ++srcitr;
 
                 // Ensure non-decreasing.
-                if (!(*(dstitr - 1) >= 
+                if (!(*(dstitr - 1) >=
                       *(dstitr - 2))) {
                     throw std::invalid_argument(__PRETTY_FUNCTION__);
                 }
@@ -188,8 +188,8 @@ public:
      * - set knots @f$ u_k = 1 @f$ for @f$ k \in [n, m) @f$,
      * - set knots @f$ u_k = (k - d) / (n - d) @f$ for @f$ k \in [d, n) @f$.
      *
-     * This forces the spline to touch the first and 
-     * last control points at @f$ t = 0 @f$ and @f$ t = 1 @f$ 
+     * This forces the spline to touch the first and
+     * last control points at @f$ t = 0 @f$ and @f$ t = 1 @f$
      * respectively. However, the spline is not differentiable at these
      * points.
      */
@@ -220,13 +220,13 @@ public:
      *
      * Assuming 0-based indexing, set knots
      * @f$ u_k = (k - d) / (n - d) @f$ for @f$ k \in [0, m) @f$. Then,
-     * the first @f$ d @f$ knots and the last @f$ d @f$ knots are outside 
+     * the first @f$ d @f$ knots and the last @f$ d @f$ knots are outside
      * the standard @f$ [0, 1] @f$ domain. That is,
      * - knots @f$ u_k < 0 @f$ for @f$ k \in [0, d) @f$,
      * - knots @f$ u_k > 1 @f$ for @f$ k \in (n, m) @f$.
      *
-     * This forces the spline to be properly differentiable. 
-     * However, the spline never touches the first and last control 
+     * This forces the spline to be properly differentiable.
+     * However, the spline never touches the first and last control
      * points. This is still useful for closed curves, because control
      * points may be repeated to ensure continuity at @f$ t = 0 @f$
      * and @f$ t = 1 @f$.
@@ -254,7 +254,7 @@ public:
     /**
      * @brief Knots data.
      */
-    float_type* knots_data() 
+    float_type* knots_data()
     {
         return u_;
     }
@@ -272,7 +272,7 @@ private:
     /**
      * @brief Update basis functions.
      *
-     * For a given spline argument @f$ t @f$, 
+     * For a given spline argument @f$ t @f$,
      * efficiently calculate @f$ B_{d,k} @f$ for @f$ k \in [0, m) @f$.
      *
      * @param[in] t
@@ -287,7 +287,7 @@ private:
         difference_type n = num_control_points();
 
         // Clamp.
-        t = pr::fmax(domain_min(), 
+        t = pr::fmax(domain_min(),
             pr::fmin(domain_max(), t));
 
         // Compute i such that u[i] <= t < u[i + 1]
@@ -302,7 +302,7 @@ private:
         for (difference_type j = 1; j <= d; j++) {
 
             // Update vertical entries.
-            b_[j][i] = b_[j - 1][i] * 
+            b_[j][i] = b_[j - 1][i] *
                         ((t - u_[i]) / (u_[i + j] - u_[i]));
 
             // Update diagonal entries.
@@ -313,9 +313,9 @@ private:
         // Update interior entries.
         for (difference_type j = 2; j <= d; j++)
         for (difference_type k = i - j + 1; k < i; k++) {
-            b_[j][k] = 
+            b_[j][k] =
                 b_[j - 1][k + 0] * ((t - u_[k]) / (u_[k + j] - u_[k])) +
-                b_[j - 1][k + 1] * ((t - u_[k + j + 1]) / 
+                b_[j - 1][k + 1] * ((t - u_[k + j + 1]) /
                             (u_[k + 1] - u_[k + j + 1]));
         }
 
@@ -328,7 +328,7 @@ private:
     /**
      * @brief Knots.
      *
-     * Non-decreasing knot sequence @f$ \{ u_k \} @f$ 
+     * Non-decreasing knot sequence @f$ \{ u_k \} @f$
      * where @f$ k \in [0, m) @f$.
      */
     float_type* u_ = {};
@@ -336,8 +336,8 @@ private:
     /**
      * @brief Basis functions.
      *
-     * Basis functions @f$ B_{j,k} @f$ where 
-     * @f$ j \in [0, d + 1) @f$ is the degree and 
+     * Basis functions @f$ B_{j,k} @f$ where
+     * @f$ j \in [0, d + 1) @f$ is the degree and
      * @f$ k \in [0, m) @f$ is the knot index.
      */
     mutable dense_matrix_view<float_type*> b_ = {};
@@ -442,7 +442,7 @@ public:
      */
     explicit
     bspline_curve(
-            size_type n, 
+            size_type n,
             size_type d,
             const Talloc& alloc = {})
     {
@@ -454,13 +454,13 @@ public:
 
         // Number of knots.
         size_type m = n + d + 1;
-    
+
         // Initialize basis functions.
         new (&basis_vals_)
         std::vector<
-            float_type, 
+            float_type,
             float_allocator_type>(
-                m + m * (d + 1), 
+                m + m * (d + 1),
                 float_allocator_type(alloc));
         basis_.u_ = &basis_vals_[0];
         basis_.b_ = {
@@ -469,7 +469,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d + 1), 
+            difference_type(d + 1),
             // size0
             difference_type(d + 1),
             // size1
@@ -477,11 +477,11 @@ public:
         };
 
         // Initialize control points.
-        new (&p_) 
+        new (&p_)
         std::vector<
-            point_type, 
+            point_type,
             point_allocator_type>(
-                n, 
+                n,
                 point_allocator_type(alloc));
     }
 
@@ -565,7 +565,7 @@ public:
      * Unless `n > 1` and `n > d`.
      */
     void resize(
-            size_type n, 
+            size_type n,
             size_type d)
     {
         // Validate.
@@ -586,7 +586,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d + 1), 
+            difference_type(d + 1),
             // size0
             difference_type(d + 1),
             // size1
@@ -807,9 +807,9 @@ public:
         // Initialize basis functions.
         new (&basis_vals_)
         std::vector<
-            float_type, 
+            float_type,
             float_allocator_type>(
-                m[0] + m[0] * (d[0] + 1) + 
+                m[0] + m[0] * (d[0] + 1) +
                 m[1] + m[1] * (d[1] + 1),
                 float_allocator_type(alloc));
         basis0_.u_ = &basis_vals_[0];
@@ -819,7 +819,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d[0] + 1), 
+            difference_type(d[0] + 1),
             // size0
             difference_type(d[0] + 1),
             // size1
@@ -832,7 +832,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d[1] + 1), 
+            difference_type(d[1] + 1),
             // size0
             difference_type(d[1] + 1),
             // size1
@@ -840,9 +840,9 @@ public:
         };
 
         // Initialize control points.
-        new (&p_) 
+        new (&p_)
         std::vector<
-            point_type, 
+            point_type,
             point_allocator_type>(
                 n.prod(),
                 point_allocator_type(alloc));
@@ -862,13 +862,13 @@ public:
             difference_type d0 = basis0_.degree();
             difference_type m0 = basis0_.num_knots();
             difference_type m1 = basis1_.num_knots();
-            basis0_.u_ = 
+            basis0_.u_ =
                 &basis_vals_[0];
-            basis0_.b_.offset_ = 
+            basis0_.b_.offset_ =
                 &basis_vals_[m0];
-            basis1_.u_ = 
+            basis1_.u_ =
                 &basis_vals_[m0 + m0 * (d0 + 1)];
-            basis1_.b_.offset_ = 
+            basis1_.b_.offset_ =
                 &basis_vals_[m0 + m0 * (d0 + 1) + m1];
         }
     }
@@ -905,13 +905,13 @@ public:
                 difference_type d0 = basis0_.degree();
                 difference_type m0 = basis0_.num_knots();
                 difference_type m1 = basis1_.num_knots();
-                basis0_.u_ = 
+                basis0_.u_ =
                     &basis_vals_[0];
-                basis0_.b_.offset_ = 
+                basis0_.b_.offset_ =
                     &basis_vals_[m0];
-                basis1_.u_ = 
+                basis1_.u_ =
                     &basis_vals_[m0 + m0 * (d0 + 1)];
-                basis1_.b_.offset_ = 
+                basis1_.b_.offset_ =
                     &basis_vals_[m0 + m0 * (d0 + 1) + m1];
             }
         }
@@ -966,7 +966,7 @@ public:
 
         // Resize basis functions.
         basis_vals_.resize(
-                m[0] + m[0] * (d[0] + 1) + 
+                m[0] + m[0] * (d[0] + 1) +
                 m[1] + m[1] * (d[1] + 1));
         basis0_.u_ = &basis_vals_[0];
         basis0_.b_ = {
@@ -975,7 +975,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d[0] + 1), 
+            difference_type(d[0] + 1),
             // size0
             difference_type(d[0] + 1),
             // size1
@@ -988,7 +988,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d[1] + 1), 
+            difference_type(d[1] + 1),
             // size0
             difference_type(d[1] + 1),
             // size1
@@ -1222,7 +1222,7 @@ public:
      */
     explicit
     nurbs_curve(
-            size_type n, 
+            size_type n,
             size_type d,
             const Talloc& alloc = {})
     {
@@ -1234,13 +1234,13 @@ public:
 
         // Number of knots.
         size_type m = n + d + 1;
-    
+
         // Initialize basis functions.
         new (&basis_vals_)
         std::vector<
-            float_type, 
+            float_type,
             float_allocator_type>(
-                m + m * (d + 1), 
+                m + m * (d + 1),
                 float_allocator_type(alloc));
         basis_.u_ = &basis_vals_[0];
         basis_.b_ = {
@@ -1249,7 +1249,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d + 1), 
+            difference_type(d + 1),
             // size0
             difference_type(d + 1),
             // size1
@@ -1266,11 +1266,11 @@ public:
                 float_allocator_type(alloc));
 
         // Initialize control points.
-        new (&p_) 
+        new (&p_)
         std::vector<
-            point_type, 
+            point_type,
             point_allocator_type>(
-                n, 
+                n,
                 point_allocator_type(alloc));
     }
 
@@ -1358,7 +1358,7 @@ public:
      * Unless `n > 1` and `n > d`.
      */
     void resize(
-            size_type n, 
+            size_type n,
             size_type d)
     {
         // Validate.
@@ -1379,7 +1379,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d + 1), 
+            difference_type(d + 1),
             // size0
             difference_type(d + 1),
             // size1
@@ -1649,9 +1649,9 @@ public:
         // Initialize basis functions.
         new (&basis_vals_)
         std::vector<
-            float_type, 
+            float_type,
             float_allocator_type>(
-                m[0] + m[0] * (d[0] + 1) + 
+                m[0] + m[0] * (d[0] + 1) +
                 m[1] + m[1] * (d[1] + 1),
                 float_allocator_type(alloc));
         basis0_.u_ = &basis_vals_[0];
@@ -1661,7 +1661,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d[0] + 1), 
+            difference_type(d[0] + 1),
             // size0
             difference_type(d[0] + 1),
             // size1
@@ -1674,7 +1674,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d[1] + 1), 
+            difference_type(d[1] + 1),
             // size0
             difference_type(d[1] + 1),
             // size1
@@ -1691,9 +1691,9 @@ public:
                 float_allocator_type(alloc));
 
         // Initialize control points.
-        new (&p_) 
+        new (&p_)
         std::vector<
-            point_type, 
+            point_type,
             point_allocator_type>(
                 n.prod(),
                 point_allocator_type(alloc));
@@ -1714,13 +1714,13 @@ public:
             difference_type d0 = basis0_.degree();
             difference_type m0 = basis0_.num_knots();
             difference_type m1 = basis1_.num_knots();
-            basis0_.u_ = 
+            basis0_.u_ =
                 &basis_vals_[0];
-            basis0_.b_.offset_ = 
+            basis0_.b_.offset_ =
                 &basis_vals_[m0];
-            basis1_.u_ = 
+            basis1_.u_ =
                 &basis_vals_[m0 + m0 * (d0 + 1)];
-            basis1_.b_.offset_ = 
+            basis1_.b_.offset_ =
                 &basis_vals_[m0 + m0 * (d0 + 1) + m1];
         }
     }
@@ -1759,13 +1759,13 @@ public:
                 difference_type d0 = basis0_.degree();
                 difference_type m0 = basis0_.num_knots();
                 difference_type m1 = basis1_.num_knots();
-                basis0_.u_ = 
+                basis0_.u_ =
                     &basis_vals_[0];
-                basis0_.b_.offset_ = 
+                basis0_.b_.offset_ =
                     &basis_vals_[m0];
-                basis1_.u_ = 
+                basis1_.u_ =
                     &basis_vals_[m0 + m0 * (d0 + 1)];
-                basis1_.b_.offset_ = 
+                basis1_.b_.offset_ =
                     &basis_vals_[m0 + m0 * (d0 + 1) + m1];
             }
         }
@@ -1821,7 +1821,7 @@ public:
 
         // Resize basis functions.
         basis_vals_.resize(
-                m[0] + m[0] * (d[0] + 1) + 
+                m[0] + m[0] * (d[0] + 1) +
                 m[1] + m[1] * (d[1] + 1));
         basis0_.u_ = &basis_vals_[0];
         basis0_.b_ = {
@@ -1830,7 +1830,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d[0] + 1), 
+            difference_type(d[0] + 1),
             // size0
             difference_type(d[0] + 1),
             // size1
@@ -1843,7 +1843,7 @@ public:
             // stride0
             difference_type(1),
             // stride1
-            difference_type(d[1] + 1), 
+            difference_type(d[1] + 1),
             // size0
             difference_type(d[1] + 1),
             // size1

@@ -86,7 +86,7 @@ public:
     /**
      * @brief Constructor.
      */
-    worley_noise3(int seed, multi<int, 3> period = {}) : 
+    worley_noise3(int seed, multi<int, 3> period = {}) :
             seed_(seed),
             period_(period)
     {

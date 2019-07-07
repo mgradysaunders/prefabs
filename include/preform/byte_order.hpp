@@ -134,8 +134,8 @@ public:
      * @param[in] rev
      * Stream byte order reversed?
      */
-    byte_stream_wrapper(Tstream& ref, bool rev) : 
-            ref_(ref), 
+    byte_stream_wrapper(Tstream& ref, bool rev) :
+            ref_(ref),
             rev_(rev)
     {
     }
@@ -159,8 +159,8 @@ public:
             // Reverse byte order.
             char_type bytes[sizeof(Tvalue)];
             std::memcpy(
-                    &bytes[0], 
-                    &value, 
+                    &bytes[0],
+                    &value,
                     sizeof(Tvalue));
             std::reverse(
                     &bytes[0],
@@ -187,8 +187,8 @@ public:
             // Reverse byte order.
             char_type bytes[sizeof(Tvalue) * N];
             std::memcpy(
-                &bytes[0], 
-                &values[0], 
+                &bytes[0],
+                &values[0],
                 sizeof(Tvalue) * N);
             for (std::size_t k = 0; k < N; k++) {
                 std::reverse(
@@ -221,8 +221,8 @@ public:
                     &bytes[0],
                     &bytes[0] + sizeof(Tvalue));
             std::memcpy(
-                    &value, 
-                    &bytes[0], 
+                    &value,
+                    &bytes[0],
                     sizeof(Tvalue));
         }
         return *this;
@@ -251,8 +251,8 @@ public:
                         &bytes[0] + k * sizeof(Tvalue) + sizeof(Tvalue));
             }
             std::memcpy(
-                    &values[0], 
-                    &bytes[0], 
+                    &values[0],
+                    &bytes[0],
                     sizeof(Tvalue) * N);
         }
         return *this;

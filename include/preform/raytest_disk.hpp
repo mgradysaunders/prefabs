@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -315,7 +315,7 @@ public:
      * - @f$ r \gets \sqrt{(1 - u_{[0]}) r_{\min}^2 + u_{[0]} r_{\max}^2} @f$
      * - @f$ \phi \gets u_{[1]} \phi_{\max} @f$
      * @f[
-     *      \mathbf{p}_{\text{hit}}(\mathbf{u}) = 
+     *      \mathbf{p}_{\text{hit}}(\mathbf{u}) =
      *      \begin{bmatrix}
      *          r \cos{\phi}
      *      \\  r \sin{\phi}
@@ -325,7 +325,7 @@ public:
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
-     * 
+     *
      * @note
      * If `rmin_ == 0` and `phimax_ == 2 * pi`, the implementation
      * uses the concentric disk sampling routine `uniform_disk_pdf_sample()`.
@@ -336,7 +336,7 @@ public:
             phimax_ == 2 * pr::numeric_constants<float_type>::M_pi()) {
 
             // Uniform disk sample using concentric mapping.
-            multi<float_type, 2> p = 
+            multi<float_type, 2> p =
             multi<float_type, 2>::uniform_disk_pdf_sample(u);
 
             // Compute sweep angle.
@@ -369,15 +369,15 @@ public:
     /**
      * @brief Solid angle probability density function.
      *
-     * - @f$ \mathbf{v}_i \gets 
+     * - @f$ \mathbf{v}_i \gets
      *       \mathbf{p}_{\text{hit}} - \mathbf{p}_{\text{ref}} @f$
      * - @f$ \omega_i \gets \normalize(\mathbf{v}_i) @f$
      * - @f$ \omega_g \gets [0\; 0\; 1]^\top @f$
      * @f[
      *      f_{\omega}(
      *          \mathbf{p}_{\text{ref}} \to
-     *          \mathbf{p}_{\text{hit}}) = 
-     *          \frac{1}{A} 
+     *          \mathbf{p}_{\text{hit}}) =
+     *          \frac{1}{A}
      *          \frac{|\mathbf{v}_i \cdot \mathbf{v}_i|}
      *               {|\omega_i \cdot \omega_g|} =
      *          \frac{1}{A}
@@ -392,7 +392,7 @@ public:
      * Hit point.
      *
      * @note
-     * For efficiency, the implementation assumes 
+     * For efficiency, the implementation assumes
      * @f$ \mathbf{p}_{\text{hit}} @f$ is actually on the surface.
      */
     float_type solid_angle_pdf(
@@ -484,7 +484,7 @@ public:
      * If intersection, returns parameteric value. Else,
      * returns NaN.
      */
-    float_type intersect(const ray_type& ray, 
+    float_type intersect(const ray_type& ray,
                                hit_type* hit = nullptr) const
     {
         // Parameter.

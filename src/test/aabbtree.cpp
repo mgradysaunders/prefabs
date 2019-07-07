@@ -17,8 +17,8 @@ typedef pr::vec3<Float> Vec3f;
 typedef pr::aabb3<Float> AABB3f;
 
 // Axis-aligned bounding box tree.
-typedef pr::aabbtree3<Float, 
-        pr::aabbtree_split_surface_area<16>, 
+typedef pr::aabbtree3<Float,
+        pr::aabbtree_split_surface_area<16>,
         pr::memory_arena_allocator<char>> AABBTree3;
 
 // Linear axis-aligned bounding box tree.
@@ -193,7 +193,7 @@ int main(int argc, char** argv)
     }
 
     // Depth histogram maximum.
-    double depth_max = 
+    double depth_max =
         *std::max_element(
         &depth_histogram[0],
         &depth_histogram[0] + 64);
@@ -205,18 +205,18 @@ int main(int argc, char** argv)
             continue;
         }
         std::cout << depth << ": ";
-        for (int nstars = 
-                    depth_histogram[depth] / 
+        for (int nstars =
+                    depth_histogram[depth] /
                     depth_max * 70; nstars >= 0; nstars--) {
             std::cout << "*";
-        } 
+        }
         std::cout << "\n";
     }
     std::cout << "\n";
     std::cout.flush();
 
     // Count histogram maximum.
-    double count_max = 
+    double count_max =
         *std::max_element(
         &count_histogram[0],
         &count_histogram[0] + 16);
@@ -228,11 +228,11 @@ int main(int argc, char** argv)
             continue;
         }
         std::cout << count << ": ";
-        for (int nstars = 
-                    count_histogram[count] / 
+        for (int nstars =
+                    count_histogram[count] /
                     count_max * 70; nstars >= 0; nstars--) {
             std::cout << "*";
-        } 
+        }
         std::cout << "\n";
     }
     std::cout << "\n";

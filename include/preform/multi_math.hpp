@@ -297,7 +297,7 @@ constexpr multi<decltype(T() * U()),
  *
  * _Fast_ means the implementation
  * - calculates the sum of square moduli directly, implicitly assuming
- * the square terms neither overflow nor underflow, and the sum of square 
+ * the square terms neither overflow nor underflow, and the sum of square
  * terms does not overflow.
  */
 template <typename T, std::size_t N>
@@ -324,7 +324,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length_fast(const multi<T, N>& arr)
  *
  * _Safe_ means the implementation
  * - calculates the moduli as a preprocessing step,
- * - if impending overflow or underflow, factors the maximum modulus out 
+ * - if impending overflow or underflow, factors the maximum modulus out
  * from under the radical.
  */
 template <typename T, std::size_t N>
@@ -388,7 +388,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length_safe(const multi<T, N>& arr)
  * @f]
  *
  * @note
- * By default, calls `length_safe()`. 
+ * By default, calls `length_safe()`.
  * Define `PR_DEFAULT_LENGTH_FAST` before including to call
  * `length_fast()`.
  */
@@ -411,7 +411,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
  *
  * _Fast_ means the implementation
  * - calls `length_fast()` to calculate length,
- * - multiplies by reciprocal of length, implicitly assuming 
+ * - multiplies by reciprocal of length, implicitly assuming
  * reciprocal does not overflow.
  */
 template <typename T, std::size_t N>
@@ -432,7 +432,7 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
  *
  * _Safe_ means the implementation
  * - calls `length_safe()` to calculate length,
- * - if length is zero, returns all zeros, 
+ * - if length is zero, returns all zeros,
  * - if length is less than the minimum invertible floating point value,
  * divides by length instead of multiplying by reciprocal.
  */
@@ -470,7 +470,7 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
  * @f]
  *
  * @note
- * By default, calls `normalize_safe()`. 
+ * By default, calls `normalize_safe()`.
  * Define `PR_DEFAULT_NORMALIZE_FAST` before including to call
  * `normalize_fast()`.
  */
@@ -493,8 +493,8 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
  * @f]
  */
 template <
-    typename T, 
-    std::size_t M, 
+    typename T,
+    std::size_t M,
     std::size_t N
     >
 constexpr T trace(const multi<T, M, N>& arr)
@@ -514,8 +514,8 @@ constexpr T trace(const multi<T, M, N>& arr)
  * @f]
  */
 template <
-    typename T, 
-    std::size_t M, 
+    typename T,
+    std::size_t M,
     std::size_t N
     >
 constexpr multi<T, N, M> transpose(const multi<T, M, N>& arr)
@@ -536,8 +536,8 @@ constexpr multi<T, N, M> transpose(const multi<T, M, N>& arr)
  * @f]
  */
 template <
-    typename T, 
-    std::size_t M, 
+    typename T,
+    std::size_t M,
     std::size_t N
     >
 constexpr multi<T, N, M> adjoint(const multi<T, M, N>& arr)
@@ -554,7 +554,7 @@ constexpr multi<T, N, M> adjoint(const multi<T, M, N>& arr)
  * @brief Inverse by Cramer's rule.
  *
  * @f[
- *      \mathbf{x}^{-1} = 
+ *      \mathbf{x}^{-1} =
  *      \frac{\operatorname{cof}^\top(\mathbf{x})}
  *           {\operatorname{det}(\mathbf{x})}
  * @f]
@@ -583,7 +583,7 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), 2, 2>
  * @brief Inverse by Cramer's rule.
  *
  * @f[
- *      \mathbf{x}^{-1} = 
+ *      \mathbf{x}^{-1} =
  *      \frac{\operatorname{cof}^\top(\mathbf{x})}
  *           {\operatorname{det}(\mathbf{x})}
  * @f]
@@ -684,7 +684,7 @@ inline std::enable_if_t<
 namespace pr {
 
 /**
- * @addtogroup multi_math_geometry 
+ * @addtogroup multi_math_geometry
  */
 /**@{*/
 
@@ -912,7 +912,7 @@ struct multi_initializers<
      *
      * @f[
      *      f_{\text{cone}} =
-     *      \frac{1}{2\pi} 
+     *      \frac{1}{2\pi}
      *      \frac{1}{1 - \cos(\theta_{\text{max}})}
      * @f]
      *
@@ -1024,7 +1024,7 @@ struct multi_initializers<
  */
 template <typename T>
 struct multi_initializers<
-            multi<T, 3, 3>, 
+            multi<T, 3, 3>,
             std::enable_if_t<
             std::is_floating_point<T>::value, void>>
 {
@@ -1201,7 +1201,7 @@ struct multi_initializers<
  */
 template <typename T>
 struct multi_initializers<
-            multi<T, 4, 4>, 
+            multi<T, 4, 4>,
             std::enable_if_t<
             std::is_floating_point<T>::value, void>>
 {
@@ -1260,7 +1260,7 @@ struct multi_initializers<
     static multi<T, 4, 4> rotate(T theta, multi<T, 3> hatv)
     {
         // Delegate.
-        multi<T, 4, 4> res = 
+        multi<T, 4, 4> res =
         multi<T, 3, 3>::rotate(theta, hatv);
         res[3][3] = 1;
         return res;
@@ -1284,12 +1284,12 @@ struct multi_initializers<
     static multi<T, 4, 4> rotatex(T theta)
     {
         // Delegate.
-        multi<T, 4, 4> res = 
+        multi<T, 4, 4> res =
         multi<T, 3, 3>::rotatex(theta);
         res[3][3] = 1;
         return res;
     }
-    
+
     /**
      * @brief Rotate counter-clockwise around Y-axis.
      *
@@ -1308,7 +1308,7 @@ struct multi_initializers<
     static multi<T, 4, 4> rotatey(T theta)
     {
         // Delegate.
-        multi<T, 4, 4> res = 
+        multi<T, 4, 4> res =
         multi<T, 3, 3>::rotatey(theta);
         res[3][3] = 1;
         return res;
@@ -1332,7 +1332,7 @@ struct multi_initializers<
     static multi<T, 4, 4> rotatez(T theta)
     {
         // Delegate.
-        multi<T, 4, 4> res = 
+        multi<T, 4, 4> res =
         multi<T, 3, 3>::rotatez(theta);
         res[3][3] = 1;
         return res;
@@ -1372,7 +1372,7 @@ struct multi_initializers<
      * This implementation is consistent with OpenGL conventions.
      */
     static multi<T, 4, 4> lookat(
-                const multi<T, 3>& pfrom, 
+                const multi<T, 3>& pfrom,
                 const multi<T, 3>& pto,
                 const multi<T, 3>& vup)
     {
@@ -1416,7 +1416,7 @@ struct multi_initializers<
      * @param[in] z0
      * Frustum Z-coordinate 0.
      *
-     * @Param[in] z1
+     * @param[in] z1
      * Frustum Z-coordinate 1.
      *
      * @note

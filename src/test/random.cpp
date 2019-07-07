@@ -53,7 +53,7 @@ pr::pcg32 pcg;
 // Test distribution statistics.
 template <typename Distribution>
 void testIntDistribution(
-                const char* name, 
+                const char* name,
                 const Distribution& distribution)
 {
     const int n = 262144;
@@ -94,7 +94,7 @@ void testIntDistribution(
         for (int k = 0; k < n; k++) {
             s += pr::nthpow(x[k] - c, p);
         }
-        return Float(s) / 
+        return Float(s) /
                Float((p & 1) ? n : n - 1);
     };
 
@@ -111,7 +111,7 @@ void testIntDistribution(
         for (int k = 0; k < n; k++) {
             Float fk = distribution.pmf(x[k]);
             Float hk = pr::log(fk); // No fk due to sampling strategy.
-            if (pr::isinf(hk) || 
+            if (pr::isinf(hk) ||
                 pr::isnan(hk)) {
                 continue;
             }
@@ -141,7 +141,7 @@ void testIntDistribution(
 // Test distribution statistics.
 template <typename Distribution>
 void testRealDistribution(
-                const char* name, 
+                const char* name,
                 const Distribution& distribution)
 {
     const int n = 262144;
@@ -182,7 +182,7 @@ void testRealDistribution(
         for (int k = 0; k < n; k++) {
             s += pr::nthpow(x[k] - c, p);
         }
-        return Float(s) / 
+        return Float(s) /
                Float((p & 1) ? n : n - 1);
     };
 
@@ -199,7 +199,7 @@ void testRealDistribution(
         for (int k = 0; k < n; k++) {
             Float fk = distribution.pdf(x[k]);
             Float hk = pr::log(fk); // No fk due to sampling strategy.
-            if (pr::isinf(hk) || 
+            if (pr::isinf(hk) ||
                 pr::isnan(hk)) {
                 continue;
             }
@@ -276,7 +276,7 @@ int main(int argc, char** argv)
     std::cout << "seed = " << seed << "\n\n";
     std::cout.flush();
     pcg = pr::pcg32(seed);
-    
+
     // Test uniform int distribution.
     testIntDistribution(
         "UniformIntDistribution(-4, 15)",

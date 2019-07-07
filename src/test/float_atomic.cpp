@@ -80,7 +80,7 @@ int main(int argc, char** argv)
 
     // Execute parallel sums.
     for (int j = 0; j < 32; j++) {
-        results[j] = 
+        results[j] =
         thread_pool.submit([&]() {
             for (int k = 0; k < 4096; k++) {
                 result.fetch_addf(Float(0.25));

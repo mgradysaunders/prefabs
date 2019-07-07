@@ -198,7 +198,7 @@ constexpr iterator_range<T> make_iterator_range(T from, T to)
  * @brief Make iterator range.
  */
 template <typename T>
-constexpr iterator_range<typename T::iterator> 
+constexpr iterator_range<typename T::iterator>
                     make_iterator_range(T& container)
 {
     return {container.begin(), container.end()};
@@ -208,7 +208,7 @@ constexpr iterator_range<typename T::iterator>
  * @brief Make iterator range.
  */
 template <typename T>
-constexpr iterator_range<typename T::const_iterator> 
+constexpr iterator_range<typename T::const_iterator>
                     make_iterator_range(const T& container)
 {
     return {container.begin(), container.end()};

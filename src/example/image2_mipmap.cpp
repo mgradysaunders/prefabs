@@ -104,7 +104,7 @@ int main(int argc, char** argv)
     [&](char** argv) {
         ofs_prefix = argv[0];
     })
-    << "Specify output filename prefix.\n" 
+    << "Specify output filename prefix.\n"
     << "By default, image2_mipmap.\n";
 
     // Display help.
@@ -174,7 +174,7 @@ int main(int argc, char** argv)
         while (1) {
             // Write image.
             std::ofstream ofs(
-                    ofs_prefix + 
+                    ofs_prefix +
                     std::to_string(level) + ".pgm");
             ofs << "P2\n";
             ofs << image.user_size()[0] << ' ';
@@ -189,7 +189,7 @@ int main(int argc, char** argv)
             if ((image.user_size() == 1U).any()) {
                 break;
             }
-            
+
             image.mip_downsample();
             level++;
         }

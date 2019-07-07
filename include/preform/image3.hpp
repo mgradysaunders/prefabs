@@ -453,9 +453,9 @@ public:
      * by a factor of 2, and average 2x2x2 pixel blocks.
      *
      * @note
-     * This is equivalent to calling `resample()` with 
-     * appropriately reduced image dimensions. However, this 
-     * implementation is much more efficient, as it averages 
+     * This is equivalent to calling `resample()` with
+     * appropriately reduced image dimensions. However, this
+     * implementation is much more efficient, as it averages
      * directly and uses integer operations instead of floating
      * point operations if possible.
      *
@@ -489,8 +489,8 @@ public:
                 for (size_type ii = 0; ii < 2; ii++)
                 for (size_type jj = 0; jj < 2; jj++) {
                     vsum += image(
-                            2 * i + ii, 
-                            2 * j + jj, 
+                            2 * i + ii,
+                            2 * j + jj,
                             2 * k + kk);
                 }
                 (*this)(i, j, k) = vsum * entry_type(0.125);
@@ -505,8 +505,8 @@ public:
                 for (size_type ii = 0; ii < 2; ii++)
                 for (size_type jj = 0; jj < 2; jj++) {
                     vsum += image(
-                            2 * i + ii, 
-                            2 * j + jj, 
+                            2 * i + ii,
+                            2 * j + jj,
                             2 * k + kk);
                 }
                 (*this)(i, j, k) = vsum * 0.125L;
@@ -526,8 +526,8 @@ public:
                 for (size_type ii = 0; ii < 2; ii++)
                 for (size_type jj = 0; jj < 2; jj++) {
                     vsum += image(
-                            2 * i + ii, 
-                            2 * j + jj, 
+                            2 * i + ii,
+                            2 * j + jj,
                             2 * k + kk);
                 }
                 (*this)(i, j, k) = vsum >> 3;

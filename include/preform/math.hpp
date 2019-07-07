@@ -660,7 +660,7 @@ constexpr T nthpow(T x, int n)
  * @brief Log beta function.
  *
  * @f[
- *      \log\beta(p, q) = 
+ *      \log\beta(p, q) =
  *      \log\frac{\Gamma(p)\Gamma(q)}{\Gamma(p + q)}
  * @f]
  */
@@ -669,7 +669,7 @@ __attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> lbeta(T p, T q)
 {
-    if (p == 0 || 
+    if (p == 0 ||
         q == 0) {
         return 0;
     }
@@ -682,7 +682,7 @@ inline std::enable_if_t<
  * @brief Beta function.
  *
  * @f[
- *      \beta(p, q) = 
+ *      \beta(p, q) =
  *      \frac{\Gamma(p)\Gamma(q)}{\Gamma(p + q)}
  * @f]
  */
@@ -719,11 +719,11 @@ inline std::enable_if_t<
 {
     // Limit case?
     if (x == T(0) ||
-        x == T(1)) { 
-        return x; 
+        x == T(1)) {
+        return x;
     }
     // Invalid?
-    else if (!(x > T(0) && x < T(1) && 
+    else if (!(x > T(0) && x < T(1) &&
                p > T(0) && q > T(0))) {
         return pr::numeric_limits<T>::quiet_NaN();
     }
@@ -753,17 +753,17 @@ inline std::enable_if_t<
             T a;
             m = k / 2;
             if (k % 2 == 0) {
-                a = +x * ((m * (q - m)) / 
+                a = +x * ((m * (q - m)) /
                          ((p + (2 * m - 1)) * (p + 2 * m)));
             }
             else {
-                a = -x * ((p + m) * (p + q + m) / 
+                a = -x * ((p + m) * (p + q + m) /
                          ((p + (2 * m + 1)) * (p + 2 * m)));
             }
 
             d = 1 + a * d;
             if (pr::fabs(d) < // TODO Is this ever negative?
-                    pr::numeric_limits<T>::min_invertible()) { 
+                    pr::numeric_limits<T>::min_invertible()) {
                 d = pr::numeric_limits<T>::min_invertible();
             }
             d = 1 / d;
@@ -785,8 +785,8 @@ inline std::enable_if_t<
         }
 
         // Success.
-        T y = 
-            pr::exp(p * pr::log(x) + 
+        T y =
+            pr::exp(p * pr::log(x) +
                     q * pr::log1p(-x) - pr::lbeta(p, q)) / p * (f - 1);
         return flip ? 1 - y : y;
     }
@@ -869,7 +869,7 @@ inline std::enable_if_t<
        std::is_integral<T>::value &&
        std::is_signed<T>::value, T> binom(T n, T k)
 {
-    if (n >= 0 && 
+    if (n >= 0 &&
         k >= 0) {
         // Delegate.
         T r = T(binom(
@@ -933,7 +933,7 @@ inline std::enable_if_t<
             try {
                 // Delegate.
                 return binom(
-                        pr::llrint(n), 
+                        pr::llrint(n),
                         pr::llrint(k));
             }
             catch (const std::runtime_error&) {
@@ -957,7 +957,7 @@ inline std::enable_if_t<
             pr::lgamma(b) -
             pr::lgamma(c));
     // Evaluate sign.
-    int m = 
+    int m =
         int(pr::signbit(a) && (pr::llrint(pr::floor(a)) & 1)) ^
         int(pr::signbit(b) && (pr::llrint(pr::floor(b)) & 1)) ^
         int(pr::signbit(c) && (pr::llrint(pr::floor(c)) & 1));
@@ -977,8 +977,8 @@ inline std::enable_if_t<
  * @brief Binomial coefficient.
  *
  * @f[
- *      {n \choose k} = 
- *         \frac{n!}{k!(n - k)!} = 
+ *      {n \choose k} =
+ *         \frac{n!}{k!(n - k)!} =
  *         \frac{\Gamma(n + 1)}{\Gamma(k + 1)\Gamma(n - k + 1)}
  * @f]
  *
@@ -986,12 +986,12 @@ inline std::enable_if_t<
  * If `T` is integral and the calculation overflows.
  *
  * @note
- * If `T` is floating point, but both `n` and `k` are exactly representable 
+ * If `T` is floating point, but both `n` and `k` are exactly representable
  * as integers, delegates to integral implementation. If, in turn, the integral
  * calculation overflows, returns infinity (and does not throw).
  *
  * @note
- * If `T` is floating point and calculation overflows, returns 
+ * If `T` is floating point and calculation overflows, returns
  * infinity (and does not throw).
  */
 template <typename T>

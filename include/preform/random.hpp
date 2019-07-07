@@ -520,12 +520,12 @@ private:
  * @brief Poisson distribution.
  *
  * @note
- * This implementation is not tenable for large @f$ \lambda @f$ 
- * (say @f$ \lambda > 20 @f$), due to the direct calculation of 
- * the cumulative distribution function and its inverse. For 
+ * This implementation is not tenable for large @f$ \lambda @f$
+ * (say @f$ \lambda > 20 @f$), due to the direct calculation of
+ * the cumulative distribution function and its inverse. For
  * @f$ \lambda > 20 @f$, it is preferable to approximate the Poisson
- * distribution @f$ P(\lambda) @f$ with the binomial distribution 
- * @f$ B(n, p) @f$ by choosing @f$ p \approx 0.25 @f$, 
+ * distribution @f$ P(\lambda) @f$ with the binomial distribution
+ * @f$ B(n, p) @f$ by choosing @f$ p \approx 0.25 @f$,
  * @f$ n = \lambda / p @f$.
  *
  * @tparam T
@@ -633,7 +633,7 @@ public:
      * @brief Entropy.
      *
      * @f[
-     *      H[X] = 
+     *      H[X] =
      *      \lambda(1 - \log(\lambda)) +
      *      e^{-\lambda}\sum_{k=0}^{\infty}\frac{\lambda^k}{k!}\log(k!)
      * @f]
@@ -661,11 +661,11 @@ public:
             float_type lambdainv = 1 / lambda_;
             float_type lambdainv2 = lambdainv * lambdainv;
             float_type lambdainv3 = lambdainv * lambdainv2;
-            return 
-                pr::log(2 * 
+            return
+                pr::log(2 *
                 pr::numeric_constants<float_type>::M_pi() *
                 pr::numeric_constants<float_type>::M_e() * lambda_) / 2 -
-                            (1 / float_type(12)) * lambdainv - 
+                            (1 / float_type(12)) * lambdainv -
                             (1 / float_type(24)) * lambdainv2 -
                             (19 / float_type(360)) * lambdainv3;
         }
@@ -675,10 +675,10 @@ public:
      * @brief Probability mass function.
      *
      * @f[
-     *      f(k) = 
+     *      f(k) =
      *          \begin{cases}
-     *              0                  & k < 0 
-     *          \\  e^{-\lambda} 
+     *              0                  & k < 0
+     *          \\  e^{-\lambda}
      *                  \lambda^k / k! & \text{otherwise}
      *          \end{cases}
      * @f]
@@ -699,14 +699,14 @@ public:
      * @brief Cumulative distribution function.
      *
      * @f[
-     *      F(x) = 
+     *      F(x) =
      *          e^{-\lambda}
      *          \sum_{j=0}^{\lfloor x \rfloor}\frac{\lambda^j}{j!}
      * @f]
      *
      * @note
      * This implementation computes @f$ F @f$ directly. Thus, the
-     * time complexity is @f$ O(\lfloor x \rfloor) @f$. 
+     * time complexity is @f$ O(\lfloor x \rfloor) @f$.
      */
     float_type cdf(float_type x) const
     {
@@ -729,7 +729,7 @@ public:
      *
      * @note
      * This implementation inverts @f$ F @f$ by forward search (with
-     * incremental calculation), whereby the time complexity is roughly 
+     * incremental calculation), whereby the time complexity is roughly
      * @f$ O(\lambda) @f$.
      */
     float_type cdfinv(float_type u) const
@@ -748,7 +748,7 @@ public:
                 s += p;
 
                 // Underflow?
-                if (!(p > s * 
+                if (!(p > s *
                       pr::numeric_limits<float_type>::machine_epsilon())) {
                     break;
                 }
@@ -1237,13 +1237,13 @@ public:
      *
      * @throw std::invalid_argument
      * Unless
-     * - `n > 0` and 
+     * - `n > 0` and
      * - `p >= 0 && p <= 1`.
      */
     binomial_distribution(int n, float_type p) : n_(n), p_(p), q_(1 - p)
     {
         if (!(n > 0 &&
-              p >= 0 && 
+              p >= 0 &&
               p <= 1)) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
@@ -1322,8 +1322,8 @@ public:
      */
     float_type entropy() const
     {
-        return float_type(0.5) * pr::log(2 * 
-            pr::numeric_constants<float_type>::M_pi() * 
+        return float_type(0.5) * pr::log(2 *
+            pr::numeric_constants<float_type>::M_pi() *
             pr::numeric_constants<float_type>::M_e() *
             n_ * p_ * q_);
     }
@@ -1332,7 +1332,7 @@ public:
      * @brief Probability mass function.
      *
      * @f[
-     *      f(k) = 
+     *      f(k) =
      *          \begin{cases}
      *              {n \choose k} p^k q^{n - k} & 0 \le k \le n
      *          \\  0                           & \text{otherwise}
@@ -1352,7 +1352,7 @@ public:
             if (p_ == 1) {
                 return k == n_;
             }
-            return 
+            return
                 pr::exp(
                 pr::lgamma(float_type(n_ + 1)) -
                 pr::lgamma(float_type(n_ - k + 1)) -
@@ -1366,7 +1366,7 @@ public:
      * @brief Cumulative distribution function.
      *
      * @f[
-     *      F(x) = 
+     *      F(x) =
      *          \begin{cases}
      *              0                   & x < 0
      *          \\  I(q; n - x, 1 + x)  & 0 \le x < n
@@ -1384,8 +1384,8 @@ public:
         }
         else {
             return betai(
-                q_, 
-                float_type(n_ - int(x)), 
+                q_,
+                float_type(n_ - int(x)),
                 float_type(1  + int(x)));
         }
     }
@@ -2765,7 +2765,7 @@ public:
      * @brief Constructor.
      *
      * @throw std::invalid_argument
-     * Unless 
+     * Unless
      * - `std::distance(xfrom, xto) > 1`,
      * - `x` coordinates are strictly increasing,
      * - `y` coordinates are non-negative, and
@@ -2797,7 +2797,7 @@ public:
 
         // Check x coordinates.
         for (int k = 0; k + 1 < n; k++) {
-            if (!(points_[k].x < 
+            if (!(points_[k].x <
                   points_[k + 1].x)) {
                 throw std::invalid_argument(__PRETTY_FUNCTION__);
             }
@@ -2840,7 +2840,7 @@ public:
 
     /**
      * @brief Constructor.
-     * 
+     *
      * @throw std::invalid_argument
      * Unless `xs.size() == ys.size()`.
      */
@@ -2897,7 +2897,7 @@ public:
      * @brief Cumulative distribution function.
      *
      * @f[
-     *      F(x) = (1 - t) F_j + t F_{j + 1} 
+     *      F(x) = (1 - t) F_j + t F_{j + 1}
      * @f]
      * where
      * @f[
@@ -3064,10 +3064,10 @@ public:
      * @brief Constructor.
      *
      * @throw std::invalid_argument
-     * Unless 
+     * Unless
      * - `std::distance(xfrom, xto) > 1`,
      * - `x` coordinates are strictly increasing,
-     * - `y` coordinates are non-negative, and 
+     * - `y` coordinates are non-negative, and
      * - normalization factor is non-zero.
      */
     template <
@@ -3096,7 +3096,7 @@ public:
 
         // Check x coordinates.
         for (int k = 0; k + 1 < n; k++) {
-            if (!(points_[k].x < 
+            if (!(points_[k].x <
                   points_[k + 1].x)) {
                 throw std::invalid_argument(__PRETTY_FUNCTION__);
             }
@@ -3141,7 +3141,7 @@ public:
 
     /**
      * @brief Constructor.
-     * 
+     *
      * @throw std::invalid_argument
      * Unless `xs.size() == ys.size()`.
      */
@@ -3206,7 +3206,7 @@ public:
      * @brief Cumulative distribution function.
      *
      * @f[
-     *      F(x) = 
+     *      F(x) =
      *          \left(x_{j + 1} - x_j\right) \left[\frac{1}{2}
      *          \left(f_{j + 1} - f_j\right) t + f_j\right] t + F_j
      * @f]
@@ -3258,7 +3258,7 @@ public:
      * @f]
      * where
      * @f[
-     *      t \in [0, 1) \implies 
+     *      t \in [0, 1) \implies
      *              a_2 t^2 + a_1 t + a_0 = u
      * @f]
      * where, in turn,

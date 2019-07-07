@@ -66,8 +66,8 @@ namespace pr {
  *
  * Test ray intersection with axis-aligned bounding box.
  *
- * This implementation is only intended to be useful as a boolean 
- * test for bounding box tree traversal, and not as an interface for 
+ * This implementation is only intended to be useful as a boolean
+ * test for bounding box tree traversal, and not as an interface for
  * collecting detailed intersection information.
  *
  * @tparam T
@@ -267,9 +267,9 @@ public:
             // TODO Verify this works?
             multi<float_type, 3> v0 = ray.d;
             multi<float_type, 3> v1 = ray.o - box.center();
-            float_type beps = 
-                ray.oeps + 
-                ray.deps * 
+            float_type beps =
+                ray.oeps +
+                ray.deps *
             /*  length(v1) /
                 length(v0)  */
                 pr::fabs(v1).sum() /

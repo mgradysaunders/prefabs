@@ -150,7 +150,7 @@ int main(int argc, char** argv)
     [&](char** argv) {
         source_ofs_name = argv[0];
     })
-    << "Specify source output filename.\n" 
+    << "Specify source output filename.\n"
     << "By default, image2_resample_source.pgm.\n";
 
     // Specify target output filename.

@@ -900,7 +900,7 @@ public:
      *
      * Allows implicit cast of 1-dimensional arrays to entry type.
      */
-    template <bool B = (M == 1 && (... && (N == 1)))> 
+    template <bool B = (M == 1 && (... && (N == 1)))>
     constexpr operator std::enable_if_t<B, const T&>() const
     {
         return *static_cast<const T*>(

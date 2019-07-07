@@ -412,9 +412,9 @@ public:
      * by a factor of 2, and average 2x2 pixel blocks.
      *
      * @note
-     * This is equivalent to calling `resample()` with 
-     * appropriately reduced image dimensions. However, this 
-     * implementation is much more efficient, as it averages 
+     * This is equivalent to calling `resample()` with
+     * appropriately reduced image dimensions. However, this
+     * implementation is much more efficient, as it averages
      * directly and uses integer operations instead of floating
      * point operations if possible.
      *
@@ -444,7 +444,7 @@ public:
             if constexpr (
                     std::is_floating_point<entry_type>::value) {
                 // Use floating point arithmetic.
-                multi<entry_type, N> 
+                multi<entry_type, N>
                     v00 = image(i0, j0),
                     v01 = image(i0, j1),
                     v10 = image(i1, j0),
@@ -456,7 +456,7 @@ public:
                     std::is_integral<entry_type>::value &&
                     sizeof(std::uint64_t) == sizeof(entry_type)) {
                 // Use floating point arithmetic.
-                multi<long double, N> 
+                multi<long double, N>
                     v00 = image(i0, j0),
                     v01 = image(i0, j1),
                     v10 = image(i1, j0),
@@ -473,7 +473,7 @@ public:
                         typename sized_int<sizeof(entry_type) + 1>::type,
                         typename sized_uint<sizeof(entry_type) + 1>::type>
                         tmp_entry_type;
-                multi<tmp_entry_type, N> 
+                multi<tmp_entry_type, N>
                     v00 = image(i0, j0),
                     v01 = image(i0, j1),
                     v10 = image(i1, j0),
