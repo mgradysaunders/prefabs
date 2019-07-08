@@ -159,12 +159,36 @@ public:
     {
     }
 
-    // TODO
-#if 0
-    constexpr explicit quat(const multi<value_type, 3, 3>& x)
+    /**
+     * @brief Convert matrix.
+     */
+    explicit quat(const multi<value_type, 3, 3>& x)
     {
+        value_type trx = trace(x);
+        if (trx > value_type(0)) {
+            s_ = trx + 1;
+            v_[0] = x[1][2] - x[2][1];
+            v_[1] = x[2][0] - x[0][2];
+            v_[2] = x[0][1] - x[1][0];
+            value_type fac = value_type(0.5) / pr::sqrt(s_);
+            s_ *= +fac;
+            v_ *= -fac;
+        }
+        else {
+            int i = 0;
+            if (x[1][1] > x[i][i]) i = 1;
+            if (x[2][2] > x[i][i]) i = 2;
+            int j = (i + 1) % 3;
+            int k = (j + 1) % 3;
+            s_ = x[j][k] - x[k][j];
+            v_[i] = x[i][i] - x[j][j] - x[k][k] + 1;
+            v_[j] = x[i][j] + x[j][i];
+            v_[k] = x[k][i] + x[i][k];
+            value_type fac = value_type(0.5) / pr::sqrt(v_[i]);
+            s_ *= +fac;
+            v_ *= -fac;
+        }
     }
-#endif
 
     /**@}*/
 
@@ -363,7 +387,7 @@ private:
 public:
 
     /**
-     * @brief Rotate counter-clockwise about arbitrary axis.
+     * @brief Rotate counter-clockwise around arbitrary axis.
      *
      * @param[in] theta
      * Angle in radians.
@@ -535,12 +559,38 @@ public:
     {
     }
 
-    // TODO
-#if 0
-    constexpr explicit quat(const multi<float_type, 4, 4>& x)
+    /**
+     * @brief Constructor.
+     */
+    constexpr quat(const multi<float_type, 3>& v) :
+        s_(value_type(1, 0)),
+        v_{value_type(0, v[0]),
+           value_type(0, v[1]),
+           value_type(0, v[2])}
     {
     }
-#endif
+
+    /**
+     * @brief Convert matrix.
+     */
+    explicit quat(const multi<float_type, 4, 4>& x)
+    {
+        quat<float_type> a =
+        quat<float_type>(multi<float_type, 3, 3>(x));
+        quat<float_type> b = {
+            0, 
+            x[0][3], 
+            x[1][3], 
+            x[2][3]
+        };
+        b *= a;
+        b *= float_type(0.5);
+
+        s_ = value_type(a.real(), b.real());
+        v_[0] = value_type(a.imag()[0], b.imag()[0]);
+        v_[1] = value_type(a.imag()[1], b.imag()[1]);
+        v_[2] = value_type(a.imag()[2], b.imag()[2]);
+    }
 
     /**@}*/
 
@@ -703,6 +753,22 @@ public:
         };
     }
 
+    /**
+     * @brief Apply transform operator.
+     *
+     * @f[
+     *      q(\mathbf{u}) = 
+     *      a(\mathbf{u}) + 2\operatorname{Im}(b a^\dagger)
+     * @f]
+     */
+    template <typename U>
+    constexpr multi<U, 3> operator()(const multi<U, 3>& u) const
+    {
+        return 
+            realquat()(u) + 
+            2 * (dualquat() * realquat().conj()).imag();
+    }
+
     /**@}*/
 
 public:
@@ -740,15 +806,20 @@ public:
         };
     }
 
-    // TODO
-#if 0
     /**
-     * @brief Cast as matrix.
+     * @brief Cast as affine matrix.
      */
     constexpr explicit operator multi<float_type, 4, 4>() const
     {
+        multi<float_type, 4, 4> res = 
+        multi<float_type, 3, 3>(realquat());
+        multi<float_type, 3> vec = 2 * (dualquat() * realquat().conj()).imag();
+        res[0][3] = vec[0];
+        res[1][3] = vec[1];
+        res[2][3] = vec[2];
+        res[3][3] = 1;
+        return res;
     }
-#endif
 
     /**@}*/
 
@@ -767,7 +838,7 @@ private:
 public:
 
     /**
-     * @brief Rotate counter-clockwise about arbitrary axis.
+     * @brief Rotate counter-clockwise around arbitrary axis.
      *
      * @param[in] theta
      * Angle in radians.
@@ -775,7 +846,7 @@ public:
      * @param[in] hatv
      * Normalized rotation axis.
      */
-    static quat rotation(
+    static quat rotate(
                 float_type theta,
                 const multi<float_type, 3>& hatv)
     {
@@ -786,21 +857,27 @@ public:
     }
 
     /**
-     * @brief Translation.
+     * @brief Translate.
      *
-     * @param[in] x
-     * Offset.
+     * @param[in] v
+     * Displacement vector.
      */
-    static quat translation(const multi<float_type, 3>& x)
+    static quat translate(const multi<float_type, 3>& v)
     {
         return {
             value_type(1, 0),
-            value_type(0, x[0] * float_type(0.5)),
-            value_type(0, x[1] * float_type(0.5)),
-            value_type(0, x[2] * float_type(0.5))
+            value_type(0, v[0] * float_type(0.5)),
+            value_type(0, v[1] * float_type(0.5)),
+            value_type(0, v[2] * float_type(0.5))
         };
     }
 };
+
+/**
+ * @brief Template alias for convenience.
+ */
+template <typename T>
+using dualquat = quat<dualnum<T>>;
 
 /**
  * @name Stream operators (quat)
@@ -1291,6 +1368,66 @@ constexpr decltype(T() * U()) dot(const quat<T>& q0, const quat<U>& q1)
     return dot(static_cast<multi<T, 4>>(q0),
                static_cast<multi<U, 4>>(q1));
 }
+
+/**
+ * @brief @f$ L^2 @f$ length, fast variant.
+ *
+ * @f[
+ *      \sqrt{q q^\dagger} = \sqrt{s^2 + \mathbf{v}\cdot\mathbf{v}}
+ * @f]
+ *
+ * @note
+ * Wraps `length_fast(multi<T, 4>)`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> length_fast(const quat<T>& q)
+{
+    return length_fast(static_cast<multi<T, 4>>(q));
+}
+
+/**
+ * @brief @f$ L^2 @f$ length, safe variant.
+ *
+ * @f[
+ *      \sqrt{q q^\dagger} = \sqrt{s^2 + \mathbf{v}\cdot\mathbf{v}}
+ * @f]
+ *
+ * @note
+ * Wraps `length_safe(multi<T, 4>)`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> length_safe(const quat<T>& q)
+{
+    return length_safe(static_cast<multi<T, 4>>(q));
+}
+
+/**
+ * @brief @f$ L^2 @f$ length.
+ *
+ * @f[
+ *      \sqrt{q q^\dagger} = \sqrt{s^2 + \mathbf{v}\cdot\mathbf{v}}
+ * @f]
+ *
+ * @note
+ * Wraps `length(multi<T, 4>)`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> length(const quat<T>& q)
+{
+    return length(static_cast<multi<T, 4>>(q));
+}
+
+// TODO normalize_fast
+
+// TODO normalize_safe
+
+// TODO normalize
 
 /**@}*/
 

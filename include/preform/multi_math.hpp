@@ -1051,7 +1051,7 @@ struct multi_initializers<
      * @param[in] hatv
      * Normalized rotation axis.
      */
-    static multi<T, 3, 3> rotate(T theta, const multi<T, 3>& hatv)
+    static multi<T, 3, 3> rotate(T theta, multi<T, 3> hatv)
     {
         T cos_theta = pr::cos(theta);
         T sin_theta = pr::sin(theta);
@@ -1088,6 +1088,7 @@ struct multi_initializers<
      * @param[in] theta
      * Angle in radians.
      */
+    __attribute__((always_inline))
     static multi<T, 3, 3> rotatex(T theta)
     {
         T cos_theta = pr::cos(theta);
@@ -1113,6 +1114,7 @@ struct multi_initializers<
      * @param[in] theta
      * Angle in radians.
      */
+    __attribute__((always_inline))
     static multi<T, 3, 3> rotatey(T theta)
     {
         T cos_theta = pr::cos(theta);
@@ -1138,6 +1140,7 @@ struct multi_initializers<
      * @param[in] theta
      * Angle in radians.
      */
+    __attribute__((always_inline))
     static multi<T, 3, 3> rotatez(T theta)
     {
         T cos_theta = pr::cos(theta);
@@ -1153,45 +1156,69 @@ struct multi_initializers<
      * @brief Uniform scale.
      *
      * @f[
-     *      \begin{bmatrix}
-     *          s & 0 & 0
-     *      \\  0 & s & 0
-     *      \\  0 & 0 & s
-     *      \end{bmatrix}
+     *      \alpha\mathbf{I}
      * @f]
      *
-     * @param[in] s
-     * Factor.
+     * @param[in] alpha
+     * Scale factor.
      */
-    static multi<T, 3, 3> scale(T s)
+    __attribute__((always_inline))
+    static multi<T, 3, 3> scale(T alpha)
     {
         return {
-            {s, T(0), T(0)},
-            {T(0), s, T(0)},
-            {T(0), T(0), s}
+            {alpha, T(0), T(0)},
+            {T(0), alpha, T(0)},
+            {T(0), T(0), alpha}
         };
     }
 
     /**
-     * @brief Non-uniform scale.
+     * @brief Non-uniform scale along arbitrary axis.
+     *
+     * @f[
+     *      (\alpha - 1)
+     *      \hat{\mathbf{v}}
+     *      \hat{\mathbf{v}}^\top
+     *      + \mathbf{I}
+     * @f]
+     *
+     * @param[in] alpha
+     * Scale factor.
+     *
+     * @param[in] hatv
+     * Normalized scaling axis.
+     */
+    __attribute__((always_inline))
+    static multi<T, 3, 3> scale(T alpha, multi<T, 3> hatv)
+    {
+        multi<T, 3, 3> res = (alpha - 1) * outer(hatv, hatv);
+        res[0][0] += 1;
+        res[1][1] += 1;
+        res[2][2] += 1;
+        return res;
+    }
+
+    /**
+     * @brief Non-uniform axis-aligned scale.
      *
      * @f[
      *      \begin{bmatrix}
-     *          s_x & 0 & 0
-     *      \\  0 & s_y & 0
-     *      \\  0 & 0 & s_z
+     *          \alpha_x & 0 & 0
+     *      \\  0 & \alpha_y & 0
+     *      \\  0 & 0 & \alpha_z
      *      \end{bmatrix}
      * @f]
      *
-     * @param[in] s
-     * Factor.
+     * @param[in] alpha
+     * Scale factors.
      */
-    static multi<T, 3, 3> scale(multi<T, 3> s)
+    __attribute__((always_inline))
+    static multi<T, 3, 3> scale(multi<T, 3> alpha)
     {
         return {
-            {s[0], T(0), T(0)},
-            {T(0), s[1], T(0)},
-            {T(0), T(0), s[2]}
+            {alpha[0], T(0), T(0)},
+            {T(0), alpha[1], T(0)},
+            {T(0), T(0), alpha[2]}
         };
     }
 };
@@ -1220,6 +1247,7 @@ struct multi_initializers<
      * @param[in] v
      * Displacement vector.
      */
+    __attribute__((always_inline))
     static multi<T, 4, 4> translate(multi<T, 3> v)
     {
         return {
@@ -1257,11 +1285,11 @@ struct multi_initializers<
      * @param[in] hatv
      * Normalized rotation axis.
      */
+    __attribute__((always_inline))
     static multi<T, 4, 4> rotate(T theta, multi<T, 3> hatv)
     {
         // Delegate.
-        multi<T, 4, 4> res =
-        multi<T, 3, 3>::rotate(theta, hatv);
+        multi<T, 4, 4> res = multi<T, 3, 3>::rotate(theta, hatv);
         res[3][3] = 1;
         return res;
     }
@@ -1281,11 +1309,11 @@ struct multi_initializers<
      * @param[in] theta
      * Angle in radians.
      */
+    __attribute__((always_inline))
     static multi<T, 4, 4> rotatex(T theta)
     {
         // Delegate.
-        multi<T, 4, 4> res =
-        multi<T, 3, 3>::rotatex(theta);
+        multi<T, 4, 4> res = multi<T, 3, 3>::rotatex(theta);
         res[3][3] = 1;
         return res;
     }
@@ -1305,11 +1333,11 @@ struct multi_initializers<
      * @param[in] theta
      * Angle in radians.
      */
+    __attribute__((always_inline))
     static multi<T, 4, 4> rotatey(T theta)
     {
         // Delegate.
-        multi<T, 4, 4> res =
-        multi<T, 3, 3>::rotatey(theta);
+        multi<T, 4, 4> res = multi<T, 3, 3>::rotatey(theta);
         res[3][3] = 1;
         return res;
     }
@@ -1329,11 +1357,11 @@ struct multi_initializers<
      * @param[in] theta
      * Angle in radians.
      */
+    __attribute__((always_inline))
     static multi<T, 4, 4> rotatez(T theta)
     {
         // Delegate.
-        multi<T, 4, 4> res =
-        multi<T, 3, 3>::rotatez(theta);
+        multi<T, 4, 4> res = multi<T, 3, 3>::rotatez(theta);
         res[3][3] = 1;
         return res;
     }
