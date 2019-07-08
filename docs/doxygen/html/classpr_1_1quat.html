@@ -109,6 +109,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5b50e27359de4974821e4d60af9cc8c9"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#a5b50e27359de4974821e4d60af9cc8c9">quat</a> (const multi&lt; <a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a>, 4 &gt; &amp;x)</td></tr>
 <tr class="memdesc:a5b50e27359de4974821e4d60af9cc8c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a5b50e27359de4974821e4d60af9cc8c9">More...</a><br /></td></tr>
 <tr class="separator:a5b50e27359de4974821e4d60af9cc8c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d7e00662449488ae151cb69ffd73bf5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#a1d7e00662449488ae151cb69ffd73bf5">quat</a> (const multi&lt; <a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a>, 3, 3 &gt; &amp;x)</td></tr>
+<tr class="memdesc:a1d7e00662449488ae151cb69ffd73bf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert matrix.  <a href="#a1d7e00662449488ae151cb69ffd73bf5">More...</a><br /></td></tr>
+<tr class="separator:a1d7e00662449488ae151cb69ffd73bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Accessors</div></td></tr>
 <tr class="memitem:a5c36f0a67b8bcc2d8efbdc95457775d8"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#a5c36f0a67b8bcc2d8efbdc95457775d8">real</a> () const</td></tr>
 <tr class="memdesc:a5c36f0a67b8bcc2d8efbdc95457775d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get real part.  <a href="#a5c36f0a67b8bcc2d8efbdc95457775d8">More...</a><br /></td></tr>
@@ -152,7 +155,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ab96b5984972c61cad41503588a04a978"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classpr_1_1quat.html">quat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#ab96b5984972c61cad41503588a04a978">rotate</a> (<a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a> theta, const multi&lt; <a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a>, 3 &gt; &amp;hatv)</td></tr>
-<tr class="memdesc:ab96b5984972c61cad41503588a04a978"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate counter-clockwise about arbitrary axis.  <a href="#ab96b5984972c61cad41503588a04a978">More...</a><br /></td></tr>
+<tr class="memdesc:ab96b5984972c61cad41503588a04a978"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate counter-clockwise around arbitrary axis.  <a href="#ab96b5984972c61cad41503588a04a978">More...</a><br /></td></tr>
 <tr class="separator:ab96b5984972c61cad41503588a04a978"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff71411816c427554ee3a998fe2341d0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classpr_1_1quat.html">quat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1quat.html#aff71411816c427554ee3a998fe2341d0">slerp</a> (<a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a> mu, const <a class="el" href="classpr_1_1quat.html">quat</a> &amp;q0, const <a class="el" href="classpr_1_1quat.html">quat</a> &amp;q1, <a class="el" href="classpr_1_1quat.html">quat</a> *dq_dmu=nullptr)</td></tr>
 <tr class="memdesc:aff71411816c427554ee3a998fe2341d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spherical linear interpolation.  <a href="#aff71411816c427554ee3a998fe2341d0">More...</a><br /></td></tr>
@@ -217,7 +220,7 @@ template&lt;typename T &gt; </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9c1255624919d0bc96db917a02b26f3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c1255624919d0bc96db917a02b26f3f">&#9670;&nbsp;</a></span>quat() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c1255624919d0bc96db917a02b26f3f">&#9670;&nbsp;</a></span>quat() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,7 +249,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a3ba244ad9ad6de80d2d547ba464f7960"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ba244ad9ad6de80d2d547ba464f7960">&#9670;&nbsp;</a></span>quat() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ba244ad9ad6de80d2d547ba464f7960">&#9670;&nbsp;</a></span>quat() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,7 +279,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a5f527b5a4978588b18cc31cec4d47dda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f527b5a4978588b18cc31cec4d47dda">&#9670;&nbsp;</a></span>quat() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f527b5a4978588b18cc31cec4d47dda">&#9670;&nbsp;</a></span>quat() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -316,7 +319,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a19f5fc5d94e18dac65134f3b053e24d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19f5fc5d94e18dac65134f3b053e24d0">&#9670;&nbsp;</a></span>quat() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a19f5fc5d94e18dac65134f3b053e24d0">&#9670;&nbsp;</a></span>quat() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -368,7 +371,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a5b50e27359de4974821e4d60af9cc8c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b50e27359de4974821e4d60af9cc8c9">&#9670;&nbsp;</a></span>quat() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b50e27359de4974821e4d60af9cc8c9">&#9670;&nbsp;</a></span>quat() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -394,6 +397,36 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Constructor. </p>
+
+</div>
+</div>
+<a id="a1d7e00662449488ae151cb69ffd73bf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d7e00662449488ae151cb69ffd73bf5">&#9670;&nbsp;</a></span>quat() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1quat.html">pr::quat</a>&lt; T &gt;::<a class="el" href="classpr_1_1quat.html">quat</a> </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; <a class="el" href="classpr_1_1quat.html#a8734c97e96cb0e291320698d71b4709d">value_type</a>, 3, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert matrix. </p>
 
 </div>
 </div>
@@ -777,7 +810,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Rotate counter-clockwise about arbitrary axis. </p>
+<p>Rotate counter-clockwise around arbitrary axis. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">theta</td><td>Angle in radians.</td></tr>
