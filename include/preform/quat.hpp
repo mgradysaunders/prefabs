@@ -160,7 +160,10 @@ public:
     }
 
     /**
-     * @brief Convert matrix.
+     * @brief Construct from matrix.
+     *
+     * @note
+     * Matrix must be a rotation matrix.
      */
     explicit quat(const multi<value_type, 3, 3>& x)
     {
@@ -395,6 +398,7 @@ public:
      * @param[in] hatv
      * Normalized rotation axis.
      */
+    __attribute__((always_inline))
     static quat rotate(
                 value_type theta,
                 const multi<value_type, 3>& hatv)
@@ -403,6 +407,45 @@ public:
             pr::cos(theta * value_type(0.5)),
             pr::sin(theta * value_type(0.5)) * hatv
         };
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around X-axis.
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    __attribute__((always_inline))
+    static quat rotatex(value_type theta)
+    {
+        multi<value_type, 3> hatv = {1, 0, 0};
+        return rotate(theta, hatv);
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around Y-axis.
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    __attribute__((always_inline))
+    static quat rotatey(float_type theta)
+    {
+        multi<value_type, 3> hatv = {0, 1, 0};
+        return rotate(theta, hatv);
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around Z-axis.
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    __attribute__((always_inline))
+    static quat rotatez(float_type theta)
+    {
+        multi<value_type, 3> hatv = {0, 0, 1};
+        return rotate(theta, hatv);
     }
 
     /**
@@ -459,6 +502,46 @@ public:
             return q;
         }
     }
+
+public:
+
+    /**
+     * @name Decomposition
+     */
+    /**@{*/
+
+    /**
+     * @brief Rotation angle.
+     *
+     * @f[
+     *      2 \arctan(\lVert\mathbf{v}\rVert, s)
+     * @f]
+     */
+    value_type rotation_angle() const
+    {
+        value_type cos_theta_2 = s_;
+        value_type sin_theta_2 = pr::length(v_);
+        return 2 * pr::atan2(sin_theta_2, cos_theta_2);
+    }
+
+    /**
+     * @brief Rotation axis.
+     *
+     * @f[ 
+     *      \frac{\mathbf{v}}{\lVert\mathbf{v}\rVert}
+     * @f]
+     */
+    multi<value_type, 3> rotation_axis() const
+    {
+        multi<value_type, 3> hatv = pr::normalize(v_);
+        if (hatv[0] == value_type(0) &&
+            hatv[1] == value_type(0)) {
+            hatv[2] = 1;
+        }
+        return hatv;
+    }
+
+    /**@}*/
 };
 
 /**
@@ -571,7 +654,11 @@ public:
     }
 
     /**
-     * @brief Convert matrix.
+     * @brief Construct from affine matrix.
+     *
+     * @note
+     * Matrix must be an affine rigid-body transform. That is,
+     * a transform with rotation and translation only.
      */
     explicit quat(const multi<float_type, 4, 4>& x)
     {
@@ -633,9 +720,9 @@ public:
     }
 
     /**
-     * @brief Get real quaternion part.
+     * @brief Get quaternion real part.
      */
-    constexpr quat<float_type> realquat() const
+    constexpr quat<float_type> quat_real() const
     {
         return {
             s_.real(),
@@ -646,9 +733,9 @@ public:
     }
 
     /**
-     * @brief Get dual quaternion part.
+     * @brief Get quaternion dual part.
      */
-    constexpr quat<float_type> dualquat() const
+    constexpr quat<float_type> quat_dual() const
     {
         return {
             s_.dual(),
@@ -659,9 +746,9 @@ public:
     }
 
     /**
-     * @brief Set real quaternion part.
+     * @brief Set quaternion real part.
      */
-    constexpr quat<float_type> realquat(const quat<float_type>& val)
+    constexpr quat<float_type> quat_real(const quat<float_type>& val)
     {
         return {
             s_.real(val.real()),
@@ -672,9 +759,9 @@ public:
     }
 
     /**
-     * @brief Set dual quaternion part.
+     * @brief Set quaternion dual part.
      */
-    constexpr quat<float_type> dualquat(const quat<float_type>& val)
+    constexpr quat<float_type> quat_dual(const quat<float_type>& val)
     {
         return {
             s_.dual(val.real()),
@@ -717,11 +804,13 @@ public:
      *      = a - \varepsilon b
      * @f]
      */
-    constexpr quat dualconj() const
+    constexpr quat dual_conj() const
     {
         return {
-            +realquat(),
-            -dualquat()
+            pr::dual_conj(s_),
+            pr::dual_conj(v_[0]),
+            pr::dual_conj(v_[1]),
+            pr::dual_conj(v_[2])
         };
     }
 
@@ -765,8 +854,8 @@ public:
     constexpr multi<U, 3> operator()(const multi<U, 3>& u) const
     {
         return 
-            realquat()(u) + 
-            2 * (dualquat() * realquat().conj()).imag();
+            quat_real()(u) + 
+            2 * (quat_dual() * quat_real().conj()).imag();
     }
 
     /**@}*/
@@ -812,11 +901,11 @@ public:
     constexpr explicit operator multi<float_type, 4, 4>() const
     {
         multi<float_type, 4, 4> res = 
-        multi<float_type, 3, 3>(realquat());
-        multi<float_type, 3> vec = 2 * (dualquat() * realquat().conj()).imag();
-        res[0][3] = vec[0];
-        res[1][3] = vec[1];
-        res[2][3] = vec[2];
+        multi<float_type, 3, 3>(quat_real());
+        multi<float_type, 3> w = 2 * (quat_dual() * quat_real().conj()).imag();
+        res[0][3] = w[0];
+        res[1][3] = w[1];
+        res[2][3] = w[2];
         res[3][3] = 1;
         return res;
     }
@@ -846,6 +935,7 @@ public:
      * @param[in] hatv
      * Normalized rotation axis.
      */
+    __attribute__((always_inline))
     static quat rotate(
                 float_type theta,
                 const multi<float_type, 3>& hatv)
@@ -857,20 +947,149 @@ public:
     }
 
     /**
+     * @brief Rotate counter-clockwise around X-axis.
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    __attribute__((always_inline))
+    static quat rotatex(float_type theta)
+    {
+        return {
+            quat<float_type>::rotatex(theta),
+            quat<float_type>()
+        };
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around Y-axis.
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    __attribute__((always_inline))
+    static quat rotatey(float_type theta)
+    {
+        return {
+            quat<float_type>::rotatey(theta),
+            quat<float_type>()
+        };
+    }
+
+    /**
+     * @brief Rotate counter-clockwise around Z-axis.
+     *
+     * @param[in] theta
+     * Angle in radians.
+     */
+    __attribute__((always_inline))
+    static quat rotatez(float_type theta)
+    {
+        return {
+            quat<float_type>::rotatez(theta),
+            quat<float_type>()
+        };
+    }
+
+    /**
      * @brief Translate.
      *
-     * @param[in] v
+     * @param[in] w
      * Displacement vector.
      */
-    static quat translate(const multi<float_type, 3>& v)
+    __attribute__((always_inline))
+    static quat translate(const multi<float_type, 3>& w)
     {
         return {
             value_type(1, 0),
-            value_type(0, v[0] * float_type(0.5)),
-            value_type(0, v[1] * float_type(0.5)),
-            value_type(0, v[2] * float_type(0.5))
+            value_type(0, w[0] * float_type(0.5)),
+            value_type(0, w[1] * float_type(0.5)),
+            value_type(0, w[2] * float_type(0.5))
         };
     }
+
+    /**
+     * @brief Spherical linear interpolation.
+     *
+     * @param[in] mu
+     * Factor @f$ \mu \in [0, 1] @f$.
+     *
+     * @param[in] x0
+     * Dualquat @f$ x_0 @f$ for @f$ \mu = 0 @f$.
+     *
+     * @param[in] x1
+     * Dualquat @f$ x_1 @f$ for @f$ \mu = 1 @f$.
+     *
+     * @param[out] dx_dmu
+     * Derivative @f$ dx/d\mu @f$. _Optional_.
+     */
+    static quat slerp(
+                float_type mu,
+                const quat& x0,
+                const quat& x1,
+                quat* dx_dmu = nullptr)
+    {
+        quat<float_type> a0 = x0.quat_real(), b0 = x0.quat_dual();
+        quat<float_type> a1 = x1.quat_real(), b1 = x1.quat_dual();
+        quat<float_type> da_dmu;
+        quat<float_type> db_dmu;
+        quat<float_type> a =
+        quat<float_type>::slerp(mu, a0, a1, dx_dmu ? &da_dmu : nullptr);
+        quat<float_type> b = (1 - mu) * b0 + mu * b1;
+        if (dx_dmu) {
+            db_dmu = b1 - b0;
+            dx_dmu->quat_real(da_dmu);
+            dx_dmu->quat_dual(db_dmu);
+        }
+        return {a, b};
+    }
+
+public:
+
+    /**
+     * @name Decomposition
+     */
+    /**@{*/
+
+    /**
+     * @brief Rotation angle.
+     *
+     * @f[
+     *      2 \arctan(\lVert\operatorname{Re}(\mathbf{v})\rVert, 
+     *                      \operatorname{Re}(s))
+     * @f]
+     */
+    float_type rotation_angle() const
+    {
+        return quat_real().rotation_angle();
+    }
+
+    /**
+     * @brief Rotation axis.
+     *
+     * @f[ 
+     *      \frac{\operatorname{Re}(\mathbf{v})}
+     *           {\lVert\operatorname{Re}(\mathbf{v})\rVert}
+     * @f]
+     */
+    multi<float_type, 3> rotation_axis() const
+    {
+        return quat_real().rotation_axis();
+    }
+
+    /**
+     * @brief Translation.
+     *
+     * @f[
+     *     2 \operatorname{Im}(b a^\dagger)
+     * @f]
+     */
+    multi<float_type, 3> translation() const
+    {
+        return 2 * (quat_dual() * quat_real().conj()).imag();
+    }
+
+    /**@}*/
 };
 
 /**

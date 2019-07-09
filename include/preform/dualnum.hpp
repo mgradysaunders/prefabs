@@ -652,10 +652,7 @@ constexpr std::enable_if_t<
  */
 template <typename T>
 __attribute__((always_inline))
-constexpr T real(const dualnum<T>& x)
-{
-    return x.real();
-}
+constexpr T real(const dualnum<T>& x) { return x.real(); }
 
 /**
  * @brief Dual part.
@@ -666,13 +663,10 @@ constexpr T real(const dualnum<T>& x)
  */
 template <typename T>
 __attribute__((always_inline))
-constexpr T dual(const dualnum<T>& x)
-{
-    return x.dual();
-}
+constexpr T dual(const dualnum<T>& x) { return x.dual(); }
 
 /**
- * @brief Conjugate.
+ * @brief Dual conjugate.
  *
  * @f[
  *      (a + \varepsilon b)^\circ =
@@ -681,7 +675,7 @@ constexpr T dual(const dualnum<T>& x)
  */
 template <typename T>
 __attribute__((always_inline))
-constexpr dualnum<T> conj(const dualnum<T>& x)
+constexpr dualnum<T> dual_conj(const dualnum<T>& x)
 {
     return {+x.real(), -x.dual()};
 }
@@ -700,7 +694,7 @@ constexpr dualnum<T> conj(const dualnum<T>& x)
  */
 template <typename T>
 __attribute__((always_inline))
-constexpr auto norm(const dualnum<T>& x)
+constexpr decltype(pr::abs(T() * T())) norm(const dualnum<T>& x)
 {
     return pr::abs(x.real() * x.real());
 }
@@ -718,7 +712,7 @@ constexpr auto norm(const dualnum<T>& x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto abs(const dualnum<T>& x)
+inline decltype(pr::abs(T())) abs(const dualnum<T>& x)
 {
     return pr::abs(x.real());
 }
@@ -771,8 +765,6 @@ inline bool isnormal(const dualnum<T>& x)
 }
 
 /**@}*/
-
-// TODO blas_traits
 
 /**@}*/
 
