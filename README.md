@@ -1,3 +1,3 @@
 # preform
 
-_C++11/14/17 header-only utilities._
+_C++ header-only utilities._

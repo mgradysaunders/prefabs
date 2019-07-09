@@ -1,7 +1,7 @@
 ---
 layout: page
 title: preform
-subtitle: Header-only utilities
+subtitle: C++ header-only utilities
 ---
 
 # About
