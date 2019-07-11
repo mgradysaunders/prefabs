@@ -172,16 +172,16 @@ public:
     /**
      * @brief Deallocate.
      *
-     * @param[in] p
+     * @param[in] ptr
      * Pointer.
      *
      * @param[in] n
      * Number of objects.
      */
-    void deallocate(T* p, std::size_t n)
+    void deallocate(T* ptr, std::size_t n)
     {
         // Do nothing.
-        (void) p;
+        (void) ptr;
         (void) n;
     }
 
