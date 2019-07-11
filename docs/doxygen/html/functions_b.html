@@ -130,19 +130,20 @@ $(function() {
 , <a class="el" href="structpr_1_1dense__vector__view.html#a74e17228f98cdbe79fbff456c73d09a3">pr::dense_vector_view&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1iterator__range.html#a8926ce1ee0197f90ace8ba7ba5b1be1f">pr::iterator_range&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1linear__aabbtree.html#a4a8604850f0962da0e6783c1edeccbb6">pr::linear_aabbtree&lt; Tfloat, N, Tnode_alloc &gt;</a>
-, <a class="el" href="structpr_1_1memory__arena_1_1block.html#a26dcddd963da5e9ded6ef1435f31b575">pr::memory_arena::block</a>
+, <a class="el" href="structpr_1_1memory__arena_1_1block.html#a5fdbf10ea079007ca611ef04f7511cd8">pr::memory_arena&lt; Tbyte_alloc &gt;::block</a>
 , <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#a9b47af2485ecfaf8edc424955dc2ceee">pr::multi&lt; T, M, N... &gt;</a>
 , <a class="el" href="classpr_1_1static__queue.html#a6acc4a641cce7b42f34f1782ea24774e">pr::static_queue&lt; T, N &gt;</a>
 , <a class="el" href="classpr_1_1static__stack.html#a824af5a5a392ede89838a55f0ffa5f59">pr::static_stack&lt; T, N &gt;</a>
 </li>
 <li>begin_
 : <a class="el" href="classpr_1_1iterator__range.html#ad1b86766d71e3de1853704afea501470">pr::iterator_range&lt; T &gt;</a>
+, <a class="el" href="classpr_1_1memory__pool.html#a2ef51adad09550f0e6c06efb7eaf0a31">pr::memory_pool&lt; Tbyte_alloc &gt;</a>
 </li>
 <li>bernoulli_distribution()
 : <a class="el" href="classpr_1_1bernoulli__distribution.html#aeb7fc22229e55008b49a1641f6c4eb01">pr::bernoulli_distribution&lt; T &gt;</a>
 </li>
 <li>binomial_distribution()
-: <a class="el" href="classpr_1_1binomial__distribution.html#a6b399e1632c29d69042026ac524067b1">pr::binomial_distribution&lt; T &gt;</a>
+: <a class="el" href="classpr_1_1binomial__distribution.html#a9b27fa9b26aa76687467a05100c73624">pr::binomial_distribution&lt; T &gt;</a>
 </li>
 <li>bits_
 : <a class="el" href="classpr_1_1float__atomic.html#abbddee84c7cba29867d6e38071248817">pr::float_atomic&lt; Tfloat, Tfloat_bits &gt;</a>
@@ -151,7 +152,7 @@ $(function() {
 : <a class="el" href="structpr_1_1dense__matrix__view.html#a6408e05265a90aaf19f4d01668a22d2e">pr::dense_matrix_view&lt; T &gt;</a>
 </li>
 <li>block_
-: <a class="el" href="classpr_1_1memory__arena.html#acf8249ed2c4257179bfa1e9af73499fc">pr::memory_arena</a>
+: <a class="el" href="classpr_1_1memory__arena.html#aa712f62a24d50e131763d93c40d17d5a">pr::memory_arena&lt; Tbyte_alloc &gt;</a>
 </li>
 <li>block_area
 : <a class="el" href="classpr_1_1block__array2.html#aa1fe6f9be2e56a722450f152cc85ee39">pr::block_array2&lt; T, Talloc &gt;</a>
@@ -162,7 +163,7 @@ $(function() {
 , <a class="el" href="classpr_1_1block__array3.html#aadb734ea7f461f0ffae6af687cddc720">pr::block_array3&lt; T, Talloc &gt;</a>
 </li>
 <li>block_array2()
-: <a class="el" href="classpr_1_1block__array2.html#a28b9a9a33ca524101ea9426da70a9ad8">pr::block_array2&lt; T, Talloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array2.html#aaf1c0bdb44c03c2c6a5c48fd3ee360d4">pr::block_array2&lt; T, Talloc &gt;</a>
 </li>
 <li>block_array3()
 : <a class="el" href="classpr_1_1block__array3.html#a609190b15490e80d6c84a11420b146b0">pr::block_array3&lt; T, Talloc &gt;</a>
@@ -172,7 +173,7 @@ $(function() {
 , <a class="el" href="classpr_1_1block__array3.html#af5bef76d54dcc1599e6e62051464190d">pr::block_array3&lt; T, Talloc &gt;</a>
 </li>
 <li>block_size_
-: <a class="el" href="classpr_1_1memory__arena.html#a58979ad1f417a7b797586d99b30b3842">pr::memory_arena</a>
+: <a class="el" href="classpr_1_1memory__arena.html#aa3d8643b666051ee8b5ec39cd391dc3c">pr::memory_arena&lt; Tbyte_alloc &gt;</a>
 </li>
 <li>block_size_log2
 : <a class="el" href="classpr_1_1block__array2.html#a4dc7a11393ae74438a11a9b24014f963">pr::block_array2&lt; T, Talloc &gt;</a>
@@ -182,8 +183,8 @@ $(function() {
 : <a class="el" href="classpr_1_1static__queue.html#a0c87178e25496962d235ae55cce63667">pr::static_queue&lt; T, N &gt;</a>
 </li>
 <li>bottom()
-: <a class="el" href="classpr_1_1static__queue.html#aaefb6df6f9c3680c0a27066582526b44">pr::static_queue&lt; T, N &gt;</a>
-, <a class="el" href="classpr_1_1static__stack.html#a4dac1ba3846abd938924b37ae2a1c843">pr::static_stack&lt; T, N &gt;</a>
+: <a class="el" href="classpr_1_1static__queue.html#af9a5d57c232e7f196145c199270a61b2">pr::static_queue&lt; T, N &gt;</a>
+, <a class="el" href="classpr_1_1static__stack.html#aedab1b4a9f366c0e9295ad5a356e2d5c">pr::static_stack&lt; T, N &gt;</a>
 </li>
 <li>bounding_box()
 : <a class="el" href="structpr_1_1raytest__disk.html#a9462a3c434621ea1f86b683749043c73">pr::raytest_disk&lt; T &gt;</a>
@@ -206,7 +207,11 @@ $(function() {
 </li>
 <li>bspline_patch
 : <a class="el" href="structpr_1_1bspline__basis__functions.html#a6538e065fae35740e4f0b7101cde9869">pr::bspline_basis_functions&lt; Tfloat &gt;</a>
-, <a class="el" href="classpr_1_1bspline__patch.html#ac28e61d3b20ca700ad95a4221ca34314">pr::bspline_patch&lt; Tfloat, N, Talloc &gt;</a>
+, <a class="el" href="classpr_1_1bspline__patch.html#a7f8206d2928401223befbb3ecf7ff9c9">pr::bspline_patch&lt; Tfloat, N, Talloc &gt;</a>
+</li>
+<li>byte_alloc_
+: <a class="el" href="classpr_1_1memory__arena.html#ade3595922cab69d2749a84a6b1d905ad">pr::memory_arena&lt; Tbyte_alloc &gt;</a>
+, <a class="el" href="classpr_1_1memory__pool.html#a17b0d5cb6110504138978029eae50d5f">pr::memory_pool&lt; Tbyte_alloc &gt;</a>
 </li>
 <li>byte_stream_wrapper()
 : <a class="el" href="structpr_1_1byte__stream__wrapper.html#af8a8cc7b1202a3d5b6edc2e3859fe376">pr::byte_stream_wrapper&lt; Tstream &gt;</a>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>preform: pr::memory_arena::block Struct Reference</title>
+<title>preform: pr::memory_arena&lt; Tbyte_alloc &gt;::block Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <!--Broken...-->
@@ -73,7 +73,7 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structpr_1_1memory__arena_1_1block-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::memory_arena::block Struct Reference</div>  </div>
+<div class="title">pr::memory_arena&lt; Tbyte_alloc &gt;::block Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -82,27 +82,32 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a26dcddd963da5e9ded6ef1435f31b575"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1memory__arena_1_1block.html#a26dcddd963da5e9ded6ef1435f31b575">begin</a></td></tr>
-<tr class="memdesc:a26dcddd963da5e9ded6ef1435f31b575"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes.  <a href="#a26dcddd963da5e9ded6ef1435f31b575">More...</a><br /></td></tr>
-<tr class="separator:a26dcddd963da5e9ded6ef1435f31b575"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ad0b918e0123490fbcc95e13b2bef3d"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1memory__arena_1_1block.html#a5ad0b918e0123490fbcc95e13b2bef3d">offset</a></td></tr>
-<tr class="memdesc:a5ad0b918e0123490fbcc95e13b2bef3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset.  <a href="#a5ad0b918e0123490fbcc95e13b2bef3d">More...</a><br /></td></tr>
-<tr class="separator:a5ad0b918e0123490fbcc95e13b2bef3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af470bf363de6e9e9be86f891cfd12c19"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1memory__arena_1_1block.html#af470bf363de6e9e9be86f891cfd12c19">size</a></td></tr>
-<tr class="memdesc:af470bf363de6e9e9be86f891cfd12c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size.  <a href="#af470bf363de6e9e9be86f891cfd12c19">More...</a><br /></td></tr>
-<tr class="separator:af470bf363de6e9e9be86f891cfd12c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fdbf10ea079007ca611ef04f7511cd8"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1memory__arena_1_1block.html#a5fdbf10ea079007ca611ef04f7511cd8">begin</a></td></tr>
+<tr class="memdesc:a5fdbf10ea079007ca611ef04f7511cd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes.  <a href="#a5fdbf10ea079007ca611ef04f7511cd8">More...</a><br /></td></tr>
+<tr class="separator:a5fdbf10ea079007ca611ef04f7511cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa791db1ba7e7fef2034eaf62949d7623"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1memory__arena_1_1block.html#aa791db1ba7e7fef2034eaf62949d7623">offset</a></td></tr>
+<tr class="memdesc:aa791db1ba7e7fef2034eaf62949d7623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset.  <a href="#aa791db1ba7e7fef2034eaf62949d7623">More...</a><br /></td></tr>
+<tr class="separator:aa791db1ba7e7fef2034eaf62949d7623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2859c870cfaa656e654063fd6cf65f1"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1memory__arena_1_1block.html#ac2859c870cfaa656e654063fd6cf65f1">size</a></td></tr>
+<tr class="memdesc:ac2859c870cfaa656e654063fd6cf65f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size.  <a href="#ac2859c870cfaa656e654063fd6cf65f1">More...</a><br /></td></tr>
+<tr class="separator:ac2859c870cfaa656e654063fd6cf65f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Memory block. </p>
+<div class="textblock"><h3>template&lt;typename Tbyte_alloc = std::allocator&lt;char&gt;&gt;<br />
+struct pr::memory_arena&lt; Tbyte_alloc &gt;::block</h3>
+
+<p>Memory block. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a26dcddd963da5e9ded6ef1435f31b575"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26dcddd963da5e9ded6ef1435f31b575">&#9670;&nbsp;</a></span>begin</h2>
+<a id="a5fdbf10ea079007ca611ef04f7511cd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fdbf10ea079007ca611ef04f7511cd8">&#9670;&nbsp;</a></span>begin</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">char* pr::memory_arena::block::begin</td>
+          <td class="memname">char* <a class="el" href="classpr_1_1memory__arena.html">pr::memory_arena</a>&lt; Tbyte_alloc &gt;::block::begin</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -111,14 +116,16 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5ad0b918e0123490fbcc95e13b2bef3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ad0b918e0123490fbcc95e13b2bef3d">&#9670;&nbsp;</a></span>offset</h2>
+<a id="aa791db1ba7e7fef2034eaf62949d7623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa791db1ba7e7fef2034eaf62949d7623">&#9670;&nbsp;</a></span>offset</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t pr::memory_arena::block::offset</td>
+          <td class="memname">std::size_t <a class="el" href="classpr_1_1memory__arena.html">pr::memory_arena</a>&lt; Tbyte_alloc &gt;::block::offset</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -127,14 +134,16 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af470bf363de6e9e9be86f891cfd12c19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af470bf363de6e9e9be86f891cfd12c19">&#9670;&nbsp;</a></span>size</h2>
+<a id="ac2859c870cfaa656e654063fd6cf65f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2859c870cfaa656e654063fd6cf65f1">&#9670;&nbsp;</a></span>size</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t pr::memory_arena::block::size</td>
+          <td class="memname">std::size_t <a class="el" href="classpr_1_1memory__arena.html">pr::memory_arena</a>&lt; Tbyte_alloc &gt;::block::size</td>
         </tr>
       </table>
 </div><div class="memdoc">
