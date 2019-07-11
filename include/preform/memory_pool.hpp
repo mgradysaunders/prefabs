@@ -317,7 +317,7 @@ public:
         std::memcpy(elem0, &elem1, sizeof(void*));
     }
 
-public:
+private:
 
     /**
      * @brief Element size in bytes.
