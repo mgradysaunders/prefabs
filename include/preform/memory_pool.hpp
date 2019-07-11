@@ -320,7 +320,7 @@ public:
 private:
 
     /**
-     * @brief Element size in bytes.
+     * @brief Element stride in bytes.
      */
     std::size_t elem_stride_ = 0;
 
