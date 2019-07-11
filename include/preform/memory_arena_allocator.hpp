@@ -35,6 +35,7 @@
 #ifndef PREFORM_MEMORY_ARENA_ALLOCATOR_HPP
 #define PREFORM_MEMORY_ARENA_ALLOCATOR_HPP
 
+// for pr::memory_arena
 #include <preform/memory_arena.hpp>
 
 namespace pr {
@@ -208,6 +209,10 @@ private:
      * @brief Memory arena.
      */
     std::shared_ptr<memory_arena> arena_;
+
+    // Declare friend.
+    template <typename>
+    friend class memory_arena_allocator;
 };
 
 /**@}*/
