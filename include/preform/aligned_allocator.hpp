@@ -27,9 +27,9 @@
  */
 /*+-+*/
 #if !DOXYGEN
-#if !(__cplusplus >= 201402L)
-#error "preform/aligned_allocator.hpp requires >=C++14"
-#endif // #if !(__cplusplus >= 201402L)
+#if !(__cplusplus >= 201103L)
+#error "preform/aligned_allocator.hpp requires >=C++11"
+#endif // #if !(__cplusplus >= 201103L)
 #endif // #if !DOXYGEN
 #pragma once
 #ifndef PREFORM_ALIGNED_ALLOCATOR_HPP
@@ -44,9 +44,6 @@
 // for std::memcpy
 #include <cstring>
 
-// for pr::ispow2
-#include <preform/misc_int.hpp>
-
 namespace pr {
 
 /**
@@ -54,7 +51,7 @@ namespace pr {
  *
  * `<preform/aligned_allocator.hpp>`
  *
- * __C++ version__: >=C++14
+ * __C++ version__: >=C++11
  */
 /**@{*/
 
@@ -73,7 +70,8 @@ namespace pr {
 template <typename T>
 inline T* align_pointer(T* ptr, std::size_t alignment)
 {
-    if (!ispow2(alignment)) {
+    if (!(alignment > 0 && 
+         (alignment & (alignment - 1)) == 0)) {
         throw std::invalid_argument(__PRETTY_FUNCTION__);
     }
     std::uintptr_t ptr_addr = 0;
