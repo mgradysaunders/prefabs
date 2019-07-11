@@ -54,7 +54,11 @@ namespace pr {
 
 /**
  * @brief Memory arena.
+ *
+ * @tparam Tbyte_alloc
+ * Underlying byte allocator type.
  */
+template <typename Tbyte_alloc = std::allocator<char>>
 class memory_arena
 {
 public:
@@ -62,22 +66,25 @@ public:
     /**
      * @brief Constructor.
      */
-    memory_arena(std::size_t block_size = 0) :
-            block_size_(block_size)
+    memory_arena(
+            std::size_t block_size = 0, 
+            const Tbyte_alloc& byte_alloc = Tbyte_alloc()) :
+                block_size_(block_size),
+                byte_alloc_(byte_alloc)
     {
-        // round up to 256 byte interval
+        // Round up to 256 byte interval.
         block_size_ +=  255u;
         block_size_ &= ~255u;
         if (block_size_ == 0) {
             block_size_ = 65536;
         }
 
-        // allocate initial block
+        // Allocate initial block.
         block_.size = block_size_;
-        block_.begin = allocator_.allocate(block_.size);
+        block_.begin = byte_alloc_.allocate(block_.size);
         block_.offset = 0;
 
-        // reserve blocks
+        // Reserve blocks.
         free_blocks_.reserve(4);
         full_blocks_.reserve(4);
     }
@@ -92,21 +99,17 @@ public:
      */
     ~memory_arena()
     {
-        // current
-        allocator_.deallocate(block_.begin, block_.size);
+        // Deallocate current block.
+        byte_alloc_.deallocate(block_.begin, block_.size);
 
-        // free blocks
+        // Deallocate free blocks.
         for (block& free_block : free_blocks_) {
-            allocator_.deallocate(
-                    free_block.begin,
-                    free_block.size);
+            byte_alloc_.deallocate(free_block.begin, free_block.size);
         }
 
-        // full blocks
+        // Deallocate full blocks.
         for (block& full_block : full_blocks_) {
-            allocator_.deallocate(
-                    full_block.begin,
-                    full_block.size);
+            byte_alloc_.deallocate(full_block.begin, full_block.size);
         }
     }
 
@@ -117,7 +120,7 @@ public:
      */
     void* allocate(std::size_t size)
     {
-        // round up to 16 byte interval
+        // Round up to 16 byte interval.
         size +=  15u;
         size &= ~15u;
         if (size == 0) {
@@ -128,13 +131,13 @@ public:
             full_blocks_.emplace_back(block_);
             if (free_blocks_.size() == 0 ||
                 free_blocks_.back().size < size) {
-                // allocate block
+                // Allocate block.
                 block_.size = std::max(block_size_, size);
-                block_.begin = allocator_.allocate(block_.size);
+                block_.begin = byte_alloc_.allocate(block_.size);
                 block_.offset = 0;
             }
             else {
-                // reuse free block
+                // Use free block.
                 block_ =
                 free_blocks_.back();
                 free_blocks_.pop_back();
@@ -153,10 +156,10 @@ public:
      */
     void clear()
     {
-        // current
+        // Clear current block.
         block_.offset = 0;
 
-        // convert full blocks to free blocks
+        // Convert full blocks to free blocks.
         free_blocks_.reserve(
                 free_blocks_.size() +
                 full_blocks_.size());
@@ -172,23 +175,19 @@ public:
      */
     void reset()
     {
-        // current
+        // Clear current block.
         block_.offset = 0;
 
-        // free blocks
+        // Deallocate free blocks.
         for (block& free_block : free_blocks_) {
-            allocator_.deallocate(
-                    free_block.begin,
-                    free_block.size);
+            byte_alloc_.deallocate(free_block.begin, free_block.size);
         }
         free_blocks_.clear();
         free_blocks_.shrink_to_fit();
 
-        // full blocks
+        // Deallocate full blocks.
         for (block& full_block : full_blocks_) {
-            allocator_.deallocate(
-                    full_block.begin,
-                    full_block.size);
+            byte_alloc_.deallocate(full_block.begin, full_block.size);
         }
         full_blocks_.clear();
         full_blocks_.shrink_to_fit();
@@ -240,7 +239,7 @@ private:
     /**
      * @brief Byte allocator.
      */
-    std::allocator<char> allocator_;
+    Tbyte_alloc byte_alloc_;
 };
 
 /**@}*/
@@ -250,13 +249,19 @@ private:
 #if !DOXYGEN
 
 // operator new
-inline void* operator new(std::size_t size, pr::memory_arena& arena)
+template <typename Tbyte_alloc>
+inline void* operator new(
+                std::size_t size, 
+                pr::memory_arena<Tbyte_alloc>& arena)
 {
     return arena.allocate(size);
 }
 
 // operator new[]
-inline void* operator new[](std::size_t size, pr::memory_arena& arena)
+template <typename Tbyte_alloc>
+inline void* operator new[](
+                std::size_t size, 
+                pr::memory_arena<Tbyte_alloc>& arena)
 {
     return arena.allocate(size);
 }

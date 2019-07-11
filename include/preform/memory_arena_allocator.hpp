@@ -51,8 +51,14 @@ namespace pr {
 
 /**
  * @brief Memory arena allocator.
+ *
+ * @tparam T
+ * Value type.
+ *
+ * @tparam Tbyte_alloc
+ * Underlying byte allocator type.
  */
-template <typename T>
+template <typename T, typename Tbyte_alloc = std::allocator<char>>
 class memory_arena_allocator
 {
 public:
@@ -91,8 +97,9 @@ public:
      * Block size for underlying memory arena.
      */
     memory_arena_allocator(
-            std::size_t block_size = 0) :
-            arena_(new memory_arena(block_size))
+            std::size_t block_size = 0,
+            const Tbyte_alloc& byte_alloc = Tbyte_alloc()) :
+            arena_(new memory_arena<Tbyte_alloc>(block_size, byte_alloc))
     {
     }
 
@@ -101,7 +108,7 @@ public:
      */
     template <typename U>
     memory_arena_allocator(
-            const memory_arena_allocator<U>& other) :
+            const memory_arena_allocator<U, Tbyte_alloc>& other) :
             arena_(other.arena_)
     {
     }
@@ -111,7 +118,7 @@ public:
      */
     template <typename U>
     memory_arena_allocator(
-            memory_arena_allocator<U>&& other) :
+            memory_arena_allocator<U, Tbyte_alloc>&& other) :
             arena_(std::move(other.arena_))
     {
     }
@@ -121,7 +128,7 @@ public:
      */
     template <typename U>
     memory_arena_allocator& operator=(
-                            const memory_arena_allocator<U>& other)
+                    const memory_arena_allocator<U, Tbyte_alloc>& other)
     {
         if (this != &other) {
             this->arena_ = other.arena_;
@@ -134,7 +141,7 @@ public:
      */
     template <typename U>
     memory_arena_allocator& operator=(
-                            memory_arena_allocator<U>&& other)
+                    memory_arena_allocator<U, Tbyte_alloc>&& other)
     {
         this->arena_ = std::move(other.arena_);
         return *this;
@@ -189,7 +196,7 @@ public:
      * @brief Equal?
      */
     template <typename U>
-    bool operator==(const memory_arena_allocator<U>& other) const
+    bool operator==(const memory_arena_allocator<U, Tbyte_alloc>& other) const
     {
         return arena_.get() == other.arena_.get();
     }
@@ -198,7 +205,7 @@ public:
      * @brief Not equal?
      */
     template <typename U>
-    bool operator!=(const memory_arena_allocator<U>& other) const
+    bool operator!=(const memory_arena_allocator<U, Tbyte_alloc>& other) const
     {
         return arena_.get() != other.arena_.get();
     }
@@ -208,10 +215,10 @@ private:
     /**
      * @brief Memory arena.
      */
-    std::shared_ptr<memory_arena> arena_;
+    std::shared_ptr<memory_arena<Tbyte_alloc>> arena_;
 
     // Declare friend.
-    template <typename>
+    template <typename, typename>
     friend class memory_arena_allocator;
 };
 
