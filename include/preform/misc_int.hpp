@@ -164,10 +164,11 @@ template <typename T>
 constexpr std::enable_if_t<
           std::is_integral<T>::value, T> first1(T n)
 {
-#if __GNUC__
-    if (n == 0)
-        return 0; // error?
+    if (n == 0) {
+        return 0; // Error?
+    }
 
+#if __GNUC__
     if (sizeof(T) <= sizeof(int)) {
         return __builtin_ctz(n);
     }
@@ -178,7 +179,7 @@ constexpr std::enable_if_t<
         return __builtin_ctzll(n);
     }
     else {
-        // error
+        // Error.
     }
 #else
     T j = 0;
@@ -208,6 +209,243 @@ constexpr std::enable_if_t<
           std::is_integral<T>::value, T> rotr(T val, int rot)
 {
     return (val >> rot) | (val << ((-rot) & (sizeof(T) * 8 - 1)));
+}
+
+/**
+ * @brief Bit swap.
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> bit_swap(T val, int pos0, int pos1)
+{
+    T mask = ((val >> pos0) ^ (val >> pos1)) & 1;
+    return 
+        ((mask << pos0) | 
+         (mask << pos1)) ^ val;
+}
+
+#if !DOXYGEN
+template <typename>
+struct bit_reverse_impl;
+
+// Reverse 8-bit unsigned integer.
+template <>
+struct bit_reverse_impl<std::uint8_t>
+{
+    __attribute__((always_inline))
+    static constexpr std::uint8_t reverse(std::uint8_t val)
+    {
+        std::uint8_t mask[3] = {
+            0xaaU,
+            0xccU,
+            0xf0U
+        };
+        for (int k = 0; k < 3; k++) {
+            val = ((val &  mask[k]) >> (1 << k)) |
+                  ((val & ~mask[k]) << (1 << k));
+        }
+        return val;
+    }
+};
+
+// Reverse 16-bit unsigned integer.
+template <>
+struct bit_reverse_impl<std::uint16_t>
+{
+    __attribute__((always_inline))
+    static constexpr std::uint16_t reverse(std::uint16_t val)
+    {
+        std::uint16_t mask[4] = {
+            0xaaaaU,
+            0xccccU,
+            0xf0f0U,
+            0xff00U
+        };
+#if __GNUC__
+        val = __builtin_bswap16(val);
+        for (int k = 0; k < 3; k++) {
+#else
+        for (int k = 0; k < 4; k++) {
+#endif // #if __GNUC__
+            val = ((val &  mask[k]) >> (1 << k)) |
+                  ((val & ~mask[k]) << (1 << k));
+        }
+        return val;
+    }
+};
+
+// Reverse 32-bit unsigned integer.
+template <>
+struct bit_reverse_impl<std::uint32_t>
+{
+    __attribute__((always_inline))
+    static constexpr std::uint32_t reverse(std::uint32_t val)
+    {
+        std::uint32_t mask[5] = {
+            0xaaaaaaaaUL,
+            0xccccccccUL,
+            0xf0f0f0f0UL,
+            0xff00ff00UL,
+            0xffff0000UL
+        };
+#if __GNUC__
+        val = __builtin_bswap32(val);
+        for (int k = 0; k < 3; k++) {
+#else
+        for (int k = 0; k < 5; k++) {
+#endif // #if __GNUC__
+            val = ((val &  mask[k]) >> (1 << k)) |
+                  ((val & ~mask[k]) << (1 << k));
+        }
+        return val;
+    }
+};
+
+// Reverse 64-bit unsigned integer.
+template <>
+struct bit_reverse_impl<std::uint64_t>
+{
+    __attribute__((always_inline))
+    static constexpr std::uint64_t reverse(std::uint64_t val) 
+    {
+        std::uint64_t mask[6] = {
+            0xaaaaaaaaaaaaaaaaULL,
+            0xccccccccccccccccULL,
+            0xf0f0f0f0f0f0f0f0ULL,
+            0xff00ff00ff00ff00ULL,
+            0xffff0000ffff0000ULL,
+            0xffffffff00000000ULL
+        };
+#if __GNUC__
+        val = __builtin_bswap64(val);
+        for (int k = 0; k < 3; k++) {
+#else 
+        for (int k = 0; k < 6; k++) {
+#endif // #if __GNUC__
+            val = ((val &  mask[k]) >> (1 << k)) |
+                  ((val & ~mask[k]) << (1 << k));
+        }
+        return val;
+    }
+};
+#endif // #if !DOXYGEN
+
+/**
+ * @brief Bit reverse.
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> bit_reverse(T val)
+{
+    return bit_reverse_impl<std::make_unsigned_t<T>>::reverse(val);
+}
+
+#if !DOXYGEN
+template <typename>
+struct bit_interleave_zero_impl;
+
+// Interleave 8-bit unsigned integer with zero.
+template <>
+struct bit_interleave_zero_impl<std::uint8_t>
+{
+    __attribute__((always_inline))
+    static constexpr std::uint8_t interleave(std::uint8_t val)
+    {
+        std::uint8_t mask[3] = {
+            0xaaU,
+            0xccU,
+            0xf0U
+        };
+        for (int k = 2; k >= 0; k--) {
+            val = (val ^ (val << (1 << k))) & ~mask[k];
+        }
+        return val;
+    }
+};
+
+// Interleave 16-bit unsigned integer with zero.
+template <>
+struct bit_interleave_zero_impl<std::uint16_t>
+{
+    __attribute__((always_inline))
+    static constexpr std::uint16_t interleave(std::uint16_t val)
+    {
+        std::uint16_t mask[4] = {
+            0xaaaaU,
+            0xccccU,
+            0xf0f0U,
+            0xff00U
+        };
+        for (int k = 3; k >= 0; k--) {
+            val = (val ^ (val << (1 << k))) & ~mask[k];
+        }
+        return val;
+    }
+};
+
+// Interleave 32-bit unsigned integer with zero.
+template <>
+struct bit_interleave_zero_impl<std::uint32_t>
+{
+    __attribute__((always_inline))
+    static constexpr std::uint32_t interleave(std::uint32_t val)
+    {
+        std::uint32_t mask[5] = {
+            0xaaaaaaaaUL,
+            0xccccccccUL,
+            0xf0f0f0f0UL,
+            0xff00ff00UL,
+            0xffff0000UL
+        };
+        for (int k = 4; k >= 0; k--) {
+            val = (val ^ (val << (1 << k))) & ~mask[k];
+        }
+        return val;
+    }
+};
+
+// Interleave 64-bit unsigned integer with zero.
+template <>
+struct bit_interleave_zero_impl<std::uint64_t>
+{
+    __attribute__((always_inline))
+    static constexpr std::uint64_t interleave(std::uint64_t val)
+    {
+        std::uint64_t mask[6] = {
+            0xaaaaaaaaaaaaaaaaULL,
+            0xccccccccccccccccULL,
+            0xf0f0f0f0f0f0f0f0ULL,
+            0xff00ff00ff00ff00ULL,
+            0xffff0000ffff0000ULL
+        };
+        for (int k = 5; k >= 0; k--) {
+            val = (val ^ (val << (1 << k))) & ~mask[k];
+        }
+        return val;
+    }
+};
+#endif // #if !DOXYGEN
+
+/**
+ * @brief Bit interleave.
+ *
+ * Form an integer @f$ z @f$ from the
+ * bits of @f$ x @f$ and @f$ y @f$ such that
+ * - bit @f$ k @f$ of @f$ x @f$ is bit @f$ 2k @f$ of @f$ z @f$,
+ * - bit @f$ k @f$ of @f$ y @f$ is bit @f$ 2k + 1 @f$ of @f$ z @f$.
+ *
+ * @note
+ * If the input integer type has @f$ 2^n @f$ bits, the top 
+ * @f$ 2^{n - 1} @f$ bits of the input integers do not appear in 
+ * the output. 
+ */
+template <typename T>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> bit_interleave(T val0, T val1)
+{
+    val0 = bit_interleave_zero_impl<std::make_unsigned_t<T>>::interleave(val0);
+    val1 = bit_interleave_zero_impl<std::make_unsigned_t<T>>::interleave(val1);
+    return val0 | (val1 << 1);
 }
 
 /**
@@ -497,6 +735,33 @@ struct sized_uint {
 };
 
 #endif // #if !DOXYGEN
+
+/**
+ * @brief Bayer index for ordered dithering.
+ *
+ * Let @f$ \mathbf{M} \in \mathbb{R}^{n,n} @f$ denote the Bayer index
+ * matrix for dimension @f$ n = 2^B @f$, where
+ * @f[
+ *      M_{i,j} = 
+ *          \frac{1}{n^2} 
+ *          \operatorname{reverse}_{2B}(
+ *          \operatorname{interleave}(\operatorname{xor}(j, i), i))
+ * @f]
+ * This routine calculates @f$ n^2 M_{i,j} @f$, which is always an
+ * integer.
+ */
+template <std::size_t B, typename T>
+constexpr std::enable_if_t<
+          std::is_integral<T>::value, T> bayer_index(T i, T j)
+{
+    static_assert(B > 0, "B must be greater than 0");
+    static_assert(sizeof(T) * 8 > B * 2, "T does not have enough bits");
+    i = i & ((1 << B) - 1);
+    j = j & ((1 << B) - 1);
+    return 
+        bit_reverse<T>(
+        bit_interleave<T>(j ^ i, i)) >> (sizeof(T) * 8 - B * 2);
+}
 
 /**@}*/
 
