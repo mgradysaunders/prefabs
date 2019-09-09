@@ -196,7 +196,7 @@ constexpr std::enable_if_t<
  */
 template <typename T>
 constexpr std::enable_if_t<
-          std::is_integral<T>::value, T> rotl(T val, int rot)
+          std::is_integral<T>::value, T> rotl(T val, unsigned rot)
 {
     return (val << rot) | (val >> ((-rot) & (sizeof(T) * 8 - 1)));
 }
@@ -206,7 +206,7 @@ constexpr std::enable_if_t<
  */
 template <typename T>
 constexpr std::enable_if_t<
-          std::is_integral<T>::value, T> rotr(T val, int rot)
+          std::is_integral<T>::value, T> rotr(T val, unsigned rot)
 {
     return (val >> rot) | (val << ((-rot) & (sizeof(T) * 8 - 1)));
 }
