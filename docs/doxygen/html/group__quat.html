@@ -238,6 +238,18 @@ Geometry (quat)</h2></td></tr>
 <tr class="memitem:ga6ad770e0af4b71ab47b96ce7090d4cde"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga6ad770e0af4b71ab47b96ce7090d4cde">pr::length</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
 <tr class="memdesc:ga6ad770e0af4b71ab47b96ce7090d4cde"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) length.  <a href="group__quat.html#ga6ad770e0af4b71ab47b96ce7090d4cde">More...</a><br /></td></tr>
 <tr class="separator:ga6ad770e0af4b71ab47b96ce7090d4cde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga92881ac9c0e73526a95c97b6003dc12e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga92881ac9c0e73526a95c97b6003dc12e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga92881ac9c0e73526a95c97b6003dc12e">pr::normalize_fast</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
+<tr class="memdesc:ga92881ac9c0e73526a95c97b6003dc12e"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) normalize, fast variant.  <a href="group__quat.html#ga92881ac9c0e73526a95c97b6003dc12e">More...</a><br /></td></tr>
+<tr class="separator:ga92881ac9c0e73526a95c97b6003dc12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga035e60dbacba2f4769d9e7da16e25c45"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga035e60dbacba2f4769d9e7da16e25c45"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#ga035e60dbacba2f4769d9e7da16e25c45">pr::normalize_safe</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
+<tr class="memdesc:ga035e60dbacba2f4769d9e7da16e25c45"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) normalize, safe variant.  <a href="group__quat.html#ga035e60dbacba2f4769d9e7da16e25c45">More...</a><br /></td></tr>
+<tr class="separator:ga035e60dbacba2f4769d9e7da16e25c45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac0960f68f3c5cdb1914bf941e17c6ac3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac0960f68f3c5cdb1914bf941e17c6ac3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__quat.html#gac0960f68f3c5cdb1914bf941e17c6ac3">pr::normalize</a> (const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;q)</td></tr>
+<tr class="memdesc:gac0960f68f3c5cdb1914bf941e17c6ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">\( L^2 \) normalize.  <a href="group__quat.html#gac0960f68f3c5cdb1914bf941e17c6ac3">More...</a><br /></td></tr>
+<tr class="separator:gac0960f68f3c5cdb1914bf941e17c6ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Float checks (quat)</h2></td></tr>
@@ -1269,6 +1281,108 @@ template&lt;typename T &gt; </div>
 \[ \sqrt{q q^\dagger} = \sqrt{s^2 + \mathbf{v}\cdot\mathbf{v}} \]
 </p>
 <dl class="section note"><dt>Note</dt><dd>Wraps <code>length(multi&lt;T, 4&gt;)</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ga92881ac9c0e73526a95c97b6003dc12e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga92881ac9c0e73526a95c97b6003dc12e">&#9670;&nbsp;</a></span>normalize_fast()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, <a class="el" href="classpr_1_1quat.html">quat</a>&lt;T&gt; &gt; pr::normalize_fast </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>q</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>\( L^2 \) normalize, fast variant. </p>
+<p class="formulaDsp">
+\[ \hat{q} = \frac{1}{\sqrt{q q^\dagger}} q \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>Wraps <code>normalize_fast(multi&lt;T, 4&gt;)</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ga035e60dbacba2f4769d9e7da16e25c45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga035e60dbacba2f4769d9e7da16e25c45">&#9670;&nbsp;</a></span>normalize_safe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, <a class="el" href="classpr_1_1quat.html">quat</a>&lt;T&gt; &gt; pr::normalize_safe </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>q</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>\( L^2 \) normalize, safe variant. </p>
+<p class="formulaDsp">
+\[ \hat{q} = \frac{1}{\sqrt{q q^\dagger}} q \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>Wraps <code>normalize_safe(multi&lt;T, 4&gt;)</code>. </dd></dl>
+
+</div>
+</div>
+<a id="gac0960f68f3c5cdb1914bf941e17c6ac3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac0960f68f3c5cdb1914bf941e17c6ac3">&#9670;&nbsp;</a></span>normalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, <a class="el" href="classpr_1_1quat.html">quat</a>&lt;T&gt; &gt; pr::normalize </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1quat.html">quat</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>q</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>\( L^2 \) normalize. </p>
+<p class="formulaDsp">
+\[ \hat{q} = \frac{1}{\sqrt{q q^\dagger}} q \]
+</p>
+<dl class="section note"><dt>Note</dt><dd>Wraps <code>normalize(multi&lt;T, 4&gt;)</code>. </dd></dl>
 
 </div>
 </div>
