@@ -1642,11 +1642,62 @@ inline std::enable_if_t<
     return length(static_cast<multi<T, 4>>(q));
 }
 
-// TODO normalize_fast
+/**
+ * @brief @f$ L^2 @f$ normalize, fast variant.
+ *
+ * @f[
+ *      \hat{q} = \frac{1}{\sqrt{q q^\dagger}} q
+ * @f]
+ *
+ * @note
+ * Wraps `normalize_fast(multi<T, 4>)`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value,
+                         quat<T>> normalize_fast(const quat<T>& q)
+{
+    return quat<T>(normalize_fast(static_cast<multi<T, 4>>(q)));
+}
 
-// TODO normalize_safe
+/**
+ * @brief @f$ L^2 @f$ normalize, safe variant.
+ *
+ * @f[
+ *      \hat{q} = \frac{1}{\sqrt{q q^\dagger}} q
+ * @f]
+ *
+ * @note
+ * Wraps `normalize_safe(multi<T, 4>)`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, 
+                         quat<T>> normalize_safe(const quat<T>& q)
+{
+    return quat<T>(normalize_safe(static_cast<multi<T, 4>>(q)));
+}
 
-// TODO normalize
+/**
+ * @brief @f$ L^2 @f$ normalize.
+ *
+ * @f[
+ *      \hat{q} = \frac{1}{\sqrt{q q^\dagger}} q
+ * @f]
+ *
+ * @note
+ * Wraps `normalize(multi<T, 4>)`.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, 
+                         quat<T>> normalize(const quat<T>& q)
+{
+    return quat<T>(normalize(static_cast<multi<T, 4>>(q)));
+}
 
 /**@}*/
 
