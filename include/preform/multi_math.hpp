@@ -608,6 +608,7 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), 3, 3>
     return transpose(cof) * (float_type(1) / dot(cof[0], arr[0]));
 }
 
+#if 0
 /**
  * @brief Build real 3-dimensional orthonormal basis.
  *
@@ -675,6 +676,7 @@ inline std::enable_if_t<
         {hatx[2], haty[2], hatz[2]}
     };
 }
+#endif
 
 /**@}*/
 
@@ -1028,6 +1030,45 @@ struct multi_initializers<
             std::enable_if_t<
             std::is_floating_point<T>::value, void>>
 {
+    /**
+     * @brief Build real 3-dimensional orthonormal basis.
+     *
+     * - @f$ \alpha_0 \gets -1 / (\hat{z}_{[2]} + 1) @f$
+     * - @f$ \alpha_1 \gets \alpha_0 \hat{z}_{[0]} \hat{z}_{[1]} @f$
+     * - @f$ \alpha_2 \gets \alpha_0 \hat{z}_{[0]}^2 + 1 @f$
+     * - @f$ \alpha_3 \gets \alpha_0 \hat{z}_{[1]}^2 + 1 @f$
+     * - @f$ \hat{\mathbf{x}} \gets 
+     *   [\alpha_2\; \alpha_1\; -\hat{z}_{[0]}]^\top @f$
+     * - @f$ \hat{\mathbf{y}} \gets 
+     *   [\alpha_1\; \alpha_3\; -\hat{z}_{[1]}]^\top @f$
+     *
+     * @note
+     * As the notation suggests, the implementation assumes the input
+     * vector `hatz` is unit-length.
+     */
+    static multi<T, 3, 3> build_onb(multi<T, 3> hatz)
+    {
+        multi<T, 3> hatx = {};
+        multi<T, 3> haty = {};
+        if (hatz[2] < T(-0.9999999)) {
+            hatx[1] = -1;
+            haty[0] = -1;
+        }
+        else {
+            T alpha0 = -1 / (hatz[2] + 1);
+            T alpha1 = alpha0 * hatz[0] * hatz[1];
+            T alpha2 = alpha0 * hatz[0] * hatz[0] + 1;
+            T alpha3 = alpha0 * hatz[1] * hatz[1] + 1;
+            hatx = {alpha2, alpha1, -hatz[0]};
+            haty = {alpha1, alpha3, -hatz[1]};
+        }
+        return {
+            {hatx[0], haty[0], hatz[0]},
+            {hatx[1], haty[1], hatz[1]},
+            {hatx[2], haty[2], hatz[2]}
+        };
+    }
+
     /**
      * @brief Rotate counter-clockwise around arbitrary axis.
      *
