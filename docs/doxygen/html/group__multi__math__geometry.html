@@ -178,14 +178,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga963bb8663a16fb99eff739e6555d1414"><td class="memTemplItemLeft" align="right" valign="top">multi&lt; decltype(T()/<a class="el" href="group__dualnum.html#ga2a4cad69c06164ee6b8c8a4b4805156e">pr::sqrt</a>(<a class="el" href="group__dualnum.html#ga5082e3058be011a031673599b31b4467">pr::abs</a>(T()))), 3, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#ga963bb8663a16fb99eff739e6555d1414">pr::inverse</a> (const multi&lt; T, 3, 3 &gt; &amp;arr)</td></tr>
 <tr class="memdesc:ga963bb8663a16fb99eff739e6555d1414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse by Cramer's rule.  <a href="group__multi__math__geometry.html#ga963bb8663a16fb99eff739e6555d1414">More...</a><br /></td></tr>
 <tr class="separator:ga963bb8663a16fb99eff739e6555d1414"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8194fd3c342612496467241178fbb57e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga8194fd3c342612496467241178fbb57e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#ga8194fd3c342612496467241178fbb57e">pr::build_onb</a> (const multi&lt; T, 3 &gt; &amp;hatz, multi&lt; T, 3 &gt; &amp;hatx, multi&lt; T, 3 &gt; &amp;haty)</td></tr>
-<tr class="memdesc:ga8194fd3c342612496467241178fbb57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build real 3-dimensional orthonormal basis.  <a href="group__multi__math__geometry.html#ga8194fd3c342612496467241178fbb57e">More...</a><br /></td></tr>
-<tr class="separator:ga8194fd3c342612496467241178fbb57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae7ceeb2e25b7b1a868db941fb782c968"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gae7ceeb2e25b7b1a868db941fb782c968"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#gae7ceeb2e25b7b1a868db941fb782c968">pr::build_onb</a> (const multi&lt; T, 3 &gt; &amp;hatz)</td></tr>
-<tr class="memdesc:gae7ceeb2e25b7b1a868db941fb782c968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build real 3-dimensional orthonormal basis.  <a href="group__multi__math__geometry.html#gae7ceeb2e25b7b1a868db941fb782c968">More...</a><br /></td></tr>
-<tr class="separator:gae7ceeb2e25b7b1a868db941fb782c968"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/multi_math.hpp&gt;</code></p>
@@ -918,95 +910,6 @@ template&lt;typename T &gt; </div>
 \[ \mathbf{x}^{-1} = \frac{\operatorname{cof}^\top(\mathbf{x})} {\operatorname{det}(\mathbf{x})} \]
 </p>
 <dl class="section note"><dt>Note</dt><dd>This method is unstable if the matrix is ill-conditioned. </dd></dl>
-
-</div>
-</div>
-<a id="ga8194fd3c342612496467241178fbb57e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8194fd3c342612496467241178fbb57e">&#9670;&nbsp;</a></span>build_onb() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, void&gt; pr::build_onb </td>
-          <td>(</td>
-          <td class="paramtype">const multi&lt; T, 3 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>hatz</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">multi&lt; T, 3 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>hatx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">multi&lt; T, 3 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>haty</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Build real 3-dimensional orthonormal basis. </p>
-<ul>
-<li>\( \alpha_0 \gets -1 / (\hat{z}_{[2]} + 1) \)</li>
-<li>\( \alpha_1 \gets \alpha_0 \hat{z}_{[0]} \hat{z}_{[1]} \)</li>
-<li>\( \alpha_2 \gets \alpha_0 \hat{z}_{[0]}^2 + 1 \)</li>
-<li>\( \alpha_3 \gets \alpha_0 \hat{z}_{[1]}^2 + 1 \)</li>
-<li>\( \hat{\mathbf{x}} \gets [\alpha_2\; \alpha_1\; -\hat{z}_{[0]}]^\top \)</li>
-<li>\( \hat{\mathbf{y}} \gets [\alpha_1\; \alpha_3\; -\hat{z}_{[1]}]^\top \)</li>
-</ul>
-<dl class="section note"><dt>Note</dt><dd>As the notation suggests, the implementation assumes the input vector <code>hatz</code> is unit-length. </dd></dl>
-
-</div>
-</div>
-<a id="gae7ceeb2e25b7b1a868db941fb782c968"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae7ceeb2e25b7b1a868db941fb782c968">&#9670;&nbsp;</a></span>build_onb() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, multi&lt;T, 3, 3&gt; &gt; pr::build_onb </td>
-          <td>(</td>
-          <td class="paramtype">const multi&lt; T, 3 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>hatz</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Build real 3-dimensional orthonormal basis. </p>
-<p class="formulaDsp">
-\[ \mathbf{B} \gets \begin{bmatrix} \hat{\mathbf{x}} &amp; \hat{\mathbf{y}} &amp; \hat{\mathbf{z}} \end{bmatrix} \]
-</p>
-<dl class="section note"><dt>Note</dt><dd>As the notation suggests, the implementation assumes the input vector <code>hatz</code> is unit-length. </dd></dl>
 
 </div>
 </div>
