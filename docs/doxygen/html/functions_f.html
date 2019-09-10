@@ -131,6 +131,7 @@ $(function() {
 , <a class="el" href="structpr_1_1bspline__basis__functions.html#ac80560380c67ad5dbd231c567e72fdef">pr::bspline_basis_functions&lt; Tfloat &gt;</a>
 , <a class="el" href="classpr_1_1bspline__curve.html#a8f99a8ce2b84cdaa1e3bb88b3288eaac">pr::bspline_curve&lt; Tfloat, N, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1bspline__patch.html#a827199e82cea97a7bb052c7c409650a7">pr::bspline_patch&lt; Tfloat, N, Talloc &gt;</a>
+, <a class="el" href="structpr_1_1disney__diffuse__brdf.html#a294089a018616afbc2de0565b14460f2">pr::disney_diffuse_brdf&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1exponential__distribution.html#a5dcf1a47c3113128d7d1d7e9de92bf54">pr::exponential_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1image2.html#a69d8bf058c544ef9051d31bc7085641e">pr::image2&lt; Tfloat, T, N, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1image3.html#ab8182afdc10f9f665c2f340da7263f03">pr::image3&lt; Tfloat, T, N, Talloc &gt;</a>
@@ -142,6 +143,7 @@ $(function() {
 , <a class="el" href="structpr_1_1normal__microsurface__height.html#a470ecc8fa314f423edc0eef2609fa387">pr::normal_microsurface_height&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1nurbs__curve.html#a5b4259ea33f99b93d8621390035d03a8">pr::nurbs_curve&lt; Tfloat, N, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1nurbs__patch.html#af28de1737455e4f3ab68b8ca3fdd647a">pr::nurbs_patch&lt; Tfloat, N, Talloc &gt;</a>
+, <a class="el" href="structpr_1_1oren__nayar__brdf.html#ae6de594efadccd308660ac0a77a79687">pr::oren_nayar_brdf&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1periodic__noise__adapter1.html#a33aef34de94fe015fa5add915737264f">pr::periodic_noise_adapter1&lt; Tnoise2 &gt;</a>
 , <a class="el" href="classpr_1_1periodic__noise__adapter2.html#ab9df4a142864170f9411de2fb972d405">pr::periodic_noise_adapter2&lt; Tnoise3 &gt;</a>
 , <a class="el" href="classpr_1_1piecewise__constant__distribution.html#af555ac2cad4d0ff2be3314db1ddb8e94">pr::piecewise_constant_distribution&lt; T &gt;</a>
@@ -201,7 +203,7 @@ $(function() {
 : <a class="el" href="classpr_1_1memory__arena.html#aab5408b6029a8dd066454403958457eb">pr::memory_arena&lt; Tbyte_alloc &gt;</a>
 </li>
 <li>front()
-: <a class="el" href="classpr_1_1block__array2.html#afe949ef7c053e27438ee4994ed108d81">pr::block_array2&lt; T, Talloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array2.html#abc6e3535f89f269581e405b824e1bdcf">pr::block_array2&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#a50d5e2e75b7d1f07ca32c4541fa91269">pr::block_array3&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1iterator__range.html#a8b4dea31e0a66c8392ee163e839a68e2">pr::iterator_range&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#acd1b9b84fe3ca0b236915fdbd74b8726">pr::multi&lt; T, M, N... &gt;</a>
@@ -211,6 +213,8 @@ $(function() {
 <li>fs()
 : <a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html#a8c9c31f5ab399ebc83605e6b0b7436aa">pr::dielectric_bsdf_microsurface_adapter&lt; Tslope, Theight &gt;</a>
 , <a class="el" href="structpr_1_1diffuse__brdf__microsurface__adapter.html#ae57657f53a24d4b38d3a96a6497f0358">pr::diffuse_brdf_microsurface_adapter&lt; Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1disney__diffuse__brdf.html#af17e18ecc429dbb8fd16e2efc3b85f35">pr::disney_diffuse_brdf&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1oren__nayar__brdf.html#a1681f11db958773cc3d9b9dffab1b442">pr::oren_nayar_brdf&lt; T &gt;</a>
 </li>
 <li>fs_brdf_pdf()
 : <a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html#a8d9fab7aeaea711f0c13f63f09f69f8b">pr::dielectric_bsdf_microsurface_adapter&lt; Tslope, Theight &gt;</a>
@@ -227,10 +231,14 @@ $(function() {
 <li>fs_pdf()
 : <a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html#a575327ff7733fd42a76a732552636aaf">pr::dielectric_bsdf_microsurface_adapter&lt; Tslope, Theight &gt;</a>
 , <a class="el" href="structpr_1_1diffuse__brdf__microsurface__adapter.html#a5520ad1216f7da802d002bf3fb128b8f">pr::diffuse_brdf_microsurface_adapter&lt; Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1disney__diffuse__brdf.html#adc78734a6d0c7c1a70af533a52d569c7">pr::disney_diffuse_brdf&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1oren__nayar__brdf.html#a7c5e6fd69512a95de55ef0ad11be5d44">pr::oren_nayar_brdf&lt; T &gt;</a>
 </li>
 <li>fs_pdf_sample()
 : <a class="el" href="structpr_1_1dielectric__bsdf__microsurface__adapter.html#aaf52c1bc21dacd69f3a3b25fb157ccc5">pr::dielectric_bsdf_microsurface_adapter&lt; Tslope, Theight &gt;</a>
 , <a class="el" href="structpr_1_1diffuse__brdf__microsurface__adapter.html#ae75fe9ff6d9d2c16749f1df14d7e4cf9">pr::diffuse_brdf_microsurface_adapter&lt; Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1disney__diffuse__brdf.html#aaeda23e2a56c3e10f4af8e5c0610c8e1">pr::disney_diffuse_brdf&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1oren__nayar__brdf.html#ac456a4b40e45b4417a65a0fa81ecea9f">pr::oren_nayar_brdf&lt; T &gt;</a>
 </li>
 <li>full()
 : <a class="el" href="classpr_1_1static__queue.html#a331e8d939c9f7732812f1e44111fbfbc">pr::static_queue&lt; T, N &gt;</a>
