@@ -59,9 +59,34 @@ namespace pr {
  *
  * __C++ version__: >=C++17
  *
- * This implementation is based on the work of Heitz, Hanika, d'Eon, and
- * Dachsbacher in _Multiple-scattering microfacet BSDFs with the Smith model_.
+ * ### References
  *
+ * 1. B. Walter, S. R. Marschner, H. Li, and K. E. Torrance, 
+ * &ldquo;Microfacet models for refraction through rough surfaces,&rdquo; 
+ * in _Proceedings of the 18th Eurographics Conference on Rendering 
+ * Techniques_, ser. EGSR'07, Grenoble, France: 
+ * Eurographics Association, 2007, pp. 195&ndash;206.
+ * ISBN: 978-3-905673-52-4.
+ * Available: http://dx.doi.org/10.2312/EGWR/EGSR07/195-206
+ * 2. E. Heitz, &ldquo;Understanding the masking-shadowing function in 
+ * microfacet-based BRDFs,&rdquo; _Journal of Computer Graphics Techniques 
+ * (JCGT)_, vol. 3, no. 2, pp. 48&ndash;107, Jun. 2014, 
+ * ISSN: 2331-7418.
+ * Available: http://jcgt.org/published/0003/02/03/
+ * 3. E. Heitz, J. Hanika, E. d'Eon, and C. Dachsbacher, 
+ * &ldquo;Multiple-scattering microfacet BSDFs with the Smith model,&rdquo;
+ * _ACM Transactions on Graphics_, vol. 35, no. 4, 1&ndash;58, Jul. 2016,
+ * ISSN: 0730-0301.
+ * Available: http://doi.acm.org/10.1145/2897824.2925943
+ * 4. B. Burley, &ldquo;Physically based shading at Disney,&rdquo; 
+ * Disney Enterprises, Technical report, Aug. 2012.
+ * Available: https://disney-animation.s3.amazonaws.com/library/s2012_pbs_disney_brdf_notes_v2.pdf
+ * 5. M. Oren and S. K. Nayar, &ldquo;Generalization of Lambert's reflectance
+ * model,&rdquo; in _Proceedings of the 21st Annual Conference on Computer
+ * Graphics and Interactive Techniques_, ser. SIGGRAPH'94, New York, NY,
+ * USA: ACM, 1994, pp. 239&ndash;246, ISBN: 0-89791-667-0.
+ * Available: http://doi.acm.org/10.1145/192161.192213
+ * 
  * @see
  * Eric Heitz's [page][1].
  * [1]: https://eheitzresearch.wordpress.com/240-2/
@@ -2185,6 +2210,331 @@ private:
      * - @f$ \eta_{-} @f$ is the refractive index in the lower hemisphere
      */
     float_type eta_ = float_type(1) / float_type(1.5);
+};
+
+// TODO Test
+/**
+ * @brief Oren-Nayar diffuse microsurface BRDF.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct oren_nayar_brdf
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Constructor.
+     *
+     * @param[in] sigma
+     * Standard deviation @f$ \sigma @f$ of microfacet angle in radians.
+     */
+    oren_nayar_brdf(float_type sigma)
+    {
+        float_type sigma2 = sigma * sigma;
+        a_ = 1 - float_type(0.50) * sigma2 / (sigma2 + float_type(0.33));
+        b_ = float_type(0.45) * sigma2 / (sigma2 + float_type(0.09));
+    }
+
+    /**
+     * @brief Single-scattering BRDF.
+     *
+     * @f[
+     *      f_s(\omega_o, \omega_i) =
+     *      \frac{1}{\pi}
+     *      \left[A + B
+     *      \frac{\sin{\theta_o}\sin{\theta_i}}
+     *           {\max(|\cos{\theta_o}|, |\cos{\theta_i}|)}
+     *      \max(\cos{\phi_o}\cos{\phi_i} +
+     *           \sin{\phi_o}\sin{\phi_i}, 0)\right]
+     * @f]
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fs(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
+        if (wo[2] == 0 ||
+            wi[2] <= 0) {
+            return 0;
+        }
+
+        // Trig terms.
+        float_type cos_thetao = wo[2];
+        float_type cos_thetai = wi[2];
+        float_type sin2_thetao = 1 - wo[2] * wo[2];
+        float_type sin2_thetai = 1 - wi[2] * wi[2];
+        float_type sin_thetao = pr::sqrt(pr::fmax(sin2_thetao, float_type(0)));
+        float_type sin_thetai = pr::sqrt(pr::fmax(sin2_thetai, float_type(0)));
+
+        // Cosine term.
+        float_type inner_term = 0;
+        if (sin_thetao > float_type(0.00001) &&
+            sin_thetai > float_type(0.00001)) {
+            float_type cos_phio = wo[0] / sin_thetao;
+            float_type sin_phio = wo[1] / sin_thetao;
+            float_type cos_phii = wi[0] / sin_thetai;
+            float_type sin_phii = wi[1] / sin_thetai;
+            inner_term = 
+                pr::fmax(
+                    cos_phio * cos_phii + 
+                    sin_phio * sin_phii,
+                    float_type(0));
+        }
+
+        // Sine/tangent terms.
+        inner_term *= 
+            sin_thetai * 
+            sin_thetao / 
+            pr::fmax(cos_thetai, cos_thetao);
+
+        // NaN check.
+        if (!pr::isfinite(inner_term)) {
+            inner_term = 0;
+        }
+
+        return pr::numeric_constants<float_type>::M_1_pi() * 
+                        (a_ + b_ * inner_term);
+    }
+
+    /**
+     * @brief Single-scattering BRDF probability density function.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @note
+     * For simplicity, this implementation samples
+     * the single-scattering BRDF as if it is Lambertian.
+     */
+    float_type fs_pdf(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
+        if (wi[2] <= 0) {
+            return 0;
+        }
+
+        // Cosine hemisphere PDF.
+        return multi<float_type, 3>::cosine_hemisphere_pdf(wi[2]);
+    }
+
+    /**
+     * @brief Single-scattering BRDF probability density function
+     * sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @note
+     * For simplicity, this implementation samples
+     * the single-scattering BRDF as if it is Lambertian.
+     */
+    multi<float_type, 3> fs_pdf_sample(
+            multi<float_type, 2> u,
+            multi<float_type, 3> wo) const
+    {
+        multi<float_type, 3> wi =
+        multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
+        if (wo[2] < 0) {
+            wi[2] = -wi[2];
+        }
+        return wi;
+    }
+
+private:
+
+    /**
+     * @brief Oren-Nayar constant @f$ A @f$.
+     *
+     * @f[
+     *      A = 1 - 0.5 \frac{\sigma^2}{\sigma^2 + 0.33}
+     * @f]
+     */
+    float_type a_;
+
+    /**
+     * @brief Oren-Nayar constant @f$ B @f$.
+     *
+     * @f[
+     *      B = 0.45 \frac{\sigma^2}{\sigma^2 + 0.09}
+     * @f]
+     */
+    float_type b_;
+};
+
+// TODO Test
+/**
+ * @brief Disney diffuse BRDF.
+ *
+ * Disney diffuse BRDF, described by Brent Burley in
+ * _Physically Based Shading at Disney_ in 2014.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct disney_diffuse_brdf
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Constructor.
+     *
+     * @param[in] alpha
+     * Ad hoc roughness @f$ \alpha \in [0, 1] @f$.
+     */
+    disney_diffuse_brdf(float_type alpha) : alpha_(alpha)
+    {
+    }
+
+    /**
+     * @brief Single-scattering BRDF.
+     *
+     * @f[
+     *      f_s(\omega_o, \omega_i) = 
+     *      \frac{1}{\pi}
+     *      ((1 - |\cos{\theta_o}|)^5 (F_{d,90} - 1) + 1)
+     *      ((1 - |\cos{\theta_i}|)^5 (F_{d,90} - 1) + 1)
+     *      |\cos{\theta_i}|
+     * @f]
+     * where @f$ F_{d,90} = 2 \alpha (\omega_o \cdot \omega_m)^2 + 0.5 @f$
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fs(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
+        if (wo[2] == 0 ||
+            wi[2] <= 0) {
+            return 0;
+        }
+
+        multi<float_type, 3> wm = normalize(wo + wi);
+        float_type cos_thetad = dot(wo, wm);
+        float_type fd90m1 = 2 * alpha_ * cos_thetad * cos_thetad - 
+            float_type(0.5);
+
+        return 
+            pr::numeric_constants<float_type>::M_1_pi() *
+            (fd90m1 * pr::nthpow(1 - wo[2], 5) + 1) *
+            (fd90m1 * pr::nthpow(1 - wi[2], 5) + 1) * wi[2];
+    }
+
+    /**
+     * @brief Single-scattering BRDF probability density function.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @note
+     * For simplicity, this implementation samples
+     * the single-scattering BRDF as if it is Lambertian.
+     */
+    float_type fs_pdf(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
+        if (wi[2] <= 0) {
+            return 0;
+        }
+
+        // Cosine hemisphere PDF.
+        return multi<float_type, 3>::cosine_hemisphere_pdf(wi[2]);
+    }
+
+    /**
+     * @brief Single-scattering BRDF probability density function
+     * sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @note
+     * For simplicity, this implementation samples
+     * the single-scattering BRDF as if it is Lambertian.
+     */
+    multi<float_type, 3> fs_pdf_sample(
+            multi<float_type, 2> u,
+            multi<float_type, 3> wo) const
+    {
+        multi<float_type, 3> wi =
+        multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
+        if (wo[2] < 0) {
+            wi[2] = -wi[2];
+        }
+        return wi;
+    }
+
+private:
+
+    /**
+     * @brief Ad hoc roughness @f$ \alpha \in [0, 1] @f$.
+     */
+    float_type alpha_; 
 };
 
 /**@}*/
