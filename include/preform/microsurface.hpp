@@ -64,7 +64,7 @@ namespace pr {
  * 1. B. Walter, S. R. Marschner, H. Li, and K. E. Torrance, 
  * &ldquo;Microfacet models for refraction through rough surfaces,&rdquo; 
  * in _Proceedings of the 18th Eurographics Conference on Rendering 
- * Techniques_, ser. EGSR'07, Grenoble, France: 
+ * Techniques_, ser. EGSR&rsquo;07, Grenoble, France: 
  * Eurographics Association, 2007, pp. 195&ndash;206.
  * ISBN: 978-3-905673-52-4.
  * Available: http://dx.doi.org/10.2312/EGWR/EGSR07/195-206
@@ -73,7 +73,7 @@ namespace pr {
  * (JCGT)_, vol. 3, no. 2, pp. 48&ndash;107, Jun. 2014, 
  * ISSN: 2331-7418.
  * Available: http://jcgt.org/published/0003/02/03/
- * 3. E. Heitz, J. Hanika, E. d'Eon, and C. Dachsbacher, 
+ * 3. E. Heitz, J. Hanika, E. d&rsquo;Eon, and C. Dachsbacher, 
  * &ldquo;Multiple-scattering microfacet BSDFs with the Smith model,&rdquo;
  * _ACM Transactions on Graphics_, vol. 35, no. 4, 1&ndash;58, Jul. 2016,
  * ISSN: 0730-0301.
@@ -81,10 +81,10 @@ namespace pr {
  * 4. B. Burley, &ldquo;Physically based shading at Disney,&rdquo; 
  * Disney Enterprises, Technical report, Aug. 2012.
  * Available: https://disney-animation.s3.amazonaws.com/library/s2012_pbs_disney_brdf_notes_v2.pdf
- * 5. M. Oren and S. K. Nayar, &ldquo;Generalization of Lambert's reflectance
- * model,&rdquo; in _Proceedings of the 21st Annual Conference on Computer
- * Graphics and Interactive Techniques_, ser. SIGGRAPH'94, New York, NY,
- * USA: ACM, 1994, pp. 239&ndash;246, ISBN: 0-89791-667-0.
+ * 5. M. Oren and S. K. Nayar, &ldquo;Generalization of Lambert&rsquo;s 
+ * reflectance model,&rdquo; in _Proceedings of the 21st Annual Conference 
+ * on Computer Graphics and Interactive Techniques_, ser. SIGGRAPH&rsquo;94, 
+ * New York, NY, USA: ACM, 1994, pp. 239&ndash;246, ISBN: 0-89791-667-0.
  * Available: http://doi.acm.org/10.1145/192161.192213
  * 
  * @see
@@ -2212,15 +2212,18 @@ private:
     float_type eta_ = float_type(1) / float_type(1.5);
 };
 
-// TODO Test
 /**
- * @brief Oren-Nayar diffuse microsurface BRDF.
+ * @brief Oren-Nayar diffuse BRDF.
+ *
+ * Oren-Nayar diffuse BRDF, described by M. Oren and
+ * S. K. Nayar in &ldquo;Generalization of Lambert&rsquo;s reflectance
+ * model&rdquo; in 1994.
  *
  * @tparam T
  * Float type.
  */
 template <typename T>
-struct oren_nayar_brdf
+struct oren_nayar_diffuse_brdf
 {
 public:
 
@@ -2240,7 +2243,7 @@ public:
      * @param[in] sigma
      * Standard deviation @f$ \sigma @f$ of microfacet angle in radians.
      */
-    oren_nayar_brdf(float_type sigma)
+    oren_nayar_diffuse_brdf(float_type sigma)
     {
         float_type sigma2 = sigma * sigma;
         a_ = 1 - float_type(0.50) * sigma2 / (sigma2 + float_type(0.33));
@@ -2252,12 +2255,11 @@ public:
      *
      * @f[
      *      f_s(\omega_o, \omega_i) =
-     *      \frac{1}{\pi}
+     *      \frac{|\omega_{i_z}|}{\pi}
      *      \left[A + B
-     *      \frac{\sin{\theta_o}\sin{\theta_i}}
-     *           {\max(|\cos{\theta_o}|, |\cos{\theta_i}|)}
-     *      \max(\cos{\phi_o}\cos{\phi_i} +
-     *           \sin{\phi_o}\sin{\phi_i}, 0)\right]
+     *      \frac{\max(\omega_{o_x}\omega_{i_x} +
+     *                 \omega_{o_y}\omega_{i_y}, 0)}
+     *           {\max(|\omega_{o_z}|, |\omega_{i_z}|)}\right]
      * @f]
      *
      * @param[in] wo
@@ -2280,42 +2282,13 @@ public:
             return 0;
         }
 
-        // Trig terms.
-        float_type cos_thetao = wo[2];
-        float_type cos_thetai = wi[2];
-        float_type sin2_thetao = 1 - wo[2] * wo[2];
-        float_type sin2_thetai = 1 - wi[2] * wi[2];
-        float_type sin_thetao = pr::sqrt(pr::fmax(sin2_thetao, float_type(0)));
-        float_type sin_thetai = pr::sqrt(pr::fmax(sin2_thetai, float_type(0)));
-
-        // Cosine term.
-        float_type inner_term = 0;
-        if (sin_thetao > float_type(0.00001) &&
-            sin_thetai > float_type(0.00001)) {
-            float_type cos_phio = wo[0] / sin_thetao;
-            float_type sin_phio = wo[1] / sin_thetao;
-            float_type cos_phii = wi[0] / sin_thetai;
-            float_type sin_phii = wi[1] / sin_thetai;
-            inner_term = 
+        return 
+            pr::numeric_constants<float_type>::M_1_pi() *
+                (a_ + b_ * 
                 pr::fmax(
-                    cos_phio * cos_phii + 
-                    sin_phio * sin_phii,
-                    float_type(0));
-        }
-
-        // Sine/tangent terms.
-        inner_term *= 
-            sin_thetai * 
-            sin_thetao / 
-            pr::fmax(cos_thetai, cos_thetao);
-
-        // NaN check.
-        if (!pr::isfinite(inner_term)) {
-            inner_term = 0;
-        }
-
-        return pr::numeric_constants<float_type>::M_1_pi() * 
-                        (a_ + b_ * inner_term);
+                    wo[0] * wi[0] + 
+                    wo[1] * wi[1], float_type(0)) /
+                pr::fmax(wo[2], wi[2])) * wi[2];
     }
 
     /**
@@ -2395,12 +2368,16 @@ private:
     float_type b_;
 };
 
-// TODO Test
 /**
  * @brief Disney diffuse BRDF.
  *
- * Disney diffuse BRDF, described by Brent Burley in
- * _Physically Based Shading at Disney_ in 2014.
+ * Disney diffuse BRDF, described by B. Burley in &ldquo;Physically
+ * based shading at Disney&rdquo; in 2014.
+ *
+ * Although this BRDF is neither strictly physically based nor developed 
+ * directly from microfacet theory, it is aesthetically pleasing and commonly 
+ * used in conjunction with microfacet reflectance lobes to simulate
+ * dielectric materials.
  *
  * @tparam T
  * Float type.
@@ -2435,10 +2412,9 @@ public:
      *
      * @f[
      *      f_s(\omega_o, \omega_i) = 
-     *      \frac{1}{\pi}
-     *      ((1 - |\cos{\theta_o}|)^5 (F_{d,90} - 1) + 1)
-     *      ((1 - |\cos{\theta_i}|)^5 (F_{d,90} - 1) + 1)
-     *      |\cos{\theta_i}|
+     *      \frac{|\omega_{i_z}|}{\pi}
+     *      ((1 - |\omega_{o_z}|)^5 (F_{d,90} - 1) + 1)
+     *      ((1 - |\omega_{i_z}|)^5 (F_{d,90} - 1) + 1)
      * @f]
      * where @f$ F_{d,90} = 2 \alpha (\omega_o \cdot \omega_m)^2 + 0.5 @f$
      *
