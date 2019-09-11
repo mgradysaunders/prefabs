@@ -94,7 +94,7 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Trowbridge-Reitz slope distribution.
+ * @brief Microsurface Trowbridge-Reitz slope distribution.
  *
  * @tparam T
  * Float type.
@@ -255,7 +255,7 @@ public:
 };
 
 /**
- * @brief Beckmann slope distribution.
+ * @brief Microsurface Beckmann slope distribution.
  *
  * @tparam T
  * Float type.
@@ -458,7 +458,7 @@ public:
 };
 
 /**
- * @brief Uniform height distribution.
+ * @brief Microsurface uniform height distribution.
  *
  * @tparam T
  * Float type.
@@ -521,7 +521,7 @@ public:
 };
 
 /**
- * @brief Normal height distribution.
+ * @brief Microsurface normal/Gaussian height distribution.
  *
  * @tparam T
  * Float type.
@@ -584,7 +584,7 @@ public:
 };
 
 /**
- * @brief Microsurface BxDF adapter.
+ * @brief Microsurface.
  *
  * @tparam T
  * Float type.
