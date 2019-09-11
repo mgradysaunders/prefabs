@@ -18,28 +18,32 @@ typedef pr::vec2<Float> Vec2f;
 // 3-dimensional vector type.
 typedef pr::vec3<Float> Vec3f;
 
-// Diffuse microsurface with Trowbridge-Reitz slope distribution.
-typedef pr::diffuse_brdf_microsurface_adapter<
-        pr::trowbridge_reitz_microsurface_slope<Float>,
-        pr::uniform_microsurface_height<Float>>
+// Diffuse with Trowbridge-Reitz slope distribution.
+typedef pr::microsurface_diffuse_brdf<
+        Float,
+        pr::microsurface_trowbridge_reitz_slope,
+        pr::microsurface_uniform_height>
             DiffuseTrowbridgeReitz;
 
-// Diffuse microsurface with Beckmann slope distribution.
-typedef pr::diffuse_brdf_microsurface_adapter<
-        pr::beckmann_microsurface_slope<Float>,
-        pr::uniform_microsurface_height<Float>>
+// Diffuse with Beckmann slope distribution.
+typedef pr::microsurface_diffuse_brdf<
+        Float,
+        pr::microsurface_beckmann_slope,
+        pr::microsurface_uniform_height>
             DiffuseBeckmann;
 
-// Dielectric microsurface with Trowbridge-Reitz slope distribution.
-typedef pr::dielectric_bsdf_microsurface_adapter<
-        pr::trowbridge_reitz_microsurface_slope<Float>,
-        pr::uniform_microsurface_height<Float>>
+// Dielectric with Trowbridge-Reitz slope distribution.
+typedef pr::microsurface_dielectric_bsdf<
+        Float,
+        pr::microsurface_trowbridge_reitz_slope,
+        pr::microsurface_uniform_height>
             DielectricTrowbridgeReitz;
 
-// Dielectric microsurface with Beckmann slope distribution.
-typedef pr::dielectric_bsdf_microsurface_adapter<
-        pr::beckmann_microsurface_slope<Float>,
-        pr::uniform_microsurface_height<Float>>
+// Dielectric with Beckmann slope distribution.
+typedef pr::microsurface_dielectric_bsdf<
+        Float,
+        pr::microsurface_beckmann_slope,
+        pr::microsurface_uniform_height>
             DielectricBeckmann;
 
 // Neumaier sum.
