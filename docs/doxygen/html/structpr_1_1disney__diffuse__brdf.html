@@ -114,7 +114,8 @@ Private Attributes</h2></td></tr>
 struct pr::disney_diffuse_brdf&lt; T &gt;</h3>
 
 <p>Disney diffuse BRDF. </p>
-<p>Disney diffuse BRDF, described by Brent Burley in <em>Physically Based Shading at Disney</em> in 2014.</p>
+<p>Disney diffuse BRDF, described by B. Burley in &ldquo;Physically based shading at Disney&rdquo; in 2014.</p>
+<p>Although this BRDF is neither strictly physically based nor developed directly from microfacet theory, it is aesthetically pleasing and commonly used in conjunction with microfacet reflectance lobes to simulate dielectric materials.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Float type. </td></tr>
@@ -216,7 +217,7 @@ template&lt;typename T &gt; </div>
 
 <p>Single-scattering BRDF. </p>
 <p class="formulaDsp">
-\[ f_s(\omega_o, \omega_i) = \frac{1}{\pi} ((1 - |\cos{\theta_o}|)^5 (F_{d,90} - 1) + 1) ((1 - |\cos{\theta_i}|)^5 (F_{d,90} - 1) + 1) |\cos{\theta_i}| \]
+\[ f_s(\omega_o, \omega_i) = \frac{|\omega_{i_z}|}{\pi} ((1 - |\omega_{o_z}|)^5 (F_{d,90} - 1) + 1) ((1 - |\omega_{i_z}|)^5 (F_{d,90} - 1) + 1) \]
 </p>
 <p> where \( F_{d,90} = 2 \alpha (\omega_o \cdot \omega_m)^2 + 0.5 \)</p>
 <dl class="params"><dt>Parameters</dt><dd>
