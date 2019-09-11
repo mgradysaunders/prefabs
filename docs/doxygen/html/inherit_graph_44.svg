@@ -12,7 +12,7 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="structpr_1_1microsurface__trowbridge__reitz__slope.html" target="_top" xlink:title="Trowbridge&#45;Reitz slope distribution. ">
+<g id="a_node1"><a xlink:href="structpr_1_1microsurface__trowbridge__reitz__slope.html" target="_top" xlink:title="Microsurface Trowbridge&#45;Reitz slope distribution. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-.5 0,-30.5 137,-30.5 137,-.5 0,-.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::microsurface_trowbridge</text>
 <text text-anchor="middle" x="68.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">_reitz_slope&lt; T &gt;</text>
