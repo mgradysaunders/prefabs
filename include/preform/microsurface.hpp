@@ -94,13 +94,13 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Trowbridge-Reitz microsurface slope distribution.
+ * @brief Trowbridge-Reitz slope distribution.
  *
  * @tparam T
  * Float type.
  */
 template <typename T>
-struct trowbridge_reitz_microsurface_slope
+struct microsurface_trowbridge_reitz_slope
 {
 public:
 
@@ -117,7 +117,7 @@ public:
     /**
      * @brief Non-constructible.
      */
-    trowbridge_reitz_microsurface_slope() = delete;
+    microsurface_trowbridge_reitz_slope() = delete;
 
     /**
      * @brief Smith shadowing term.
@@ -255,13 +255,13 @@ public:
 };
 
 /**
- * @brief Beckmann microsurface slope distribution.
+ * @brief Beckmann slope distribution.
  *
  * @tparam T
  * Float type.
  */
 template <typename T>
-struct beckmann_microsurface_slope
+struct microsurface_beckmann_slope
 {
 public:
 
@@ -278,7 +278,7 @@ public:
     /**
      * @brief Non-constructible.
      */
-    beckmann_microsurface_slope() = delete;
+    microsurface_beckmann_slope() = delete;
 
     /**
      * @brief Smith shadowing term.
@@ -458,13 +458,13 @@ public:
 };
 
 /**
- * @brief Uniform microsurface height distribution.
+ * @brief Uniform height distribution.
  *
  * @tparam T
  * Float type.
  */
 template <typename T>
-struct uniform_microsurface_height
+struct microsurface_uniform_height
 {
 public:
 
@@ -481,7 +481,7 @@ public:
     /**
      * @brief Non-constructible.
      */
-    uniform_microsurface_height() = delete;
+    microsurface_uniform_height() = delete;
 
     /**
      * @brief Height probability density function.
@@ -521,13 +521,13 @@ public:
 };
 
 /**
- * @brief Normal microsurface height distribution.
+ * @brief Normal height distribution.
  *
  * @tparam T
  * Float type.
  */
 template <typename T>
-struct normal_microsurface_height
+struct microsurface_normal_height
 {
 public:
 
@@ -544,7 +544,7 @@ public:
     /**
      * @brief Non-constructible.
      */
-    normal_microsurface_height() = delete;
+    microsurface_normal_height() = delete;
 
     /**
      * @brief Height probability density function.
@@ -584,30 +584,37 @@ public:
 };
 
 /**
- * @brief Microsurface adapter.
+ * @brief Microsurface BxDF adapter.
+ *
+ * @tparam T
+ * Float type.
  *
  * @tparam Tslope
- * Slope distribution, either `trowbridge_reitz_microsurface_slope` or 
- * `beckmann_microsurface_slope`.
+ * Slope distribution, either `microsurface_trowbridge_reitz_slope` or 
+ * `microsurface_beckmann_slope`.
  *
  * @tparam Theight
- * Height distribution, either `uniform_microsurface_height` or 
- * `normal_microsurface_height`.
+ * Height distribution, either `microsurface_uniform_height` or 
+ * `microsurface_normal_height`.
  */
-template <typename Tslope, typename Theight>
-struct microsurface_adapter
+template <
+    typename T,
+    template <typename> typename Tslope, 
+    template <typename> typename Theight
+    >
+struct microsurface
 {
 public:
 
     /**
      * @brief Float type.
      */
-    typedef typename Tslope::float_type float_type;
+    typedef T float_type;
 
     /**
      * @brief Default constructor.
      */
-    microsurface_adapter() = default;
+    microsurface() = default;
 
     /**
      * @brief Constructor.
@@ -618,7 +625,7 @@ public:
      * @throw std::invalid_argument
      * If negative roughness.
      */
-    microsurface_adapter(multi<float_type, 2> alpha) : alpha_(alpha)
+    microsurface(multi<float_type, 2> alpha) : alpha_(alpha)
     {
         // Invalid?
         if (pr::signbit(alpha_[0]) ||
@@ -652,7 +659,7 @@ public:
         wo[1] *= alpha_[1];
 
         // Delegate.
-        return Tslope::lambda11(wo);
+        return Tslope<T>::lambda11(wo);
     }
 
     /**
@@ -676,7 +683,7 @@ public:
         wo[1] *= alpha_[1];
 
         // Delegate.
-        return Tslope::aperp11(wo);
+        return Tslope<T>::aperp11(wo);
     }
 
     /**
@@ -699,7 +706,7 @@ public:
         }
 
         // Delegate.
-        float_type p11 = Tslope::p11(m);
+        float_type p11 = Tslope<T>::p11(m);
         return pr::isfinite(p11 / alpha_.prod())  ?
                             p11 / alpha_.prod() : 0;
     }
@@ -805,7 +812,7 @@ public:
         });
 
         // Sample visible slope.
-        multi<float_type, 2> m11 = Tslope::p11_sample(u, wo11[2]);
+        multi<float_type, 2> m11 = Tslope<T>::p11_sample(u, wo11[2]);
 
         // Rotate.
         float_type phi = pr::atan2(wo11[1], wo11[0]);
@@ -877,7 +884,7 @@ public:
             return 0;
         }
         else {
-            return pr::pow(Theight::c1(h0), lambda(wo));
+            return pr::pow(Theight<T>::c1(h0), lambda(wo));
         }
     }
 
@@ -908,8 +915,8 @@ public:
 
         // Handle cos(thetao) ~= -1.
         if (wo[2] < float_type(-0.99999)) {
-            return Theight::c1inv(
-                   Theight::c1(h0) * u);
+            return Theight<T>::c1inv(
+                   Theight<T>::c1(h0) * u);
         }
 
         // Handle cos(thetao) ~= 0.
@@ -924,8 +931,8 @@ public:
         }
 
         // Intersect.
-        return Theight::c1inv(
-               Theight::c1(h0) /
+        return Theight<T>::c1inv(
+               Theight<T>::c1(h0) /
                     pr::pow(1 - u,
                             1 / lambda(wo)));
     }
@@ -939,40 +946,49 @@ private:
 };
 
 /**
- * @brief Diffuse BRDF microsurface adapter.
+ * @brief Microsurface diffuse BRDF.
+ *
+ * @tparam T
+ * Float type.
  *
  * @tparam Tslope
- * Slope distribution, either `trowbridge_reitz_microsurface_slope` or 
- * `beckmann_microsurface_slope`.
+ * Slope distribution, either `microsurface_trowbridge_reitz_slope` or 
+ * `microsurface_beckmann_slope`.
  *
  * @tparam Theight
- * Height distribution, either `uniform_microsurface_height` or 
- * `normal_microsurface_height`.
+ * Height distribution, either `microsurface_uniform_height` or 
+ * `microsurface_normal_height`.
  */
-template <typename Tslope, typename Theight>
-struct diffuse_brdf_microsurface_adapter :
-                    public microsurface_adapter<Tslope, Theight>
+template <
+    typename T,
+    template <typename> typename Tslope, 
+    template <typename> typename Theight
+    >
+struct microsurface_diffuse_brdf :
+                    public microsurface<T, Tslope, Theight>
 {
 public:
 
-    // Inherit float type.
-    using typename microsurface_adapter<Tslope, Theight>::float_type;
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
 
     // Inherit constructors.
-    using microsurface_adapter<Tslope, Theight>::
-          microsurface_adapter;
+    using microsurface<T, Tslope, Theight>::
+          microsurface;
 
     // Locally visible for convenience.
-    using microsurface_adapter<Tslope, Theight>::lambda;
+    using microsurface<T, Tslope, Theight>::lambda;
 
     // Locally visible for convenience.
-    using microsurface_adapter<Tslope, Theight>::dwo_sample;
+    using microsurface<T, Tslope, Theight>::dwo_sample;
 
     // Locally visible for convenience.
-    using microsurface_adapter<Tslope, Theight>::g1;
+    using microsurface<T, Tslope, Theight>::g1;
 
     // Locally visible for convenience.
-    using microsurface_adapter<Tslope, Theight>::h_sample;
+    using microsurface<T, Tslope, Theight>::h_sample;
 
     /**
      * @brief Single-scattering BRDF.
@@ -1113,7 +1129,7 @@ public:
         float_type f = 0;
 
         // Initial height.
-        float_type hk = Theight::c1inv(float_type(0.99999)) + 1;
+        float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
 
         // Initial direction.
         multi<float_type, 3> wk = -wo;
@@ -1185,7 +1201,7 @@ public:
         }
 
         // Initial height.
-        float_type hk = Theight::c1inv(float_type(0.99999)) + 1;
+        float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
 
         // Initial direction.
         multi<float_type, 3> wk = -wo;
@@ -1284,60 +1300,69 @@ private:
 };
 
 /**
- * @brief Dielectric BSDF microsurface adapter.
+ * @brief Microsurface dielectric BSDF.
+ *
+ * @tparam T
+ * Float type.
  *
  * @tparam Tslope
- * Slope distribution, either `trowbridge_reitz_microsurface_slope` or 
- * `beckmann_microsurface_slope`.
+ * Slope distribution, either `microsurface_trowbridge_reitz_slope` or 
+ * `microsurface_beckmann_slope`.
  *
  * @tparam Theight
- * Height distribution, either `uniform_microsurface_height` or 
- * `normal_microsurface_height`.
+ * Height distribution, either `microsurface_uniform_height` or 
+ * `microsurface_normal_height`.
  */
-template <typename Tslope, typename Theight>
-struct dielectric_bsdf_microsurface_adapter :
-                public microsurface_adapter<Tslope, Theight>
+template <
+    typename T,
+    template <typename> typename Tslope, 
+    template <typename> typename Theight
+    >
+struct microsurface_dielectric_bsdf :
+                public microsurface<T, Tslope, Theight>
 {
 public:
 
-    // Inherit float type.
-    using typename microsurface_adapter<Tslope, Theight>::float_type;
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
 
     /**
      * @brief Default constructor.
      */
-    dielectric_bsdf_microsurface_adapter() = default;
+    microsurface_dielectric_bsdf() = default;
 
     /**
      * @brief Constructor.
      */
     template <typename... Targs>
-    dielectric_bsdf_microsurface_adapter(
+    microsurface_dielectric_bsdf(
             float_type eta,
             Targs&&... args) :
-                microsurface_adapter<Tslope, Theight>::
-                microsurface_adapter(std::forward<Targs>(args)...),
+                microsurface<T, Tslope, Theight>::
+                microsurface(std::forward<Targs>(args)...),
                 eta_(eta)
     {
     }
 
     // Locally visible for convenience.
-    using microsurface_adapter<Tslope, Theight>::lambda;
+    using microsurface<T, Tslope, Theight>::lambda;
 
     // Locally visible for convenience.
-    using microsurface_adapter<Tslope, Theight>::d;
+    using microsurface<T, Tslope, Theight>::d;
 
     // Locally visible for convenience.
-    using microsurface_adapter<Tslope, Theight>::dwo;
+    using microsurface<T, Tslope, Theight>::dwo;
 
     // Locally visible for convenience.
-    using microsurface_adapter<Tslope, Theight>::dwo_sample;
+    using microsurface<T, Tslope, Theight>::dwo_sample;
 
     // Locally visible for convenience.
-    using microsurface_adapter<Tslope, Theight>::g1;
+    using microsurface<T, Tslope, Theight>::g1;
 
     // Locally visible for convenience.
-    using microsurface_adapter<Tslope, Theight>::h_sample;
+    using microsurface<T, Tslope, Theight>::h_sample;
 
     /**
      * @brief Single-scattering BSDF.
@@ -1654,7 +1679,6 @@ public:
         return wi;
     }
 
-
     /**
      * @brief Single-scattering BRDF probability density function.
      *
@@ -1738,7 +1762,6 @@ public:
         }
         return wi;
     }
-
 
     /**
      * @brief Single-scattering BTDF probability density function.
@@ -1895,7 +1918,7 @@ public:
         for (int n = 0; n < nitr; n++) {
 
             // Initial height.
-            float_type hk = Theight::c1inv(float_type(0.99999)) + 1;
+            float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
 
             // Initial direction.
             multi<float_type, 3> wk = -wo;
@@ -1995,7 +2018,7 @@ public:
             int& k) const
     {
         // Initial height.
-        float_type hk = Theight::c1inv(float_type(0.99999)) + 1;
+        float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
 
         // Initial direction.
         multi<float_type, 3> wk = -wo;
@@ -2196,6 +2219,146 @@ private:
     }
 
 private:
+
+    /**
+     * @brief Refractive index @f$ \eta @f$.
+     *
+     * @f[
+     *      \eta =
+     *      \frac{\eta_{+}}
+     *           {\eta_{-}}
+     * @f]
+     * where
+     * - @f$ \eta_{+} @f$ is the refractive index in the upper hemisphere
+     * - @f$ \eta_{-} @f$ is the refractive index in the lower hemisphere
+     */
+    float_type eta_ = float_type(1) / float_type(1.5);
+};
+
+/**
+ * @brief Ashikhmin-Shirley dielectric BRDF.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct ashikhmin_shirley_dielectric_brdf :
+                public microsurface<T, 
+                       microsurface_trowbridge_reitz_slope,
+                       microsurface_uniform_height>
+{
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    ashikhmin_shirley_dielectric_brdf() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    template <typename... Targs>
+    ashikhmin_shirley_dielectric_brdf(
+            float_type kd,
+            float_type ks,
+            float_type eta,
+            Targs&&... args) :
+                microsurface<T, 
+                microsurface_trowbridge_reitz_slope, 
+                microsurface_uniform_height>::
+                microsurface(std::forward<Targs>(args)...),
+                kd_(kd),
+                ks_(ks),
+                eta_(eta)
+    {
+    }
+
+    // Locally visible for convenience.
+    using microsurface<T,
+          microsurface_trowbridge_reitz_slope,
+          microsurface_uniform_height>::d;
+
+    // Locally visible for convenience.
+    using microsurface<T,
+          microsurface_trowbridge_reitz_slope,
+          microsurface_uniform_height>::dwo;
+
+    // Locally visible for convenience.
+    using microsurface<T,
+          microsurface_trowbridge_reitz_slope,
+          microsurface_uniform_height>::dwo_sample;
+
+    /**
+     * @brief Single-scattering BRDF.
+     *
+     * TODO
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fs(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        float_type eta = eta_;
+
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+            eta = 1 / eta;
+        }
+        if (wo[2] < float_type(0.0000001) || // Avoid exploding.
+            wi[2] <= 0) {
+            return 0;
+        }
+
+        // Microsurface normal.
+        multi<float_type, 3> wm = normalize(wo + wi);
+
+        // Specular term.
+        float_type cos_thetao = dot(wo, wm);
+        float_type cos_thetat;
+        float_type fr, ft;
+        fresnel_diel_schlick(
+            eta,
+            cos_thetao,
+            cos_thetat,
+            fr, ft);
+        float_type fs = d(wm) * fr / (4 * cos_thetao * pr::fmax(wi[2], wo[2]));
+
+        // Diffuse term.
+        float_type fd =
+            float_type(28) / float_type(23) * 
+            pr::numeric_constants<float_type>::M_1_pi() *
+            kd_ * (1 - ks_) *
+            (1 - pr::nthpow(1 - float_type(0.5) * wi[2], 5)) *
+            (1 - pr::nthpow(1 - float_type(0.5) * wo[2], 5));
+
+        return (fs + fd) * wi[2];
+    }
+
+    // TODO fs_pdf
+
+    // TODO fs_pdf_sample
+
+private:
+
+    /**
+     * @brief Diffuse coefficient @f$ k_d \in [0, 1] @f$.
+     */
+    float_type kd_ = float_type(0.5);
+
+    /**
+     * @brief Specular coefficient @f$ k_s \in [0, 1] @f$.
+     */
+    float_type ks_ = float_type(0.5);
 
     /**
      * @brief Refractive index @f$ \eta @f$.
