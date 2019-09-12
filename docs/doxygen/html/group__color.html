@@ -136,10 +136,10 @@ Color conversion</h2></td></tr>
 <tr class="memitem:ga0b57a4f739fbf8b9a1edb968fafe9e7f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_unsigned&lt; T &gt;::value||std::is_floating_point&lt; T &gt;::value, multi&lt; T, 4 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga0b57a4f739fbf8b9a1edb968fafe9e7f">pr::srgbdec</a> (const multi&lt; T, 4 &gt; &amp;v)</td></tr>
 <tr class="memdesc:ga0b57a4f739fbf8b9a1edb968fafe9e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode linear RGB from sRGB.  <a href="group__color.html#ga0b57a4f739fbf8b9a1edb968fafe9e7f">More...</a><br /></td></tr>
 <tr class="separator:ga0b57a4f739fbf8b9a1edb968fafe9e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga87207c33fd0f97fe4be691fdfd7a5794"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga87207c33fd0f97fe4be691fdfd7a5794"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga87207c33fd0f97fe4be691fdfd7a5794">pr::srgenc_hable</a> (T v)</td></tr>
-<tr class="memdesc:ga87207c33fd0f97fe4be691fdfd7a5794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode linear RGB as sRGB with Hable tonemapping.  <a href="group__color.html#ga87207c33fd0f97fe4be691fdfd7a5794">More...</a><br /></td></tr>
-<tr class="separator:ga87207c33fd0f97fe4be691fdfd7a5794"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a492e8ab0013391963f491e00c48458"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga1a492e8ab0013391963f491e00c48458"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga1a492e8ab0013391963f491e00c48458">pr::srgbenc_hable</a> (T v)</td></tr>
+<tr class="memdesc:ga1a492e8ab0013391963f491e00c48458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode linear RGB as sRGB with Hable tonemapping.  <a href="group__color.html#ga1a492e8ab0013391963f491e00c48458">More...</a><br /></td></tr>
+<tr class="separator:ga1a492e8ab0013391963f491e00c48458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafdbd102f61722f5dd4d51dec96344516"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gafdbd102f61722f5dd4d51dec96344516"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#gafdbd102f61722f5dd4d51dec96344516">pr::srgbenc_hable</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
 <tr class="memdesc:gafdbd102f61722f5dd4d51dec96344516"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode linear RGB as sRGB with Hable tonemapping.  <a href="group__color.html#gafdbd102f61722f5dd4d51dec96344516">More...</a><br /></td></tr>
@@ -614,8 +614,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga87207c33fd0f97fe4be691fdfd7a5794"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga87207c33fd0f97fe4be691fdfd7a5794">&#9670;&nbsp;</a></span>srgenc_hable()</h2>
+<a id="ga1a492e8ab0013391963f491e00c48458"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1a492e8ab0013391963f491e00c48458">&#9670;&nbsp;</a></span>srgbenc_hable() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -626,7 +626,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, T&gt; pr::srgenc_hable </td>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, T&gt; pr::srgbenc_hable </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
@@ -649,7 +649,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="gafdbd102f61722f5dd4d51dec96344516"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gafdbd102f61722f5dd4d51dec96344516">&#9670;&nbsp;</a></span>srgbenc_hable() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gafdbd102f61722f5dd4d51dec96344516">&#9670;&nbsp;</a></span>srgbenc_hable() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -683,7 +683,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ga804a63d68dd03085d2606477b6783e3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga804a63d68dd03085d2606477b6783e3f">&#9670;&nbsp;</a></span>srgbenc_hable() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga804a63d68dd03085d2606477b6783e3f">&#9670;&nbsp;</a></span>srgbenc_hable() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
