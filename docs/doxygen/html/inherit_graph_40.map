@@ -1,4 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structpr_1_1microsurface.html" title="pr::microsurface\&lt; T,\l microsurface_trowbridge\l_reitz_slope, microsurface\l_uniform_height \&gt;" alt="" coords="5,5,180,76"/>
-<area shape="rect" id="node2" href="$structpr_1_1ashikhmin__shirley__dielectric__brdf.html" title="Ashikhmin&#45;Shirley dielectric BRDF. " alt="" coords="228,20,373,61"/>
+<area shape="rect" id="node1" href="$structpr_1_1microsurface.html" title="Microsurface. " alt="" coords="5,39,145,80"/>
+<area shape="rect" id="node2" href="$structpr_1_1microsurface__dielectric__bsdf.html" title="Microsurface dielectric BSDF. " alt="" coords="193,5,377,47"/>
+<area shape="rect" id="node3" href="$structpr_1_1microsurface__diffuse__brdf.html" title="Microsurface diffuse BRDF. " alt="" coords="195,71,376,112"/>
 </map>
