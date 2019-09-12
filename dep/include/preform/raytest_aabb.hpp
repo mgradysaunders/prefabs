@@ -232,6 +232,8 @@ public:
         friend struct raytest_aabb<T>;
     };
 
+    // TODO ray_fast_type?
+
 public:
 
     /**
@@ -316,6 +318,8 @@ public:
 
         return tmin > ray.tmin ? tmin : tmax;
     }
+
+    // TODO intersect_fast()?
 
 private:
 
