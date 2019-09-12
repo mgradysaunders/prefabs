@@ -278,7 +278,7 @@ inline std::enable_if_t<
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, T> srgenc_hable(T v)
+       std::is_floating_point<T>::value, T> srgbenc_hable(T v)
 {
     return srgbenc(
             (v * (v * T(5.50710) + T(0.91785)) + T(0.036714)) /
