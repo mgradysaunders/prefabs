@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>preform: pr::linear_aabbtree&lt; Tfloat, N, Tnode_alloc &gt; Class Template Reference</title>
+<title>preform: pr::linear_aabbtree&lt; Tfloat, N, Talloc &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <!--Broken...-->
@@ -75,7 +75,7 @@ $(function() {
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpr_1_1linear__aabbtree-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::linear_aabbtree&lt; Tfloat, N, Tnode_alloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__aabbtree.html">Axis-aligned bounding box tree</a></div></div>  </div>
+<div class="title">pr::linear_aabbtree&lt; Tfloat, N, Talloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__aabbtree.html">Axis-aligned bounding box tree</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -91,75 +91,86 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Container typedefs</div></td></tr>
-<tr class="memitem:a0e0e4c8ec7722ac187576421a8ba0b92"><td class="memItemLeft" align="right" valign="top">typedef std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a0e0e4c8ec7722ac187576421a8ba0b92">size_type</a></td></tr>
-<tr class="memdesc:a0e0e4c8ec7722ac187576421a8ba0b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size type.  <a href="#a0e0e4c8ec7722ac187576421a8ba0b92">More...</a><br /></td></tr>
-<tr class="separator:a0e0e4c8ec7722ac187576421a8ba0b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f5e2d2f7fd89918210b4bdfceb30760"><td class="memItemLeft" align="right" valign="top">typedef Tfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a3f5e2d2f7fd89918210b4bdfceb30760">float_type</a></td></tr>
-<tr class="memdesc:a3f5e2d2f7fd89918210b4bdfceb30760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Floating point type.  <a href="#a3f5e2d2f7fd89918210b4bdfceb30760">More...</a><br /></td></tr>
-<tr class="separator:a3f5e2d2f7fd89918210b4bdfceb30760"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1412dc1953b98794554a04e582634299"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; Tnode_alloc &gt;::template rebind_alloc&lt; <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a1412dc1953b98794554a04e582634299">node_allocator_type</a></td></tr>
-<tr class="memdesc:a1412dc1953b98794554a04e582634299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node allocator type.  <a href="#a1412dc1953b98794554a04e582634299">More...</a><br /></td></tr>
-<tr class="separator:a1412dc1953b98794554a04e582634299"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4a3826a91d7eab71098884fde67c77d"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; Tnode_alloc &gt;::template rebind_traits&lt; <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#ad4a3826a91d7eab71098884fde67c77d">node_allocator_traits</a></td></tr>
-<tr class="memdesc:ad4a3826a91d7eab71098884fde67c77d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node allocator traits.  <a href="#ad4a3826a91d7eab71098884fde67c77d">More...</a><br /></td></tr>
-<tr class="separator:ad4a3826a91d7eab71098884fde67c77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fa0e2e30116cf9e98c5b9e412249985"><td class="memItemLeft" align="right" valign="top">typedef std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a8fa0e2e30116cf9e98c5b9e412249985">size_type</a></td></tr>
+<tr class="memdesc:a8fa0e2e30116cf9e98c5b9e412249985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size type.  <a href="#a8fa0e2e30116cf9e98c5b9e412249985">More...</a><br /></td></tr>
+<tr class="separator:a8fa0e2e30116cf9e98c5b9e412249985"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e11824b980d6317de9fe0465942d921"><td class="memItemLeft" align="right" valign="top">typedef Tfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a4e11824b980d6317de9fe0465942d921">float_type</a></td></tr>
+<tr class="memdesc:a4e11824b980d6317de9fe0465942d921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Float type.  <a href="#a4e11824b980d6317de9fe0465942d921">More...</a><br /></td></tr>
+<tr class="separator:a4e11824b980d6317de9fe0465942d921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fc80ff105de765ceb9a26022d5989e1"><td class="memItemLeft" align="right" valign="top">typedef multi&lt; Tfloat, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a8fc80ff105de765ceb9a26022d5989e1">point_type</a></td></tr>
+<tr class="memdesc:a8fc80ff105de765ceb9a26022d5989e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point type.  <a href="#a8fc80ff105de765ceb9a26022d5989e1">More...</a><br /></td></tr>
+<tr class="separator:a8fc80ff105de765ceb9a26022d5989e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea4eb8f239d9053522243e5b37b17445"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; Tfloat, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#aea4eb8f239d9053522243e5b37b17445">aabb_type</a></td></tr>
+<tr class="memdesc:aea4eb8f239d9053522243e5b37b17445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axis-aligned bounding box type.  <a href="#aea4eb8f239d9053522243e5b37b17445">More...</a><br /></td></tr>
+<tr class="separator:aea4eb8f239d9053522243e5b37b17445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d334babf82c094a01800f8f13d0ef2f"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; Talloc &gt;::template rebind_alloc&lt; <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a1d334babf82c094a01800f8f13d0ef2f">node_allocator_type</a></td></tr>
+<tr class="memdesc:a1d334babf82c094a01800f8f13d0ef2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node allocator type.  <a href="#a1d334babf82c094a01800f8f13d0ef2f">More...</a><br /></td></tr>
+<tr class="separator:a1d334babf82c094a01800f8f13d0ef2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Constructors</div></td></tr>
-<tr class="memitem:a0c8115b8a913e707d566d244066327d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a0c8115b8a913e707d566d244066327d8">linear_aabbtree</a> ()=default</td></tr>
-<tr class="memdesc:a0c8115b8a913e707d566d244066327d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a0c8115b8a913e707d566d244066327d8">More...</a><br /></td></tr>
-<tr class="separator:a0c8115b8a913e707d566d244066327d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a266bb50c6fa4922c200d0b23bd00865e"><td class="memTemplParams" colspan="2">template&lt;typename... Tother&gt; </td></tr>
-<tr class="memitem:a266bb50c6fa4922c200d0b23bd00865e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a266bb50c6fa4922c200d0b23bd00865e">linear_aabbtree</a> (const <a class="el" href="classpr_1_1aabbtree.html">aabbtree</a>&lt; Tfloat, N, Tother... &gt; &amp;tree)</td></tr>
-<tr class="memdesc:a266bb50c6fa4922c200d0b23bd00865e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a266bb50c6fa4922c200d0b23bd00865e">More...</a><br /></td></tr>
-<tr class="separator:a266bb50c6fa4922c200d0b23bd00865e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dada6b46412468e44cc58f41a7ad84a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a6dada6b46412468e44cc58f41a7ad84a">linear_aabbtree</a> ()=default</td></tr>
+<tr class="memdesc:a6dada6b46412468e44cc58f41a7ad84a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a6dada6b46412468e44cc58f41a7ad84a">More...</a><br /></td></tr>
+<tr class="separator:a6dada6b46412468e44cc58f41a7ad84a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ff14d650b9e407d3a9fdf38780a8a5b"><td class="memTemplParams" colspan="2">template&lt;typename... Tother&gt; </td></tr>
+<tr class="memitem:a5ff14d650b9e407d3a9fdf38780a8a5b"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a5ff14d650b9e407d3a9fdf38780a8a5b">linear_aabbtree</a> (const <a class="el" href="classpr_1_1aabbtree.html">aabbtree</a>&lt; Tfloat, N, Tother... &gt; &amp;tree, const Talloc &amp;alloc=Talloc())</td></tr>
+<tr class="memdesc:a5ff14d650b9e407d3a9fdf38780a8a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a5ff14d650b9e407d3a9fdf38780a8a5b">More...</a><br /></td></tr>
+<tr class="separator:a5ff14d650b9e407d3a9fdf38780a8a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Container interface</div></td></tr>
-<tr class="memitem:ae69ea997a6d9eb7a0d55a53e121baa95"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#ae69ea997a6d9eb7a0d55a53e121baa95">empty</a> () const noexcept</td></tr>
-<tr class="memdesc:ae69ea997a6d9eb7a0d55a53e121baa95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty?  <a href="#ae69ea997a6d9eb7a0d55a53e121baa95">More...</a><br /></td></tr>
-<tr class="separator:ae69ea997a6d9eb7a0d55a53e121baa95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6aa14a0a0146ee52d6c677f7cfc6c69"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1linear__aabbtree.html#a0e0e4c8ec7722ac187576421a8ba0b92">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#af6aa14a0a0146ee52d6c677f7cfc6c69">size</a> () const noexcept</td></tr>
-<tr class="memdesc:af6aa14a0a0146ee52d6c677f7cfc6c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size.  <a href="#af6aa14a0a0146ee52d6c677f7cfc6c69">More...</a><br /></td></tr>
-<tr class="separator:af6aa14a0a0146ee52d6c677f7cfc6c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a8604850f0962da0e6783c1edeccbb6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a4a8604850f0962da0e6783c1edeccbb6">begin</a> () const noexcept</td></tr>
-<tr class="memdesc:a4a8604850f0962da0e6783c1edeccbb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin iterator.  <a href="#a4a8604850f0962da0e6783c1edeccbb6">More...</a><br /></td></tr>
-<tr class="separator:a4a8604850f0962da0e6783c1edeccbb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33f2ba39245267c1b10f9263c52b482d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a33f2ba39245267c1b10f9263c52b482d">end</a> () const noexcept</td></tr>
-<tr class="memdesc:a33f2ba39245267c1b10f9263c52b482d"><td class="mdescLeft">&#160;</td><td class="mdescRight">End iterator.  <a href="#a33f2ba39245267c1b10f9263c52b482d">More...</a><br /></td></tr>
-<tr class="separator:a33f2ba39245267c1b10f9263c52b482d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f657bdbc4f256528a47f8611b36f22f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a7f657bdbc4f256528a47f8611b36f22f">operator[]</a> (<a class="el" href="classpr_1_1linear__aabbtree.html#a0e0e4c8ec7722ac187576421a8ba0b92">size_type</a> pos) const noexcept</td></tr>
-<tr class="memdesc:a7f657bdbc4f256528a47f8611b36f22f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index accessor.  <a href="#a7f657bdbc4f256528a47f8611b36f22f">More...</a><br /></td></tr>
-<tr class="separator:a7f657bdbc4f256528a47f8611b36f22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf3029f88efcbcf9e705390a35827ccf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#acf3029f88efcbcf9e705390a35827ccf">empty</a> () const noexcept</td></tr>
+<tr class="memdesc:acf3029f88efcbcf9e705390a35827ccf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty?  <a href="#acf3029f88efcbcf9e705390a35827ccf">More...</a><br /></td></tr>
+<tr class="separator:acf3029f88efcbcf9e705390a35827ccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c50a76264b1f7f4cbd5f8a4191afeab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1linear__aabbtree.html#a8fa0e2e30116cf9e98c5b9e412249985">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a6c50a76264b1f7f4cbd5f8a4191afeab">size</a> () const noexcept</td></tr>
+<tr class="memdesc:a6c50a76264b1f7f4cbd5f8a4191afeab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size.  <a href="#a6c50a76264b1f7f4cbd5f8a4191afeab">More...</a><br /></td></tr>
+<tr class="separator:a6c50a76264b1f7f4cbd5f8a4191afeab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab213c6fc189d2630fa747bdd85823e6b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#ab213c6fc189d2630fa747bdd85823e6b">begin</a> () const noexcept</td></tr>
+<tr class="memdesc:ab213c6fc189d2630fa747bdd85823e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin iterator.  <a href="#ab213c6fc189d2630fa747bdd85823e6b">More...</a><br /></td></tr>
+<tr class="separator:ab213c6fc189d2630fa747bdd85823e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b44766e402b420485164b1b3520ffdb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a2b44766e402b420485164b1b3520ffdb">end</a> () const noexcept</td></tr>
+<tr class="memdesc:a2b44766e402b420485164b1b3520ffdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">End iterator.  <a href="#a2b44766e402b420485164b1b3520ffdb">More...</a><br /></td></tr>
+<tr class="separator:a2b44766e402b420485164b1b3520ffdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae32c98a05a70c2226d9f1a6d8ca1c079"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#ae32c98a05a70c2226d9f1a6d8ca1c079">operator[]</a> (<a class="el" href="classpr_1_1linear__aabbtree.html#a8fa0e2e30116cf9e98c5b9e412249985">size_type</a> pos) const noexcept</td></tr>
+<tr class="memdesc:ae32c98a05a70c2226d9f1a6d8ca1c079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index accessor.  <a href="#ae32c98a05a70c2226d9f1a6d8ca1c079">More...</a><br /></td></tr>
+<tr class="separator:ae32c98a05a70c2226d9f1a6d8ca1c079"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a5c7581f29d840757f4d1abe81c7f3410"><td class="memTemplParams" colspan="2">template&lt;typename Ttree_node &gt; </td></tr>
-<tr class="memitem:a5c7581f29d840757f4d1abe81c7f3410"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a5c7581f29d840757f4d1abe81c7f3410">init_recursive</a> (Ttree_node *tree_node)</td></tr>
-<tr class="memdesc:a5c7581f29d840757f4d1abe81c7f3410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten.  <a href="#a5c7581f29d840757f4d1abe81c7f3410">More...</a><br /></td></tr>
-<tr class="separator:a5c7581f29d840757f4d1abe81c7f3410"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a195c2c729b13321491a2cc191f673c35"><td class="memTemplParams" colspan="2">template&lt;typename Ttree_node &gt; </td></tr>
+<tr class="memitem:a195c2c729b13321491a2cc191f673c35"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a195c2c729b13321491a2cc191f673c35">init_recursive</a> (Ttree_node *tree_node)</td></tr>
+<tr class="memdesc:a195c2c729b13321491a2cc191f673c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flatten.  <a href="#a195c2c729b13321491a2cc191f673c35">More...</a><br /></td></tr>
+<tr class="separator:a195c2c729b13321491a2cc191f673c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:aa2570aa316b6032d660372d737f5a8c7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>, <a class="el" href="classpr_1_1linear__aabbtree.html#a1412dc1953b98794554a04e582634299">node_allocator_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#aa2570aa316b6032d660372d737f5a8c7">nodes_</a></td></tr>
-<tr class="memdesc:aa2570aa316b6032d660372d737f5a8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nodes.  <a href="#aa2570aa316b6032d660372d737f5a8c7">More...</a><br /></td></tr>
-<tr class="separator:aa2570aa316b6032d660372d737f5a8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a935796061e910339946b4607628f8009"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>, <a class="el" href="classpr_1_1linear__aabbtree.html#a1d334babf82c094a01800f8f13d0ef2f">node_allocator_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1linear__aabbtree.html#a935796061e910339946b4607628f8009">nodes_</a></td></tr>
+<tr class="memdesc:a935796061e910339946b4607628f8009"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nodes.  <a href="#a935796061e910339946b4607628f8009">More...</a><br /></td></tr>
+<tr class="separator:a935796061e910339946b4607628f8009"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename Tfloat, std::size_t N, typename Tnode_alloc = std::allocator&lt;char&gt;&gt;<br />
-class pr::linear_aabbtree&lt; Tfloat, N, Tnode_alloc &gt;</h3>
+<div class="textblock"><h3>template&lt;typename Tfloat, std::size_t N, typename Talloc = std::allocator&lt;char&gt;&gt;<br />
+class pr::linear_aabbtree&lt; Tfloat, N, Talloc &gt;</h3>
 
 <p>Linear axis-aligned bounding box tree. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Tfloat</td><td>Float type.</td></tr>
+    <tr><td class="paramname">N</td><td>Dimension.</td></tr>
+    <tr><td class="paramname">Talloc</td><td>Allocator type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a0e0e4c8ec7722ac187576421a8ba0b92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e0e4c8ec7722ac187576421a8ba0b92">&#9670;&nbsp;</a></span>size_type</h2>
+<a id="a8fa0e2e30116cf9e98c5b9e412249985"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fa0e2e30116cf9e98c5b9e412249985">&#9670;&nbsp;</a></span>size_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::size_t <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html#a0e0e4c8ec7722ac187576421a8ba0b92">size_type</a></td>
+          <td class="memname">typedef std::size_t <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html#a8fa0e2e30116cf9e98c5b9e412249985">size_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -168,34 +179,70 @@ template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::alloca
 
 </div>
 </div>
-<a id="a3f5e2d2f7fd89918210b4bdfceb30760"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f5e2d2f7fd89918210b4bdfceb30760">&#9670;&nbsp;</a></span>float_type</h2>
+<a id="a4e11824b980d6317de9fe0465942d921"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e11824b980d6317de9fe0465942d921">&#9670;&nbsp;</a></span>float_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef Tfloat <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html#a3f5e2d2f7fd89918210b4bdfceb30760">float_type</a></td>
+          <td class="memname">typedef Tfloat <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html#a4e11824b980d6317de9fe0465942d921">float_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Floating point type. </p>
+<p>Float type. </p>
 
 </div>
 </div>
-<a id="a1412dc1953b98794554a04e582634299"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1412dc1953b98794554a04e582634299">&#9670;&nbsp;</a></span>node_allocator_type</h2>
+<a id="a8fc80ff105de765ceb9a26022d5989e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fc80ff105de765ceb9a26022d5989e1">&#9670;&nbsp;</a></span>point_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::allocator_traits&lt;Tnode_alloc&gt;:: template rebind_alloc&lt;<a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>&gt; <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html#a1412dc1953b98794554a04e582634299">node_allocator_type</a></td>
+          <td class="memname">typedef multi&lt;Tfloat, N&gt; <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html#a8fc80ff105de765ceb9a26022d5989e1">point_type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Point type. </p>
+
+</div>
+</div>
+<a id="aea4eb8f239d9053522243e5b37b17445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea4eb8f239d9053522243e5b37b17445">&#9670;&nbsp;</a></span>aabb_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt;Tfloat, N&gt; <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html#aea4eb8f239d9053522243e5b37b17445">aabb_type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Axis-aligned bounding box type. </p>
+
+</div>
+</div>
+<a id="a1d334babf82c094a01800f8f13d0ef2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d334babf82c094a01800f8f13d0ef2f">&#9670;&nbsp;</a></span>node_allocator_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::allocator_traits&lt;Talloc&gt;:: template rebind_alloc&lt;<a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>&gt; <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html#a1d334babf82c094a01800f8f13d0ef2f">node_allocator_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -204,38 +251,20 @@ template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::alloca
 
 </div>
 </div>
-<a id="ad4a3826a91d7eab71098884fde67c77d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4a3826a91d7eab71098884fde67c77d">&#9670;&nbsp;</a></span>node_allocator_traits</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::allocator_traits&lt;Tnode_alloc&gt;:: template rebind_traits&lt;<a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>&gt; <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html#ad4a3826a91d7eab71098884fde67c77d">node_allocator_traits</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Node allocator traits. </p>
-
-</div>
-</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a0c8115b8a913e707d566d244066327d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c8115b8a913e707d566d244066327d8">&#9670;&nbsp;</a></span>linear_aabbtree() <span class="overload">[1/2]</span></h2>
+<a id="a6dada6b46412468e44cc58f41a7ad84a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dada6b46412468e44cc58f41a7ad84a">&#9670;&nbsp;</a></span>linear_aabbtree() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html">linear_aabbtree</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html">linear_aabbtree</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -252,13 +281,13 @@ template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::alloca
 
 </div>
 </div>
-<a id="a266bb50c6fa4922c200d0b23bd00865e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a266bb50c6fa4922c200d0b23bd00865e">&#9670;&nbsp;</a></span>linear_aabbtree() <span class="overload">[2/2]</span></h2>
+<a id="a5ff14d650b9e407d3a9fdf38780a8a5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ff14d650b9e407d3a9fdf38780a8a5b">&#9670;&nbsp;</a></span>linear_aabbtree() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <div class="memtemplate">
 template&lt;typename... Tother&gt; </div>
 <table class="mlabels">
@@ -266,11 +295,21 @@ template&lt;typename... Tother&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html">linear_aabbtree</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::<a class="el" href="classpr_1_1linear__aabbtree.html">linear_aabbtree</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1aabbtree.html">aabbtree</a>&lt; Tfloat, N, Tother... &gt; &amp;&#160;</td>
-          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td class="paramname"><em>tree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const Talloc &amp;&#160;</td>
+          <td class="paramname"><em>alloc</em> = <code>Talloc()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -285,19 +324,19 @@ template&lt;typename... Tother&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae69ea997a6d9eb7a0d55a53e121baa95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae69ea997a6d9eb7a0d55a53e121baa95">&#9670;&nbsp;</a></span>empty()</h2>
+<a id="acf3029f88efcbcf9e705390a35827ccf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf3029f88efcbcf9e705390a35827ccf">&#9670;&nbsp;</a></span>empty()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::empty </td>
+          <td class="memname">bool <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::empty </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -314,19 +353,19 @@ template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::alloca
 
 </div>
 </div>
-<a id="af6aa14a0a0146ee52d6c677f7cfc6c69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6aa14a0a0146ee52d6c677f7cfc6c69">&#9670;&nbsp;</a></span>size()</h2>
+<a id="a6c50a76264b1f7f4cbd5f8a4191afeab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c50a76264b1f7f4cbd5f8a4191afeab">&#9670;&nbsp;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1linear__aabbtree.html#a0e0e4c8ec7722ac187576421a8ba0b92">size_type</a> <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::size </td>
+          <td class="memname"><a class="el" href="classpr_1_1linear__aabbtree.html#a8fa0e2e30116cf9e98c5b9e412249985">size_type</a> <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -343,19 +382,19 @@ template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::alloca
 
 </div>
 </div>
-<a id="a4a8604850f0962da0e6783c1edeccbb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a8604850f0962da0e6783c1edeccbb6">&#9670;&nbsp;</a></span>begin()</h2>
+<a id="ab213c6fc189d2630fa747bdd85823e6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab213c6fc189d2630fa747bdd85823e6b">&#9670;&nbsp;</a></span>begin()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>* <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::begin </td>
+          <td class="memname">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>* <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::begin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -373,19 +412,19 @@ template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::alloca
 
 </div>
 </div>
-<a id="a33f2ba39245267c1b10f9263c52b482d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33f2ba39245267c1b10f9263c52b482d">&#9670;&nbsp;</a></span>end()</h2>
+<a id="a2b44766e402b420485164b1b3520ffdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b44766e402b420485164b1b3520ffdb">&#9670;&nbsp;</a></span>end()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>* <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::end </td>
+          <td class="memname">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>* <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::end </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -403,21 +442,21 @@ template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::alloca
 
 </div>
 </div>
-<a id="a7f657bdbc4f256528a47f8611b36f22f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f657bdbc4f256528a47f8611b36f22f">&#9670;&nbsp;</a></span>operator[]()</h2>
+<a id="ae32c98a05a70c2226d9f1a6d8ca1c079"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae32c98a05a70c2226d9f1a6d8ca1c079">&#9670;&nbsp;</a></span>operator[]()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>&amp; <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::operator[] </td>
+          <td class="memname">const <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>&amp; <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::operator[] </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1linear__aabbtree.html#a0e0e4c8ec7722ac187576421a8ba0b92">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1linear__aabbtree.html#a8fa0e2e30116cf9e98c5b9e412249985">size_type</a>&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -433,13 +472,13 @@ template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::alloca
 
 </div>
 </div>
-<a id="a5c7581f29d840757f4d1abe81c7f3410"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c7581f29d840757f4d1abe81c7f3410">&#9670;&nbsp;</a></span>init_recursive()</h2>
+<a id="a195c2c729b13321491a2cc191f673c35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a195c2c729b13321491a2cc191f673c35">&#9670;&nbsp;</a></span>init_recursive()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <div class="memtemplate">
 template&lt;typename Ttree_node &gt; </div>
 <table class="mlabels">
@@ -447,7 +486,7 @@ template&lt;typename Ttree_node &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::init_recursive </td>
+          <td class="memname">void <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::init_recursive </td>
           <td>(</td>
           <td class="paramtype">Ttree_node *&#160;</td>
           <td class="paramname"><em>tree_node</em></td><td>)</td>
@@ -466,19 +505,19 @@ template&lt;typename Ttree_node &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa2570aa316b6032d660372d737f5a8c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2570aa316b6032d660372d737f5a8c7">&#9670;&nbsp;</a></span>nodes_</h2>
+<a id="a935796061e910339946b4607628f8009"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a935796061e910339946b4607628f8009">&#9670;&nbsp;</a></span>nodes_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tnode_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Tfloat , std::size_t N, typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>, <a class="el" href="classpr_1_1linear__aabbtree.html#a1412dc1953b98794554a04e582634299">node_allocator_type</a>&gt; <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Tnode_alloc &gt;::nodes_</td>
+          <td class="memname">std::vector&lt; <a class="el" href="structpr_1_1linear__aabbtree_1_1node__type.html">node_type</a>, <a class="el" href="classpr_1_1linear__aabbtree.html#a1d334babf82c094a01800f8f13d0ef2f">node_allocator_type</a>&gt; <a class="el" href="classpr_1_1linear__aabbtree.html">pr::linear_aabbtree</a>&lt; Tfloat, N, Talloc &gt;::nodes_</td>
         </tr>
       </table>
   </td>

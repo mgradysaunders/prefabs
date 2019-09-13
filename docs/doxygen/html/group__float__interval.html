@@ -178,7 +178,10 @@ Math (float_interval)</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/float_interval.hpp&gt;</code></p>
-<p><b>C++ version</b>: &gt;=C++17 </p>
+<p><b>C++ version</b>: &gt;=C++17</p>
+<dl class="section note"><dt>Note</dt><dd>To use <code>std::fesetround</code> instead of <code>pr::fdec</code> and <code>pr::finc</code> where sensible, <code>define PREFORM_USE_FENV 1</code> before including. This ought to yield tighter bounds, though the code may not run any faster. To be</dd>
+<dd>
+If <code>PREFORM_USE_FENV</code> is truthy, this header will <code>pragma STDC FENV_ACCESS ON</code> to be standard compliant. GCC and clang may warn that this pragma is unknown&mdash;this is not an issue, as GCC and clang (on x86-64 at least) provide floating-point environment access by default. </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gae0fd242a55ca71d4e4744d63e81ecbb6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gae0fd242a55ca71d4e4744d63e81ecbb6">&#9670;&nbsp;</a></span>operator+() <span class="overload">[1/4]</span></h2>
@@ -286,7 +289,8 @@ template&lt;typename T &gt; </div>
 <p class="formulaDsp">
 \[ [b_{00}, b_{01}] \oplus [b_{10}, b_{11}] \subset [\operatorname{fdec}(b_{00} \oplus b_{10}), \operatorname{finc}(b_{01} \oplus b_{11})] \]
 </p>
- 
+<dl class="section note"><dt>Note</dt><dd>If <code>PREFORM_USE_FENV</code> is truthy, the implementation uses <code>std::fesetround</code> instead of <code>pr::fdec</code> and <code>pr::finc</code>. </dd></dl>
+
 </div>
 </div>
 <a id="ga75e24d7d50a8894f8d52398aa124843c"></a>
@@ -329,7 +333,8 @@ template&lt;typename T &gt; </div>
 <p class="formulaDsp">
 \[ [b_{00}, b_{01}] \ominus [b_{10}, b_{11}] \subset [\operatorname{fdec}(b_{00} \ominus b_{11}), \operatorname{finc}(b_{01} \ominus b_{10})] \]
 </p>
- 
+<dl class="section note"><dt>Note</dt><dd>If <code>PREFORM_USE_FENV</code> is truthy, the implementation uses <code>std::fesetround</code> instead of <code>pr::fdec</code> and <code>pr::finc</code>. </dd></dl>
+
 </div>
 </div>
 <a id="ga2544ddb3d611dfd4cb887f1f8f83c995"></a>
@@ -961,6 +966,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Bound <code>pr::sqrt()</code>. </p>
+<dl class="section note"><dt>Note</dt><dd>If <code>PREFORM_USE_FENV</code> is truthy, the implementation uses <code>std::fesetround</code> instead of <code>pr::fdec</code> and <code>pr::finc</code>. </dd></dl>
 
 </div>
 </div>
