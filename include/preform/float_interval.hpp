@@ -44,6 +44,11 @@
 // for std::basic_ostream
 #include <ostream>
 
+#if PREFORM_USE_FENV
+#pragma STDC FENV_ACCESS ON
+#include <cfenv>
+#endif // #if PREFORM_USE_FENV
+
 // for pr::numeric_limits
 #include <preform/math.hpp>
 
@@ -58,6 +63,18 @@ namespace pr {
  * `<preform/float_interval.hpp>`
  *
  * __C++ version__: >=C++17
+ *
+ * @note
+ * To use `std::fesetround` instead of `pr::fdec` and `pr::finc` where
+ * sensible, `#define PREFORM_USE_FENV 1` before including. This ought to 
+ * yield tighter bounds, though the code may not run any faster. To be 
+ *
+ * @note
+ * If `PREFORM_USE_FENV` is truthy, this header will
+ * `#pragma STDC FENV_ACCESS ON` to be standard compliant. GCC and clang 
+ * may warn that this pragma is unknown&mdash;this is not an issue, as GCC 
+ * and clang (on x86-64 at least) provide floating-point environment access 
+ * by default.
  */
 /**@{*/
 
@@ -133,11 +150,19 @@ public:
      * @param[in] xerr
      * Value absolute error.
      */
-    float_interval(T x, T xerr) :
-            x_(x),
-            x0_(fdec(x - xerr)),
-            x1_(finc(x + xerr))
+    float_interval(T x, T xerr) : x_(x)
     {
+#if PREFORM_USE_FENV
+        int mode = std::fegetround();
+        std::fesetround(FE_DOWNWARD);
+        x0_ = x - xerr;
+        std::fesetround(FE_UPWARD);
+        x1_ = x + xerr;
+        std::fesetround(mode);
+#else
+        x0_ = pr::fdec(x - xerr);
+        x1_ = pr::finc(x + xerr);
+#endif // #if PREFORM_USE_FENV
     }
 
     /**@}*/
@@ -195,7 +220,16 @@ public:
     __attribute__((always_inline))
     T abs_error() const
     {
-        return pr::finc(pr::fmax(pr::fabs(x_ - x0_), pr::fabs(x_ - x1_)));
+#if PREFORM_USE_FENV
+        int mode = std::fegetround();
+        std::fesetround(FE_UPWARD);
+        T dx0 = x_ - x0_;
+        T dx1 = x1_ - x_;
+        std::fesetround(mode);
+        return pr::fmax(dx0, dx1);
+#else
+        return pr::finc(pr::fmax(x_ - x0_, x1_ - x));
+#endif // #if PREFORM_USE_FENV
     }
 
     /**
@@ -494,6 +528,10 @@ inline float_interval<T> operator-(const float_interval<T>& b)
  *      [\operatorname{fdec}(b_{00} \oplus b_{10}),
  *       \operatorname{finc}(b_{01} \oplus b_{11})]
  * @f]
+ *
+ * @note
+ * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround` 
+ * instead of `pr::fdec` and `pr::finc`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -501,11 +539,24 @@ inline float_interval<T> operator+(
                 const float_interval<T>& b0,
                 const float_interval<T>& b1)
 {
+#if PREFORM_USE_FENV
+    T x = b0.value() + b1.value();
+    T x0;
+    T x1;
+    int mode = std::fegetround();
+    std::fesetround(FE_DOWNWARD);
+    x0 = b0.lower_bound() + b1.lower_bound();
+    std::fesetround(FE_UPWARD);
+    x1 = b0.upper_bound() + b1.upper_bound();
+    std::fesetround(mode);
+    return {x, x0, x1};
+#else
     return {
         b0.value() + b1.value(),
         pr::fdec(b0.lower_bound() + b1.lower_bound()),
         pr::finc(b0.upper_bound() + b1.upper_bound())
     };
+#endif // #if PREFORM_USE_FENV
 }
 
 /**
@@ -517,6 +568,10 @@ inline float_interval<T> operator+(
  *      [\operatorname{fdec}(b_{00} \ominus b_{11}),
  *       \operatorname{finc}(b_{01} \ominus b_{10})]
  * @f]
+ *
+ * @note
+ * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround` 
+ * instead of `pr::fdec` and `pr::finc`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -524,11 +579,24 @@ inline float_interval<T> operator-(
                 const float_interval<T>& b0,
                 const float_interval<T>& b1)
 {
+#if PREFORM_USE_FENV
+    T x = b0.value() - b1.value();
+    T x0;
+    T x1;
+    int mode = std::fegetround();
+    std::fesetround(FE_DOWNWARD);
+    x0 = b0.lower_bound() - b1.lower_bound();
+    std::fesetround(FE_UPWARD);
+    x1 = b0.upper_bound() - b1.upper_bound();
+    std::fesetround(mode);
+    return {x, x0, x1};
+#else
     return {
         b0.value() - b1.value(),
         pr::fdec(b0.lower_bound() - b1.upper_bound()),
         pr::finc(b0.upper_bound() - b1.lower_bound())
     };
+#endif // #if PREFORM_USE_FENV
 }
 
 /**
@@ -776,15 +844,32 @@ inline float_interval<T> fabs(const float_interval<T>& b)
 
 /**
  * @brief Bound `pr::sqrt()`.
+ *
+ * @note
+ * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround` 
+ * instead of `pr::fdec` and `pr::finc`.
  */
 template <typename T>
 inline float_interval<T> sqrt(const float_interval<T>& b)
 {
+#if PREFORM_USE_FENV
+    T x = pr::sqrt(b.value());
+    T x0;
+    T x1;
+    int mode = std::fegetround();
+    std::fesetround(FE_DOWNWARD);
+    x0 = pr::sqrt(b.lower_bound());
+    std::fesetround(FE_UPWARD);
+    x1 = pr::sqrt(b.upper_bound());
+    std::fesetround(mode);
+    return {x, x0, x1};
+#else
     return {
         pr::sqrt(b.value()),
         pr::fdec(pr::sqrt(b.lower_bound())),
         pr::finc(pr::sqrt(b.upper_bound()))
     };
+#endif // #if PREFORM_USE_FENV
 }
 
 /**@}*/
