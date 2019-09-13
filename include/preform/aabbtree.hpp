@@ -87,11 +87,26 @@ namespace pr {
 
 /**
  * @brief Axis-aligned bounding box tree.
+ *
+ * @tparam Tfloat
+ * Float type.
+ *
+ * @tparam N
+ * Dimension.
+ *
+ * @tparam Tsplit_mode
+ * Split mode type, either 
+ * - `pr::aabbtree_split_equal_counts`,
+ * - `pr::aabbtree_split_equal_dimensions`, or
+ * - `pr::aabbtree_split_surface_area`.
+ *
+ * @tparam Talloc
+ * Allocator type.
  */
 template <
     typename Tfloat, std::size_t N,
     typename Tsplit_mode,
-    typename Tnode_alloc = std::allocator<char>
+    typename Talloc = std::allocator<char>
     >
 class aabbtree
 {
@@ -101,6 +116,14 @@ public:
     static_assert(
         std::is_floating_point<Tfloat>::value,
         "Tfloat must be floating point");
+
+#if !DOXYGEN
+
+    struct node_type;
+
+    struct proxy_type;
+
+#endif // #if !DOXYGEN
 
     /**
      * @name Container typedefs
@@ -113,53 +136,37 @@ public:
     typedef std::size_t size_type;
 
     /**
-     * @brief Floating point type.
+     * @brief Float type.
      */
     typedef Tfloat float_type;
 
-#if !DOXYGEN
-    // prototype
-    struct node_type;
-#endif // #if !DOXYGEN
+    /**
+     * @brief Point type.
+     */
+    typedef multi<Tfloat, N> point_type;
+
+    /**
+     * @brief Axis-aligned bounding box type.
+     */
+    typedef aabb<Tfloat, N> aabb_type;
 
     /**
      * @brief Node allocator type.
      */
-    typedef typename std::allocator_traits<Tnode_alloc>::
-            template rebind_alloc<node_type> node_allocator_type;
+    typedef 
+        typename std::allocator_traits<Talloc>::
+        template rebind_alloc<node_type> node_allocator_type;
 
     /**
-     * @brief Node allocator traits.
+     * @brief Proxy allocator type.
      */
-    typedef typename std::allocator_traits<Tnode_alloc>::
-            template rebind_traits<node_type> node_allocator_traits;
+    typedef 
+        typename std::allocator_traits<Talloc>::
+        template rebind_alloc<proxy_type> proxy_allocator_type;
 
     /**@}*/
 
 public:
-
-    /**
-     * @brief Proxy type.
-     */
-    struct proxy_type
-    {
-    public:
-
-        /**
-         * @brief Box.
-         */
-        aabb<float_type, N> box;
-
-        /**
-         * @brief Box center.
-         */
-        multi<float_type, N> box_center;
-
-        /**
-         * @brief Value index.
-         */
-        size_type value_index;
-    };
 
     /**
      * @brief Node type.
@@ -171,7 +178,7 @@ public:
         /**
          * @brief Box.
          */
-        aabb<float_type, N> box;
+        aabb_type box;
 
         /**
          * @brief If branch, left child.
@@ -199,6 +206,29 @@ public:
         size_type count;
     };
 
+    /**
+     * @brief Proxy type.
+     */
+    struct proxy_type
+    {
+    public:
+
+        /**
+         * @brief Box.
+         */
+        aabb_type box;
+
+        /**
+         * @brief Box center.
+         */
+        point_type box_center;
+
+        /**
+         * @brief Value index.
+         */
+        size_type value_index;
+    };
+
 public:
 
     /**
@@ -212,20 +242,18 @@ public:
      * @param[in] leaf_cutoff
      * Leaf cutoff.
      *
-     * @param[in] node_alloc
-     * Node allocator.
+     * @param[in] alloc
+     * Allocator.
      */
     aabbtree(
-        size_type leaf_cutoff,
-        const node_allocator_type& node_alloc =
-              node_allocator_type()) :
+        size_type leaf_cutoff, 
+        const Talloc& alloc = Talloc()) :
             leaf_cutoff_(leaf_cutoff),
-            node_alloc_(node_alloc)
+            node_alloc_(alloc),
+            proxies_(alloc)
     {
         // Sanity check.
-        assert(
-            leaf_cutoff_ <
-            size_type(256));
+        assert(leaf_cutoff_ < size_type(256));
     }
 
     /**
@@ -263,9 +291,9 @@ public:
      *
      * @note
      * Function must have signature equivalent to
-     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
-     * aabb<float_type, N>(const Tvalue&)
-     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     * ~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
+     * aabb_type(const Tvalue&)
+     * ~~~~~~~~~~~~~~~~~~~~~~~~
      * where `Tvalue` is the value type corresponding to
      * `Tforward_itr`.
      */
@@ -286,8 +314,9 @@ public:
 
         // Initialize proxies.
         size_type value_index = 0;
+        proxies_.reserve(count);
         while (from != to) {
-            aabb<float_type, N> box = std::forward<Tfunc>(func)(*from);
+            aabb_type box = std::forward<Tfunc>(func)(*from);
             assert((box[0] < box[1]).all());
             proxies_.emplace_back(
             proxy_type{
@@ -324,8 +353,12 @@ public:
             Tforward_itr to)
     {
         assert(size_type(std::distance(from, to)) == proxies_.size());
-        std::vector<typename
-        std::iterator_traits<Tforward_itr>::value_type> values(from, to);
+        std::vector<
+            typename std::iterator_traits<Tforward_itr>::value_type,
+            typename std::allocator_traits<Talloc>::
+            template rebind_alloc<
+                typename std::iterator_traits<Tforward_itr>::value_type>> 
+                    values(from, to, node_alloc_);
         for (size_type pos = 0; pos < proxies_.size(); pos++) {
             *from++ = values[proxies_[pos].value_index];
         }
@@ -364,7 +397,7 @@ public:
     /**
      * @brief Proxies.
      */
-    const std::vector<proxy_type>& proxies() const
+    const std::vector<proxy_type, proxy_allocator_type>& proxies() const
     {
         return proxies_;
     }
@@ -401,7 +434,7 @@ private:
     /**
      * @brief Proxies.
      */
-    std::vector<proxy_type> proxies_;
+    std::vector<proxy_type, proxy_allocator_type> proxies_;
 
 private:
 
@@ -412,9 +445,7 @@ private:
     {
         ++total_nodes_;
         std::unique_lock<std::mutex> lock(node_alloc_mutex_);
-        return
-            node_allocator_traits::allocate(
-            node_alloc_, 1);
+        return node_alloc_.allocate(1);
     }
 
     /**
@@ -425,8 +456,7 @@ private:
         if (node) {
             --total_nodes_;
             std::unique_lock<std::mutex> lock(node_alloc_mutex_);
-            node_allocator_traits::deallocate(
-            node_alloc_, node, 1);
+            node_alloc_.deallocate(node, 1);
         }
     }
 
@@ -456,8 +486,8 @@ private:
         node_type* node = allocate();
 
         // Surround boxes and box centers.
-        aabb<float_type, N> box;
-        aabb<float_type, N> box_center;
+        aabb_type box;
+        aabb_type box_center;
         assert((box[0] > box[1]).all());
         for (const proxy_type& proxy : proxies) {
             box |= proxy.box;
@@ -562,9 +592,9 @@ private:
 template <
     typename Tfloat,
     typename Tsplit_mode,
-    typename Tnode_alloc = std::allocator<char>
+    typename Talloc = std::allocator<char>
     >
-using aabbtree2 = aabbtree<Tfloat, 2, Tsplit_mode, Tnode_alloc>;
+using aabbtree2 = aabbtree<Tfloat, 2, Tsplit_mode, Talloc>;
 
 /**
  * @brief Template alias for convenience.
@@ -572,9 +602,9 @@ using aabbtree2 = aabbtree<Tfloat, 2, Tsplit_mode, Tnode_alloc>;
 template <
     typename Tfloat,
     typename Tsplit_mode,
-    typename Tnode_alloc = std::allocator<char>
+    typename Talloc = std::allocator<char>
     >
-using aabbtree3 = aabbtree<Tfloat, 3, Tsplit_mode, Tnode_alloc>;
+using aabbtree3 = aabbtree<Tfloat, 3, Tsplit_mode, Talloc>;
 
 /**
  * @brief Split by equal counts.
@@ -789,10 +819,19 @@ struct aabbtree_split_surface_area
 
 /**
  * @brief Linear axis-aligned bounding box tree.
+ *
+ * @tparam Tfloat
+ * Float type.
+ *
+ * @tparam N
+ * Dimension.
+ *
+ * @tparam Talloc
+ * Allocator type.
  */
 template <
     typename Tfloat, std::size_t N,
-    typename Tnode_alloc = std::allocator<char>
+    typename Talloc = std::allocator<char>
     >
 class linear_aabbtree
 {
@@ -802,6 +841,12 @@ public:
     static_assert(
         std::is_floating_point<Tfloat>::value,
         "Tfloat must be floating point");
+
+#if !DOXYGEN
+
+    struct node_type;
+
+#endif // #if !DOXYGEN
 
     /**
      * @name Container typedefs
@@ -814,26 +859,25 @@ public:
     typedef std::size_t size_type;
 
     /**
-     * @brief Floating point type.
+     * @brief Float type.
      */
     typedef Tfloat float_type;
 
-#if !DOXYGEN
-    // prototype
-    struct node_type;
-#endif // #if !DOXYGEN
+    /**
+     * @brief Point type.
+     */
+    typedef multi<Tfloat, N> point_type;
+
+    /**
+     * @brief Axis-aligned bounding box type.
+     */
+    typedef aabb<Tfloat, N> aabb_type;
 
     /**
      * @brief Node allocator type.
      */
-    typedef typename std::allocator_traits<Tnode_alloc>::
+    typedef typename std::allocator_traits<Talloc>::
             template rebind_alloc<node_type> node_allocator_type;
-
-    /**
-     * @brief Node allocator traits.
-     */
-    typedef typename std::allocator_traits<Tnode_alloc>::
-            template rebind_traits<node_type> node_allocator_traits;
 
     /**@}*/
 
@@ -849,7 +893,7 @@ public:
         /**
          * @brief Box.
          */
-        aabb<float_type, N> box;
+        aabb_type box;
 
         union {
 
@@ -945,7 +989,10 @@ public:
      * @brief Constructor.
      */
     template <typename... Tother>
-    linear_aabbtree(const aabbtree<Tfloat, N, Tother...>& tree)
+    linear_aabbtree(
+            const aabbtree<Tfloat, N, Tother...>& tree,
+            const Talloc& alloc = Talloc()) :
+                nodes_(alloc)
     {
         // Reserve memory.
         nodes_.reserve(
