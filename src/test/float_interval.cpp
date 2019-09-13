@@ -1,3 +1,4 @@
+#define PREFORM_USE_FENV 1
 #include <iostream>
 #include <iomanip>
 #include <random>
@@ -63,12 +64,13 @@ void testSequential()
     }
 
     std::cout << std::boolalpha;
+    std::cout << std::setprecision(20);
     std::cout << "fi.value() = " << fi.value() << "\n";
     std::cout << "fi.lower_bound() = " << fi.lower_bound() << "\n";
     std::cout << "fi.upper_bound() = " << fi.upper_bound() << "\n";
     std::cout << "fi.abs_error() = " << fi.abs_error() << "\n";
     std::cout << "fi.rel_error() = " << fi.rel_error() << "\n";
-    std::cout << "fi.contains(fh) = " << fi.contains(fh) << "\n\n";
+    std::cout << "fi.contains(fh) = " << fi.contains<true, true>(fh) << "\n\n";
     std::cout.flush();
 }
 
