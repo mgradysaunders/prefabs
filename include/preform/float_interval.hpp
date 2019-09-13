@@ -228,7 +228,7 @@ public:
         std::fesetround(mode);
         return pr::fmax(dx0, dx1);
 #else
-        return pr::finc(pr::fmax(x_ - x0_, x1_ - x));
+        return pr::finc(pr::fmax(x_ - x0_, x1_ - x_));
 #endif // #if PREFORM_USE_FENV
     }
 
@@ -585,9 +585,9 @@ inline float_interval<T> operator-(
     T x1;
     int mode = std::fegetround();
     std::fesetround(FE_DOWNWARD);
-    x0 = b0.lower_bound() - b1.lower_bound();
+    x0 = b0.lower_bound() - b1.upper_bound();
     std::fesetround(FE_UPWARD);
-    x1 = b0.upper_bound() - b1.upper_bound();
+    x1 = b0.upper_bound() - b1.lower_bound();
     std::fesetround(mode);
     return {x, x0, x1};
 #else
