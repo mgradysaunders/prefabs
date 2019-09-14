@@ -67,7 +67,7 @@ namespace pr {
  * @note
  * To use `std::fesetround` instead of `pr::fdec` and `pr::finc` where
  * sensible, `#define PREFORM_USE_FENV 1` before including. This ought to 
- * yield tighter bounds, though the code may not run any faster. To be 
+ * yield tighter bounds, though the code may not run any faster.
  *
  * @note
  * If `PREFORM_USE_FENV` is truthy, this header will
@@ -202,7 +202,9 @@ public:
     __attribute__((always_inline))
     T abs_lower_bound() const
     {
-        return pr::fabs(pr::signbit(x_) ? x1_ : x0_);
+        return pr::signbit(x0_) == 0 ? +x0_ :
+               pr::signbit(x1_) == 1 ? -x1_ : 0;
+    //  return pr::fabs(pr::signbit(x_) ? x1_ : x0_);
     }
 
     /**
@@ -211,7 +213,9 @@ public:
     __attribute__((always_inline))
     T abs_upper_bound() const
     {
-        return pr::fabs(pr::signbit(x_) ? x0_ : x1_);
+        return pr::signbit(x0_) == 0 ? +x1_ :
+               pr::signbit(x1_) == 1 ? -x0_ : pr::fmax(-x0_, x1_);
+    //  return pr::fabs(pr::signbit(x_) ? x0_ : x1_);
     }
 
     /**
@@ -255,6 +259,7 @@ public:
         bool inclusive0 = true,
         bool inclusive1 = false
         >
+    __attribute__((always_inline))
     bool overlaps(const float_interval& oth) const
     {
         if constexpr (inclusive0 && inclusive1) {
@@ -286,6 +291,7 @@ public:
         bool inclusive0 = true,
         bool inclusive1 = false
         >
+    __attribute__((always_inline))
     bool contains(const float_interval& oth) const
     {
         if constexpr (inclusive0 && inclusive1) {
@@ -827,10 +833,10 @@ inline float_interval<T>& operator/=(float_interval<T>& b, const U& any)
 template <typename T>
 inline float_interval<T> fabs(const float_interval<T>& b)
 {
-    if (b.lower_bound() >= T(0)) {
+    if (pr::signbit(b.lower_bound()) == 0) { // Entire interval positive?
         return +b;
     }
-    if (b.upper_bound() <= T(0)) {
+    if (pr::signbit(b.upper_bound()) == 1) { // Entire interval negative?
         return -b;
     }
     return {
@@ -884,7 +890,7 @@ inline void float_interval<T>::solve_poly2(
             float_interval& t0,
             float_interval& t1)
 {
-    if (a2.contains(T(0)) ||
+    if (a2.contains<true, true>(T(0)) ||
         a2.abs_upper_bound() <
         a1.abs_lower_bound() *
             pr::numeric_limits<T>::min_invertible() ||
@@ -912,7 +918,7 @@ inline void float_interval<T>::solve_poly2(
     }
 
     // Is discriminant zero?
-    if (d.contains(T(0))) {
+    if (d.contains<true, true>(T(0))) {
         t0 = T(-0.5) * c1;
     }
     else {
