@@ -179,7 +179,7 @@ Math (float_interval)</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/float_interval.hpp&gt;</code></p>
 <p><b>C++ version</b>: &gt;=C++17</p>
-<dl class="section note"><dt>Note</dt><dd>To use <code>std::fesetround</code> instead of <code>pr::fdec</code> and <code>pr::finc</code> where sensible, <code>define PREFORM_USE_FENV 1</code> before including. This ought to yield tighter bounds, though the code may not run any faster. To be</dd>
+<dl class="section note"><dt>Note</dt><dd>To use <code>std::fesetround</code> instead of <code>pr::fdec</code> and <code>pr::finc</code> where sensible, <code>define PREFORM_USE_FENV 1</code> before including. This ought to yield tighter bounds, though the code may not run any faster.</dd>
 <dd>
 If <code>PREFORM_USE_FENV</code> is truthy, this header will <code>pragma STDC FENV_ACCESS ON</code> to be standard compliant. GCC and clang may warn that this pragma is unknown&mdash;this is not an issue, as GCC and clang (on x86-64 at least) provide floating-point environment access by default. </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>

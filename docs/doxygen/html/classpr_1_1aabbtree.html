@@ -102,9 +102,6 @@ Public Types</h2></td></tr>
 <tr class="memitem:afd308bfc45fe8764bef03581e0fe0d43"><td class="memItemLeft" align="right" valign="top">typedef Tfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#afd308bfc45fe8764bef03581e0fe0d43">float_type</a></td></tr>
 <tr class="memdesc:afd308bfc45fe8764bef03581e0fe0d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Float type.  <a href="#afd308bfc45fe8764bef03581e0fe0d43">More...</a><br /></td></tr>
 <tr class="separator:afd308bfc45fe8764bef03581e0fe0d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a699739fb518a0953b143243add1662e9"><td class="memItemLeft" align="right" valign="top">typedef multi&lt; Tfloat, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a699739fb518a0953b143243add1662e9">point_type</a></td></tr>
-<tr class="memdesc:a699739fb518a0953b143243add1662e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point type.  <a href="#a699739fb518a0953b143243add1662e9">More...</a><br /></td></tr>
-<tr class="separator:a699739fb518a0953b143243add1662e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08314dcead4e0d9ee386d7abe0df3c86"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classpr_1_1aabb.html">aabb</a>&lt; Tfloat, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a08314dcead4e0d9ee386d7abe0df3c86">aabb_type</a></td></tr>
 <tr class="memdesc:a08314dcead4e0d9ee386d7abe0df3c86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axis-aligned bounding box type.  <a href="#a08314dcead4e0d9ee386d7abe0df3c86">More...</a><br /></td></tr>
 <tr class="separator:a08314dcead4e0d9ee386d7abe0df3c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,7 +117,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aeb2a041007cce0f80270e4013ea79ca0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#aeb2a041007cce0f80270e4013ea79ca0">aabbtree</a> ()=default</td></tr>
 <tr class="memdesc:aeb2a041007cce0f80270e4013ea79ca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#aeb2a041007cce0f80270e4013ea79ca0">More...</a><br /></td></tr>
 <tr class="separator:aeb2a041007cce0f80270e4013ea79ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6545de1e61b261f4a6d7305684ca59d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a6545de1e61b261f4a6d7305684ca59d0">aabbtree</a> (<a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a> leaf_cutoff, const Talloc &amp;alloc=Talloc())</td></tr>
+<tr class="memitem:a6545de1e61b261f4a6d7305684ca59d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a6545de1e61b261f4a6d7305684ca59d0">aabbtree</a> (<a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a> <a class="el" href="classpr_1_1aabbtree.html#a910f398ac6b8fe6779749f89dcf23dd1">leaf_cutoff</a>, const Talloc &amp;alloc=Talloc())</td></tr>
 <tr class="memdesc:a6545de1e61b261f4a6d7305684ca59d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a6545de1e61b261f4a6d7305684ca59d0">More...</a><br /></td></tr>
 <tr class="separator:a6545de1e61b261f4a6d7305684ca59d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9b663d52ad4d11f86fafd9d63236abf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#ad9b663d52ad4d11f86fafd9d63236abf">aabbtree</a> (const <a class="el" href="classpr_1_1aabbtree.html">aabbtree</a> &amp;)=delete</td></tr>
@@ -129,10 +126,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7ea26ce5408215d8380d2151ae9ad52b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a7ea26ce5408215d8380d2151ae9ad52b">~aabbtree</a> ()</td></tr>
 <tr class="memdesc:a7ea26ce5408215d8380d2151ae9ad52b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a7ea26ce5408215d8380d2151ae9ad52b">More...</a><br /></td></tr>
 <tr class="separator:a7ea26ce5408215d8380d2151ae9ad52b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a717e671d1db683ad1578e10ff6811d43"><td class="memTemplParams" colspan="2">template&lt;typename Tforward_itr , typename Tfunc &gt; </td></tr>
-<tr class="memitem:a717e671d1db683ad1578e10ff6811d43"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a717e671d1db683ad1578e10ff6811d43">init</a> (Tforward_itr from, Tforward_itr to, Tfunc &amp;&amp;func)</td></tr>
-<tr class="memdesc:a717e671d1db683ad1578e10ff6811d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize.  <a href="#a717e671d1db683ad1578e10ff6811d43">More...</a><br /></td></tr>
-<tr class="separator:a717e671d1db683ad1578e10ff6811d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fe434b06169406c2b9a766a3ad6f7f1"><td class="memTemplParams" colspan="2">template&lt;typename Tinput_itr , typename Tfunc &gt; </td></tr>
+<tr class="memitem:a6fe434b06169406c2b9a766a3ad6f7f1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a6fe434b06169406c2b9a766a3ad6f7f1">init</a> (Tinput_itr from, Tinput_itr to, Tfunc &amp;&amp;func)</td></tr>
+<tr class="memdesc:a6fe434b06169406c2b9a766a3ad6f7f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize.  <a href="#a6fe434b06169406c2b9a766a3ad6f7f1">More...</a><br /></td></tr>
+<tr class="separator:a6fe434b06169406c2b9a766a3ad6f7f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a95fc3f3d2d74804f30777a529a0814"><td class="memTemplParams" colspan="2">template&lt;typename Tforward_itr &gt; </td></tr>
 <tr class="memitem:a0a95fc3f3d2d74804f30777a529a0814"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a0a95fc3f3d2d74804f30777a529a0814">sort</a> (Tforward_itr from, Tforward_itr to)</td></tr>
 <tr class="memdesc:a0a95fc3f3d2d74804f30777a529a0814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort values to match proxies.  <a href="#a0a95fc3f3d2d74804f30777a529a0814">More...</a><br /></td></tr>
@@ -141,6 +138,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a85988fd1194d0546517fa711b1343192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear.  <a href="#a85988fd1194d0546517fa711b1343192">More...</a><br /></td></tr>
 <tr class="separator:a85988fd1194d0546517fa711b1343192"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Accessors</div></td></tr>
+<tr class="memitem:a910f398ac6b8fe6779749f89dcf23dd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a910f398ac6b8fe6779749f89dcf23dd1">leaf_cutoff</a> () const</td></tr>
+<tr class="memdesc:a910f398ac6b8fe6779749f89dcf23dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Leaf cutoff.  <a href="#a910f398ac6b8fe6779749f89dcf23dd1">More...</a><br /></td></tr>
+<tr class="separator:a910f398ac6b8fe6779749f89dcf23dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46a27c24006378af8941ab3817d0365a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classpr_1_1aabbtree.html#a2da8262689d481197d2ab0000f379947">node_allocator_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a46a27c24006378af8941ab3817d0365a">node_alloc</a> () const</td></tr>
+<tr class="memdesc:a46a27c24006378af8941ab3817d0365a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node allocator.  <a href="#a46a27c24006378af8941ab3817d0365a">More...</a><br /></td></tr>
+<tr class="separator:a46a27c24006378af8941ab3817d0365a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab608cf0de582d4f87cb2bd87b2038692"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#ab608cf0de582d4f87cb2bd87b2038692">node_count</a> () const</td></tr>
+<tr class="memdesc:ab608cf0de582d4f87cb2bd87b2038692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node count.  <a href="#ab608cf0de582d4f87cb2bd87b2038692">More...</a><br /></td></tr>
+<tr class="separator:ab608cf0de582d4f87cb2bd87b2038692"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a0ab4a147c7dc0fb4bb7c481895688e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpr_1_1aabbtree_1_1node__type.html">node_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a8a0ab4a147c7dc0fb4bb7c481895688e">root</a> () const</td></tr>
 <tr class="memdesc:a8a0ab4a147c7dc0fb4bb7c481895688e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root.  <a href="#a8a0ab4a147c7dc0fb4bb7c481895688e">More...</a><br /></td></tr>
 <tr class="separator:a8a0ab4a147c7dc0fb4bb7c481895688e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,12 +180,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a84f84d4f9968da35da9e75beea873525"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a84f84d4f9968da35da9e75beea873525">node_alloc_mutex_</a></td></tr>
 <tr class="memdesc:a84f84d4f9968da35da9e75beea873525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node allocator mutual exclusion lock.  <a href="#a84f84d4f9968da35da9e75beea873525">More...</a><br /></td></tr>
 <tr class="separator:a84f84d4f9968da35da9e75beea873525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c895b31fbc4e35feb87cbd75437ef05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a4c895b31fbc4e35feb87cbd75437ef05">node_count_</a> = 0</td></tr>
+<tr class="memdesc:a4c895b31fbc4e35feb87cbd75437ef05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node count.  <a href="#a4c895b31fbc4e35feb87cbd75437ef05">More...</a><br /></td></tr>
+<tr class="separator:a4c895b31fbc4e35feb87cbd75437ef05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b2902d609d470cd7867a322fba3c79b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1aabbtree_1_1node__type.html">node_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a7b2902d609d470cd7867a322fba3c79b">root_</a> = nullptr</td></tr>
 <tr class="memdesc:a7b2902d609d470cd7867a322fba3c79b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root.  <a href="#a7b2902d609d470cd7867a322fba3c79b">More...</a><br /></td></tr>
 <tr class="separator:a7b2902d609d470cd7867a322fba3c79b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c135dbf1ce50ec3a1ea8e83215ebf6b"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a7c135dbf1ce50ec3a1ea8e83215ebf6b">total_nodes_</a> = 0</td></tr>
-<tr class="memdesc:a7c135dbf1ce50ec3a1ea8e83215ebf6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total nodes.  <a href="#a7c135dbf1ce50ec3a1ea8e83215ebf6b">More...</a><br /></td></tr>
-<tr class="separator:a7c135dbf1ce50ec3a1ea8e83215ebf6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9694707fe159570daa7cb838caa82591"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structpr_1_1aabbtree_1_1proxy__type.html">proxy_type</a>, <a class="el" href="classpr_1_1aabbtree.html#a5ef9075e1206e9cf1b234605b12e0765">proxy_allocator_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a9694707fe159570daa7cb838caa82591">proxies_</a></td></tr>
 <tr class="memdesc:a9694707fe159570daa7cb838caa82591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proxies.  <a href="#a9694707fe159570daa7cb838caa82591">More...</a><br /></td></tr>
 <tr class="separator:a9694707fe159570daa7cb838caa82591"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,24 +249,6 @@ template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tal
 </div><div class="memdoc">
 
 <p>Float type. </p>
-
-</div>
-</div>
-<a id="a699739fb518a0953b143243add1662e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a699739fb518a0953b143243add1662e9">&#9670;&nbsp;</a></span>point_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef multi&lt;Tfloat, N&gt; <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Talloc &gt;::<a class="el" href="classpr_1_1aabbtree.html#a699739fb518a0953b143243add1662e9">point_type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Point type. </p>
 
 </div>
 </div>
@@ -455,15 +443,15 @@ template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tal
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a717e671d1db683ad1578e10ff6811d43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a717e671d1db683ad1578e10ff6811d43">&#9670;&nbsp;</a></span>init()</h2>
+<a id="a6fe434b06169406c2b9a766a3ad6f7f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fe434b06169406c2b9a766a3ad6f7f1">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <div class="memtemplate">
-template&lt;typename Tforward_itr , typename Tfunc &gt; </div>
+template&lt;typename Tinput_itr , typename Tfunc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -471,13 +459,13 @@ template&lt;typename Tforward_itr , typename Tfunc &gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Talloc &gt;::init </td>
           <td>(</td>
-          <td class="paramtype">Tforward_itr&#160;</td>
+          <td class="paramtype">Tinput_itr&#160;</td>
           <td class="paramname"><em>from</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Tforward_itr&#160;</td>
+          <td class="paramtype">Tinput_itr&#160;</td>
           <td class="paramname"><em>to</em>, </td>
         </tr>
         <tr>
@@ -506,13 +494,13 @@ template&lt;typename Tforward_itr , typename Tfunc &gt; </div>
 </ol>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Input value range from.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">to</td><td>Input value range to.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">func</td><td>Function converting input to axis-aligned bounding box.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Input from.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">to</td><td>Input to.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">func</td><td>Function constructing an instance of <code>aabb_type</code> for each input element.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line"><a class="code" href="classpr_1_1aabbtree.html#a08314dcead4e0d9ee386d7abe0df3c86" title="Axis-aligned bounding box type. ">aabb_type</a>(<span class="keyword">const</span> Tvalue&amp;)</div></div><!-- fragment --> where <code>Tvalue</code> is the value type corresponding to <code>Tforward_itr</code>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line"><a class="code" href="classpr_1_1aabbtree.html#a08314dcead4e0d9ee386d7abe0df3c86" title="Axis-aligned bounding box type. ">aabb_type</a>(<span class="keyword">const</span> Tinput&amp;)</div></div><!-- fragment --> where <code>Tinput</code> is the value type corresponding to <code>Tinput_itr</code>. </dd></dl>
 
 </div>
 </div>
@@ -557,8 +545,8 @@ template&lt;typename Tforward_itr &gt; </div>
 <p>Sort values to match proxies. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Input value range from.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">to</td><td>Input value range to. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Forward from.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">to</td><td>Forward to. </td></tr>
   </table>
   </dd>
 </dl>
@@ -591,6 +579,93 @@ template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tal
 </div><div class="memdoc">
 
 <p>Clear. </p>
+
+</div>
+</div>
+<a id="a910f398ac6b8fe6779749f89dcf23dd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a910f398ac6b8fe6779749f89dcf23dd1">&#9670;&nbsp;</a></span>leaf_cutoff()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a> <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Talloc &gt;::leaf_cutoff </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Leaf cutoff. </p>
+
+</div>
+</div>
+<a id="a46a27c24006378af8941ab3817d0365a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46a27c24006378af8941ab3817d0365a">&#9670;&nbsp;</a></span>node_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classpr_1_1aabbtree.html#a2da8262689d481197d2ab0000f379947">node_allocator_type</a>&amp; <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Talloc &gt;::node_alloc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Node allocator. </p>
+
+</div>
+</div>
+<a id="ab608cf0de582d4f87cb2bd87b2038692"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab608cf0de582d4f87cb2bd87b2038692">&#9670;&nbsp;</a></span>node_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a> <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Talloc &gt;::node_count </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Node count. </p>
 
 </div>
 </div>
@@ -887,6 +962,32 @@ template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tal
 
 </div>
 </div>
+<a id="a4c895b31fbc4e35feb87cbd75437ef05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c895b31fbc4e35feb87cbd75437ef05">&#9670;&nbsp;</a></span>node_count_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a> <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Talloc &gt;::node_count_ = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Node count. </p>
+
+</div>
+</div>
 <a id="a7b2902d609d470cd7867a322fba3c79b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7b2902d609d470cd7867a322fba3c79b">&#9670;&nbsp;</a></span>root_</h2>
 
@@ -910,32 +1011,6 @@ template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tal
 </div><div class="memdoc">
 
 <p>Root. </p>
-
-</div>
-</div>
-<a id="a7c135dbf1ce50ec3a1ea8e83215ebf6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c135dbf1ce50ec3a1ea8e83215ebf6b">&#9670;&nbsp;</a></span>total_nodes_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::atomic&lt;<a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a>&gt; <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Talloc &gt;::total_nodes_ = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Total nodes. </p>
 
 </div>
 </div>

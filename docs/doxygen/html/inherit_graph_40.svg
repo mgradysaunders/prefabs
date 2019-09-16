@@ -12,10 +12,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="structpr_1_1microsurface__beckmann__slope.html" target="_top" xlink:title="Microsurface Beckmann slope distribution. ">
+<g id="a_node1"><a xlink:href="classpr_1_1memory__arena__allocator.html" target="_top" xlink:title="Memory arena allocator. ">
 <polygon fill="#ffffff" stroke="#000000" points="0,-.5 0,-30.5 137,-30.5 137,-.5 0,-.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::microsurface_beckmann</text>
-<text text-anchor="middle" x="68.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">_slope&lt; T &gt;</text>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::memory_arena_allocator</text>
+<text text-anchor="middle" x="68.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">&lt; T, Tbyte_alloc &gt;</text>
 </a>
 </g>
 </g>
