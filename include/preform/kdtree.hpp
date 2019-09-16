@@ -287,6 +287,7 @@ public:
 
 private:
 
+#if !DOXYGEN
     /**
      * @brief Nearest neighbor, recursive algorithm info.
      */
@@ -307,6 +308,7 @@ private:
          */
         float_type node_dist2 = pr::numeric_limits<float_type>::infinity();
     };
+#endif // #if !DOXYGEN
 
     /**
      * @brief Nearest neighbor, recursive algorithm.
