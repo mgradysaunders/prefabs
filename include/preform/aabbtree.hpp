@@ -283,34 +283,37 @@ public:
      * according to `Tsplit_mode`.
      *
      * @param[in] from
-     * Input value range from.
+     * Input from.
      *
      * @param[in] to
-     * Input value range to.
+     * Input to.
      *
      * @param[in] func
-     * Function converting input to axis-aligned bounding box.
+     * Function constructing an instance of `aabb_type` for each
+     * input element.
      *
      * @note
      * Function must have signature equivalent to
      * ~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
-     * aabb_type(const Tvalue&)
+     * aabb_type(const Tinput&)
      * ~~~~~~~~~~~~~~~~~~~~~~~~
-     * where `Tvalue` is the value type corresponding to
-     * `Tforward_itr`.
+     * where `Tinput` is the value type corresponding to
+     * `Tinput_itr`.
      */
-    template <typename Tforward_itr, typename Tfunc>
+    template <typename Tinput_itr, typename Tfunc>
     void init(
-            Tforward_itr from,
-            Tforward_itr to,
+            Tinput_itr from,
+            Tinput_itr to,
             Tfunc&& func)
     {
         // Clear.
         clear();
 
         // Count.
-        size_type count = std::distance(from, to);
-        if (count < 1) {
+        typename 
+        std::iterator_traits<Tinput_itr>::difference_type 
+            count = std::distance(from, to);
+        if (count < decltype(count)(1)) {
             return;
         }
 
@@ -344,10 +347,10 @@ public:
      * @brief Sort values to match proxies.
      *
      * @param[in] from
-     * Input value range from.
+     * Forward from.
      *
      * @param[in] to
-     * Input value range to.
+     * Forward to.
      */
     template <typename Tforward_itr>
     void sort(
@@ -373,8 +376,8 @@ public:
     {
         // Destroy root.
         deallocate_recursive(root_);
-        node_count_ = 0;
         root_ = nullptr;
+        node_count_ = 0;
 
         // Destroy proxies.
         proxies_.clear();
@@ -394,6 +397,14 @@ public:
     size_type leaf_cutoff() const
     {
         return leaf_cutoff_;
+    }
+
+    /**
+     * @brief Node allocator.
+     */
+    const node_allocator_type& node_alloc() const
+    {
+        return node_alloc_;
     }
 
     /**
