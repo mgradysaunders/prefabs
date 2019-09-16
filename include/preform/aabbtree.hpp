@@ -35,6 +35,12 @@
 #ifndef PREFORM_AABBTREE_HPP
 #define PREFORM_AABBTREE_HPP
 
+#if !DOXYGEN
+#ifndef PREFORM_AABBTREE_USE_THREADS
+#define PREFORM_AABBTREE_USE_THREADS 1
+#endif // PREFORM_AABBTREE_USE_THREADS 
+#endif // #if !DOXYGEN
+
 // for assert
 #include <cassert>
 
@@ -53,8 +59,7 @@
 // for std::pair
 #include <utility>
 
-// for std::atomic
-#include <atomic>
+#if PREFORM_AABBTREE_USE_THREADS
 
 // for std::thread
 #include <thread>
@@ -64,6 +69,8 @@
 
 // for std::future, std::async
 #include <future>
+
+#endif // #if PREFORM_AABBTREE_USE_THREADS
 
 // for pr::iterator_range
 #include <preform/iterator_range.hpp>
@@ -141,11 +148,6 @@ public:
     typedef Tfloat float_type;
 
     /**
-     * @brief Point type.
-     */
-    typedef multi<Tfloat, N> point_type;
-
-    /**
      * @brief Axis-aligned bounding box type.
      */
     typedef aabb<Tfloat, N> aabb_type;
@@ -214,6 +216,11 @@ public:
     public:
 
         /**
+         * @brief Value index.
+         */
+        size_type value_index;
+
+        /**
          * @brief Box.
          */
         aabb_type box;
@@ -221,12 +228,7 @@ public:
         /**
          * @brief Box center.
          */
-        point_type box_center;
-
-        /**
-         * @brief Value index.
-         */
-        size_type value_index;
+        typename aabb_type::value_type box_center;
     };
 
 public:
@@ -320,9 +322,9 @@ public:
             assert((box[0] < box[1]).all());
             proxies_.emplace_back(
             proxy_type{
+                value_index,
                 box,
-                box.center(),
-                value_index
+                box.center()
             });
             ++value_index;
             ++from;
@@ -371,8 +373,8 @@ public:
     {
         // Destroy root.
         deallocate_recursive(root_);
+        node_count_ = 0;
         root_ = nullptr;
-        total_nodes_ = 0;
 
         // Destroy proxies.
         proxies_.clear();
@@ -385,6 +387,22 @@ public:
      * @name Accessors
      */
     /**@{*/
+
+    /**
+     * @brief Leaf cutoff.
+     */
+    size_type leaf_cutoff() const
+    {
+        return leaf_cutoff_;
+    }
+
+    /**
+     * @brief Node count.
+     */
+    size_type node_count() const
+    {
+        return node_count_;
+    }
 
     /**
      * @brief Root.
@@ -416,20 +434,24 @@ private:
      */
     node_allocator_type node_alloc_;
 
+#if PREFORM_AABBTREE_USE_THREADS || DOXYGEN
+
     /**
      * @brief Node allocator mutual exclusion lock.
      */
     std::mutex node_alloc_mutex_;
 
+#endif // #if PREFORM_AABBTREE_USE_THREADS || DOXYGEN
+
+    /**
+     * @brief Node count.
+     */
+    size_type node_count_ = 0;
+
     /**
      * @brief Root.
      */
     node_type* root_ = nullptr;
-
-    /**
-     * @brief Total nodes.
-     */
-    std::atomic<size_type> total_nodes_ = 0;
 
     /**
      * @brief Proxies.
@@ -443,8 +465,11 @@ private:
      */
     node_type* allocate()
     {
-        ++total_nodes_;
+        #if PREFORM_AABBTREE_USE_THREADS
         std::unique_lock<std::mutex> lock(node_alloc_mutex_);
+        #endif // #if PREFORM_AABBTREE_USE_THREADS
+
+        node_count_++; // Protected by mutex, doesn't need to be atomic
         return node_alloc_.allocate(1);
     }
 
@@ -454,8 +479,11 @@ private:
     void deallocate(node_type* node)
     {
         if (node) {
-            --total_nodes_;
+            #if PREFORM_AABBTREE_USE_THREADS
             std::unique_lock<std::mutex> lock(node_alloc_mutex_);
+            #endif // #if PREFORM_AABBTREE_USE_THREADS
+
+            node_count_--; // Protected by mutex, doesn't need to be atomic
             node_alloc_.deallocate(node, 1);
         }
     }
@@ -532,8 +560,10 @@ private:
             node_type* left;
             node_type* right;
 
+            #if PREFORM_AABBTREE_USE_THREADS
             // Count sufficiently small?
             if (count <= 16384) {
+            #endif // #if PREFORM_AABBTREE_USE_THREADS
 
                 // Recurse.
                 left =
@@ -546,6 +576,8 @@ private:
                 init_recursive(
                     first_index,
                     {split, proxies.end()});
+
+            #if PREFORM_AABBTREE_USE_THREADS
             }
             else {
 
@@ -568,6 +600,7 @@ private:
                 // Wait.
                 left = future_left.get();
             }
+            #endif // #if PREFORM_AABBTREE_USE_THREADS
 
             // Initialize.
             *node = node_type{
@@ -864,11 +897,6 @@ public:
     typedef Tfloat float_type;
 
     /**
-     * @brief Point type.
-     */
-    typedef multi<Tfloat, N> point_type;
-
-    /**
      * @brief Axis-aligned bounding box type.
      */
     typedef aabb<Tfloat, N> aabb_type;
@@ -996,13 +1024,13 @@ public:
     {
         // Reserve memory.
         nodes_.reserve(
-            size_type(tree.total_nodes_));
+            size_type(tree.node_count_));
 
         // Initialize.
         if (tree.root_) {
             init_recursive(tree.root_);
             assert(nodes_.size() ==
-                   size_type(tree.total_nodes_));
+                   size_type(tree.node_count_));
             nodes_.shrink_to_fit();
         }
     }
