@@ -974,9 +974,23 @@ public:
      */
     typedef T float_type;
 
-    // Inherit constructors.
-    using microsurface<T, Tslope, Theight>::
-          microsurface;
+    /**
+     * @brief Default constructor.
+     */
+    microsurface_diffuse_brdf() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    template <typename... Targs>
+    microsurface_diffuse_brdf(
+            float_type l0,
+            Targs&&... args) :
+                microsurface<T, Tslope, Theight>::
+                microsurface(std::forward<Targs>(args)...),
+                l0_(l0)
+    {
+    }
 
     // Locally visible for convenience.
     using microsurface<T, Tslope, Theight>::lambda;
@@ -997,7 +1011,7 @@ public:
      *      f_s(\omega_o, \omega_i) =
      *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
      *      \frac{1 + \Lambda(\omega_o)}
-     *           {1 + \Lambda(\omega_o) + \Lambda(\omega_i)}
+     *           {1 + \Lambda(\omega_o) + \Lambda(\omega_i)} L_0
      * @f]
      * where @f$ \omega_m \sim D_{\omega_o} @f$
      *
@@ -1034,7 +1048,7 @@ public:
         float_type g2_given_g1 =
                 (1 + lambda_wo) /
                 (1 + lambda_wo + lambda_wi);
-        return pr::numeric_constants<float_type>::M_1_pi() *
+        return pr::numeric_constants<float_type>::M_1_pi() * l0_ * 
                pr::fmax(pr::dot(wm, wi), float_type(0)) * g2_given_g1;
     }
 
@@ -1128,6 +1142,9 @@ public:
         // Result.
         float_type f = 0;
 
+        // Initial energy.
+        float_type ek = 1;
+
         // Initial height.
         float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
 
@@ -1151,12 +1168,12 @@ public:
                 kres == k) {
 
                 // Next event estimation.
-                float_type fk =
-                    g1(wi, hk) *
+                float_type fk = l0_ * // Include L0 here, instead of in phase.
+                    g1(wi, hk) * 
                     pm({std::forward<U>(uk)(),
                         std::forward<U>(uk)()}, -wk, wi);
                 if (pr::isfinite(fk)) {
-                    f += fk;
+                    f += ek * fk;
                 }
             }
 
@@ -1165,6 +1182,9 @@ public:
                     {std::forward<U>(uk)(), std::forward<U>(uk)()},
                     {std::forward<U>(uk)(), std::forward<U>(uk)()},
                     -wk);
+
+            // Update energy.
+            ek *= l0_; // Throughput factor = phase / sampling density
 
             // NaN check.
             if (!pr::isfinite(hk) ||
@@ -1187,6 +1207,13 @@ public:
      *
      * @param[out] k
      * Scattering order.
+     *
+     * @note
+     * For efficiency, this function performs a random walk on the
+     * microsurface without calculating @f$ f_m @f$. The returned scattering
+     * direction @f$ \omega_i @f$ is distributed according to the perfectly
+     * energy conserving version of @f$ f_m @f$ however, such that sample
+     * weight is @f$ f / p = L_0 @f$.
      */
     template <typename U>
     multi<float_type, 3> fm_sample(
@@ -1297,6 +1324,13 @@ private:
         // Expand in orthonormal basis.
         return dot(multi<float_type, 3, 3>::build_onb(wm), wi);
     }
+
+private:
+
+    /**
+     * @brief Reflectance albedo $L_0$.
+     */
+    float_type l0_ = 1;
 };
 
 /**
