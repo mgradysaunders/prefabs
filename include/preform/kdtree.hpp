@@ -264,89 +264,6 @@ public:
         node_count_ = 0;
     }
 
-    /**
-     * @brief Nearest neighbor.
-     *
-     * @param[in] point
-     * Reference point.
-     */
-    const node_type* nearest(const point_type& point) const
-    {
-        nearest_recursive_info info = {
-            point,
-            nullptr,
-            pr::numeric_limits<float_type>::infinity()
-        };
-
-        if (root_) {
-            nearest_recursive(info, root_);
-        }
-
-        return info.node;
-    }
-
-private:
-
-#if !DOXYGEN
-    /**
-     * @brief Nearest neighbor, recursive algorithm info.
-     */
-    struct nearest_recursive_info
-    {
-        /**
-         * @brief Reference point.
-         */
-        point_type point;
-
-        /**
-         * @brief Nearest node.
-         */
-        const node_type* node = nullptr;
-
-        /**
-         * @brief Nearest node squared distance.
-         */
-        float_type node_dist2 = pr::numeric_limits<float_type>::infinity();
-    };
-#endif // #if !DOXYGEN
-
-    /**
-     * @brief Nearest neighbor, recursive algorithm.
-     */
-    void nearest_recursive(
-         nearest_recursive_info& info, const node_type* node) const
-    {
-        {
-            // Possibly update nearest node.
-            float_type dist2 = 
-                pr::dot(
-                    node->value.first - info.point,
-                    node->value.first - info.point);
-            if (info.node_dist2 > dist2) {
-                info.node_dist2 = dist2;
-                info.node = node;
-            }
-        }
-
-        // Signed distance to split plane.
-        float_type dist = 
-            node->value.first[node->split_dim] - info.point[node->split_dim];
-        if (node->left && 
-                !(dist < float_type(0) &&
-                  info.node_dist2 < dist * dist)) {
-
-            // Recurse only if necessary.
-            nearest_recursive(info, node->left);
-        }
-        if (node->right && 
-                !(dist > float_type(0) &&
-                  info.node_dist2 < dist * dist)) {
-
-            // Recurse only if necessary.
-            nearest_recursive(info, node->right);
-        }
-    }
-
 public:
 
     /**
@@ -492,6 +409,155 @@ private:
 
         return node;
     }
+
+public:
+
+    /**
+     * @brief Nearest neighbor.
+     *
+     * @param[in] point
+     * Reference point.
+     */
+    const node_type* nearest(const point_type& point) const
+    {
+        const node_type* near = nullptr;
+        float_type near_dist2 = pr::numeric_limits<float_type>::infinity();
+        if (root_) {
+            nearest_recursive(
+                    point, 
+                    root_, 
+                    near, near_dist2);
+        }
+        return near;
+    }
+
+private:
+
+#if !DOXYGEN
+
+    /**
+     * @brief Nearest neighbor, recursive algorithm.
+     */
+    void nearest_recursive(
+                const point_type& point,
+                const node_type* node,
+                const node_type*& near, float_type& near_dist2) const
+    {
+        point_type diff = node->value.first - point;
+
+        // Possibly update nearest node.
+        if (near_dist2 > pr::dot(diff, diff)) {
+            near_dist2 = pr::dot(diff, diff);
+            near = node;
+        }
+
+        // Signed distance to split plane.
+        float_type min_dist = diff[node->split_dim];
+        if (node->left && 
+                !(min_dist < float_type(0) &&
+                  min_dist * min_dist > near_dist2)) {
+
+            // Recurse only if necessary.
+            nearest_recursive(
+                    point, 
+                    node->left, 
+                    near, near_dist2);
+        }
+        if (node->right && 
+                !(min_dist > float_type(0) &&
+                  min_dist * min_dist > near_dist2)) {
+
+            // Recurse only if necessary.
+            nearest_recursive(
+                    point, 
+                    node->right, 
+                    near, near_dist2);
+        }
+    }
+#endif // #if !DOXYGEN
+
+public:
+
+    /**
+     * @brief Visit nearby nodes.
+     *
+     * TODO
+     */
+    template <typename Tfunc>
+    bool nearby(
+            const point_type& point,
+            float_type cutoff_dist,
+            Tfunc&& func) const
+    {
+        bool result = true;
+        float_type cutoff_dist2 = cutoff_dist * cutoff_dist;
+        if (root_) {
+            result = 
+            nearby_recursive(
+                    point, cutoff_dist2,
+                    std::forward<Tfunc>(func),
+                    root_);
+        }
+        return result;
+    }
+
+private:
+
+#if !DOXYGEN
+
+    /**
+     * @brief Visit nearby nodes, recursive algorithm.
+     */
+    template <typename Tfunc>
+    bool nearby_recursive(
+            const point_type& point, 
+            float_type cutoff_dist2,
+            Tfunc&& func,
+            const node_type* node) const
+    {
+        point_type diff = node->value.first - point;
+
+        // Process node if within cutoff distance.
+        if (cutoff_dist2 > 
+            pr::dot(diff, diff)) {
+            if (!std::forward<Tfunc>(func)(node)) {
+                return false;
+            }
+        }
+
+        // Signed distance to split plane.
+        float_type min_dist = diff[node->split_dim];
+        if (node->left && 
+                !(min_dist < float_type(0) &&
+                  min_dist * min_dist > cutoff_dist2)) {
+
+            // Recurse only if necessary.
+            if (!nearby_recursive(
+                    point, 
+                    cutoff_dist2, 
+                    std::forward<Tfunc>(func),
+                    node->left)) {
+                return false;
+            }
+        }
+        if (node->right && 
+                !(min_dist > float_type(0) &&
+                  min_dist * min_dist > cutoff_dist2)) {
+
+            // Recurse only if necessary.
+            if (!nearby_recursive(
+                    point, 
+                    cutoff_dist2,
+                    std::forward<Tfunc>(func),
+                    node->right)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+#endif // #if !DOXYGEN
 };
 
 /**@}*/
