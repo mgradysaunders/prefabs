@@ -1030,7 +1030,8 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
@@ -1070,11 +1071,13 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
-        if (wi[2] <= 0) {
+        if (pr::signbit(wi[2])) {
+    /*  if (wi[2] <= 0) {  */
             return 0;
         }
 
@@ -1102,9 +1105,11 @@ public:
     {
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
-        if (wo[2] < 0) {
+        wi[2] = pr::copysign(wi[2], wo[2]);
+    /*  if (wo[2] < 0) {
             wi[2] = -wi[2];
         }
+     */
         return wi;
     }
 
@@ -1122,15 +1127,25 @@ public:
      *
      * @param[in] kres
      * Result scattering order, 0 for all orders.
+     *
+     * @param[out] f_pdf
+     * _Optional_. Result as if @f$ L_0 = 1 @f$.
      */
     template <typename U>
     float_type fm(
             U&& uk,
             multi<float_type, 3> wo,
-            multi<float_type, 3> wi, int kres = 0) const
+            multi<float_type, 3> wi, int kres = 0,
+            float_type* f_pdf = nullptr) const
     {
+        // Density function.
+        if (f_pdf) {
+            *f_pdf = 0;
+        }
+
         // Flip.
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
@@ -1168,12 +1183,18 @@ public:
                 kres == k) {
 
                 // Next event estimation.
-                float_type fk = l0_ * // Include L0 here, instead of in phase.
+                float_type fk = 
                     g1(wi, hk) * 
                     pm({std::forward<U>(uk)(),
                         std::forward<U>(uk)()}, -wk, wi);
                 if (pr::isfinite(fk)) {
-                    f += ek * fk;
+                    f += 
+                    l0_ * ek * fk;
+
+                    // Density function.
+                    if (f_pdf) {
+                        *f_pdf += fk;
+                    }
                 }
             }
 
@@ -1219,10 +1240,13 @@ public:
     multi<float_type, 3> fm_sample(
             U&& uk, multi<float_type, 3> wo,
             int& k) const
+            // TODO float_type* f 
+            // TODO float_type* f_pdf ?
     {
         // Flip.
         bool neg = false;
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             neg = true;
         }
@@ -1372,10 +1396,14 @@ public:
      */
     template <typename... Targs>
     microsurface_dielectric_bsdf(
+            float_type fr0,
+            float_type ft0,
             float_type eta,
             Targs&&... args) :
                 microsurface<T, Tslope, Theight>::
                 microsurface(std::forward<Targs>(args)...),
+                fr0_(fr0),
+                ft0_(ft0),
                 eta_(eta)
     {
     }
@@ -1458,7 +1486,8 @@ public:
         float_type eta = eta_;
 
         // Flip.
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             wi[2] = -wi[2];
             eta = 1 / eta;
@@ -1468,7 +1497,8 @@ public:
             return 0;
         }
 
-        if (wi[2] > 0) {
+        if (!pr::signbit(wi[2])) {
+    /*  if (wi[2] > 0) {  */
 
             // Microsurface normal.
             multi<float_type, 3> wm = normalize(wo + wi);
@@ -1487,13 +1517,14 @@ public:
                 cos_thetao,
                 cos_thetat,
                 fr, ft);
-            return d(wm) * fr * g2 / (4 * wo[2]);
+            return d(wm) * fr * fr0_ * g2 / (4 * wo[2]);
         }
         else {
 
             // Half vector.
             multi<float_type, 3> vm = eta * wo + wi;
-            if (vm[2] < 0) {
+            if (pr::signbit(vm[2])) {
+        /*  if (vm[2] < 0) {  */
                 vm = -vm;
             }
 
@@ -1506,8 +1537,10 @@ public:
             multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
             float_type dot_wo_wm = dot(wo, wm);
             float_type dot_wi_wm = dot(wi, wm);
-            if (!(dot_wo_wm > 0 &&
-                  dot_wi_wm < 0)) {
+            if (pr::signbit(dot_wo_wm) ||
+               !pr::signbit(dot_wi_wm)) {
+        /*  if (!(dot_wo_wm > 0 &&
+                  dot_wi_wm < 0)) {  */
                 return 0;
             }
 
@@ -1525,7 +1558,7 @@ public:
                     cos_thetao,
                     cos_thetat,
                     fr, ft);
-            return d(wm) * ft * g2 *
+            return d(wm) * ft * ft0_ * g2 *
                    (dot_wo_wm * -dot_wi_wm /
                     dot_vm_vm / wo[2]);
         }
@@ -1573,7 +1606,8 @@ public:
     {
         // Flip.
         float_type eta = eta_;
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             wi[2] = -wi[2];
             eta = 1 / eta;
@@ -1585,7 +1619,8 @@ public:
             return 0;
         }
 
-        if (wi[2] > 0) {
+        if (!pr::signbit(wi[2])) {
+    /*  if (wi[2] > 0) {  */
 
             // Half vector.
             multi<float_type, 3> vm = wo + wi;
@@ -1603,13 +1638,19 @@ public:
                     cos_thetat,
                     fr, ft);
 
-            return dwo(wo, wm) * fr / (4 * dot(wo, wm));
+            // Fresnel coefficient weighting.
+            fr *= fr0_;
+            ft *= ft0_;
+            float_type fr_weight = fr / (fr + ft);
+
+            return dwo(wo, wm) * fr_weight / (4 * dot(wo, wm));
         }
         else {
 
             // Half vector.
             multi<float_type, 3> vm = eta * wo + wi;
-            if (vm[2] < 0) {
+            if (pr::signbit(vm[2])) {
+        /*  if (vm[2] < 0) {  */
                 vm = -vm;
             }
 
@@ -1622,8 +1663,10 @@ public:
             multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
             float_type dot_wo_wm = dot(wo, wm);
             float_type dot_wi_wm = dot(wi, wm);
-            if (!(dot_wo_wm > 0 &&
-                  dot_wi_wm < 0)) {
+            if (pr::signbit(dot_wo_wm) ||
+               !pr::signbit(dot_wi_wm)) {
+        /*  if (!(dot_wo_wm > 0 &&
+                  dot_wi_wm < 0)) {  */
                 return 0;
             }
 
@@ -1637,7 +1680,12 @@ public:
                     cos_thetat,
                     fr, ft);
 
-            return dwo(wo, wm) * ft * (-dot_wi_wm / dot_vm_vm);
+            // Fresnel coefficient weighting.
+            fr *= fr0_;
+            ft *= ft0_;
+            float_type ft_weight = ft / (fr + ft);
+
+            return dwo(wo, wm) * ft_weight * (-dot_wi_wm / dot_vm_vm);
         }
     }
 
@@ -1662,10 +1710,15 @@ public:
         // Flip.
         bool neg = false;
         float_type eta = eta_;
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             eta = 1 / eta;
             neg = true;
+        }
+
+        if (wo[2] == 0) {
+            return {}; // Reject sample.
         }
 
         // Microsurface normal.
@@ -1681,16 +1734,22 @@ public:
                 cos_thetat,
                 fr, ft);
 
+        // Fresnel coefficent weighting.
+        fr *= fr0_;
+        ft *= ft0_;
+        float_type fr_weight = fr / (fr + ft);
+
         // Result.
         multi<float_type, 3> wi;
 
-        if (u0 < fr) {
+        if (u0 < fr_weight) {
 
             // Reflect.
             wi = -wo + (2 * cos_thetao) * wm;
             
             // In wrong hemisphere?
-            if (wi[2] < 0) {
+            if (pr::signbit(wi[2])) {
+        /*  if (wi[2] < 0) {  */
                 return {}; // Reject sample.
             }
         }
@@ -1701,7 +1760,8 @@ public:
                  (eta * cos_thetao + cos_thetat) * wm;
 
             // In wrong hemisphere?
-            if (wi[2] > 0) {
+            if (!pr::signbit(wi[2])) {
+        /*  if (wi[2] > 0) {  */
                 return {}; // Reject sample.
             }
         }
@@ -1740,7 +1800,8 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
@@ -1774,7 +1835,8 @@ public:
     {
         // Flip.
         bool neg = false;
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             neg = true;
         }
@@ -1786,7 +1848,8 @@ public:
         multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
             
         // In wrong hemisphere?
-        if (wi[2] < 0) {
+        if (pr::signbit(wi[2])) {
+    /*  if (wi[2] < 0) {  */
             return {}; // Reject sample.
         }
 
@@ -1842,7 +1905,8 @@ public:
 
         // Half vector.
         multi<float_type, 3> vm = eta * wo + wi;
-        if (vm[2] < 0) {
+        if (pr::signbit(vm[2])) {
+    /*  if (vm[2] < 0) {  */
             vm = -vm;
         }
 
@@ -1854,7 +1918,8 @@ public:
         // Microsurface normal.
         multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
         float_type dot_wi_wm = dot(wi, wm);
-        if (dot_wi_wm > 0) {
+        if (!pr::signbit(dot_wi_wm)) {
+    /*  if (dot_wi_wm > 0) {  */
             return 0;
         }
 
@@ -1879,7 +1944,8 @@ public:
         // Flip.
         bool neg = false;
         float_type eta = eta_;
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             eta = 1 / eta;
             neg = true;
@@ -1897,12 +1963,14 @@ public:
         if (cos_thetat == 0) {
             return {}; // Reject sample.
         }
-        multi<float_type, 3> wi = -eta * wo + 
-                                  (eta * cos_thetao -
-                                         cos_thetat) * wm;
+        multi<float_type, 3> wi = 
+                -eta * wo + 
+                (eta * cos_thetao -
+                       cos_thetat) * wm;
 
         // In wrong hemisphere?
-        if (wi[2] > 0) {
+        if (!pr::signbit(wi[2])) {
+    /*  if (wi[2] > 0) {  */
             return {}; // Reject sample.
         }
 
@@ -1930,6 +1998,9 @@ public:
      *
      * @param[in] nitr
      * Number of iterations.
+     *
+     * @param[out] f_pdf
+     * _Optional_. Result as if @f$ F_{r,0} = F_{t,0} = 1 @f$.
      */
     template <typename U>
     float_type fm(
@@ -1937,8 +2008,13 @@ public:
             multi<float_type, 3> wo,
             multi<float_type, 3> wi,
             int kres = 0,
-            int nitr = 1) const
+            int nitr = 1,
+            float_type* f_pdf = nullptr) const
     {
+        if (f_pdf) {
+            *f_pdf = 0;
+        }
+
         // Result.
         float_type f = 0;
 
@@ -1951,6 +2027,9 @@ public:
 
         for (int n = 0; n < nitr; n++) {
 
+            // Initial energy.
+            float_type ek = 1;
+
             // Initial height.
             float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
 
@@ -1958,7 +2037,7 @@ public:
             multi<float_type, 3> wk = -wo;
 
             // Initial direction outside?
-            bool wk_outside = wo[2] > 0;
+            bool wk_outside = !pr::signbit(wo[2]); // wo[2] > 0;
             if (!wk_outside) {
 
                 // Flip height.
@@ -1966,7 +2045,7 @@ public:
             }
 
             // Incident direction outside?
-            bool wi_outside = wi[2] > 0;
+            bool wi_outside = !pr::signbit(wi[2]); // wi[2] > 0;
 
             for (int k = 0;
                         kres == 0 ||
@@ -1999,18 +2078,31 @@ public:
                             g1(-wi, -hk)) *
                             pm(-wk, wi, wk_outside, wi_outside);
                         if (pr::isfinite(fk)) {
-                            f += fk;
+                            f +=
+                            (wk_outside == 
+                             wi_outside ? fr0_ : ft0_) * ek * fk;
+
+                            // Density function.
+                            if (f_pdf) {
+                                *f_pdf += fk;
+                            }
                         }
                     }
                 }
 
                 // Sample next direction.
+                bool wk_outside_prev = wk_outside;
                 wk = normalize_fast(
                      pm_sample(
                         std::forward<U>(uk)(),
                         {std::forward<U>(uk)(),
                          std::forward<U>(uk)()},
-                        -wk, wk_outside, wk_outside));
+                        -wk, wk_outside_prev, wk_outside));
+
+                // Update energy.
+                ek *=
+                wk_outside == 
+                wk_outside_prev ? fr0_ : ft0_;
 
                 // NaN check.
                 if (!pr::isfinite(hk) ||
@@ -2023,12 +2115,22 @@ public:
         // Average.
         if (nitr > 1) {
             f /= nitr;
+
+            // Density function.
+            if (f_pdf) {
+                *f_pdf /= nitr;
+            }
         }
 
         // Single-scattering component.
         if (kres == 0 ||
             kres == 1) {
             f += fs(wo, wi);
+
+            // Density function.
+            if (f_pdf) {
+                *f_pdf += fs_pdf(wo, wi);
+            }
         }
 
         return f;
@@ -2050,6 +2152,8 @@ public:
     multi<float_type, 3> fm_sample(
             U&& uk, multi<float_type, 3> wo,
             int& k) const
+            // TODO float_type* f
+            // TODO float_type* fpdf ?
     {
         // Initial height.
         float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
@@ -2058,7 +2162,7 @@ public:
         multi<float_type, 3> wk = -wo;
 
         // Initial direction outside?
-        bool wk_outside = wo[2] > 0;
+        bool wk_outside = !pr::signbit(wo[2]); // wo[2] > 0;
         if (!wk_outside) {
 
             // Flip height.
@@ -2142,14 +2246,20 @@ private:
                     cos_thetat,
                     fr, ft);
 
+            // Fresnel coefficient weighting.
+            fr *= fr0_;
+            ft *= ft0_;
+            float_type fr_weight = fr / (fr + ft);
+
             // Reflection.
-            return dwo(wo, wm) * fr / (4 * cos_thetao);
+            return dwo(wo, wm) * fr_weight / (4 * cos_thetao);
         }
         else {
 
             // Half vector.
             multi<float_type, 3> vm = eta * wo + wi;
-            if (vm[2] < 0) {
+            if (pr::signbit(vm[2])) {
+        /*  if (vm[2] < 0) {  */
                 vm = -vm;
             }
 
@@ -2167,8 +2277,10 @@ private:
             multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
             float_type dot_wo_wm = dot(wo, wm);
             float_type dot_wi_wm = dot(wi, wm);
-            if (!(dot_wo_wm > 0 &&
-                  dot_wi_wm < 0)) {
+            if (pr::signbit(dot_wo_wm) ||
+               !pr::signbit(dot_wi_wm)) {
+        /*  if (!(dot_wo_wm > 0 &&
+                  dot_wi_wm < 0)) {  */
                 return 0;
             }
 
@@ -2188,9 +2300,14 @@ private:
                     cos_thetat,
                     fr, ft);
 
+            // Fresnel coefficient weighting.
+            fr *= fr0_;
+            ft *= ft0_;
+            float_type ft_weight = ft / (fr + ft);
+
             // Transmission.
-            return dwo(wo, wm) * ft *
-                  -dot_wi_wm / dot_vm_vm;
+            return dwo(wo, wm) * ft_weight *
+                            -dot_wi_wm / dot_vm_vm;
         }
     }
 
@@ -2238,7 +2355,12 @@ private:
                 cos_thetat,
                 fr, ft);
 
-        if (u0 < fr) {
+        // Fresnel coefficient weighting.
+        fr *= fr0_;
+        ft *= ft0_;
+        float_type fr_weight = fr / (fr + ft);
+
+        if (u0 < fr_weight) {
             // Reflect.
             wi_outside = wo_outside;
             return -wo + 2 * cos_thetao * wm;
@@ -2255,6 +2377,16 @@ private:
 private:
 
     /**
+     * @brief BRDF Fresnel coefficient @f$ F_{r,0} @f$.
+     */
+    float_type fr0_ = float_type(1);
+
+    /**
+     * @brief BTDF Fresnel coefficient @f$ F_{t,0} @f$.
+     */
+    float_type ft0_ = float_type(1);
+
+    /**
      * @brief Refractive index @f$ \eta @f$.
      *
      * @f[
@@ -2268,6 +2400,92 @@ private:
      */
     float_type eta_ = float_type(1) / float_type(1.5);
 };
+
+#if 0
+/**
+ * @brief Microsurface conductive BRDF.
+ *
+ * @tparam T
+ * Float type.
+ *
+ * @tparam Tslope
+ * Slope distribution, either `microsurface_trowbridge_reitz_slope` or 
+ * `microsurface_beckmann_slope`.
+ *
+ * @tparam Theight
+ * Height distribution, either `microsurface_uniform_height` or 
+ * `microsurface_normal_height`.
+ */
+template <
+    typename T,
+    template <typename> typename Tslope, 
+    template <typename> typename Theight
+    >
+struct microsurface_conductive_brdf :
+                public microsurface<T, Tslope, Theight>
+{
+public:
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    microsurface_conductive_bsdf() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    template <typename... Targs>
+    microsurface_conductive_bsdf(
+            std::complex<float_type> eta,
+            Targs&&... args) :
+                microsurface<T, Tslope, Theight>::
+                microsurface(std::forward<Targs>(args)...),
+                eta_(eta)
+    {
+    }
+
+    // Locally visible for convenience.
+    using microsurface<T, Tslope, Theight>::lambda;
+
+    // Locally visible for convenience.
+    using microsurface<T, Tslope, Theight>::d;
+
+    // Locally visible for convenience.
+    using microsurface<T, Tslope, Theight>::dwo;
+
+    // Locally visible for convenience.
+    using microsurface<T, Tslope, Theight>::dwo_sample;
+
+    // Locally visible for convenience.
+    using microsurface<T, Tslope, Theight>::g1;
+
+    // Locally visible for convenience.
+    using microsurface<T, Tslope, Theight>::h_sample;
+
+private:
+
+    /**
+     * @brief Refractive index @f$ \eta @f$.
+     *
+     * @f[
+     *      \eta =
+     *      \frac{\eta_{+}}
+     *           {\eta_{-}}
+     * @f]
+     * where
+     * - @f$ \eta_{+} @f$ is the refractive index in the upper hemisphere
+     * - @f$ \eta_{-} @f$ is the refractive index in the lower hemisphere
+     */
+    std::complex<float_type> eta_ = 
+        float_type(1) / 
+        std::complex<float_type>(float_type(1.5), float_type(4.0));
+};
+#endif
 
 /**
  * @brief Oren-Nayar diffuse BRDF.
@@ -2330,7 +2548,8 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
@@ -2366,11 +2585,13 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
-        if (wi[2] <= 0) {
+        if (pr::signbit(wi[2])) {
+    /*  if (wi[2] <= 0) {  */
             return 0;
         }
 
@@ -2398,9 +2619,11 @@ public:
     {
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
-        if (wo[2] < 0) {
+        wi[2] = pr::copysign(wi[2], wo[2]);
+    /*  if (wo[2] < 0) {  
             wi[2] = -wi[2];
         }
+     */
         return wi;
     }
 
@@ -2486,7 +2709,8 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
@@ -2524,11 +2748,13 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (wo[2] < 0) {
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
-        if (wi[2] <= 0) {
+        if (pr::signbit(wi[2])) {
+    /*  if (wi[2] <= 0) {  */
             return 0;
         }
 
@@ -2556,9 +2782,11 @@ public:
     {
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
-        if (wo[2] < 0) {
+        wi[2] = pr::copysign(wi[2], wo[2]);
+    /*  if (wo[2] < 0) {  
             wi[2] = -wi[2];
         }
+     */
         return wi;
     }
 
