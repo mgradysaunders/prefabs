@@ -129,6 +129,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3339d4e6691bf0ed97c35ee695fd820f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#a3339d4e6691bf0ed97c35ee695fd820f">nearest</a> (const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;point) const</td></tr>
 <tr class="memdesc:a3339d4e6691bf0ed97c35ee695fd820f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest neighbor.  <a href="#a3339d4e6691bf0ed97c35ee695fd820f">More...</a><br /></td></tr>
 <tr class="separator:a3339d4e6691bf0ed97c35ee695fd820f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ac2db12a06480d5428f28f27df80c85"><td class="memTemplParams" colspan="2">template&lt;typename Tfunc &gt; </td></tr>
+<tr class="memitem:a9ac2db12a06480d5428f28f27df80c85"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#a9ac2db12a06480d5428f28f27df80c85">nearby</a> (const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;point, <a class="el" href="classpr_1_1kdtree.html#a9a9d0970f6ca5411f58dc6272c43a63a">float_type</a> cutoff_dist, Tfunc &amp;&amp;func) const</td></tr>
+<tr class="memdesc:a9ac2db12a06480d5428f28f27df80c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit nearby nodes.  <a href="#a9ac2db12a06480d5428f28f27df80c85">More...</a><br /></td></tr>
+<tr class="separator:a9ac2db12a06480d5428f28f27df80c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Accessors</div></td></tr>
 <tr class="memitem:af6b42d1ceba3ae70b1e60f6ddab9e4ec"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classpr_1_1kdtree.html#ac57a57fd322bf3b32697f3d6bb75969d">node_allocator_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#af6b42d1ceba3ae70b1e60f6ddab9e4ec">node_alloc</a> () const</td></tr>
 <tr class="memdesc:af6b42d1ceba3ae70b1e60f6ddab9e4ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node allocator.  <a href="#af6b42d1ceba3ae70b1e60f6ddab9e4ec">More...</a><br /></td></tr>
@@ -142,9 +146,6 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a702b7937bf44e732303aa8a15b01cd7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#a702b7937bf44e732303aa8a15b01cd7b">nearest_recursive</a> (nearest_recursive_info &amp;info, const <a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a> *node) const</td></tr>
-<tr class="memdesc:a702b7937bf44e732303aa8a15b01cd7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest neighbor, recursive algorithm.  <a href="#a702b7937bf44e732303aa8a15b01cd7b">More...</a><br /></td></tr>
-<tr class="separator:a702b7937bf44e732303aa8a15b01cd7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad036ad152189aa14df8de3b4f0b85db0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#ad036ad152189aa14df8de3b4f0b85db0">allocate</a> ()</td></tr>
 <tr class="memdesc:ad036ad152189aa14df8de3b4f0b85db0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate.  <a href="#ad036ad152189aa14df8de3b4f0b85db0">More...</a><br /></td></tr>
 <tr class="separator:ad036ad152189aa14df8de3b4f0b85db0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -458,82 +459,6 @@ template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  
 
 </div>
 </div>
-<a id="a3339d4e6691bf0ed97c35ee695fd820f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3339d4e6691bf0ed97c35ee695fd820f">&#9670;&nbsp;</a></span>nearest()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a>* <a class="el" href="classpr_1_1kdtree.html">pr::kdtree</a>&lt; Tfloat, N, Tvalue, Talloc &gt;::nearest </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;&#160;</td>
-          <td class="paramname"><em>point</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Nearest neighbor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">point</td><td>Reference point. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a702b7937bf44e732303aa8a15b01cd7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a702b7937bf44e732303aa8a15b01cd7b">&#9670;&nbsp;</a></span>nearest_recursive()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1kdtree.html">pr::kdtree</a>&lt; Tfloat, N, Tvalue, Talloc &gt;::nearest_recursive </td>
-          <td>(</td>
-          <td class="paramtype">nearest_recursive_info &amp;&#160;</td>
-          <td class="paramname"><em>info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a> *&#160;</td>
-          <td class="paramname"><em>node</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Nearest neighbor, recursive algorithm. </p>
-
-</div>
-</div>
 <a id="af6b42d1ceba3ae70b1e60f6ddab9e4ec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6b42d1ceba3ae70b1e60f6ddab9e4ec">&#9670;&nbsp;</a></span>node_alloc()</h2>
 
@@ -737,6 +662,91 @@ template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  
 </div><div class="memdoc">
 
 <p>Initialize recursively. </p>
+
+</div>
+</div>
+<a id="a3339d4e6691bf0ed97c35ee695fd820f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3339d4e6691bf0ed97c35ee695fd820f">&#9670;&nbsp;</a></span>nearest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a>* <a class="el" href="classpr_1_1kdtree.html">pr::kdtree</a>&lt; Tfloat, N, Tvalue, Talloc &gt;::nearest </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>point</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nearest neighbor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">point</td><td>Reference point. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9ac2db12a06480d5428f28f27df80c85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ac2db12a06480d5428f28f27df80c85">&#9670;&nbsp;</a></span>nearby()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;typename Tfunc &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classpr_1_1kdtree.html">pr::kdtree</a>&lt; Tfloat, N, Tvalue, Talloc &gt;::nearby </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>point</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpr_1_1kdtree.html#a9a9d0970f6ca5411f58dc6272c43a63a">float_type</a>&#160;</td>
+          <td class="paramname"><em>cutoff_dist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Tfunc &amp;&amp;&#160;</td>
+          <td class="paramname"><em>func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Visit nearby nodes. </p>
+<p>TODO </p>
 
 </div>
 </div>
