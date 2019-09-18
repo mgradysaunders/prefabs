@@ -149,6 +149,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1half.html">half</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Half-precision float.  <a href="classpr_1_1half.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1hg__phase.html">hg_phase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Henyey-Greenstein phase.  <a href="structpr_1_1hg__phase.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1hg__phase__stack.html">hg_phase_stack</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Henyey-Greenstein phase stack.  <a href="structpr_1_1hg__phase__stack.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1image2.html">image2</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image (2-dimensional).  <a href="classpr_1_1image2.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -965,13 +971,17 @@ Functions</h2></td></tr>
 <tr class="memitem:ga963bb8663a16fb99eff739e6555d1414"><td class="memTemplItemLeft" align="right" valign="top">multi&lt; decltype(T()/<a class="el" href="group__dualnum.html#ga2a4cad69c06164ee6b8c8a4b4805156e">pr::sqrt</a>(<a class="el" href="group__dualnum.html#ga5082e3058be011a031673599b31b4467">pr::abs</a>(T()))), 3, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__math__geometry.html#ga963bb8663a16fb99eff739e6555d1414">inverse</a> (const multi&lt; T, 3, 3 &gt; &amp;arr)</td></tr>
 <tr class="memdesc:ga963bb8663a16fb99eff739e6555d1414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse by Cramer's rule.  <a href="group__multi__math__geometry.html#ga963bb8663a16fb99eff739e6555d1414">More...</a><br /></td></tr>
 <tr class="separator:ga963bb8663a16fb99eff739e6555d1414"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7f05e645d5ecc335e66cfda8577a98bf"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t M, std::size_t... N, typename G &gt; </td></tr>
+<tr class="memitem:ga7f05e645d5ecc335e66cfda8577a98bf"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, M, N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__random.html#ga7f05e645d5ecc335e66cfda8577a98bf">generate_canonical</a> (G &amp;&amp;gen)</td></tr>
+<tr class="memdesc:ga7f05e645d5ecc335e66cfda8577a98bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate multi-array of canonical random samples.  <a href="group__multi__random.html#ga7f05e645d5ecc335e66cfda8577a98bf">More...</a><br /></td></tr>
+<tr class="separator:ga7f05e645d5ecc335e66cfda8577a98bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga87b035568e83898e689fb1ceccf63406"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N, typename P , typename G &gt; </td></tr>
 <tr class="memitem:ga87b035568e83898e689fb1ceccf63406"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value &amp;&amp;std::is_integral&lt; P &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__random.html#ga87b035568e83898e689fb1ceccf63406">stratify</a> (multi&lt; T, N &gt; *arr, multi&lt; P, N &gt; dim, G &amp;&amp;gen)</td></tr>
-<tr class="memdesc:ga87b035568e83898e689fb1ceccf63406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stratify n-dimensional canonical random samples.  <a href="group__multi__random.html#ga87b035568e83898e689fb1ceccf63406">More...</a><br /></td></tr>
+<tr class="memdesc:ga87b035568e83898e689fb1ceccf63406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate and stratify canonical random samples in \( N \) dimensions.  <a href="group__multi__random.html#ga87b035568e83898e689fb1ceccf63406">More...</a><br /></td></tr>
 <tr class="separator:ga87b035568e83898e689fb1ceccf63406"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="memTemplParams" colspan="2">template&lt;typename T , typename G &gt; </td></tr>
 <tr class="memitem:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__random.html#ga1cec41c2a3e03c0583b5310b18a9be9c">generate_canonical</a> (G &amp;&amp;gen)</td></tr>
-<tr class="memdesc:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate canonical random number.  <a href="group__random.html#ga1cec41c2a3e03c0583b5310b18a9be9c">More...</a><br /></td></tr>
+<tr class="memdesc:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate canonical random sample.  <a href="group__random.html#ga1cec41c2a3e03c0583b5310b18a9be9c">More...</a><br /></td></tr>
 <tr class="separator:ga1cec41c2a3e03c0583b5310b18a9be9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Binary operators (aabb/aabb)</div></td></tr>
 <tr class="memitem:ga32f9fcbeb5caa2b2cd9fb5e200d16e4d"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N&gt; </td></tr>
