@@ -621,17 +621,16 @@ public:
      *
      * @param[in] alpha
      * Roughness.
-     *
-     * @throw std::invalid_argument
-     * If negative roughness.
      */
     microsurface(multi<float_type, 2> alpha) : alpha_(alpha)
     {
+#if 0
         // Invalid?
         if (pr::signbit(alpha_[0]) ||
             pr::signbit(alpha_[1])) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
+#endif
 
         // Clamp.
         alpha_[0] = pr::fmax(alpha_[0], float_type(0.00001));
@@ -1129,7 +1128,8 @@ public:
      * Result scattering order, 0 for all orders.
      *
      * @param[out] f_pdf
-     * _Optional_. Result as if @f$ L_0 = 1 @f$.
+     * _Optional_. Density function, identically perfectly
+     * energy conserving result (as if @f$ L_0 = 1 @f$).
      */
     template <typename U>
     float_type fm(
@@ -1205,7 +1205,7 @@ public:
                     -wk);
 
             // Update energy.
-            ek *= l0_; // Throughput factor = phase / sampling density
+            ek *= l0_; 
 
             // NaN check.
             if (!pr::isfinite(hk) ||
@@ -1217,8 +1217,93 @@ public:
         return f;
     }
 
+
     /**
-     * @brief Multiple-scattering BRDF sampling routine.
+     * @brief Multiple-scattering BRDF probability density function.
+     *
+     * @param[in] uk
+     * Sample generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @param[in] kres
+     * Result scattering order, 0 for all orders.
+     */
+    template <typename U>
+    float_type fm_pdf(
+            U&& uk,
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi, int kres = 0) const
+    {
+        // Flip.
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
+        if (wo[2] == 0 ||
+            wi[2] <= 0) {
+            return 0;
+        }
+
+        // Result.
+        float_type f_pdf = 0;
+
+        // Initial height.
+        float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
+
+        // Initial direction.
+        multi<float_type, 3> wk = -wo;
+
+        for (int k = 0;
+                    kres == 0 ||
+                    kres > k;) {
+
+            // Sample next height.
+            hk = h_sample(std::forward<U>(uk)(), wk, hk);
+            if (pr::isinf(hk)) {
+                break;
+            }
+
+            // Increment.
+            ++k;
+
+            if (kres == 0 ||
+                kres == k) {
+
+                // Next event estimation.
+                float_type fk = 
+                    g1(wi, hk) * 
+                    pm({std::forward<U>(uk)(),
+                        std::forward<U>(uk)()}, -wk, wi);
+                if (pr::isfinite(fk)) {
+                    f_pdf += fk;
+                }
+            }
+
+            // Sample next direction.
+            wk = pm_sample(
+                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
+                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
+                    -wk);
+
+            // NaN check.
+            if (!pr::isfinite(hk) ||
+                !pr::isfinite(wk).all() || wk[2] == 0) {
+                return 0;
+            }
+        }
+
+        return f_pdf;
+    }
+
+    /**
+     * @brief Multiple-scattering BRDF probability density function
+     * sampling routine.
      *
      * @param[in] uk
      * Sample generator.
@@ -1228,20 +1313,11 @@ public:
      *
      * @param[out] k
      * Scattering order.
-     *
-     * @note
-     * For efficiency, this function performs a random walk on the
-     * microsurface without calculating @f$ f_m @f$. The returned scattering
-     * direction @f$ \omega_i @f$ is distributed according to the perfectly
-     * energy conserving version of @f$ f_m @f$ however, such that sample
-     * weight is @f$ f / p = L_0 @f$.
      */
     template <typename U>
-    multi<float_type, 3> fm_sample(
+    multi<float_type, 3> fm_pdf_sample(
             U&& uk, multi<float_type, 3> wo,
             int& k) const
-            // TODO float_type* f 
-            // TODO float_type* f_pdf ?
     {
         // Flip.
         bool neg = false;
@@ -2000,7 +2076,8 @@ public:
      * Number of iterations.
      *
      * @param[out] f_pdf
-     * _Optional_. Result as if @f$ F_{r,0} = F_{t,0} = 1 @f$.
+     * _Optional_. Density function, identically perfectly
+     * energy conserving result (as if @f$ F_{r,0} = F_{t,0} = 1 @f$).
      */
     template <typename U>
     float_type fm(
@@ -2011,6 +2088,7 @@ public:
             int nitr = 1,
             float_type* f_pdf = nullptr) const
     {
+        // Density function.
         if (f_pdf) {
             *f_pdf = 0;
         }
@@ -2137,7 +2215,129 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BSDF sampling routine.
+     * @brief Multiple-scattering BSDF probability density function.
+     *
+     * @param[in] uk
+     * Sample generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @param[in] kres
+     * Result scattering order, 0 for all orders.
+     *
+     * @param[in] nitr
+     * Number of iterations.
+     */
+    template <typename U>
+    float_type fm_pdf(
+            U&& uk,
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi,
+            int kres = 0,
+            int nitr = 1) const
+    {
+        // Result.
+        float_type f_pdf = 0;
+
+        // Single scattering only?
+        if (kres == 1) {
+
+            // Ignore multiple scattering iterations.
+            nitr = 0;
+        }
+
+        for (int n = 0; n < nitr; n++) {
+
+            // Initial height.
+            float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
+
+            // Initial direction.
+            multi<float_type, 3> wk = -wo;
+
+            // Initial direction outside?
+            bool wk_outside = !pr::signbit(wo[2]); // wo[2] > 0;
+            if (!wk_outside) {
+
+                // Flip height.
+                hk = -hk;
+            }
+
+            // Incident direction outside?
+            bool wi_outside = !pr::signbit(wi[2]); // wi[2] > 0;
+
+            for (int k = 0;
+                        kres == 0 ||
+                        kres > k;) {
+
+                // Sample next height.
+                hk =
+                    wk_outside ?
+                    +h_sample(std::forward<U>(uk)(), +wk, +hk) :
+                    -h_sample(std::forward<U>(uk)(), -wk, -hk);
+                if (pr::isinf(hk)) {
+                    break;
+                }
+
+                // Increment.
+                ++k;
+
+                if (k > 1024) {
+                    return 0;
+                }
+
+                if (kres == 0 ||
+                    kres == k) {
+                    if (k > 1) {
+
+                        // Next event estimation.
+                        float_type fk =
+                            (wi_outside ?
+                            g1(+wi, +hk) :
+                            g1(-wi, -hk)) *
+                            pm(-wk, wi, wk_outside, wi_outside);
+                        if (pr::isfinite(fk)) {
+                            f_pdf += fk;
+                        }
+                    }
+                }
+
+                // Sample next direction.
+                wk = normalize_fast(
+                     pm_sample(
+                        std::forward<U>(uk)(),
+                        {std::forward<U>(uk)(),
+                         std::forward<U>(uk)()},
+                        -wk, wk_outside, wk_outside));
+
+                // NaN check.
+                if (!pr::isfinite(hk) ||
+                    !pr::isfinite(wk).all() || wk[2] == 0) {
+                    return 0;
+                }
+            }
+        }
+
+        // Average.
+        if (nitr > 1) {
+            f_pdf /= nitr;
+        }
+
+        // Single-scattering component.
+        if (kres == 0 ||
+            kres == 1) {
+            f_pdf += fs_pdf(wo, wi);
+        }
+
+        return f_pdf;
+    }
+
+    /**
+     * @brief Multiple-scattering BSDF probability density function
+     * sampling routine.
      *
      * @param[in] uk
      * Sample generator.
@@ -2149,11 +2349,9 @@ public:
      * Scattering order.
      */
     template <typename U>
-    multi<float_type, 3> fm_sample(
+    multi<float_type, 3> fm_pdf_sample(
             U&& uk, multi<float_type, 3> wo,
             int& k) const
-            // TODO float_type* f
-            // TODO float_type* fpdf ?
     {
         // Initial height.
         float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
