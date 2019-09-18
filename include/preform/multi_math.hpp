@@ -983,6 +983,8 @@ struct multi_initializers<
             return uniform_sphere_pdf();
         }
         else {
+            g = pr::fmin(g, T(+0.99999));
+            g = pr::fmax(g, T(-0.99999));
             T a = 1 - g * g;
             T b = 1 + g * g - 2 * g * w2;
             T b3_2 = pr::sqrt(b * b * b);
@@ -1006,6 +1008,8 @@ struct multi_initializers<
             return uniform_sphere_pdf_sample(u);
         }
         else {
+            g = pr::fmin(g, T(+0.99999));
+            g = pr::fmax(g, T(-0.99999));
             T tmp = (1 - g * g) / (1 - g + 2 * g * u[0]);
             T cos_theta = (1 + g * g - tmp * tmp) / (2 * g);
             cos_theta = pr::fmax(cos_theta, T(-1));
