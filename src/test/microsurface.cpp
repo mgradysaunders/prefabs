@@ -61,10 +61,7 @@ Float generateCanonical()
 // Generate canonical random 2-dimensional vector.
 Vec2f generateCanonical2()
 {
-    return {
-        pr::generate_canonical<Float>(pcg),
-        pr::generate_canonical<Float>(pcg)
-    };
+    return pr::generate_canonical<Float, 2>(pcg);
 }
 
 // Test full-sphere scattering.
@@ -184,16 +181,16 @@ int main(int argc, char** argv)
     // Test full-sphere scattering.
     testFullSphere(
         "DiffuseTrowbridgeReitz",
-         DiffuseTrowbridgeReitz(alpha));
+         DiffuseTrowbridgeReitz(1, alpha));
     testFullSphere(
         "DiffuseBeckmann",
-         DiffuseBeckmann(alpha));
+         DiffuseBeckmann(1, alpha));
     testFullSphere(
         "DielectricTrowbridgeReitz",
-         DielectricTrowbridgeReitz(eta0 / eta1, alpha));
+         DielectricTrowbridgeReitz(1, 1, eta0 / eta1, alpha));
     testFullSphere(
         "DielectricBeckmann",
-         DielectricBeckmann(eta0 / eta1, alpha));
+         DielectricBeckmann(1, 1, eta0 / eta1, alpha));
 
     return EXIT_SUCCESS;
 }
