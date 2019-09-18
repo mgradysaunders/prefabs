@@ -53,7 +53,26 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Stratify n-dimensional canonical random samples.
+ * @brief Generate multi-array of canonical random samples.
+ */
+template <
+    typename T, std::size_t M, std::size_t... N,
+    typename G
+    >
+inline std::enable_if_t<
+       std::is_floating_point<T>::value,
+            multi<T, M, N...>> generate_canonical(G&& gen)
+{
+    multi<T, M, N...> u;
+    for (auto& uk : u) {
+        uk = pr::generate_canonical<T, N...>(std::forward<G>(gen));
+    }
+    return u;
+}
+
+/**
+ * @brief Generate and stratify canonical random samples in @f$ N @f$
+ * dimensions.
  *
  * @param[out] arr
  * Sample array, must point to `dim.prod()` contiguous elements.
