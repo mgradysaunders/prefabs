@@ -71,7 +71,7 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Generate canonical random number.
+ * @brief Generate canonical random sample.
  */
 template <typename T, typename G>
 inline std::enable_if_t<
