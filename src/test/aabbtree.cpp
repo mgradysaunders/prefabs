@@ -1,6 +1,7 @@
 #include <iostream>
 #include <random>
 #include <preform/random.hpp>
+#include <preform/multi_random.hpp>
 #include <preform/aabbtree.hpp>
 #include <preform/memory_arena.hpp>
 #include <preform/memory_arena_allocator.hpp>
@@ -39,11 +40,7 @@ Float generateCanonical()
 // Generate canonical random 3-dimensional vector.
 Vec3f generateCanonical3()
 {
-    return {
-        pr::generate_canonical<Float>(pcg),
-        pr::generate_canonical<Float>(pcg),
-        pr::generate_canonical<Float>(pcg)
-    };
+    return pr::generate_canonical<Float, 3>(pcg);
 }
 
 int depth_histogram[64] = {};
