@@ -172,7 +172,7 @@ public:
         /**
          * @brief Split dimension.
          */
-        std::uint8_t split_dim;
+        std::uint32_t split_dim;
     };
     
 public:
@@ -396,7 +396,7 @@ private:
             *split,
             nullptr,
             nullptr,
-            std::uint8_t(split_dim)
+            std::uint32_t(split_dim)
         };
 
         // Recurse to initialize left child.
@@ -418,7 +418,8 @@ public:
      * @param[in] point
      * Reference point.
      */
-    const node_type* nearest(const point_type& point) const
+    std::pair<const node_type*, float_type> 
+                    nearest(const point_type& point) const
     {
         const node_type* near = nullptr;
         float_type near_dist2 = pr::numeric_limits<float_type>::infinity();
@@ -428,7 +429,7 @@ public:
                     root_, 
                     near, near_dist2);
         }
-        return near;
+        return std::make_pair(near, near_dist2);
     }
 
 private:
@@ -441,39 +442,189 @@ private:
     void nearest_recursive(
                 const point_type& point,
                 const node_type* node,
-                const node_type*& near, float_type& near_dist2) const
+                const node_type*& near, 
+                float_type& near_dist2) const
     {
+        // Difference.
         point_type diff = node->value.first - point;
 
+        // Squared distance to reference point.
+        float_type dist2 = dot(diff, diff);
+
         // Possibly update nearest node.
-        if (near_dist2 > pr::dot(diff, diff)) {
-            near_dist2 = pr::dot(diff, diff);
+        if (near_dist2 > dist2) {
+            near_dist2 = dist2;
             near = node;
         }
 
         // Signed distance to split plane.
         float_type min_dist = diff[node->split_dim];
-        if (node->left && 
-                !(min_dist < float_type(0) &&
-                  min_dist * min_dist > near_dist2)) {
+        float_type min_dist2 = min_dist * min_dist; 
 
-            // Recurse only if necessary.
-            nearest_recursive(
-                    point, 
-                    node->left, 
-                    near, near_dist2);
+        // If point is on left, process left child first.
+        // If point is on right, process right child first.
+        const node_type* child0 = node->left;
+        const node_type* child1 = node->right;
+        if (min_dist < 0) {
+            min_dist = -min_dist;
+            std::swap(child0, child1);
         }
-        if (node->right && 
-                !(min_dist > float_type(0) &&
-                  min_dist * min_dist > near_dist2)) {
 
+        if (child0) {
+            // Recurse only if necessary. 
+            if (!(min_dist < 0 &&
+                  min_dist2 > near_dist2)) {
+                nearest_recursive(point, child0, near, near_dist2);
+            }
+        }
+
+        if (child1) {
             // Recurse only if necessary.
-            nearest_recursive(
-                    point, 
-                    node->right, 
-                    near, near_dist2);
+            if (!(min_dist > 0 &&
+                  min_dist2 > near_dist2)) {
+                nearest_recursive(point, child1, near, near_dist2);
+            }
         }
     }
+
+#endif // #if !DOXYGEN
+
+public:
+
+    /**
+     * @brief Nearest neighbors.
+     *
+     * TODO
+     */
+    size_type nearest(
+            const point_type& point,
+            size_type k,
+            std::pair<const node_type*, float_type>* nodes) const
+    {
+        std::pair<const node_type*, float_type>* nodes_end = nodes + k;
+        std::pair<const node_type*, float_type>* nodes_top = nodes;
+        if (root_) {
+            nearest_recursive(
+                    point,
+                    root_,
+                    nodes,
+                    nodes_end,
+                    nodes_top);
+        }
+        if (nodes_top > nodes) {
+            std::sort_heap(
+                    nodes,
+                    nodes_top,
+                    [](std::pair<const node_type*, float_type> lhs,
+                       std::pair<const node_type*, float_type> rhs) {
+                        return lhs.second < rhs.second;
+                    });
+        }
+        return nodes_top - nodes;
+    }
+
+private:
+
+#if !DOXYGEN
+
+    /**
+     * @brief Nearest neighbors, recursive algorithm.
+     */
+    void nearest_recursive(
+            const point_type& point,
+            const node_type* node,
+            std::pair<const node_type*, float_type>* nodes,
+            std::pair<const node_type*, float_type>* nodes_end,
+            std::pair<const node_type*, float_type>*& nodes_top) const
+    {
+        // Compare operator.
+        auto nodes_cmp = 
+        [](std::pair<const node_type*, float_type> lhs,
+           std::pair<const node_type*, float_type> rhs) -> bool {
+            return lhs.second < rhs.second;
+        };
+
+        // Difference.
+        point_type diff = node->value.first - point;
+
+        // Squared distance to reference point.
+        float_type dist2 = dot(diff, diff);
+
+        // Signed distance to split plane.
+        float_type min_dist = diff[node->split_dim];
+        float_type min_dist2 = min_dist * min_dist; 
+
+        // If point is on left, process left child first.
+        // If point is on right, process right child first.
+        const node_type* child0 = node->left;
+        const node_type* child1 = node->right;
+        if (min_dist < 0) {
+            min_dist = -min_dist;
+            std::swap(child0, child1);
+        }
+
+        if (nodes_top != nodes_end) {
+            
+            // Push.
+            *nodes_top++ = std::make_pair(node, dist2);
+            std::push_heap(
+                    nodes, 
+                    nodes_top,
+                    nodes_cmp);
+        }
+        else if (nodes->second > dist2) {
+
+            // Replace furthest node.
+            std::pop_heap(
+                    nodes,
+                    nodes_top,
+                    nodes_cmp);
+            *(nodes_top - 1) = std::make_pair(node, dist2);
+            std::push_heap(
+                    nodes,
+                    nodes_top,
+                    nodes_cmp);
+        }
+
+        if (child0) {
+            // Recurse only if
+            // 1. the nodes heap is not full;
+            // 2. the nodes heap is full, and we cannot cull the subtree
+            // because a) the point is on the same side as child0 or
+            // b) the minimum distance to the split plane is not greater 
+            // than the distance to the furthest node.
+            if (nodes_top != nodes_end ||
+                    !(min_dist < 0 &&
+                      min_dist2 > nodes->second)) {
+
+                nearest_recursive(
+                        point, child0,
+                        nodes,
+                        nodes_end,
+                        nodes_top);
+            }
+        }
+
+        if (child1) {
+            // Recurse only if
+            // 1. the nodes heap is not full;
+            // 2. the nodes heap is full, and we cannot cull the subtree
+            // because a) the point is on the same side as child1 or
+            // b) the minimum distance to the split plane is not greater 
+            // than the distance to the furthest node.
+            if (nodes_top != nodes_end ||
+                    !(min_dist > 0 && 
+                      min_dist2 > nodes->second)) {
+
+                nearest_recursive(
+                        point, child1,
+                        nodes,
+                        nodes_end,
+                        nodes_top);
+            }
+        }
+    }
+
 #endif // #if !DOXYGEN
 
 public:
@@ -515,11 +666,14 @@ private:
             Tfunc&& func,
             const node_type* node) const
     {
+        // Difference.
         point_type diff = node->value.first - point;
 
+        // Squared distance to reference point.
+        float_type dist2 = dot(diff, diff);
+
         // Process node if within cutoff distance.
-        if (cutoff_dist2 > 
-            pr::dot(diff, diff)) {
+        if (cutoff_dist2 > dist2) {
             if (!std::forward<Tfunc>(func)(node)) {
                 return false;
             }
@@ -527,30 +681,44 @@ private:
 
         // Signed distance to split plane.
         float_type min_dist = diff[node->split_dim];
-        if (node->left && 
-                !(min_dist < float_type(0) &&
-                  min_dist * min_dist > cutoff_dist2)) {
+        float_type min_dist2 = min_dist * min_dist; 
 
-            // Recurse only if necessary.
-            if (!nearby_recursive(
-                    point, 
-                    cutoff_dist2, 
-                    std::forward<Tfunc>(func),
-                    node->left)) {
-                return false;
+        // If point is on left, process left child first.
+        // If point is on right, process right child first.
+        const node_type* child0 = node->left;
+        const node_type* child1 = node->right;
+        if (min_dist < 0) {
+            min_dist = -min_dist;
+            std::swap(child0, child1);
+        }
+
+        if (child0) {
+            // Recurse only if necessary. 
+            if (!(min_dist < 0 &&
+                  min_dist2 > cutoff_dist2)) {
+
+                if (!nearby_recursive(
+                        point, 
+                        cutoff_dist2, 
+                        std::forward<Tfunc>(func),
+                        child0)) {
+                    return false;
+                }
             }
         }
-        if (node->right && 
-                !(min_dist > float_type(0) &&
-                  min_dist * min_dist > cutoff_dist2)) {
+        if (child1) {
+            // Recurse only if necessary. 
+            if (!(min_dist > 0 &&
+                  min_dist2 > cutoff_dist2)) {
 
-            // Recurse only if necessary.
-            if (!nearby_recursive(
-                    point, 
-                    cutoff_dist2,
-                    std::forward<Tfunc>(func),
-                    node->right)) {
-                return false;
+                // Recurse only if necessary.
+                if (!nearby_recursive(
+                        point, 
+                        cutoff_dist2,
+                        std::forward<Tfunc>(func),
+                        child1)) {
+                    return false;
+                }
             }
         }
 
