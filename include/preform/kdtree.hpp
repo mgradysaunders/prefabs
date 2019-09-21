@@ -145,6 +145,11 @@ public:
     typedef typename std::allocator_traits<Talloc>::
             template rebind_alloc<node_type> node_allocator_type;
 
+    /**
+     * @brief Node/distance-squared pair type.
+     */
+    typedef std::pair<const node_type*, float_type> node_dist2_pair_type;
+
     /**@}*/
 
 public:
@@ -418,18 +423,17 @@ public:
      * @param[in] point
      * Reference point.
      */
-    std::pair<const node_type*, float_type> 
-                    nearest(const point_type& point) const
+    node_dist2_pair_type nearest(const point_type& point) const
     {
-        const node_type* near = nullptr;
-        float_type near_dist2 = pr::numeric_limits<float_type>::infinity();
+        node_dist2_pair_type 
+        near = {
+            nullptr,
+            pr::numeric_limits<float_type>::infinity()
+        };
         if (root_) {
-            nearest_recursive(
-                    point, 
-                    root_, 
-                    near, near_dist2);
+            nearest_recursive(point, root_, near);
         }
-        return std::make_pair(near, near_dist2);
+        return near;
     }
 
 private:
@@ -438,12 +442,20 @@ private:
 
     /**
      * @brief Nearest neighbor, recursive algorithm.
+     *
+     * @param[in] point
+     * Reference point.
+     *
+     * @param[in] node
+     * Current node.
+     *
+     * @param[inout] near
+     * Nearest node/distance-squared pair.
      */
     void nearest_recursive(
                 const point_type& point,
                 const node_type* node,
-                const node_type*& near, 
-                float_type& near_dist2) const
+                node_dist2_pair_type& near) const
     {
         // Difference.
         point_type diff = node->value.first - point;
@@ -452,9 +464,9 @@ private:
         float_type dist2 = dot(diff, diff);
 
         // Possibly update nearest node.
-        if (near_dist2 > dist2) {
-            near_dist2 = dist2;
-            near = node;
+        if (near.second > dist2) {
+            near.second = dist2;
+            near.first = node;
         }
 
         // Signed distance to split plane.
@@ -473,16 +485,16 @@ private:
         if (child0) {
             // Recurse only if necessary. 
             if (!(min_dist < 0 &&
-                  min_dist2 > near_dist2)) {
-                nearest_recursive(point, child0, near, near_dist2);
+                  min_dist2 > near.second)) {
+                nearest_recursive(point, child0, near);
             }
         }
 
         if (child1) {
             // Recurse only if necessary.
             if (!(min_dist > 0 &&
-                  min_dist2 > near_dist2)) {
-                nearest_recursive(point, child1, near, near_dist2);
+                  min_dist2 > near.second)) {
+                nearest_recursive(point, child1, near);
             }
         }
     }
@@ -494,33 +506,59 @@ public:
     /**
      * @brief Nearest neighbors.
      *
-     * TODO
+     * @param[in] point
+     * Reference point.
+     *
+     * @param[out] near
+     * Nearest node/distance-squared pairs range.
+     *
+     * @param[out] near_end
+     * Nearest node/distance-squared pairs range end.
+     *
+     * @return
+     * Returns the effective end of the nearest 
+     * node/distance-squared pair range,
+     * - if `near_end - near <= node_count_`, returns `near_end`,
+     * - if `near_end - near > node_count_`, returns `near + node_count_`.
+     *
+     * @note
+     * The implementation sorts node/distance-squared pairs in 
+     * ascending order by distance-squared to the reference point.
+     *
+     * @throw std::invalid_argument
+     * Unless 
+     * `near` is non-null, `near_end` is non-null, and
+     * `near` is strictly less than `near_end`.
      */
-    size_type nearest(
+    node_dist2_pair_type* nearest(
             const point_type& point,
-            size_type k,
-            std::pair<const node_type*, float_type>* nodes) const
+            node_dist2_pair_type* near,
+            node_dist2_pair_type* near_end) const
     {
-        std::pair<const node_type*, float_type>* nodes_end = nodes + k;
-        std::pair<const node_type*, float_type>* nodes_top = nodes;
+        if (near == nullptr || near_end == nullptr ||
+            near >= near_end) {
+            throw std::invalid_argument(__PRETTY_FUNCTION__);
+        }
+
+        node_dist2_pair_type* near_top = near;
         if (root_) {
             nearest_recursive(
                     point,
                     root_,
-                    nodes,
-                    nodes_end,
-                    nodes_top);
+                    near,
+                    near_end,
+                    near_top);
         }
-        if (nodes_top > nodes) {
+        if (near_top > near) {
             std::sort_heap(
-                    nodes,
-                    nodes_top,
-                    [](std::pair<const node_type*, float_type> lhs,
-                       std::pair<const node_type*, float_type> rhs) {
+                    near,
+                    near_top,
+                    [](const node_dist2_pair_type& lhs,
+                       const node_dist2_pair_type& rhs) {
                         return lhs.second < rhs.second;
                     });
         }
-        return nodes_top - nodes;
+        return near_top;
     }
 
 private:
@@ -529,18 +567,33 @@ private:
 
     /**
      * @brief Nearest neighbors, recursive algorithm.
+     *
+     * @param[in] point
+     * Reference point.
+     *
+     * @param[in] node
+     * Current node.
+     *
+     * @param[in] near
+     * Nearest node/distance-squared pairs heap.
+     *
+     * @param[in] near_end
+     * Nearest node/distance-squared pairs heap end.
+     *
+     * @param[inout] near_top
+     * Nearest node/distance-squared pairs heap top.
      */
     void nearest_recursive(
             const point_type& point,
             const node_type* node,
-            std::pair<const node_type*, float_type>* nodes,
-            std::pair<const node_type*, float_type>* nodes_end,
-            std::pair<const node_type*, float_type>*& nodes_top) const
+            node_dist2_pair_type* near,
+            node_dist2_pair_type* near_end,
+            node_dist2_pair_type*& near_top) const
     {
         // Compare operator.
-        auto nodes_cmp = 
-        [](std::pair<const node_type*, float_type> lhs,
-           std::pair<const node_type*, float_type> rhs) -> bool {
+        constexpr auto near_cmp = 
+        [](const node_dist2_pair_type& lhs,
+           const node_dist2_pair_type& rhs) -> bool {
             return lhs.second < rhs.second;
         };
 
@@ -552,75 +605,75 @@ private:
 
         // Signed distance to split plane.
         float_type min_dist = diff[node->split_dim];
-        float_type min_dist2 = min_dist * min_dist; 
+        float_type min_dist2 = min_dist * min_dist;
 
         // If point is on left, process left child first.
         // If point is on right, process right child first.
         const node_type* child0 = node->left;
         const node_type* child1 = node->right;
-        if (min_dist < 0) {
+        if (pr::signbit(min_dist)) {
             min_dist = -min_dist;
             std::swap(child0, child1);
         }
 
-        if (nodes_top != nodes_end) {
+        if (near_top != near_end) {
             
             // Push.
-            *nodes_top++ = std::make_pair(node, dist2);
+            *near_top++ = std::make_pair(node, dist2);
             std::push_heap(
-                    nodes, 
-                    nodes_top,
-                    nodes_cmp);
+                    near, 
+                    near_top,
+                    near_cmp);
         }
-        else if (nodes->second > dist2) {
+        else if (near->second > dist2) {
 
             // Replace furthest node.
             std::pop_heap(
-                    nodes,
-                    nodes_top,
-                    nodes_cmp);
-            *(nodes_top - 1) = std::make_pair(node, dist2);
+                    near,
+                    near_top,
+                    near_cmp);
+            *(near_top - 1) = std::make_pair(node, dist2);
             std::push_heap(
-                    nodes,
-                    nodes_top,
-                    nodes_cmp);
+                    near,
+                    near_top,
+                    near_cmp);
         }
 
         if (child0) {
             // Recurse only if
-            // 1. the nodes heap is not full;
-            // 2. the nodes heap is full, and we cannot cull the subtree
+            // 1. the pairs heap is not full;
+            // 2. the pairs heap is full, and we cannot cull the subtree
             // because a) the point is on the same side as child0 or
             // b) the minimum distance to the split plane is not greater 
             // than the distance to the furthest node.
-            if (nodes_top != nodes_end ||
+            if (near_top != near_end ||
                     !(min_dist < 0 &&
-                      min_dist2 > nodes->second)) {
+                      min_dist2 > near->second)) {
 
                 nearest_recursive(
                         point, child0,
-                        nodes,
-                        nodes_end,
-                        nodes_top);
+                        near,
+                        near_end,
+                        near_top);
             }
         }
 
         if (child1) {
             // Recurse only if
-            // 1. the nodes heap is not full;
-            // 2. the nodes heap is full, and we cannot cull the subtree
+            // 1. the pairs heap is not full;
+            // 2. the pairs heap is full, and we cannot cull the subtree
             // because a) the point is on the same side as child1 or
             // b) the minimum distance to the split plane is not greater 
             // than the distance to the furthest node.
-            if (nodes_top != nodes_end ||
+            if (near_top != near_end ||
                     !(min_dist > 0 && 
-                      min_dist2 > nodes->second)) {
+                      min_dist2 > near->second)) {
 
                 nearest_recursive(
                         point, child1,
-                        nodes,
-                        nodes_end,
-                        nodes_top);
+                        near,
+                        near_end,
+                        near_top);
             }
         }
     }
