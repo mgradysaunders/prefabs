@@ -425,15 +425,14 @@ public:
      */
     node_dist2_pair_type nearest(const point_type& point) const
     {
-        node_dist2_pair_type 
-        near = {
-            nullptr,
-            pr::numeric_limits<float_type>::infinity()
-        };
+        nearest_recursive_info1 info;
+        info.point = point;
+        info.near.first = nullptr;
+        info.near.second = pr::numeric_limits<float_type>::infinity();
         if (root_) {
-            nearest_recursive(point, root_, near);
+            nearest_recursive(info, root_);
         }
-        return near;
+        return info.near;
     }
 
 private:
@@ -441,32 +440,44 @@ private:
 #if !DOXYGEN
 
     /**
+     * @brief Nearest neighbor, recursive algorithm info.
+     */
+    struct nearest_recursive_info1
+    {
+        /**
+         * @brief Reference point.
+         */
+        point_type point;
+
+        /**
+         * @brief Nearest node/distance-squared pair.
+         */
+        node_dist2_pair_type near;
+    };
+
+    /**
      * @brief Nearest neighbor, recursive algorithm.
      *
-     * @param[in] point
-     * Reference point.
+     * @param[inout] info
+     * Info.
      *
      * @param[in] node
      * Current node.
-     *
-     * @param[inout] near
-     * Nearest node/distance-squared pair.
      */
+    static
     void nearest_recursive(
-                const point_type& point,
-                const node_type* node,
-                node_dist2_pair_type& near) const
+         nearest_recursive_info1& info, const node_type* node)
     {
         // Difference.
-        point_type diff = node->value.first - point;
+        point_type diff = node->value.first - info.point;
 
         // Squared distance to reference point.
         float_type dist2 = dot(diff, diff);
 
         // Possibly update nearest node.
-        if (near.second > dist2) {
-            near.second = dist2;
-            near.first = node;
+        if (info.near.second > dist2) {
+            info.near.second = dist2;
+            info.near.first = node;
         }
 
         // Signed distance to split plane.
@@ -477,7 +488,7 @@ private:
         // If point is on right, process right child first.
         const node_type* child0 = node->left;
         const node_type* child1 = node->right;
-        if (min_dist < 0) {
+        if (pr::signbit(min_dist)) {
             min_dist = -min_dist;
             std::swap(child0, child1);
         }
@@ -485,16 +496,16 @@ private:
         if (child0) {
             // Recurse only if necessary. 
             if (!(min_dist < 0 &&
-                  min_dist2 > near.second)) {
-                nearest_recursive(point, child0, near);
+                  min_dist2 > info.near.second)) {
+                nearest_recursive(info, child0);
             }
         }
 
         if (child1) {
             // Recurse only if necessary.
             if (!(min_dist > 0 &&
-                  min_dist2 > near.second)) {
-                nearest_recursive(point, child1, near);
+                  min_dist2 > info.near.second)) {
+                nearest_recursive(info, child1);
             }
         }
     }
@@ -540,25 +551,25 @@ public:
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
-        node_dist2_pair_type* near_top = near;
+        nearest_recursive_info2 info;
+        info.point = point;
+        info.near = near;
+        info.near_end = near_end;
+        info.near_top = near;
         if (root_) {
-            nearest_recursive(
-                    point,
-                    root_,
-                    near,
-                    near_end,
-                    near_top);
+            nearest_recursive(info, root_);
         }
-        if (near_top > near) {
+        if (info.near_top > 
+            info.near) {
             std::sort_heap(
-                    near,
-                    near_top,
+                    info.near,
+                    info.near_top,
                     [](const node_dist2_pair_type& lhs,
-                       const node_dist2_pair_type& rhs) {
+                       const node_dist2_pair_type& rhs) -> bool {
                         return lhs.second < rhs.second;
                     });
         }
-        return near_top;
+        return info.near_top;
     }
 
 private:
@@ -566,29 +577,43 @@ private:
 #if !DOXYGEN
 
     /**
+     * @brief Nearest neighbors, recursive algorithm info.
+     */
+    struct nearest_recursive_info2 {
+
+        /**
+         * @brief Reference point.
+         */
+        point_type point;
+
+        /**
+         * @brief Nearest node/distance-squared pairs heap.
+         */
+        node_dist2_pair_type* near;
+
+        /**
+         * @brief Nearest node/distance-squared pairs heap end.
+         */
+        node_dist2_pair_type* near_end;
+
+        /**
+         * @brief Nearest node/distance-squared pairs heap top.
+         */
+        node_dist2_pair_type* near_top;
+    };
+
+    /**
      * @brief Nearest neighbors, recursive algorithm.
      *
-     * @param[in] point
-     * Reference point.
+     * @param[inout] info
+     * Info.
      *
      * @param[in] node
      * Current node.
-     *
-     * @param[in] near
-     * Nearest node/distance-squared pairs heap.
-     *
-     * @param[in] near_end
-     * Nearest node/distance-squared pairs heap end.
-     *
-     * @param[inout] near_top
-     * Nearest node/distance-squared pairs heap top.
      */
+    static
     void nearest_recursive(
-            const point_type& point,
-            const node_type* node,
-            node_dist2_pair_type* near,
-            node_dist2_pair_type* near_end,
-            node_dist2_pair_type*& near_top) const
+         nearest_recursive_info2& info, const node_type* node)
     {
         // Compare operator.
         constexpr auto near_cmp = 
@@ -598,7 +623,7 @@ private:
         };
 
         // Difference.
-        point_type diff = node->value.first - point;
+        point_type diff = node->value.first - info.point;
 
         // Squared distance to reference point.
         float_type dist2 = dot(diff, diff);
@@ -616,26 +641,26 @@ private:
             std::swap(child0, child1);
         }
 
-        if (near_top != near_end) {
+        if (info.near_top != info.near_end) {
             
             // Push.
-            *near_top++ = std::make_pair(node, dist2);
+            *info.near_top++ = std::make_pair(node, dist2);
             std::push_heap(
-                    near, 
-                    near_top,
+                    info.near, 
+                    info.near_top,
                     near_cmp);
         }
-        else if (near->second > dist2) {
+        else if (info.near->second > dist2) {
 
             // Replace furthest node.
             std::pop_heap(
-                    near,
-                    near_top,
+                    info.near,
+                    info.near_top,
                     near_cmp);
-            *(near_top - 1) = std::make_pair(node, dist2);
+            *(info.near_top - 1) = std::make_pair(node, dist2);
             std::push_heap(
-                    near,
-                    near_top,
+                    info.near,
+                    info.near_top,
                     near_cmp);
         }
 
@@ -646,15 +671,12 @@ private:
             // because a) the point is on the same side as child0 or
             // b) the minimum distance to the split plane is not greater 
             // than the distance to the furthest node.
-            if (near_top != near_end ||
+            if (info.near_top != 
+                info.near_end ||
                     !(min_dist < 0 &&
-                      min_dist2 > near->second)) {
+                      min_dist2 > info.near->second)) {
 
-                nearest_recursive(
-                        point, child0,
-                        near,
-                        near_end,
-                        near_top);
+                nearest_recursive(info, child0);
             }
         }
 
@@ -665,15 +687,12 @@ private:
             // because a) the point is on the same side as child1 or
             // b) the minimum distance to the split plane is not greater 
             // than the distance to the furthest node.
-            if (near_top != near_end ||
+            if (info.near_top != 
+                info.near_end ||
                     !(min_dist > 0 && 
-                      min_dist2 > near->second)) {
+                      min_dist2 > info.near->second)) {
 
-                nearest_recursive(
-                        point, child1,
-                        near,
-                        near_end,
-                        near_top);
+                nearest_recursive(info, child1);
             }
         }
     }
