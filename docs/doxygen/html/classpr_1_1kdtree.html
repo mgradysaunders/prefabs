@@ -107,6 +107,9 @@ Public Types</h2></td></tr>
 <tr class="memitem:ac57a57fd322bf3b32697f3d6bb75969d"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; Talloc &gt;::template rebind_alloc&lt; <a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#ac57a57fd322bf3b32697f3d6bb75969d">node_allocator_type</a></td></tr>
 <tr class="memdesc:ac57a57fd322bf3b32697f3d6bb75969d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node allocator type.  <a href="#ac57a57fd322bf3b32697f3d6bb75969d">More...</a><br /></td></tr>
 <tr class="separator:ac57a57fd322bf3b32697f3d6bb75969d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae546e3058206ec2019ae5a4c9b901dfd"><td class="memItemLeft" align="right" valign="top">typedef std::pair&lt; const <a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a> *, <a class="el" href="classpr_1_1kdtree.html#a9a9d0970f6ca5411f58dc6272c43a63a">float_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#ae546e3058206ec2019ae5a4c9b901dfd">node_dist2_pair_type</a></td></tr>
+<tr class="memdesc:ae546e3058206ec2019ae5a4c9b901dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node/distance-squared pair type.  <a href="#ae546e3058206ec2019ae5a4c9b901dfd">More...</a><br /></td></tr>
+<tr class="separator:ae546e3058206ec2019ae5a4c9b901dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -126,9 +129,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1da08ed9041b936ad451fd06750e800f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#a1da08ed9041b936ad451fd06750e800f">clear</a> ()</td></tr>
 <tr class="memdesc:a1da08ed9041b936ad451fd06750e800f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear.  <a href="#a1da08ed9041b936ad451fd06750e800f">More...</a><br /></td></tr>
 <tr class="separator:a1da08ed9041b936ad451fd06750e800f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3339d4e6691bf0ed97c35ee695fd820f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#a3339d4e6691bf0ed97c35ee695fd820f">nearest</a> (const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;point) const</td></tr>
-<tr class="memdesc:a3339d4e6691bf0ed97c35ee695fd820f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest neighbor.  <a href="#a3339d4e6691bf0ed97c35ee695fd820f">More...</a><br /></td></tr>
-<tr class="separator:a3339d4e6691bf0ed97c35ee695fd820f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade4e0641fdff6a3ef446c9142e6fc690"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1kdtree.html#ae546e3058206ec2019ae5a4c9b901dfd">node_dist2_pair_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#ade4e0641fdff6a3ef446c9142e6fc690">nearest</a> (const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;point) const</td></tr>
+<tr class="memdesc:ade4e0641fdff6a3ef446c9142e6fc690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest neighbor.  <a href="#ade4e0641fdff6a3ef446c9142e6fc690">More...</a><br /></td></tr>
+<tr class="separator:ade4e0641fdff6a3ef446c9142e6fc690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa31d8befec36945405b6cb31eedfbe46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1kdtree.html#ae546e3058206ec2019ae5a4c9b901dfd">node_dist2_pair_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#aa31d8befec36945405b6cb31eedfbe46">nearest</a> (const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;point, <a class="el" href="classpr_1_1kdtree.html#ae546e3058206ec2019ae5a4c9b901dfd">node_dist2_pair_type</a> *near, <a class="el" href="classpr_1_1kdtree.html#ae546e3058206ec2019ae5a4c9b901dfd">node_dist2_pair_type</a> *near_end) const</td></tr>
+<tr class="memdesc:aa31d8befec36945405b6cb31eedfbe46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest neighbors.  <a href="#aa31d8befec36945405b6cb31eedfbe46">More...</a><br /></td></tr>
+<tr class="separator:aa31d8befec36945405b6cb31eedfbe46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ac2db12a06480d5428f28f27df80c85"><td class="memTemplParams" colspan="2">template&lt;typename Tfunc &gt; </td></tr>
 <tr class="memitem:a9ac2db12a06480d5428f28f27df80c85"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1kdtree.html#a9ac2db12a06480d5428f28f27df80c85">nearby</a> (const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;point, <a class="el" href="classpr_1_1kdtree.html#a9a9d0970f6ca5411f58dc6272c43a63a">float_type</a> cutoff_dist, Tfunc &amp;&amp;func) const</td></tr>
 <tr class="memdesc:a9ac2db12a06480d5428f28f27df80c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit nearby nodes.  <a href="#a9ac2db12a06480d5428f28f27df80c85">More...</a><br /></td></tr>
@@ -273,6 +279,24 @@ template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  
 </div><div class="memdoc">
 
 <p>Node allocator type. </p>
+
+</div>
+</div>
+<a id="ae546e3058206ec2019ae5a4c9b901dfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae546e3058206ec2019ae5a4c9b901dfd">&#9670;&nbsp;</a></span>node_dist2_pair_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::pair&lt;const <a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a>*, <a class="el" href="classpr_1_1kdtree.html#a9a9d0970f6ca5411f58dc6272c43a63a">float_type</a>&gt; <a class="el" href="classpr_1_1kdtree.html">pr::kdtree</a>&lt; Tfloat, N, Tvalue, Talloc &gt;::<a class="el" href="classpr_1_1kdtree.html#ae546e3058206ec2019ae5a4c9b901dfd">node_dist2_pair_type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Node/distance-squared pair type. </p>
 
 </div>
 </div>
@@ -665,8 +689,8 @@ template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  
 
 </div>
 </div>
-<a id="a3339d4e6691bf0ed97c35ee695fd820f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3339d4e6691bf0ed97c35ee695fd820f">&#9670;&nbsp;</a></span>nearest()</h2>
+<a id="ade4e0641fdff6a3ef446c9142e6fc690"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade4e0641fdff6a3ef446c9142e6fc690">&#9670;&nbsp;</a></span>nearest() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -677,7 +701,7 @@ template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structpr_1_1kdtree_1_1node__type.html">node_type</a>* <a class="el" href="classpr_1_1kdtree.html">pr::kdtree</a>&lt; Tfloat, N, Tvalue, Talloc &gt;::nearest </td>
+          <td class="memname"><a class="el" href="classpr_1_1kdtree.html#ae546e3058206ec2019ae5a4c9b901dfd">node_dist2_pair_type</a> <a class="el" href="classpr_1_1kdtree.html">pr::kdtree</a>&lt; Tfloat, N, Tvalue, Talloc &gt;::nearest </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;&#160;</td>
           <td class="paramname"><em>point</em></td><td>)</td>
@@ -695,6 +719,72 @@ template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">point</td><td>Reference point. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa31d8befec36945405b6cb31eedfbe46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa31d8befec36945405b6cb31eedfbe46">&#9670;&nbsp;</a></span>nearest() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tvalue , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1kdtree.html#ae546e3058206ec2019ae5a4c9b901dfd">node_dist2_pair_type</a>* <a class="el" href="classpr_1_1kdtree.html">pr::kdtree</a>&lt; Tfloat, N, Tvalue, Talloc &gt;::nearest </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1kdtree.html#a0894fddfcae0a37357444d09146522bc">point_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>point</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpr_1_1kdtree.html#ae546e3058206ec2019ae5a4c9b901dfd">node_dist2_pair_type</a> *&#160;</td>
+          <td class="paramname"><em>near</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpr_1_1kdtree.html#ae546e3058206ec2019ae5a4c9b901dfd">node_dist2_pair_type</a> *&#160;</td>
+          <td class="paramname"><em>near_end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nearest neighbors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">point</td><td>Reference point.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">near</td><td>Nearest node/distance-squared pairs range.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">near_end</td><td>Nearest node/distance-squared pairs range end.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the effective end of the nearest node/distance-squared pair range,<ul>
+<li>if <code>near_end - near &lt;= node_count_</code>, returns <code>near_end</code>,</li>
+<li>if <code>near_end - near &gt; node_count_</code>, returns <code>near + node_count_</code>.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The implementation sorts node/distance-squared pairs in ascending order by distance-squared to the reference point.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Unless <code>near</code> is non-null, <code>near_end</code> is non-null, and <code>near</code> is strictly less than <code>near_end</code>. </td></tr>
   </table>
   </dd>
 </dl>
