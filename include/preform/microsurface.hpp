@@ -1559,9 +1559,8 @@ public:
             multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
     {
-        float_type eta = eta_;
-
         // Flip.
+        float_type eta = eta_;
         if (pr::signbit(wo[2])) {
     /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
@@ -1784,8 +1783,8 @@ public:
             multi<float_type, 3> wo) const
     {
         // Flip.
-        bool neg = false;
         float_type eta = eta_;
+        bool neg = false;
         if (pr::signbit(wo[2])) {
     /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
@@ -2018,8 +2017,8 @@ public:
             multi<float_type, 3> wo) const
     {
         // Flip.
-        bool neg = false;
         float_type eta = eta_;
+        bool neg = false;
         if (pr::signbit(wo[2])) {
     /*  if (wo[2] < 0) {  */
             wo[2] = -wo[2];
@@ -2599,7 +2598,6 @@ private:
     float_type eta_ = float_type(1) / float_type(1.5);
 };
 
-#if 0
 /**
  * @brief Microsurface conductive BRDF.
  *
@@ -2632,13 +2630,13 @@ public:
     /**
      * @brief Default constructor.
      */
-    microsurface_conductive_bsdf() = default;
+    microsurface_conductive_brdf() = default;
 
     /**
      * @brief Constructor.
      */
     template <typename... Targs>
-    microsurface_conductive_bsdf(
+    microsurface_conductive_brdf(
             std::complex<float_type> eta,
             Targs&&... args) :
                 microsurface<T, Tslope, Theight>::
@@ -2665,6 +2663,181 @@ public:
     // Locally visible for convenience.
     using microsurface<T, Tslope, Theight>::h_sample;
 
+    /**
+     * @brief Single-scattering BSDF.
+     *
+     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
+     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
+     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
+     * - @f$ \eta \gets 1 / \eta @f$
+     *
+     * If @f$ \imag{\eta} > 0 @f$, quit:
+     * @f[
+     *      f_{s,\text{brdf}}(\omega_o \to \omega_i) = 0
+     * @f]
+     *
+     * If @f$ \omega_{i_z} > 0 @f$, calculate the BRDF:
+     * - @f$ \mathbf{v}_m \gets \omega_o + \omega_i @f$
+     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
+     * - @f$ G_2(\omega_o, \omega_i) = 1 /
+     *          (1 + \Lambda(\omega_o) + \Lambda(\omega_i)) @f$
+     *
+     * @f[
+     *      f_s(\omega_o, \omega_i) =
+     *          \frac{1}{\omega_{o_z}}
+     *          D(\omega_m)
+     *          F_r(\omega_o \cdot \omega_m)
+     *          G_2(\omega_o, \omega_i)
+     * @f]
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fs(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        // Flip.
+        std::complex<float_type> eta = eta_;
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+            eta = float_type(1) / eta;
+        }
+        if (wo[2] < float_type(0.0000001) || // Avoid exploding.
+            wi[2] <= 0) {
+            return 0;
+        }
+
+        // Ensure dielectric hemisphere.
+        if (!pr::signbit(eta.imag())) { 
+            return 0;
+        }
+
+        // Microsurface normal.
+        multi<float_type, 3> wm = normalize(wo + wi);
+
+        // Masking-shadowing.
+        float_type lambda_wo = lambda(wo);
+        float_type lambda_wi = lambda(wi);
+        float_type g2 = 1 / (1 + lambda_wo + lambda_wi);
+
+        // Reflection.
+        float_type cos_thetao = dot(wo, wm);
+        float_type fr = fresnel_diel_cond(eta, cos_thetao);
+        return d(wm) * fr * g2 / (4 * wo[2]);
+    }
+
+    /**
+     * @brief Single-scattering BSDF probability density function.
+     *
+     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
+     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
+     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
+     * - @f$ \eta \gets 1 / \eta @f$
+     *
+     * If @f$ \imag{\eta} > 0 @f$, quit:
+     * @f[
+     *      f_{s,\text{brdf}}(\omega_o \to \omega_i) = 0
+     * @f]
+     *
+     * If @f$ \omega_{i_z} > 0 @f$, calculate BRDF density:
+     * - @f$ \mathbf{v}_m \gets \omega_o + \omega_i @f$
+     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
+     * @f[
+     *      f_{s,\text{brdf}}(\omega_o \to \omega_i) =
+     *              D_{\omega_o}(\omega_m)
+     *              \frac{1}{4\omega_i \cdot \omega_m} 
+     * @f]
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fs_pdf(
+                multi<float_type, 3> wo,
+                multi<float_type, 3> wi) const
+    {
+        // Flip.
+        std::complex<float_type> eta = eta_;
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+            eta = float_type(1) / eta;
+        }
+
+        // Ignore invalid samples.
+        if (wo[2] == 0 ||
+            wi[2] <= 0 ||
+            !pr::signbit(eta.imag())) {
+            return 0;
+        }
+
+        // Half vector.
+        multi<float_type, 3> vm = wo + wi;
+
+        // Microsurface normal.
+        multi<float_type, 3> wm = normalize(vm);
+
+        // Density.
+        return dwo(wo, wm) / (4 * dot(wo, wm));
+    }
+
+    /**
+     * @brief Single-scattering BSDF probability density function
+     * sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     */
+    multi<float_type, 3> fs_pdf_sample(
+            multi<float_type, 2> u,
+            multi<float_type, 3> wo) const
+    {
+        // Flip.
+        std::complex<float_type> eta = eta_;
+        bool neg = false;
+        if (pr::signbit(wo[2])) {
+    /*  if (wo[2] < 0) {  */
+            wo[2] = -wo[2];
+            eta = float_type(1) / eta;
+            neg = true;
+        }
+
+        // Ensure dielectric hemisphere.
+        if (!pr::signbit(eta.imag())) {
+            return {}; // Reject sample.
+        }
+
+        // Microsurface normal.
+        multi<float_type, 3> wm = dwo_sample(u, wo);
+
+        // Reflect.
+        multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
+            
+        // In wrong hemisphere?
+        if (pr::signbit(wi[2])) {
+    /*  if (wi[2] < 0) {  */
+            return {}; // Reject sample.
+        }
+
+        // Unflip.
+        if (neg) {
+            wi[2] = -wi[2];
+        }
+        return wi;
+    }
+
 private:
 
     /**
@@ -2678,12 +2851,19 @@ private:
      * where
      * - @f$ \eta_{+} @f$ is the refractive index in the upper hemisphere
      * - @f$ \eta_{-} @f$ is the refractive index in the lower hemisphere
+     *
+     * The implementation assumes that either
+     * - @f$ \imag{\eta_{+}} > 0 @f$, @f$ \imag{\eta_{-}} = 0 @f$, or
+     * - @f$ \imag{\eta_{+}} = 0 @f$, @f$ \imag{\eta_{-}} > 0 @f$.
+     *
+     * That is, the implementation assumes the dielectric hemisphere where 
+     * the BRDF is non-zero is the upper hemisphere if @f$ \imag{\eta} < 0 @f$
+     * and the lower hemisphere if @f$ \imag{\eta} > 0 @f$.
      */
     std::complex<float_type> eta_ = 
         float_type(1) / 
         std::complex<float_type>(float_type(1.5), float_type(4.0));
 };
-#endif
 
 /**
  * @brief Oren-Nayar diffuse BRDF.
