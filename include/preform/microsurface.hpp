@@ -2673,7 +2673,7 @@ public:
      *
      * If @f$ \imag{\eta} > 0 @f$, quit:
      * @f[
-     *      f_{s,\text{brdf}}(\omega_o \to \omega_i) = 0
+     *      f_{s}(\omega_o \to \omega_i) = 0
      * @f]
      *
      * If @f$ \omega_{i_z} > 0 @f$, calculate the BRDF:
