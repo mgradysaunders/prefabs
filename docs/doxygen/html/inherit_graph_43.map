@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structpr_1_1microsurface.html" title="Microsurface. " alt="" coords="5,39,145,80"/>
-<area shape="rect" id="node2" href="$structpr_1_1microsurface__dielectric__bsdf.html" title="Microsurface dielectric BSDF. " alt="" coords="193,5,377,47"/>
-<area shape="rect" id="node3" href="$structpr_1_1microsurface__diffuse__brdf.html" title="Microsurface diffuse BRDF. " alt="" coords="195,71,376,112"/>
+<area shape="rect" id="node1" href="$structpr_1_1microsurface.html" title="Microsurface. " alt="" coords="5,71,145,112"/>
+<area shape="rect" id="node2" href="$structpr_1_1microsurface__conductive__brdf.html" title="Microsurface conductive BRDF. " alt="" coords="193,5,380,47"/>
+<area shape="rect" id="node3" href="$structpr_1_1microsurface__dielectric__bsdf.html" title="Microsurface dielectric BSDF. " alt="" coords="195,71,379,112"/>
+<area shape="rect" id="node4" href="$structpr_1_1microsurface__diffuse__brdf.html" title="Microsurface diffuse BRDF. " alt="" coords="196,136,377,177"/>
 </map>
