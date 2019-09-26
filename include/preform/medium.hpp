@@ -280,6 +280,158 @@ private:
     multi<float_type, Nlobes> w_ = {};
 };
 
+/**
+ * @brief Homogeneous medium.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct homogeneous_medium
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    homogeneous_medium() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    homogeneous_medium(float_type mua, float_type mus) :
+            mua_(mua),
+            mus_(mus),
+            mu_(mua + mus)
+    {
+    }
+
+public:
+
+    /**
+     * @name Accessors
+     */
+    /**@{*/
+
+    /**
+     * @brief Absorption coefficient @f$ \mu_s @f$.
+     */
+    float_type mua() const
+    {
+        return mus_;
+    }
+
+    /**
+     * @brief Scattering coefficient @f$ \mu_s @f$.
+     */
+    float_type mus() const
+    {
+        return mus_;
+    }
+
+    /**
+     * @brief Extinction coefficient @f$ \mu = \mu_s + \mu_a @f$.
+     */
+    float_type mu() const
+    {
+        return mu_;
+    }
+
+    /**@}*/
+
+public:
+
+    /**
+     * @brief Transmittance.
+     *
+     * @f[
+     *      \tau(d) = 
+     *      \begin{cases}
+     *          e^{-\mu d}  & 0 \le d
+     *      \\  0           & \text{otherwise}
+     *      \end{cases}
+     * @f]
+     *
+     * @param[in] d
+     * Distance.
+     */
+    float_type tau(float_type d) const
+    {
+        if (!(d >= 0)) {
+            return 0;
+        }
+        else {
+            d = pr::fmin(d, pr::numeric_limits<float_type>::max());
+            return pr::exp(-mu_ * d);
+        }
+    }
+
+    /**
+     * @brief Transmittance probability density function.
+     *
+     * @f[
+     *      \tau_{\text{pdf}}(d) = 
+     *      \begin{cases}
+     *          \mu e^{-\mu d}  & 0 \le d
+     *      \\  0               & \text{otherwise}
+     *      \end{cases}
+     * @f]
+     */
+    float_type tau_pdf(float_type d) const
+    {
+        if (!(d >= 0)) {
+            return 0;
+        }
+        else {
+            d = pr::fmin(d, pr::numeric_limits<float_type>::max());
+            return mu_ * pr::exp(-mu_ * d);
+        }
+    }
+
+    /**
+     * @brief Transmittance probability density function sampling
+     * routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1) @f$.
+     */
+    float_type tau_pdf_sample(float_type u) const
+    {
+        float_type log_term =
+            u < float_type(0.5) ? pr::log1p(-u) :
+            pr::log(1 - u);
+
+        return -log_term / mu_;
+    }
+
+private:
+
+    /**
+     * @brief Absorption coefficient @f$ \mu_a @f$.
+     */
+    float_type mua_ = 0;
+
+    /**
+     * @brief Scattering coefficient @f$ \mu_s @f$.
+     */
+    float_type mus_ = 0;
+
+    /**
+     * @brief Extinction coefficient @f$ \mu = \mu_a + \mu_s @f$.
+     */
+    float_type mu_ = 0;
+};
+
 /**@}*/
 
 } // namespace pr
