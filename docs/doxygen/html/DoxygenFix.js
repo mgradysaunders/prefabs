@@ -9,7 +9,7 @@ $(document).ready(function() {
         text = text.replace(/([a-zA-Z0-9_:]+)[ ]+([,>])/g, "$1$2")
         $(this).text(text);
     });
-    $("td.memItemRight, td.memTemplItemRight").each(function() {
+    $("td.memItemLeft, td.memTemplItemLeft, td.memItemRight, td.memTemplItemRight").each(function() {
         var nodes = [];
         for (var index = 0; index < this.childNodes.length; index++) {
             var child = this.childNodes[index];
