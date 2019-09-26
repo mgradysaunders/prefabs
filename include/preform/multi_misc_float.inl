@@ -230,6 +230,44 @@ inline auto fasttrunc(
 }
 
 /**
+ * @brief Wrap `pr::sinpi()`.
+ */
+template <typename T, std::size_t... N>
+__attribute__((always_inline))
+inline auto sinpi(
+            const multi<T, N...>& x)
+{
+    multi<
+        std::decay_t<decltype(pr::sinpi(
+        std::declval<T>()))>, N...> res;
+    auto itrx = x.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrx, ++itrres) {
+        *itrres = pr::sinpi(*itrx);
+    }
+    return res;
+}
+
+/**
+ * @brief Wrap `pr::cospi()`.
+ */
+template <typename T, std::size_t... N>
+__attribute__((always_inline))
+inline auto cospi(
+            const multi<T, N...>& x)
+{
+    multi<
+        std::decay_t<decltype(pr::cospi(
+        std::declval<T>()))>, N...> res;
+    auto itrx = x.begin();
+    auto itrres = res.begin();
+    for (; itrres < res.end(); ++itrx, ++itrres) {
+        *itrres = pr::cospi(*itrx);
+    }
+    return res;
+}
+
+/**
  * @brief Wrap `pr::fstretch()`.
  */
 template <typename U, typename T, std::size_t... N>

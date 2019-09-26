@@ -10,7 +10,9 @@ funcs = [
 ['fastfloor',   [['T','x']]],
 ['fastceil',    [['T','x']]],
 ['fastround',   [['T','x']]],
-['fasttrunc',   [['T','x']]]
+['fasttrunc',   [['T','x']]],
+['sinpi',       [['T','x']]],
+['cospi',       [['T','x']]]
 ]
 
 puts <<STR

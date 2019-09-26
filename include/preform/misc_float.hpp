@@ -308,6 +308,98 @@ inline std::enable_if_t<
 }
 
 /**
+ * @brief Fast floor by int casting.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, int> fastfloor(T x)
+{
+    int i = int(x);
+    i = i - (T(i) > x);
+    return i;
+}
+
+/**
+ * @brief Fast ceil by int casting.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, int> fastceil(T x)
+{
+    int i = int(x);
+    i = i + (T(i) < x);
+    return i;
+}
+
+/**
+ * @brief Fast round by int casting.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, int> fastround(T x)
+{
+    return fastfloor(x + T(0.5));
+}
+
+/**
+ * @brief Fast trunc by int casting.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, int> fasttrunc(T x)
+{
+    return int(x);
+}
+
+/**
+ * @brief Multiply by @f$ \pi @f$, then take sine.
+ *
+ * @note
+ * Equivalent to @f$ \sin(\pi x) @f$. However, the implementation
+ * here exploits periodicity, using `remquo()` before multiplying 
+ * by @f$ \pi @f$ to be more accurate for large arguments.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> sinpi(T x)
+{
+    int quo;
+    T rem = pr::remquo(x, T(1), &quo);
+    T res = pr::sin(pr::numeric_constants<T>::M_pi() * rem);
+    if ((unsigned(quo) % 2)) {
+        res = -res;
+    }
+    return res;
+}
+
+/**
+ * @brief Multiply by @f$ \pi @f$, then take cosine.
+ *
+ * @note
+ * Equivalent to @f$ \cos(\pi x) @f$. However, the implementation
+ * here exploits periodicity, using `remquo()` before multiplying 
+ * by @f$ \pi @f$ to be more accurate for large arguments.
+ */
+template <typename T>
+__attribute__((always_inline))
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> cospi(T x)
+{
+    int quo;
+    T rem = pr::remquo(x, T(1), &quo);
+    T res = pr::cos(pr::numeric_constants<T>::M_pi() * rem);
+    if ((unsigned(quo) % 2)) {
+        res = -res;
+    }
+    return res;
+}
+
+/**
  * @brief Stretch floating point values to normalized integer values.
  */
 template <typename U, typename T>
@@ -365,54 +457,6 @@ inline std::enable_if_t<
         // Unreachable.
         return U();
     }
-}
-
-/**
- * @brief Fast floor by int casting.
- */
-template <typename T>
-__attribute__((always_inline))
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, int> fastfloor(T x)
-{
-    int i = int(x);
-    i = i - (T(i) > x);
-    return i;
-}
-
-/**
- * @brief Fast ceil by int casting.
- */
-template <typename T>
-__attribute__((always_inline))
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, int> fastceil(T x)
-{
-    int i = int(x);
-    i = i + (T(i) < x);
-    return i;
-}
-
-/**
- * @brief Fast round by int casting.
- */
-template <typename T>
-__attribute__((always_inline))
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, int> fastround(T x)
-{
-    return fastfloor(x + T(0.5));
-}
-
-/**
- * @brief Fast trunc by int casting.
- */
-template <typename T>
-__attribute__((always_inline))
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, int> fasttrunc(T x)
-{
-    return int(x);
 }
 
 /**@}*/
