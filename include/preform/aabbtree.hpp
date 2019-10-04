@@ -1181,18 +1181,18 @@ private:
  */
 template <
     typename Tfloat,
-    typename Tnode_alloc = std::allocator<char>
+    typename Talloc = std::allocator<char>
     >
-using linear_aabbtree2 = pr::linear_aabbtree<Tfloat, 2, Tnode_alloc>;
+using linear_aabbtree2 = pr::linear_aabbtree<Tfloat, 2, Talloc>;
 
 /**
  * @brief Template alias for convenience.
  */
 template <
     typename Tfloat,
-    typename Tnode_alloc = std::allocator<char>
+    typename Talloc = std::allocator<char>
     >
-using linear_aabbtree3 = pr::linear_aabbtree<Tfloat, 3, Tnode_alloc>;
+using linear_aabbtree3 = pr::linear_aabbtree<Tfloat, 3, Talloc>;
 
 /**@}*/
 
