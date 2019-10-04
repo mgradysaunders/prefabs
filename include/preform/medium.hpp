@@ -243,7 +243,7 @@ public:
         // Sample index.
         std::size_t k = 0;
         for (float_type wsum = 0; k < Nlobes; k++) {
-            if (u[0] < (wsum + w_[k])) {
+            if (u[0] < (wsum + w_[k]) || k == Nlobes - 1) {
                 // Stretch to [0, 1).
                 u[0] -= wsum;
                 u[0] /= w_[k];
