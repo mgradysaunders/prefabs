@@ -400,6 +400,96 @@ inline std::enable_if_t<
 }
 
 /**
+ * @brief Find minimum value of `sinpi` on interval.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> sinpi_min(T x1, T x2)
+{
+    if (!(x1 < x2)) {
+        std::swap(x1, x2);
+    }
+    int n1 = pr::fastfloor(2 * x1);
+    int n2 = pr::fastfloor(2 * x2);
+    if (n2 - n1 > 3) {
+        return -1;
+    }
+    else {
+        // 0 = min is -1
+        // 1 = min is sinpi(x1)
+        // 2 = min is sinpi(x2)
+        // 3 = min is either sinpi(x1) or sinpi(x2)
+        constexpr int lookup[4][4] = {
+            {1, 3, 2, 0},
+            {0, 2, 2, 0},
+            {0, 0, 2, 0},
+            {1, 1, 3, 1}
+        };
+        n1 &= 3;
+        n2 &= 3;
+        switch (lookup[n1][n2]) {
+            case 0:
+                return -1;
+            case 1:
+                return pr::sinpi(x1);
+            case 2:
+                return pr::sinpi(x2);
+            case 3:
+                return pr::min(pr::sinpi(x1), pr::sinpi(x2));
+            default:
+                break;
+        }
+        // Unreachable.
+        return 0;
+    }
+}
+
+/**
+ * @brief Find maximum value of `sinpi` on interval.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, T> sinpi_max(T x1, T x2)
+{
+    if (!(x1 < x2)) {
+        std::swap(x1, x2);
+    }
+    int n1 = pr::fastfloor(2 * x1);
+    int n2 = pr::fastfloor(2 * x2);
+    if (n2 - n1 > 3) {
+        return +1;
+    }
+    else {
+        // 0 = max is +1
+        // 1 = max is sinpi(x1)
+        // 2 = max is sinpi(x2)
+        // 3 = max is either sinpi(x1) or sinpi(x2)
+        constexpr int lookup[4][4] = {
+            {2, 0, 0, 0},
+            {3, 1, 1, 1},
+            {2, 0, 1, 3},
+            {2, 0, 0, 2}
+        };
+        n1 &= 3;
+        n2 &= 3;
+        switch (lookup[n1][n2]) {
+            case 0:
+                return +1;
+            case 1:
+                return pr::sinpi(x1);
+            case 2:
+                return pr::sinpi(x2);
+            case 3:
+                return pr::max(pr::sinpi(x1), pr::sinpi(x2));
+            default:
+                break;
+        }
+        // Unreachable.
+        return 0;
+    }
+}
+
+/**
  * @brief Stretch floating point values to normalized integer values.
  */
 template <typename U, typename T>
