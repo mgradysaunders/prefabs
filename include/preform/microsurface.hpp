@@ -963,7 +963,7 @@ template <
     template <typename> typename Tslope, 
     template <typename> typename Theight
     >
-struct microsurface_diffuse_brdf :
+struct microsurface_lambertian_brdf :
                     public microsurface<T, Tslope, Theight>
 {
 public:
@@ -976,13 +976,13 @@ public:
     /**
      * @brief Default constructor.
      */
-    microsurface_diffuse_brdf() = default;
+    microsurface_lambertian_brdf() = default;
 
     /**
      * @brief Constructor.
      */
     template <typename... Targs>
-    microsurface_diffuse_brdf(
+    microsurface_lambertian_brdf(
             float_type l0,
             Targs&&... args) :
                 microsurface<T, Tslope, Theight>::

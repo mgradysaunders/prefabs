@@ -18,19 +18,19 @@ typedef pr::vec2<Float> Vec2f;
 // 3-dimensional vector type.
 typedef pr::vec3<Float> Vec3f;
 
-// Diffuse with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_diffuse_brdf<
+// Lambertian with Trowbridge-Reitz slope distribution.
+typedef pr::microsurface_lambertian_brdf<
         Float,
         pr::microsurface_trowbridge_reitz_slope,
         pr::microsurface_uniform_height>
-            DiffuseTrowbridgeReitz;
+            LambertianTrowbridgeReitz;
 
-// Diffuse with Beckmann slope distribution.
-typedef pr::microsurface_diffuse_brdf<
+// Lambertian with Beckmann slope distribution.
+typedef pr::microsurface_lambertian_brdf<
         Float,
         pr::microsurface_beckmann_slope,
         pr::microsurface_uniform_height>
-            DiffuseBeckmann;
+            LambertianBeckmann;
 
 // Dielectric with Trowbridge-Reitz slope distribution.
 typedef pr::microsurface_dielectric_bsdf<
@@ -180,11 +180,11 @@ int main(int argc, char** argv)
 
     // Test full-sphere scattering.
     testFullSphere(
-        "DiffuseTrowbridgeReitz",
-         DiffuseTrowbridgeReitz(1, alpha));
+        "LambertianTrowbridgeReitz",
+         LambertianTrowbridgeReitz(1, alpha));
     testFullSphere(
-        "DiffuseBeckmann",
-         DiffuseBeckmann(1, alpha));
+        "LambertianBeckmann",
+         LambertianBeckmann(1, alpha));
     testFullSphere(
         "DielectricTrowbridgeReitz",
          DielectricTrowbridgeReitz(1, 1, eta0 / eta1, alpha));
