@@ -231,16 +231,16 @@ public:
 
         while (argc > 0) {
 
-            // look for '=', if present, truncate *argv
+            // Look for '=', if present, truncate *argv.
             char* eq = nullptr;
             if ((eq = std::strchr(*argv, '='))) {
                 *eq = '\0';
             }
 
-            // is option string?
+            // Is option string?
             if (isoptstr(*argv)) {
 
-                // process
+                // Process.
                 bool opt_okay = false;
                 for (option& opt : itropt_group->opts) {
                     const char* name_abbrv = opt.name_abbrv;
@@ -249,16 +249,16 @@ public:
                         (name && !std::strcmp(name, *argv))) {
 
                         if (eq) {
-                            // shift
+                            // Shift.
                             *argv = eq + 1;
                         }
                         else {
-                            // consume
+                            // Consume.
                             --argc;
                             ++argv;
                         }
 
-                        // not enough args?
+                        // Not enough args?
                         if (argc < opt.argc ||
                                  (!opt.argc && eq)) { // or no args and eq?
                             std::stringstream ss;
@@ -271,18 +271,18 @@ public:
                             throw std::runtime_error(ss.str());
                         }
 
-                        // delegate
+                        // Delegate.
                         opt.on_option(argv);
                         opt_okay = true;
 
-                        // consume
+                        // Consume.
                         argc -= opt.argc;
                         argv += opt.argc;
                         break;
                     }
                 }
 
-                // unknown option?
+                // Unknown option?
                 if (!opt_okay) {
                     std::stringstream ss;
                     if (itropt_group->name) {
@@ -294,17 +294,17 @@ public:
                 }
             }
             else {
-                // undo truncate
+                // Undo truncate.
                 if (eq) {
                     *eq = '=';
                 }
 
-                // find group?
+                // Find group?
                 bool itrfound = false;
                 for (auto itr = opt_groups_.begin();
                           itr != opt_groups_.end(); ++itr) {
                     if (itr->name && !std::strcmp(itr->name, *argv)) {
-                        // end
+                        // End.
                         if (itropt_group->on_end) {
                             itropt_group->on_end();
                         }
@@ -312,7 +312,7 @@ public:
                         itrfound = true;
                         itropt_group = itr;
 
-                        // begin
+                        // Begin.
                         if (itropt_group->on_begin) {
                             itropt_group->on_begin();
                         }
@@ -322,7 +322,7 @@ public:
 
                 if (!itrfound) {
 
-                    // positional
+                    // Positional.
                     if (itropt_group->on_positional) {
                         itropt_group->on_positional(*argv);
                     }
@@ -338,13 +338,13 @@ public:
                     }
                 }
 
-                // consume
+                // Consume.
                 --argc;
                 ++argv;
             }
         }
 
-        // end
+        // End.
         if (itropt_group->on_end) {
             itropt_group->on_end();
         }
@@ -395,7 +395,7 @@ private:
      */
     static bool isoptstr(const char* s)
     {
-        // [-]+
+        // --?
         if (!s ||
             *s != '-') {
             return false;
@@ -411,7 +411,7 @@ private:
         }
         ++s;
 
-        // (?:-?[a-zA-Z0-9]+)
+        // (?:-?[a-zA-Z0-9]+)*
         for (const char* t = s; true;
                          s = t) {
             // -?
