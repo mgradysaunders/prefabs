@@ -132,26 +132,26 @@ public:
                 std::forward<Args>(args)...))>
 #endif // #if !DOXYGEN
     {
-        // bind arguments
+        // Bind arguments.
         auto bind =
                 std::bind(
                 std::forward<Func>(func),
                 std::forward<Args>(args)...);
 
-        // allocate packaged task
+        // Allocate packaged task.
         auto bind_ptr =
                 std::make_shared<
                 std::packaged_task<decltype(bind())()>>(bind);
 
-        // push
+        // Push.
         queue_.push([bind_ptr]() -> void {
             (*bind_ptr)();
         });
 
-        // notify one waiting thread
+        // Notify one waiting thread.
         cv_.notify_one();
 
-        // return future
+        // Return future.
         return bind_ptr->get_future();
     }
 
@@ -203,10 +203,10 @@ private:
          */
         bool empty()
         {
-            // lock
+            // Lock.
             std::unique_lock<std::mutex> lock(mutex_);
 
-            // delegate
+            // Delegate.
             return queue_.empty();
         }
 
@@ -215,10 +215,10 @@ private:
          */
         std::size_t size()
         {
-            // lock
+            // Lock.
             std::unique_lock<std::mutex> lock(mutex_);
 
-            // delegate
+            // Delegate.
             return queue_.size();
         }
 
@@ -230,10 +230,10 @@ private:
          */
         void push(const task_func& task)
         {
-            // lock
+            // Lock.
             std::unique_lock<std::mutex> lock(mutex_);
 
-            // delegate
+            // Delegate.
             queue_.push(task);
         }
 
@@ -245,14 +245,14 @@ private:
          */
         bool pop(task_func& task)
         {
-            // lock
+            // Lock.
             std::unique_lock<std::mutex> lock(mutex_);
 
             if (queue_.empty()) {
                 return false;
             }
             else {
-                // delegate
+                // Delegate.
                 task = std::move(queue_.front());
                 queue_.pop();
                 return true;
@@ -302,7 +302,7 @@ private:
                     std::unique_lock<std::mutex> lock(pool_.cv_mutex_);
                     if (pool_.queue_.empty()) {
                         pool_.cv_.wait_for(lock,
-                            std::chrono::milliseconds(50)); // avoid hanging
+                            std::chrono::milliseconds(50)); // Avoid hanging.
                     }
                     pop_okay = pool_.queue_.pop(task);
                 }
