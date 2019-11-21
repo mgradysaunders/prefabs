@@ -74,6 +74,15 @@ typedef pr::oren_nayar_diffuse_brdf<Float>
 typedef pr::disney_diffuse_brdf<Float>
             DisneyDiffuse;
 
+enum {
+    MICROSURFACE_LAMBERTIAN_TROWBRIDGE_REITZ,
+    MICROSURFACE_LAMBERTIAN_BECKMANN,
+    MICROSURFACE_DIELECTRIC_TROWBRIDGE_REITZ,
+    MICROSURFACE_DIELECTRIC_BECKMANN,
+    OREN_NAYAR_DIFFUSE,
+    DISNEY_DIFFUSE
+};
+
 // Permuted congruential generator.
 pr::pcg32 pcg;
 
@@ -90,6 +99,90 @@ Vec2f generateCanonical2()
         pr::generate_canonical<Float>(pcg),
         pr::generate_canonical<Float>(pcg)
     };
+}
+
+Float brdf(
+        int mode, 
+        Float roughness,
+        Vec3f wo, 
+        Vec3f wi)
+{
+    if (pr::signbit(wo[2]) != 
+        pr::signbit(wi[2])) {
+        return 0;
+    }
+    Float res = 0;
+    switch (mode) {
+
+        case MICROSURFACE_LAMBERTIAN_TROWBRIDGE_REITZ: {
+            MicrosurfaceLambertianTrowbridgeReitz surf = {
+                Float(0.8), 
+                Vec2f{roughness,
+                      roughness}
+            };
+            for (int itr = 0; 
+                     itr < 32; itr++) {
+                res += surf.fm(generateCanonical, wo, wi) * Float(1 / 32.0); 
+            }
+            break;
+        }
+
+        case MICROSURFACE_LAMBERTIAN_BECKMANN: {
+            MicrosurfaceLambertianBeckmann surf = {
+                Float(0.8), 
+                Vec2f{roughness,
+                      roughness}
+            };
+            for (int itr = 0; 
+                     itr < 32; itr++) {
+                res += surf.fm(generateCanonical, wo, wi) * Float(1 / 32.0);
+            }
+            break;
+        }
+
+        case MICROSURFACE_DIELECTRIC_TROWBRIDGE_REITZ: {
+            MicrosurfaceDielectricTrowbridgeReitz surf = {
+                Float(1.0),
+                Float(0.0),
+                Float(1.0) / Float(1.4),
+                Vec2f{roughness,
+                      roughness}
+            };
+            res = surf.fm(generateCanonical, wo, wi, 0, 32);
+            break;
+        }
+
+        case MICROSURFACE_DIELECTRIC_BECKMANN: {
+            MicrosurfaceDielectricBeckmann surf = {
+                Float(1.0),
+                Float(0.0),
+                Float(1.0) / Float(1.4),
+                Vec2f{roughness,
+                      roughness}
+            };
+            res = surf.fm(generateCanonical, wo, wi, 0, 32);
+            break;
+        }
+
+        case OREN_NAYAR_DIFFUSE: {
+            OrenNayarDiffuse surf = {
+                Float(0.349066) * roughness // 20 degrees
+            };
+            res = Float(0.8) * surf.fs(wo, wi);
+            break;
+        }
+
+        default:
+        case DISNEY_DIFFUSE: {
+            DisneyDiffuse surf = {
+                roughness
+            };
+            res = Float(0.8) * surf.fs(wo, wi);
+            break;
+        }
+    }
+
+    return res;
 }
 
 struct Ray
@@ -149,6 +242,8 @@ int main(int argc, char** argv)
 {
     // Configurable options.
     int seed = 0;
+    int mode = MICROSURFACE_LAMBERTIAN_TROWBRIDGE_REITZ;
+    Float roughness = 0.2;
     Vec2i image_dim = {512, 512};
     Vec2f image_filter_rad = {1, 1};
     std::string ofs_name = "sphere.pgm";
@@ -172,6 +267,82 @@ int main(int argc, char** argv)
         }
     })
     << "Specify seed. By default, 0.\n";
+
+    // Specify mode.
+    opt_parser.on_option(
+    "-m", "--mode", 1,
+    [&](char** argv) {
+        try {
+            if (!std::strcmp(argv[0], 
+                "MicrosurfaceLambertianTrowbridgeReitz")) {
+                mode = MICROSURFACE_LAMBERTIAN_TROWBRIDGE_REITZ;
+            }
+            else
+            if (!std::strcmp(argv[0], 
+                "MicrosurfaceLambertianBeckmann")) {
+                mode = MICROSURFACE_LAMBERTIAN_BECKMANN;
+            }
+            else
+            if (!std::strcmp(argv[0], 
+                "MicrosurfaceDielectricTrowbridgeReitz")) {
+                mode = MICROSURFACE_DIELECTRIC_TROWBRIDGE_REITZ;
+            }
+            else
+            if (!std::strcmp(argv[0], 
+                "MicrosurfaceDielectricBeckmann")) {
+                mode = MICROSURFACE_DIELECTRIC_BECKMANN;
+            }
+            else
+            if (!std::strcmp(argv[0],
+                "OrenNayarDiffuse")) {
+                mode = OREN_NAYAR_DIFFUSE;
+            }
+            else
+            if (!std::strcmp(argv[0],
+                "DisneyDiffuse")) {
+                mode = DISNEY_DIFFUSE;
+            }
+            else {
+                throw std::exception(); // Trigger catch block.
+            }
+        }
+        catch (const std::exception&) {
+            throw
+                std::runtime_error(
+                std::string("-m/--mode expects 1 keyword ")
+                    .append("(can't parse ").append(argv[0])
+                    .append(")"));
+        }
+    })
+    << "Specify mode. By default, MicrosurfaceLambertianTrowbridgeReitz.\n"
+    << "Allowed modes:\n"
+    << "  MicrosurfaceLambertianTrowbridgeReitz\n"
+    << "  MicrosurfaceLambertianBeckmann\n"
+    << "  MicrosurfaceDielectricTrowbridgeReitz\n"
+    << "  MicrosurfaceDielectricBeckmann\n"
+    << "  OrenNayarDiffuse\n"
+    << "  DisneyDiffuse\n";
+
+    // Specify roughness.
+    opt_parser.on_option(
+    "-r", "--roughness", 1,
+    [&](char** argv) {
+        try {
+            roughness = std::stod(argv[0]);
+            if (!(roughness >= 0 && 
+                  roughness <= 1)) {
+                throw std::exception(); // Trigger catch block.
+            }
+        }
+        catch (const std::exception&) {
+            throw
+                std::runtime_error(
+                std::string("-r/--roughness expects 1 float in [0, 1] ")
+                    .append("(can't parse ").append(argv[0])
+                    .append(")"));
+        }
+    })
+    << "Specify roughness. By default, 0.2.\n";
 
     // Specify image dimensions.
     opt_parser.on_option(
@@ -280,8 +451,8 @@ int main(int argc, char** argv)
                 Vec3f wi0 = pr::dot(pr::transpose(tbn), l0);
                 Vec3f wi1 = pr::dot(pr::transpose(tbn), l1);
                 Vec1f f = {
-                    DisneyDiffuse(1.0).fs(wo, wi0) + 
-                    DisneyDiffuse(1.0).fs(wo, wi1)
+                    brdf(mode, roughness, wo, wi0) +
+                    brdf(mode, roughness, wo, wi1)
                 };
                 image.reconstruct(
                         f / 9,
