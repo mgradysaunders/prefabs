@@ -29,20 +29,18 @@ more information.
 
 ### Quickstart
 
-To get started with preform, clone the 
-repository and build and run the tests and examples. To do so successfully, 
-you'll need `git`, `rake`, and `clang++` version 5 or newer to be available
-on the command line.
-
+Although preform is a header-only library, the repository includes some
+example and test programs 1) to demonstrate how things work and 2) to verify
+that things are working correctly. So, to get started with preform, use `git` 
+to clone the repository and `cmake` to build the examples and tests.
 ```
 $ git clone https://github.com/mgradysaunders/preform
 $ cd preform
-$ rake build:test
-$ rake build:example
+$ mkdir bin && cd bin
+$ cmake ..
+$ cmake --build .
 ```
-
-The `Rakefile` uses `clang++` to compile by default because clang
-typically follows the C++ standard more strictly, and is thus useful for
-catching bugs and/or questionable metaprogramming techniques. You may edit 
-the `Rakefile` to replace `clang++` with `g++` if you cannot (or would rather 
-not) install a sufficiently recent version of `clang++`.
+This builds examples to `preform/bin/example/` and tests to 
+`preform/bin/test/`. Note that most of these programs use 
+`pr::option_parser` to parse command-line arguments, and print usage
+information and option descriptions if run with `-h` or `--help`.
