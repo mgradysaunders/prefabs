@@ -367,6 +367,18 @@ struct terminal_progress_bar
 public:
 
     /**
+     * @brief Default constructor.
+     */
+    terminal_progress_bar() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    terminal_progress_bar(double amount) : amount(amount)
+    {
+    }
+
+    /**
      * @brief Amount complete, between 0 and 1.
      */
     double amount = 0.0;
