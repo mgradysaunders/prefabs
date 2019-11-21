@@ -1217,7 +1217,6 @@ public:
         return f;
     }
 
-
     /**
      * @brief Multiple-scattering BRDF probability density function.
      *
@@ -2837,6 +2836,12 @@ public:
         }
         return wi;
     }
+
+    // TODO fm
+
+    // TODO fm_pdf
+
+    // TODO fm_pdf_sample
 
 private:
 
