@@ -42,5 +42,5 @@ $ cmake --build .
 ```
 This builds examples to `preform/bin/example/` and tests to 
 `preform/bin/test/`. Note that most of these programs use 
-`pr::option_parser` to parse command-line arguments, and print usage
+`pr::option_parser` to parse command-line arguments and print usage
 information and option descriptions if run with `-h` or `--help`.
