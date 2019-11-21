@@ -54,6 +54,7 @@ def yes? str, ans
     return ans == "y"
 end
 
+=begin
 # Get source filename from object filename.
 def get_srcfname_from_objfname objfname
     FILES.cpp.detect do |srcfname|
@@ -95,6 +96,7 @@ def get_srcfnames_from_objfname objfname
     [get_srcfname_from_objfname(objfname),
         *get_incfnames_from_objfname(objfname)]
 end
+=end
 
 # Get include guard from include filename.
 def get_incguard_from_incfname incfname
@@ -119,6 +121,7 @@ task :default do
     # nothing
 end
 
+=begin
 # Install.
 desc "Install files to #{DIR.install}."
 task :install do
@@ -131,6 +134,8 @@ desc "Uninstall files from #{DIR.install}."
 task :uninstall do
     sh "rm -r -f #{File.join(DIR.install_include, PROJECT)}"
 end
+=end
+
 
 # Doxygen.
 namespace :doxygen do
@@ -221,6 +226,7 @@ HPP
         end
     end
 
+    # Clean whitespace.
     desc "Clean whitespace."
     task :clean_whitespace do
         for fname in find_fnames(/\.(?:hpp|cpp)/i)
@@ -296,6 +302,7 @@ HPP
     end
 end
 
+=begin
 # Compiler variables.
 CC = OpenStruct.new
 CC.cc = "clang++"
@@ -347,3 +354,4 @@ desc "Clean. (remove bin/)."
 task :clean do 
     sh "rm -r -f bin"
 end
+=end

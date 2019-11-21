@@ -1,0 +1,3 @@
+# Add subdirectories.
+add_subdirectory(example)
+add_subdirectory(test)
