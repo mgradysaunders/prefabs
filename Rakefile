@@ -9,9 +9,6 @@ DIR = OpenStruct.new
 DIR.include = "include"
 DIR.src = "src"
 DIR.bin = "bin"
-DIR.build = "bin/build"
-DIR.install = "/usr/local"
-DIR.install_include = File.join(DIR.install, "include")
 
 # TODO Use FileList more effectively?
 def find_fnames pattern
@@ -33,13 +30,6 @@ GLOBS.all_cpp = [GLOBS.src_cpp]
 GLOBS.all = [*GLOBS.all_hpp, 
              *GLOBS.all_cpp]
 
-# Relevant files.
-FILES = OpenStruct.new
-FILES.hpp = Rake::FileList.new(*GLOBS.all_hpp)
-FILES.cpp = Rake::FileList.new(*GLOBS.all_cpp)
-FILES.o = FILES.cpp.pathmap "%{^#{DIR.src},#{DIR.build}}X.o"
-FILES.o_debug = FILES.o.pathmap "%X-debug.o"
-
 # Prompt yes/no question.
 def yes? str, ans
     ans = ans.downcase[0]
@@ -53,50 +43,6 @@ def yes? str, ans
     ans = res unless res == nil
     return ans == "y"
 end
-
-=begin
-# Get source filename from object filename.
-def get_srcfname_from_objfname objfname
-    FILES.cpp.detect do |srcfname|
-        srcfname.ext("") ==
-        objfname.pathmap("%{^#{DIR.build},#{DIR.src}}X")
-                .sub(/-debug$/, "")
-    end
-end
-
-# Get all include filenames from source filename.
-def get_incfnames_from_srcfname srcfname
-    reg = /^[ \t]*#include[ \t]*(<[^>]+>|"[^"]+")[ \t]*$/
-    arr = []
-    dir1 = DIR.include
-    dir2 = DIR.src
-    File.read(srcfname).each_line do |line|
-        if match = line.match(reg)
-            if File.exist?(incfname1 = File.join(dir1, match[1][1..-2]))
-                arr.push incfname1
-                arr.push *get_incfnames_from_srcfname(incfname1)
-                next # Include directory takes precedent.
-            end
-            if File.exist?(incfname2 = File.join(dir2, match[1][1..-2]))
-                arr.push incfname2
-                arr.push *get_incfnames_from_srcfname(incfname2)
-            end
-        end
-    end
-    arr.uniq
-end
-
-# Get all include filenames from object filename.
-def get_incfnames_from_objfname objfname
-    get_incfnames_from_srcfname get_srcfname_from_objfname(objfname)
-end
-
-# Get all source filenames from object filename.
-def get_srcfnames_from_objfname objfname
-    [get_srcfname_from_objfname(objfname),
-        *get_incfnames_from_objfname(objfname)]
-end
-=end
 
 # Get include guard from include filename.
 def get_incguard_from_incfname incfname
@@ -120,22 +66,6 @@ desc "Default task."
 task :default do
     # nothing
 end
-
-=begin
-# Install.
-desc "Install files to #{DIR.install}."
-task :install do
-    sh "mkdir -p #{DIR.install_include}"
-    sh "cp -r #{File.join(DIR.include, PROJECT)} #{DIR.install_include}"
-end
-
-# Uninstall.
-desc "Uninstall files from #{DIR.install}."
-task :uninstall do
-    sh "rm -r -f #{File.join(DIR.install_include, PROJECT)}"
-end
-=end
-
 
 # Doxygen.
 namespace :doxygen do
@@ -301,57 +231,3 @@ HPP
         puts "Project has #{lines_total} lines in total."
     end
 end
-
-=begin
-# Compiler variables.
-CC = OpenStruct.new
-CC.cc = "clang++"
-CC.ccflags = []
-CC.ccflags << "-std=c++17"
-CC.ccflags << "-Iinclude"
-CC.ccflags << "-Wall"
-CC.ccflags << "-Wextra"
-CC.ccflags << "-march=native"
-CC.ccflags << "-mtune=native"
-CC.ccflags << "-O2"
-CC.ccflags << "-DNDEBUG"
-CC.ccflags << "-pthread"
-CC.ccflags = CC.ccflags.join " " # To string.
-
-# File rules.
-SRC_FNAMES = Rake::FileList["src/**/*.cpp"] 
-BIN_FNAMES = SRC_FNAMES.pathmap("%{^src,bin}X")
-BIN_FNAMES_DIR = BIN_FNAMES
-BIN_FNAMES.size.times do |n|
-    src_fname = SRC_FNAMES[n]
-    bin_fname = BIN_FNAMES[n]
-    file bin_fname => src_fname do
-        sh "mkdir -p #{bin_fname.pathmap "%d"}"
-        sh "#{CC.cc} #{CC.ccflags} #{src_fname} -o #{bin_fname}"
-    end
-end
-
-namespace :build do
-
-    # Build examples.
-    desc "Build examples."
-    task :example => 
-    Rake::FileList["src/example/*.cpp"].pathmap("%{^src,bin}X") do
-        # nothing
-    end
-
-    # Build tests.
-    desc "Build tests."
-    task :test =>
-    Rake::FileList["src/test/*.cpp"].pathmap("%{^src,bin}X") do
-        # nothing
-    end
-
-end # namespace :build
-
-# Clean.
-desc "Clean. (remove bin/)."
-task :clean do 
-    sh "rm -r -f bin"
-end
-=end
