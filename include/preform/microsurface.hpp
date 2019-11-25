@@ -945,7 +945,7 @@ private:
 };
 
 /**
- * @brief Microsurface diffuse BRDF.
+ * @brief Microsurface Lambertian BRDF.
  *
  * @tparam T
  * Float type.
