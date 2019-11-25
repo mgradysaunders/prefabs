@@ -2432,6 +2432,7 @@ private:
                 wm = -wm;
             }
 
+            // TODO return 0 if hemispherical conflict?
             // Fresnel coefficents.
             float_type cos_thetao = dot(wo, wm);
             float_type cos_thetat;
