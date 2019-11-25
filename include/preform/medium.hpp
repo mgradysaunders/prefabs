@@ -280,6 +280,10 @@ private:
     multi<float_type, Nlobes> w_ = {};
 };
 
+// TODO halfspace_phase_brdf
+
+// TODO halfspace_isotropic_phase_brdf
+
 /**
  * @brief Homogeneous medium.
  *
