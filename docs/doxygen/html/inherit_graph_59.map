@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structpr_1_1numeric__constants_3_01____float128_01_4.html" title="Specialize __float128. " alt="" coords="5,5,156,47"/>
-<area shape="rect" id="node2" href="$structpr_1_1numeric__constants_3_01____complex128_01_4.html" title="Specialize __complex128. " alt="" coords="204,5,355,47"/>
+<area shape="rect" id="node1" href="$structpr_1_1multi__initializers.html" title="pr::multi_initializers\l\&lt; multi\&lt; T, M, N... \&gt; \&gt;" alt="" coords="5,5,160,47"/>
+<area shape="rect" id="node2" href="$structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html" title="Multi&#45;dimensional array. " alt="" coords="208,13,359,39"/>
 </map>
