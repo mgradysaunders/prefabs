@@ -350,7 +350,9 @@ public:
         // Compute point centroid.
         point_type point_centroid = {};
         for (const point_type& point : points_) {
-            point_centroid += point;
+            if (pr::isfinite(point).all()) {
+                point_centroid += point;
+            }
         }
         point_centroid /= 
         float_type(points_.size());
