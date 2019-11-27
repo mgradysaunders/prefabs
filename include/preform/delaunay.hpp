@@ -36,12 +36,14 @@
 #define PREFORM_DELAUNAY_HPP
 
 #include <cassert>
+#include <memory>
 #include <vector>
 #include <map>
 #include <set>
 #include <preform/float_interval.hpp>
 #include <preform/memory_arena.hpp>
 #include <preform/memory_arena_allocator.hpp>
+#include <preform/iterator_range.hpp>
 #include <preform/multi.hpp>
 #include <preform/multi_math.hpp>
 
@@ -60,31 +62,34 @@ namespace pr {
 /**
  * @brief Delaunay triangulation (2-dimensional).
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  *
  * @tparam Talloc
  * Allocator type.
  */
-template <typename T, typename Talloc = std::allocator<char>>
+template <
+    typename Tfloat, 
+    typename Talloc = std::allocator<char>
+    >
 class delaunay_triangulation
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Float interval type.
      */
-    typedef float_interval<T> float_interval_type;
+    typedef float_interval<Tfloat> float_interval_type;
 
     /**
      * @brief Size type.
@@ -106,27 +111,83 @@ public:
      */
     static constexpr index_type bad_index = -1;
 
-    // TODO doc
+public:
+
+    /**
+     * @brief Point type.
+     */
+    typedef multi<Tfloat, 2> point_type;
+
+    /**
+     * @brief Triangle type.
+     *
+     * This represents a triangle formed by three points as a tuple
+     * of indices @f$ (a, b, c) @f$.
+     */
+    class triangle_type
+    {
+    public:
+
+        /**
+         * @brief Index of point @f$ a @f$.
+         */
+        index_type a = bad_index;
+
+        /**
+         * @brief Index of point @f$ b @f$.
+         */
+        index_type b = bad_index;
+
+        /**
+         * @brief Index of point @f$ c @f$.
+         */
+        index_type c = bad_index;
+
+        /**
+         * @brief Access operator.
+         */
+        index_type operator[](size_type k) const
+        {
+            if constexpr (sizeof(*this) == 3 * sizeof(index_type)) {
+                return (&a)[k];
+            }
+            else {
+                return k == 0 ? a : 
+                       k == 1 ? b : c;
+            }
+        }
+    };
+
     /**
      * @brief Edge type.
+     *
+     * This represents an edge between two points as a pair of
+     * indices @f$ (a, b) @f$. For the purposes of comparison, the
+     * pair is unordered. This means that @f$ (a, b) @f$ and @f$ (b, a) @f$
+     * identfy the same edge. However, the order is relevant in determining 
+     * whether a border edge is visible to a point, and so it is
+     * preserved.
      */
     class edge_type
     {
     public:
 
         /**
-         * @brief Index of point @f$ A @f$.
+         * @brief Index of point @f$ a @f$.
          */
         index_type a = bad_index;
 
         /**
-         * @brief Index of point @f$ B @f$.
+         * @brief Index of point @f$ b @f$.
          */
         index_type b = bad_index;
 
-        // TODO doc
         /**
          * @brief Compare less-than.
+         *
+         * After sorting the indices of each edge, compare less-than 
+         * lexicographically. This ensures that each pair @f$ (a, b) @f$
+         * behaves identically to @f$ (b, a) @f$.
          */
         __attribute__((always_inline))
         bool operator<(const edge_type& other) const
@@ -136,9 +197,12 @@ public:
             return a0 < a1 || (a0 == a1 && b0 < b1);
         }
 
-        // TODO doc
         /**
          * @brief Compare equal.
+         *
+         * After sorting the indices of each edge, compare equal. 
+         * lexicographically. This ensures that each pair @f$ (a, b) @f$
+         * behaves identically to @f$ (b, a) @f$.
          */
         __attribute__((always_inline))
         bool operator==(const edge_type& other) const
@@ -149,7 +213,7 @@ public:
         }
 
         /**
-         * @brief Reverse orientation.
+         * @brief Reverse ordering @f$ (a, b) \to (b, a) @f$.
          */
         edge_type reverse() const
         {
@@ -157,42 +221,12 @@ public:
         }
     };
 
-    /**
-     * @brief Triangle type.
-     */
-    class triangle_type
-    {
-    public:
-
-        /**
-         * @brief Index of point @f$ A @f$.
-         */
-        index_type a = bad_index;
-
-        /**
-         * @brief Index of point @f$ B @f$.
-         */
-        index_type b = bad_index;
-
-        /**
-         * @brief Index of point @f$ C @f$.
-         */
-        index_type c = bad_index;
-
-        /**
-         * @brief Access operator.
-         */
-        index_type operator[](size_type k) const
-        {
-            // TODO test sizeof structure
-            return (&a)[k];
-        }
-    };
+private:
 
     /**
      * @brief Edge triangle pair type.
      */
-    class edge_triangle_pair_type
+    class edge_triangles_type
     {
     public:
 
@@ -208,6 +242,10 @@ public:
 
         /**
          * @brief Is full?
+         *
+         * @note
+         * A triangle pair is full once both indices have been
+         * assigned.
          */
         bool is_full() const
         {
@@ -256,150 +294,261 @@ public:
         }
     };
 
-    // TODO allocator types
+public:
+
+    /**
+     * @brief Default constructor.
+     */
+    delaunay_triangulation() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @param[in] alloc
+     * Allocator.
+     */
+    delaunay_triangulation(const Talloc& alloc) :
+            points_(alloc),
+            triangles_(alloc),
+            edge_triangles_(alloc),
+            boundary_edges_(alloc)
+    {
+    }
+
+    /**
+     * @brief Non-copyable.
+     */
+    delaunay_triangulation(const delaunay_triangulation&) = delete;
 
 public:
 
-    // TODO constructors
-
-    // TODO doc
+    /**
+     * @brief Initialize.
+     *
+     * @param[in] from
+     * Iterator range from.
+     *
+     * @param[in] to
+     * Iterator range to.
+     *
+     * @tparam Tinput_itr
+     * Input iterator whose value type is suitable to 
+     * initialize `point_type`.
+     */
     template <typename Tinput_itr>
     void init(
             Tinput_itr from,
             Tinput_itr to)
     {
-        // TODO clean-up this mess
-
         // Initialize points.
         points_.insert(
         points_.begin(), from, to);
-
-        // Compute point center.
-        multi<float_type, 2> point_center;
-        for (const multi<float_type, 2>& point : points_) {
-            point_center += point;
+        if (points_.empty()) {
+            return;
         }
-        point_center /= 
+
+        // Compute point centroid.
+        point_type point_centroid = {};
+        for (const point_type& point : points_) {
+            point_centroid += point;
+        }
+        point_centroid /= 
         float_type(points_.size());
 
-        // Compute square distances to center.
-        std::vector<std::pair<float_type, index_type>> point_dists;
-        point_dists.reserve(points_.size());
-        for (const multi<float_type, 2>& point : points_) {
-            point_dists.push_back({
-                    dot(point - point_center,
-                        point - point_center),
+        // Compute point square distances to point centroid.
+        std::vector<std::pair<float_type, index_type>> 
+        point_distances;
+        point_distances.reserve(points_.size());
+        for (const point_type& point : points_) {
+            point_distances.push_back({
+                    dot(point - point_centroid,
+                        point - point_centroid),
                     index_type(&point - &points_[0])
                 });
         }
 
-        // Sort.
+        // Sort by square distance.
         std::sort(
-                point_dists.begin(),
-                point_dists.end());
+                point_distances.begin(),
+                point_distances.end());
 
-        // Erase points until first 3 form a valid triangle.
-        while (point_dists.size() > 2) {
-            if (compute_area(
-                        point_dists[0].second, 
-                        point_dists[1].second,
-                        point_dists[2].second).contains(0)) {
-                // TODO track discarded points?
-                point_dists.erase(point_dists.begin());
+        // Initial triangle.
+        triangle_type initial_triangle;
+
+        // Initial triangle area.
+        float_interval_type initial_triangle_area;
+
+        // Form initial triangle from points nearest to centroid.
+        while (point_distances.size() > 2) {
+            initial_triangle = triangle_type{
+                point_distances[0].second,
+                point_distances[1].second,
+                point_distances[2].second
+            };
+            initial_triangle_area = 
+            signed_area<float_interval_type>(
+                        initial_triangle.a,
+                        initial_triangle.b,
+                        initial_triangle.c);
+
+            // Is degenerate?
+            if (!(initial_triangle_area.upper_bound() < 0 ||
+                  initial_triangle_area.lower_bound() > 0)) {
+
+                // Erase first point, try again.
+                point_distances.erase(
+                point_distances.begin());
             }
             else {
                 break;
             }
         }
 
-        if (point_dists.size() < 3) {
-            // TODO error
+        // Failed to form initial triangle?
+        if (point_distances.size() < 3) {
+            throw std::runtime_error(__PRETTY_FUNCTION__);
         }
 
-        triangle_type triangle = {
-            point_dists[0].second,
-            point_dists[1].second,
-            point_dists[2].second
+        // Initial triangle area negative?
+        if (initial_triangle_area.upper_bound() < 0) {
+            // Make counter-clockwise.
+            std::swap(
+                    initial_triangle.b, 
+                    initial_triangle.c);
+        }
+
+        // Add initial triangle.
+        triangles_.reserve(points_.size());
+        triangles_.push_back(initial_triangle);
+
+        // Initial edges.
+        edge_type initial_edges[3] = {
+            {initial_triangle.a, initial_triangle.b},
+            {initial_triangle.b, initial_triangle.c},
+            {initial_triangle.c, initial_triangle.a}
         };
 
-        if (compute_area(
-                    triangle.a, 
-                    triangle.b, 
-                    triangle.c).upper_bound() < 0) {
-            std::swap(
-                    triangle.b, 
-                    triangle.c);
+        // Map initial edges to initial triangle.
+        edge_triangles_[initial_edges[0]].push(0);
+        edge_triangles_[initial_edges[1]].push(0);
+        edge_triangles_[initial_edges[2]].push(0);
+            
+        // Insert initial edges to boundary edge set.
+        boundary_edges_.insert(initial_edges[0]);
+        boundary_edges_.insert(initial_edges[1]);
+        boundary_edges_.insert(initial_edges[2]);
+
+        {
+            // Temporary allocators.
+            pr::memory_arena_allocator<char> alloc1;
+            pr::memory_arena_allocator<char> alloc2;
+
+            // Add remaining points.
+            for (size_type k = 3; 
+                           k < point_distances.size(); k++) {
+                add_point(point_distances[k].second, alloc1, alloc2);
+            }
         }
 
-        edge_type edge0 = {triangle.a, triangle.b};
-        edge_type edge1 = {triangle.b, triangle.c};
-        edge_type edge2 = {triangle.c, triangle.a};
+        // Iterate triangles.
+        for (triangle_type& triangle : triangles_) {
 
-        edge_to_triangles_[edge0] = {0, -1};
-        edge_to_triangles_[edge1] = {0, -1};
-        edge_to_triangles_[edge2] = {0, -1};
-
-        boundary_edges_.insert(edge0);
-        boundary_edges_.insert(edge1);
-        boundary_edges_.insert(edge2);
-
-        pr::memory_arena_allocator<char> alloc1;
-        pr::memory_arena_allocator<char> alloc2;
-        for (size_type k = 3; k < point_dists.size(); k++) {
-            add_point(point_dists[k].second, alloc1, alloc2);
+            // Triangle area negative?
+            if (signed_area<float_type>(
+                            triangle.a,
+                            triangle.b,
+                            triangle.c) < 0) {
+                // Make counter-clockwise.
+                std::swap(
+                        triangle.b, 
+                        triangle.c);
+            }
         }
-
-        // TODO all triangles ccw
     }
 
-    // TODO accessors
+public:
+
+    /**
+     * @name Accessors
+     */
+    /**@{*/
+
+    /**
+     * @brief Iterator range of points.
+     */
+    auto points() const
+    {
+        return make_iterator_range(points_);
+    }
+
+    /**
+     * @brief Iterator range of triangles.
+     */
+    auto triangles() const
+    {
+        return make_iterator_range(triangles_);
+    }
+
+    /**
+     * @brief Iterator range of boundary edges.
+     */
+    auto boundary_edges() const
+    {
+        return make_iterator_range(boundary_edges_);
+    }
+
+    /**@}*/
 
 private:
 
-    // TODO doc explain
     /**
-     * @brief Compute signed area of triangle.
+     * @brief Signed area of parallelogram.
+     *
+     * This computes the signed area of the parallelogram 
+     * corresponding to the triangle formed by three points with indices
+     * @f$ (a, b, c) @f$. This is given by
+     * @f[
+     *      A = \mathbf{v}_{ab} \times \mathbf{v}_{ac}
+     * @f]
+     * where
+     * - @f$ \mathbf{v}_{ab} = \mathbf{P}_b - \mathbf{P}_a @f$,
+     * - @f$ \mathbf{v}_{ac} = \mathbf{P}_c - \mathbf{P}_a @f$.
      *
      * @param[in] a
-     * Index of point @f$ A @f$.
+     * Index of point.
      *
      * @param[in] b
-     * Index of point @f$ B @f$.
+     * Index of point.
      *
      * @param[in] c
-     * Index of point @f$ C @f$.
+     * Index of point.
+     *
+     * @tparam Twhich_float
+     * Which float type to use, either `float_type` or `float_interval_type`.
      */
-    float_interval_type compute_area(
+    template <typename Twhich_float>
+    Twhich_float signed_area(
                 index_type a,
                 index_type b,
                 index_type c) const
     {
-        multi<float_interval_type, 2> pa = points_[a];
-        multi<float_interval_type, 2> pb = points_[b];
-        multi<float_interval_type, 2> pc = points_[c];
-        return pr::cross(pb - pa, pc - pa);
-    }
+        static_assert(
+            std::is_same<Twhich_float, float_type>::value ||
+            std::is_same<Twhich_float, float_interval_type>::value,
+            "Invalid usage");
 
-    // TODO doc explain
-    /**
-     * @brief Is edge visible from point?
-     *
-     * @param[in] p
-     * Index of point @f$ P @f$.
-     *
-     * @param[in] e
-     * Indices of edge points @f$ E = (A, B) @f$.
-     */
-    bool is_edge_visible(index_type p, edge_type e) const
-    {
-        return compute_area(p, e.a, e.b).upper_bound() < 0;
+        // Compute.
+        multi<Twhich_float, 2> pa = points_[a];
+        multi<Twhich_float, 2> pb = points_[b];
+        multi<Twhich_float, 2> pc = points_[c];
+        return cross(pb - pa, pc - pa);
     }
 
     /**
      * @brief Add point.
      *
      * @param[in] p
-     * Index of point @f$ P @f$.
+     * Index of point.
      *
      * @param[in] alloc1
      * Arena allocator for temporary allocations.
@@ -412,12 +561,18 @@ private:
                 pr::memory_arena_allocator<char> alloc1,
                 pr::memory_arena_allocator<char> alloc2)
     {
+        if (!pr::isfinite(points_[p]).all()) {
+            return; // Ignore.
+        }
+
         {
 
         // Boundary edges to remove.
         std::vector<edge_type, 
         pr::memory_arena_allocator<edge_type>> 
                 boundary_edges_to_remove(alloc1); // Use allocator 1.
+        boundary_edges_to_remove.reserve(
+        boundary_edges_.size() / 2);
 
         // Boundary edges to add.
         std::set<edge_type, 
@@ -429,19 +584,20 @@ private:
         for (const edge_type& edge : boundary_edges_) {
 
             // Is edge visible from point?
-            if (is_edge_visible(p, edge)) {
+            if (signed_area<float_interval_type>(
+                        p, edge.a, edge.b).upper_bound() < 0) {
 
                 // Form (counterclockwise) triangle.
+                index_type t = 
+                index_type(triangles_.size());
                 triangles_.push_back({p, edge.b, edge.a});
 
                 // Form edges.
-                index_type t = 
-                index_type(triangles_.size()) - 1;
                 edge_type edge1 = {p, edge.a};
                 edge_type edge2 = {edge.b, p};
-                edge_to_triangles_[edge].push(t);
-                edge_to_triangles_[edge1].push(t);
-                edge_to_triangles_[edge2].push(t);
+                edge_triangles_[edge].push(t);
+                edge_triangles_[edge1].push(t);
+                edge_triangles_[edge2].push(t);
 
                 // Remember boundary updates.
                 boundary_edges_to_remove.push_back(edge);
@@ -459,7 +615,7 @@ private:
         // Add boundary edges.
         for (const edge_type& edge : boundary_edges_to_add) {
             // Boundary edge to add ended up being an interior edge?
-            if (edge_to_triangles_[edge].is_full()) {
+            if (edge_triangles_[edge].is_full()) {
                 // Disregard.
                 continue;
             }
@@ -483,7 +639,7 @@ private:
         pr::memory_arena_allocator<edge_type>> 
                 edges_to_flip(alloc1); // Use allocator 1.
         // Initialize with all edges.
-        for (const auto& kv : edge_to_triangles_) {
+        for (const auto& kv : edge_triangles_) {
             edges_to_flip.insert(kv.first);
         }
 
@@ -548,8 +704,8 @@ private:
                 edge_type edge, 
                 std::set<edge_type, Targs...>& edges_to_flip_next)
     {
-        edge_triangle_pair_type 
-        edge_triangles = edge_to_triangles_[edge];
+        edge_triangles_type 
+        edge_triangles = edge_triangles_[edge];
         // Is boundary edge?
         if (!edge_triangles.is_full()) {
             // Return.
@@ -606,18 +762,18 @@ private:
         triangle2 = {q1, q2, edge.b};
 
         // Erase edge.
-        edge_to_triangles_.erase(
-        edge_to_triangles_.find(edge));
+        edge_triangles_.erase(
+        edge_triangles_.find(edge));
 
         // Insert flipped edge.
         edge_type flipped_edge = {q1, q2};
-        edge_to_triangles_[flipped_edge] = {t1, t2};
+        edge_triangles_[flipped_edge] = {t1, t2};
 
         // Update affected edges.
         edge_type affected_edge1 = {q1, edge.b};
         edge_type affected_edge2 = {q2, edge.a};
-        edge_to_triangles_[affected_edge1].replace(t1, t2);
-        edge_to_triangles_[affected_edge2].replace(t2, t1);
+        edge_triangles_[affected_edge1].replace(t1, t2);
+        edge_triangles_[affected_edge2].replace(t2, t1);
 
         // Maybe flip all neighboring edges on next iteration.
         edges_to_flip_next.insert(affected_edge1);
@@ -627,35 +783,88 @@ private:
     }
     
 private:
-public:
 
-    // TODO use user-specified allocator
     /**
      * @brief Points.
+     *
+     * @note
+     * This uses the user-specified allocator type `Talloc` rebound to 
+     * `point_type`. For brevity, this is not shown in the documentation 
+     * type signature.
      */
-    std::vector<multi<float_type, 2>> points_;
+    std::vector<
+        point_type,
+#if !DOXYGEN
+        typename std::allocator_traits<Talloc>::
+        template rebind_alloc<point_type>
+#else
+        ...
+#endif // #if !DOXYGEN
+        > points_;
 
-    // TODO use user-specified allocator
     /**
      * @brief Triangles.
+     *
+     * @note
+     * This uses the user-specified allocator type `Talloc` rebound to 
+     * `triangle_type`. For brevity, this is not shown in the documentation 
+     * type signature.
      */
-    std::vector<triangle_type> triangles_;
+    std::vector<
+        triangle_type,
+#if !DOXYGEN
+        typename std::allocator_traits<Talloc>::
+        template rebind_alloc<triangle_type>
+#else
+        ...
+#endif // #if !DOXYGEN
+        > triangles_;
 
-    // TODO use user-specified allocator
-    // TODO doc
     /**
-     * @brief Edge-to-triangles map.
+     * @brief Edge triangles.
+     *
+     * This maps an unordered edge @f$ (a, b) @f$ to the indices of the
+     * 1 or 2 triangles containing it.
+     *
+     * @note
+     * This uses the user-specified allocator type `Talloc` rebound to 
+     * `std::pair<const edge_type, edge_triangles_type>`. For brevity, this is
+     * not shown in the documentation type signature.
      */
     std::map<
         edge_type,
-        edge_triangle_pair_type> edge_to_triangles_;
+        edge_triangles_type,
+#if !DOXYGEN
+        std::less<edge_type>,
+        typename std::allocator_traits<Talloc>::
+        template rebind_alloc<std::pair<
+                 const edge_type, edge_triangles_type>>
+#else
+        ...
+#endif // #if !DOXYGEN
+        > edge_triangles_;
 
-    // TODO use user-specified allocator
-    // TODO doc
     /**
      * @brief Boundary edges.
+     *
+     * This is the set of boundary edges, which forms the convex hull,
+     * oriented counter-clockwise around the point set.
+     *
+     * @note
+     * This uses the user-specified allocator type `Talloc` rebound to 
+     * `edge_type`. For brevity, this is not shown in the documentation 
+     * type signature.
      */
-    std::set<edge_type> boundary_edges_;
+    std::set<
+        edge_type,
+#if !DOXYGEN
+        std::less<edge_type>,
+        typename std::allocator_traits<Talloc>::
+        template rebind_alloc<edge_type>
+#else
+        ...
+#endif // #if !DOXYGEN
+        > boundary_edges_;
 
 };
 
