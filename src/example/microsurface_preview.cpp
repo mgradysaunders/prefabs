@@ -120,10 +120,7 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            for (int itr = 0; 
-                     itr < 32; itr++) {
-                res += surf.fm(generateCanonical, wo, wi) * Float(1 / 32.0); 
-            }
+            res += surf.fm(generateCanonical, wo, wi, 0, 0, 32);
             break;
         }
 
@@ -133,10 +130,7 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            for (int itr = 0; 
-                     itr < 32; itr++) {
-                res += surf.fm(generateCanonical, wo, wi) * Float(1 / 32.0);
-            }
+            res += surf.fm(generateCanonical, wo, wi, 0, 0, 32);
             break;
         }
 

@@ -624,14 +624,6 @@ public:
      */
     microsurface(multi<float_type, 2> alpha) : alpha_(alpha)
     {
-#if 0
-        // Invalid?
-        if (pr::signbit(alpha_[0]) ||
-            pr::signbit(alpha_[1])) {
-            throw std::invalid_argument(__PRETTY_FUNCTION__);
-        }
-#endif
-
         // Clamp.
         alpha_[0] = pr::fmax(alpha_[0], float_type(0.00001));
         alpha_[1] = pr::fmax(alpha_[1], float_type(0.00001));
@@ -1113,7 +1105,7 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BRDF.
+     * @brief Compute multiple-scattering BRDF and BRDF-PDF simultaneously.
      *
      * @param[in] uk
      * Sample generator.
@@ -1124,21 +1116,41 @@ public:
      * @param[in] wi
      * Incident direction.
      *
-     * @param[in] kres
-     * Result scattering order, 0 for all orders.
+     * @param[in] kmin
+     * Scattering order minimum.
+     *
+     * @param[in] kmax
+     * Scattering order maximum, 0 for all orders.
+     *
+     * @param[in] nitr
+     * Number of iterations.
+     *
+     * @param[out] f 
+     * _Optional_. BRDF.
      *
      * @param[out] f_pdf
-     * _Optional_. Density function, identically perfectly
-     * energy conserving result (as if @f$ L_0 = 1 @f$).
+     * _Optional_. BRDF-PDF.
      */
     template <typename U>
-    float_type fm(
+    void compute_fm_fm_pdf(
             U&& uk,
             multi<float_type, 3> wo,
-            multi<float_type, 3> wi, int kres = 0,
-            float_type* f_pdf = nullptr) const
+            multi<float_type, 3> wi,
+            int kmin,
+            int kmax,
+            int nitr,
+            float_type* f,
+            float_type* f_pdf) const
     {
-        // Density function.
+        assert(f || f_pdf);
+        assert(kmin <= kmax);
+
+        // Initialize BRDF.
+        if (f) {
+            *f = 0;
+        }
+
+        // Initialize BRDF-PDF.
         if (f_pdf) {
             *f_pdf = 0;
         }
@@ -1151,74 +1163,99 @@ public:
         }
         if (wo[2] == 0 ||
             wi[2] <= 0) {
-            return 0;
+            return;
         }
 
-        // Result.
-        float_type f = 0;
+        // Iterate.
+        for (int itr = 0;
+                 itr < nitr; itr++) {
 
-        // Initial energy.
-        float_type ek = 1;
+            // Iteration BRDF.
+            float_type itr_f = 0;
 
-        // Initial height.
-        float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
+            // Iteration BRDF-PDF.
+            float_type itr_f_pdf = 0;
 
-        // Initial direction.
-        multi<float_type, 3> wk = -wo;
+            // Initial energy.
+            float_type ek = 1;
 
-        for (int k = 0;
-                    kres == 0 ||
-                    kres > k;) {
+            // Initial height.
+            float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
 
-            // Sample next height.
-            hk = h_sample(std::forward<U>(uk)(), wk, hk);
-            if (pr::isinf(hk)) {
-                break;
-            }
+            // Initial direction.
+            multi<float_type, 3> wk = -wo;
 
-            // Increment.
-            ++k;
+            for (int k = 0;
+                        kmax == 0 ||
+                        kmax > k;) {
 
-            if (kres == 0 ||
-                kres == k) {
+                // Sample next height.
+                hk = h_sample(std::forward<U>(uk)(), wk, hk);
+                if (pr::isinf(hk)) {
+                    break;
+                }
 
-                // Next event estimation.
-                float_type fk = 
-                    g1(wi, hk) * 
-                    pm({std::forward<U>(uk)(),
-                        std::forward<U>(uk)()}, -wk, wi);
-                if (pr::isfinite(fk)) {
-                    f += 
-                    l0_ * ek * fk;
+                // Increment.
+                ++k;
 
-                    // Density function.
-                    if (f_pdf) {
-                        *f_pdf += fk;
+                if (kmax == 0 ||
+                        (kmax >= k &&
+                         kmin <= k)) {
+
+                    // Next event estimation.
+                    float_type fk = 
+                        g1(wi, hk) * 
+                        pm({std::forward<U>(uk)(),
+                            std::forward<U>(uk)()}, -wk, wi);
+                    if (pr::isfinite(fk)) {
+
+                        // Update iteration BRDF.
+                        itr_f += l0_ * ek * fk;
+
+                        // Update iteration BRDF-PDF.
+                        itr_f_pdf += fk;
                     }
+                }
+
+                // Sample next direction.
+                wk = pm_sample(
+                        {std::forward<U>(uk)(), std::forward<U>(uk)()},
+                        {std::forward<U>(uk)(), std::forward<U>(uk)()},
+                        -wk);
+
+                // Update energy.
+                ek *= l0_; 
+
+                // NaN check.
+                if (!pr::isfinite(hk) ||
+                    !pr::isfinite(wk).all() || wk[2] == 0) {
+                
+                    // Nullify iteration BRDF.
+                    itr_f = 0;
+
+                    // Nullify iteration BRDF-PDF.
+                    itr_f_pdf = 0;
+
+                    break;
                 }
             }
 
-            // Sample next direction.
-            wk = pm_sample(
-                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                    -wk);
+            // Update BRDF.
+            if (f) {
+                *f = 
+                *f + (itr_f - *f) / (itr + 1);
+            }
 
-            // Update energy.
-            ek *= l0_; 
-
-            // NaN check.
-            if (!pr::isfinite(hk) ||
-                !pr::isfinite(wk).all() || wk[2] == 0) {
-                return 0;
+            // Update BRDF-PDF.
+            if (f_pdf) {
+                *f_pdf = 
+                *f_pdf + (itr_f_pdf - *f_pdf) / (itr + 1);
             }
         }
-
-        return f;
     }
 
     /**
-     * @brief Multiple-scattering BRDF probability density function.
+     * @brief Multiple-scattering BRDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -1229,73 +1266,80 @@ public:
      * @param[in] wi
      * Incident direction.
      *
-     * @param[in] kres
-     * Result scattering order, 0 for all orders.
+     * @param[in] kmin
+     * Scattering order minimum.
+     *
+     * @param[in] kmax
+     * Scattering order maximum, 0 for all orders.
+     *
+     * @param[in] nitr
+     * Number of iterations.
+     *
+     * @param[out] f_pdf
+     * _Optional_. BRDF-PDF.
+     */
+    template <typename U>
+    float_type fm(
+            U&& uk,
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi, 
+            int kmin = 0,
+            int kmax = 0,
+            int nitr = 1,
+            float_type* f_pdf = nullptr) const
+    {
+        float_type f = 0;
+        compute_fm_fm_pdf(
+                std::forward<U>(uk), 
+                wo, 
+                wi, 
+                kmin, 
+                kmax, 
+                nitr,
+                &f, f_pdf);
+
+        return f;
+    }
+
+    /**
+     * @brief Multiple-scattering BRDF-PDF.
+     *
+     * @param[in] uk
+     * Sample generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @param[in] kmin
+     * Scattering order minimum.
+     *
+     * @param[in] kmax
+     * Scattering order maximum, 0 for all orders.
+     * 
+     * @param[in] nitr
+     * Number of iterations.
      */
     template <typename U>
     float_type fm_pdf(
             U&& uk,
             multi<float_type, 3> wo,
-            multi<float_type, 3> wi, int kres = 0) const
+            multi<float_type, 3> wi, 
+            int kmin = 0,
+            int kmax = 0,
+            int nitr = 1) const
     {
-        // Flip.
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
-            wo[2] = -wo[2];
-            wi[2] = -wi[2];
-        }
-        if (wo[2] == 0 ||
-            wi[2] <= 0) {
-            return 0;
-        }
-
-        // Result.
         float_type f_pdf = 0;
-
-        // Initial height.
-        float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
-
-        // Initial direction.
-        multi<float_type, 3> wk = -wo;
-
-        for (int k = 0;
-                    kres == 0 ||
-                    kres > k;) {
-
-            // Sample next height.
-            hk = h_sample(std::forward<U>(uk)(), wk, hk);
-            if (pr::isinf(hk)) {
-                break;
-            }
-
-            // Increment.
-            ++k;
-
-            if (kres == 0 ||
-                kres == k) {
-
-                // Next event estimation.
-                float_type fk = 
-                    g1(wi, hk) * 
-                    pm({std::forward<U>(uk)(),
-                        std::forward<U>(uk)()}, -wk, wi);
-                if (pr::isfinite(fk)) {
-                    f_pdf += fk;
-                }
-            }
-
-            // Sample next direction.
-            wk = pm_sample(
-                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                    -wk);
-
-            // NaN check.
-            if (!pr::isfinite(hk) ||
-                !pr::isfinite(wk).all() || wk[2] == 0) {
-                return 0;
-            }
-        }
+        compute_fm_fm_pdf(
+                std::forward<U>(uk),
+                wo, 
+                wi,
+                kmin,
+                kmax,
+                nitr,
+                nullptr, &f_pdf);
 
         return f_pdf;
     }
@@ -1500,6 +1544,8 @@ public:
 
     // Locally visible for convenience.
     using microsurface<T, Tslope, Theight>::h_sample;
+
+public:
 
     /**
      * @brief Single-scattering BSDF.
@@ -2054,6 +2100,24 @@ public:
         }
         return wi;
     }
+
+public:
+
+    // TODO
+#if 0
+    template <typename U>
+    void compute_fm_fm_pdf(
+            U&& uk,
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi,
+            int kmin,
+            int kmax,
+            int nitr,
+            float_type* f,
+            float_type* f_pdf) const
+    {
+    }
+#endif
 
     /**
      * @brief Multiple-scattering BSDF.
