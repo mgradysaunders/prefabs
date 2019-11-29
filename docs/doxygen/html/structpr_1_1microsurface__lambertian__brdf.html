@@ -117,14 +117,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af2d64f8ecd339e10ed503723b0550ed0"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#af2d64f8ecd339e10ed503723b0550ed0">fs_pdf_sample</a> (multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 2 &gt; u, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wo) const</td></tr>
 <tr class="memdesc:af2d64f8ecd339e10ed503723b0550ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single-scattering BRDF probability density function sampling routine.  <a href="#af2d64f8ecd339e10ed503723b0550ed0">More...</a><br /></td></tr>
 <tr class="separator:af2d64f8ecd339e10ed503723b0550ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1cc2c08f8898ec16243466402961976"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:af1cc2c08f8898ec16243466402961976"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#af1cc2c08f8898ec16243466402961976">fm</a> (U &amp;&amp;uk, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wo, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wi, int kres=0, <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a> *f_pdf=nullptr) const</td></tr>
-<tr class="memdesc:af1cc2c08f8898ec16243466402961976"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-scattering BRDF.  <a href="#af1cc2c08f8898ec16243466402961976">More...</a><br /></td></tr>
-<tr class="separator:af1cc2c08f8898ec16243466402961976"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5e0b2aa82c6f38c6e807552b90cac19"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
-<tr class="memitem:af5e0b2aa82c6f38c6e807552b90cac19"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#af5e0b2aa82c6f38c6e807552b90cac19">fm_pdf</a> (U &amp;&amp;uk, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wo, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wi, int kres=0) const</td></tr>
-<tr class="memdesc:af5e0b2aa82c6f38c6e807552b90cac19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-scattering BRDF probability density function.  <a href="#af5e0b2aa82c6f38c6e807552b90cac19">More...</a><br /></td></tr>
-<tr class="separator:af5e0b2aa82c6f38c6e807552b90cac19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb19ba5372d4cfde152228cf11d8969e"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:acb19ba5372d4cfde152228cf11d8969e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#acb19ba5372d4cfde152228cf11d8969e">compute_fm_fm_pdf</a> (U &amp;&amp;uk, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wo, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wi, int kmin, int kmax, int nitr, <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a> *f, <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a> *f_pdf) const</td></tr>
+<tr class="memdesc:acb19ba5372d4cfde152228cf11d8969e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute multiple-scattering BRDF and BRDF-PDF simultaneously.  <a href="#acb19ba5372d4cfde152228cf11d8969e">More...</a><br /></td></tr>
+<tr class="separator:acb19ba5372d4cfde152228cf11d8969e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae24b3b3b8cbfa305a25c16149a6866fb"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ae24b3b3b8cbfa305a25c16149a6866fb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#ae24b3b3b8cbfa305a25c16149a6866fb">fm</a> (U &amp;&amp;uk, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wo, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wi, int kmin=0, int kmax=0, int nitr=1, <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a> *f_pdf=nullptr) const</td></tr>
+<tr class="memdesc:ae24b3b3b8cbfa305a25c16149a6866fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-scattering BRDF.  <a href="#ae24b3b3b8cbfa305a25c16149a6866fb">More...</a><br /></td></tr>
+<tr class="separator:ae24b3b3b8cbfa305a25c16149a6866fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87d454d5f6afd4d47df7975322b8a386"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:a87d454d5f6afd4d47df7975322b8a386"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#a87d454d5f6afd4d47df7975322b8a386">fm_pdf</a> (U &amp;&amp;uk, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wo, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wi, int kmin=0, int kmax=0, int nitr=1) const</td></tr>
+<tr class="memdesc:a87d454d5f6afd4d47df7975322b8a386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-scattering BRDF-PDF.  <a href="#a87d454d5f6afd4d47df7975322b8a386">More...</a><br /></td></tr>
+<tr class="separator:a87d454d5f6afd4d47df7975322b8a386"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bb29cdc2e580388f94b35ac514720e5"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
 <tr class="memitem:a5bb29cdc2e580388f94b35ac514720e5"><td class="memTemplItemLeft" align="right" valign="top">multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#a5bb29cdc2e580388f94b35ac514720e5">fm_pdf_sample</a> (U &amp;&amp;uk, multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt; wo, int &amp;k) const</td></tr>
 <tr class="memdesc:a5bb29cdc2e580388f94b35ac514720e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-scattering BRDF probability density function sampling routine.  <a href="#a5bb29cdc2e580388f94b35ac514720e5">More...</a><br /></td></tr>
@@ -438,8 +442,99 @@ template&lt;typename T , template&lt; typename &gt; typename Tslope, template&lt
 
 </div>
 </div>
-<a id="af1cc2c08f8898ec16243466402961976"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1cc2c08f8898ec16243466402961976">&#9670;&nbsp;</a></span>fm()</h2>
+<a id="acb19ba5372d4cfde152228cf11d8969e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb19ba5372d4cfde152228cf11d8969e">&#9670;&nbsp;</a></span>compute_fm_fm_pdf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , template&lt; typename &gt; typename Tslope, template&lt; typename &gt; typename Theight&gt; </div>
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html">pr::microsurface_lambertian_brdf</a>&lt; T, Tslope, Theight &gt;::compute_fm_fm_pdf </td>
+          <td>(</td>
+          <td class="paramtype">U &amp;&amp;&#160;</td>
+          <td class="paramname"><em>uk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt;&#160;</td>
+          <td class="paramname"><em>wo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">multi&lt; <a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a>, 3 &gt;&#160;</td>
+          <td class="paramname"><em>wi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>kmin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>kmax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nitr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a> *&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpr_1_1microsurface.html#a1101cbd268cffe73fbe8d1efcc847138">float_type</a> *&#160;</td>
+          <td class="paramname"><em>f_pdf</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute multiple-scattering BRDF and BRDF-PDF simultaneously. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">uk</td><td>Sample generator.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">kmin</td><td>Scattering order minimum.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">kmax</td><td>Scattering order maximum, 0 for all orders.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nitr</td><td>Number of iterations.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">f</td><td><em>Optional</em>. Output BRDF.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">f_pdf</td><td><em>Optional</em>. Output BRDF-PDF. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae24b3b3b8cbfa305a25c16149a6866fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae24b3b3b8cbfa305a25c16149a6866fb">&#9670;&nbsp;</a></span>fm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -473,7 +568,19 @@ template&lt;typename U &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>kres</em> = <code>0</code>, </td>
+          <td class="paramname"><em>kmin</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>kmax</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nitr</em> = <code>1</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -500,16 +607,18 @@ template&lt;typename U &gt; </div>
     <tr><td class="paramdir">[in]</td><td class="paramname">uk</td><td>Sample generator.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">kres</td><td>Result scattering order, 0 for all orders.</td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">f_pdf</td><td><em>Optional</em>. Density function, identically perfectly energy conserving result (as if \( L_0 = 1 \)). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">kmin</td><td>Scattering order minimum.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">kmax</td><td>Scattering order maximum, 0 for all orders.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nitr</td><td>Number of iterations.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">f_pdf</td><td><em>Optional</em>. Output BRDF-PDF. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="af5e0b2aa82c6f38c6e807552b90cac19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5e0b2aa82c6f38c6e807552b90cac19">&#9670;&nbsp;</a></span>fm_pdf()</h2>
+<a id="a87d454d5f6afd4d47df7975322b8a386"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87d454d5f6afd4d47df7975322b8a386">&#9670;&nbsp;</a></span>fm_pdf()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -543,7 +652,19 @@ template&lt;typename U &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>kres</em> = <code>0</code>&#160;</td>
+          <td class="paramname"><em>kmin</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>kmax</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nitr</em> = <code>1</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -558,13 +679,15 @@ template&lt;typename U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Multiple-scattering BRDF probability density function. </p>
+<p>Multiple-scattering BRDF-PDF. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">uk</td><td>Sample generator.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">kres</td><td>Result scattering order, 0 for all orders. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">kmin</td><td>Scattering order minimum.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">kmax</td><td>Scattering order maximum, 0 for all orders.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nitr</td><td>Number of iterations. </td></tr>
   </table>
   </dd>
 </dl>
