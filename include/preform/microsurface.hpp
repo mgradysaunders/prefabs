@@ -1021,13 +1021,11 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
-        if (wo[2] == 0 ||
-            wi[2] <= 0) {
+        if (wo[2] == 0 || !(wi[2] > 0)) {
             return 0;
         }
 
@@ -1062,13 +1060,11 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
-        if (pr::signbit(wi[2])) {
-    /*  if (wi[2] <= 0) {  */
+        if (!(wi[2] > 0)) {
             return 0;
         }
 
@@ -1097,10 +1093,6 @@ public:
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
         wi[2] = pr::copysign(wi[2], wo[2]);
-    /*  if (wo[2] < 0) {
-            wi[2] = -wi[2];
-        }
-     */
         return wi;
     }
 
@@ -1126,10 +1118,10 @@ public:
      * Number of iterations.
      *
      * @param[out] f 
-     * _Optional_. BRDF.
+     * _Optional_. Output BRDF.
      *
      * @param[out] f_pdf
-     * _Optional_. BRDF-PDF.
+     * _Optional_. Output BRDF-PDF.
      */
     template <typename U>
     void compute_fm_fm_pdf(
@@ -1142,8 +1134,8 @@ public:
             float_type* f,
             float_type* f_pdf) const
     {
+        // Sanity check.
         assert(f || f_pdf);
-        assert(kmin <= kmax);
 
         // Initialize BRDF.
         if (f) {
@@ -1156,8 +1148,7 @@ public:
         }
 
         // Flip.
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
@@ -1198,9 +1189,8 @@ public:
                 // Increment.
                 ++k;
 
-                if (kmax == 0 ||
-                        (kmax >= k &&
-                         kmin <= k)) {
+                if ((kmax == 0 || 
+                     kmax >= k) && kmin <= k) {
 
                     // Next event estimation.
                     float_type fk = 
@@ -1276,7 +1266,7 @@ public:
      * Number of iterations.
      *
      * @param[out] f_pdf
-     * _Optional_. BRDF-PDF.
+     * _Optional_. Output BRDF-PDF.
      */
     template <typename U>
     float_type fm(
@@ -1364,8 +1354,7 @@ public:
     {
         // Flip.
         bool neg = false;
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             neg = true;
         }
@@ -1606,19 +1595,17 @@ public:
     {
         // Flip.
         float_type eta = eta_;
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
             eta = 1 / eta;
         }
-        if (wo[2] < float_type(0.0000001) || // Avoid exploding.
-            wi[2] == 0) {
+        if (!(wo[2] > float_type(0.0000001)) || // Avoid exploding.
+              wi[2] == 0) {
             return 0;
         }
 
-        if (!pr::signbit(wi[2])) {
-    /*  if (wi[2] > 0) {  */
+        if (wi[2] > 0) {
 
             // Microsurface normal.
             multi<float_type, 3> wm = normalize(wo + wi);
@@ -1643,8 +1630,7 @@ public:
 
             // Half vector.
             multi<float_type, 3> vm = eta * wo + wi;
-            if (pr::signbit(vm[2])) {
-        /*  if (vm[2] < 0) {  */
+            if (vm[2] < 0) {
                 vm = -vm;
             }
 
@@ -1657,10 +1643,8 @@ public:
             multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
             float_type dot_wo_wm = dot(wo, wm);
             float_type dot_wi_wm = dot(wi, wm);
-            if (pr::signbit(dot_wo_wm) ||
-               !pr::signbit(dot_wi_wm)) {
-        /*  if (!(dot_wo_wm > 0 &&
-                  dot_wi_wm < 0)) {  */
+            if (!(dot_wo_wm > 0 &&
+                  dot_wi_wm < 0)) {
                 return 0;
             }
 
@@ -1726,8 +1710,7 @@ public:
     {
         // Flip.
         float_type eta = eta_;
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
             eta = 1 / eta;
@@ -1739,8 +1722,7 @@ public:
             return 0;
         }
 
-        if (!pr::signbit(wi[2])) {
-    /*  if (wi[2] > 0) {  */
+        if (wi[2] > 0) {
 
             // Half vector.
             multi<float_type, 3> vm = wo + wi;
@@ -1769,8 +1751,7 @@ public:
 
             // Half vector.
             multi<float_type, 3> vm = eta * wo + wi;
-            if (pr::signbit(vm[2])) {
-        /*  if (vm[2] < 0) {  */
+            if (vm[2] < 0) {
                 vm = -vm;
             }
 
@@ -1783,10 +1764,8 @@ public:
             multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
             float_type dot_wo_wm = dot(wo, wm);
             float_type dot_wi_wm = dot(wi, wm);
-            if (pr::signbit(dot_wo_wm) ||
-               !pr::signbit(dot_wi_wm)) {
-        /*  if (!(dot_wo_wm > 0 &&
-                  dot_wi_wm < 0)) {  */
+            if (!(dot_wo_wm > 0 &&
+                  dot_wi_wm < 0)) {
                 return 0;
             }
 
@@ -1830,8 +1809,7 @@ public:
         // Flip.
         float_type eta = eta_;
         bool neg = false;
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             eta = 1 / eta;
             neg = true;
@@ -1868,8 +1846,7 @@ public:
             wi = -wo + (2 * cos_thetao) * wm;
             
             // In wrong hemisphere?
-            if (pr::signbit(wi[2])) {
-        /*  if (wi[2] < 0) {  */
+            if (!(wi[2] > 0)) {
                 return {}; // Reject sample.
             }
         }
@@ -1880,8 +1857,7 @@ public:
                  (eta * cos_thetao + cos_thetat) * wm;
 
             // In wrong hemisphere?
-            if (!pr::signbit(wi[2])) {
-        /*  if (wi[2] > 0) {  */
+            if (!(wi[2] < 0)) {
                 return {}; // Reject sample.
             }
         }
@@ -1920,8 +1896,7 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) { 
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
@@ -1955,8 +1930,7 @@ public:
     {
         // Flip.
         bool neg = false;
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) { 
             wo[2] = -wo[2];
             neg = true;
         }
@@ -1968,8 +1942,7 @@ public:
         multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
             
         // In wrong hemisphere?
-        if (pr::signbit(wi[2])) {
-    /*  if (wi[2] < 0) {  */
+        if (!(wi[2] > 0)) {
             return {}; // Reject sample.
         }
 
@@ -2025,8 +1998,7 @@ public:
 
         // Half vector.
         multi<float_type, 3> vm = eta * wo + wi;
-        if (pr::signbit(vm[2])) {
-    /*  if (vm[2] < 0) {  */
+        if (vm[2] < 0) {
             vm = -vm;
         }
 
@@ -2038,8 +2010,7 @@ public:
         // Microsurface normal.
         multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
         float_type dot_wi_wm = dot(wi, wm);
-        if (!pr::signbit(dot_wi_wm)) {
-    /*  if (dot_wi_wm > 0) {  */
+        if (dot_wi_wm > 0) {
             return 0;
         }
 
@@ -2064,8 +2035,7 @@ public:
         // Flip.
         float_type eta = eta_;
         bool neg = false;
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             eta = 1 / eta;
             neg = true;
@@ -2089,8 +2059,7 @@ public:
                        cos_thetat) * wm;
 
         // In wrong hemisphere?
-        if (!pr::signbit(wi[2])) {
-    /*  if (wi[2] > 0) {  */
+        if (!(wi[2] < 0)) {
             return {}; // Reject sample.
         }
 
@@ -2104,7 +2073,33 @@ public:
 public:
 
     // TODO
-#if 0
+    /**
+     * @brief Compute multiple-scattering BSDF and BSDF-PDF simulatenously.
+     *
+     * @param[in] uk
+     * Sample generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @param[in] kmin
+     * Scattering order minimum.
+     *
+     * @param[in] kmax
+     * Scattering order maximum, 0 for all orders.
+     *
+     * @param[in] nitr
+     * Number of iterations.
+     *
+     * @param[out] f
+     * _Optional_. Output BSDF.
+     *
+     * @param[out] f_pdf
+     * _Optional_. Output BSDF-PDF.
+     */
     template <typename U>
     void compute_fm_fm_pdf(
             U&& uk,
@@ -2116,56 +2111,37 @@ public:
             float_type* f,
             float_type* f_pdf) const
     {
-    }
-#endif
+        // Sanity check.
+        assert(f || f_pdf);
 
-    /**
-     * @brief Multiple-scattering BSDF.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kres
-     * Result scattering order, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     *
-     * @param[out] f_pdf
-     * _Optional_. Density function, identically perfectly
-     * energy conserving result (as if @f$ F_{r,0} = F_{t,0} = 1 @f$).
-     */
-    template <typename U>
-    float_type fm(
-            U&& uk,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kres = 0,
-            int nitr = 1,
-            float_type* f_pdf = nullptr) const
-    {
-        // Density function.
+        // Initialize BSDF.
+        if (f) {
+            *f = 0;
+        }
+
+        // Initialize BSDF-PDF.
         if (f_pdf) {
             *f_pdf = 0;
         }
 
-        // Result.
-        float_type f = 0;
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
 
-        // Single scattering only?
-        if (kres == 1) {
-
-            // Ignore multiple scattering iterations.
+        if (kmin == 1 &&
+            kmax == 1) {
             nitr = 0;
         }
 
-        for (int n = 0; n < nitr; n++) {
+        for (int itr = 0; itr < nitr; itr++) {
+
+            // Iteration BSDF.
+            float_type itr_f = 0;
+
+            // Iteration BSDF-PDF.
+            float_type itr_f_pdf = 0;
 
             // Initial energy.
             float_type ek = 1;
@@ -2187,9 +2163,10 @@ public:
             // Incident direction outside?
             bool wi_outside = !pr::signbit(wi[2]); // wi[2] > 0;
 
-            for (int k = 0;
-                        kres == 0 ||
-                        kres > k;) {
+            // TODO Bidirectional multiple-importance
+            for (int k = 0; 
+                        kmax == 0 ||
+                        kmax > k;) {
 
                 // Sample next height.
                 hk =
@@ -2203,12 +2180,8 @@ public:
                 // Increment.
                 ++k;
 
-                if (k > 1024) {
-                    return 0;
-                }
-
-                if (kres == 0 ||
-                    kres == k) {
+                if ((kmax == 0 || 
+                     kmax >= k) && kmin <= k) {
                     if (k > 1) {
 
                         // Next event estimation.
@@ -2216,16 +2189,18 @@ public:
                             (wi_outside ?
                             g1(+wi, +hk) :
                             g1(-wi, -hk)) *
-                            pm(-wk, wi, wk_outside, wi_outside);
+                            pm(-wk, wi, 
+                                wk_outside, 
+                                wi_outside);
                         if (pr::isfinite(fk)) {
-                            f +=
+
+                            // Update iteration BSDF.
+                            itr_f +=
                             (wk_outside == 
                              wi_outside ? fr0_ : ft0_) * ek * fk;
 
-                            // Density function.
-                            if (f_pdf) {
-                                *f_pdf += fk;
-                            }
+                            // Update iteration BSDF-PDF.
+                            itr_f_pdf += fk;
                         }
                     }
                 }
@@ -2247,37 +2222,47 @@ public:
                 // NaN check.
                 if (!pr::isfinite(hk) ||
                     !pr::isfinite(wk).all() || wk[2] == 0) {
-                    return 0;
+
+                    // Nullify iteration BSDF.
+                    itr_f = 0;
+
+                    // Nullify iteration BSDF-PDF.
+                    itr_f_pdf = 0;
+
+                    break;
                 }
             }
-        }
 
-        // Average.
-        if (nitr > 1) {
-            f /= nitr;
+            // Update BSDF.
+            if (f) {
+                *f = 
+                *f + (itr_f - *f) / (itr + 1);
+            }
 
-            // Density function.
+            // Update BSDF-PDF.
             if (f_pdf) {
-                *f_pdf /= nitr;
+                *f_pdf = 
+                *f_pdf + (itr_f_pdf - *f_pdf) / (itr + 1);
             }
         }
 
         // Single-scattering component.
-        if (kres == 0 ||
-            kres == 1) {
-            f += fs(wo, wi);
+        if (kmin <= 1) {
 
-            // Density function.
+            // Update BSDF.
+            if (f) {
+                *f += fs(wo, wi);
+            }
+
+            // Update BSDF-PDF.
             if (f_pdf) {
                 *f_pdf += fs_pdf(wo, wi);
             }
         }
-
-        return f;
     }
 
     /**
-     * @brief Multiple-scattering BSDF probability density function.
+     * @brief Multiple-scattering BSDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -2288,8 +2273,58 @@ public:
      * @param[in] wi
      * Incident direction.
      *
-     * @param[in] kres
-     * Result scattering order, 0 for all orders.
+     * @param[in] kmin
+     * Scattering order minimum.
+     *
+     * @param[in] kmax
+     * Scattering order maximum, 0 for all orders.
+     *
+     * @param[in] nitr
+     * Number of iterations.
+     *
+     * @param[out] f_pdf
+     * _Optional_. Output BSDF-PDF.
+     */
+    template <typename U>
+    float_type fm(
+            U&& uk,
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi,
+            int kmin = 0,
+            int kmax = 0,
+            int nitr = 1,
+            float_type* f_pdf = nullptr) const
+    {
+        float_type f = 0;
+        compute_fm_fm_pdf(
+                std::forward<U>(uk),
+                wo,
+                wi,
+                kmin,
+                kmax,
+                nitr,
+                &f, f_pdf);
+        
+        return f;
+    }
+
+    /**
+     * @brief Multiple-scattering BSDF-PDF.
+     *
+     * @param[in] uk
+     * Sample generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @param[in] kmin
+     * Scattering order minimum.
+     *
+     * @param[in] kmax
+     * Scattering order maximum, 0 for all orders.
      *
      * @param[in] nitr
      * Number of iterations.
@@ -2299,100 +2334,19 @@ public:
             U&& uk,
             multi<float_type, 3> wo,
             multi<float_type, 3> wi,
-            int kres = 0,
+            int kmin = 0,
+            int kmax = 0,
             int nitr = 1) const
     {
-        // Result.
         float_type f_pdf = 0;
-
-        // Single scattering only?
-        if (kres == 1) {
-
-            // Ignore multiple scattering iterations.
-            nitr = 0;
-        }
-
-        for (int n = 0; n < nitr; n++) {
-
-            // Initial height.
-            float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
-
-            // Initial direction.
-            multi<float_type, 3> wk = -wo;
-
-            // Initial direction outside?
-            bool wk_outside = !pr::signbit(wo[2]); // wo[2] > 0;
-            if (!wk_outside) {
-
-                // Flip height.
-                hk = -hk;
-            }
-
-            // Incident direction outside?
-            bool wi_outside = !pr::signbit(wi[2]); // wi[2] > 0;
-
-            for (int k = 0;
-                        kres == 0 ||
-                        kres > k;) {
-
-                // Sample next height.
-                hk =
-                    wk_outside ?
-                    +h_sample(std::forward<U>(uk)(), +wk, +hk) :
-                    -h_sample(std::forward<U>(uk)(), -wk, -hk);
-                if (pr::isinf(hk)) {
-                    break;
-                }
-
-                // Increment.
-                ++k;
-
-                if (k > 1024) {
-                    return 0;
-                }
-
-                if (kres == 0 ||
-                    kres == k) {
-                    if (k > 1) {
-
-                        // Next event estimation.
-                        float_type fk =
-                            (wi_outside ?
-                            g1(+wi, +hk) :
-                            g1(-wi, -hk)) *
-                            pm(-wk, wi, wk_outside, wi_outside);
-                        if (pr::isfinite(fk)) {
-                            f_pdf += fk;
-                        }
-                    }
-                }
-
-                // Sample next direction.
-                wk = normalize_fast(
-                     pm_sample(
-                        std::forward<U>(uk)(),
-                        {std::forward<U>(uk)(),
-                         std::forward<U>(uk)()},
-                        -wk, wk_outside, wk_outside));
-
-                // NaN check.
-                if (!pr::isfinite(hk) ||
-                    !pr::isfinite(wk).all() || wk[2] == 0) {
-                    return 0;
-                }
-            }
-        }
-
-        // Average.
-        if (nitr > 1) {
-            f_pdf /= nitr;
-        }
-
-        // Single-scattering component.
-        if (kres == 0 ||
-            kres == 1) {
-            f_pdf += fs_pdf(wo, wi);
-        }
+        compute_fm_fm_pdf(
+                std::forward<U>(uk),
+                wo,
+                wi,
+                kmin,
+                kmax,
+                nitr,
+                nullptr, &f_pdf);
 
         return f_pdf;
     }
@@ -2496,7 +2450,6 @@ private:
                 wm = -wm;
             }
 
-            // TODO return 0 if hemispherical conflict?
             // Fresnel coefficents.
             float_type cos_thetao = dot(wo, wm);
             float_type cos_thetat;
@@ -2507,10 +2460,11 @@ private:
                     cos_thetat,
                     fr, ft);
 
+            // TODO Doesn't work?
             // Fresnel coefficient weighting.
-            fr *= fr0_;
-            ft *= ft0_;
-            float_type fr_weight = fr / (fr + ft);
+            //fr *= fr0_;
+            //ft *= ft0_;
+            float_type fr_weight = fr;// / (fr + ft);
 
             // Reflection.
             return dwo(wo, wm) * fr_weight / (4 * cos_thetao);
@@ -2519,8 +2473,7 @@ private:
 
             // Half vector.
             multi<float_type, 3> vm = eta * wo + wi;
-            if (pr::signbit(vm[2])) {
-        /*  if (vm[2] < 0) {  */
+            if (vm[2] < 0) {
                 vm = -vm;
             }
 
@@ -2538,10 +2491,8 @@ private:
             multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
             float_type dot_wo_wm = dot(wo, wm);
             float_type dot_wi_wm = dot(wi, wm);
-            if (pr::signbit(dot_wo_wm) ||
-               !pr::signbit(dot_wi_wm)) {
-        /*  if (!(dot_wo_wm > 0 &&
-                  dot_wi_wm < 0)) {  */
+            if (!(dot_wo_wm > 0 &&
+                  dot_wi_wm < 0)) {
                 return 0;
             }
 
@@ -2561,10 +2512,11 @@ private:
                     cos_thetat,
                     fr, ft);
 
+            // TODO Doesn't work?
             // Fresnel coefficient weighting.
-            fr *= fr0_;
-            ft *= ft0_;
-            float_type ft_weight = ft / (fr + ft);
+            //fr *= fr0_;
+            //ft *= ft0_;
+            float_type ft_weight = ft;// / (fr + ft);
 
             // Transmission.
             return dwo(wo, wm) * ft_weight *
@@ -2616,10 +2568,11 @@ private:
                 cos_thetat,
                 fr, ft);
 
+        // TODO Doesn't work?
         // Fresnel coefficient weighting.
-        fr *= fr0_;
-        ft *= ft0_;
-        float_type fr_weight = fr / (fr + ft);
+        //fr *= fr0_;
+        //ft *= ft0_;
+        float_type fr_weight = fr;// / (fr + ft);
 
         if (u0 < fr_weight) {
             // Reflect.
@@ -2766,14 +2719,13 @@ public:
     {
         // Flip.
         std::complex<float_type> eta = eta_;
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
             eta = float_type(1) / eta;
         }
-        if (wo[2] < float_type(0.0000001) || // Avoid exploding.
-            wi[2] <= 0) {
+        if (!(wo[2] > float_type(0.0000001)) || // Avoid exploding.
+            !(wi[2] > 0)) {
             return 0;
         }
 
@@ -2830,8 +2782,7 @@ public:
     {
         // Flip.
         std::complex<float_type> eta = eta_;
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) { 
             wo[2] = -wo[2];
             wi[2] = -wi[2];
             eta = float_type(1) / eta;
@@ -2839,8 +2790,8 @@ public:
 
         // Ignore invalid samples.
         if (wo[2] == 0 ||
-            wi[2] <= 0 ||
-            !pr::signbit(eta.imag())) {
+            !(wi[2] > 0) ||
+            !(eta.imag() < 0)) {
             return 0;
         }
 
@@ -2871,8 +2822,7 @@ public:
         // Flip.
         std::complex<float_type> eta = eta_;
         bool neg = false;
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             eta = float_type(1) / eta;
             neg = true;
@@ -2890,8 +2840,7 @@ public:
         multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
             
         // In wrong hemisphere?
-        if (pr::signbit(wi[2])) {
-    /*  if (wi[2] < 0) {  */
+        if (!(wi[2] > 0)) { 
             return {}; // Reject sample.
         }
 
@@ -2996,13 +2945,11 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
-        if (wo[2] == 0 ||
-            wi[2] <= 0) {
+        if (wo[2] == 0 || !(wi[2] > 0)) {
             return 0;
         }
 
@@ -3033,13 +2980,11 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
-        if (pr::signbit(wi[2])) {
-    /*  if (wi[2] <= 0) {  */
+        if (!(wi[2] > 0)) {
             return 0;
         }
 
@@ -3068,10 +3013,6 @@ public:
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
         wi[2] = pr::copysign(wi[2], wo[2]);
-    /*  if (wo[2] < 0) {  
-            wi[2] = -wi[2];
-        }
-     */
         return wi;
     }
 
@@ -3157,13 +3098,11 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
-        if (wo[2] == 0 ||
-            wi[2] <= 0) {
+        if (wo[2] == 0 || !(wi[2] > 0)) {
             return 0;
         }
 
@@ -3196,13 +3135,11 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (pr::signbit(wo[2])) {
-    /*  if (wo[2] < 0) {  */
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
-        if (pr::signbit(wi[2])) {
-    /*  if (wi[2] <= 0) {  */
+        if (!(wi[2] > 0)) {
             return 0;
         }
 
@@ -3231,10 +3168,6 @@ public:
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
         wi[2] = pr::copysign(wi[2], wo[2]);
-    /*  if (wo[2] < 0) {  
-            wi[2] = -wi[2];
-        }
-     */
         return wi;
     }
 
