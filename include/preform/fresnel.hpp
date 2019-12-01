@@ -230,6 +230,103 @@ inline std::enable_if_t<
     }
 }
 
+// TODO clean up
+#if 0
+/**
+ * @brief Fresnel's equations for dielectric film interface.
+ *
+ * @param[in] lambda
+ * Vacuum wavelength @f$ \lambda @f$.
+ *
+ * @param[in] ell
+ * Film thickness @f$ \ell @f$.
+ *
+ * @param[in] etai
+ * Absolute refractive index @f$ \eta_i @f$ in incident hemisphere.
+ *
+ * @param[in] etaf
+ * Absolute refractive index @f$ \eta_f @f$ in film.
+ *
+ * @param[in] etat
+ * Absolute refractive index @f$ \eta_t @f$ in transmitted hemisphere.
+ *
+ * @param[in] cos_thetai
+ * Cosine of incidence angle.
+ *
+ * @param[out] cos_thetat
+ * Cosine of transmittance angle.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, bool> fresnel_diel_film(
+               T lambda,
+               T ell,
+               T etai,
+               T etaf,
+               T etat,
+               T cos_thetai,
+               T& cos_thetat,
+               std::complex<T>& rs, std::complex<T>& rp,
+               std::complex<T>& ts, std::complex<T>& tp)
+{
+    // Refractive index ratios.
+    T eta1 = etai / etaf;
+    T eta2 = etaf / etat;
+
+    // Angle sines.
+    T sin2_thetai = 1 - cos_thetai * cos_thetai;
+    T sin2_theta1 = eta1 * eta1 * sin2_thetai;
+    T sin2_theta2 = eta2 * eta2 * sin2_theta1;
+    T cos2_theta1 = 1 - sin2_theta1;
+    T cos2_theta2 = 1 - sin2_theta2;
+    if (!(cos2_theta1 > 0 &&
+          cos2_theta2 > 0)) {
+        cos_thetat = 0;
+        rs = rp = 1;
+        ts = tp = 0;
+        return false;
+    }
+
+    // Angle cosines.
+    T cos_theta1 = pr::sqrt(cos2_theta1);
+    T cos_theta2 = pr::sqrt(cos2_theta2);
+    cos_theta1 = pr::copysign(cos_theta1, cos_thetai);
+    cos_theta2 = pr::copysign(cos_theta2, cos_thetai);
+    cos_thetat = -cos_theta2;
+
+    // Fresnel coefficients for interface 1.
+    T rs1, rp1;
+    T ts1, tp1;
+    rs1 = (eta1 * cos_thetai - cos_theta1) / (eta1 * cos_thetai + cos_theta1);
+    rp1 = (cos_thetai - eta1 * cos_theta1) / (cos_thetai + eta1 * cos_theta1);
+    ts1 = 1 + rs1;
+    tp1 = 1 + rp1;
+    tp1 *= eta1;
+
+    // Fresnel coefficients for interface 2.
+    T rs2, rp2;
+    T ts2, tp2;
+    rs2 = (eta2 * cos_theta1 - cos_theta2) / (eta2 * cos_theta1 + cos_theta2);
+    rp2 = (cos_theta1 - eta2 * cos_theta2) / (cos_theta1 + eta2 * cos_theta2);
+    ts2 = 1 + rs2;
+    tp2 = 1 + rp2;
+    tp2 *= eta2;
+
+    // Interference.
+    T phi = 2 * etaf * ell / (lambda * cos_theta1);
+    phi += (etai > etaf) ? 1 : 0;
+    phi += (etaf < etat) ? 1 : 0;
+    phi *= pr::numeric_constants<T>::M_pi();
+    std::complex<T> exp_phi1 = pr::exp(std::complex<T>{0, phi});
+    std::complex<T> exp_phi2 = pr::exp(std::complex<T>{0, phi * 2});
+    rs = rs1 + (etaf * cos_theta1) / (etai * cos_thetai) * rs2 * ts1 * ts1 * exp_phi2 / (T(1) + rs1 * rs2 * exp_phi2);
+    rp = rp1 + (etaf * cos_theta1) / (etai * cos_thetai) * rp2 * tp1 * tp1 * exp_phi2 / (T(1) + rp1 * rp2 * exp_phi2);
+    ts = ts1 * ts2 * exp_phi1 / (T(1) + rs1 * rs2 * exp_phi2);
+    tp = tp1 * tp2 * exp_phi1 / (T(1) + rp1 * rp2 * exp_phi2);
+    return true;
+}
+#endif
+
 /**@}*/
 
 /**
