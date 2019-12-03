@@ -230,25 +230,26 @@ inline std::enable_if_t<
     }
 }
 
-// TODO clean up
-#if 0
 /**
- * @brief Fresnel's equations for dielectric film interface.
+ * @brief Fresnel's equations for dielectric thinfilm interface.
  *
  * @param[in] lambda
- * Vacuum wavelength @f$ \lambda @f$.
- *
- * @param[in] ell
- * Film thickness @f$ \ell @f$.
+ * Vacuum wavelength.
  *
  * @param[in] etai
- * Absolute refractive index @f$ \eta_i @f$ in incident hemisphere.
+ * Absolute refractive index in incident hemisphere.
  *
  * @param[in] etaf
- * Absolute refractive index @f$ \eta_f @f$ in film.
+ * Absolute refractive index in film.
+ *
+ * @param[in] ellf
+ * Film thickness.
+ *
+ * @param[in] muf
+ * Film volume absorption coefficient.
  *
  * @param[in] etat
- * Absolute refractive index @f$ \eta_t @f$ in transmitted hemisphere.
+ * Absolute refractive index in transmitted hemisphere.
  *
  * @param[in] cos_thetai
  * Cosine of incidence angle.
@@ -258,11 +259,12 @@ inline std::enable_if_t<
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, bool> fresnel_diel_film(
+       std::is_floating_point<T>::value, bool> fresnel_diel_thinfilm(
                T lambda,
-               T ell,
                T etai,
                T etaf,
+               T ellf,
+               T muf,
                T etat,
                T cos_thetai,
                T& cos_thetat,
@@ -313,19 +315,22 @@ inline std::enable_if_t<
     tp2 *= eta2;
 
     // Interference.
-    T phi = 2 * etaf * ell / (lambda * cos_theta1);
-    phi += (etai > etaf) ? 1 : 0;
-    phi += (etaf < etat) ? 1 : 0;
+    T phi = T(2) * etaf * ellf / (lambda * cos_theta1);
+    phi += (etai > etaf) ? T(1) : T(0);
+    phi += (etaf < etat) ? T(1) : T(0);
     phi *= pr::numeric_constants<T>::M_pi();
-    std::complex<T> exp_phi1 = pr::exp(std::complex<T>{0, phi});
-    std::complex<T> exp_phi2 = pr::exp(std::complex<T>{0, phi * 2});
-    rs = rs1 + (etaf * cos_theta1) / (etai * cos_thetai) * rs2 * ts1 * ts1 * exp_phi2 / (T(1) + rs1 * rs2 * exp_phi2);
-    rp = rp1 + (etaf * cos_theta1) / (etai * cos_thetai) * rp2 * tp1 * tp1 * exp_phi2 / (T(1) + rp1 * rp2 * exp_phi2);
-    ts = ts1 * ts2 * exp_phi1 / (T(1) + rs1 * rs2 * exp_phi2);
-    tp = tp1 * tp2 * exp_phi1 / (T(1) + rp1 * rp2 * exp_phi2);
+    T alpha = muf * ellf / cos_theta1;
+    std::complex<T> exp_phi = pr::exp(std::complex<T>{-alpha, phi});
+    std::complex<T> exp_phi2 = exp_phi * exp_phi;
+    std::complex<T> rs2_exp_phi2 = rs2 * exp_phi2;
+    std::complex<T> rp2_exp_phi2 = rp2 * exp_phi2;
+    T fac = (etaf * cos_theta1) / (etai * cos_thetai);
+    rs = rs1 + fac * ts1 * ts1 * rs2_exp_phi2 / (T(1) + rs1 * rs2_exp_phi2);
+    rp = rp1 + fac * tp1 * tp1 * rp2_exp_phi2 / (T(1) + rp1 * rp2_exp_phi2);
+    ts = ts1 * ts2 * exp_phi / (T(1) + rs1 * rs2_exp_phi2);
+    tp = tp1 * tp2 * exp_phi / (T(1) + rp1 * rp2_exp_phi2);
     return true;
 }
-#endif
 
 /**@}*/
 
