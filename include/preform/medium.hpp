@@ -105,7 +105,7 @@ public:
             multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
     {
-        return multi<float_type, 3>::hg_phase_pdf(g_, dot(wo, wi));
+        return multi<float_type, 3>::hg_phase_pdf(g_, dot(-wo, wi));
     }
 
     /**
@@ -127,7 +127,7 @@ public:
             multi<float_type, 3> wo) const
     {
         return dot(
-                multi<float_type, 3, 3>::build_onb(wo), 
+                multi<float_type, 3, 3>::build_onb(-wo), 
                 multi<float_type, 3>::hg_phase_pdf_sample(g_, u));
     }
 
@@ -214,7 +214,7 @@ public:
             multi<float_type, 3> wi) const
     {
         float_type res = 0;
-        float_type dot_wo_wi = dot(wo, wi);
+        float_type dot_wo_wi = dot(-wo, wi);
         for (std::size_t k = 0; k < Nlobes; k++) {
             res += w_[k] * 
             multi<float_type, 3>::hg_phase_pdf(g_[k], dot_wo_wi);
@@ -262,7 +262,7 @@ public:
 
         // Sample.
         return dot(
-                multi<float_type, 3, 3>::build_onb(wo), 
+                multi<float_type, 3, 3>::build_onb(-wo), 
                 multi<float_type, 3>::hg_phase_pdf_sample(g_[k], u));
     }
 
@@ -280,9 +280,342 @@ private:
     multi<float_type, Nlobes> w_ = {};
 };
 
+/**
+ * @brief Microvolume with SGGX distribution.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct microvolume_sggx
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    microvolume_sggx() = default;
+
+    /**
+     * @brief Constructor.
+     *
+     * @param[in] q
+     * Orthogonal basis.
+     *
+     * @param[in] s
+     * Distribution diagonal elements, representing squared projected areas 
+     * in each axis of orthogonal basis.
+     *
+     * @note
+     * For efficiency, the implementation does not verify the orthogonal basis
+     * matrix is valid. It is up to the caller to ensure this matrix is 
+     * orthogonal and determinant 1.
+     */
+    explicit
+    microvolume_sggx(
+            const multi<float_type, 3, 3>& q,
+            const multi<float_type, 3>& s)
+    {
+        // Construct matrix.
+        s_[0][0] = s[0];
+        s_[1][1] = s[1];
+        s_[2][2] = s[2];
+        s_ = dot(q, dot(s_, transpose(q)));
+
+        // Construct matrix inverse.
+        sinv_[0][0] = 1 / s[0];
+        sinv_[1][1] = 1 / s[1];
+        sinv_[2][2] = 1 / s[2];
+        sinv_ = dot(q, dot(sinv_, transpose(q)));
+
+        // Determinant root.
+        sdet1_2_ = pr::sqrt(s.prod());
+    }
+
+    /**
+     * @brief Projected area.
+     *
+     * @f[
+     *      A_{\perp}(\omega_o) = 
+     *          \sqrt{\omega_o^\top\mathbf{S}\omega_o}
+     * @f]
+     *
+     * @param[in] wo
+     * Viewing direction.
+     */
+    float_type aperp(const multi<float_type, 3>& wo) const
+    {
+        return pr::sqrt(dot(wo, dot(s_, wo)));
+    }
+
+    /**
+     * @brief Distribution of normals.
+     *
+     * @f[
+     *      D(\omega_m) = 
+     *          \frac{1}{\pi}
+     *          \frac{1}{\sqrt{|\mathbf{S}|}
+     *                  (\omega_m^\top\mathbf{S}^{-1}\omega_m)^2}
+     * @f]
+     *
+     * @param[in] wm
+     * Normal direction.
+     */
+    float_type d(const multi<float_type, 3>& wm) const
+    {
+        return pr::numeric_constants<float_type>::M_1_pi() / (sdet1_2_ * 
+               pr::nthpow(dot(wm, dot(sinv_, wm)), 2));
+    }
+
+    /**
+     * @brief Distribution of visible normals.
+     *
+     * @f[
+     *      D_{\omega_o}(\omega_m) = D(\omega_m)
+     *         \frac{\langle{\omega_o, \omega_m}\rangle}{A_{\perp}(\omega_o)}
+     * @f]
+     *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @param[in] wm
+     * Normal direction.
+     */
+    float_type dwo(
+                const multi<float_type, 3>& wo,
+                const multi<float_type, 3>& wm) const
+    {
+        // Area factors.
+        float_type fac_numer = dot(wo, wm);
+        float_type fac_denom = aperp(wo);
+        if (pr::signbit(fac_numer) ||
+            pr::signbit(fac_denom)) {
+            return 0;
+        }
+
+        // Distribution of visible normals.
+        float_type d_wm = d(wm);
+        return pr::isfinite(d_wm * fac_numer / fac_denom) ?
+                            d_wm * fac_numer / fac_denom : 0;
+    }
+
+    // TODO Verify
+    /**
+     * @brief Distribution of visible normals sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Viewing direction.
+     */
+    multi<float_type, 3> dwo_sample(
+                const multi<float_type, 2>& u,
+                const multi<float_type, 3>& wo) const
+    {
+        // Build orthonormal basis.
+        multi<float_type, 3, 3> q = 
+        multi<float_type, 3, 3>::build_onb(wo);
+
+        // Project distribution matrix into basis.
+        multi<float_type, 3, 3> s = dot(transpose(q), dot(s_, q));
+
+        // Compute component vectors.
+        float_type tmp0 = pr::sqrt(s[2][2]);
+        float_type tmp1 = pr::sqrt(s[1][1] * s[2][2] - s[1][2] * s[2][1]);
+        multi<float_type, 3> mx = {sdet1_2_ / tmp1, 0, 0};
+        multi<float_type, 3> my = {
+            -(s[2][0] * s[2][1] - 
+              s[1][0] * s[2][2]) / tmp1,
+            tmp1,
+            0
+        };
+        multi<float_type, 3> mz = {
+            s[2][0],
+            s[2][1],
+            s[2][2]
+        };
+        my *= 1 / tmp0;
+        mz *= 1 / tmp0;
+
+        // Construct visible normal.
+        float_type phi = 2 * pr::numeric_constants<float_type>::M_pi() * u[1];  
+        float_type ux = pr::sqrt(u[0]) * pr::cos(phi);
+        float_type uy = pr::sqrt(u[0]) * pr::sin(phi);
+        float_type uz = pr::sqrt(
+                        pr::fmax(float_type(0), 1 - ux * ux - uy * uy));
+        return dot(q, normalize(ux * mx + uy * my + uz * mz));
+    }
+
+private:
+
+    /**
+     * @brief Distribution matrix @f$ \mathbf{S} @f$.
+     */
+    multi<float_type, 3, 3> s_ = {
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1}
+    };
+
+    /**
+     * @brief Distribution matrix inverse @f$ \mathbf{S}^{-1} @f$.
+     */
+    multi<float_type, 3, 3> sinv_ = {
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1}
+    };
+
+    /**
+     * @brief Distribution matrix determinant root @f$ \sqrt{|\mathbf{S}|} @f$.
+     */
+    float_type sdet1_2_ = 1;
+};
+
+// TODO microvolume_sggx_specular_phase
+
+// TODO microvolume_sggx_diffuse_phase
+
+#if 0
 // TODO halfspace_phase_brdf
 
-// TODO halfspace_isotropic_phase_brdf
+/**
+ * @brief Half-space linear anisotropic phase BRDF.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct halfspace_linear_anisotropic_phase_brdf
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    halfspace_linear_anisotropic_phase_brdf() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    halfspace_linear_anisotropic_phase_brdf(
+            float_type b,
+            float_type mua) :
+                b_(b),
+                mua_(mua)
+    {
+        // Restrict.
+        b_ = 
+            pr::fmax(float_type(-1),
+            pr::fmin(float_type(+1), b_));
+        mua_ = 
+            pr::fmax(float_type(0), mua_);
+    }
+
+    /**
+     * @brief Multiple-scattering BRDF.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type fm(
+            multi<float_type, 3> wo, 
+            multi<float_type, 3> wi) const
+    {
+        // Flip.
+        if (wo[2] < 0) {
+            wo[2] = -wo[2];
+            wi[2] = -wi[2];
+        }
+        if (wo[2] == 0 || !(wi[2] > 0)) {
+            return 0;
+        }
+
+        // Cosines.
+        float_type cos_thetao = wo[2];
+        float_type cos_thetai = wi[2];
+
+        // Compute single scattering term.
+        float_type f1 = 
+            float_type(0.25) * 
+            pr::numeric_constants<float_type>::M_1_pi() *
+            (1 - b_ * dot(wo, wi)) / 
+            (1 + cos_thetao / cos_thetai);
+
+        // Compute multiple scattering Lambertian term.
+        float_type r = 
+            float_type(0.5) * 
+            (1 - cos_thetao * pr::log(1 + 1 / cos_thetao)) * 
+            (1 + b_ * cos_thetao * cos_thetao) - float_type(0.25) * 
+                 b_ * cos_thetao;
+        float_type fn = (1 - r) * 
+            pr::numeric_constants<float_type>::M_1_pi() * cos_thetai;
+
+        // Absorption non-zero?
+        if (mua_ > 0) {
+
+            // Single-scattering absorption.
+            f1 /= 1 + mua_;
+
+            // Multiple-scattering absorption.
+            float_type ratio = 
+                float_type(0.5) * 
+                (pr::sqrt(r * r - 6 * r + 5) + r - 1);
+            fn /= 1 + mua_;
+            fn *= 
+                (1 - ratio) / 
+                (1 - ratio + mua_);
+        }
+
+        if (!pr::isfinite(f1) ||
+            !pr::isfinite(fn)) {
+            return 0;
+        }
+        else {
+            // Result.
+            return f1 + fn;
+        }
+    }                
+
+    // TODO fm_pdf
+
+private:
+
+    /**
+     * @brief Shape parameter @f$ b \in [-1, +1] @f$.
+     */
+    float_type b_ = 0;
+
+    /**
+     * @brief Absorption coefficient @f$ \mu_a \ge 0 @f$.
+     */
+    float_type mua_ = 0;
+};
+#endif
 
 /**
  * @brief Homogeneous medium.
