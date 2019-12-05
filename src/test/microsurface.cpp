@@ -1,6 +1,7 @@
 #include <iostream>
 #include <random>
-#include <preform/random.hpp>
+#include <preform/multi.hpp>
+#include <preform/multi_math.hpp>
 #include <preform/multi_random.hpp>
 #include <preform/microsurface.hpp>
 #include <preform/neumaier_sum.hpp>
@@ -80,8 +81,8 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
     // Stratify samples.
     Vec2f* u0 = new Vec2f[n.prod()];
     Vec2f* u1 = new Vec2f[n.prod()];
-    pr::stratify(&u0[0], n, pcg);
-    pr::stratify(&u1[0], n, pcg);
+    pr::stratify(u0, n, pcg);
+    pr::stratify(u1, n, pcg);
 
     // Monte Carlo integration.
     NeumaierSum f = 0;
@@ -102,6 +103,9 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
             fk /= wi_pdf;
             fk /= wo_pdf;
             fk /= n.prod();
+            if (pr::isinf(fk)) {
+                continue;
+            }
             f += fk;
         }
     }
@@ -112,6 +116,54 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
 
     delete[] u0;
     delete[] u1;
+}
+
+// Test multi-scatter phase function.
+template <typename Microsurface, typename Pred>
+void testPhase(const char* name, const Microsurface& microsurface, Pred&& pred)
+{
+    Vec2i n = {512, 512};
+    std::cout << "Testing multi-scatter phase function for ";
+    std::cout << name << "::pm():\n";
+    std::cout <<
+        "This test uses Monte Carlo integration to estimate the multiple\n"
+        "scattering phase function integral, which should equal 1 for an\n"
+        "arbitrary viewing direction.\n";
+    std::cout.flush();
+
+    // Stratify samples.
+    Vec2f* u0 = new Vec2f[n.prod()];
+    pr::stratify(u0, n, pcg);
+    
+    // Generate random viewing direction.
+    Vec3f wo = 
+    Vec3f::uniform_sphere_pdf_sample(generateCanonical2());
+
+    // Monte Carlo integration.
+    NeumaierSum f = 0;
+    for (int k = 0; k < n.prod(); k++) {
+
+        // Inident direction.
+        Vec3f wi = Vec3f::uniform_sphere_pdf_sample(u0[k]);
+        Float wi_pdf = Vec3f::uniform_sphere_pdf();
+
+        // Integrand.
+        if (wi_pdf > 0) {
+            Float fk = std::forward<Pred>(pred)(microsurface, wo, wi);
+            fk /= wi_pdf;
+            fk /= n.prod();
+            if (pr::isinf(fk)) {
+                continue;
+            }
+            f += fk;
+        }
+    }
+
+    std::cout << "Result: " << Float(f) << " (should be close to 1)\n";
+    std::cout << "\n\n";
+    std::cout.flush();
+
+    delete[] u0;
 }
 
 int main(int argc, char** argv)
@@ -192,5 +244,35 @@ int main(int argc, char** argv)
         "DielectricBeckmann",
          DielectricBeckmann(1, 1, eta0 / eta1, alpha));
 
+    // Test phase function normalization.
+    auto lambertian_pred = 
+    [=](const auto& microsurface, 
+        const Vec3f& wo, 
+        const Vec3f& wi) {
+        return microsurface.pm(generateCanonical2(), wo, wi);
+    };
+    auto dielectric_pred = 
+    [=](const auto& microsurface, 
+        const Vec3f& wo, 
+        const Vec3f& wi) {
+        return microsurface.pm(wo, wi, wo[2] > 0, true) +
+               microsurface.pm(wo, wi, wo[2] > 0, false);
+    };
+    testPhase(
+        "LambertianTrowbridgeReitz",
+         LambertianTrowbridgeReitz(1, alpha),
+         lambertian_pred);
+    testPhase(
+        "LambertianBeckmann",
+         LambertianBeckmann(1, alpha),
+         lambertian_pred);
+    testPhase(
+        "DielectricTrowbridgeReitz",
+         DielectricTrowbridgeReitz(1, 1, eta0 / eta1, alpha),
+         dielectric_pred);
+    testPhase(
+        "DielectricBeckmann",
+         DielectricBeckmann(1, 1, eta0 / eta1, alpha),
+         dielectric_pred);
     return EXIT_SUCCESS;
 }

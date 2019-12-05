@@ -1396,7 +1396,8 @@ public:
         return wk;
     }
 
-private:
+public:
+    // Public for testing.
 
     /**
      * @brief Phase function.
@@ -2415,7 +2416,8 @@ public:
         return wk;
     }
 
-private:
+public:
+    // Public for testing.
 
     /**
      * @brief Phase function.
