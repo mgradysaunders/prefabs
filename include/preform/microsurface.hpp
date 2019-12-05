@@ -2460,14 +2460,8 @@ private:
                     cos_thetat,
                     fr, ft);
 
-            // TODO Doesn't work?
-            // Fresnel coefficient weighting.
-            //fr *= fr0_;
-            //ft *= ft0_;
-            float_type fr_weight = fr;// / (fr + ft);
-
             // Reflection.
-            return dwo(wo, wm) * fr_weight / (4 * cos_thetao);
+            return dwo(wo, wm) * fr / (4 * cos_thetao);
         }
         else {
 
@@ -2512,14 +2506,8 @@ private:
                     cos_thetat,
                     fr, ft);
 
-            // TODO Doesn't work?
-            // Fresnel coefficient weighting.
-            //fr *= fr0_;
-            //ft *= ft0_;
-            float_type ft_weight = ft;// / (fr + ft);
-
             // Transmission.
-            return dwo(wo, wm) * ft_weight *
+            return dwo(wo, wm) * ft *
                             -dot_wi_wm / dot_vm_vm;
         }
     }
@@ -2568,13 +2556,7 @@ private:
                 cos_thetat,
                 fr, ft);
 
-        // TODO Doesn't work?
-        // Fresnel coefficient weighting.
-        //fr *= fr0_;
-        //ft *= ft0_;
-        float_type fr_weight = fr;// / (fr + ft);
-
-        if (u0 < fr_weight) {
+        if (u0 < fr) {
             // Reflect.
             wi_outside = wo_outside;
             return -wo + 2 * cos_thetao * wm;
@@ -2856,6 +2838,47 @@ public:
     // TODO fm_pdf
 
     // TODO fm_pdf_sample
+
+private:
+
+    /**
+     * @brief Phase function.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type pm(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        multi<float_type, 3> wh = normalize(wo + wi);
+        if (!(wh[2] > 0)) {
+            return 0;
+        }
+
+        return float_type(0.25) * dwo(wo, wh) / dot(wo, wh);
+    }
+
+    /**
+     * @brief Phase function sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     */
+    float_type pm_sample(
+            multi<float_type, 2> u,
+            multi<float_type, 3> wo) const
+    {
+        multi<float_type, 3> wm = dwo_sample(u, wo);
+        multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
+        return wi;
+    }
 
 private:
 
