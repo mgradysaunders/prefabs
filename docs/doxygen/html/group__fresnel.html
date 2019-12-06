@@ -84,6 +84,10 @@ Fresnel (dielectric)</h2></td></tr>
 <tr class="memitem:ga3df7c60fc065bb3ad09f9c0412ccb483"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__fresnel.html#ga3df7c60fc065bb3ad09f9c0412ccb483">pr::fresnel_diel_schlick</a> (T eta, T cos_thetai, T &amp;cos_thetat, T &amp;fr, T &amp;ft)</td></tr>
 <tr class="memdesc:ga3df7c60fc065bb3ad09f9c0412ccb483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fresnel equations for dielectric interface, Schlick's approximation of unpolarized form.  <a href="group__fresnel.html#ga3df7c60fc065bb3ad09f9c0412ccb483">More...</a><br /></td></tr>
 <tr class="separator:ga3df7c60fc065bb3ad09f9c0412ccb483"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga34825c44420ff4083b63c148aca0b1d9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga34825c44420ff4083b63c148aca0b1d9"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__fresnel.html#ga34825c44420ff4083b63c148aca0b1d9">pr::fresnel_diel_thinfilm</a> (T lambda, T etai, T etaf, T ellf, T muf, T etat, T cos_thetai, T &amp;cos_thetat, std::complex&lt; T &gt; &amp;rs, std::complex&lt; T &gt; &amp;rp, std::complex&lt; T &gt; &amp;ts, std::complex&lt; T &gt; &amp;tp)</td></tr>
+<tr class="memdesc:ga34825c44420ff4083b63c148aca0b1d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fresnel's equations for dielectric thinfilm interface.  <a href="group__fresnel.html#ga34825c44420ff4083b63c148aca0b1d9">More...</a><br /></td></tr>
+<tr class="separator:ga34825c44420ff4083b63c148aca0b1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Fresnel (dielectric-to-conducting)</h2></td></tr>
@@ -340,6 +344,119 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If total internal reflection (TIR), returns <code>false</code> to indicate that there is no refracted ray. Otherwise, returns <code>true</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ga34825c44420ff4083b63c148aca0b1d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga34825c44420ff4083b63c148aca0b1d9">&#9670;&nbsp;</a></span>fresnel_diel_thinfilm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, bool&gt; pr::fresnel_diel_thinfilm </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>lambda</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>etai</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>etaf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>ellf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>muf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>etat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>cos_thetai</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>cos_thetat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>rs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>rp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>ts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::complex&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fresnel's equations for dielectric thinfilm interface. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">lambda</td><td>Vacuum wavelength.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">etai</td><td>Absolute refractive index in incident hemisphere.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">etaf</td><td>Absolute refractive index in film.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ellf</td><td>Film thickness.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">muf</td><td>Film volume absorption coefficient.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">etat</td><td>Absolute refractive index in transmitted hemisphere.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cos_thetai</td><td>Cosine of incidence angle.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cos_thetat</td><td>Cosine of transmittance angle. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

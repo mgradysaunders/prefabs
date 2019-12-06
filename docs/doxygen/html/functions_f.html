@@ -153,6 +153,8 @@ $(function() {
 , <a class="el" href="structpr_1_1microsurface__normal__height.html#a43af4ce6f3fd095a23e17206fd4c8a31">pr::microsurface_normal_height&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1microsurface__trowbridge__reitz__slope.html#a689287469424a3ead3712eff7779ad1e">pr::microsurface_trowbridge_reitz_slope&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1microsurface__uniform__height.html#a7f8c6f43f044ede6d2174311df0fd2b4">pr::microsurface_uniform_height&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1microvolume__sggx.html#adaa1b4852e66f62ba8e074edd980cff2">pr::microvolume_sggx&lt; T &gt;</a>
+, <a class="el" href="structpr_1_1microvolume__sggx__specular__phase.html#af90d07a32643ae5c53fcd2edf6224d20">pr::microvolume_sggx_specular_phase&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1normal__distribution.html#a37fa3f83f3373e12365d55e698e61afe">pr::normal_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1nurbs__curve.html#a5b4259ea33f99b93d8621390035d03a8">pr::nurbs_curve&lt; Tfloat, N, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1nurbs__patch.html#af28de1737455e4f3ab68b8ca3fdd647a">pr::nurbs_patch&lt; Tfloat, N, Talloc &gt;</a>
@@ -174,18 +176,6 @@ $(function() {
 , <a class="el" href="classpr_1_1weibull__distribution.html#a9e73244cc044fc1cc88728335450a90d">pr::weibull_distribution&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1worley__noise2.html#a94e040c190100ef3e0bb5723cf9117c5">pr::worley_noise2&lt; T &gt;</a>
 , <a class="el" href="classpr_1_1worley__noise3.html#abfe642225c031fb4948f3a195f853723">pr::worley_noise3&lt; T &gt;</a>
-</li>
-<li>fm()
-: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a32f1876ab233b167f34f2995671f803d">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#ae24b3b3b8cbfa305a25c16149a6866fb">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
-</li>
-<li>fm_pdf()
-: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a32202dcec2604203d8ba4c2c8631015d">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#a87d454d5f6afd4d47df7975322b8a386">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
-</li>
-<li>fm_pdf_sample()
-: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#abd9a13f3ba3bc51ff4491de459bf0a55">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#a5bb29cdc2e580388f94b35ac514720e5">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
 </li>
 <li>foldl()
 : <a class="el" href="structpr_1_1dense__vector__view.html#a8669937d5fb4c7e28e0d47549556316d">pr::dense_vector_view&lt; T &gt;</a>
@@ -218,7 +208,7 @@ $(function() {
 : <a class="el" href="classpr_1_1memory__arena.html#aab5408b6029a8dd066454403958457eb">pr::memory_arena&lt; Tbyte_alloc &gt;</a>
 </li>
 <li>front()
-: <a class="el" href="classpr_1_1block__array2.html#abc6e3535f89f269581e405b824e1bdcf">pr::block_array2&lt; T, Talloc &gt;</a>
+: <a class="el" href="classpr_1_1block__array2.html#afe949ef7c053e27438ee4994ed108d81">pr::block_array2&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1block__array3.html#a50d5e2e75b7d1f07ca32c4541fa91269">pr::block_array3&lt; T, Talloc &gt;</a>
 , <a class="el" href="classpr_1_1iterator__range.html#a8b4dea31e0a66c8392ee163e839a68e2">pr::iterator_range&lt; T &gt;</a>
 , <a class="el" href="structpr_1_1multi_3_01T_00_01M_00_01N_8_8_8_01_4.html#acd1b9b84fe3ca0b236915fdbd74b8726">pr::multi&lt; T, M, N... &gt;</a>
@@ -227,35 +217,47 @@ $(function() {
 </li>
 <li>fs()
 : <a class="el" href="structpr_1_1disney__diffuse__brdf.html#af17e18ecc429dbb8fd16e2efc3b85f35">pr::disney_diffuse_brdf&lt; T &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__conductive__brdf.html#a0f4743668dd77ee963effef183fa4ef9">pr::microsurface_conductive_brdf&lt; T, Tslope, Theight &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#ae9f514843b9124926a256d639fbf6ca3">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#a20011a1ed433253d53428777eed455bb">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a3dbb01a01593fd7913de959771799f26">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#a8d41810ce071dfda63d1d0b9429ab93a">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
 , <a class="el" href="structpr_1_1oren__nayar__diffuse__brdf.html#a446bc84711d4d26a4aceb7d92b846456">pr::oren_nayar_diffuse_brdf&lt; T &gt;</a>
 </li>
-<li>fs_brdf_pdf()
-: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a25aac8a226950c8fbdab0318660afada">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+<li>fs1()
+: <a class="el" href="structpr_1_1microsurface__conductive__brdf.html#a94a526ed3a4a3730514b7b8743c1c559">pr::microsurface_conductive_brdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#afb7b55bc7b2a59a84a4d416f0763ca07">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#a0760f6a435d1b4200b6f7fe0e895b352">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
 </li>
-<li>fs_brdf_pdf_sample()
-: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a98ff3bcebdd763c08419ef7ef4f0820f">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+<li>fs1_brdf_pdf()
+: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a643fc32b5bf1bb4fa423bb7ec0733623">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
 </li>
-<li>fs_btdf_pdf()
-: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a6661ebd9953673ebaaf27bf44bbf2b61">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+<li>fs1_brdf_pdf_sample()
+: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#ae837146fdde0c141c8fea614c7ead8af">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
 </li>
-<li>fs_btdf_pdf_sample()
-: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a00c5e34f1474ed8c62430366b914304f">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+<li>fs1_btdf_pdf()
+: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a68c60c049d07adef5cc43a0989aeaeb3">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+</li>
+<li>fs1_btdf_pdf_sample()
+: <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a1546f218c5e74d17c0aa8c556dfbcd47">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+</li>
+<li>fs1_pdf()
+: <a class="el" href="structpr_1_1microsurface__conductive__brdf.html#a60e333ca8842071a316aee6cf5c3b84c">pr::microsurface_conductive_brdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a81afa8fab7da004fea0ae0df473ef8a4">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#a5b9f9286bce16ba32c3bf91777ec797e">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
+</li>
+<li>fs1_pdf_sample()
+: <a class="el" href="structpr_1_1microsurface__conductive__brdf.html#a2c06a7f16573b3474a44c34bdb12e6e0">pr::microsurface_conductive_brdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#aa3513bb93de96aeb4aee6a81212e6027">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#a8c1348631b04baf1f0f29baf6909d7b0">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
 </li>
 <li>fs_pdf()
 : <a class="el" href="structpr_1_1disney__diffuse__brdf.html#adc78734a6d0c7c1a70af533a52d569c7">pr::disney_diffuse_brdf&lt; T &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__conductive__brdf.html#a801d222de77ac83bca0cc1dc31191d09">pr::microsurface_conductive_brdf&lt; T, Tslope, Theight &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#ad4acd4ddc712b8831e0478c8e77875f9">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#ad316e2a95dc5c4fefe226e72bc29c9d7">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a0f63722bce8fb599ee2dfe002b97d4d9">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#addd83510324bf24170cc3ceee06a3fc8">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
 , <a class="el" href="structpr_1_1oren__nayar__diffuse__brdf.html#a43b4d206089cc39b52326f8b842443d0">pr::oren_nayar_diffuse_brdf&lt; T &gt;</a>
 </li>
 <li>fs_pdf_sample()
 : <a class="el" href="structpr_1_1disney__diffuse__brdf.html#aaeda23e2a56c3e10f4af8e5c0610c8e1">pr::disney_diffuse_brdf&lt; T &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__conductive__brdf.html#a491c96104f807c7c83ac42f841cd2799">pr::microsurface_conductive_brdf&lt; T, Tslope, Theight &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a9a1bb8db34f1e2351dd60129ba5aadaf">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
-, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#af2d64f8ecd339e10ed503723b0550ed0">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__dielectric__bsdf.html#a4fa247ddfdaf81d8aca2bcefdfa9ab76">pr::microsurface_dielectric_bsdf&lt; T, Tslope, Theight &gt;</a>
+, <a class="el" href="structpr_1_1microsurface__lambertian__brdf.html#a89554f0acea75b9e05314da17da770f3">pr::microsurface_lambertian_brdf&lt; T, Tslope, Theight &gt;</a>
 , <a class="el" href="structpr_1_1oren__nayar__diffuse__brdf.html#af659d6063f3853ecfe49b445d6973cda">pr::oren_nayar_diffuse_brdf&lt; T &gt;</a>
 </li>
 <li>ft0_
