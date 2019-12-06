@@ -4,6 +4,7 @@ add_executable(image2_resample image2_resample.cpp)
 add_executable(microsurface_preview microsurface_preview.cpp)
 add_executable(periodic_simplex_noise2 periodic_simplex_noise2.cpp)
 add_executable(periodic_worley_noise2 periodic_worley_noise2.cpp)
+add_executable(simple_scene simple_scene.cpp)
 add_executable(simplex_noise2 simplex_noise2.cpp)
 add_executable(simplex_noise3 simplex_noise3.cpp)
 add_executable(terminal_progress_bar terminal_progress_bar.cpp)
@@ -17,6 +18,7 @@ set_target_properties(
     microsurface_preview
     periodic_simplex_noise2
     periodic_worley_noise2
+    simple_scene
     simplex_noise2
     simplex_noise3
     terminal_progress_bar
@@ -41,6 +43,7 @@ set_target_properties(
     microsurface_preview
     periodic_simplex_noise2
     periodic_worley_noise2
+    simple_scene
     simplex_noise2
     simplex_noise3
     worley_noise2
@@ -49,6 +52,10 @@ set_target_properties(
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED True
     )
+
+# Link threads.
+target_link_libraries(
+    simple_scene ${CMAKE_THREAD_LIBS_INIT})
 
 # Link threads.
 # Only uses std::this_thread::sleep_for(), link may be unnecessary?
