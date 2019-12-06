@@ -230,6 +230,7 @@ inline std::enable_if_t<
     }
 }
 
+// TODO doc
 /**
  * @brief Fresnel's equations for dielectric thinfilm interface.
  *
