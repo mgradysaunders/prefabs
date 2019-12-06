@@ -80,6 +80,9 @@ namespace pr {
 
 /**
  * @brief Float bounds.
+ *
+ * @tparam T
+ * Float type.
  */
 template <typename T>
 class float_interval
@@ -232,7 +235,7 @@ public:
         std::fesetround(mode);
         return pr::max(dx0, dx1);
 #else
-        return pr::finc(pr::max(x_ - x0_, x1_ - x_));
+        return pr::finc(pr::fmax(x_ - x0_, x1_ - x_));
 #endif // #if PREFORM_USE_FENV
     }
 
@@ -632,8 +635,8 @@ inline float_interval<T> operator*(
     };
     return {
         b0.value() * b1.value(),
-        pr::fdec(pr::min(pr::min(tmp[0], tmp[1]), pr::min(tmp[2], tmp[3]))),
-        pr::finc(pr::max(pr::max(tmp[0], tmp[1]), pr::max(tmp[2], tmp[3])))
+        pr::fdec(pr::fmin(pr::fmin(tmp[0], tmp[1]), pr::fmin(tmp[2], tmp[3]))),
+        pr::finc(pr::fmax(pr::fmax(tmp[0], tmp[1]), pr::fmax(tmp[2], tmp[3])))
     };
 }
 
@@ -674,8 +677,8 @@ inline float_interval<T> operator/(
     };
     return {
         b0.value() / b1.value(),
-        pr::fdec(pr::min(pr::min(tmp[0], tmp[1]), pr::min(tmp[2], tmp[3]))),
-        pr::finc(pr::max(pr::max(tmp[0], tmp[1]), pr::max(tmp[2], tmp[3])))
+        pr::fdec(pr::fmin(pr::fmin(tmp[0], tmp[1]), pr::fmin(tmp[2], tmp[3]))),
+        pr::finc(pr::fmax(pr::fmax(tmp[0], tmp[1]), pr::fmax(tmp[2], tmp[3])))
     };
 }
 
