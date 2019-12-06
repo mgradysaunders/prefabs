@@ -71,7 +71,7 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
 {
     Vec2i n = {512, 512};
     std::cout << "Testing full-sphere scattering for ";
-    std::cout << name << "::fm():\n";
+    std::cout << name << "::fs():\n";
     std::cout <<
         "This test uses Monte Carlo integration to estimate the full-sphere\n"
         "scattering integral, which is equal to 4 pi for an energy-conserving "
@@ -99,7 +99,7 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
         // Integrand.
         if (wo_pdf > 0 &&
             wi_pdf > 0) {
-            Float fk = microsurface.fm(generateCanonical, wo, wi);
+            Float fk = microsurface.fs(generateCanonical, wo, wi);
             fk /= wi_pdf;
             fk /= wo_pdf;
             fk /= n.prod();
@@ -124,7 +124,7 @@ void testPhase(const char* name, const Microsurface& microsurface, Pred&& pred)
 {
     Vec2i n = {512, 512};
     std::cout << "Testing multi-scatter phase function for ";
-    std::cout << name << "::pm():\n";
+    std::cout << name << "::ps():\n";
     std::cout <<
         "This test uses Monte Carlo integration to estimate the multiple\n"
         "scattering phase function integral, which should equal 1 for an\n"
@@ -249,14 +249,14 @@ int main(int argc, char** argv)
     [=](const auto& microsurface, 
         const Vec3f& wo, 
         const Vec3f& wi) {
-        return microsurface.pm(generateCanonical2(), wo, wi);
+        return microsurface.ps(generateCanonical2(), wo, wi);
     };
     auto dielectric_pred = 
     [=](const auto& microsurface, 
         const Vec3f& wo, 
         const Vec3f& wi) {
-        return microsurface.pm(wo, wi, wo[2] > 0, true) +
-               microsurface.pm(wo, wi, wo[2] > 0, false);
+        return microsurface.ps(wo, wi, wo[2] > 0, true) +
+               microsurface.ps(wo, wi, wo[2] > 0, false);
     };
     testPhase(
         "LambertianTrowbridgeReitz",

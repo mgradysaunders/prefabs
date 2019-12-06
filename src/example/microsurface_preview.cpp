@@ -116,11 +116,11 @@ Float brdf(
 
         case MICROSURFACE_LAMBERTIAN_TROWBRIDGE_REITZ: {
             MicrosurfaceLambertianTrowbridgeReitz surf = {
-                Float(0.8), 
+                Float(0.7), 
                 Vec2f{roughness,
                       roughness}
             };
-            res += surf.fm(generateCanonical, wo, wi, 0, 0, 32);
+            res += surf.fs(generateCanonical, wo, wi, 0, 0, 32);
             break;
         }
 
@@ -130,7 +130,7 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            res += surf.fm(generateCanonical, wo, wi, 0, 0, 32);
+            res += surf.fs(generateCanonical, wo, wi, 0, 0, 32);
             break;
         }
 
@@ -142,7 +142,7 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            res = surf.fm(generateCanonical, wo, wi, 0, 0, 32);
+            res = surf.fs(generateCanonical, wo, wi, 0, 0, 32);
             break;
         }
 
@@ -154,7 +154,7 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            res = surf.fm(generateCanonical, wo, wi, 0, 0, 32);
+            res = surf.fs(generateCanonical, wo, wi, 0, 0, 32);
             break;
         }
 
@@ -466,7 +466,7 @@ int main(int argc, char** argv)
         for (int j = 0; j < image_dim[1]; j++)
         for (int i = 0; i < image_dim[0]; i++) {
             ofs << int(pr::pack_uint8(
-                       pr::srgbenc(image(i, j)[0]))) << ' ';
+                       pr::srgbenc_hejl_burgess(image(i, j)[0]))) << ' ';
         }
     }
     catch (const std::exception& exception) {

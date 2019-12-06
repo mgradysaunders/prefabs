@@ -44,11 +44,11 @@
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
+// for pr::multi wrappers, pr::uniform_real_distribution, ...
+#include <preform/multi_random.hpp>
+
 // for pr::fresnel_diel, ...
 #include <preform/fresnel.hpp>
-
-// for pr::uniform_real_distribution, ...
-#include <preform/random.hpp>
 
 namespace pr {
 
@@ -996,7 +996,7 @@ public:
     using microsurface<T, Tslope, Theight>::h_sample;
 
     /**
-     * @brief Single-scattering BRDF.
+     * @brief Compute single-scattering BRDF.
      *
      * @f[
      *      f_s(\omega_o, \omega_i) =
@@ -1015,7 +1015,7 @@ public:
      * @param[in] wi
      * Incident direction.
      */
-    float_type fs(
+    float_type fs1(
             multi<float_type, 2> u,
             multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
@@ -1043,7 +1043,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF probability density function.
+     * @brief Compute single-scattering BRDF-PDF.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -1055,7 +1055,7 @@ public:
      * For simplicity, this implementation samples
      * the single-scattering BRDF as if it is Lambertian.
      */
-    float_type fs_pdf(
+    float_type fs1_pdf(
             multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
     {
@@ -1073,8 +1073,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF probability density function
-     * sampling routine.
+     * @brief Compute single-scattering BRDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -1086,7 +1085,7 @@ public:
      * For simplicity, this implementation samples
      * the single-scattering BRDF as if it is Lambertian.
      */
-    multi<float_type, 3> fs_pdf_sample(
+    multi<float_type, 3> fs1_pdf_sample(
             multi<float_type, 2> u,
             multi<float_type, 3> wo) const
     {
@@ -1124,7 +1123,7 @@ public:
      * _Optional_. Output BRDF-PDF.
      */
     template <typename U>
-    void compute_fm_fm_pdf(
+    void compute_fs_fs_pdf(
             U&& uk,
             multi<float_type, 3> wo,
             multi<float_type, 3> wi,
@@ -1195,7 +1194,7 @@ public:
                     // Next event estimation.
                     float_type fk = 
                         g1(wi, hk) * 
-                        pm({std::forward<U>(uk)(),
+                        ps({std::forward<U>(uk)(),
                             std::forward<U>(uk)()}, -wk, wi);
                     if (pr::isfinite(fk)) {
 
@@ -1208,7 +1207,7 @@ public:
                 }
 
                 // Sample next direction.
-                wk = pm_sample(
+                wk = ps_sample(
                         {std::forward<U>(uk)(), std::forward<U>(uk)()},
                         {std::forward<U>(uk)(), std::forward<U>(uk)()},
                         -wk);
@@ -1245,7 +1244,7 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BRDF.
+     * @brief Compute multiple-scattering BRDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -1269,7 +1268,7 @@ public:
      * _Optional_. Output BRDF-PDF.
      */
     template <typename U>
-    float_type fm(
+    float_type fs(
             U&& uk,
             multi<float_type, 3> wo,
             multi<float_type, 3> wi, 
@@ -1279,7 +1278,7 @@ public:
             float_type* f_pdf = nullptr) const
     {
         float_type f = 0;
-        compute_fm_fm_pdf(
+        compute_fs_fs_pdf(
                 std::forward<U>(uk), 
                 wo, 
                 wi, 
@@ -1292,7 +1291,7 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BRDF-PDF.
+     * @brief Compute multiple-scattering BRDF-PDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -1313,7 +1312,7 @@ public:
      * Number of iterations.
      */
     template <typename U>
-    float_type fm_pdf(
+    float_type fs_pdf(
             U&& uk,
             multi<float_type, 3> wo,
             multi<float_type, 3> wi, 
@@ -1322,7 +1321,7 @@ public:
             int nitr = 1) const
     {
         float_type f_pdf = 0;
-        compute_fm_fm_pdf(
+        compute_fs_fs_pdf(
                 std::forward<U>(uk),
                 wo, 
                 wi,
@@ -1335,8 +1334,7 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BRDF probability density function
-     * sampling routine.
+     * @brief Compute multiple-scattering BRDF-PDF sample direction.
      *
      * @param[in] uk
      * Sample generator.
@@ -1345,10 +1343,10 @@ public:
      * Outgoing direction.
      *
      * @param[out] k
-     * Scattering order.
+     * Incident direction scattering order.
      */
     template <typename U>
-    multi<float_type, 3> fm_pdf_sample(
+    multi<float_type, 3> fs_pdf_sample(
             U&& uk, multi<float_type, 3> wo,
             int& k) const
     {
@@ -1377,7 +1375,7 @@ public:
             ++k;
 
             // Sample next direction.
-            wk = pm_sample(
+            wk = ps_sample(
                     {std::forward<U>(uk)(), std::forward<U>(uk)()},
                     {std::forward<U>(uk)(), std::forward<U>(uk)()},
                     -wk);
@@ -1400,10 +1398,10 @@ public:
     // Public for testing.
 
     /**
-     * @brief Phase function.
+     * @brief Compute phase function.
      *
      * @f[
-     *      p_m(\omega_o, \omega_i) =
+     *      p_s(\omega_o, \omega_i) =
      *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
      * @f]
      * where @f$ \omega_m \sim D_{\omega_o} @f$
@@ -1417,7 +1415,7 @@ public:
      * @param[in] wi
      * Incident direction.
      */
-    float_type pm(
+    float_type ps(
             const multi<float_type, 2>& u,
             const multi<float_type, 3>& wo,
             const multi<float_type, 3>& wi) const
@@ -1431,7 +1429,7 @@ public:
     }
 
     /**
-     * @brief Phase function sampling routine.
+     * @brief Compute phase function sample direction.
      *
      * @param[in] u0
      * Sample in @f$ [0, 1)^2 @f$.
@@ -1442,7 +1440,7 @@ public:
      * @param[in] wo
      * Outgoing direction.
      */
-    multi<float_type, 3> pm_sample(
+    multi<float_type, 3> ps_sample(
             const multi<float_type, 2>& u0,
             const multi<float_type, 2>& u1,
             const multi<float_type, 3>& wo) const
@@ -1538,7 +1536,7 @@ public:
 public:
 
     /**
-     * @brief Single-scattering BSDF.
+     * @brief Compute single-scattering BSDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -1590,7 +1588,7 @@ public:
      * @param[in] wi
      * Incident direction.
      */
-    float_type fs(
+    float_type fs1(
             multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
     {
@@ -1670,7 +1668,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BSDF probability density function.
+     * @brief Compute single-scattering BSDF-PDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -1705,7 +1703,7 @@ public:
      * @param[in] wi
      * Incident direction.
      */
-    float_type fs_pdf(
+    float_type fs1_pdf(
                 multi<float_type, 3> wo,
                 multi<float_type, 3> wi) const
     {
@@ -1790,8 +1788,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BSDF probability density function
-     * sampling routine.
+     * @brief Compute single-scattering BSDF-PDF sample direction.
      *
      * @param[in] u0
      * Sample in @f$ [0, 1) @f$.
@@ -1802,7 +1799,7 @@ public:
      * @param[in] wo
      * Outgoing direction.
      */
-    multi<float_type, 3> fs_pdf_sample(
+    multi<float_type, 3> fs1_pdf_sample(
             float_type u0,
             multi<float_type, 2> u1,
             multi<float_type, 3> wo) const
@@ -1871,7 +1868,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF probability density function.
+     * @brief Compute single-scattering BRDF-PDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -1892,7 +1889,7 @@ public:
      * @param[in] wi
      * Incident direction.
      */
-    float_type fs_brdf_pdf(
+    float_type fs1_brdf_pdf(
             multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
     {
@@ -1903,21 +1900,19 @@ public:
         }
 
         // Ignore invalid samples.
-        if (wo[2] == 0 ||
-            wi[2] <= 0) {
+        if (wo[2] == 0 || !(wi[2] > 0)) {
             return 0;
         }
 
         // Microsurface normal.
-        multi<float_type, 3> wm = normalize(wo + wi);
+        multi<float_type, 3> wm = normalize_safe(wo + wi);
 
         // Result.
         return dwo(wo, wm) / (4 * dot(wi, wm));
     }
 
     /**
-     * @brief Single-scattering BRDF probability density function
-     * sampling routine.
+     * @brief Compute single-scattering BRDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -1925,7 +1920,7 @@ public:
      * @param[in] wo
      * Outgoing direction.
      */
-    multi<float_type, 3> fs_brdf_pdf_sample(
+    multi<float_type, 3> fs1_brdf_pdf_sample(
             multi<float_type, 2> u,
             multi<float_type, 3> wo) const
     {
@@ -1955,7 +1950,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BTDF probability density function.
+     * @brief Compute single-scattering BTDF-PDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -1979,7 +1974,7 @@ public:
      * @param[in] wi
      * Incident direction.
      */
-    float_type fs_btdf_pdf(
+    float_type fs1_btdf_pdf(
             multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
     {
@@ -1992,8 +1987,7 @@ public:
         }
 
         // Ignore invalid samples.
-        if (wo[2] == 0 ||
-            wi[2] >= 0) {
+        if (wo[2] == 0 || !(wi[2] < 0)) {
             return 0;
         }
 
@@ -2020,8 +2014,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BTDF probability density function
-     * sampling routine.
+     * @brief Compute single-scattering BTDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -2029,7 +2022,7 @@ public:
      * @param[in] wo
      * Outgoing direction.
      */
-    multi<float_type, 3> fs_btdf_pdf_sample(
+    multi<float_type, 3> fs1_btdf_pdf_sample(
             multi<float_type, 2> u,
             multi<float_type, 3> wo) const
     {
@@ -2073,7 +2066,6 @@ public:
 
 public:
 
-    // TODO
     /**
      * @brief Compute multiple-scattering BSDF and BSDF-PDF simulatenously.
      *
@@ -2102,7 +2094,7 @@ public:
      * _Optional_. Output BSDF-PDF.
      */
     template <typename U>
-    void compute_fm_fm_pdf(
+    void compute_fs_fs_pdf(
             U&& uk,
             multi<float_type, 3> wo,
             multi<float_type, 3> wi,
@@ -2190,7 +2182,7 @@ public:
                             (wi_outside ?
                             g1(+wi, +hk) :
                             g1(-wi, -hk)) *
-                            pm(-wk, wi, 
+                            ps(-wk, wi, 
                                 wk_outside, 
                                 wi_outside);
                         if (pr::isfinite(fk)) {
@@ -2209,7 +2201,7 @@ public:
                 // Sample next direction.
                 bool wk_outside_prev = wk_outside;
                 wk = normalize_fast(
-                     pm_sample(
+                     ps_sample(
                         std::forward<U>(uk)(),
                         {std::forward<U>(uk)(),
                          std::forward<U>(uk)()},
@@ -2252,18 +2244,18 @@ public:
 
             // Update BSDF.
             if (f) {
-                *f += fs(wo, wi);
+                *f += fs1(wo, wi);
             }
 
             // Update BSDF-PDF.
             if (f_pdf) {
-                *f_pdf += fs_pdf(wo, wi);
+                *f_pdf += fs1_pdf(wo, wi);
             }
         }
     }
 
     /**
-     * @brief Multiple-scattering BSDF.
+     * @brief Compute multiple-scattering BSDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -2287,7 +2279,7 @@ public:
      * _Optional_. Output BSDF-PDF.
      */
     template <typename U>
-    float_type fm(
+    float_type fs(
             U&& uk,
             multi<float_type, 3> wo,
             multi<float_type, 3> wi,
@@ -2297,7 +2289,7 @@ public:
             float_type* f_pdf = nullptr) const
     {
         float_type f = 0;
-        compute_fm_fm_pdf(
+        compute_fs_fs_pdf(
                 std::forward<U>(uk),
                 wo,
                 wi,
@@ -2310,7 +2302,7 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BSDF-PDF.
+     * @brief Compute multiple-scattering BSDF-PDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -2331,7 +2323,7 @@ public:
      * Number of iterations.
      */
     template <typename U>
-    float_type fm_pdf(
+    float_type fs_pdf(
             U&& uk,
             multi<float_type, 3> wo,
             multi<float_type, 3> wi,
@@ -2340,7 +2332,7 @@ public:
             int nitr = 1) const
     {
         float_type f_pdf = 0;
-        compute_fm_fm_pdf(
+        compute_fs_fs_pdf(
                 std::forward<U>(uk),
                 wo,
                 wi,
@@ -2353,8 +2345,7 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BSDF probability density function
-     * sampling routine.
+     * @brief Compute multiple-scattering BSDF-PDF sample direction.
      *
      * @param[in] uk
      * Sample generator.
@@ -2363,10 +2354,10 @@ public:
      * Outgoing direction.
      *
      * @param[out] k
-     * Scattering order.
+     * Incident direction scattering order.
      */
     template <typename U>
-    multi<float_type, 3> fm_pdf_sample(
+    multi<float_type, 3> fs_pdf_sample(
             U&& uk, multi<float_type, 3> wo,
             int& k) const
     {
@@ -2400,7 +2391,7 @@ public:
 
             // Sample next direction.
             wk = normalize_fast(
-                 pm_sample(
+                 ps_sample(
                     std::forward<U>(uk)(),
                     {std::forward<U>(uk)(),
                      std::forward<U>(uk)()},
@@ -2420,7 +2411,7 @@ public:
     // Public for testing.
 
     /**
-     * @brief Phase function.
+     * @brief Compute phase function.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -2434,7 +2425,7 @@ public:
      * @param[in] wi_outside
      * Incident direction outside material?
      */
-    float_type pm(
+    float_type ps(
             multi<float_type, 3> wo,
             multi<float_type, 3> wi,
             bool wo_outside,
@@ -2515,7 +2506,7 @@ public:
     }
 
     /**
-     * @brief Phase function sampling routine.
+     * @brief Compute phase function sample direction.
      *
      * @param[in] u0
      * Sample in @f$ [0, 1) @f$.
@@ -2532,7 +2523,7 @@ public:
      * @param[out] wi_outside
      * Incident direction outside material?
      */
-    multi<float_type, 3> pm_sample(
+    multi<float_type, 3> ps_sample(
             float_type u0,
             multi<float_type, 2> u1,
             multi<float_type, 3> wo,
@@ -2665,7 +2656,7 @@ public:
     using microsurface<T, Tslope, Theight>::h_sample;
 
     /**
-     * @brief Single-scattering BSDF.
+     * @brief Compute single-scattering BSDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -2697,7 +2688,7 @@ public:
      * @param[in] wi
      * Incident direction.
      */
-    float_type fs(
+    float_type fs1(
             multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
     {
@@ -2733,7 +2724,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BSDF probability density function.
+     * @brief Compute single-scattering BSDF-PDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -2760,7 +2751,7 @@ public:
      * @param[in] wi
      * Incident direction.
      */
-    float_type fs_pdf(
+    float_type fs1_pdf(
                 multi<float_type, 3> wo,
                 multi<float_type, 3> wi) const
     {
@@ -2779,19 +2770,15 @@ public:
             return 0;
         }
 
-        // Half vector.
-        multi<float_type, 3> vm = wo + wi;
-
         // Microsurface normal.
-        multi<float_type, 3> wm = normalize(vm);
+        multi<float_type, 3> wm = normalize_safe(wo + wi);
 
         // Density.
         return dwo(wo, wm) / (4 * dot(wo, wm));
     }
 
     /**
-     * @brief Single-scattering BSDF probability density function
-     * sampling routine.
+     * @brief Compute single-scattering BSDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -2799,7 +2786,7 @@ public:
      * @param[in] wo
      * Outgoing direction.
      */
-    multi<float_type, 3> fs_pdf_sample(
+    multi<float_type, 3> fs1_pdf_sample(
             multi<float_type, 2> u,
             multi<float_type, 3> wo) const
     {
@@ -2835,16 +2822,16 @@ public:
         return wi;
     }
 
-    // TODO fm
+    // TODO fs
 
-    // TODO fm_pdf
+    // TODO fs_pdf
 
-    // TODO fm_pdf_sample
+    // TODO fs_pdf_sample
 
 private:
 
     /**
-     * @brief Phase function.
+     * @brief Compute phase function.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -2852,7 +2839,7 @@ private:
      * @param[in] wi
      * Incident direction.
      */
-    float_type pm(
+    float_type ps(
             multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
     {
@@ -2865,7 +2852,7 @@ private:
     }
 
     /**
-     * @brief Phase function sampling routine.
+     * @brief Compute phase function sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -2873,7 +2860,7 @@ private:
      * @param[in] wo
      * Outgoing direction.
      */
-    float_type pm_sample(
+    float_type ps_sample(
             multi<float_type, 2> u,
             multi<float_type, 3> wo) const
     {
@@ -2948,7 +2935,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF.
+     * @brief Compute BRDF.
      *
      * @f[
      *      f_s(\omega_o, \omega_i) =
@@ -2988,7 +2975,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF probability density function.
+     * @brief Compute BRDF-PDF.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -2998,7 +2985,7 @@ public:
      *
      * @note
      * For simplicity, this implementation samples
-     * the single-scattering BRDF as if it is Lambertian.
+     * the BRDF as if it is Lambertian.
      */
     float_type fs_pdf(
             multi<float_type, 3> wo,
@@ -3018,8 +3005,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF probability density function
-     * sampling routine.
+     * @brief Compute BRDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -3029,7 +3015,7 @@ public:
      *
      * @note
      * For simplicity, this implementation samples
-     * the single-scattering BRDF as if it is Lambertian.
+     * the BRDF as if it is Lambertian.
      */
     multi<float_type, 3> fs_pdf_sample(
             multi<float_type, 2> u,
@@ -3102,7 +3088,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF.
+     * @brief Compute BRDF.
      *
      * @f[
      *      f_s(\omega_o, \omega_i) = 
@@ -3143,7 +3129,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF probability density function.
+     * @brief Compute BRDF-PDF.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -3153,7 +3139,7 @@ public:
      *
      * @note
      * For simplicity, this implementation samples
-     * the single-scattering BRDF as if it is Lambertian.
+     * the BRDF as if it is Lambertian.
      */
     float_type fs_pdf(
             multi<float_type, 3> wo,
@@ -3173,8 +3159,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF probability density function
-     * sampling routine.
+     * @brief Compute BRDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -3184,7 +3169,7 @@ public:
      *
      * @note
      * For simplicity, this implementation samples
-     * the single-scattering BRDF as if it is Lambertian.
+     * the BRDF as if it is Lambertian.
      */
     multi<float_type, 3> fs_pdf_sample(
             multi<float_type, 2> u,
