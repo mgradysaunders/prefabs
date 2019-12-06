@@ -41,6 +41,9 @@
 // for pr::multi wrappers
 #include <preform/multi_math.hpp>
 
+// for pr::multi wrappers, pr::uniform_real_distribution, ...
+#include <preform/multi_random.hpp>
+
 namespace pr {
 
 /**
@@ -321,7 +324,6 @@ public:
      * matrix is valid. It is up to the caller to ensure this matrix is 
      * orthogonal and determinant 1.
      */
-    explicit
     microvolume_sggx(
             const multi<float_type, 3, 3>& q,
             const multi<float_type, 3>& s)
@@ -483,7 +485,101 @@ private:
     float_type sdet1_2_ = 1;
 };
 
-// TODO microvolume_sggx_specular_phase
+/**
+ * @brief Microvolume SGGX specular (reflection) phase.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct microvolume_sggx_specular_phase : public microvolume_sggx<T>
+{
+public:
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    microvolume_sggx_specular_phase() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    template <typename... Targs>
+    microvolume_sggx_specular_phase(Targs&&... args) :
+            microvolume_sggx<T>::
+            microvolume_sggx(std::forward<Targs>(args)...)
+    {
+    }
+
+    // Locally visible for convenience.
+    using microvolume_sggx<T>::aperp;
+
+    // Locally visible for convenience.
+    using microvolume_sggx<T>::d;
+
+    // Locally visible for convenience.
+    using microvolume_sggx<T>::dwo;
+
+    // Locally visible for convenience.
+    using microvolume_sggx<T>::dwo_sample;
+
+    /**
+     * @brief Phase function.
+     *
+     * @f[
+     *      p_s(\omega_o, \omega_i) = 
+     *          \frac{1}{4}
+     *          \frac{D(\omega_h)}{A_{\perp}(\omega_o)}
+     * @f]
+     * where
+     * @f[
+     *      \omega_h = 
+     *          \frac{\omega_o + \omega_i}
+     *               {\lVert\omega_o + \omega_i\rVert}
+     * @f]
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type ps(
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi) const
+    {
+        multi<float_type, 3> wh = normalize_safe(wo + wi);
+        if ((wh == 0).all()) { // Normalization error?
+            return 0;
+        }
+        else {
+            return d(wh) / (4 * aperp(wo));
+        }
+    }
+
+    /**
+     * @brief Phase function sampling routine.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     */
+    multi<float_type, 3> ps_sample(
+            const multi<float_type, 2>& u,
+            const multi<float_type, 3>& wo) const
+    {
+        multi<float_type, 3> wm = dwo_sample(u, wo);
+        multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
+        return wi;
+    }
+};
 
 // TODO microvolume_sggx_diffuse_phase
 
