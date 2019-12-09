@@ -94,13 +94,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a28cd0e684148f5f37ec92c9fa74cafd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a28cd0e684148f5f37ec92c9fa74cafd1">More...</a><br /></td></tr>
 <tr class="separator:a28cd0e684148f5f37ec92c9fa74cafd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af17e18ecc429dbb8fd16e2efc3b85f35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1disney__diffuse__brdf.html#a294089a018616afbc2de0565b14460f2">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1disney__diffuse__brdf.html#af17e18ecc429dbb8fd16e2efc3b85f35">fs</a> (multi&lt; <a class="el" href="structpr_1_1disney__diffuse__brdf.html#a294089a018616afbc2de0565b14460f2">float_type</a>, 3 &gt; wo, multi&lt; <a class="el" href="structpr_1_1disney__diffuse__brdf.html#a294089a018616afbc2de0565b14460f2">float_type</a>, 3 &gt; wi) const</td></tr>
-<tr class="memdesc:af17e18ecc429dbb8fd16e2efc3b85f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute BRDF.  <a href="#af17e18ecc429dbb8fd16e2efc3b85f35">More...</a><br /></td></tr>
+<tr class="memdesc:af17e18ecc429dbb8fd16e2efc3b85f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">BRDF.  <a href="#af17e18ecc429dbb8fd16e2efc3b85f35">More...</a><br /></td></tr>
 <tr class="separator:af17e18ecc429dbb8fd16e2efc3b85f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc78734a6d0c7c1a70af533a52d569c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1disney__diffuse__brdf.html#a294089a018616afbc2de0565b14460f2">float_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1disney__diffuse__brdf.html#adc78734a6d0c7c1a70af533a52d569c7">fs_pdf</a> (multi&lt; <a class="el" href="structpr_1_1disney__diffuse__brdf.html#a294089a018616afbc2de0565b14460f2">float_type</a>, 3 &gt; wo, multi&lt; <a class="el" href="structpr_1_1disney__diffuse__brdf.html#a294089a018616afbc2de0565b14460f2">float_type</a>, 3 &gt; wi) const</td></tr>
-<tr class="memdesc:adc78734a6d0c7c1a70af533a52d569c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute BRDF-PDF.  <a href="#adc78734a6d0c7c1a70af533a52d569c7">More...</a><br /></td></tr>
+<tr class="memdesc:adc78734a6d0c7c1a70af533a52d569c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">BRDF-PDF.  <a href="#adc78734a6d0c7c1a70af533a52d569c7">More...</a><br /></td></tr>
 <tr class="separator:adc78734a6d0c7c1a70af533a52d569c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeda23e2a56c3e10f4af8e5c0610c8e1"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="structpr_1_1disney__diffuse__brdf.html#a294089a018616afbc2de0565b14460f2">float_type</a>, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1disney__diffuse__brdf.html#aaeda23e2a56c3e10f4af8e5c0610c8e1">fs_pdf_sample</a> (multi&lt; <a class="el" href="structpr_1_1disney__diffuse__brdf.html#a294089a018616afbc2de0565b14460f2">float_type</a>, 2 &gt; u, multi&lt; <a class="el" href="structpr_1_1disney__diffuse__brdf.html#a294089a018616afbc2de0565b14460f2">float_type</a>, 3 &gt; wo) const</td></tr>
-<tr class="memdesc:aaeda23e2a56c3e10f4af8e5c0610c8e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute BRDF-PDF sample direction.  <a href="#aaeda23e2a56c3e10f4af8e5c0610c8e1">More...</a><br /></td></tr>
+<tr class="memdesc:aaeda23e2a56c3e10f4af8e5c0610c8e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">BRDF-PDF sample direction.  <a href="#aaeda23e2a56c3e10f4af8e5c0610c8e1">More...</a><br /></td></tr>
 <tr class="separator:aaeda23e2a56c3e10f4af8e5c0610c8e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
@@ -215,7 +215,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Compute BRDF. </p>
+<p>BRDF. </p>
 <p class="formulaDsp">
 \[ f_s(\omega_o, \omega_i) = \frac{|\omega_{i_z}|}{\pi} ((1 - |\omega_{o_z}|)^5 (F_{d,90} - 1) + 1) ((1 - |\omega_{i_z}|)^5 (F_{d,90} - 1) + 1) \]
 </p>
@@ -266,7 +266,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Compute BRDF-PDF. </p>
+<p>BRDF-PDF. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
@@ -314,7 +314,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Compute BRDF-PDF sample direction. </p>
+<p>BRDF-PDF sample direction. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \).</td></tr>
