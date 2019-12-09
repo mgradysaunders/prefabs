@@ -112,7 +112,7 @@ public:
     }
 
     /**
-     * @brief Phase function sampling routine.
+     * @brief Phase function sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -226,7 +226,7 @@ public:
     }
 
     /**
-     * @brief Phase function sampling routine.
+     * @brief Phase function sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -412,7 +412,7 @@ public:
     }
 
     /**
-     * @brief Distribution of visible normals sampling routine.
+     * @brief Distribution of visible normals sample.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -528,7 +528,7 @@ public:
     using microvolume_sggx<T>::dwo_sample;
 
     /**
-     * @brief Compute phase function.
+     * @brief Phase function.
      *
      * @f[
      *      p_s(\omega_o, \omega_i) = 
@@ -562,13 +562,18 @@ public:
     }
 
     /**
-     * @brief Compute phase function sample direction.
+     * @brief Phase function sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
      *
      * @param[in] wo
      * Outgoing direction.
+     *
+     * @note
+     * This samples directions matching the 
+     * distribution of @f$ p_s @f$, such that path throughput 
+     * is updated trivially as @f$ \beta' \gets \beta @f$.
      */
     multi<float_type, 3> ps_sample(
             const multi<float_type, 2>& u,
@@ -624,7 +629,13 @@ public:
     using microvolume_sggx<T>::dwo_sample;
 
     /**
-     * @brief Compute phase function.
+     * @brief Phase function.
+     *
+     * @f[
+     *      p_s(\omega_o, \omega_i) =
+     *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
+     * @f]
+     * where @f$ \omega_m \sim D_{\omega_o} @f$
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -649,7 +660,7 @@ public:
     }
 
     /**
-     * @brief Compute phase function sample direction.
+     * @brief Phase function sample direction.
      *
      * @param[in] u0
      * Sample in @f$ [0, 1)^2 @f$.
@@ -659,6 +670,11 @@ public:
      * 
      * @param[in] wo
      * Outgoing direction.
+     *
+     * @note
+     * This samples directions matching the 
+     * distribution of @f$ p_s @f$, such that path throughput 
+     * is updated trivially as @f$ \beta' \gets \beta @f$.
      */
     multi<float_type, 3> ps_sample(
             const multi<float_type, 2>& u0,

@@ -180,7 +180,7 @@ public:
     }
 
     /**
-     * @brief Distribution of slopes sampling routine.
+     * @brief Distribution of slopes sample.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -350,7 +350,7 @@ public:
     }
 
     /**
-     * @brief Distribution of slopes sampling routine.
+     * @brief Distribution of slopes sample.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -782,7 +782,7 @@ public:
     }
 
     /**
-     * @brief Distribution of visible normals sampling routine.
+     * @brief Distribution of visible normals sample.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -880,7 +880,7 @@ public:
     }
 
     /**
-     * @brief Height sampling routine.
+     * @brief Height sample.
      *
      * @param[in] u
      * Sample in @f$ [0, 1) @f$.
@@ -996,7 +996,7 @@ public:
     using microsurface<T, Tslope, Theight>::h_sample;
 
     /**
-     * @brief Compute single-scattering BRDF.
+     * @brief Single-scattering BRDF.
      *
      * @f[
      *      f_s(\omega_o, \omega_i) =
@@ -1043,7 +1043,7 @@ public:
     }
 
     /**
-     * @brief Compute single-scattering BRDF-PDF.
+     * @brief Single-scattering BRDF-PDF.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -1073,7 +1073,7 @@ public:
     }
 
     /**
-     * @brief Compute single-scattering BRDF-PDF sample direction.
+     * @brief Single-scattering BRDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -1244,7 +1244,7 @@ public:
     }
 
     /**
-     * @brief Compute multiple-scattering BRDF.
+     * @brief Multiple-scattering BRDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -1291,7 +1291,7 @@ public:
     }
 
     /**
-     * @brief Compute multiple-scattering BRDF-PDF.
+     * @brief Multiple-scattering BRDF-PDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -1334,7 +1334,7 @@ public:
     }
 
     /**
-     * @brief Compute multiple-scattering BRDF-PDF sample direction.
+     * @brief Multiple-scattering BRDF-PDF sample direction.
      *
      * @param[in] uk
      * Sample generator.
@@ -1398,7 +1398,7 @@ public:
     // Public for testing.
 
     /**
-     * @brief Compute phase function.
+     * @brief Phase function.
      *
      * @f[
      *      p_s(\omega_o, \omega_i) =
@@ -1429,7 +1429,7 @@ public:
     }
 
     /**
-     * @brief Compute phase function sample direction.
+     * @brief Phase function sample direction.
      *
      * @param[in] u0
      * Sample in @f$ [0, 1)^2 @f$.
@@ -1536,7 +1536,7 @@ public:
 public:
 
     /**
-     * @brief Compute single-scattering BSDF.
+     * @brief Single-scattering BSDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -1668,7 +1668,7 @@ public:
     }
 
     /**
-     * @brief Compute single-scattering BSDF-PDF.
+     * @brief Single-scattering BSDF-PDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -1788,7 +1788,7 @@ public:
     }
 
     /**
-     * @brief Compute single-scattering BSDF-PDF sample direction.
+     * @brief Single-scattering BSDF-PDF sample direction.
      *
      * @param[in] u0
      * Sample in @f$ [0, 1) @f$.
@@ -1868,7 +1868,7 @@ public:
     }
 
     /**
-     * @brief Compute single-scattering BRDF-PDF.
+     * @brief Single-scattering BRDF-PDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -1912,7 +1912,7 @@ public:
     }
 
     /**
-     * @brief Compute single-scattering BRDF-PDF sample direction.
+     * @brief Single-scattering BRDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -1950,7 +1950,7 @@ public:
     }
 
     /**
-     * @brief Compute single-scattering BTDF-PDF.
+     * @brief Single-scattering BTDF-PDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -2014,7 +2014,7 @@ public:
     }
 
     /**
-     * @brief Compute single-scattering BTDF-PDF sample direction.
+     * @brief Single-scattering BTDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -2255,7 +2255,7 @@ public:
     }
 
     /**
-     * @brief Compute multiple-scattering BSDF.
+     * @brief Multiple-scattering BSDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -2302,7 +2302,7 @@ public:
     }
 
     /**
-     * @brief Compute multiple-scattering BSDF-PDF.
+     * @brief Multiple-scattering BSDF-PDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -2345,7 +2345,7 @@ public:
     }
 
     /**
-     * @brief Compute multiple-scattering BSDF-PDF sample direction.
+     * @brief Multiple-scattering BSDF-PDF sample direction.
      *
      * @param[in] uk
      * Sample generator.
@@ -2411,7 +2411,7 @@ public:
     // Public for testing.
 
     /**
-     * @brief Compute phase function.
+     * @brief Phase function.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -2506,7 +2506,7 @@ public:
     }
 
     /**
-     * @brief Compute phase function sample direction.
+     * @brief Phase function sample direction.
      *
      * @param[in] u0
      * Sample in @f$ [0, 1) @f$.
@@ -2656,7 +2656,7 @@ public:
     using microsurface<T, Tslope, Theight>::h_sample;
 
     /**
-     * @brief Compute single-scattering BSDF.
+     * @brief Single-scattering BSDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -2724,7 +2724,7 @@ public:
     }
 
     /**
-     * @brief Compute single-scattering BSDF-PDF.
+     * @brief Single-scattering BSDF-PDF.
      *
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
@@ -2778,7 +2778,7 @@ public:
     }
 
     /**
-     * @brief Compute single-scattering BSDF-PDF sample direction.
+     * @brief Single-scattering BSDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -2831,7 +2831,7 @@ public:
 private:
 
     /**
-     * @brief Compute phase function.
+     * @brief Phase function.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -2853,7 +2853,7 @@ private:
     }
 
     /**
-     * @brief Compute phase function sample direction.
+     * @brief Phase function sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -2936,7 +2936,7 @@ public:
     }
 
     /**
-     * @brief Compute BRDF.
+     * @brief BRDF.
      *
      * @f[
      *      f_s(\omega_o, \omega_i) =
@@ -2976,7 +2976,7 @@ public:
     }
 
     /**
-     * @brief Compute BRDF-PDF.
+     * @brief BRDF-PDF.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -3006,7 +3006,7 @@ public:
     }
 
     /**
-     * @brief Compute BRDF-PDF sample direction.
+     * @brief BRDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -3089,7 +3089,7 @@ public:
     }
 
     /**
-     * @brief Compute BRDF.
+     * @brief BRDF.
      *
      * @f[
      *      f_s(\omega_o, \omega_i) = 
@@ -3130,7 +3130,7 @@ public:
     }
 
     /**
-     * @brief Compute BRDF-PDF.
+     * @brief BRDF-PDF.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -3160,7 +3160,7 @@ public:
     }
 
     /**
-     * @brief Compute BRDF-PDF sample direction.
+     * @brief BRDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
