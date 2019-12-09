@@ -4,6 +4,7 @@ add_executable(byte_order byte_order.cpp)
 add_executable(float_atomic float_atomic.cpp)
 add_executable(float_interval float_interval.cpp)
 add_executable(half half.cpp)
+add_executable(medium medium.cpp)
 add_executable(microsurface microsurface.cpp)
 add_executable(quat quat.cpp)
 add_executable(random random.cpp)
@@ -16,6 +17,7 @@ set_target_properties(
     float_atomic
     float_interval
     half
+    medium
     microsurface
     quat
     random
@@ -40,6 +42,7 @@ set_target_properties(
 set_target_properties(
     aabbtree
     float_interval
+    medium
     microsurface
     quat
     PROPERTIES

@@ -1425,7 +1425,7 @@ public:
 
         // Evaluate.
         return pr::numeric_constants<float_type>::M_1_pi() *
-               pr::fmax(pr::dot(wm, wi), float_type(0));
+               pr::fmax(dot(wm, wi), float_type(0));
     }
 
     /**
@@ -2840,15 +2840,16 @@ private:
      * Incident direction.
      */
     float_type ps(
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi) const
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi) const
     {
         multi<float_type, 3> wh = normalize(wo + wi);
         if (!(wh[2] > 0)) {
             return 0;
         }
-
-        return float_type(0.25) * dwo(wo, wh) / dot(wo, wh);
+        else {
+            return dwo(wo, wh) / (4 * dot(wo, wh));
+        }
     }
 
     /**
@@ -2861,8 +2862,8 @@ private:
      * Outgoing direction.
      */
     float_type ps_sample(
-            multi<float_type, 2> u,
-            multi<float_type, 3> wo) const
+            const multi<float_type, 2>& u,
+            const multi<float_type, 3>& wo) const
     {
         multi<float_type, 3> wm = dwo_sample(u, wo);
         multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;

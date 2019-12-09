@@ -411,7 +411,6 @@ public:
                             d_wm * fac_numer / fac_denom : 0;
     }
 
-    // TODO Verify
     /**
      * @brief Distribution of visible normals sampling routine.
      *
@@ -529,7 +528,7 @@ public:
     using microvolume_sggx<T>::dwo_sample;
 
     /**
-     * @brief Phase function.
+     * @brief Compute phase function.
      *
      * @f[
      *      p_s(\omega_o, \omega_i) = 
@@ -563,7 +562,7 @@ public:
     }
 
     /**
-     * @brief Phase function sampling routine.
+     * @brief Compute phase function sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -581,7 +580,102 @@ public:
     }
 };
 
-// TODO microvolume_sggx_diffuse_phase
+/**
+ * @brief Microvolume SGGX diffuse (reflection) phase.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct microvolume_sggx_diffuse_phase : public microvolume_sggx<T>
+{
+public:
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    microvolume_sggx_diffuse_phase() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    template <typename... Targs>
+    microvolume_sggx_diffuse_phase(Targs&&... args) :
+            microvolume_sggx<T>::
+            microvolume_sggx(std::forward<Targs>(args)...)
+    {
+    }
+
+    // Locally visible for convenience.
+    using microvolume_sggx<T>::aperp;
+
+    // Locally visible for convenience.
+    using microvolume_sggx<T>::d;
+
+    // Locally visible for convenience.
+    using microvolume_sggx<T>::dwo;
+
+    // Locally visible for convenience.
+    using microvolume_sggx<T>::dwo_sample;
+
+    /**
+     * @brief Compute phase function.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type ps(
+            const multi<float_type, 2>& u,
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi) const
+    {
+        // Sample visible microvolume normal.
+        multi<float_type, 3> wm = dwo_sample(u, wo);
+
+        // Evaluate.
+        return pr::numeric_constants<float_type>::M_1_pi() * 
+               pr::fmax(dot(wi, wm), float_type(0));
+    }
+
+    /**
+     * @brief Compute phase function sample direction.
+     *
+     * @param[in] u0
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] u1
+     * Sample in @f$ [0, 1)^2 @f$.
+     * 
+     * @param[in] wo
+     * Outgoing direction.
+     */
+    multi<float_type, 3> ps_sample(
+            const multi<float_type, 2>& u0,
+            const multi<float_type, 2>& u1,
+            const multi<float_type, 2>& wo) const
+    {
+        // Sample visible microvolume normal.
+        multi<float_type, 3> wm = dwo_sample(u0, wo);
+
+        // Sample direction.
+        multi<float_type, 3> wi = 
+        multi<float_type, 3>::cosine_hemisphere_pdf_sample(u1);
+
+        // Expand in orthonormal basis.
+        return dot(multi<float_type, 3, 3>::build_onb(wm), wi);
+    }
+};
 
 #if 0
 // TODO halfspace_phase_brdf

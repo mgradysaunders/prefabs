@@ -66,8 +66,8 @@ Vec2f generateCanonical2()
 }
 
 // Test full-sphere scattering.
-template <typename Microsurface>
-void testFullSphere(const char* name, const Microsurface& microsurface)
+template <typename Surf>
+void testFullSphere(const char* name, const Surf& surf)
 {
     Vec2i n = {512, 512};
     std::cout << "Testing full-sphere scattering for ";
@@ -99,7 +99,7 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
         // Integrand.
         if (wo_pdf > 0 &&
             wi_pdf > 0) {
-            Float fk = microsurface.fs(generateCanonical, wo, wi);
+            Float fk = surf.fs(generateCanonical, wo, wi);
             fk /= wi_pdf;
             fk /= wo_pdf;
             fk /= n.prod();
@@ -118,9 +118,9 @@ void testFullSphere(const char* name, const Microsurface& microsurface)
     delete[] u1;
 }
 
-// Test multi-scatter phase function.
-template <typename Microsurface, typename Pred>
-void testPhase(const char* name, const Microsurface& microsurface, Pred&& pred)
+// Test multi-scatter phase function normalization.
+template <typename Surf, typename Pred>
+void testPhase(const char* name, const Surf& surf, Pred&& pred)
 {
     Vec2i n = {512, 512};
     std::cout << "Testing multi-scatter phase function for ";
@@ -143,13 +143,13 @@ void testPhase(const char* name, const Microsurface& microsurface, Pred&& pred)
     NeumaierSum f = 0;
     for (int k = 0; k < n.prod(); k++) {
 
-        // Inident direction.
+        // Incident direction.
         Vec3f wi = Vec3f::uniform_sphere_pdf_sample(u0[k]);
         Float wi_pdf = Vec3f::uniform_sphere_pdf();
 
         // Integrand.
         if (wi_pdf > 0) {
-            Float fk = std::forward<Pred>(pred)(microsurface, wo, wi);
+            Float fk = std::forward<Pred>(pred)(surf, wo, wi);
             fk /= wi_pdf;
             fk /= n.prod();
             if (pr::isinf(fk)) {
@@ -223,10 +223,7 @@ int main(int argc, char** argv)
     std::cout << "eta1 = " << eta1 << "\n";
 
     // Generate roughness.
-    Vec2f alpha = {
-        generateCanonical() * 2 + Float(0.1),
-        generateCanonical() * 2 + Float(0.1)
-    };
+    Vec2f alpha = generateCanonical2() * 2 + Float(0.05);
     std::cout << "alpha = " << alpha << "\n\n";
     std::cout.flush();
 
@@ -244,19 +241,19 @@ int main(int argc, char** argv)
         "DielectricBeckmann",
          DielectricBeckmann(1, 1, eta0 / eta1, alpha));
 
-    // Test phase function normalization.
-    auto lambertian_pred = 
-    [=](const auto& microsurface, 
+    // Test multi-scatter phase function normalization.
+    const auto lambertian_pred = 
+    [=](const auto& surf, 
         const Vec3f& wo, 
         const Vec3f& wi) {
-        return microsurface.ps(generateCanonical2(), wo, wi);
+        return surf.ps(generateCanonical2(), wo, wi);
     };
-    auto dielectric_pred = 
-    [=](const auto& microsurface, 
+    const auto dielectric_pred = 
+    [=](const auto& surf, 
         const Vec3f& wo, 
         const Vec3f& wi) {
-        return microsurface.ps(wo, wi, wo[2] > 0, true) +
-               microsurface.ps(wo, wi, wo[2] > 0, false);
+        return surf.ps(wo, wi, wo[2] > 0, true) +
+               surf.ps(wo, wi, wo[2] > 0, false);
     };
     testPhase(
         "LambertianTrowbridgeReitz",
