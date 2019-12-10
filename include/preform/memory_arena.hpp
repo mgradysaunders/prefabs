@@ -67,7 +67,7 @@ public:
      * @brief Constructor.
      */
     memory_arena(
-            std::size_t block_size = 0, 
+            std::size_t block_size = 0,
             const Tbyte_alloc& byte_alloc = Tbyte_alloc()) :
                 block_size_(block_size),
                 byte_alloc_(byte_alloc)
@@ -251,7 +251,7 @@ private:
 // operator new
 template <typename Tbyte_alloc>
 inline void* operator new(
-                std::size_t size, 
+                std::size_t size,
                 pr::memory_arena<Tbyte_alloc>& arena)
 {
     return arena.allocate(size);
@@ -260,7 +260,7 @@ inline void* operator new(
 // operator new[]
 template <typename Tbyte_alloc>
 inline void* operator new[](
-                std::size_t size, 
+                std::size_t size,
                 pr::memory_arena<Tbyte_alloc>& arena)
 {
     return arena.allocate(size);

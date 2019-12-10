@@ -38,7 +38,7 @@
 #if !DOXYGEN
 #ifndef PREFORM_AABBTREE_USE_THREADS
 #define PREFORM_AABBTREE_USE_THREADS 1
-#endif // PREFORM_AABBTREE_USE_THREADS 
+#endif // PREFORM_AABBTREE_USE_THREADS
 #endif // #if !DOXYGEN
 
 // for assert
@@ -102,7 +102,7 @@ namespace pr {
  * Dimension.
  *
  * @tparam Tsplit_mode
- * Split mode type, either 
+ * Split mode type, either
  * - `pr::aabbtree_split_equal_counts`,
  * - `pr::aabbtree_split_equal_dimensions`, or
  * - `pr::aabbtree_split_surface_area`.
@@ -155,14 +155,14 @@ public:
     /**
      * @brief Node allocator type.
      */
-    typedef 
+    typedef
         typename std::allocator_traits<Talloc>::
         template rebind_alloc<node_type> node_allocator_type;
 
     /**
      * @brief Proxy allocator type.
      */
-    typedef 
+    typedef
         typename std::allocator_traits<Talloc>::
         template rebind_alloc<proxy_type> proxy_allocator_type;
 
@@ -248,7 +248,7 @@ public:
      * Allocator.
      */
     aabbtree(
-        size_type leaf_cutoff, 
+        size_type leaf_cutoff,
         const Talloc& alloc = Talloc()) :
             leaf_cutoff_(leaf_cutoff),
             node_alloc_(alloc),
@@ -310,8 +310,8 @@ public:
         clear();
 
         // Count.
-        typename 
-        std::iterator_traits<Tinput_itr>::difference_type 
+        typename
+        std::iterator_traits<Tinput_itr>::difference_type
             count = std::distance(from, to);
         if (count < decltype(count)(1)) {
             return;
@@ -362,7 +362,7 @@ public:
             typename std::iterator_traits<Tforward_itr>::value_type,
             typename std::allocator_traits<Talloc>::
             template rebind_alloc<
-                typename std::iterator_traits<Tforward_itr>::value_type>> 
+                typename std::iterator_traits<Tforward_itr>::value_type>>
                     values(from, to, node_alloc_);
         for (size_type pos = 0; pos < proxies_.size(); pos++) {
             *from++ = values[proxies_[pos].value_index];

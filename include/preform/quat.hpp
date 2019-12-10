@@ -527,7 +527,7 @@ public:
     /**
      * @brief Rotation axis.
      *
-     * @f[ 
+     * @f[
      *      \frac{\mathbf{v}}{\lVert\mathbf{v}\rVert}
      * @f]
      */
@@ -665,9 +665,9 @@ public:
         quat<float_type> a =
         quat<float_type>(multi<float_type, 3, 3>(x));
         quat<float_type> b = {
-            0, 
-            x[0][3], 
-            x[1][3], 
+            0,
+            x[0][3],
+            x[1][3],
             x[2][3]
         };
         b *= a;
@@ -846,15 +846,15 @@ public:
      * @brief Apply transform operator.
      *
      * @f[
-     *      q(\mathbf{u}) = 
+     *      q(\mathbf{u}) =
      *      a(\mathbf{u}) + 2\operatorname{Im}(b a^\dagger)
      * @f]
      */
     template <typename U>
     constexpr multi<U, 3> operator()(const multi<U, 3>& u) const
     {
-        return 
-            quat_real()(u) + 
+        return
+            quat_real()(u) +
             2 * (quat_dual() * quat_real().conj()).imag();
     }
 
@@ -900,7 +900,7 @@ public:
      */
     constexpr explicit operator multi<float_type, 4, 4>() const
     {
-        multi<float_type, 4, 4> res = 
+        multi<float_type, 4, 4> res =
         multi<float_type, 3, 3>(quat_real());
         multi<float_type, 3> w = 2 * (quat_dual() * quat_real().conj()).imag();
         res[0][3] = w[0];
@@ -1055,7 +1055,7 @@ public:
      * @brief Rotation angle.
      *
      * @f[
-     *      2 \arctan(\lVert\operatorname{Re}(\mathbf{v})\rVert, 
+     *      2 \arctan(\lVert\operatorname{Re}(\mathbf{v})\rVert,
      *                      \operatorname{Re}(s))
      * @f]
      */
@@ -1067,7 +1067,7 @@ public:
     /**
      * @brief Rotation axis.
      *
-     * @f[ 
+     * @f[
      *      \frac{\operatorname{Re}(\mathbf{v})}
      *           {\lVert\operatorname{Re}(\mathbf{v})\rVert}
      * @f]
@@ -1674,7 +1674,7 @@ inline std::enable_if_t<
 template <typename T>
 __attribute__((always_inline))
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, 
+       std::is_floating_point<T>::value,
                          quat<T>> normalize_safe(const quat<T>& q)
 {
     return quat<T>(normalize_safe(static_cast<multi<T, 4>>(q)));
@@ -1693,7 +1693,7 @@ inline std::enable_if_t<
 template <typename T>
 __attribute__((always_inline))
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, 
+       std::is_floating_point<T>::value,
                          quat<T>> normalize(const quat<T>& q)
 {
     return quat<T>(normalize(static_cast<multi<T, 4>>(q)));

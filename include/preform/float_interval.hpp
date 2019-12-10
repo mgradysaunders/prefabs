@@ -66,14 +66,14 @@ namespace pr {
  *
  * @note
  * To use `std::fesetround` instead of `pr::fdec` and `pr::finc` where
- * sensible, `#define PREFORM_USE_FENV 1` before including. This ought to 
+ * sensible, `#define PREFORM_USE_FENV 1` before including. This ought to
  * yield tighter bounds, though the code may not run any faster.
  *
  * @note
  * If `PREFORM_USE_FENV` is truthy, this header will
- * `#pragma STDC FENV_ACCESS ON` to be standard compliant. GCC and clang 
- * may warn that this pragma is unknown&mdash;this is not an issue, as GCC 
- * and clang (on x86-64 at least) provide floating-point environment access 
+ * `#pragma STDC FENV_ACCESS ON` to be standard compliant. GCC and clang
+ * may warn that this pragma is unknown&mdash;this is not an issue, as GCC
+ * and clang (on x86-64 at least) provide floating-point environment access
  * by default.
  */
 /**@{*/
@@ -539,7 +539,7 @@ inline float_interval<T> operator-(const float_interval<T>& b)
  * @f]
  *
  * @note
- * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround` 
+ * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround`
  * instead of `pr::fdec` and `pr::finc`.
  */
 template <typename T>
@@ -579,7 +579,7 @@ inline float_interval<T> operator+(
  * @f]
  *
  * @note
- * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround` 
+ * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround`
  * instead of `pr::fdec` and `pr::finc`.
  */
 template <typename T>
@@ -855,7 +855,7 @@ inline float_interval<T> fabs(const float_interval<T>& b)
  * @brief Bound `pr::sqrt()`.
  *
  * @note
- * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround` 
+ * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround`
  * instead of `pr::fdec` and `pr::finc`.
  */
 template <typename T>

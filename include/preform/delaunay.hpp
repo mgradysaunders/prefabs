@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -69,7 +69,7 @@ namespace pr {
  * Allocator type.
  */
 template <
-    typename Tfloat, 
+    typename Tfloat,
     typename Talloc = std::allocator<char>
     >
 class delaunay_triangulation
@@ -152,7 +152,7 @@ public:
                 return (&a)[k];
             }
             else {
-                return k == 0 ? a : 
+                return k == 0 ? a :
                        k == 1 ? b : c;
             }
         }
@@ -164,7 +164,7 @@ public:
      * This represents an edge between two points as a pair of
      * indices @f$ (a, b) @f$. For the purposes of comparison, the
      * pair is unordered. This means that @f$ (a, b) @f$ and @f$ (b, a) @f$
-     * identfy the same edge. However, the order is relevant in determining 
+     * identfy the same edge. However, the order is relevant in determining
      * whether a border edge is visible to a point, and so it is
      * preserved.
      */
@@ -185,7 +185,7 @@ public:
         /**
          * @brief Compare less-than.
          *
-         * After sorting the indices of each edge, compare less-than 
+         * After sorting the indices of each edge, compare less-than
          * lexicographically. This ensures that each pair @f$ (a, b) @f$
          * behaves identically to @f$ (b, a) @f$.
          */
@@ -200,7 +200,7 @@ public:
         /**
          * @brief Compare equal.
          *
-         * After sorting the indices of each edge, compare equal. 
+         * After sorting the indices of each edge, compare equal.
          * lexicographically. This ensures that each pair @f$ (a, b) @f$
          * behaves identically to @f$ (b, a) @f$.
          */
@@ -264,7 +264,7 @@ private:
             if (t1 == bad_index) {
                 t1 = t;
             }
-            else { 
+            else {
                 t2 = t;
             }
         }
@@ -288,7 +288,7 @@ private:
             if (t1 == tfrom) {
                 t1 = tto;
             }
-            else { 
+            else {
                 t2 = tto;
             }
         }
@@ -332,7 +332,7 @@ public:
      * Iterator range to.
      *
      * @tparam Tinput_itr
-     * Input iterator whose value type is suitable to 
+     * Input iterator whose value type is suitable to
      * initialize `point_type`.
      */
     template <typename Tinput_itr>
@@ -354,11 +354,11 @@ public:
                 point_centroid += point;
             }
         }
-        point_centroid /= 
+        point_centroid /=
         float_type(points_.size());
 
         // Compute point square distances to point centroid.
-        std::vector<std::pair<float_type, index_type>> 
+        std::vector<std::pair<float_type, index_type>>
         point_distances;
         point_distances.reserve(points_.size());
         for (const point_type& point : points_) {
@@ -387,7 +387,7 @@ public:
                 point_distances[1].second,
                 point_distances[2].second
             };
-            initial_triangle_area = 
+            initial_triangle_area =
             signed_area<float_interval_type>(
                         initial_triangle.a,
                         initial_triangle.b,
@@ -415,7 +415,7 @@ public:
         if (initial_triangle_area.upper_bound() < 0) {
             // Make counter-clockwise.
             std::swap(
-                    initial_triangle.b, 
+                    initial_triangle.b,
                     initial_triangle.c);
         }
 
@@ -434,7 +434,7 @@ public:
         edge_triangles_[initial_edges[0]].push(0);
         edge_triangles_[initial_edges[1]].push(0);
         edge_triangles_[initial_edges[2]].push(0);
-            
+
         // Insert initial edges to boundary edge set.
         boundary_edges_.insert(initial_edges[0]);
         boundary_edges_.insert(initial_edges[1]);
@@ -446,7 +446,7 @@ public:
             pr::memory_arena_allocator<char> alloc2;
 
             // Add remaining points.
-            for (size_type k = 3; 
+            for (size_type k = 3;
                            k < point_distances.size(); k++) {
                 add_point(point_distances[k].second, alloc1, alloc2);
             }
@@ -462,7 +462,7 @@ public:
                             triangle.c) < 0) {
                 // Make counter-clockwise.
                 std::swap(
-                        triangle.b, 
+                        triangle.b,
                         triangle.c);
             }
         }
@@ -506,7 +506,7 @@ private:
     /**
      * @brief Signed area of parallelogram.
      *
-     * This computes the signed area of the parallelogram 
+     * This computes the signed area of the parallelogram
      * corresponding to the triangle formed by three points with indices
      * @f$ (a, b, c) @f$. This is given by
      * @f[
@@ -559,7 +559,7 @@ private:
      * Arena allocator for temporary allocations.
      */
     void add_point(
-                index_type p, 
+                index_type p,
                 pr::memory_arena_allocator<char> alloc1,
                 pr::memory_arena_allocator<char> alloc2)
     {
@@ -570,16 +570,16 @@ private:
         {
 
         // Boundary edges to remove.
-        std::vector<edge_type, 
-        pr::memory_arena_allocator<edge_type>> 
+        std::vector<edge_type,
+        pr::memory_arena_allocator<edge_type>>
                 boundary_edges_to_remove(alloc1); // Use allocator 1.
         boundary_edges_to_remove.reserve(
         boundary_edges_.size() / 2);
 
         // Boundary edges to add.
-        std::set<edge_type, 
+        std::set<edge_type,
         std::less<edge_type>,
-        pr::memory_arena_allocator<edge_type>> 
+        pr::memory_arena_allocator<edge_type>>
                 boundary_edges_to_add(alloc1); // Use allocator 1.
 
         // Iterate over boundary edges.
@@ -590,7 +590,7 @@ private:
                         p, edge.a, edge.b).upper_bound() < 0) {
 
                 // Form (counterclockwise) triangle.
-                index_type t = 
+                index_type t =
                 index_type(triangles_.size());
                 triangles_.push_back({p, edge.b, edge.a});
 
@@ -636,9 +636,9 @@ private:
         {
 
         // Set of edges to flip.
-        std::set<edge_type, 
-        std::less<edge_type>, 
-        pr::memory_arena_allocator<edge_type>> 
+        std::set<edge_type,
+        std::less<edge_type>,
+        pr::memory_arena_allocator<edge_type>>
                 edges_to_flip(alloc1); // Use allocator 1.
         // Initialize with all edges.
         for (const auto& kv : edge_triangles_) {
@@ -656,7 +656,7 @@ private:
 
             for (const edge_type& edge : edges_to_flip) {
                 maybe_flip_edge(
-                        edge, 
+                        edge,
                         edges_to_flip_next);
             }
 
@@ -703,10 +703,10 @@ private:
      */
     template <typename... Targs>
     void maybe_flip_edge(
-                edge_type edge, 
+                edge_type edge,
                 std::set<edge_type, Targs...>& edges_to_flip_next)
     {
-        edge_triangles_type 
+        edge_triangles_type
         edge_triangles = edge_triangles_[edge];
         // Is boundary edge?
         if (!edge_triangles.is_full()) {
@@ -783,15 +783,15 @@ private:
         edges_to_flip_next.insert(edge_type{q1, edge.a});
         edges_to_flip_next.insert(edge_type{q2, edge.b});
     }
-    
+
 private:
 
     /**
      * @brief Points.
      *
      * @note
-     * This uses the user-specified allocator type `Talloc` rebound to 
-     * `point_type`. For brevity, this is not shown in the documentation 
+     * This uses the user-specified allocator type `Talloc` rebound to
+     * `point_type`. For brevity, this is not shown in the documentation
      * type signature.
      */
     std::vector<
@@ -808,8 +808,8 @@ private:
      * @brief Triangles.
      *
      * @note
-     * This uses the user-specified allocator type `Talloc` rebound to 
-     * `triangle_type`. For brevity, this is not shown in the documentation 
+     * This uses the user-specified allocator type `Talloc` rebound to
+     * `triangle_type`. For brevity, this is not shown in the documentation
      * type signature.
      */
     std::vector<
@@ -829,7 +829,7 @@ private:
      * 1 or 2 triangles containing it.
      *
      * @note
-     * This uses the user-specified allocator type `Talloc` rebound to 
+     * This uses the user-specified allocator type `Talloc` rebound to
      * `std::pair<const edge_type, edge_triangles_type>`. For brevity, this is
      * not shown in the documentation type signature.
      */
@@ -853,8 +853,8 @@ private:
      * oriented counter-clockwise around the point set.
      *
      * @note
-     * This uses the user-specified allocator type `Talloc` rebound to 
-     * `edge_type`. For brevity, this is not shown in the documentation 
+     * This uses the user-specified allocator type `Talloc` rebound to
+     * `edge_type`. For brevity, this is not shown in the documentation
      * type signature.
      */
     std::set<

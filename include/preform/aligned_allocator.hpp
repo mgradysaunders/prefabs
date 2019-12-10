@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -70,22 +70,22 @@ namespace pr {
 template <typename T>
 inline T* align_pointer(T* ptr, std::size_t alignment)
 {
-    if (!(alignment > 0 && 
+    if (!(alignment > 0 &&
          (alignment & (alignment - 1)) == 0)) {
         throw std::invalid_argument(__PRETTY_FUNCTION__);
     }
     std::uintptr_t ptr_addr = 0;
     std::memcpy(
-            &ptr_addr, 
-            &ptr, 
+            &ptr_addr,
+            &ptr,
             sizeof(ptr));
     // Align.
     std::size_t alignment_mask = alignment - 1;
     ptr_addr += alignment_mask;
     ptr_addr &= ~alignment_mask;
     std::memcpy(
-            &ptr, 
-            &ptr_addr, 
+            &ptr,
+            &ptr_addr,
             sizeof(ptr));
     return ptr;
 }

@@ -219,8 +219,8 @@ constexpr std::enable_if_t<
           std::is_integral<T>::value, T> bit_swap(T val, int pos0, int pos1)
 {
     T mask = ((val >> pos0) ^ (val >> pos1)) & 1;
-    return 
-        ((mask << pos0) | 
+    return
+        ((mask << pos0) |
          (mask << pos1)) ^ val;
 }
 
@@ -306,7 +306,7 @@ template <>
 struct bit_reverse_impl<std::uint64_t>
 {
     __attribute__((always_inline))
-    static constexpr std::uint64_t reverse(std::uint64_t val) 
+    static constexpr std::uint64_t reverse(std::uint64_t val)
     {
         std::uint64_t mask[6] = {
             0xaaaaaaaaaaaaaaaaULL,
@@ -319,7 +319,7 @@ struct bit_reverse_impl<std::uint64_t>
 #if __GNUC__
         val = __builtin_bswap64(val);
         for (int k = 0; k < 3; k++) {
-#else 
+#else
         for (int k = 0; k < 6; k++) {
 #endif // #if __GNUC__
             val = ((val &  mask[k]) >> (1 << k)) |
@@ -435,9 +435,9 @@ struct bit_interleave_zero_impl<std::uint64_t>
  * - bit @f$ k @f$ of @f$ y @f$ is bit @f$ 2k + 1 @f$ of @f$ z @f$.
  *
  * @note
- * If the input integer type has @f$ 2^n @f$ bits, the top 
- * @f$ 2^{n - 1} @f$ bits of the input integers do not appear in 
- * the output. 
+ * If the input integer type has @f$ 2^n @f$ bits, the top
+ * @f$ 2^{n - 1} @f$ bits of the input integers do not appear in
+ * the output.
  */
 template <typename T>
 constexpr std::enable_if_t<
@@ -742,8 +742,8 @@ struct sized_uint {
  * Let @f$ \mathbf{M} \in \mathbb{R}^{n,n} @f$ denote the Bayer index
  * matrix for dimension @f$ n = 2^B @f$, where
  * @f[
- *      M_{i,j} = 
- *          \frac{1}{n^2} 
+ *      M_{i,j} =
+ *          \frac{1}{n^2}
  *          \operatorname{reverse}_{2B}(
  *          \operatorname{interleave}(\operatorname{xor}(j, i), i))
  * @f]
@@ -758,7 +758,7 @@ constexpr std::enable_if_t<
     static_assert(sizeof(T) * 8 > B * 2, "T does not have enough bits");
     i = i & ((1 << B) - 1);
     j = j & ((1 << B) - 1);
-    return 
+    return
         bit_reverse<T>(
         bit_interleave<T>(j ^ i, i)) >> (sizeof(T) * 8 - B * 2);
 }

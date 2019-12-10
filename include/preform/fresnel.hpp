@@ -95,7 +95,7 @@ namespace pr {
  * - `ts = tp = 0`.
  *
  * @returns
- * If total internal reflection (TIR), returns `false` 
+ * If total internal reflection (TIR), returns `false`
  * to indicate that there is no refracted ray. Otherwise, returns `true`.
  */
 template <typename T>
@@ -148,7 +148,7 @@ inline std::enable_if_t<
  * Transmission.
  *
  * @returns
- * If total internal reflection (TIR), returns `false` 
+ * If total internal reflection (TIR), returns `false`
  * to indicate that there is no refracted ray. Otherwise, returns `true`.
  */
 template <typename T>
@@ -161,7 +161,7 @@ inline std::enable_if_t<
 {
     T rs = 0, rp = 0;
     T ts = 0, tp = 0;
-    bool res = 
+    bool res =
     fresnel_diel(
         eta,
         cos_thetai,
@@ -197,7 +197,7 @@ inline std::enable_if_t<
  * Transmission.
  *
  * @returns
- * If total internal reflection (TIR), returns `false` 
+ * If total internal reflection (TIR), returns `false`
  * to indicate that there is no refracted ray. Otherwise, returns `true`.
  */
 template <typename T>
@@ -375,7 +375,7 @@ inline std::enable_if_t<
  * Transmission p-polarization.
  *
  * @note
- * In practice, 
+ * In practice,
  * - @f$ \eta_i @f$ should be real/dielectric, while
  * - @f$ \eta_t @f$ may be complex/conducting.
  */
@@ -388,9 +388,9 @@ inline std::enable_if_t<
                std::complex<T>& rs, std::complex<T>& rp,
                std::complex<T>& ts, std::complex<T>& tp)
 {
-    cos_thetat = 
+    cos_thetat =
         pr::sign(cos_thetai) *
-        pr::sqrt(T(1) - eta * eta * 
+        pr::sqrt(T(1) - eta * eta *
                 (T(1) - cos_thetai * cos_thetai));
     rs = (eta * cos_thetai - cos_thetat) / (eta * cos_thetai + cos_thetat);
     rp = (cos_thetai - eta * cos_thetat) / (cos_thetai + eta * cos_thetat);
@@ -411,7 +411,7 @@ inline std::enable_if_t<
  * Cosine of incidence angle.
  *
  * @note
- * In practice, 
+ * In practice,
  * - @f$ \eta_i @f$ should be real/dielectric, while
  * - @f$ \eta_t @f$ may be complex/conducting.
  */

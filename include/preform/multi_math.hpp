@@ -1041,9 +1041,9 @@ struct multi_initializers<
      * - @f$ \alpha_1 \gets \alpha_0 \hat{z}_{[0]} \hat{z}_{[1]} @f$
      * - @f$ \alpha_2 \gets \alpha_0 \hat{z}_{[0]}^2 + 1 @f$
      * - @f$ \alpha_3 \gets \alpha_0 \hat{z}_{[1]}^2 + 1 @f$
-     * - @f$ \hat{\mathbf{x}} \gets 
+     * - @f$ \hat{\mathbf{x}} \gets
      *   [\alpha_2\; \alpha_1\; -\hat{z}_{[0]}]^\top @f$
-     * - @f$ \hat{\mathbf{y}} \gets 
+     * - @f$ \hat{\mathbf{y}} \gets
      *   [\alpha_1\; \alpha_3\; -\hat{z}_{[1]}]^\top @f$
      *
      * @note

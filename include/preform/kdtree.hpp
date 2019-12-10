@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -81,7 +81,7 @@ namespace pr {
  * Allocator type.
  */
 template <
-    typename Tfloat, std::size_t N, 
+    typename Tfloat, std::size_t N,
     typename Tvalue,
     typename Talloc = std::allocator<char>
     >
@@ -179,7 +179,7 @@ public:
          */
         std::uint32_t split_dim;
     };
-    
+
 public:
 
     /**
@@ -217,7 +217,7 @@ public:
      * Input to.
      *
      * @param[in] func
-     * Function constructing an instance of `value_type` for each 
+     * Function constructing an instance of `value_type` for each
      * input element.
      *
      * @note
@@ -238,8 +238,8 @@ public:
         clear();
 
         // Count.
-        typename 
-        std::iterator_traits<Tinput_itr>::difference_type 
+        typename
+        std::iterator_traits<Tinput_itr>::difference_type
             count = std::distance(from, to);
         if (count < decltype(count)(1)) {
             return;
@@ -252,9 +252,9 @@ public:
             from++;
         }
 
-        root_ = 
+        root_ =
         init_recursive({
-                &values[0], 
+                &values[0],
                 &values[0] + values.size()
             });
     }
@@ -396,7 +396,7 @@ private:
         // Allocate node.
         node_type* node = allocate();
 
-        // Initialize node. 
+        // Initialize node.
         *node = {
             *split,
             nullptr,
@@ -405,11 +405,11 @@ private:
         };
 
         // Recurse to initialize left child.
-        node->left = 
+        node->left =
         init_recursive({values.begin(), split});
 
         // Recurse to initialize right child.
-        node->right = 
+        node->right =
         init_recursive({split + 1, values.end()});
 
         return node;
@@ -482,7 +482,7 @@ private:
 
         // Signed distance to split plane.
         float_type min_dist = diff[node->split_dim];
-        float_type min_dist2 = min_dist * min_dist; 
+        float_type min_dist2 = min_dist * min_dist;
 
         // If point is on left, process left child first.
         // If point is on right, process right child first.
@@ -494,7 +494,7 @@ private:
         }
 
         if (child0) {
-            // Recurse only if necessary. 
+            // Recurse only if necessary.
             if (!(min_dist < 0 &&
                   min_dist2 > info.near.second)) {
                 nearest_recursive(info, child0);
@@ -527,17 +527,17 @@ public:
      * Nearest node/distance-squared pairs range end.
      *
      * @return
-     * Returns the effective end of the nearest 
+     * Returns the effective end of the nearest
      * node/distance-squared pair range,
      * - if `near_end - near <= node_count_`, returns `near_end`,
      * - if `near_end - near > node_count_`, returns `near + node_count_`.
      *
      * @note
-     * The implementation sorts node/distance-squared pairs in 
+     * The implementation sorts node/distance-squared pairs in
      * ascending order by distance-squared to the reference point.
      *
      * @throw std::invalid_argument
-     * Unless 
+     * Unless
      * `near` is non-null, `near_end` is non-null, and
      * `near` is strictly less than `near_end`.
      */
@@ -559,7 +559,7 @@ public:
         if (root_) {
             nearest_recursive(info, root_);
         }
-        if (info.near_top > 
+        if (info.near_top >
             info.near) {
             std::sort_heap(
                     info.near,
@@ -616,7 +616,7 @@ private:
          nearest_recursive_info2& info, const node_type* node)
     {
         // Compare operator.
-        constexpr auto near_cmp = 
+        constexpr auto near_cmp =
         [](const node_dist2_pair_type& lhs,
            const node_dist2_pair_type& rhs) -> bool {
             return lhs.second < rhs.second;
@@ -642,11 +642,11 @@ private:
         }
 
         if (info.near_top != info.near_end) {
-            
+
             // Push.
             *info.near_top++ = std::make_pair(node, dist2);
             std::push_heap(
-                    info.near, 
+                    info.near,
                     info.near_top,
                     near_cmp);
         }
@@ -669,9 +669,9 @@ private:
             // 1. the pairs heap is not full;
             // 2. the pairs heap is full, and we cannot cull the subtree
             // because a) the point is on the same side as child0 or
-            // b) the minimum distance to the split plane is not greater 
+            // b) the minimum distance to the split plane is not greater
             // than the distance to the furthest node.
-            if (info.near_top != 
+            if (info.near_top !=
                 info.near_end ||
                     !(min_dist < 0 &&
                       min_dist2 > info.near->second)) {
@@ -685,11 +685,11 @@ private:
             // 1. the pairs heap is not full;
             // 2. the pairs heap is full, and we cannot cull the subtree
             // because a) the point is on the same side as child1 or
-            // b) the minimum distance to the split plane is not greater 
+            // b) the minimum distance to the split plane is not greater
             // than the distance to the furthest node.
-            if (info.near_top != 
+            if (info.near_top !=
                 info.near_end ||
-                    !(min_dist > 0 && 
+                    !(min_dist > 0 &&
                       min_dist2 > info.near->second)) {
 
                 nearest_recursive(info, child1);
@@ -715,7 +715,7 @@ public:
         bool result = true;
         float_type cutoff_dist2 = cutoff_dist * cutoff_dist;
         if (root_) {
-            result = 
+            result =
             nearby_recursive(
                     point, cutoff_dist2,
                     std::forward<Tfunc>(func),
@@ -733,7 +733,7 @@ private:
      */
     template <typename Tfunc>
     bool nearby_recursive(
-            const point_type& point, 
+            const point_type& point,
             float_type cutoff_dist2,
             Tfunc&& func,
             const node_type* node) const
@@ -753,7 +753,7 @@ private:
 
         // Signed distance to split plane.
         float_type min_dist = diff[node->split_dim];
-        float_type min_dist2 = min_dist * min_dist; 
+        float_type min_dist2 = min_dist * min_dist;
 
         // If point is on left, process left child first.
         // If point is on right, process right child first.
@@ -765,13 +765,13 @@ private:
         }
 
         if (child0) {
-            // Recurse only if necessary. 
+            // Recurse only if necessary.
             if (!(min_dist < 0 &&
                   min_dist2 > cutoff_dist2)) {
 
                 if (!nearby_recursive(
-                        point, 
-                        cutoff_dist2, 
+                        point,
+                        cutoff_dist2,
                         std::forward<Tfunc>(func),
                         child0)) {
                     return false;
@@ -779,13 +779,13 @@ private:
             }
         }
         if (child1) {
-            // Recurse only if necessary. 
+            // Recurse only if necessary.
             if (!(min_dist > 0 &&
                   min_dist2 > cutoff_dist2)) {
 
                 // Recurse only if necessary.
                 if (!nearby_recursive(
-                        point, 
+                        point,
                         cutoff_dist2,
                         std::forward<Tfunc>(func),
                         child1)) {

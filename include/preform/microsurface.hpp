@@ -61,32 +61,32 @@ namespace pr {
  *
  * ### References
  *
- * 1. B. Walter, S. R. Marschner, H. Li, and K. E. Torrance, 
- * &ldquo;Microfacet models for refraction through rough surfaces,&rdquo; 
- * in _Proceedings of the 18th Eurographics Conference on Rendering 
- * Techniques_, ser. EGSR&rsquo;07, Grenoble, France: 
+ * 1. B. Walter, S. R. Marschner, H. Li, and K. E. Torrance,
+ * &ldquo;Microfacet models for refraction through rough surfaces,&rdquo;
+ * in _Proceedings of the 18th Eurographics Conference on Rendering
+ * Techniques_, ser. EGSR&rsquo;07, Grenoble, France:
  * Eurographics Association, 2007, pp. 195&ndash;206.
  * ISBN: 978-3-905673-52-4.
  * Available: http://dx.doi.org/10.2312/EGWR/EGSR07/195-206
- * 2. E. Heitz, &ldquo;Understanding the masking-shadowing function in 
- * microfacet-based BRDFs,&rdquo; _Journal of Computer Graphics Techniques 
- * (JCGT)_, vol. 3, no. 2, pp. 48&ndash;107, Jun. 2014, 
+ * 2. E. Heitz, &ldquo;Understanding the masking-shadowing function in
+ * microfacet-based BRDFs,&rdquo; _Journal of Computer Graphics Techniques
+ * (JCGT)_, vol. 3, no. 2, pp. 48&ndash;107, Jun. 2014,
  * ISSN: 2331-7418.
  * Available: http://jcgt.org/published/0003/02/03/
- * 3. E. Heitz, J. Hanika, E. d&rsquo;Eon, and C. Dachsbacher, 
+ * 3. E. Heitz, J. Hanika, E. d&rsquo;Eon, and C. Dachsbacher,
  * &ldquo;Multiple-scattering microfacet BSDFs with the Smith model,&rdquo;
  * _ACM Transactions on Graphics_, vol. 35, no. 4, 1&ndash;58, Jul. 2016,
  * ISSN: 0730-0301.
  * Available: http://doi.acm.org/10.1145/2897824.2925943
- * 4. B. Burley, &ldquo;Physically based shading at Disney,&rdquo; 
+ * 4. B. Burley, &ldquo;Physically based shading at Disney,&rdquo;
  * Disney Enterprises, Technical report, Aug. 2012.
  * Available: https://disney-animation.s3.amazonaws.com/library/s2012_pbs_disney_brdf_notes_v2.pdf
- * 5. M. Oren and S. K. Nayar, &ldquo;Generalization of Lambert&rsquo;s 
- * reflectance model,&rdquo; in _Proceedings of the 21st Annual Conference 
- * on Computer Graphics and Interactive Techniques_, ser. SIGGRAPH&rsquo;94, 
+ * 5. M. Oren and S. K. Nayar, &ldquo;Generalization of Lambert&rsquo;s
+ * reflectance model,&rdquo; in _Proceedings of the 21st Annual Conference
+ * on Computer Graphics and Interactive Techniques_, ser. SIGGRAPH&rsquo;94,
  * New York, NY, USA: ACM, 1994, pp. 239&ndash;246, ISBN: 0-89791-667-0.
  * Available: http://doi.acm.org/10.1145/192161.192213
- * 
+ *
  * @see
  * Eric Heitz's [page][1].
  * [1]: https://eheitzresearch.wordpress.com/240-2/
@@ -590,16 +590,16 @@ public:
  * Float type.
  *
  * @tparam Tslope
- * Slope distribution, either `microsurface_trowbridge_reitz_slope` or 
+ * Slope distribution, either `microsurface_trowbridge_reitz_slope` or
  * `microsurface_beckmann_slope`.
  *
  * @tparam Theight
- * Height distribution, either `microsurface_uniform_height` or 
+ * Height distribution, either `microsurface_uniform_height` or
  * `microsurface_normal_height`.
  */
 template <
     typename T,
-    template <typename> typename Tslope, 
+    template <typename> typename Tslope,
     template <typename> typename Theight
     >
 struct microsurface
@@ -943,16 +943,16 @@ private:
  * Float type.
  *
  * @tparam Tslope
- * Slope distribution, either `microsurface_trowbridge_reitz_slope` or 
+ * Slope distribution, either `microsurface_trowbridge_reitz_slope` or
  * `microsurface_beckmann_slope`.
  *
  * @tparam Theight
- * Height distribution, either `microsurface_uniform_height` or 
+ * Height distribution, either `microsurface_uniform_height` or
  * `microsurface_normal_height`.
  */
 template <
     typename T,
-    template <typename> typename Tslope, 
+    template <typename> typename Tslope,
     template <typename> typename Theight
     >
 struct microsurface_lambertian_brdf :
@@ -1038,7 +1038,7 @@ public:
         float_type g2_given_g1 =
                 (1 + lambda_wo) /
                 (1 + lambda_wo + lambda_wi);
-        return pr::numeric_constants<float_type>::M_1_pi() * l0_ * 
+        return pr::numeric_constants<float_type>::M_1_pi() * l0_ *
                pr::fmax(pr::dot(wm, wi), float_type(0)) * g2_given_g1;
     }
 
@@ -1116,7 +1116,7 @@ public:
      * @param[in] nitr
      * Number of iterations.
      *
-     * @param[out] f 
+     * @param[out] f
      * _Optional_. Output BRDF.
      *
      * @param[out] f_pdf
@@ -1188,12 +1188,12 @@ public:
                 // Increment.
                 ++k;
 
-                if ((kmax == 0 || 
+                if ((kmax == 0 ||
                      kmax >= k) && kmin <= k) {
 
                     // Next event estimation.
-                    float_type fk = 
-                        g1(wi, hk) * 
+                    float_type fk =
+                        g1(wi, hk) *
                         ps({std::forward<U>(uk)(),
                             std::forward<U>(uk)()}, -wk, wi);
                     if (pr::isfinite(fk)) {
@@ -1213,12 +1213,12 @@ public:
                         -wk);
 
                 // Update energy.
-                ek *= l0_; 
+                ek *= l0_;
 
                 // NaN check.
                 if (!pr::isfinite(hk) ||
                     !pr::isfinite(wk).all() || wk[2] == 0) {
-                
+
                     // Nullify iteration BRDF.
                     itr_f = 0;
 
@@ -1231,13 +1231,13 @@ public:
 
             // Update BRDF.
             if (f) {
-                *f = 
+                *f =
                 *f + (itr_f - *f) / (itr + 1);
             }
 
             // Update BRDF-PDF.
             if (f_pdf) {
-                *f_pdf = 
+                *f_pdf =
                 *f_pdf + (itr_f_pdf - *f_pdf) / (itr + 1);
             }
         }
@@ -1271,7 +1271,7 @@ public:
     float_type fs(
             U&& uk,
             multi<float_type, 3> wo,
-            multi<float_type, 3> wi, 
+            multi<float_type, 3> wi,
             int kmin = 0,
             int kmax = 0,
             int nitr = 1,
@@ -1279,11 +1279,11 @@ public:
     {
         float_type f = 0;
         compute_fs_fs_pdf(
-                std::forward<U>(uk), 
-                wo, 
-                wi, 
-                kmin, 
-                kmax, 
+                std::forward<U>(uk),
+                wo,
+                wi,
+                kmin,
+                kmax,
                 nitr,
                 &f, f_pdf);
 
@@ -1307,7 +1307,7 @@ public:
      *
      * @param[in] kmax
      * Scattering order maximum, 0 for all orders.
-     * 
+     *
      * @param[in] nitr
      * Number of iterations.
      */
@@ -1315,7 +1315,7 @@ public:
     float_type fs_pdf(
             U&& uk,
             multi<float_type, 3> wo,
-            multi<float_type, 3> wi, 
+            multi<float_type, 3> wi,
             int kmin = 0,
             int kmax = 0,
             int nitr = 1) const
@@ -1323,7 +1323,7 @@ public:
         float_type f_pdf = 0;
         compute_fs_fs_pdf(
                 std::forward<U>(uk),
-                wo, 
+                wo,
                 wi,
                 kmin,
                 kmax,
@@ -1449,7 +1449,7 @@ public:
         multi<float_type, 3> wm = dwo_sample(u0, wo);
 
         // Sample direction.
-        multi<float_type, 3> wi = 
+        multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u1);
 
         // Expand in orthonormal basis.
@@ -1471,16 +1471,16 @@ private:
  * Float type.
  *
  * @tparam Tslope
- * Slope distribution, either `microsurface_trowbridge_reitz_slope` or 
+ * Slope distribution, either `microsurface_trowbridge_reitz_slope` or
  * `microsurface_beckmann_slope`.
  *
  * @tparam Theight
- * Height distribution, either `microsurface_uniform_height` or 
+ * Height distribution, either `microsurface_uniform_height` or
  * `microsurface_normal_height`.
  */
 template <
     typename T,
-    template <typename> typename Tslope, 
+    template <typename> typename Tslope,
     template <typename> typename Theight
     >
 struct microsurface_dielectric_bsdf :
@@ -1682,7 +1682,7 @@ public:
      *      f_{s,\text{bsdf}}(\omega_o \to \omega_i) =
      *              D_{\omega_o}(\omega_m)
      *              F_r(\omega_o \cdot \omega_m)
-     *              \frac{1}{4\omega_i \cdot \omega_m} 
+     *              \frac{1}{4\omega_i \cdot \omega_m}
      * @f]
      *
      * If @f$ \omega_{i_z} < 0 @f$, calculate BTDF density:
@@ -1758,7 +1758,7 @@ public:
             if (dot_vm_vm < float_type(1e-8)) {
                 return 0;
             }
-            
+
             // Microsurface normal.
             multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
             float_type dot_wo_wm = dot(wo, wm);
@@ -1842,7 +1842,7 @@ public:
 
             // Reflect.
             wi = -wo + (2 * cos_thetao) * wm;
-            
+
             // In wrong hemisphere?
             if (!(wi[2] > 0)) {
                 return {}; // Reject sample.
@@ -1880,7 +1880,7 @@ public:
      * @f[
      *      f_{s,\text{brdf}}(\omega_o \to \omega_i) =
      *              D_{\omega_o}(\omega_m)
-     *              \frac{1}{4\omega_i \cdot \omega_m} 
+     *              \frac{1}{4\omega_i \cdot \omega_m}
      * @f]
      *
      * @param[in] wo
@@ -1894,7 +1894,7 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        if (wo[2] < 0) { 
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
@@ -1926,7 +1926,7 @@ public:
     {
         // Flip.
         bool neg = false;
-        if (wo[2] < 0) { 
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             neg = true;
         }
@@ -1936,7 +1936,7 @@ public:
 
         // Reflect.
         multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
-            
+
         // In wrong hemisphere?
         if (!(wi[2] > 0)) {
             return {}; // Reject sample.
@@ -2001,7 +2001,7 @@ public:
         if (dot_vm_vm < float_type(1e-8)) {
             return 0;
         }
-            
+
         // Microsurface normal.
         multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
         float_type dot_wi_wm = dot(wi, wm);
@@ -2040,15 +2040,15 @@ public:
 
         // Refract.
         float_type cos_thetao = dot(wo, wm);
-        float_type cos_thetat = 
+        float_type cos_thetat =
                 pr::sqrt(
                 pr::fmax(float_type(0),
                          1 - eta * eta * (1 - cos_thetao * cos_thetao)));
         if (cos_thetat == 0) {
             return {}; // Reject sample.
         }
-        multi<float_type, 3> wi = 
-                -eta * wo + 
+        multi<float_type, 3> wi =
+                -eta * wo +
                 (eta * cos_thetao -
                        cos_thetat) * wm;
 
@@ -2157,7 +2157,7 @@ public:
             bool wi_outside = !pr::signbit(wi[2]); // wi[2] > 0;
 
             // TODO Bidirectional multiple-importance
-            for (int k = 0; 
+            for (int k = 0;
                         kmax == 0 ||
                         kmax > k;) {
 
@@ -2173,7 +2173,7 @@ public:
                 // Increment.
                 ++k;
 
-                if ((kmax == 0 || 
+                if ((kmax == 0 ||
                      kmax >= k) && kmin <= k) {
                     if (k > 1) {
 
@@ -2182,14 +2182,14 @@ public:
                             (wi_outside ?
                             g1(+wi, +hk) :
                             g1(-wi, -hk)) *
-                            ps(-wk, wi, 
-                                wk_outside, 
+                            ps(-wk, wi,
+                                wk_outside,
                                 wi_outside);
                         if (pr::isfinite(fk)) {
 
                             // Update iteration BSDF.
                             itr_f +=
-                            (wk_outside == 
+                            (wk_outside ==
                              wi_outside ? fr0_ : ft0_) * ek * fk;
 
                             // Update iteration BSDF-PDF.
@@ -2209,7 +2209,7 @@ public:
 
                 // Update energy.
                 ek *=
-                wk_outside == 
+                wk_outside ==
                 wk_outside_prev ? fr0_ : ft0_;
 
                 // NaN check.
@@ -2228,13 +2228,13 @@ public:
 
             // Update BSDF.
             if (f) {
-                *f = 
+                *f =
                 *f + (itr_f - *f) / (itr + 1);
             }
 
             // Update BSDF-PDF.
             if (f_pdf) {
-                *f_pdf = 
+                *f_pdf =
                 *f_pdf + (itr_f_pdf - *f_pdf) / (itr + 1);
             }
         }
@@ -2297,7 +2297,7 @@ public:
                 kmax,
                 nitr,
                 &f, f_pdf);
-        
+
         return f;
     }
 
@@ -2597,16 +2597,16 @@ private:
  * Float type.
  *
  * @tparam Tslope
- * Slope distribution, either `microsurface_trowbridge_reitz_slope` or 
+ * Slope distribution, either `microsurface_trowbridge_reitz_slope` or
  * `microsurface_beckmann_slope`.
  *
  * @tparam Theight
- * Height distribution, either `microsurface_uniform_height` or 
+ * Height distribution, either `microsurface_uniform_height` or
  * `microsurface_normal_height`.
  */
 template <
     typename T,
-    template <typename> typename Tslope, 
+    template <typename> typename Tslope,
     template <typename> typename Theight
     >
 struct microsurface_conductive_brdf :
@@ -2705,7 +2705,7 @@ public:
         }
 
         // Ensure dielectric hemisphere.
-        if (!pr::signbit(eta.imag())) { 
+        if (!pr::signbit(eta.imag())) {
             return 0;
         }
 
@@ -2742,7 +2742,7 @@ public:
      * @f[
      *      f_{s,\text{brdf}}(\omega_o \to \omega_i) =
      *              D_{\omega_o}(\omega_m)
-     *              \frac{1}{4\omega_i \cdot \omega_m} 
+     *              \frac{1}{4\omega_i \cdot \omega_m}
      * @f]
      *
      * @param[in] wo
@@ -2757,7 +2757,7 @@ public:
     {
         // Flip.
         std::complex<float_type> eta = eta_;
-        if (wo[2] < 0) { 
+        if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
             eta = float_type(1) / eta;
@@ -2809,9 +2809,9 @@ public:
 
         // Reflect.
         multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
-            
+
         // In wrong hemisphere?
-        if (!(wi[2] > 0)) { 
+        if (!(wi[2] > 0)) {
             return {}; // Reject sample.
         }
 
@@ -2888,12 +2888,12 @@ private:
      * - @f$ \imag{\eta_{+}} > 0 @f$, @f$ \imag{\eta_{-}} = 0 @f$, or
      * - @f$ \imag{\eta_{+}} = 0 @f$, @f$ \imag{\eta_{-}} > 0 @f$.
      *
-     * That is, the implementation assumes the dielectric hemisphere where 
+     * That is, the implementation assumes the dielectric hemisphere where
      * the BRDF is non-zero is the upper hemisphere if @f$ \imag{\eta} < 0 @f$
      * and the lower hemisphere if @f$ \imag{\eta} > 0 @f$.
      */
-    std::complex<float_type> eta_ = 
-        float_type(1) / 
+    std::complex<float_type> eta_ =
+        float_type(1) /
         std::complex<float_type>(float_type(1.5), float_type(4.0));
 };
 
@@ -2966,11 +2966,11 @@ public:
             return 0;
         }
 
-        return 
+        return
             pr::numeric_constants<float_type>::M_1_pi() *
-                (a_ + b_ * 
+                (a_ + b_ *
                 pr::fmax(
-                    wo[0] * wi[0] + 
+                    wo[0] * wi[0] +
                     wo[1] * wi[1], float_type(0)) /
                 pr::fmax(wo[2], wi[2])) * wi[2];
     }
@@ -3055,8 +3055,8 @@ private:
  * Disney diffuse BRDF, described by B. Burley in &ldquo;Physically
  * based shading at Disney&rdquo; in 2014.
  *
- * Although this BRDF is neither strictly physically based nor developed 
- * directly from microfacet theory, it is aesthetically pleasing and commonly 
+ * Although this BRDF is neither strictly physically based nor developed
+ * directly from microfacet theory, it is aesthetically pleasing and commonly
  * used in conjunction with microfacet reflectance lobes to simulate
  * dielectric materials.
  *
@@ -3092,7 +3092,7 @@ public:
      * @brief BRDF.
      *
      * @f[
-     *      f_s(\omega_o, \omega_i) = 
+     *      f_s(\omega_o, \omega_i) =
      *      \frac{|\omega_{i_z}|}{\pi}
      *      ((1 - |\omega_{o_z}|)^5 (F_{d,90} - 1) + 1)
      *      ((1 - |\omega_{i_z}|)^5 (F_{d,90} - 1) + 1)
@@ -3120,10 +3120,10 @@ public:
 
         multi<float_type, 3> wm = normalize(wo + wi);
         float_type cos_thetad = dot(wo, wm);
-        float_type fd90m1 = 2 * alpha_ * cos_thetad * cos_thetad - 
+        float_type fd90m1 = 2 * alpha_ * cos_thetad * cos_thetad -
             float_type(0.5);
 
-        return 
+        return
             pr::numeric_constants<float_type>::M_1_pi() *
             (fd90m1 * pr::nthpow(1 - wo[2], 5) + 1) *
             (fd90m1 * pr::nthpow(1 - wi[2], 5) + 1) * wi[2];
@@ -3187,7 +3187,7 @@ private:
     /**
      * @brief Ad hoc roughness @f$ \alpha \in [0, 1] @f$.
      */
-    float_type alpha_; 
+    float_type alpha_;
 };
 
 /**@}*/

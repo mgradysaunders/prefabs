@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -149,13 +149,13 @@ inline std::enable_if_t<
  * @f]
  *
  * @note
- * This is included here only because it requires C++17 
+ * This is included here only because it requires C++17
  * fold expressions, else it would be included in `preform/random.hpp`.
  */
 template <typename Tk, typename... Tl>
 inline std::enable_if_t<
        (std::is_floating_point<Tk>::value && ... &&
-        std::is_floating_point<Tl>::value), 
+        std::is_floating_point<Tl>::value),
         std::common_type_t<Tk, Tl...>> balance_heuristic(Tk fk, Tl... fl)
 {
     return fk / (fk + ... + fl);
@@ -169,13 +169,13 @@ inline std::enable_if_t<
  * @f]
  *
  * @note
- * This is included here only because it requires C++17 
+ * This is included here only because it requires C++17
  * fold expressions, else it would be included in `preform/random.hpp`.
  */
 template <typename Tk, typename... Tl>
 inline std::enable_if_t<
        (std::is_floating_point<Tk>::value && ... &&
-        std::is_floating_point<Tl>::value), 
+        std::is_floating_point<Tl>::value),
         std::common_type_t<Tk, Tl...>> power_heuristic(Tk fk, Tl... fl)
 {
     return (fk * fk) / ((fk * fk) + ... + (fl * fl));

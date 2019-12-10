@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -121,8 +121,8 @@ public:
      * Outgoing direction.
      *
      * @note
-     * This samples directions matching the 
-     * distribution of @f$ p_s @f$, such that path throughput 
+     * This samples directions matching the
+     * distribution of @f$ p_s @f$, such that path throughput
      * is updated trivially as @f$ \beta' \gets \beta @f$.
      */
     multi<float_type, 3> ps_sample(
@@ -130,7 +130,7 @@ public:
             multi<float_type, 3> wo) const
     {
         return dot(
-                multi<float_type, 3, 3>::build_onb(-wo), 
+                multi<float_type, 3, 3>::build_onb(-wo),
                 multi<float_type, 3>::hg_phase_pdf_sample(g_, u));
     }
 
@@ -183,7 +183,7 @@ public:
      * @brief Constructor.
      *
      * @note
-     * For efficiency, this does not validate the @f$ w_k @f$ in 
+     * For efficiency, this does not validate the @f$ w_k @f$ in
      * any respect. It is the user's responsibility to ensure that
      * the @f$ w_k @f$ are nonnegative and that @f$ \sum_k w_k = 1 @f$.
      */
@@ -219,7 +219,7 @@ public:
         float_type res = 0;
         float_type dot_wo_wi = dot(-wo, wi);
         for (std::size_t k = 0; k < Nlobes; k++) {
-            res += w_[k] * 
+            res += w_[k] *
             multi<float_type, 3>::hg_phase_pdf(g_[k], dot_wo_wi);
         }
         return res;
@@ -235,8 +235,8 @@ public:
      * Outgoing direction.
      *
      * @note
-     * This samples directions matching the 
-     * distribution of @f$ p_s @f$, such that path throughput 
+     * This samples directions matching the
+     * distribution of @f$ p_s @f$, such that path throughput
      * is updated trivially as @f$ \beta' \gets \beta @f$.
      */
     multi<float_type, 3> ps_sample(
@@ -253,19 +253,19 @@ public:
 
                 // Just to be safe.
                 u[0] = pr::fmax(u[0], float_type(0));
-                u[0] = pr::fmin(u[0], float_type(1) - 
+                u[0] = pr::fmin(u[0], float_type(1) -
                        pr::numeric_limits<float_type>::machine_epsilon());
                 break;
             }
 
             // Increment.
-            wsum = 
+            wsum =
             wsum + w_[k];
         }
 
         // Sample.
         return dot(
-                multi<float_type, 3, 3>::build_onb(-wo), 
+                multi<float_type, 3, 3>::build_onb(-wo),
                 multi<float_type, 3>::hg_phase_pdf_sample(g_[k], u));
     }
 
@@ -277,7 +277,7 @@ private:
     multi<float_type, Nlobes> g_ = {};
 
     /**
-     * @brief Weights @f$ w_k \in (0, 1) @f$, normalized 
+     * @brief Weights @f$ w_k \in (0, 1) @f$, normalized
      * such that @f$ \sum_k w_k = 1 @f$.
      */
     multi<float_type, Nlobes> w_ = {};
@@ -322,10 +322,10 @@ public:
      * @brief Phase function.
      *
      * @f[
-     *      p_s(\omega_o, \omega_i) = 
+     *      p_s(\omega_o, \omega_i) =
      *      \frac{3}{16\pi}
      *      \left\lbrack{
-     *          \frac{1 -  \gamma}{1 + 2\gamma} (\omega_o\cdot\omega_i)^2 + 
+     *          \frac{1 -  \gamma}{1 + 2\gamma} (\omega_o\cdot\omega_i)^2 +
      *          \frac{1 + 3\gamma}{1 + 2\gamma}
      *      }\right\rbrack
      * @f]
@@ -346,8 +346,8 @@ public:
     {
         float_type gam = rho_ / (2 - rho_);
         float_type cos_theta = dot(wo, wi);
-        return pr::numeric_constants<float_type>::M_1_pi() * 
-               float_type(0.1875) * ((1 - gam) * cos_theta * cos_theta + 
+        return pr::numeric_constants<float_type>::M_1_pi() *
+               float_type(0.1875) * ((1 - gam) * cos_theta * cos_theta +
                                       1 + 3 * gam) / (1 + 2 * gam);
     }
 
@@ -361,8 +361,8 @@ public:
      * Outgoing direction.
      *
      * @note
-     * This samples directions matching the 
-     * distribution of @f$ p_s @f$, such that path throughput 
+     * This samples directions matching the
+     * distribution of @f$ p_s @f$, such that path throughput
      * is updated trivially as @f$ \beta' \gets \beta @f$.
      */
     multi<float_type, 3> ps_sample(
@@ -430,12 +430,12 @@ public:
      * Orthogonal basis.
      *
      * @param[in] s
-     * Distribution diagonal elements, representing squared projected areas 
+     * Distribution diagonal elements, representing squared projected areas
      * in each axis of orthogonal basis.
      *
      * @note
      * For efficiency, the implementation does not verify the orthogonal basis
-     * matrix is valid. It is up to the caller to ensure this matrix is 
+     * matrix is valid. It is up to the caller to ensure this matrix is
      * orthogonal and determinant 1.
      */
     microvolume_sggx(
@@ -462,7 +462,7 @@ public:
      * @brief Projected area.
      *
      * @f[
-     *      A_{\perp}(\omega_o) = 
+     *      A_{\perp}(\omega_o) =
      *          \sqrt{\omega_o^\top\mathbf{S}\omega_o}
      * @f]
      *
@@ -478,7 +478,7 @@ public:
      * @brief Distribution of normals.
      *
      * @f[
-     *      D(\omega_m) = 
+     *      D(\omega_m) =
      *          \frac{1}{\pi}
      *          \frac{1}{\sqrt{|\mathbf{S}|}
      *                  (\omega_m^\top\mathbf{S}^{-1}\omega_m)^2}
@@ -489,7 +489,7 @@ public:
      */
     float_type d(const multi<float_type, 3>& wm) const
     {
-        return pr::numeric_constants<float_type>::M_1_pi() / (sdet1_2_ * 
+        return pr::numeric_constants<float_type>::M_1_pi() / (sdet1_2_ *
                pr::nthpow(dot(wm, dot(sinv_, wm)), 2));
     }
 
@@ -539,7 +539,7 @@ public:
                 const multi<float_type, 3>& wo) const
     {
         // Build orthonormal basis.
-        multi<float_type, 3, 3> q = 
+        multi<float_type, 3, 3> q =
         multi<float_type, 3, 3>::build_onb(wo);
 
         // Project distribution matrix into basis.
@@ -550,7 +550,7 @@ public:
         float_type tmp1 = pr::sqrt(s[1][1] * s[2][2] - s[1][2] * s[2][1]);
         multi<float_type, 3> mx = {sdet1_2_ / tmp1, 0, 0};
         multi<float_type, 3> my = {
-            -(s[2][0] * s[2][1] - 
+            -(s[2][0] * s[2][1] -
               s[1][0] * s[2][2]) / tmp1,
             tmp1,
             0
@@ -564,7 +564,7 @@ public:
         mz *= 1 / tmp0;
 
         // Construct visible normal.
-        float_type phi = 2 * pr::numeric_constants<float_type>::M_pi() * u[1];  
+        float_type phi = 2 * pr::numeric_constants<float_type>::M_pi() * u[1];
         float_type ux = pr::sqrt(u[0]) * pr::cos(phi);
         float_type uy = pr::sqrt(u[0]) * pr::sin(phi);
         float_type uz = pr::sqrt(
@@ -645,13 +645,13 @@ public:
      * @brief Phase function.
      *
      * @f[
-     *      p_s(\omega_o, \omega_i) = 
+     *      p_s(\omega_o, \omega_i) =
      *      \frac{1}{4}
      *      \frac{D(\omega_h)}{A_{\perp}(\omega_o)}
      * @f]
      * where
      * @f[
-     *      \omega_h = 
+     *      \omega_h =
      *      \frac{\omega_o + \omega_i}
      *           {\lVert\omega_o + \omega_i\rVert}
      * @f]
@@ -685,8 +685,8 @@ public:
      * Outgoing direction.
      *
      * @note
-     * This samples directions matching the 
-     * distribution of @f$ p_s @f$, such that path throughput 
+     * This samples directions matching the
+     * distribution of @f$ p_s @f$, such that path throughput
      * is updated trivially as @f$ \beta' \gets \beta @f$.
      */
     multi<float_type, 3> ps_sample(
@@ -769,7 +769,7 @@ public:
         multi<float_type, 3> wm = dwo_sample(u, wo);
 
         // Evaluate.
-        return pr::numeric_constants<float_type>::M_1_pi() * 
+        return pr::numeric_constants<float_type>::M_1_pi() *
                pr::fmax(dot(wi, wm), float_type(0));
     }
 
@@ -781,17 +781,17 @@ public:
      *
      * @param[in] u1
      * Sample in @f$ [0, 1)^2 @f$.
-     * 
+     *
      * @param[in] wo
      * Outgoing direction.
      *
      * @param[out] p_pdf
      * _Optional_. Output PDF (associated with specific way the
-     * incident direction is sampled). 
+     * incident direction is sampled).
      *
      * @note
-     * This samples directions matching the 
-     * distribution of @f$ p_s @f$, such that path throughput 
+     * This samples directions matching the
+     * distribution of @f$ p_s @f$, such that path throughput
      * is updated trivially as @f$ \beta' \gets \beta @f$.
      */
     multi<float_type, 3> ps_sample(
@@ -804,16 +804,16 @@ public:
         multi<float_type, 3> wm = dwo_sample(u0, wo);
 
         // Sample direction.
-        multi<float_type, 3> wi = 
+        multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u1);
 
-        // TODO To calculate the correct result in the test program, the 
-        // additional factor of 1/2 below is necessary? Not sure why, or 
+        // TODO To calculate the correct result in the test program, the
+        // additional factor of 1/2 below is necessary? Not sure why, or
         // if this calculation is otherwise flawed?
         if (p_pdf) {
-            *p_pdf = 
-                pr::numeric_constants<float_type>::M_1_pi() * 
-                float_type(0.5) * wi[2]; 
+            *p_pdf =
+                pr::numeric_constants<float_type>::M_1_pi() *
+                float_type(0.5) * wi[2];
         }
 
         // Expand in orthonormal basis.
@@ -863,7 +863,7 @@ public:
     }
 
     // TODO Find out how to implement this generally?
-                    
+
 };
 
 /**
@@ -902,10 +902,10 @@ public:
                 mua_(mua)
     {
         // Restrict.
-        b_ = 
+        b_ =
             pr::fmax(float_type(-1),
             pr::fmin(float_type(+1), b_));
-        mua_ = 
+        mua_ =
             pr::fmax(float_type(0), mua_);
     }
 
@@ -919,7 +919,7 @@ public:
      * Incident direction.
      */
     float_type fm(
-            multi<float_type, 3> wo, 
+            multi<float_type, 3> wo,
             multi<float_type, 3> wi) const
     {
         // Flip.
@@ -936,19 +936,19 @@ public:
         float_type cos_thetai = wi[2];
 
         // Compute single scattering term.
-        float_type f1 = 
-            float_type(0.25) * 
+        float_type f1 =
+            float_type(0.25) *
             pr::numeric_constants<float_type>::M_1_pi() *
-            (1 - b_ * dot(wo, wi)) / 
+            (1 - b_ * dot(wo, wi)) /
             (1 + cos_thetao / cos_thetai);
 
         // Compute multiple scattering Lambertian term.
-        float_type r = 
-            float_type(0.5) * 
-            (1 - cos_thetao * pr::log(1 + 1 / cos_thetao)) * 
-            (1 + b_ * cos_thetao * cos_thetao) - float_type(0.25) * 
+        float_type r =
+            float_type(0.5) *
+            (1 - cos_thetao * pr::log(1 + 1 / cos_thetao)) *
+            (1 + b_ * cos_thetao * cos_thetao) - float_type(0.25) *
                  b_ * cos_thetao;
-        float_type fn = (1 - r) * 
+        float_type fn = (1 - r) *
             pr::numeric_constants<float_type>::M_1_pi() * cos_thetai;
 
         // Absorption non-zero?
@@ -958,12 +958,12 @@ public:
             f1 /= 1 + mua_;
 
             // Multiple-scattering absorption.
-            float_type ratio = 
-                float_type(0.5) * 
+            float_type ratio =
+                float_type(0.5) *
                 (pr::sqrt(r * r - 6 * r + 5) + r - 1);
             fn /= 1 + mua_;
-            fn *= 
-                (1 - ratio) / 
+            fn *=
+                (1 - ratio) /
                 (1 - ratio + mua_);
         }
 
@@ -975,7 +975,7 @@ public:
             // Result.
             return f1 + fn;
         }
-    }                
+    }
 
     // TODO fm_pdf
 
@@ -1068,7 +1068,7 @@ public:
      * @brief Transmittance.
      *
      * @f[
-     *      \tau(d) = 
+     *      \tau(d) =
      *      \begin{cases}
      *          e^{-\mu d}  & 0 \le d
      *      \\  0           & \text{otherwise}
@@ -1093,7 +1093,7 @@ public:
      * @brief Transmittance probability density function.
      *
      * @f[
-     *      \tau_{\text{pdf}}(d) = 
+     *      \tau_{\text{pdf}}(d) =
      *      \begin{cases}
      *          \mu e^{-\mu d}  & 0 \le d
      *      \\  0               & \text{otherwise}

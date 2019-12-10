@@ -360,7 +360,7 @@ inline std::enable_if_t<
  *
  * @note
  * Equivalent to @f$ \sin(\pi x) @f$. However, the implementation
- * here exploits periodicity, using `remquo()` before multiplying 
+ * here exploits periodicity, using `remquo()` before multiplying
  * by @f$ \pi @f$ to be more accurate for large arguments.
  */
 template <typename T>
@@ -382,7 +382,7 @@ inline std::enable_if_t<
  *
  * @note
  * Equivalent to @f$ \cos(\pi x) @f$. However, the implementation
- * here exploits periodicity, using `remquo()` before multiplying 
+ * here exploits periodicity, using `remquo()` before multiplying
  * by @f$ \pi @f$ to be more accurate for large arguments.
  */
 template <typename T>
