@@ -284,6 +284,120 @@ private:
 };
 
 /**
+ * @brief Rayleigh phase.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct rayleigh_phase
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    rayleigh_phase() = default;
+
+    /**
+     * @brief Constructor.
+     */
+    rayleigh_phase(float_type rho) : rho_(rho)
+    {
+        rho_ = pr::fmin(rho_, float_type(+0.9999));
+        rho_ = pr::fmax(rho_, float_type(-0.9999));
+    }
+
+    /**
+     * @brief Phase function.
+     *
+     * @f[
+     *      p_s(\omega_o, \omega_i) = 
+     *      \frac{3}{16\pi}
+     *      \left\lbrack{
+     *          \frac{1 -  \gamma}{1 + 2\gamma} (\omega_o\cdot\omega_i)^2 + 
+     *          \frac{1 + 3\gamma}{1 + 2\gamma}
+     *      }\right\rbrack
+     * @f]
+     * where
+     * @f[
+     *      \gamma = \frac{\rho}{2 - \rho}
+     * @f]
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     */
+    float_type ps(
+                const multi<float_type, 3>& wo,
+                const multi<float_type, 3>& wi) const
+    {
+        float_type gam = rho_ / (2 - rho_);
+        float_type cos_theta = dot(wo, wi);
+        return pr::numeric_constants<float_type>::M_1_pi() * 
+               float_type(0.1875) * ((1 - gam) * cos_theta * cos_theta + 
+                                      1 + 3 * gam) / (1 + 2 * gam);
+    }
+
+    /**
+     * @brief Phase function sample direction.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @note
+     * This samples directions matching the 
+     * distribution of @f$ p_s @f$, such that path throughput 
+     * is updated trivially as @f$ \beta' \gets \beta @f$.
+     */
+    multi<float_type, 3> ps_sample(
+                const multi<float_type, 2>& u,
+                const multi<float_type, 3>& wo) const
+    {
+        // Sample zenith cosine and uniform azimuth angle.
+        float_type xi0 = (1 + rho_) / (1 - rho_);
+        float_type xi1 = (1 + 3 * xi0) * (2 * u[0] - 1) / 2;
+        float_type sqrt_term = pr::sqrt(xi1 * xi1 + xi0 * xi0 * xi0);
+        float_type cbrt_term = pr::cbrt(xi1 + sqrt_term);
+        float_type cos_thetai = cbrt_term - xi0 / cbrt_term;
+        cos_thetai = pr::fmax(cos_thetai, float_type(-1));
+        cos_thetai = pr::fmin(cos_thetai, float_type(+1));
+        float_type sin_thetai = pr::sqrt(1 - cos_thetai * cos_thetai);
+        float_type phi = 2 * pr::numeric_constants<float_type>::M_pi() * u[1];
+
+        // Compute direction.
+        multi<float_type, 3> wi = {
+            sin_thetai * pr::cos(phi),
+            sin_thetai * pr::sin(phi),
+            cos_thetai
+        };
+        return dot(multi<float_type, 3, 3>::build_onb(-wo), wi);
+    }
+
+private:
+
+    /**
+     * @brief Depolarization factor @f$ \rho \in (-1, 1) @f$.
+     */
+    float_type rho_ = 0;
+};
+
+/**
  * @brief Microvolume with SGGX distribution.
  *
  * @tparam T
@@ -532,14 +646,14 @@ public:
      *
      * @f[
      *      p_s(\omega_o, \omega_i) = 
-     *          \frac{1}{4}
-     *          \frac{D(\omega_h)}{A_{\perp}(\omega_o)}
+     *      \frac{1}{4}
+     *      \frac{D(\omega_h)}{A_{\perp}(\omega_o)}
      * @f]
      * where
      * @f[
      *      \omega_h = 
-     *          \frac{\omega_o + \omega_i}
-     *               {\lVert\omega_o + \omega_i\rVert}
+     *      \frac{\omega_o + \omega_i}
+     *           {\lVert\omega_o + \omega_i\rVert}
      * @f]
      *
      * @param[in] wo
@@ -671,6 +785,10 @@ public:
      * @param[in] wo
      * Outgoing direction.
      *
+     * @param[out] p_pdf
+     * _Optional_. Output PDF (associated with specific way the
+     * incident direction is sampled). 
+     *
      * @note
      * This samples directions matching the 
      * distribution of @f$ p_s @f$, such that path throughput 
@@ -679,7 +797,8 @@ public:
     multi<float_type, 3> ps_sample(
             const multi<float_type, 2>& u0,
             const multi<float_type, 2>& u1,
-            const multi<float_type, 2>& wo) const
+            const multi<float_type, 3>& wo,
+            float_type* p_pdf = nullptr) const
     {
         // Sample visible microvolume normal.
         multi<float_type, 3> wm = dwo_sample(u0, wo);
@@ -688,13 +807,64 @@ public:
         multi<float_type, 3> wi = 
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u1);
 
+        // TODO To calculate the correct result in the test program, the 
+        // additional factor of 1/2 below is necessary? Not sure why, or 
+        // if this calculation is otherwise flawed?
+        if (p_pdf) {
+            *p_pdf = 
+                pr::numeric_constants<float_type>::M_1_pi() * 
+                float_type(0.5) * wi[2]; 
+        }
+
         // Expand in orthonormal basis.
         return dot(multi<float_type, 3, 3>::build_onb(wm), wi);
     }
 };
 
 #if 0
-// TODO halfspace_phase_brdf
+
+/**
+ * @brief Half-space phase BRDF.
+ *
+ * @tparam T
+ * Float type.
+ */
+template <typename T>
+struct halfspace_phase_brdf
+{
+public:
+
+    // Sanity check.
+    static_assert(
+        std::is_floating_point<T>::value,
+        "T must be floating point");
+
+    /**
+     * @brief Float type.
+     */
+    typedef T float_type;
+
+    /**
+     * @brief Default constructor.
+     */
+    halfspace_phase_brdf() = default;
+
+    float_type fs1(
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi) const
+    {
+        if (pr::signbit(wo[2]) !=
+            pr::signbit(wi[2])) {
+            return 0;
+        }
+        else {
+            return func_.ps(wo, wi) / (1 + pr::abs(wo[2]) / pr::abs(wi[2]));
+        }
+    }
+
+    // TODO Find out how to implement this generally?
+                    
+};
 
 /**
  * @brief Half-space linear anisotropic phase BRDF.

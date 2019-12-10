@@ -62,6 +62,10 @@ typedef pr::hg_phase<Float>
 typedef pr::hg_phase_stack<Float, 4>
         HgPhaseStack;
 
+// Rayleigh phase.
+typedef pr::rayleigh_phase<Float>
+        RayleighPhase;
+
 // Microvolume SGGX specular phase.
 typedef pr::microvolume_sggx_specular_phase<Float>
         MicrovolumeSggxSpecularPhase;
@@ -136,6 +140,56 @@ void testPhase(const char* name, const Func& func, Pred&& pred)
     delete[] u0;
 }
 
+// Test phase function sampling.
+template <typename Func, typename Pred>
+void testPhaseSampling(const char* name, const Func& func, Pred&& pred)
+{
+    Vec2i n = {512, 512};
+    std::cout << "Testing phase function sampling for ";
+    std::cout << name << "::ps_sample():\n";
+    std::cout <<
+        "This test uses Monte Carlo integration to estimate the\n"
+        "phase function integral over the sphere, which should equal 1 for\n"
+        "an arbitrary viewing direction.\n";
+    std::cout.flush();
+
+    // Stratify samples.
+    Vec2f* u0 = new Vec2f[n.prod()];
+    pr::stratify(u0, n, pcg);
+    
+    // Generate random viewing direction.
+    Vec3f wo = 
+    Vec3f::uniform_sphere_pdf_sample(generateCanonical2());
+
+    // Monte Carlo integration.
+    NeumaierSum f = 0;
+    for (int k = 0; k < n.prod(); k++) {
+
+        // Incident direction.
+        Vec3f wi;
+        Float wi_pdf = 0;
+        std::forward<Pred>(pred)(func, u0[k], wo, wi, wi_pdf);
+
+        // Integrand.
+        if (wi_pdf > 0) {
+            Float fk = pr::fabs(wi[2]);
+            fk /= wi_pdf;
+            fk /= n.prod();
+            if (pr::isinf(fk)) {
+                continue;
+            }
+            f += fk;
+        }
+    }
+
+    std::cout << "Result: " << Float(f) << " (should be close to 6.28)\n";
+    std::cout << "\n\n";
+    std::cout.flush();
+
+    delete[] u0;
+
+}
+
 int main(int argc, char** argv)
 {
     int seed = 0;
@@ -198,6 +252,13 @@ int main(int argc, char** argv)
     std::cout << "\n";
     std::cout.flush();
 
+    // Generate Rayleigh parameter.
+    Float rho = Float(1.999) * generateCanonical() - Float(0.999);
+    std::cout << "Rayleigh parameters:\n";
+    std::cout << "rho = " << rho << "\n";
+    std::cout << "\n";
+    std::cout.flush();
+
     // Generate SGGX parameters.
     Quatf q = 
     Quatf::rotate(
@@ -211,35 +272,81 @@ int main(int argc, char** argv)
     std::cout << "\n\n";
     std::cout.flush();
 
-    // Test phase function normalization.
-    const auto default_pred = 
-    [=](const auto& func,
-        const Vec3f& wo,
-        const Vec3f& wi) {
-        return func.ps(wo, wi);
-    };
-    const auto diffuse_pred = 
-    [=](const auto& func,
-        const Vec3f& wo,
-        const Vec3f& wi) {
-        return func.ps(generateCanonical2(), wo, wi);
-    };
-    testPhase(
-        "HgPhase",
-         HgPhase(g[0]),
-         default_pred);
-    testPhase(
-        "HgPhaseStack[4]",
-         HgPhaseStack(g, w),
-         default_pred);
-    testPhase(
-        "MicrovolumeSggxSpecularPhase",
-         MicrovolumeSggxSpecularPhase(Mat3f(q), s),
-         default_pred);
-    testPhase(
-        "MicrovolumeSggxDiffusePhase",
-         MicrovolumeSggxDiffusePhase(Mat3f(q), s),
-         diffuse_pred);
+    {
+        // Test phase function normalization.
+        auto default_pred = 
+        [=](const auto& func,
+            const Vec3f& wo,
+            const Vec3f& wi) {
+            return func.ps(wo, wi);
+        };
+        auto diffuse_pred = 
+        [=](const auto& func,
+            const Vec3f& wo,
+            const Vec3f& wi) {
+            return func.ps(generateCanonical2(), wo, wi);
+        };
+        testPhase(
+            "HgPhase",
+             HgPhase(g[0]),
+             default_pred);
+        testPhase(
+            "HgPhaseStack[4]",
+             HgPhaseStack(g, w),
+             default_pred);
+        testPhase(
+            "RayleighPhase",
+             RayleighPhase(rho),
+             default_pred);
+        testPhase(
+            "MicrovolumeSggxSpecularPhase",
+             MicrovolumeSggxSpecularPhase(Mat3f(q), s),
+             default_pred);
+        testPhase(
+            "MicrovolumeSggxDiffusePhase",
+             MicrovolumeSggxDiffusePhase(Mat3f(q), s),
+             diffuse_pred);
+    }
+    {
+        // Test phase function sampling.
+        auto default_pred = 
+        [=](const auto& func,
+            const Vec2f& u0,
+            const Vec3f& wo,
+            Vec3f& wi,
+            Float& wi_pdf) {
+            wi = func.ps_sample(u0, wo), wi_pdf = func.ps(wo, wi);
+        };
+        auto diffuse_pred = 
+        [=](const auto& func,
+            const Vec2f& u0,
+            const Vec3f& wo,
+            Vec3f& wi,
+            Float& wi_pdf) {
+            Vec2f u1 = generateCanonical2();
+            wi = func.ps_sample(u1, u0, wo, &wi_pdf);
+        };
+        testPhaseSampling(
+            "HgPhase",
+             HgPhase(g[0]),
+             default_pred);
+        testPhaseSampling(
+            "HgPhaseStack[4]",
+             HgPhaseStack(g, w),
+             default_pred);
+        testPhaseSampling(
+            "RayleighPhase",
+             RayleighPhase(rho),
+             default_pred);
+        testPhaseSampling(
+            "MicrovolumeSggxSpecularPhase",
+             MicrovolumeSggxSpecularPhase(Mat3f(q), s),
+             default_pred);
+        testPhaseSampling(
+            "MicrovolumeSggxDiffusePhase",
+             MicrovolumeSggxDiffusePhase(Mat3f(q), s),
+             diffuse_pred);
+    }
 
     return 0;
 }
