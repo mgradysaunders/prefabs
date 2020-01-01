@@ -2117,11 +2117,13 @@ public:
             *f_pdf = 0;
         }
 
+#if 0
         // Flip.
         if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
         }
+#endif
 
         if (kmin == 1 &&
             kmax == 1) {
