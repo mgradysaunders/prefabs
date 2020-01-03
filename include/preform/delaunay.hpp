@@ -499,6 +499,29 @@ public:
         return make_iterator_range(boundary_edges_);
     }
 
+    /**
+     * @brief Boundary edge to triangle index.
+     *
+     * @param[in] edge
+     * Edge.
+     *
+     * @returns
+     * If `edge` is a boundary edge, returns the index of the 
+     * triangle which contains it. Otherwise, returns `bad_index`.
+     */
+    index_type boundary_edge_to_triangle(const edge_type& edge) const
+    {
+        auto itr = edge_triangles_.find(edge);
+        if (itr == edge_triangles_.end()) {
+            return bad_index;
+        }
+        if ((itr->t1 == bad_index) ==
+            (itr->t2 == bad_index)) {
+            return bad_index;
+        }
+        return (itr->t1 == bad_index) ? itr->t2 : itr->t1;
+    }
+
     /**@}*/
 
 private:
