@@ -143,6 +143,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8a230a6ee7abbbb47438a31f2bbae5c4"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1delaunay__triangulation.html#a8a230a6ee7abbbb47438a31f2bbae5c4">boundary_edges</a> () const</td></tr>
 <tr class="memdesc:a8a230a6ee7abbbb47438a31f2bbae5c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator range of boundary edges.  <a href="#a8a230a6ee7abbbb47438a31f2bbae5c4">More...</a><br /></td></tr>
 <tr class="separator:a8a230a6ee7abbbb47438a31f2bbae5c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfc7b8678e7e6db0523fb788080afacb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1delaunay__triangulation.html#a4e61845a7bbff9824758b9d28593ac14">index_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1delaunay__triangulation.html#adfc7b8678e7e6db0523fb788080afacb">boundary_edge_to_triangle</a> (const <a class="el" href="classpr_1_1delaunay__triangulation_1_1edge__type.html">edge_type</a> &amp;edge) const</td></tr>
+<tr class="memdesc:adfc7b8678e7e6db0523fb788080afacb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boundary edge to triangle index.  <a href="#adfc7b8678e7e6db0523fb788080afacb">More...</a><br /></td></tr>
+<tr class="separator:adfc7b8678e7e6db0523fb788080afacb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -536,6 +539,43 @@ template&lt;typename Tfloat , typename Talloc  = std::allocator&lt;char&gt;&gt; 
 </div><div class="memdoc">
 
 <p>Iterator range of boundary edges. </p>
+
+</div>
+</div>
+<a id="adfc7b8678e7e6db0523fb788080afacb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfc7b8678e7e6db0523fb788080afacb">&#9670;&nbsp;</a></span>boundary_edge_to_triangle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1delaunay__triangulation.html#a4e61845a7bbff9824758b9d28593ac14">index_type</a> <a class="el" href="classpr_1_1delaunay__triangulation.html">pr::delaunay_triangulation</a>&lt; Tfloat, Talloc &gt;::boundary_edge_to_triangle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1delaunay__triangulation_1_1edge__type.html">edge_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>edge</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Boundary edge to triangle index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">edge</td><td>Edge.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If <code>edge</code> is a boundary edge, returns the index of the triangle which contains it. Otherwise, returns <code>bad_index</code>. </dd></dl>
 
 </div>
 </div>
