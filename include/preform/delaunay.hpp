@@ -156,6 +156,18 @@ public:
                        k == 1 ? b : c;
             }
         }
+
+
+        /**
+         * @brief Swap cyclically.
+         */
+        void swap_cyclical()
+        {
+            index_type tmp = a;
+            a = b;
+            b = c;
+            c = tmp;
+        }
     };
 
     /**
@@ -334,6 +346,19 @@ public:
      * @tparam Tinput_itr
      * Input iterator whose value type is suitable to
      * initialize `point_type`.
+     *
+     * @post
+     * For each `triangle` in `triangles_`,
+     * - `triangle` has non-zero (strictly positive) area,
+     * - `triangle` has counter-clockwise vertex ordering,
+     * - if `triangle` contains a boundary edge, then it is given by the
+     * first two vertex indices @f$ (A, B) @f$.
+     *
+     * @post
+     * For each `edge` in `boundary_edges_`,
+     * - `edge` has counter-clockwise vertex ordering,
+     * - the index of the `triangle` in `triangles_` which contains `edge` 
+     * is returned by `boundary_edge_to_triangle(edge)`.
      */
     template <typename Tinput_itr>
     void init(
@@ -456,15 +481,44 @@ public:
         for (triangle_type& triangle : triangles_) {
 
             // Triangle area negative?
-            if (signed_area<float_type>(
+            if (pr::signbit(
+                signed_area<float_type>(
                             triangle.a,
                             triangle.b,
-                            triangle.c) < 0) {
+                            triangle.c))) {
                 // Make counter-clockwise.
                 std::swap(
                         triangle.b,
                         triangle.c);
             }
+        }
+
+        // Iterate boundary edges.
+        for (const edge_type& edge : boundary_edges_) {
+
+            // Associated edge triangles.
+            auto itr = edge_triangles_.find(edge);
+            assert(itr != edge_triangles_.end());
+            assert((itr->second.t1 == bad_index) !=
+                   (itr->second.t2 == bad_index));
+
+            // Force t1 to be valid triangle index.
+            if (itr->second.t1 == bad_index) {
+                std::swap(itr->second.t1, itr->second.t2);
+            }
+
+            // Force boundary edge to be (a, b) in triangle. 
+            triangle_type& triangle = triangles_[itr->second.t1];
+            if (triangle.a != edge.a || 
+                triangle.b != edge.b) {
+                triangle.swap_cyclical();
+                if (triangle.a != edge.a || 
+                    triangle.b != edge.b) {
+                    triangle.swap_cyclical();
+                }
+            }
+            assert(triangle.a == edge.a && 
+                   triangle.b == edge.b);
         }
     }
 
@@ -515,11 +569,13 @@ public:
         if (itr == edge_triangles_.end()) {
             return bad_index;
         }
-        if ((itr->t1 == bad_index) ==
-            (itr->t2 == bad_index)) {
+        if (!(itr->second.t1 != bad_index && 
+              itr->second.t2 == bad_index)) {
             return bad_index;
         }
-        return (itr->t1 == bad_index) ? itr->t2 : itr->t1;
+        else {
+            return itr->second.t1;
+        }
     }
 
     /**@}*/
