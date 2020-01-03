@@ -448,10 +448,22 @@ template&lt;typename Tinput_itr &gt; </div>
 </dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Tinput_itr</td><td>Input iterator whose value type is suitable to initialize <code>point_type</code>. </td></tr>
+    <tr><td class="paramname">Tinput_itr</td><td>Input iterator whose value type is suitable to initialize <code>point_type</code>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section post"><dt>Postcondition</dt><dd>For each <code>triangle</code> in <code>triangles_</code>,<ul>
+<li><code>triangle</code> has non-zero (strictly positive) area,</li>
+<li><code>triangle</code> has counter-clockwise vertex ordering,</li>
+<li>if <code>triangle</code> contains a boundary edge, then it is given by the first two vertex indices \( (A, B) \).</li>
+</ul>
+</dd>
+<dd>
+For each <code>edge</code> in <code>boundary_edges_</code>,<ul>
+<li><code>edge</code> has counter-clockwise vertex ordering,</li>
+<li>the index of the <code>triangle</code> in <code>triangles_</code> which contains <code>edge</code> is returned by <code>boundary_edge_to_triangle(edge)</code>. </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
