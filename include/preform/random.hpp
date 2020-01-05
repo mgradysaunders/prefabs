@@ -3583,7 +3583,8 @@ public:
         return state_ != other.state_ || inc_ != other.inc_;
     }
 
-private:
+public:
+    // Public for testing and writing to binary files.
 
     /**
      * @brief State.
