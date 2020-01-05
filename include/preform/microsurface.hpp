@@ -936,6 +936,7 @@ private:
     multi<float_type, 2> alpha_ = multi<float_type, 2>(1);
 };
 
+// TODO generalize to BSDF?
 /**
  * @brief Microsurface Lambertian BRDF.
  *
