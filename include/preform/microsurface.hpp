@@ -1909,7 +1909,7 @@ public:
         multi<float_type, 3> wm = normalize_safe(wo + wi);
 
         // Result.
-        return dwo(wo, wm) / (4 * dot(wi, wm));
+        return dwo(wo, wm) / (4 * dot(wo, wm));
     }
 
     /**
@@ -2117,14 +2117,6 @@ public:
         if (f_pdf) {
             *f_pdf = 0;
         }
-
-#if 0
-        // Flip.
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            wi[2] = -wi[2];
-        }
-#endif
 
         if (kmin == 1 &&
             kmax == 1) {
