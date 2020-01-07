@@ -785,7 +785,7 @@ struct multi_initializers<
      */
     static T uniform_hemisphere_pdf()
     {
-        return pr::numeric_constants<T>::M_1_pi() / 2;
+        return pr::numeric_constants<T>::M_1_pi() / T(2);
     }
 
     /**
