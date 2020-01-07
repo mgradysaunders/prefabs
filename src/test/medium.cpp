@@ -1,31 +1,3 @@
-/* Copyright (c) 2018-19 M. Grady Saunders
- * 
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 
- *   1. Redistributions of source code must retain the above
- *      copyright notice, this list of conditions and the following
- *      disclaimer.
- * 
- *   2. Redistributions in binary form must reproduce the above
- *      copyright notice, this list of conditions and the following
- *      disclaimer in the documentation and/or other materials
- *      provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
- * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-/*+-+*/
 #include <iostream>
 #include <random>
 #include <preform/multi.hpp>
@@ -108,9 +80,9 @@ void testPhase(const char* name, const Func& func, Pred&& pred)
     // Stratify samples.
     Vec2f* u0 = new Vec2f[n.prod()];
     pr::stratify(u0, n, pcg);
-    
+
     // Generate random viewing direction.
-    Vec3f wo = 
+    Vec3f wo =
     Vec3f::uniform_sphere_pdf_sample(generateCanonical2());
 
     // Monte Carlo integration.
@@ -156,9 +128,9 @@ void testPhaseSampling(const char* name, const Func& func, Pred&& pred)
     // Stratify samples.
     Vec2f* u0 = new Vec2f[n.prod()];
     pr::stratify(u0, n, pcg);
-    
+
     // Generate random viewing direction.
-    Vec3f wo = 
+    Vec3f wo =
     Vec3f::uniform_sphere_pdf_sample(generateCanonical2());
 
     // Monte Carlo integration.
@@ -260,12 +232,14 @@ int main(int argc, char** argv)
     std::cout.flush();
 
     // Generate SGGX parameters.
-    Quatf q = 
+    Quatf q =
     Quatf::rotate(
-            pr::numeric_constants<Float>::M_pi() * 
+            0 * 
+            pr::numeric_constants<Float>::M_pi() *
             generateCanonical(),
             Vec3f::uniform_sphere_pdf_sample(generateCanonical2()));
     Vec3f s = 2 * pr::generate_canonical<Float, 3>(pcg) - Float(0.0001);
+    s = {0.05 * 0.05, 0.05 * 0.05, 1};
     std::cout << "SGGX parameters:\n";
     std::cout << "q = " << q << "\n";
     std::cout << "s = " << s << "\n";
@@ -274,13 +248,13 @@ int main(int argc, char** argv)
 
     {
         // Test phase function normalization.
-        auto default_pred = 
+        auto default_pred =
         [=](const auto& func,
             const Vec3f& wo,
             const Vec3f& wi) {
             return func.ps(wo, wi);
         };
-        auto diffuse_pred = 
+        auto diffuse_pred =
         [=](const auto& func,
             const Vec3f& wo,
             const Vec3f& wi) {
@@ -309,7 +283,7 @@ int main(int argc, char** argv)
     }
     {
         // Test phase function sampling.
-        auto default_pred = 
+        auto default_pred =
         [=](const auto& func,
             const Vec2f& u0,
             const Vec3f& wo,
@@ -317,7 +291,7 @@ int main(int argc, char** argv)
             Float& wi_pdf) {
             wi = func.ps_sample(u0, wo), wi_pdf = func.ps(wo, wi);
         };
-        auto diffuse_pred = 
+        auto diffuse_pred =
         [=](const auto& func,
             const Vec2f& u0,
             const Vec3f& wo,
@@ -347,6 +321,5 @@ int main(int argc, char** argv)
              MicrovolumeSggxDiffusePhase(Mat3f(q), s),
              diffuse_pred);
     }
-
     return 0;
 }
