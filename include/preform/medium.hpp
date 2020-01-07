@@ -572,7 +572,7 @@ public:
         return dot(q, normalize(ux * mx + uy * my + uz * mz));
     }
 
-private:
+public:
 
     /**
      * @brief Distribution matrix @f$ \mathbf{S} @f$.
@@ -695,7 +695,7 @@ public:
     {
         multi<float_type, 3> wm = dwo_sample(u, wo);
         multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
-        return wi;
+        return normalize_fast(wi);
     }
 };
 
