@@ -72,7 +72,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structpr_1_1microvolume__sggx-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">pr::microvolume_sggx&lt; T &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__medium.html">Medium</a></div></div>  </div>
@@ -115,8 +115,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa6eb4293a2f1a885bbd75a1deb5a0dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribution of visible normals sample.  <a href="#aa6eb4293a2f1a885bbd75a1deb5a0dc4">More...</a><br /></td></tr>
 <tr class="separator:aa6eb4293a2f1a885bbd75a1deb5a0dc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
 <tr class="memitem:a63ff5d4c45c714c13a82a7e8b6e0d32f"><td class="memItemLeft" align="right" valign="top">multi&lt; <a class="el" href="structpr_1_1microvolume__sggx.html#adaa1b4852e66f62ba8e074edd980cff2">float_type</a>, 3, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1microvolume__sggx.html#a63ff5d4c45c714c13a82a7e8b6e0d32f">s_</a></td></tr>
 <tr class="memdesc:a63ff5d4c45c714c13a82a7e8b6e0d32f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distribution matrix \( \mathbf{S} \).  <a href="#a63ff5d4c45c714c13a82a7e8b6e0d32f">More...</a><br /></td></tr>
 <tr class="separator:a63ff5d4c45c714c13a82a7e8b6e0d32f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -419,19 +419,11 @@ template&lt;typename T &gt; </div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">multi&lt;<a class="el" href="structpr_1_1microvolume__sggx.html#adaa1b4852e66f62ba8e074edd980cff2">float_type</a>, 3, 3&gt; <a class="el" href="structpr_1_1microvolume__sggx.html">pr::microvolume_sggx</a>&lt; T &gt;::s_</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">        {1, 0, 0},</div><div class="line">        {0, 1, 0},</div><div class="line">        {0, 0, 1}</div><div class="line">    }</div></div><!-- fragment -->
 <p>Distribution matrix \( \mathbf{S} \). </p>
@@ -445,19 +437,11 @@ template&lt;typename T &gt; </div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">multi&lt;<a class="el" href="structpr_1_1microvolume__sggx.html#adaa1b4852e66f62ba8e074edd980cff2">float_type</a>, 3, 3&gt; <a class="el" href="structpr_1_1microvolume__sggx.html">pr::microvolume_sggx</a>&lt; T &gt;::sinv_</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">        {1, 0, 0},</div><div class="line">        {0, 1, 0},</div><div class="line">        {0, 0, 1}</div><div class="line">    }</div></div><!-- fragment -->
 <p>Distribution matrix inverse \( \mathbf{S}^{-1} \). </p>
@@ -471,19 +455,11 @@ template&lt;typename T &gt; </div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structpr_1_1microvolume__sggx.html#adaa1b4852e66f62ba8e074edd980cff2">float_type</a> <a class="el" href="structpr_1_1microvolume__sggx.html">pr::microvolume_sggx</a>&lt; T &gt;::sdet1_2_ = 1</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Distribution matrix determinant root \( \sqrt{|\mathbf{S}|} \). </p>
