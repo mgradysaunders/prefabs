@@ -8,7 +8,7 @@
 #include <preform/option_parser.hpp>
 
 // Float type.
-typedef float Float;
+typedef double Float;
 
 // 2-dimensional vector type.
 typedef pr::vec2<int> Vec2i;
@@ -99,7 +99,7 @@ void testFullSphere(const char* name, const Surf& surf)
         // Integrand.
         if (wo_pdf > 0 &&
             wi_pdf > 0) {
-            Float fk = surf.fs(generateCanonical, wo, wi);
+            Float fk = surf.fs(generateCanonical, wo, wi, 0, 0, 2);
             fk /= wi_pdf;
             fk /= wo_pdf;
             fk /= n.prod();
@@ -134,9 +134,9 @@ void testPhase(const char* name, const Surf& surf, Pred&& pred)
     // Stratify samples.
     Vec2f* u0 = new Vec2f[n.prod()];
     pr::stratify(u0, n, pcg);
-    
+
     // Generate random viewing direction.
-    Vec3f wo = 
+    Vec3f wo =
     Vec3f::uniform_sphere_pdf_sample(generateCanonical2());
 
     // Monte Carlo integration.
@@ -156,6 +156,55 @@ void testPhase(const char* name, const Surf& surf, Pred&& pred)
                 continue;
             }
             f += fk;
+        }
+    }
+
+    std::cout << "Result: " << Float(f) << " (should be close to 1)\n";
+    std::cout << "\n\n";
+    std::cout.flush();
+
+    delete[] u0;
+}
+
+template <typename Surf>
+void testDielectricFs1Pdf(const char* name, const Surf& surf)
+{
+    Vec2i n = {1024, 1024};
+    std::cout << "Testing single-scatter BSDF-PDF for ";
+    std::cout << name << "::fs1_pdf():\n";
+    std::cout <<
+        "This test uses Monte Carlo integration to estimate the single\n"
+        "scattering BSDF-PDF integral, which should equal 1 for an arbitrary\n"
+        "viewing direction.\n";
+    std::cout.flush();
+
+    // Stratify samples.
+    Vec2f* u0 = new Vec2f[n.prod()];
+    pr::stratify(u0, n, pcg);
+
+    // Generate random viewing direction.
+    Vec3f wo;
+    while (pr::fabs(wo[2]) < 0.4) {
+        wo = Vec3f::uniform_sphere_pdf_sample(generateCanonical2());
+    }
+
+    // Monte Carlo integration.
+    Float f = 0;
+    for (int k = 0; k < n.prod(); k++) {
+
+        // Incident direction.
+        Vec3f wi = Vec3f::cosine_hemisphere_pdf_sample(u0[k]);
+        Float wi_pdf = Vec3f::cosine_hemisphere_pdf(wi[2]) / 2;
+        wi = pcg(2) == 0 ? +wi : -wi;
+
+        // Integrand.
+        if (wi_pdf > 0) {
+            Float fk = surf.fs1_pdf(wo, wi);
+            fk /= wi_pdf;
+            if (pr::isinf(fk)) {
+                continue;
+            }
+            f = f + (fk - f) / (k + 1);
         }
     }
 
@@ -242,34 +291,47 @@ int main(int argc, char** argv)
          DielectricBeckmann(1, 1, eta0 / eta1, alpha));
 
     // Test multi-scatter phase function normalization.
-    const auto lambertian_pred = 
-    [=](const auto& surf, 
-        const Vec3f& wo, 
-        const Vec3f& wi) {
-        return surf.ps(generateCanonical2(), wo, wi);
-    };
-    const auto dielectric_pred = 
-    [=](const auto& surf, 
-        const Vec3f& wo, 
-        const Vec3f& wi) {
-        return surf.ps(wo, wi, wo[2] > 0, true) +
-               surf.ps(wo, wi, wo[2] > 0, false);
-    };
-    testPhase(
-        "LambertianTrowbridgeReitz",
-         LambertianTrowbridgeReitz(1, alpha),
-         lambertian_pred);
-    testPhase(
-        "LambertianBeckmann",
-         LambertianBeckmann(1, alpha),
-         lambertian_pred);
-    testPhase(
-        "DielectricTrowbridgeReitz",
-         DielectricTrowbridgeReitz(1, 1, eta0 / eta1, alpha),
-         dielectric_pred);
-    testPhase(
-        "DielectricBeckmann",
-         DielectricBeckmann(1, 1, eta0 / eta1, alpha),
-         dielectric_pred);
+    {
+        auto lambertian_pred =
+        [=](const auto& surf,
+            const Vec3f& wo,
+            const Vec3f& wi) {
+            return surf.ps(generateCanonical2(), wo, wi);
+        };
+        auto dielectric_pred =
+        [=](const auto& surf,
+            const Vec3f& wo,
+            const Vec3f& wi) {
+            return surf.ps(wo, wi, wo[2] > 0, true) +
+                   surf.ps(wo, wi, wo[2] > 0, false);
+        };
+        testPhase(
+            "LambertianTrowbridgeReitz",
+             LambertianTrowbridgeReitz(1, alpha),
+             lambertian_pred);
+        testPhase(
+            "LambertianBeckmann",
+             LambertianBeckmann(1, alpha),
+             lambertian_pred);
+        testPhase(
+            "DielectricTrowbridgeReitz",
+             DielectricTrowbridgeReitz(1, 1, eta0 / eta1, alpha),
+             dielectric_pred);
+        testPhase(
+            "DielectricBeckmann",
+             DielectricBeckmann(1, 1, eta0 / eta1, alpha),
+             dielectric_pred);
+    }
+
+    // Test single-scatter BSDF-PDF normalization.
+    {
+        testDielectricFs1Pdf(
+            "DielectricTrowbridgeReitz",
+             DielectricTrowbridgeReitz(1, 1, eta0 / eta1, alpha));
+        testDielectricFs1Pdf(
+            "DielectricBeckmann",
+             DielectricBeckmann(1, 1, eta0 / eta1, alpha));
+    }
+
     return EXIT_SUCCESS;
 }
