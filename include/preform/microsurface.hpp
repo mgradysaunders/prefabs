@@ -1211,7 +1211,7 @@ public:
                 wk = ps_sample(
                         {std::forward<U>(uk)(), std::forward<U>(uk)()},
                         {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                        -wk));
+                        -wk);
 
                 // Update energy.
                 ek *= l0_;
@@ -1842,7 +1842,8 @@ public:
         if (u0 < fr_weight) {
 
             // Reflect.
-            wi = normalize_fast(-wo + (2 * cos_thetao) * wm);
+            wi = normalize_fast(
+                 -wo + (2 * cos_thetao) * wm);
 
             // In wrong hemisphere?
             if (!(wi[2] > 0)) {
