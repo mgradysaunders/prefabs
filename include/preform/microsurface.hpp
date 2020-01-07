@@ -1208,10 +1208,11 @@ public:
                 }
 
                 // Sample next direction.
-                wk = ps_sample(
+                wk = normalize_fast(
+                     ps_sample(
                         {std::forward<U>(uk)(), std::forward<U>(uk)()},
                         {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                        -wk);
+                        -wk));
 
                 // Update energy.
                 ek *= l0_;
@@ -1376,10 +1377,11 @@ public:
             ++k;
 
             // Sample next direction.
-            wk = ps_sample(
+            wk = normalize_fast(
+                 ps_sample(
                     {std::forward<U>(uk)(), std::forward<U>(uk)()},
                     {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                    -wk);
+                    -wk));
 
             // NaN check.
             if (!pr::isfinite(hk) ||
@@ -1842,7 +1844,7 @@ public:
         if (u0 < fr_weight) {
 
             // Reflect.
-            wi = -wo + (2 * cos_thetao) * wm;
+            wi = normalize_fast(-wo + (2 * cos_thetao) * wm);
 
             // In wrong hemisphere?
             if (!(wi[2] > 0)) {
@@ -1852,8 +1854,9 @@ public:
         else {
 
             // Refract.
-            wi = -eta * wo +
-                 (eta * cos_thetao + cos_thetat) * wm;
+            wi = normalize_fast(
+                 -eta * wo +
+                 (eta * cos_thetao + cos_thetat) * wm);
 
             // In wrong hemisphere?
             if (!(wi[2] < 0)) {
@@ -1936,7 +1939,8 @@ public:
         multi<float_type, 3> wm = dwo_sample(u, wo);
 
         // Reflect.
-        multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
+        multi<float_type, 3> wi = normalize_fast(
+                                  -wo + 2 * dot(wo, wm) * wm);
 
         // In wrong hemisphere?
         if (!(wi[2] > 0)) {
@@ -2049,9 +2053,10 @@ public:
             return {}; // Reject sample.
         }
         multi<float_type, 3> wi =
+                normalize_fast(
                 -eta * wo +
                 (eta * cos_thetao -
-                       cos_thetat) * wm;
+                       cos_thetat) * wm);
 
         // In wrong hemisphere?
         if (!(wi[2] < 0)) {
