@@ -1881,7 +1881,7 @@ public:
      * @f[
      *      f_{s,\text{brdf}}(\omega_o \to \omega_i) =
      *              D_{\omega_o}(\omega_m)
-     *              \frac{1}{4\omega_i \cdot \omega_m}
+     *              \frac{1}{4\omega_o \cdot \omega_m}
      * @f]
      *
      * @param[in] wo
