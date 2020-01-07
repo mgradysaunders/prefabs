@@ -1208,8 +1208,7 @@ public:
                 }
 
                 // Sample next direction.
-                wk = normalize_fast(
-                     ps_sample(
+                wk = ps_sample(
                         {std::forward<U>(uk)(), std::forward<U>(uk)()},
                         {std::forward<U>(uk)(), std::forward<U>(uk)()},
                         -wk));
@@ -1377,11 +1376,10 @@ public:
             ++k;
 
             // Sample next direction.
-            wk = normalize_fast(
-                 ps_sample(
+            wk = ps_sample(
                     {std::forward<U>(uk)(), std::forward<U>(uk)()},
                     {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                    -wk));
+                    -wk);
 
             // NaN check.
             if (!pr::isfinite(hk) ||
@@ -2200,12 +2198,11 @@ public:
 
                 // Sample next direction.
                 bool wk_outside_prev = wk_outside;
-                wk = normalize_fast(
-                     ps_sample(
+                wk = ps_sample(
                         std::forward<U>(uk)(),
                         {std::forward<U>(uk)(),
                          std::forward<U>(uk)()},
-                        -wk, wk_outside_prev, wk_outside));
+                        -wk, wk_outside_prev, wk_outside);
 
                 // Update energy.
                 ek *=
@@ -2390,12 +2387,11 @@ public:
             ++k;
 
             // Sample next direction.
-            wk = normalize_fast(
-                 ps_sample(
+            wk = ps_sample(
                     std::forward<U>(uk)(),
                     {std::forward<U>(uk)(),
                      std::forward<U>(uk)()},
-                    -wk, wk_outside, wk_outside));
+                    -wk, wk_outside, wk_outside);
 
             // NaN check.
             if (!pr::isfinite(hk) ||
@@ -2552,14 +2548,16 @@ public:
         if (u0 < fr) {
             // Reflect.
             wi_outside = wo_outside;
-            return -wo + 2 * cos_thetao * wm;
+            return normalize_fast(
+                   -wo + 2 * cos_thetao * wm);
         }
         else {
             // Refract.
             wi_outside = !wo_outside;
-            return -eta * wo +
+            return normalize_fast(
+                   -eta * wo +
                    (eta * cos_thetao +
-                          cos_thetat) * wm;
+                          cos_thetat) * wm);
         }
     }
 
@@ -2808,7 +2806,8 @@ public:
         multi<float_type, 3> wm = dwo_sample(u, wo);
 
         // Reflect.
-        multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
+        multi<float_type, 3> wi = normalize_fast(
+                                  -wo + 2 * dot(wo, wm) * wm);
 
         // In wrong hemisphere?
         if (!(wi[2] > 0)) {
@@ -2819,6 +2818,7 @@ public:
         if (neg) {
             wi[2] = -wi[2];
         }
+
         return wi;
     }
 
@@ -2867,7 +2867,7 @@ private:
     {
         multi<float_type, 3> wm = dwo_sample(u, wo);
         multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
-        return wi;
+        return normalize_fast(wi);
     }
 
 private:
