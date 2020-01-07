@@ -2155,7 +2155,7 @@ public:
             // Incident direction outside?
             bool wi_outside = !pr::signbit(wi[2]); // wi[2] > 0;
 
-            // TODO Bidirectional multiple-importance
+            // TODO Bidirectional multiple-importance?
             for (int k = 0;
                         kmax == 0 ||
                         kmax > k;) {
@@ -2177,19 +2177,18 @@ public:
                     if (k > 1) {
 
                         // Next event estimation.
+                        float_type ek_tmp = ek;
                         float_type fk =
                             (wi_outside ?
                             g1(+wi, +hk) :
                             g1(-wi, -hk)) *
                             ps(-wk, wi,
                                 wk_outside,
-                                wi_outside);
+                                wi_outside, &ek_tmp);
                         if (pr::isfinite(fk)) {
 
                             // Update iteration BSDF.
-                            itr_f +=
-                            (wk_outside ==
-                             wi_outside ? fr0_ : ft0_) * ek * fk;
+                            itr_f += ek_tmp * fk;
 
                             // Update iteration BSDF-PDF.
                             itr_f_pdf += fk;
@@ -2203,12 +2202,7 @@ public:
                         std::forward<U>(uk)(),
                         {std::forward<U>(uk)(),
                          std::forward<U>(uk)()},
-                        -wk, wk_outside_prev, wk_outside);
-
-                // Update energy.
-                ek *=
-                wk_outside ==
-                wk_outside_prev ? fr0_ : ft0_;
+                        -wk, wk_outside_prev, wk_outside, &ek);
 
                 // NaN check.
                 if (!pr::isfinite(hk) ||
@@ -2421,12 +2415,16 @@ public:
      *
      * @param[in] wi_outside
      * Incident direction outside material?
+     *
+     * @param[inout] ek
+     * _Optional_. Energy.
      */
     float_type ps(
             multi<float_type, 3> wo,
             multi<float_type, 3> wi,
             bool wo_outside,
-            bool wi_outside) const
+            bool wi_outside,
+            float_type* ek = nullptr) const
     {
         float_type eta = wo_outside ? eta_ : 1 / eta_;
         if (wo_outside == wi_outside) {
@@ -2450,8 +2448,15 @@ public:
                     cos_thetat,
                     fr, ft);
 
+            fr *= fr0_;
+            ft *= ft0_;
+            float_type fr_weight = fr / (fr + ft);
+            if (ek) {
+                *ek *= fr + ft;
+            }
+
             // Reflection.
-            return dwo(wo, wm) * fr / (4 * cos_thetao);
+            return dwo(wo, wm) * fr_weight / (4 * cos_thetao);
         }
         else {
 
@@ -2496,8 +2501,15 @@ public:
                     cos_thetat,
                     fr, ft);
 
+            fr *= fr0_;
+            ft *= ft0_;
+            float_type ft_weight = ft / (fr + ft);
+            if (ek) {
+                *ek *= fr + ft;
+            }
+
             // Transmission.
-            return dwo(wo, wm) * ft *
+            return dwo(wo, wm) * ft_weight *
                             -dot_wi_wm / dot_vm_vm;
         }
     }
@@ -2519,13 +2531,17 @@ public:
      *
      * @param[out] wi_outside
      * Incident direction outside material?
+     *
+     * @param[inout] ek
+     * _Optional_. Energy.
      */
     multi<float_type, 3> ps_sample(
             float_type u0,
             multi<float_type, 2> u1,
             multi<float_type, 3> wo,
             bool wo_outside,
-            bool& wi_outside) const
+            bool& wi_outside,
+            float_type* ek = nullptr) const
     {
         // Refractive index.
         float_type eta = wo_outside ? eta_ : 1 / eta_;
@@ -2546,7 +2562,14 @@ public:
                 cos_thetat,
                 fr, ft);
 
-        if (u0 < fr) {
+        fr *= fr0_;
+        ft *= ft0_;
+        float_type fr_weight = fr / (fr + ft);
+        if (ek) {
+            *ek *= fr + ft;
+        }
+
+        if (u0 < fr_weight) {
             // Reflect.
             wi_outside = wo_outside;
             return normalize_fast(
