@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-19 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -104,7 +104,7 @@ struct Ray
     Float tmin = 0;
 
     // Parameter maximum.
-    mutable 
+    mutable
     Float tmax = pr::numeric_limits<Float>::infinity();
 };
 
@@ -241,7 +241,7 @@ int main(int argc, char** argv)
             }
         }
         if (res) {
-            image(i, j) = 
+            image(i, j) =
                 Vec3f{1,1,1} *
                 pr::abs(pr::dot(hit.normal_shading,
                         pr::normalize(Vec3f{1, 1, 1})));
@@ -299,7 +299,7 @@ public:
             tmin = pr::fmax(tmin, tkmin);
             tmax = pr::fmin(tmax, tkmax);
         }
-        return tmin < ray_.tmax && 
+        return tmin < ray_.tmax &&
                tmax > ray_.tmin;
     }
 
@@ -321,7 +321,7 @@ struct RayTriangleIntersector
 public:
 
     // Constructor.
-    RayTriangleIntersector(const Ray* ray) : 
+    RayTriangleIntersector(const Ray* ray) :
             ray_(*ray),
             pos_interval_(ray->pos),
             dir_interval_(ray->dir)
@@ -342,7 +342,7 @@ public:
             Vec3f pos0,
             Vec3f pos1,
             Vec3f pos2,
-            Vec3f* bhit = nullptr, 
+            Vec3f* bhit = nullptr,
             Float* thit = nullptr) const;
 
 private:
@@ -358,7 +358,7 @@ private:
 
     // Permutation.
     Vec3i kr_;
-    
+
     // Permuted shear coefficients.
     Vec3fInterval hr_interval_;
 };
@@ -368,12 +368,12 @@ bool RayTriangleIntersector::intersect(
             Vec3f pos0,
             Vec3f pos1,
             Vec3f pos2,
-            Vec3f* bhit, 
+            Vec3f* bhit,
             Float* thit) const
 {
     // Shear in XY.
-    Vec3fInterval 
-        pos0_interval = 
+    Vec3fInterval
+        pos0_interval =
        (pos0 - pos_interval_).swizzle(kr_);
     Vec3fInterval h0_interval;
     h0_interval[0] = pos0_interval[0] + hr_interval_[0] * pos0_interval[2];
@@ -381,7 +381,7 @@ bool RayTriangleIntersector::intersect(
 
     // Shear in XY.
     Vec3fInterval
-        pos1_interval = 
+        pos1_interval =
        (pos1 - pos_interval_).swizzle(kr_);
     Vec3fInterval h1_interval;
     h1_interval[0] = pos1_interval[0] + hr_interval_[0] * pos1_interval[2];
@@ -403,38 +403,38 @@ bool RayTriangleIntersector::intersect(
 
     // Unnormalized barycentric coordinate.
     FloatInterval
-        b0_interval = 
-        h1_interval[1] * h2_interval[0] - 
+        b0_interval =
+        h1_interval[1] * h2_interval[0] -
         h1_interval[0] * h2_interval[1];
     any_negative |= !(b0_interval.upper_bound() >= 0);
     any_positive |= !(b0_interval.lower_bound() <= 0);
 
     // Unnormalized barycentric coordinate.
-    FloatInterval 
-        b1_interval = 
-        h2_interval[1] * h0_interval[0] - 
+    FloatInterval
+        b1_interval =
+        h2_interval[1] * h0_interval[0] -
         h2_interval[0] * h0_interval[1];
     any_negative |= !(b1_interval.upper_bound() >= 0);
     any_positive |= !(b1_interval.lower_bound() <= 0);
 
     // Unnormalized barycentric coordinate.
-    FloatInterval 
-        b2_interval = 
-        h0_interval[1] * h1_interval[0] - 
+    FloatInterval
+        b2_interval =
+        h0_interval[1] * h1_interval[0] -
         h0_interval[0] * h1_interval[1];
     any_negative |= !(b2_interval.upper_bound() >= 0);
     any_positive |= !(b2_interval.lower_bound() <= 0);
 
     // Reject certain misses.
-    if (any_negative && 
+    if (any_negative &&
         any_positive) {
         return false;
     }
 
     // Reject uncertain hits.
-    FloatInterval q_interval = 
-            b0_interval + 
-            b1_interval + 
+    FloatInterval q_interval =
+            b0_interval +
+            b1_interval +
             b2_interval;
     if (q_interval.contains(0)) {
         return false;
@@ -464,9 +464,9 @@ bool RayTriangleIntersector::intersect(
     h2_interval[2] = hr_interval_[2] * pos2_interval[2];
 
     // Parametric value.
-    FloatInterval t_interval = 
-        b0_interval * h0_interval[2] + 
-        b1_interval * h1_interval[2] + 
+    FloatInterval t_interval =
+        b0_interval * h0_interval[2] +
+        b1_interval * h1_interval[2] +
         b2_interval * h2_interval[2];
 
     // Reject uncertain hits.
@@ -600,7 +600,7 @@ void TriangleMesh::init(const std::vector<Triangle>& triangles)
     NeumaierSum surface_area_sum;
     triangles_pmf_.reserve(triangles_.size());
     triangles_cdf_.reserve(triangles_.size() + 1);
-    triangles_cdf_.push_back(0); 
+    triangles_cdf_.push_back(0);
     for (const Triangle& triangle : triangles_) {
         Float surface_area = triangle.surfaceArea();
         triangles_pmf_.push_back(surface_area);
@@ -630,18 +630,18 @@ Hit TriangleMesh::surfaceAreaSample(Vec2f samp) const
     Hit hit;
 
     Float u0 = samp[0];
-    for (std::size_t k = 0; 
+    for (std::size_t k = 0;
                      k < triangles_pmf_.size(); k++) {
-        if (u0 < triangles_cdf_[k + 1] || 
+        if (u0 < triangles_cdf_[k + 1] ||
             k == triangles_pmf_.size() - 1) {
 
             // Stretch to [0, 1).
             u0 -= triangles_cdf_[k];
             u0 /= triangles_pmf_[k];
-            
+
             // Just to be safe.
             u0 = pr::max(u0, Float(0));
-            u0 = pr::min(u0, Float(1) - 
+            u0 = pr::min(u0, Float(1) -
                  pr::numeric_limits<Float>::machine_epsilon());
 
             // Triangle.
@@ -657,22 +657,22 @@ Hit TriangleMesh::surfaceAreaSample(Vec2f samp) const
             Float b2 = sqrt_u0 * (1 - samp[1]);
 
             // Set position.
-            hit.pos = 
-                b0 * vertex0.pos + 
-                b1 * vertex1.pos + 
+            hit.pos =
+                b0 * vertex0.pos +
+                b1 * vertex1.pos +
                 b2 * vertex2.pos;
-            hit.pos_abs_error = 
+            hit.pos_abs_error =
                 (pr::abs(b0 * vertex0.pos) +
                  pr::abs(b1 * vertex1.pos) +
-                 pr::abs(b2 * vertex2.pos)) * 
+                 pr::abs(b2 * vertex2.pos)) *
                  pr::numeric_limits<Float>::echelon(6);
 
             // Set normal.
             hit.normal = pr::normalize(triangle.normal());
-            hit.normal_shading = 
+            hit.normal_shading =
                 pr::normalize(
-                    b0 * vertex0.normal_shading + 
-                    b1 * vertex1.normal_shading + 
+                    b0 * vertex0.normal_shading +
+                    b1 * vertex1.normal_shading +
                     b2 * vertex2.normal_shading);
             if (pr::dot(hit.normal, hit.normal_shading) < 0) {
                 hit.normal = -hit.normal;
@@ -722,14 +722,14 @@ bool TriangleMesh::intersect(const Ray& ray, Hit* hit) const
                 if (pr::signbit(ray.dir[node->split_dim])) {
                     // Traverse in opposite order.
                     std::swap(
-                            nodes[-1], 
+                            nodes[-1],
                             nodes[-2]);
                 }
             }
             else {
 
                 // Iterate triangles.
-                for (std::uint32_t 
+                for (std::uint32_t
                         index = node->first_index;
                         index < node->first_index + node->count;
                         index++) {
@@ -739,8 +739,8 @@ bool TriangleMesh::intersect(const Ray& ray, Hit* hit) const
                     if (triangle_intersector.intersect(
                         triangles_[index].vertices[0].pos,
                         triangles_[index].vertices[1].pos,
-                        triangles_[index].vertices[2].pos, 
-                            &tmp_bhit, 
+                        triangles_[index].vertices[2].pos,
+                            &tmp_bhit,
                             &tmp_thit)) {
                         res = true;
                         res_triangle = &triangles_[index];
@@ -766,22 +766,22 @@ bool TriangleMesh::intersect(const Ray& ray, Hit* hit) const
         Float b2 = res_bhit[2];
 
         // Set position.
-        hit->pos = 
+        hit->pos =
             b0 * vertex0.pos +
             b1 * vertex1.pos +
             b2 * vertex2.pos;
-        hit->pos_abs_error = 
+        hit->pos_abs_error =
             (pr::abs(b0 * vertex0.pos) +
              pr::abs(b1 * vertex1.pos) +
-             pr::abs(b2 * vertex2.pos)) * 
+             pr::abs(b2 * vertex2.pos)) *
              pr::numeric_limits<Float>::echelon(6);
 
         // Set normal.
         hit->normal = pr::normalize(res_triangle->normal());
-        hit->normal_shading = 
+        hit->normal_shading =
             pr::normalize(
-                b0 * vertex0.normal_shading + 
-                b1 * vertex1.normal_shading + 
+                b0 * vertex0.normal_shading +
+                b1 * vertex1.normal_shading +
                 b2 * vertex2.normal_shading);
         if (pr::dot(hit->normal, hit->normal_shading) < 0) {
             hit->normal = -hit->normal;

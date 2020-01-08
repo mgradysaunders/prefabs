@@ -14,6 +14,9 @@
 // Float type.
 typedef float Float;
 
+// Float complex type.
+typedef std::complex<Float> FloatComplex;
+
 // Float interval type.
 typedef pr::float_interval<Float> FloatInterval;
 
@@ -66,6 +69,20 @@ typedef pr::microsurface_dielectric_bsdf<
         pr::microsurface_uniform_height>
             MicrosurfaceDielectricBeckmann;
 
+// Microsurface conductive with Trowbridge-Reitz slope distribution.
+typedef pr::microsurface_conductive_brdf<
+        Float,
+        pr::microsurface_trowbridge_reitz_slope,
+        pr::microsurface_uniform_height>
+            MicrosurfaceConductiveTrowbridgeReitz;
+
+// Microsurface conductive with Beckmann slope distribution.
+typedef pr::microsurface_conductive_brdf<
+        Float,
+        pr::microsurface_beckmann_slope,
+        pr::microsurface_uniform_height>
+            MicrosurfaceConductiveBeckmann;
+
 // Oren-Nayar diffuse.
 typedef pr::oren_nayar_diffuse_brdf<Float>
             OrenNayarDiffuse;
@@ -79,6 +96,8 @@ enum {
     MICROSURFACE_LAMBERTIAN_BECKMANN,
     MICROSURFACE_DIELECTRIC_TROWBRIDGE_REITZ,
     MICROSURFACE_DIELECTRIC_BECKMANN,
+    MICROSURFACE_CONDUCTIVE_TROWBRIDGE_REITZ,
+    MICROSURFACE_CONDUCTIVE_BECKMANN,
     OREN_NAYAR_DIFFUSE,
     DISNEY_DIFFUSE
 };
@@ -102,12 +121,12 @@ Vec2f generateCanonical2()
 }
 
 Float brdf(
-        int mode, 
+        int mode,
         Float roughness,
-        Vec3f wo, 
+        Vec3f wo,
         Vec3f wi)
 {
-    if (pr::signbit(wo[2]) != 
+    if (pr::signbit(wo[2]) !=
         pr::signbit(wi[2])) {
         return 0;
     }
@@ -116,7 +135,7 @@ Float brdf(
 
         case MICROSURFACE_LAMBERTIAN_TROWBRIDGE_REITZ: {
             MicrosurfaceLambertianTrowbridgeReitz surf = {
-                Float(0.7), 
+                Float(0.7),
                 Vec2f{roughness,
                       roughness}
             };
@@ -126,7 +145,7 @@ Float brdf(
 
         case MICROSURFACE_LAMBERTIAN_BECKMANN: {
             MicrosurfaceLambertianBeckmann surf = {
-                Float(0.8), 
+                Float(0.8),
                 Vec2f{roughness,
                       roughness}
             };
@@ -151,6 +170,27 @@ Float brdf(
                 Float(1.0),
                 Float(0.0),
                 Float(1.0) / Float(1.4),
+                Vec2f{roughness,
+                      roughness}
+            };
+            res = surf.fs(generateCanonical, wo, wi, 0, 0, 32);
+            break;
+        }
+
+        case MICROSURFACE_CONDUCTIVE_TROWBRIDGE_REITZ: {
+            MicrosurfaceConductiveTrowbridgeReitz surf = {
+                Float(1.0) / FloatComplex(0.2, 2.2),
+                Vec2f{roughness,
+                      roughness}
+            };
+            //res = surf.fs(generateCanonical, wo, wi, 0, 0, 32);
+            res = surf.fs1(wo, wi);
+            break;
+        }
+
+        case MICROSURFACE_CONDUCTIVE_BECKMANN: {
+            MicrosurfaceConductiveBeckmann surf = {
+                Float(1.0) / FloatComplex(0.2, 2.2),
                 Vec2f{roughness,
                       roughness}
             };
@@ -227,7 +267,7 @@ bool intersectSphere(Ray ray, Hit& hit)
     }
 
     // Initialize hit.
-    hit.p = 
+    hit.p =
     hit.n = pr::normalize_fast(ray.o + ray.d * t.value());
     return true;
 }
@@ -267,24 +307,34 @@ int main(int argc, char** argv)
     "-m", "--mode", 1,
     [&](char** argv) {
         try {
-            if (!std::strcmp(argv[0], 
+            if (!std::strcmp(argv[0],
                 "MicrosurfaceLambertianTrowbridgeReitz")) {
                 mode = MICROSURFACE_LAMBERTIAN_TROWBRIDGE_REITZ;
             }
             else
-            if (!std::strcmp(argv[0], 
+            if (!std::strcmp(argv[0],
                 "MicrosurfaceLambertianBeckmann")) {
                 mode = MICROSURFACE_LAMBERTIAN_BECKMANN;
             }
             else
-            if (!std::strcmp(argv[0], 
+            if (!std::strcmp(argv[0],
                 "MicrosurfaceDielectricTrowbridgeReitz")) {
                 mode = MICROSURFACE_DIELECTRIC_TROWBRIDGE_REITZ;
             }
             else
-            if (!std::strcmp(argv[0], 
+            if (!std::strcmp(argv[0],
                 "MicrosurfaceDielectricBeckmann")) {
                 mode = MICROSURFACE_DIELECTRIC_BECKMANN;
+            }
+            else
+            if (!std::strcmp(argv[0],
+                "MicrosurfaceConductiveTrowbridgeReitz")) {
+                mode = MICROSURFACE_CONDUCTIVE_TROWBRIDGE_REITZ;
+            }
+            else
+            if (!std::strcmp(argv[0],
+                "MicrosurfaceConductiveBeckmann")) {
+                mode = MICROSURFACE_CONDUCTIVE_BECKMANN;
             }
             else
             if (!std::strcmp(argv[0],
@@ -314,6 +364,8 @@ int main(int argc, char** argv)
     << "  MicrosurfaceLambertianBeckmann\n"
     << "  MicrosurfaceDielectricTrowbridgeReitz\n"
     << "  MicrosurfaceDielectricBeckmann\n"
+    << "  MicrosurfaceConductiveTrowbridgeReitz\n"
+    << "  MicrosurfaceConductiveBeckmann\n"
     << "  OrenNayarDiffuse\n"
     << "  DisneyDiffuse\n";
 
@@ -323,7 +375,7 @@ int main(int argc, char** argv)
     [&](char** argv) {
         try {
             roughness = std::stod(argv[0]);
-            if (!(roughness >= 0 && 
+            if (!(roughness >= 0 &&
                   roughness <= 1)) {
                 throw std::exception(); // Trigger catch block.
             }
