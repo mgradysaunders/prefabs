@@ -129,9 +129,10 @@ public:
             multi<float_type, 2> u,
             multi<float_type, 3> wo) const
     {
-        return dot(
-                multi<float_type, 3, 3>::build_onb(-wo),
-                multi<float_type, 3>::hg_phase_pdf_sample(g_, u));
+        return normalize_fast(
+               dot(
+               multi<float_type, 3, 3>::build_onb(-wo),
+               multi<float_type, 3>::hg_phase_pdf_sample(g_, u)));
     }
 
 private:
@@ -264,9 +265,10 @@ public:
         }
 
         // Sample.
-        return dot(
-                multi<float_type, 3, 3>::build_onb(-wo),
-                multi<float_type, 3>::hg_phase_pdf_sample(g_[k], u));
+        return normalize_fast(
+               dot(
+               multi<float_type, 3, 3>::build_onb(-wo),
+               multi<float_type, 3>::hg_phase_pdf_sample(g_[k], u)));
     }
 
 private:
@@ -817,7 +819,8 @@ public:
         }
 
         // Expand in orthonormal basis.
-        return dot(multi<float_type, 3, 3>::build_onb(wm), wi);
+        return normalize_fast(
+               dot(multi<float_type, 3, 3>::build_onb(wm), wi));
     }
 };
 
