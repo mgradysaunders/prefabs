@@ -183,8 +183,7 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            //res = surf.fs(generateCanonical, wo, wi, 0, 0, 32);
-            res = surf.fs1(wo, wi);
+            res = surf.fs(generateCanonical, wo, wi, 0, 0, 32);
             break;
         }
 
