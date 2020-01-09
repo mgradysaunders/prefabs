@@ -938,7 +938,7 @@ private:
 
 // TODO generalize to BSDF?
 /**
- * @brief Microsurface Lambertian BRDF.
+ * @brief Microsurface Lambertian BSDF.
  *
  * @tparam T
  * Float type.
@@ -956,7 +956,7 @@ template <
     template <typename> typename Tslope,
     template <typename> typename Theight
     >
-struct microsurface_lambertian_brdf :
+struct microsurface_lambertian_bsdf :
                     public microsurface<T, Tslope, Theight>
 {
 public:
@@ -969,18 +969,24 @@ public:
     /**
      * @brief Default constructor.
      */
-    microsurface_lambertian_brdf() = default;
+    microsurface_lambertian_bsdf() = default;
 
     /**
      * @brief Constructor.
      */
     template <typename... Targs>
-    microsurface_lambertian_brdf(
-            float_type l0,
+    microsurface_lambertian_bsdf(
+        /*  float_type l0,  */
+            float_type r0,
+            float_type t0,
             Targs&&... args) :
                 microsurface<T, Tslope, Theight>::
                 microsurface(std::forward<Targs>(args)...),
-                l0_(l0)
+        /*      l0_(l0)  */
+                r0_(r0),
+                t0_(t0),
+                r0_prob_(r0 / (r0 + t0)),
+                t0_prob_(t0 / (r0 + t0))
     {
     }
 
@@ -996,6 +1002,7 @@ public:
     // Locally visible for convenience.
     using microsurface<T, Tslope, Theight>::h_sample;
 
+#if 0
     /**
      * @brief Single-scattering BRDF.
      *
@@ -1095,9 +1102,10 @@ public:
         wi[2] = pr::copysign(wi[2], wo[2]);
         return wi;
     }
+#endif
 
     /**
-     * @brief Compute multiple-scattering BRDF and BRDF-PDF simultaneously.
+     * @brief Compute multiple-scattering BSDF and BSDF-PDF simultaneously.
      *
      * @param[in] uk
      * Sample generator.
@@ -1118,10 +1126,10 @@ public:
      * Number of iterations.
      *
      * @param[out] f
-     * _Optional_. Output BRDF.
+     * _Optional_. Output BSDF.
      *
      * @param[out] f_pdf
-     * _Optional_. Output BRDF-PDF.
+     * _Optional_. Output BSDF-PDF.
      */
     template <typename U>
     void compute_fs_fs_pdf(
@@ -1137,34 +1145,23 @@ public:
         // Sanity check.
         assert(f || f_pdf);
 
-        // Initialize BRDF.
+        // Initialize BSDF.
         if (f) {
             *f = 0;
         }
 
-        // Initialize BRDF-PDF.
+        // Initialize BSDF-PDF.
         if (f_pdf) {
             *f_pdf = 0;
         }
 
-        // Flip.
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            wi[2] = -wi[2];
-        }
-        if (wo[2] == 0 ||
-            wi[2] <= 0) {
-            return;
-        }
-
         // Iterate.
-        for (int itr = 0;
-                 itr < nitr; itr++) {
+        for (int itr = 0; itr < nitr; itr++) {
 
-            // Iteration BRDF.
+            // Iteration BSDF.
             float_type itr_f = 0;
 
-            // Iteration BRDF-PDF.
+            // Iteration BSDF-PDF.
             float_type itr_f_pdf = 0;
 
             // Initial energy.
@@ -1176,12 +1173,26 @@ public:
             // Initial direction.
             multi<float_type, 3> wk = -wo;
 
+            // Initial direction outside?
+            bool wk_outside = wo[2] > 0;
+            if (!wk_outside) {
+
+                // Flip height.
+                hk = -hk;
+            }
+
+            // Incident direction outside?
+            bool wi_outside = wi[2] > 0;
+
             for (int k = 0;
                         kmax == 0 ||
                         kmax > k;) {
 
                 // Sample next height.
-                hk = h_sample(std::forward<U>(uk)(), wk, hk);
+                hk =
+                    wk_outside ?
+                    +h_sample(std::forward<U>(uk)(), +wk, +hk) :
+                    -h_sample(std::forward<U>(uk)(), -wk, -hk);
                 if (pr::isinf(hk)) {
                     break;
                 }
@@ -1195,15 +1206,20 @@ public:
                     // Next event estimation.
                     float_type ek_tmp = ek;
                     float_type fk =
-                        g1(wi, hk) *
+                        (wi_outside ?
+                        g1(+wi, +hk) :
+                        g1(-wi, -hk)) *
                         ps({std::forward<U>(uk)(),
-                            std::forward<U>(uk)()}, -wk, wi, &ek_tmp);
+                            std::forward<U>(uk)()}, 
+                           -wk, wi, 
+                            wk_outside,
+                            wi_outside, &ek_tmp);
                     if (pr::isfinite(fk)) {
 
-                        // Update iteration BRDF.
+                        // Update iteration BSDF.
                         itr_f += ek_tmp * fk;
 
-                        // Update iteration BRDF-PDF.
+                        // Update iteration BSDF-PDF.
                         itr_f_pdf += fk;
                     }
                 }
@@ -1212,29 +1228,29 @@ public:
                 wk = ps_sample(
                         {std::forward<U>(uk)(), std::forward<U>(uk)()},
                         {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                        -wk, &ek);
+                        -wk, wk_outside, wk_outside, &ek);
 
                 // NaN check.
                 if (!pr::isfinite(hk) ||
                     !pr::isfinite(wk).all() || wk[2] == 0) {
 
-                    // Nullify iteration BRDF.
+                    // Nullify iteration BSDF.
                     itr_f = 0;
 
-                    // Nullify iteration BRDF-PDF.
+                    // Nullify iteration BSDF-PDF.
                     itr_f_pdf = 0;
 
                     break;
                 }
             }
 
-            // Update BRDF.
+            // Update BSDF.
             if (f) {
                 *f =
                 *f + (itr_f - *f) / (itr + 1);
             }
 
-            // Update BRDF-PDF.
+            // Update BSDF-PDF.
             if (f_pdf) {
                 *f_pdf =
                 *f_pdf + (itr_f_pdf - *f_pdf) / (itr + 1);
@@ -1243,7 +1259,7 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BRDF.
+     * @brief Multiple-scattering BSDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -1264,7 +1280,7 @@ public:
      * Number of iterations.
      *
      * @param[out] f_pdf
-     * _Optional_. Output BRDF-PDF.
+     * _Optional_. Output BSDF-PDF.
      */
     template <typename U>
     float_type fs(
@@ -1290,7 +1306,7 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BRDF-PDF.
+     * @brief Multiple-scattering BSDF-PDF.
      *
      * @param[in] uk
      * Sample generator.
@@ -1333,7 +1349,7 @@ public:
     }
 
     /**
-     * @brief Multiple-scattering BRDF-PDF sample direction.
+     * @brief Multiple-scattering BSDF-PDF sample direction.
      *
      * @param[in] uk
      * Sample generator.
@@ -1349,23 +1365,27 @@ public:
             U&& uk, multi<float_type, 3> wo,
             int& k) const
     {
-        // Flip.
-        bool neg = false;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            neg = true;
-        }
-
         // Initial height.
         float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
 
         // Initial direction.
         multi<float_type, 3> wk = -wo;
 
+        // Initial direction outside?
+        bool wk_outside = wo[2] > 0;
+        if (!wk_outside) {
+
+            // Flip height.
+            hk = -hk;
+        }
+
         for (k = 0; true;) {
 
             // Sample next height.
-            hk = h_sample(std::forward<U>(uk)(), wk, hk);
+            hk =
+                wk_outside ?
+                +h_sample(std::forward<U>(uk)(), +wk, +hk) :
+                -h_sample(std::forward<U>(uk)(), -wk, -hk);
             if (pr::isinf(hk)) {
                 break;
             }
@@ -1377,7 +1397,7 @@ public:
             wk = ps_sample(
                     {std::forward<U>(uk)(), std::forward<U>(uk)()},
                     {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                    -wk);
+                    -wk, wk_outside, wk_outside);
 
             // NaN check.
             if (!pr::isfinite(hk) ||
@@ -1386,10 +1406,6 @@ public:
             }
         }
 
-        // Unflip.
-        if (neg) {
-            wk[2] = -wk[2];
-        }
         return wk;
     }
 
@@ -1417,21 +1433,35 @@ public:
      * @param[inout] ek
      * _Optional_. Energy.
      */
+    __attribute__((always_inline))
     float_type ps(
-            const multi<float_type, 2>& u,
-            const multi<float_type, 3>& wo,
-            const multi<float_type, 3>& wi,
+            multi<float_type, 2> u,
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi,
+            bool wo_outside,
+            bool wi_outside,
             float_type* ek = nullptr) const
     {
         // Sample visible microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u, wo);
+        multi<float_type, 3> wm =
+            wo_outside ?
+            +dwo_sample(u, +wo) :
+            -dwo_sample(u, -wo);
+
         if (ek) {
-            *ek *= l0_;
+        //  *ek *= l0_;
+            *ek *= r0_ + t0_;
         }
 
         // Evaluate.
-        return pr::numeric_constants<float_type>::M_1_pi() *
-               pr::fmax(dot(wm, wi), float_type(0));
+        if (wo_outside == wi_outside) {
+            return pr::numeric_constants<float_type>::M_1_pi() *
+                   pr::max(dot(+wm, wi), float_type(0)) * r0_prob_;
+        }
+        else {
+            return pr::numeric_constants<float_type>::M_1_pi() *
+                   pr::max(dot(-wm, wi), float_type(0)) * t0_prob_;
+        }
     }
 
     /**
@@ -1447,23 +1477,48 @@ public:
      * Outgoing direction.
      *
      * @param[inout] ek
-     * _Optiona_. Energy.
+     * _Optional_. Energy.
      */
+    __attribute__((always_inline))
     multi<float_type, 3> ps_sample(
-            const multi<float_type, 2>& u0,
-            const multi<float_type, 2>& u1,
-            const multi<float_type, 3>& wo,
+            multi<float_type, 2> u0,
+            multi<float_type, 2> u1,
+            multi<float_type, 3> wo,
+            bool wo_outside,
+            bool& wi_outside,
             float_type* ek = nullptr) const
     {
+        bool refl;
+        if (u0[0] < r0_prob_) {
+            u0[0] /= r0_prob_;
+            refl = true;
+        }
+        else {
+            u0[0] -= r0_prob_;
+            u0[0] /= t0_prob_;
+            refl = false;
+        }
+
         // Sample visible microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u0, wo);
+        multi<float_type, 3> wm =
+            wo_outside ?
+            +dwo_sample(u0, +wo) :
+            -dwo_sample(u0, -wo);
 
         // Sample direction.
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u1);
+        if (refl) {
+            wi_outside = wo_outside;
+        }
+        else {
+            wi_outside = !wo_outside;
+            wi[2] = -wi[2];
+        }
 
         if (ek) {
-            *ek *= l0_;
+        //  *ek *= l0_;
+            *ek *= r0_ + t0_;
         }
 
         // Expand in orthonormal basis.
@@ -1474,9 +1529,24 @@ public:
 private:
 
     /**
-     * @brief Reflectance albedo $L_0$.
+     * @brief BRDF albedo $R_0$.
      */
-    float_type l0_ = 1;
+    float_type r0_ = 1;
+
+    /**
+     * @brief BTDF albedo $T_0$.
+     */
+    float_type t0_ = 0;
+
+    /**
+     * @brief BRDF probability @f$ R_0 / (R_0 + T_0) @f$.
+     */
+    float_type r0_prob_ = 1;
+
+    /**
+     * @brief BTDF probability @f$ T_0 / (R_0 + T_0) @f$.
+     */
+    float_type t0_prob_ = 0;
 };
 
 /**
@@ -2159,7 +2229,7 @@ public:
             multi<float_type, 3> wk = -wo;
 
             // Initial direction outside?
-            bool wk_outside = !pr::signbit(wo[2]); // wo[2] > 0;
+            bool wk_outside = wo[2] > 0;
             if (!wk_outside) {
 
                 // Flip height.
@@ -2167,7 +2237,7 @@ public:
             }
 
             // Incident direction outside?
-            bool wi_outside = !pr::signbit(wi[2]); // wi[2] > 0;
+            bool wi_outside = wi[2] > 0;
 
             // TODO Bidirectional multiple-importance?
             for (int k = 0;
@@ -2211,12 +2281,11 @@ public:
                 }
 
                 // Sample next direction.
-                bool wk_outside_prev = wk_outside;
                 wk = ps_sample(
                         std::forward<U>(uk)(),
                         {std::forward<U>(uk)(),
                          std::forward<U>(uk)()},
-                        -wk, wk_outside_prev, wk_outside, &ek);
+                        -wk, wk_outside, wk_outside, &ek);
 
                 // NaN check.
                 if (!pr::isfinite(hk) ||
@@ -2374,7 +2443,7 @@ public:
         multi<float_type, 3> wk = -wo;
 
         // Initial direction outside?
-        bool wk_outside = !pr::signbit(wo[2]); // wo[2] > 0;
+        bool wk_outside = wo[2] > 0;
         if (!wk_outside) {
 
             // Flip height.
@@ -2560,7 +2629,7 @@ public:
         // Refractive index.
         float_type eta = wo_outside ? eta_ : 1 / eta_;
 
-        // Microsurface normal.
+        // Sample visible microsurface normal.
         multi<float_type, 3> wm =
             wo_outside ?
             +dwo_sample(u1, +wo) :

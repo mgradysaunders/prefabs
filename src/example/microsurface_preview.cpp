@@ -42,14 +42,14 @@ typedef pr::image2<Float, Float, 1> Image2x1;
 typedef pr::mitchell_filter2<Float> MitchellFilter2;
 
 // Microsurface diffuse with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_lambertian_brdf<
+typedef pr::microsurface_lambertian_bsdf<
         Float,
         pr::microsurface_trowbridge_reitz_slope,
         pr::microsurface_uniform_height>
             MicrosurfaceLambertianTrowbridgeReitz;
 
 // Microsurface diffuse with Beckmann slope distribution.
-typedef pr::microsurface_lambertian_brdf<
+typedef pr::microsurface_lambertian_bsdf<
         Float,
         pr::microsurface_beckmann_slope,
         pr::microsurface_uniform_height>
@@ -126,16 +126,19 @@ Float brdf(
         Vec3f wo,
         Vec3f wi)
 {
+#if 1
     if (pr::signbit(wo[2]) !=
         pr::signbit(wi[2])) {
         return 0;
     }
+#endif
     Float res = 0;
     switch (mode) {
 
         case MICROSURFACE_LAMBERTIAN_TROWBRIDGE_REITZ: {
             MicrosurfaceLambertianTrowbridgeReitz surf = {
-                Float(0.7),
+                Float(0.8),
+                Float(0.0),
                 Vec2f{roughness,
                       roughness}
             };
@@ -146,6 +149,7 @@ Float brdf(
         case MICROSURFACE_LAMBERTIAN_BECKMANN: {
             MicrosurfaceLambertianBeckmann surf = {
                 Float(0.8),
+                Float(0.0),
                 Vec2f{roughness,
                       roughness}
             };
@@ -155,8 +159,8 @@ Float brdf(
 
         case MICROSURFACE_DIELECTRIC_TROWBRIDGE_REITZ: {
             MicrosurfaceDielectricTrowbridgeReitz surf = {
-                Float(1.0),
                 Float(0.0),
+                Float(1.0),
                 Float(1.0) / Float(1.4),
                 Vec2f{roughness,
                       roughness}

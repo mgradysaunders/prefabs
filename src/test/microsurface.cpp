@@ -20,14 +20,14 @@ typedef pr::vec2<Float> Vec2f;
 typedef pr::vec3<Float> Vec3f;
 
 // Lambertian with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_lambertian_brdf<
+typedef pr::microsurface_lambertian_bsdf<
         Float,
         pr::microsurface_trowbridge_reitz_slope,
         pr::microsurface_uniform_height>
             LambertianTrowbridgeReitz;
 
 // Lambertian with Beckmann slope distribution.
-typedef pr::microsurface_lambertian_brdf<
+typedef pr::microsurface_lambertian_bsdf<
         Float,
         pr::microsurface_beckmann_slope,
         pr::microsurface_uniform_height>
@@ -74,34 +74,31 @@ void testFullSphere(const char* name, const Surf& surf)
     std::cout << name << "::fs():\n";
     std::cout <<
         "This test uses Monte Carlo integration to estimate the full-sphere\n"
-        "scattering integral, which is equal to 4 pi for an energy-conserving "
-        "BSDF.\n";
+        "scattering integral, which is equal to 1 for an arbitrary viewing\n"
+        "direction given a non-absorbing BSDF.\n";
     std::cout.flush();
 
     // Stratify samples.
     Vec2f* u0 = new Vec2f[n.prod()];
-    Vec2f* u1 = new Vec2f[n.prod()];
     pr::stratify(u0, n, pcg);
-    pr::stratify(u1, n, pcg);
+
+    // Generate random viewing direction.
+    Vec3f wo =
+    Vec3f::uniform_sphere_pdf_sample(generateCanonical2());
 
     // Monte Carlo integration.
     NeumaierSum f = 0;
     for (int k = 0; k < n.prod(); k++) {
 
         // Directions.
-        Vec3f wo = Vec3f::cosine_hemisphere_pdf_sample(u0[k]);
-        Vec3f wi = Vec3f::cosine_hemisphere_pdf_sample(u1[k]);
-        Float wo_pdf = Vec3f::cosine_hemisphere_pdf(wo[2]) / 2;
+        Vec3f wi = Vec3f::cosine_hemisphere_pdf_sample(u0[k]);
         Float wi_pdf = Vec3f::cosine_hemisphere_pdf(wi[2]) / 2;
-        wo = pcg(2) == 0 ? +wo : -wo;
         wi = pcg(2) == 0 ? +wi : -wi;
 
         // Integrand.
-        if (wo_pdf > 0 &&
-            wi_pdf > 0) {
+        if (wi_pdf > 0) {
             Float fk = surf.fs(generateCanonical, wo, wi, 0, 0, 2);
             fk /= wi_pdf;
-            fk /= wo_pdf;
             fk /= n.prod();
             if (pr::isinf(fk)) {
                 continue;
@@ -110,12 +107,11 @@ void testFullSphere(const char* name, const Surf& surf)
         }
     }
 
-    std::cout << "Result: " << Float(f) << " (should be close to 12.56)\n";
+    std::cout << "Result: " << Float(f) << " (should be close to 1)\n";
     std::cout << "\n\n";
     std::cout.flush();
 
     delete[] u0;
-    delete[] u1;
 }
 
 // Test multi-scatter phase function normalization.
@@ -156,55 +152,6 @@ void testPhase(const char* name, const Surf& surf, Pred&& pred)
                 continue;
             }
             f += fk;
-        }
-    }
-
-    std::cout << "Result: " << Float(f) << " (should be close to 1)\n";
-    std::cout << "\n\n";
-    std::cout.flush();
-
-    delete[] u0;
-}
-
-template <typename Surf>
-void testDielectricFs1Pdf(const char* name, const Surf& surf)
-{
-    Vec2i n = {1024, 1024};
-    std::cout << "Testing single-scatter BSDF-PDF for ";
-    std::cout << name << "::fs1_pdf():\n";
-    std::cout <<
-        "This test uses Monte Carlo integration to estimate the single\n"
-        "scattering BSDF-PDF integral, which should equal 1 for an arbitrary\n"
-        "viewing direction.\n";
-    std::cout.flush();
-
-    // Stratify samples.
-    Vec2f* u0 = new Vec2f[n.prod()];
-    pr::stratify(u0, n, pcg);
-
-    // Generate random viewing direction.
-    Vec3f wo;
-    while (pr::fabs(wo[2]) < 0.4) {
-        wo = Vec3f::uniform_sphere_pdf_sample(generateCanonical2());
-    }
-
-    // Monte Carlo integration.
-    Float f = 0;
-    for (int k = 0; k < n.prod(); k++) {
-
-        // Incident direction.
-        Vec3f wi = Vec3f::cosine_hemisphere_pdf_sample(u0[k]);
-        Float wi_pdf = Vec3f::cosine_hemisphere_pdf(wi[2]) / 2;
-        wi = pcg(2) == 0 ? +wi : -wi;
-
-        // Integrand.
-        if (wi_pdf > 0) {
-            Float fk = surf.fs1_pdf(wo, wi);
-            fk /= wi_pdf;
-            if (pr::isinf(fk)) {
-                continue;
-            }
-            f = f + (fk - f) / (k + 1);
         }
     }
 
@@ -279,10 +226,10 @@ int main(int argc, char** argv)
     // Test full-sphere scattering.
     testFullSphere(
         "LambertianTrowbridgeReitz",
-         LambertianTrowbridgeReitz(1, alpha));
+         LambertianTrowbridgeReitz(0.7, 0.3, alpha));
     testFullSphere(
         "LambertianBeckmann",
-         LambertianBeckmann(1, alpha));
+         LambertianBeckmann(0.2, 0.8, alpha));
     testFullSphere(
         "DielectricTrowbridgeReitz",
          DielectricTrowbridgeReitz(1, 1, eta0 / eta1, alpha));
@@ -296,7 +243,9 @@ int main(int argc, char** argv)
         [=](const auto& surf,
             const Vec3f& wo,
             const Vec3f& wi) {
-            return surf.ps(generateCanonical2(), wo, wi);
+            Vec2f u = generateCanonical2();
+            return surf.ps(u, wo, wi, wo[2] > 0, true) +
+                   surf.ps(u, wo, wi, wo[2] > 0, false);
         };
         auto dielectric_pred =
         [=](const auto& surf,
@@ -307,30 +256,20 @@ int main(int argc, char** argv)
         };
         testPhase(
             "LambertianTrowbridgeReitz",
-             LambertianTrowbridgeReitz(1, alpha),
+             LambertianTrowbridgeReitz(0.7, 0.1, alpha),
              lambertian_pred);
         testPhase(
             "LambertianBeckmann",
-             LambertianBeckmann(1, alpha),
+             LambertianBeckmann(0.2, 0.6, alpha),
              lambertian_pred);
         testPhase(
             "DielectricTrowbridgeReitz",
-             DielectricTrowbridgeReitz(1, 1, eta0 / eta1, alpha),
+             DielectricTrowbridgeReitz(0.88, 0.3, eta0 / eta1, alpha),
              dielectric_pred);
         testPhase(
             "DielectricBeckmann",
-             DielectricBeckmann(1, 1, eta0 / eta1, alpha),
+             DielectricBeckmann(0.2, 0.8, eta0 / eta1, alpha),
              dielectric_pred);
-    }
-
-    // Test single-scatter BSDF-PDF normalization.
-    {
-        testDielectricFs1Pdf(
-            "DielectricTrowbridgeReitz",
-             DielectricTrowbridgeReitz(1, 1, eta0 / eta1, alpha));
-        testDielectricFs1Pdf(
-            "DielectricBeckmann",
-             DielectricBeckmann(1, 1, eta0 / eta1, alpha));
     }
 
     return EXIT_SUCCESS;
