@@ -2789,7 +2789,7 @@ private:
  * Float type.
  */
 template <typename Tfloat>
-struct oren_nayar_diffuse_brdf
+struct oren_nayar_diffuse
 {
 public:
 
@@ -2809,7 +2809,7 @@ public:
      * @param[in] sigma
      * Standard deviation @f$ \sigma @f$ of microfacet angle in radians.
      */
-    oren_nayar_diffuse_brdf(float_type sigma)
+    oren_nayar_diffuse(float_type sigma)
     {
         float_type sigma2 = sigma * sigma;
         a_ = 1 - float_type(0.50) * sigma2 / (sigma2 + float_type(0.33));
@@ -2945,7 +2945,7 @@ private:
  * Float type.
  */
 template <typename Tfloat>
-struct disney_diffuse_brdf
+struct disney_diffuse
 {
 public:
 
@@ -2965,7 +2965,7 @@ public:
      * @param[in] alpha
      * Ad hoc roughness @f$ \alpha \in [0, 1] @f$.
      */
-    disney_diffuse_brdf(float_type alpha) : alpha_(alpha)
+    disney_diffuse(float_type alpha) : alpha_(alpha)
     {
     }
 
