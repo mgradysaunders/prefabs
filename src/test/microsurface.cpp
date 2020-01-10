@@ -20,28 +20,28 @@ typedef pr::vec2<Float> Vec2f;
 typedef pr::vec3<Float> Vec3f;
 
 // Lambertian with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_lambertian_bsdf<
+typedef pr::microsurface_lambertian<
         Float,
         pr::microsurface_trowbridge_reitz_slope,
         pr::microsurface_uniform_height>
             LambertianTrowbridgeReitz;
 
 // Lambertian with Beckmann slope distribution.
-typedef pr::microsurface_lambertian_bsdf<
+typedef pr::microsurface_lambertian<
         Float,
         pr::microsurface_beckmann_slope,
         pr::microsurface_uniform_height>
             LambertianBeckmann;
 
 // Dielectric with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_dielectric_bsdf<
+typedef pr::microsurface_dielectric<
         Float,
         pr::microsurface_trowbridge_reitz_slope,
         pr::microsurface_uniform_height>
             DielectricTrowbridgeReitz;
 
 // Dielectric with Beckmann slope distribution.
-typedef pr::microsurface_dielectric_bsdf<
+typedef pr::microsurface_dielectric<
         Float,
         pr::microsurface_beckmann_slope,
         pr::microsurface_uniform_height>
@@ -97,7 +97,7 @@ void testFullSphere(const char* name, const Surf& surf)
 
         // Integrand.
         if (wi_pdf > 0) {
-            Float fk = surf.fs(generateCanonical, wo, wi, 0, 0, 2);
+            Float fk = surf.fs(pcg, wo, wi, 0, 0, 2);
             fk /= wi_pdf;
             fk /= n.prod();
             if (pr::isinf(fk)) {
@@ -240,19 +240,18 @@ int main(int argc, char** argv)
     // Test multi-scatter phase function normalization.
     {
         auto lambertian_pred =
-        [=](const auto& surf,
+        [&](const auto& surf,
             const Vec3f& wo,
             const Vec3f& wi) {
-            Vec2f u = generateCanonical2();
-            return surf.ps(u, wo, wi, wo[2] > 0, true) +
-                   surf.ps(u, wo, wi, wo[2] > 0, false);
+            return surf.ps(pcg, wo, wi, wo[2] > 0, true) +
+                   surf.ps(pcg, wo, wi, wo[2] > 0, false);
         };
         auto dielectric_pred =
-        [=](const auto& surf,
+        [&](const auto& surf,
             const Vec3f& wo,
             const Vec3f& wi) {
-            return surf.ps(wo, wi, wo[2] > 0, true) +
-                   surf.ps(wo, wi, wo[2] > 0, false);
+            return surf.ps(pcg, wo, wi, wo[2] > 0, true) +
+                   surf.ps(pcg, wo, wi, wo[2] > 0, false);
         };
         testPhase(
             "LambertianTrowbridgeReitz",
