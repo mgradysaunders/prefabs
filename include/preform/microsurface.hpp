@@ -96,23 +96,23 @@ namespace pr {
 /**
  * @brief Microsurface Trowbridge-Reitz slope distribution.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct microsurface_trowbridge_reitz_slope
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Non-constructible.
@@ -257,23 +257,23 @@ public:
 /**
  * @brief Microsurface Beckmann slope distribution.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct microsurface_beckmann_slope
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Non-constructible.
@@ -584,9 +584,21 @@ public:
 };
 
 /**
+ * @brief Microsurface prototype.
+ *
+ * @tparam Tchild
+ * Child type for Curiously Recurring Template Pattern (CRTP).
+ */
+template <typename Tchild>
+struct microsurface;
+
+/**
  * @brief Microsurface.
  *
- * @tparam T
+ * @tparam Tchild
+ * Child type for Curiously Recurring Template Pattern (CRTP).
+ *
+ * @tparam Tfloat
  * Float type.
  *
  * @tparam Tslope
@@ -598,18 +610,32 @@ public:
  * `microsurface_normal_height`.
  */
 template <
-    typename T,
+    template <
+#if !DOXYGEN
+        typename,
+        template <typename> typename,
+        template <typename> typename
+#else
+        ...
+#endif // #if !DOXYGEN
+        > typename Tchild,
+    typename Tfloat,
     template <typename> typename Tslope,
     template <typename> typename Theight
     >
-struct microsurface
+struct microsurface<Tchild<Tfloat, Tslope, Theight>>
 {
 public:
 
     /**
+     * @brier Child.
+     */
+    typedef Tchild<Tfloat, Tslope, Theight> child;
+
+    /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
@@ -650,7 +676,7 @@ public:
         wo[1] *= alpha_[1];
 
         // Delegate.
-        return Tslope<T>::lambda11(wo);
+        return Tslope<Tfloat>::lambda11(wo);
     }
 
     /**
@@ -674,7 +700,7 @@ public:
         wo[1] *= alpha_[1];
 
         // Delegate.
-        return Tslope<T>::aperp11(wo);
+        return Tslope<Tfloat>::aperp11(wo);
     }
 
     /**
@@ -697,7 +723,7 @@ public:
         }
 
         // Delegate.
-        float_type p11 = Tslope<T>::p11(m);
+        float_type p11 = Tslope<Tfloat>::p11(m);
         return pr::isfinite(p11 / alpha_.prod())  ?
                             p11 / alpha_.prod() : 0;
     }
@@ -803,7 +829,7 @@ public:
         });
 
         // Sample visible slope.
-        multi<float_type, 2> m11 = Tslope<T>::p11_sample(u, wo11[2]);
+        multi<float_type, 2> m11 = Tslope<Tfloat>::p11_sample(u, wo11[2]);
 
         // Rotate.
         float_type phi = pr::atan2(wo11[1], wo11[0]);
@@ -875,7 +901,7 @@ public:
             return 0;
         }
         else {
-            return pr::pow(Theight<T>::c1(h0), lambda(wo));
+            return pr::pow(Theight<Tfloat>::c1(h0), lambda(wo));
         }
     }
 
@@ -906,8 +932,8 @@ public:
 
         // Handle cos(thetao) ~= -1.
         if (wo[2] < float_type(-0.99999)) {
-            return Theight<T>::c1inv(
-                   Theight<T>::c1(h0) * u);
+            return Theight<Tfloat>::c1inv(
+                   Theight<Tfloat>::c1(h0) * u);
         }
 
         // Handle cos(thetao) ~= 0.
@@ -922,11 +948,335 @@ public:
         }
 
         // Intersect.
-        return Theight<T>::c1inv(
-               Theight<T>::c1(h0) /
+        return Theight<Tfloat>::c1inv(
+               Theight<Tfloat>::c1(h0) /
                     pr::pow(1 - u,
                             1 / lambda(wo)));
     }
+
+public:
+
+    /**
+     * @name Multiple-scattering interface
+     */
+    /**@{*/
+
+    /**
+     * @brief Compute multiple-scattering BSDF and BSDF-PDF simultaneously.
+     *
+     * @param[inout] gen
+     * Generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @param[in] kmin
+     * Scattering order minimum.
+     *
+     * @param[in] kmax
+     * Scattering order maximum, 0 for all orders.
+     *
+     * @param[in] nitr
+     * Number of iterations.
+     *
+     * @param[out] f
+     * _Optional_. Output BSDF.
+     *
+     * @param[out] f_pdf
+     * _Optional_. Output BSDF-PDF.
+     */
+    template <typename Tgen>
+    void compute_fs_fs_pdf(
+            Tgen& gen,
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi,
+            int kmin,
+            int kmax,
+            int nitr,
+            float_type* f,
+            float_type* f_pdf) const
+    {
+        // Sanity check.
+        assert(f || f_pdf);
+
+        // Initialize BSDF.
+        if (f) {
+            *f = 0;
+        }
+
+        // Initialize BSDF-PDF.
+        if (f_pdf) {
+            *f_pdf = 0;
+        }
+
+        // Iterate.
+        for (int itr = 0; itr < nitr; itr++) {
+
+            // Iteration BSDF, BSDF-PDF.
+            float_type itr_f = 0, itr_f_pdf = 0;
+
+            // Initial energy.
+            float_type ek = 1;
+
+            // Initial height.
+            float_type hk = 
+                Theight<float_type>::c1inv(float_type(0.99999)) + 1;
+
+            // Initial direction.
+            multi<float_type, 3> wk = -wo;
+
+            // Initial direction outside?
+            bool wk_outside = wo[2] > 0;
+            if (!wk_outside) {
+
+                // Flip height.
+                hk = -hk;
+            }
+
+            // Incident direction outside?
+            bool wi_outside = wi[2] > 0;
+
+            for (int k = 0; 
+                     kmax == 0 || kmax > k;) {
+
+                {
+                    // Sample next height.
+                    float_type u = pr::generate_canonical<float_type>(gen);
+                    hk =
+                        wk_outside ?
+                        +h_sample(u, +wk, +hk) :
+                        -h_sample(u, -wk, -hk);
+                    if (pr::isinf(hk)) {
+                        break;
+                    }
+                }
+
+                // Increment.
+                ++k;
+
+                if ((kmax == 0 ||
+                     kmax >= k) && kmin <= k) {
+
+                    // Next event estimation.
+                    float_type tmp_ek = ek;
+                    float_type fk =
+                        (wi_outside ?
+                        g1(+wi, +hk) :
+                        g1(-wi, -hk)) *
+                        static_cast<
+                        const child&>(*this).ps( // CRTP
+                                gen, 
+                                -wk, wi, 
+                                wk_outside,
+                                wi_outside, &tmp_ek);
+                    if (pr::isfinite(fk)) {
+
+                        // Add term to iteration BSDF.
+                        itr_f += tmp_ek * fk;
+                        
+                        // Add term to iteration BSDF-PDF.
+                        itr_f_pdf += fk;
+                    }
+                }
+
+                // Sample next direction.
+                wk = 
+                    static_cast<
+                    const child&>(*this).ps_sample( // CRTP
+                            gen, 
+                            -wk, 
+                            wk_outside, 
+                            wk_outside, &ek);
+
+                // NaN check.
+                if (!pr::isfinite(hk) ||
+                    !pr::isfinite(wk).all() || wk[2] == 0) {
+
+                    // Nullify iteration BSDF.
+                    itr_f = 0;
+
+                    // Nullify iteration BSDF-PDF.
+                    itr_f_pdf = 0;
+
+                    break;
+                }
+            }
+
+            // Add term to BSDF.
+            if (f) {
+                *f =
+                *f + (itr_f - *f) / (itr + 1);
+            }
+
+            // Add term to BSDF-PDF.
+            if (f_pdf) {
+                *f_pdf =
+                *f_pdf + (itr_f_pdf - *f_pdf) / (itr + 1);
+            }
+        }
+    }
+
+    /**
+     * @brief Multiple-scattering BSDF.
+     *
+     * @param[inout] gen
+     * Generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @param[in] kmin
+     * Scattering order minimum.
+     *
+     * @param[in] kmax
+     * Scattering order maximum, 0 for all orders.
+     *
+     * @param[in] nitr
+     * Number of iterations.
+     *
+     * @param[out] f_pdf
+     * _Optional_. Output BSDF-PDF.
+     */
+    template <typename Tgen>
+    float_type fs(
+            Tgen& gen,
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi,
+            int kmin = 0,
+            int kmax = 0,
+            int nitr = 1,
+            float_type* f_pdf = nullptr) const
+    {
+        float_type f = 0;
+        compute_fs_fs_pdf(
+                gen, 
+                wo, 
+                wi,
+                kmin,
+                kmax,
+                nitr,
+                &f, f_pdf);
+
+        return f;
+    }
+
+    /**
+     * @brief Multiple-scattering BSDF-PDF.
+     *
+     * @param[inout] gen
+     * Generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @param[in] kmin
+     * Scattering order minimum.
+     *
+     * @param[in] kmax
+     * Scattering order maximum, 0 for all orders.
+     *
+     * @param[in] nitr
+     * Number of iterations.
+     */
+    template <typename Tgen>
+    float_type fs_pdf(
+            Tgen& gen,
+            multi<float_type, 3> wo,
+            multi<float_type, 3> wi,
+            int kmin = 0,
+            int kmax = 0,
+            int nitr = 1) const
+    {
+        float_type f_pdf = 0;
+        compute_fs_fs_pdf(
+                gen,
+                wo,
+                wi,
+                kmin,
+                kmax,
+                nitr,
+                nullptr, &f_pdf);
+
+        return f_pdf;
+    }
+
+    /**
+     * @brief Multiple-scattering BSDF-PDF sample direction.
+     *
+     * @param[inout] gen
+     * Generator.
+     *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[out] k
+     * Incident direction scattering order.
+     */
+    template <typename Tgen>
+    multi<float_type, 3> fs_pdf_sample(
+            Tgen& gen, 
+            const multi<float_type, 3>& wo, int& k) const
+    {
+        // Initial height.
+        float_type hk = Theight<float_type>::c1inv(float_type(0.99999)) + 1;
+
+        // Initial direction.
+        multi<float_type, 3> wk = -wo;
+
+        // Initial direction outside?
+        bool wk_outside = wo[2] > 0;
+        if (!wk_outside) {
+
+            // Flip height.
+            hk = -hk;
+        }
+
+        for (k = 0; true;) {
+
+            {
+                // Sample next height.
+                float_type u = pr::generate_canonical<float_type>(gen);
+                hk =
+                    wk_outside ?
+                    +h_sample(u, +wk, +hk) :
+                    -h_sample(u, -wk, -hk);
+                if (pr::isinf(hk)) {
+                    break;
+                }
+            }
+
+            // Increment.
+            ++k;
+
+            // Sample next direction.
+            wk = 
+                static_cast<
+                const child&>(*this).ps_sample( // CRTP
+                        gen, 
+                        -wk, 
+                        wk_outside, 
+                        wk_outside);
+
+            // NaN check.
+            if (!pr::isfinite(hk) ||
+                !pr::isfinite(wk).all() || wk[2] == 0) {
+                return {0, 0, 1};
+            }
+        }
+
+        return wk;
+    }
+
+    /**@}*/
 
 private:
 
@@ -936,11 +1286,10 @@ private:
     multi<float_type, 2> alpha_ = multi<float_type, 2>(1);
 };
 
-// TODO generalize to BSDF?
 /**
- * @brief Microsurface Lambertian BSDF.
+ * @brief Microsurface from Lambertian BSDF.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  *
  * @tparam Tslope
@@ -952,55 +1301,44 @@ private:
  * `microsurface_normal_height`.
  */
 template <
-    typename T,
+    typename Tfloat,
     template <typename> typename Tslope,
     template <typename> typename Theight
     >
-struct microsurface_lambertian_bsdf :
-                    public microsurface<T, Tslope, Theight>
+struct microsurface_lambertian :
+                    public microsurface<
+                           microsurface_lambertian<
+                           Tfloat, Tslope, Theight>>
 {
 public:
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
      */
-    microsurface_lambertian_bsdf() = default;
+    microsurface_lambertian() = default;
 
     /**
      * @brief Constructor.
      */
     template <typename... Targs>
-    microsurface_lambertian_bsdf(
-        /*  float_type l0,  */
+    microsurface_lambertian(
             float_type r0,
             float_type t0,
             Targs&&... args) :
-                microsurface<T, Tslope, Theight>::
+                microsurface<
+                microsurface_lambertian<Tfloat, Tslope, Theight>>::
                 microsurface(std::forward<Targs>(args)...),
-        /*      l0_(l0)  */
                 r0_(r0),
                 t0_(t0),
                 r0_prob_(r0 / (r0 + t0)),
                 t0_prob_(t0 / (r0 + t0))
     {
     }
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::lambda;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::dwo_sample;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::g1;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::h_sample;
 
 #if 0
     /**
@@ -1051,7 +1389,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF-PDF.
+     * @brief Single-scattering BSDF-PDF.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -1061,7 +1399,7 @@ public:
      *
      * @note
      * For simplicity, this implementation samples
-     * the single-scattering BRDF as if it is Lambertian.
+     * the single-scattering BSDF as if it is Lambertian.
      */
     float_type fs1_pdf(
             multi<float_type, 3> wo,
@@ -1081,7 +1419,7 @@ public:
     }
 
     /**
-     * @brief Single-scattering BRDF-PDF sample direction.
+     * @brief Single-scattering BSDF-PDF sample direction.
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -1091,7 +1429,7 @@ public:
      *
      * @note
      * For simplicity, this implementation samples
-     * the single-scattering BRDF as if it is Lambertian.
+     * the single-scattering BSDF as if it is Lambertian.
      */
     multi<float_type, 3> fs1_pdf_sample(
             multi<float_type, 2> u,
@@ -1104,325 +1442,18 @@ public:
     }
 #endif
 
-    /**
-     * @brief Compute multiple-scattering BSDF and BSDF-PDF simultaneously.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kmin
-     * Scattering order minimum.
-     *
-     * @param[in] kmax
-     * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     *
-     * @param[out] f
-     * _Optional_. Output BSDF.
-     *
-     * @param[out] f_pdf
-     * _Optional_. Output BSDF-PDF.
-     */
-    template <typename U>
-    void compute_fs_fs_pdf(
-            U&& uk,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin,
-            int kmax,
-            int nitr,
-            float_type* f,
-            float_type* f_pdf) const
-    {
-        // Sanity check.
-        assert(f || f_pdf);
-
-        // Initialize BSDF.
-        if (f) {
-            *f = 0;
-        }
-
-        // Initialize BSDF-PDF.
-        if (f_pdf) {
-            *f_pdf = 0;
-        }
-
-        // Iterate.
-        for (int itr = 0; itr < nitr; itr++) {
-
-            // Iteration BSDF.
-            float_type itr_f = 0;
-
-            // Iteration BSDF-PDF.
-            float_type itr_f_pdf = 0;
-
-            // Initial energy.
-            float_type ek = 1;
-
-            // Initial height.
-            float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
-
-            // Initial direction.
-            multi<float_type, 3> wk = -wo;
-
-            // Initial direction outside?
-            bool wk_outside = wo[2] > 0;
-            if (!wk_outside) {
-
-                // Flip height.
-                hk = -hk;
-            }
-
-            // Incident direction outside?
-            bool wi_outside = wi[2] > 0;
-
-            for (int k = 0;
-                        kmax == 0 ||
-                        kmax > k;) {
-
-                // Sample next height.
-                hk =
-                    wk_outside ?
-                    +h_sample(std::forward<U>(uk)(), +wk, +hk) :
-                    -h_sample(std::forward<U>(uk)(), -wk, -hk);
-                if (pr::isinf(hk)) {
-                    break;
-                }
-
-                // Increment.
-                ++k;
-
-                if ((kmax == 0 ||
-                     kmax >= k) && kmin <= k) {
-
-                    // Next event estimation.
-                    float_type ek_tmp = ek;
-                    float_type fk =
-                        (wi_outside ?
-                        g1(+wi, +hk) :
-                        g1(-wi, -hk)) *
-                        ps({std::forward<U>(uk)(),
-                            std::forward<U>(uk)()}, 
-                           -wk, wi, 
-                            wk_outside,
-                            wi_outside, &ek_tmp);
-                    if (pr::isfinite(fk)) {
-
-                        // Update iteration BSDF.
-                        itr_f += ek_tmp * fk;
-
-                        // Update iteration BSDF-PDF.
-                        itr_f_pdf += fk;
-                    }
-                }
-
-                // Sample next direction.
-                wk = ps_sample(
-                        {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                        {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                        -wk, wk_outside, wk_outside, &ek);
-
-                // NaN check.
-                if (!pr::isfinite(hk) ||
-                    !pr::isfinite(wk).all() || wk[2] == 0) {
-
-                    // Nullify iteration BSDF.
-                    itr_f = 0;
-
-                    // Nullify iteration BSDF-PDF.
-                    itr_f_pdf = 0;
-
-                    break;
-                }
-            }
-
-            // Update BSDF.
-            if (f) {
-                *f =
-                *f + (itr_f - *f) / (itr + 1);
-            }
-
-            // Update BSDF-PDF.
-            if (f_pdf) {
-                *f_pdf =
-                *f_pdf + (itr_f_pdf - *f_pdf) / (itr + 1);
-            }
-        }
-    }
-
-    /**
-     * @brief Multiple-scattering BSDF.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kmin
-     * Scattering order minimum.
-     *
-     * @param[in] kmax
-     * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     *
-     * @param[out] f_pdf
-     * _Optional_. Output BSDF-PDF.
-     */
-    template <typename U>
-    float_type fs(
-            U&& uk,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin = 0,
-            int kmax = 0,
-            int nitr = 1,
-            float_type* f_pdf = nullptr) const
-    {
-        float_type f = 0;
-        compute_fs_fs_pdf(
-                std::forward<U>(uk),
-                wo,
-                wi,
-                kmin,
-                kmax,
-                nitr,
-                &f, f_pdf);
-
-        return f;
-    }
-
-    /**
-     * @brief Multiple-scattering BSDF-PDF.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kmin
-     * Scattering order minimum.
-     *
-     * @param[in] kmax
-     * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     */
-    template <typename U>
-    float_type fs_pdf(
-            U&& uk,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin = 0,
-            int kmax = 0,
-            int nitr = 1) const
-    {
-        float_type f_pdf = 0;
-        compute_fs_fs_pdf(
-                std::forward<U>(uk),
-                wo,
-                wi,
-                kmin,
-                kmax,
-                nitr,
-                nullptr, &f_pdf);
-
-        return f_pdf;
-    }
-
-    /**
-     * @brief Multiple-scattering BSDF-PDF sample direction.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[out] k
-     * Incident direction scattering order.
-     */
-    template <typename U>
-    multi<float_type, 3> fs_pdf_sample(
-            U&& uk, multi<float_type, 3> wo,
-            int& k) const
-    {
-        // Initial height.
-        float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
-
-        // Initial direction.
-        multi<float_type, 3> wk = -wo;
-
-        // Initial direction outside?
-        bool wk_outside = wo[2] > 0;
-        if (!wk_outside) {
-
-            // Flip height.
-            hk = -hk;
-        }
-
-        for (k = 0; true;) {
-
-            // Sample next height.
-            hk =
-                wk_outside ?
-                +h_sample(std::forward<U>(uk)(), +wk, +hk) :
-                -h_sample(std::forward<U>(uk)(), -wk, -hk);
-            if (pr::isinf(hk)) {
-                break;
-            }
-
-            // Increment.
-            ++k;
-
-            // Sample next direction.
-            wk = ps_sample(
-                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                    {std::forward<U>(uk)(), std::forward<U>(uk)()},
-                    -wk, wk_outside, wk_outside);
-
-            // NaN check.
-            if (!pr::isfinite(hk) ||
-                !pr::isfinite(wk).all() || wk[2] == 0) {
-                return {0, 0, 1};
-            }
-        }
-
-        return wk;
-    }
-
 public:
-    // Public for testing.
+
+    /**
+     * @name Multiple-scattering interface (CRTP calls)
+     */
+    /**@{*/
 
     /**
      * @brief Phase function.
      *
-     * @f[
-     *      p_s(\omega_o, \omega_i) =
-     *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
-     * @f]
-     * where @f$ \omega_m \sim D_{\omega_o} @f$
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
+     * @param[inout] gen
+     * Generator.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -1430,26 +1461,33 @@ public:
      * @param[in] wi
      * Incident direction.
      *
+     * @param[in] wo_outside
+     * Outgoing direction outside material?
+     *
+     * @param[in] wi_outside
+     * Incident direction outside material?
+     *
      * @param[inout] ek
      * _Optional_. Energy.
      */
-    __attribute__((always_inline))
+    template <typename Tgen>
     float_type ps(
-            multi<float_type, 2> u,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
+            Tgen& gen,
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi,
             bool wo_outside,
             bool wi_outside,
             float_type* ek = nullptr) const
     {
         // Sample visible microsurface normal.
+        multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
             wo_outside ?
-            +dwo_sample(u, +wo) :
-            -dwo_sample(u, -wo);
+            +this->dwo_sample(u0, +wo) :
+            -this->dwo_sample(u0, -wo);
 
+        // Energy.
         if (ek) {
-        //  *ek *= l0_;
             *ek *= r0_ + t0_;
         }
 
@@ -1467,48 +1505,41 @@ public:
     /**
      * @brief Phase function sample direction.
      *
-     * @param[in] u0
-     * Sample in @f$ [0, 1)^2 @f$.
-     *
-     * @param[in] u1
-     * Sample in @f$ [0, 1)^2 @f$.
+     * @param[inout] gen
+     * Generator.
      *
      * @param[in] wo
      * Outgoing direction.
      *
+     * @param[in] wo_outside
+     * Outgoing direction outside material?
+     *
+     * @param[out] wi_outside
+     * Incident direction outside material?
+     *
      * @param[inout] ek
      * _Optional_. Energy.
      */
-    __attribute__((always_inline))
+    template <typename Tgen>
     multi<float_type, 3> ps_sample(
-            multi<float_type, 2> u0,
-            multi<float_type, 2> u1,
-            multi<float_type, 3> wo,
-            bool wo_outside,
+            Tgen& gen,
+            const multi<float_type, 3>& wo,
+            bool  wo_outside,
             bool& wi_outside,
             float_type* ek = nullptr) const
     {
-        bool refl;
-        if (u0[0] < r0_prob_) {
-            u0[0] /= r0_prob_;
-            refl = true;
-        }
-        else {
-            u0[0] -= r0_prob_;
-            u0[0] /= t0_prob_;
-            refl = false;
-        }
-
         // Sample visible microsurface normal.
+        multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
             wo_outside ?
-            +dwo_sample(u0, +wo) :
-            -dwo_sample(u0, -wo);
+            +this->dwo_sample(u0, +wo) :
+            -this->dwo_sample(u0, -wo);
 
         // Sample direction.
+        multi<float_type, 2> u1 = pr::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u1);
-        if (refl) {
+        if (pr::generate_canonical<float_type>(gen) < r0_prob_) {
             wi_outside = wo_outside;
         }
         else {
@@ -1516,8 +1547,8 @@ public:
             wi[2] = -wi[2];
         }
 
+        // Energy.
         if (ek) {
-        //  *ek *= l0_;
             *ek *= r0_ + t0_;
         }
 
@@ -1526,15 +1557,17 @@ public:
                dot(multi<float_type, 3, 3>::build_onb(wm), wi));
     }
 
+    /**@}*/
+
 private:
 
     /**
-     * @brief BRDF albedo $R_0$.
+     * @brief BRDF albedo @f$ R_0 @f$.
      */
     float_type r0_ = 1;
 
     /**
-     * @brief BTDF albedo $T_0$.
+     * @brief BTDF albedo @f$ T_0 @f$.
      */
     float_type t0_ = 0;
 
@@ -1550,9 +1583,9 @@ private:
 };
 
 /**
- * @brief Microsurface dielectric BSDF.
+ * @brief Microsurface from dielectric BSDF.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  *
  * @tparam Tslope
@@ -1564,35 +1597,37 @@ private:
  * `microsurface_normal_height`.
  */
 template <
-    typename T,
+    typename Tfloat,
     template <typename> typename Tslope,
     template <typename> typename Theight
     >
-struct microsurface_dielectric_bsdf :
-                public microsurface<T, Tslope, Theight>
+struct microsurface_dielectric :
+                public microsurface<
+                       microsurface_dielectric<Tfloat, Tslope, Theight>>
 {
 public:
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
      */
-    microsurface_dielectric_bsdf() = default;
+    microsurface_dielectric() = default;
 
     /**
      * @brief Constructor.
      */
     template <typename... Targs>
-    microsurface_dielectric_bsdf(
+    microsurface_dielectric(
             float_type fr0,
             float_type ft0,
             float_type eta,
             Targs&&... args) :
-                microsurface<T, Tslope, Theight>::
+                microsurface<
+                microsurface_dielectric<Tfloat, Tslope, Theight>>::
                 microsurface(std::forward<Targs>(args)...),
                 fr0_(fr0),
                 ft0_(ft0),
@@ -1600,25 +1635,12 @@ public:
     {
     }
 
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::lambda;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::d;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::dwo;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::dwo_sample;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::g1;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::h_sample;
-
 public:
+
+    /**
+     * @name Single-scattering interface
+     */
+    /**@{*/
 
     /**
      * @brief Single-scattering BSDF.
@@ -1695,8 +1717,8 @@ public:
             multi<float_type, 3> wm = normalize_safe(wo + wi);
 
             // Masking-shadowing.
-            float_type lambda_wo = lambda(wo);
-            float_type lambda_wi = lambda(wi);
+            float_type lambda_wo = this->lambda(wo);
+            float_type lambda_wi = this->lambda(wi);
             float_type g2 = 1 / (1 + lambda_wo + lambda_wi);
 
             // Reflection.
@@ -1708,7 +1730,7 @@ public:
                 cos_thetao,
                 cos_thetat,
                 fr, ft);
-            return d(wm) * fr * fr0_ * g2 / (4 * wo[2]);
+            return this->d(wm) * fr * fr0_ * g2 / (4 * wo[2]);
         }
         else {
 
@@ -1733,8 +1755,8 @@ public:
             }
 
             // Masking-shadowing.
-            float_type lambda_wo = lambda(+wo);
-            float_type lambda_wi = lambda(-wi);
+            float_type lambda_wo = this->lambda(+wo);
+            float_type lambda_wi = this->lambda(-wi);
             float_type g2 = pr::beta(1 + lambda_wo, 1 + lambda_wi);
 
             // Transmission.
@@ -1746,9 +1768,8 @@ public:
                     cos_thetao,
                     cos_thetat,
                     fr, ft);
-            return d(wm) * ft * ft0_ * g2 *
-                   (dot_wo_wm * -dot_wi_wm /
-                    dot_vm_vm / wo[2]);
+            return this->d(wm) * ft * ft0_ * g2 *
+                   (dot_wo_wm * -dot_wi_wm / dot_vm_vm / wo[2]);
         }
     }
 
@@ -1829,7 +1850,7 @@ public:
             ft *= ft0_;
             float_type fr_weight = fr / (fr + ft);
 
-            return dwo(wo, wm) * fr_weight / (4 * dot(wo, wm));
+            return this->dwo(wo, wm) * fr_weight / (4 * dot(wo, wm));
         }
         else {
 
@@ -1868,7 +1889,7 @@ public:
             ft *= ft0_;
             float_type ft_weight = ft / (fr + ft);
 
-            return dwo(wo, wm) * ft_weight * (-dot_wi_wm / dot_vm_vm);
+            return this->dwo(wo, wm) * ft_weight * (-dot_wi_wm / dot_vm_vm);
         }
     }
 
@@ -1902,8 +1923,8 @@ public:
             return {}; // Reject sample.
         }
 
-        // Microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u1, wo);
+        // Sample visible microsurface normal.
+        multi<float_type, 3> wm = this->dwo_sample(u1, wo);
 
         // Fresnel coefficients.
         float_type cos_thetao = dot(wo, wm);
@@ -1951,9 +1972,11 @@ public:
         if (neg) {
             wi[2] = -wi[2];
         }
+
         return wi;
     }
 
+#if 0
     /**
      * @brief Single-scattering BRDF-PDF.
      *
@@ -1995,7 +2018,7 @@ public:
         multi<float_type, 3> wm = normalize_safe(wo + wi);
 
         // Result.
-        return dwo(wo, wm) / (4 * dot(wo, wm));
+        return this->dwo(wo, wm) / (4 * dot(wo, wm));
     }
 
     /**
@@ -2018,12 +2041,11 @@ public:
             neg = true;
         }
 
-        // Microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u, wo);
+        // Sample visible microsurface normal.
+        multi<float_type, 3> wm = this->dwo_sample(u, wo);
 
         // Reflect.
-        multi<float_type, 3> wi = normalize_fast(
-                                  -wo + 2 * dot(wo, wm) * wm);
+        multi<float_type, 3> wi = normalize_fast(-wo + 2 * dot(wo, wm) * wm);
 
         // In wrong hemisphere?
         if (!(wi[2] > 0)) {
@@ -2098,7 +2120,7 @@ public:
         }
 
         // Result.
-        return dwo(wo, wm) * (-dot_wi_wm / dot_vm_vm);
+        return this->dwo(wo, wm) * (-dot_wi_wm / dot_vm_vm);
     }
 
     /**
@@ -2123,8 +2145,8 @@ public:
             neg = true;
         }
 
-        // Microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u, wo);
+        // Sample visible microsurface normal.
+        multi<float_type, 3> wm = this->dwo_sample(u, wo);
 
         // Refract.
         float_type cos_thetao = dot(wo, wm);
@@ -2152,340 +2174,22 @@ public:
         }
         return wi;
     }
+#endif
+
+    /**@}*/
 
 public:
 
     /**
-     * @brief Compute multiple-scattering BSDF and BSDF-PDF simulatenously.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kmin
-     * Scattering order minimum.
-     *
-     * @param[in] kmax
-     * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     *
-     * @param[out] f
-     * _Optional_. Output BSDF.
-     *
-     * @param[out] f_pdf
-     * _Optional_. Output BSDF-PDF.
+     * @name Multiple-scattering interface (CRTP calls)
      */
-    template <typename U>
-    void compute_fs_fs_pdf(
-            U&& uk,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin,
-            int kmax,
-            int nitr,
-            float_type* f,
-            float_type* f_pdf) const
-    {
-        // Sanity check.
-        assert(f || f_pdf);
-
-        // Initialize BSDF.
-        if (f) {
-            *f = 0;
-        }
-
-        // Initialize BSDF-PDF.
-        if (f_pdf) {
-            *f_pdf = 0;
-        }
-
-        if (kmin == 1 &&
-            kmax == 1) {
-            nitr = 0;
-        }
-
-        for (int itr = 0; itr < nitr; itr++) {
-
-            // Iteration BSDF.
-            float_type itr_f = 0;
-
-            // Iteration BSDF-PDF.
-            float_type itr_f_pdf = 0;
-
-            // Initial energy.
-            float_type ek = 1;
-
-            // Initial height.
-            float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
-
-            // Initial direction.
-            multi<float_type, 3> wk = -wo;
-
-            // Initial direction outside?
-            bool wk_outside = wo[2] > 0;
-            if (!wk_outside) {
-
-                // Flip height.
-                hk = -hk;
-            }
-
-            // Incident direction outside?
-            bool wi_outside = wi[2] > 0;
-
-            // TODO Bidirectional multiple-importance?
-            for (int k = 0;
-                        kmax == 0 ||
-                        kmax > k;) {
-
-                // Sample next height.
-                hk =
-                    wk_outside ?
-                    +h_sample(std::forward<U>(uk)(), +wk, +hk) :
-                    -h_sample(std::forward<U>(uk)(), -wk, -hk);
-                if (pr::isinf(hk)) {
-                    break;
-                }
-
-                // Increment.
-                ++k;
-
-                if ((kmax == 0 ||
-                     kmax >= k) && kmin <= k) {
-                    if (k > 1) {
-
-                        // Next event estimation.
-                        float_type ek_tmp = ek;
-                        float_type fk =
-                            (wi_outside ?
-                            g1(+wi, +hk) :
-                            g1(-wi, -hk)) *
-                            ps(-wk, wi,
-                                wk_outside,
-                                wi_outside, &ek_tmp);
-                        if (pr::isfinite(fk)) {
-
-                            // Update iteration BSDF.
-                            itr_f += ek_tmp * fk;
-
-                            // Update iteration BSDF-PDF.
-                            itr_f_pdf += fk;
-                        }
-                    }
-                }
-
-                // Sample next direction.
-                wk = ps_sample(
-                        std::forward<U>(uk)(),
-                        {std::forward<U>(uk)(),
-                         std::forward<U>(uk)()},
-                        -wk, wk_outside, wk_outside, &ek);
-
-                // NaN check.
-                if (!pr::isfinite(hk) ||
-                    !pr::isfinite(wk).all() || wk[2] == 0) {
-
-                    // Nullify iteration BSDF.
-                    itr_f = 0;
-
-                    // Nullify iteration BSDF-PDF.
-                    itr_f_pdf = 0;
-
-                    break;
-                }
-            }
-
-            // Update BSDF.
-            if (f) {
-                *f =
-                *f + (itr_f - *f) / (itr + 1);
-            }
-
-            // Update BSDF-PDF.
-            if (f_pdf) {
-                *f_pdf =
-                *f_pdf + (itr_f_pdf - *f_pdf) / (itr + 1);
-            }
-        }
-
-        // Single-scattering component.
-        if (kmin <= 1) {
-
-            // Update BSDF.
-            if (f) {
-                *f += fs1(wo, wi);
-            }
-
-            // Update BSDF-PDF.
-            if (f_pdf) {
-                *f_pdf += fs1_pdf(wo, wi);
-            }
-        }
-    }
-
-    /**
-     * @brief Multiple-scattering BSDF.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kmin
-     * Scattering order minimum.
-     *
-     * @param[in] kmax
-     * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     *
-     * @param[out] f_pdf
-     * _Optional_. Output BSDF-PDF.
-     */
-    template <typename U>
-    float_type fs(
-            U&& uk,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin = 0,
-            int kmax = 0,
-            int nitr = 1,
-            float_type* f_pdf = nullptr) const
-    {
-        float_type f = 0;
-        compute_fs_fs_pdf(
-                std::forward<U>(uk),
-                wo,
-                wi,
-                kmin,
-                kmax,
-                nitr,
-                &f, f_pdf);
-
-        return f;
-    }
-
-    /**
-     * @brief Multiple-scattering BSDF-PDF.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kmin
-     * Scattering order minimum.
-     *
-     * @param[in] kmax
-     * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     */
-    template <typename U>
-    float_type fs_pdf(
-            U&& uk,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin = 0,
-            int kmax = 0,
-            int nitr = 1) const
-    {
-        float_type f_pdf = 0;
-        compute_fs_fs_pdf(
-                std::forward<U>(uk),
-                wo,
-                wi,
-                kmin,
-                kmax,
-                nitr,
-                nullptr, &f_pdf);
-
-        return f_pdf;
-    }
-
-    /**
-     * @brief Multiple-scattering BSDF-PDF sample direction.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[out] k
-     * Incident direction scattering order.
-     */
-    template <typename U>
-    multi<float_type, 3> fs_pdf_sample(
-            U&& uk, multi<float_type, 3> wo,
-            int& k) const
-    {
-        // Initial height.
-        float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
-
-        // Initial direction.
-        multi<float_type, 3> wk = -wo;
-
-        // Initial direction outside?
-        bool wk_outside = wo[2] > 0;
-        if (!wk_outside) {
-
-            // Flip height.
-            hk = -hk;
-        }
-
-        for (k = 0; true;) {
-
-            // Sample next height.
-            hk =
-                wk_outside ?
-                +h_sample(std::forward<U>(uk)(), +wk, +hk) :
-                -h_sample(std::forward<U>(uk)(), -wk, -hk);
-            if (pr::isinf(hk)) {
-                break;
-            }
-
-            // Increment.
-            ++k;
-
-            // Sample next direction.
-            wk = ps_sample(
-                    std::forward<U>(uk)(),
-                    {std::forward<U>(uk)(),
-                     std::forward<U>(uk)()},
-                    -wk, wk_outside, wk_outside);
-
-            // NaN check.
-            if (!pr::isfinite(hk) ||
-                !pr::isfinite(wk).all() || wk[2] == 0) {
-                return {0, 0, 1};
-            }
-        }
-
-        return wk;
-    }
-
-public:
-    // Public for testing.
+    /**@{*/
 
     /**
      * @brief Phase function.
+     *
+     * @param[inout] gen
+     * Generator (unused).
      *
      * @param[in] wo
      * Outgoing direction.
@@ -2502,14 +2206,17 @@ public:
      * @param[inout] ek
      * _Optional_. Energy.
      */
+    template <typename Tgen>
     float_type ps(
+            Tgen& gen,
             multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
+            const multi<float_type, 3>& wi,
             bool wo_outside,
             bool wi_outside,
             float_type* ek = nullptr) const
     {
-        float_type eta = wo_outside ? eta_ : 1 / eta_;
+        (void) gen;
+        float_type eta = (wo_outside ? eta_ : 1 / eta_);
         if (wo_outside == wi_outside) {
 
             // Microsurface normal.
@@ -2531,15 +2238,18 @@ public:
                     cos_thetat,
                     fr, ft);
 
+            // Fresnel coefficient weighting.
             fr *= fr0_;
             ft *= ft0_;
             float_type fr_weight = fr / (fr + ft);
+
+            // Energy.
             if (ek) {
                 *ek *= fr + ft;
             }
 
             // Reflection.
-            return dwo(wo, wm) * fr_weight / (4 * cos_thetao);
+            return this->dwo(wo, wm) * fr_weight / (4 * cos_thetao);
         }
         else {
 
@@ -2584,15 +2294,18 @@ public:
                     cos_thetat,
                     fr, ft);
 
+            // Fresnel coefficient weighting.
             fr *= fr0_;
             ft *= ft0_;
             float_type ft_weight = ft / (fr + ft);
+
+            // Energy.
             if (ek) {
                 *ek *= fr + ft;
             }
 
             // Transmission.
-            return dwo(wo, wm) * ft_weight *
+            return this->dwo(wo, wm) * ft_weight *
                             -dot_wi_wm / dot_vm_vm;
         }
     }
@@ -2600,11 +2313,8 @@ public:
     /**
      * @brief Phase function sample direction.
      *
-     * @param[in] u0
-     * Sample in @f$ [0, 1) @f$.
-     *
-     * @param[in] u1
-     * Sample in @f$ [0, 1)^2 @f$.
+     * @param[inout] gen
+     * Generator.
      *
      * @param[in] wo
      * Outgoing direction.
@@ -2618,22 +2328,24 @@ public:
      * @param[inout] ek
      * _Optional_. Energy.
      */
+    template <typename Tgen>
     multi<float_type, 3> ps_sample(
-            float_type u0,
-            multi<float_type, 2> u1,
-            multi<float_type, 3> wo,
-            bool wo_outside,
+            Tgen& gen,
+            const multi<float_type, 3>& wo,
+            bool  wo_outside,
             bool& wi_outside,
             float_type* ek = nullptr) const
     {
+
         // Refractive index.
-        float_type eta = wo_outside ? eta_ : 1 / eta_;
+        float_type eta = (wo_outside ? eta_ : 1 / eta_);
 
         // Sample visible microsurface normal.
+        multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
             wo_outside ?
-            +dwo_sample(u1, +wo) :
-            -dwo_sample(u1, -wo);
+            +this->dwo_sample(u0, +wo) :
+            -this->dwo_sample(u0, -wo);
 
         // Fresnel coefficients.
         float_type cos_thetao = dot(wo, wm);
@@ -2645,14 +2357,17 @@ public:
                 cos_thetat,
                 fr, ft);
 
+        // Fresnel coefficient weighting.
         fr *= fr0_;
         ft *= ft0_;
         float_type fr_weight = fr / (fr + ft);
+
+        // Energy.
         if (ek) {
             *ek *= fr + ft;
         }
 
-        if (u0 < fr_weight) {
+        if (pr::generate_canonical<float_type>(gen) < fr_weight) {
             // Reflect.
             wi_outside = wo_outside;
             return normalize_fast(
@@ -2667,6 +2382,8 @@ public:
                           cos_thetat) * wm);
         }
     }
+
+    /**@}*/
 
 private:
 
@@ -2696,9 +2413,9 @@ private:
 };
 
 /**
- * @brief Microsurface conductive BRDF.
+ * @brief Microsurface from conductive BRDF.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  *
  * @tparam Tslope
@@ -2710,55 +2427,46 @@ private:
  * `microsurface_normal_height`.
  */
 template <
-    typename T,
+    typename Tfloat,
     template <typename> typename Tslope,
     template <typename> typename Theight
     >
-struct microsurface_conductive_brdf :
-                public microsurface<T, Tslope, Theight>
+struct microsurface_conductive :
+                public microsurface<
+                       microsurface_conductive<Tfloat, Tslope, Theight>>
 {
 public:
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
      */
-    microsurface_conductive_brdf() = default;
+    microsurface_conductive() = default;
 
     /**
      * @brief Constructor.
      */
     template <typename... Targs>
-    microsurface_conductive_brdf(
+    microsurface_conductive(
             std::complex<float_type> eta,
             Targs&&... args) :
-                microsurface<T, Tslope, Theight>::
+                microsurface<
+                microsurface_conductive<Tfloat, Tslope, Theight>>::
                 microsurface(std::forward<Targs>(args)...),
                 eta_(eta)
     {
     }
 
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::lambda;
+public:
 
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::d;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::dwo;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::dwo_sample;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::g1;
-
-    // Locally visible for convenience.
-    using microsurface<T, Tslope, Theight>::h_sample;
+    /**
+     * @name Single-scattering interface
+     */
+    /**@{*/
 
     /**
      * @brief Single-scattering BRDF.
@@ -2798,19 +2506,16 @@ public:
             multi<float_type, 3> wi) const
     {
         // Flip.
-        std::complex<float_type> eta = eta_;
+        auto eta = eta_;
         if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
             eta = float_type(1) / eta;
         }
-        if (!(wo[2] > float_type(0.0000001)) || // Avoid exploding.
-            !(wi[2] > 0)) {
-            return 0;
-        }
 
-        // Ensure dielectric hemisphere.
-        if (!pr::signbit(eta.imag())) {
+        if (!(wo[2] > float_type(0.0000001)) || // Avoid exploding.
+            !(wi[2] > 0) || 
+            !(eta.imag() < 0)) {
             return 0;
         }
 
@@ -2818,14 +2523,14 @@ public:
         multi<float_type, 3> wm = normalize_safe(wo + wi);
 
         // Masking-shadowing.
-        float_type lambda_wo = lambda(wo);
-        float_type lambda_wi = lambda(wi);
+        float_type lambda_wo = this->lambda(wo);
+        float_type lambda_wi = this->lambda(wi);
         float_type g2 = 1 / (1 + lambda_wo + lambda_wi);
 
         // Reflection.
         float_type cos_thetao = dot(wo, wm);
         float_type fr = fresnel_diel_cond(eta, cos_thetao);
-        return d(wm) * fr * g2 / (4 * wo[2]);
+        return this->d(wm) * fr * g2 / (4 * wo[2]);
     }
 
     /**
@@ -2861,7 +2566,7 @@ public:
                 multi<float_type, 3> wi) const
     {
         // Flip.
-        std::complex<float_type> eta = eta_;
+        auto eta = eta_;
         if (wo[2] < 0) {
             wo[2] = -wo[2];
             wi[2] = -wi[2];
@@ -2869,8 +2574,8 @@ public:
         }
 
         // Ignore invalid samples.
-        if (wo[2] == 0 ||
-            !(wi[2] > 0) ||
+        if (!(wo[2] > 0) || 
+            !(wi[2] > 0) || 
             !(eta.imag() < 0)) {
             return 0;
         }
@@ -2879,7 +2584,7 @@ public:
         multi<float_type, 3> wm = normalize_safe(wo + wi);
 
         // Density.
-        return dwo(wo, wm) / (4 * dot(wo, wm));
+        return this->dwo(wo, wm) / (4 * dot(wo, wm));
     }
 
     /**
@@ -2896,7 +2601,7 @@ public:
             multi<float_type, 3> wo) const
     {
         // Flip.
-        std::complex<float_type> eta = eta_;
+        auto eta = eta_;
         bool neg = false;
         if (wo[2] < 0) {
             wo[2] = -wo[2];
@@ -2905,16 +2610,15 @@ public:
         }
 
         // Ensure dielectric hemisphere.
-        if (!pr::signbit(eta.imag())) {
+        if (!(eta.imag() < 0)) {
             return {}; // Reject sample.
         }
 
-        // Microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u, wo);
+        // Sample visible microsurface normal.
+        multi<float_type, 3> wm = this->dwo_sample(u, wo);
 
         // Reflect.
-        multi<float_type, 3> wi = normalize_fast(
-                                  -wo + 2 * dot(wo, wm) * wm);
+        multi<float_type, 3> wi = normalize_fast(-wo + 2 * dot(wo, wm) * wm);
 
         // In wrong hemisphere?
         if (!(wi[2] > 0)) {
@@ -2929,411 +2633,123 @@ public:
         return wi;
     }
 
+    /**@}*/
+
 public:
 
     /**
-     * @brief Compute multiple-scattering BRDF and BRDF-PDF simultaneously.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kmin
-     * Scattering order minimum.
-     *
-     * @param[in] kmax
-     * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     *
-     * @param[out] f
-     * _Optional_. Output BRDF.
-     *
-     * @param[out] f_pdf
-     * _Optional_. Output BRDF-PDF.
+     * @name Multiple-scattering interface (CRTP calls)
      */
-    template <typename U>
-    void compute_fs_fs_pdf(
-            U&& uk,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin,
-            int kmax,
-            int nitr,
-            float_type* f,
-            float_type* f_pdf) const
-    {
-        // Sanity check.
-        assert(f || f_pdf);
-
-        // Initialize BRDF.
-        if (f) {
-            *f = 0;
-        }
-
-        // Initialize BRDF-PDF.
-        if (f_pdf) {
-            *f_pdf = 0;
-        }
-
-        // Flip.
-        std::complex<float_type> eta = eta_;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            wi[2] = -wi[2];
-            eta = float_type(1) / eta;
-        }
-        if (wo[2] == 0 ||
-            !(wi[2] > 0) ||
-            !pr::signbit(eta.imag())) {
-            return;
-        }
-
-        if (kmin == 1 &&
-            kmax == 1) {
-            nitr = 0;
-        }
-
-        // Iterate.
-        for (int itr = 0; itr < nitr; itr++) {
-
-            // Iteration BRDF.
-            float_type itr_f = 0;
-
-            // Iteration BRDF-PDF.
-            float_type itr_f_pdf = 0;
-
-            // Initial energy.
-            float_type ek = 1;
-
-            // Initial height.
-            float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
-
-            // Initial direction.
-            multi<float_type, 3> wk = -wo;
-
-            for (int k = 0;
-                        kmax == 0 ||
-                        kmax > k;) {
-
-                // Sample next height.
-                hk = h_sample(std::forward<U>(uk)(), wk, hk);
-                if (pr::isinf(hk)) {
-                    break;
-                }
-
-                // Increment.
-                ++k;
-
-                if ((kmax == 0 ||
-                     kmax >= k) && kmin <= k) {
-                    if (k > 1) {
-
-                        // Next event estimation.
-                        float_type ek_tmp = ek;
-                        float_type fk =
-                            g1(wi, hk) *
-                            ps(-wk, wi, &ek_tmp);
-                        if (pr::isfinite(fk)) {
-
-                            // Update iteration BRDF.
-                            itr_f += ek_tmp * fk;
-
-                            // Update iteration BRDF-PDF.
-                            itr_f_pdf += fk;
-                        }
-                    }
-                }
-
-                // Sample next direction.
-                wk = ps_sample(
-                        {std::forward<U>(uk)(), 
-                         std::forward<U>(uk)()},
-                        -wk, &ek);
-
-                // NaN check.
-                if (!pr::isfinite(hk) ||
-                    !pr::isfinite(wk).all() || wk[2] == 0) {
-
-                    // Nullify iteration BRDF.
-                    itr_f = 0;
-
-                    // Nullify iteration BRDF-PDF.
-                    itr_f_pdf = 0;
-
-                    break;
-                }
-            }
-
-            // Update BRDF.
-            if (f) {
-                *f =
-                *f + (itr_f - *f) / (itr + 1);
-            }
-
-            // Update BRDF-PDF.
-            if (f_pdf) {
-                *f_pdf =
-                *f_pdf + (itr_f_pdf - *f_pdf) / (itr + 1);
-            }
-        }
-
-        // Single-scattering component.
-        if (kmin <= 1) {
-
-            // Update BSDF.
-            if (f) {
-                *f += fs1(wo, wi);
-            }
-
-            // Update BSDF-PDF.
-            if (f_pdf) {
-                *f_pdf += fs1_pdf(wo, wi);
-            }
-        }
-    }
-
-    /**
-     * @brief Multiple-scattering BRDF.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kmin
-     * Scattering order minimum.
-     *
-     * @param[in] kmax
-     * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     *
-     * @param[out] f_pdf
-     * _Optional_. Output BRDF-PDF.
-     */
-    template <typename U>
-    float_type fs(
-            U&& uk,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin = 0,
-            int kmax = 0,
-            int nitr = 1,
-            float_type* f_pdf = nullptr) const
-    {
-        float_type f = 0;
-        compute_fs_fs_pdf(
-                std::forward<U>(uk),
-                wo,
-                wi,
-                kmin,
-                kmax,
-                nitr,
-                &f, f_pdf);
-
-        return f;
-    }
-
-    /**
-     * @brief Multiple-scattering BRDF-PDF.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kmin
-     * Scattering order minimum.
-     *
-     * @param[in] kmax
-     * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     */
-    template <typename U>
-    float_type fs_pdf(
-            U&& uk,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin = 0,
-            int kmax = 0,
-            int nitr = 1) const
-    {
-        float_type f_pdf = 0;
-        compute_fs_fs_pdf(
-                std::forward<U>(uk),
-                wo,
-                wi,
-                kmin,
-                kmax,
-                nitr,
-                nullptr, &f_pdf);
-
-        return f_pdf;
-    }
-
-    /**
-     * @brief Multiple-scattering BRDF-PDF sample direction.
-     *
-     * @param[in] uk
-     * Sample generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[out] k
-     * Incident direction scattering order.
-     */
-    template <typename U>
-    multi<float_type, 3> fs_pdf_sample(
-            U&& uk, multi<float_type, 3> wo,
-            int& k) const
-    {
-        // Flip.
-        std::complex<float_type> eta = eta_;
-        bool neg = false;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            eta = float_type(1) / eta;
-            neg = true;
-        }
-
-        // Ensure dielectric hemisphere.
-        if (!pr::signbit(eta.imag())) {
-            return {}; // Reject sample.
-        }
-
-        // Initial height.
-        float_type hk = Theight<T>::c1inv(float_type(0.99999)) + 1;
-
-        // Initial direction.
-        multi<float_type, 3> wk = -wo;
-
-        for (k = 0; true;) {
-
-            // Sample next height.
-            hk = h_sample(std::forward<U>(uk)(), wk, hk);
-            if (pr::isinf(hk)) {
-                break;
-            }
-
-            // Increment.
-            ++k;
-
-            // Sample next direction.
-            wk = ps_sample(
-                    {std::forward<U>(uk)(), 
-                     std::forward<U>(uk)()},
-                    -wk);
-
-            // NaN check.
-            if (!pr::isfinite(hk) ||
-                !pr::isfinite(wk).all() || wk[2] == 0) {
-                return {0, 0, 1};
-            }
-        }
-
-        // In wrong hemisphere?
-        if (!(wk[2] > 0)) {
-            return {}; // Reject sample.
-        }
-
-        // Unflip.
-        if (neg) {
-            wk[2] = -wk[2];
-        }
-        return wk;
-    }
-
-private:
+    /**@{*/
 
     /**
      * @brief Phase function.
      *
+     * @param[inout] gen
+     * Generator (unused).
+     *
      * @param[in] wo
      * Outgoing direction.
      *
      * @param[in] wi
      * Incident direction.
      *
+     * @param[in] wo_outside
+     * Outgoing direction outside material?
+     *
+     * @param[in] wi_outside
+     * Incident direction outside material?
+     *
      * @param[inout] ek
      * _Optional_. Energy.
      */
+    template <typename Tgen>
     float_type ps(
+            Tgen& gen,
             const multi<float_type, 3>& wo,
             const multi<float_type, 3>& wi,
+            bool wo_outside,
+            bool wi_outside,
             float_type* ek = nullptr) const
     {
-        // Microsurface normal.
-        multi<float_type, 3> wm = normalize_safe(wo + wi);
-        if (!(wm[2] > 0)) {
+        (void) gen;
+
+        // ** Added
+        if (wo_outside != (eta_.imag() < 0) ||
+            wo_outside != wi_outside) {
             return 0;
         }
 
-        // Update energy.
+        // Microsurface normal.
+        multi<float_type, 3> wm = normalize_safe(wo + wi);
+        if (!((wm[2] > 0) == wo_outside)) {
+            return 0;
+        }
+
+        // Energy.
         if (ek) {
-            *ek *= 
-                fresnel_diel_cond(
-                    eta_.imag() < 0 
-                  ? eta_ 
-                  : float_type(1) / eta_, dot(wo, wm));
+            *ek *= fresnel_diel_cond(
+                        wo_outside ? eta_ : float_type(1) / eta_, 
+                        dot(wo, wm));
         }
         
-        return dwo(wo, wm) / (4 * dot(wo, wm));
+        return (wo_outside ?
+                this->dwo(+wo, +wm) :
+                this->dwo(-wo, -wm)) / (4 * dot(wo, wm));
     }
 
     /**
      * @brief Phase function sample direction.
      *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
+     * @param[inout] gen
+     * Generator.
      *
      * @param[in] wo
      * Outgoing direction.
      *
+     * @param[in] wo_outside
+     * Outgoing direction outside material?
+     *
+     * @param[out] wi_outside
+     * Incident direction outside material?
+     *
      * @param[inout] ek
      * _Optional_. Energy.
      */
+    template <typename Tgen>
     multi<float_type, 3> ps_sample(
-            const multi<float_type, 2>& u,
+            Tgen& gen,
             const multi<float_type, 3>& wo,
+            bool  wo_outside,
+            bool& wi_outside,
             float_type* ek = nullptr) const
     {
-        // Microsurface normal.
-        multi<float_type, 3> wm = dwo_sample(u, wo);
+        if (wo_outside != (eta_.imag() < 0)) {
+            return {}; // Reject sample.
+        }
+
+        // Sample visible microsurface normal.
+        multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
+        multi<float_type, 3> wm = 
+                wo_outside ?
+                +this->dwo_sample(u0, +wo) :
+                -this->dwo_sample(u0, -wo);
 
         // Reflect.
-        multi<float_type, 3> wi = normalize_fast(
-                                  -wo + 2 * dot(wo, wm) * wm);
+        multi<float_type, 3> wi = normalize_fast(-wo + 2 * dot(wo, wm) * wm);
+        wi_outside = wo_outside;
 
-        // Update energy.
+        // Energy.
         if (ek) {
-            *ek *= 
-                fresnel_diel_cond(
-                    eta_.imag() < 0 
-                  ? eta_ 
-                  : float_type(1) / eta_, dot(wo, wm));
+            *ek *= fresnel_diel_cond(
+                        wo_outside ? eta_ : float_type(1) / eta_, 
+                        dot(wo, wm));
         }
 
         return wi;
     }
+
+    /**@}*/
 
 private:
 
@@ -3369,23 +2785,23 @@ private:
  * S. K. Nayar in &ldquo;Generalization of Lambert&rsquo;s reflectance
  * model&rdquo; in 1994.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct oren_nayar_diffuse_brdf
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Constructor.
@@ -3525,23 +2941,23 @@ private:
  * used in conjunction with microfacet reflectance lobes to simulate
  * dielectric materials.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct disney_diffuse_brdf
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Constructor.
