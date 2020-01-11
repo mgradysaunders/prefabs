@@ -122,6 +122,10 @@ public:
     /**
      * @brief Smith shadowing term.
      *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @par Expression
      * @f[
      *      \Lambda_{11}(\omega_o) =
      *      \frac{1}{2}\operatorname{sign}(\omega_{o_z})
@@ -134,9 +138,6 @@ public:
      *      a = \frac{\omega_{o_z}}{
      *          \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}}
      * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
      */
     static float_type lambda11(multi<float_type, 3> wo)
     {
@@ -146,15 +147,16 @@ public:
     /**
      * @brief Projected area.
      *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @par Expression
      * @f[
      *      A_{\perp11}(\omega_o) =
      *          (1 + \Lambda_{11}(\omega_o))\omega_{o_z} =
      *          \frac{1}{2}\lVert{\omega_o}\rVert +
      *          \frac{1}{2}\omega_{o_z}
      * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
      */
     static float_type aperp11(multi<float_type, 3> wo)
     {
@@ -164,14 +166,15 @@ public:
     /**
      * @brief Distribution of slopes.
      *
+     * @param[in] m
+     * Slope.
+     *
+     * @par Expression
      * @f[
      *      P_{11}([m_x\; m_y]^\top) =
      *      \frac{1}{\pi}
      *      \frac{1}{(1 + m_x^2 + m_y^2)^2}
      * @f]
-     *
-     * @param[in] m
-     * Slope.
      */
     static float_type p11(multi<float_type, 2> m)
     {
@@ -283,6 +286,10 @@ public:
     /**
      * @brief Smith shadowing term.
      *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @par Expression
      * @f[
      *      \Lambda_{11}(\omega_o) =
      *          \frac{1}{2a\sqrt{\pi}}e^{-a^2} -
@@ -293,9 +300,6 @@ public:
      *      a = \frac{\omega_{o_z}}{
      *          \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}}
      * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
      */
     static float_type lambda11(multi<float_type, 3> wo)
     {
@@ -307,6 +311,10 @@ public:
     /**
      * @brief Projected area.
      *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @par Expression
      * @f[
      *      A_{\perp11}(\omega_o) =
      *          (1 + \Lambda_{11}(\omega_o))\omega_{o_z} =
@@ -320,9 +328,6 @@ public:
      *      a = \frac{\omega_{o_z}}{
      *          \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}}
      * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
      */
     static float_type aperp11(multi<float_type, 3> wo)
     {
@@ -335,13 +340,14 @@ public:
     /**
      * @brief Distribution of slopes.
      *
+     * @param[in] m
+     * Slope.
+     *
+     * @par Expression
      * @f[
      *      P_{11}([m_x\; m_y]^\top) =
      *      \frac{1}{\pi} e^{-m_x^2 - m_y^2}
      * @f]
-     *
-     * @param[in] m
-     * Slope.
      */
     static float_type p11(multi<float_type, 2> m)
     {
@@ -460,23 +466,23 @@ public:
 /**
  * @brief Microsurface uniform height distribution.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct microsurface_uniform_height
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Non-constructible.
@@ -523,23 +529,23 @@ public:
 /**
  * @brief Microsurface normal/Gaussian height distribution.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct microsurface_normal_height
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Non-constructible.
@@ -658,6 +664,10 @@ public:
     /**
      * @brief Smith shadowing term.
      *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @par Expression
      * @f[
      *      \Lambda(\omega_o) =
      *      \Lambda_{11}(
@@ -665,9 +675,6 @@ public:
      *       \alpha_y\omega_{o_y}\;
      *       \omega_{o_z}]^\top)
      * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
      */
     float_type lambda(multi<float_type, 3> wo) const
     {
@@ -682,6 +689,10 @@ public:
     /**
      * @brief Projected area.
      *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @par Expression
      * @f[
      *      A_{\perp}(\omega_o) =
      *      A_{\perp11}(
@@ -689,9 +700,6 @@ public:
      *       \alpha_y\omega_{o_y}\;
      *       \omega_{o_z}]^\top)
      * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
      */
     float_type aperp(multi<float_type, 3> wo) const
     {
@@ -706,13 +714,14 @@ public:
     /**
      * @brief Distribution of slopes.
      *
+     * @param[in] m
+     * Slope.
+     *
+     * @par Expression
      * @f[
      *      P_{22}([m_x\; m_y]^\top) = \frac{1}{\alpha_x \alpha_y}
      *      P_{11}([m_x/\alpha_x\; m_y/\alpha_y]^\top)
      * @f]
-     *
-     * @param[in] m
-     * Slope.
      */
     float_type p22(multi<float_type, 2> m) const
     {
@@ -731,15 +740,16 @@ public:
     /**
      * @brief Distribution of normals.
      *
+     * @param[in] wm
+     * Normal direction.
+     *
+     * @par Expression
      * @f[
      *      D(\omega_m) =
      *      \frac{1}{\cos^4{\theta_m}}
      *      P_{22}(-[\omega_{m_x}\;
      *               \omega_{m_y}]^\top / \cos{\theta_m})
      * @f]
-     *
-     * @param[in] wm
-     * Normal direction.
      */
     float_type d(multi<float_type, 3> wm) const
     {
@@ -773,16 +783,17 @@ public:
     /**
      * @brief Distribution of visible normals.
      *
-     * @f[
-     *      D_{\omega_o}(\omega_m) = D(\omega_m)
-     *         \frac{\langle{\omega_o, \omega_m}\rangle}{A_{\perp}(\omega_o)}
-     * @f]
-     *
      * @param[in] wo
      * Viewing direction.
      *
      * @param[in] wm
      * Normal direction.
+     *
+     * @par Expression
+     * @f[
+     *      D_{\omega_o}(\omega_m) = D(\omega_m)
+     *         \frac{\langle{\omega_o, \omega_m}\rangle}{A_{\perp}(\omega_o)}
+     * @f]
      */
     float_type dwo(
                 multi<float_type, 3> wo,
@@ -863,13 +874,14 @@ public:
     /**
      * @brief Height-averaged shadowing function.
      *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @par Expression
      * @f[
      *      G_1(\omega_o) = \chi^+(\cos{\theta_o})
      *      \frac{1}{1 + \Lambda(\omega_o)}
      * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
      */
     float_type g1(multi<float_type, 3> wo) const
     {
@@ -884,16 +896,17 @@ public:
     /**
      * @brief Height-specific shadowing function.
      *
-     * @f[
-     *      G_1(\omega_o, h_0) = \chi^+(\cos{\theta_o})
-     *      C_1(h_0)^{\Lambda(\omega_o)}
-     * @f]
-     *
      * @param[in] wo
      * Viewing direction.
      *
      * @param[in] h0
      * Current height.
+     *
+     * @par Expression
+     * @f[
+     *      G_1(\omega_o, h_0) = \chi^+(\cos{\theta_o})
+     *      C_1(h_0)^{\Lambda(\omega_o)}
+     * @f]
      */
     float_type g1(multi<float_type, 3> wo, float_type h0) const
     {
@@ -987,6 +1000,38 @@ public:
      *
      * @param[out] f_pdf
      * _Optional_. Output BSDF-PDF.
+     *
+     * This computes, i.e., stochastically estimates, multiple-scattering 
+     * BSDF and BSDF-PDF simultaneously using an implicit Curiously Recurring
+     * Template Pattern (CRTP) interface for the microsurface phase
+     * and associated sampling routine.
+     *
+     * Each child structure is expected to implement its microsurface 
+     * phase `ps` and sampling routine `ps_sample` with the following 
+     * call signatures.
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.cpp}
+     * template <typename Tgen>
+     * float_type ps(
+     *          Tgen& gen,
+     *          const multi<float_type, 3>& wo,
+     *          const multi<float_type, 3>& wi,
+     *          bool wo_outside,
+     *          bool wi_outside,
+     *          float_type* ek = nullptr) const;
+     *
+     * template <typename Tgen>
+     * multi<float_type, 3> ps_sample(
+     *          Tgen& gen,
+     *          const multi<float_type, 3>& wo,
+     *          bool  wo_outside,
+     *          bool& wi_outside,
+     *          float_type* ek = nullptr) const;
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     * Above, `gen` is a random number generator, and booleans `wo_outside`
+     * and `wi_outside` indicate whether `wo` and `wi` are outside or inside
+     * the material respectively. The pointer `ek` is optional, and null by
+     * default. If `ek` is non-null, then the implementation should multiply it
+     * by the proportion of energy not absorbed (necessarily between 0 and 1).
      */
     template <typename Tgen>
     void compute_fs_fs_pdf(
@@ -1142,6 +1187,9 @@ public:
      *
      * @param[out] f_pdf
      * _Optional_. Output BSDF-PDF.
+     *
+     * @note
+     * This is just a wrapper for `compute_fs_fs_pdf()`.
      */
     template <typename Tgen>
     float_type fs(
@@ -1186,6 +1234,9 @@ public:
      *
      * @param[in] nitr
      * Number of iterations.
+     *
+     * @note
+     * This is just a wrapper for `compute_fs_fs_pdf()`.
      */
     template <typename Tgen>
     float_type fs_pdf(
@@ -1645,6 +1696,14 @@ public:
     /**
      * @brief Single-scattering BSDF.
      *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @par Expression
+     * @parblock
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
      * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
@@ -1682,18 +1741,13 @@ public:
      *          |\omega_i \cdot \omega_m|
      *          \frac{1}{\lVert \mathbf{v}_m \rVert^2}
      * @f]
+     * @endparblock
      *
      * @note
      * @f[
      *     f_s(\omega_o, \omega_i) \frac{1}{|\omega_{i_z}|\eta_i^2} =
      *     f_s(\omega_i, \omega_o) \frac{1}{|\omega_{o_z}|\eta_o^2}
      * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
      */
     float_type fs1(
             multi<float_type, 3> wo,
@@ -1776,6 +1830,14 @@ public:
     /**
      * @brief Single-scattering BSDF-PDF.
      *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @par Expression
+     * @parblock
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
      * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
@@ -1784,6 +1846,7 @@ public:
      * If @f$ \omega_{i_z} > 0 @f$, calculate BRDF density:
      * - @f$ \mathbf{v}_m \gets \omega_o + \omega_i @f$
      * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
+     *
      * @f[
      *      f_{s,\text{bsdf}}(\omega_o \to \omega_i) =
      *              D_{\omega_o}(\omega_m)
@@ -1795,6 +1858,7 @@ public:
      * - @f$ \mathbf{v}_m \gets -\eta\omega_o - \omega_i @f$
      * - @f$ \mathbf{v}_m \gets -\mathbf{v}_m @f$ if @f$ \eta > 1 @f$
      * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
+     *
      * @f[
      *      f_{s,\text{bsdf}}(\omega_o \to \omega_i) =
      *              D_{\omega_o}(\omega_m)
@@ -1802,12 +1866,7 @@ public:
      *              \frac{|\omega_i \cdot \omega_m|}
      *                   {\lVert \mathbf{v}_m \rVert^2}
      * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
+     * @endparblock
      */
     float_type fs1_pdf(
                 multi<float_type, 3> wo,
@@ -1975,206 +2034,6 @@ public:
 
         return wi;
     }
-
-#if 0
-    /**
-     * @brief Single-scattering BRDF-PDF.
-     *
-     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
-     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
-     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
-     *
-     * If @f$ \omega_{o_z} > 0, \omega_{i_z} > 0 @f$:
-     * - @f$ \mathbf{v}_m \gets \omega_o + \omega_i @f$
-     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
-     * @f[
-     *      f_{s,\text{brdf}}(\omega_o \to \omega_i) =
-     *              D_{\omega_o}(\omega_m)
-     *              \frac{1}{4\omega_o \cdot \omega_m}
-     * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     */
-    float_type fs1_brdf_pdf(
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi) const
-    {
-        // Flip.
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            wi[2] = -wi[2];
-        }
-
-        // Ignore invalid samples.
-        if (wo[2] == 0 || !(wi[2] > 0)) {
-            return 0;
-        }
-
-        // Microsurface normal.
-        multi<float_type, 3> wm = normalize_safe(wo + wi);
-
-        // Result.
-        return this->dwo(wo, wm) / (4 * dot(wo, wm));
-    }
-
-    /**
-     * @brief Single-scattering BRDF-PDF sample direction.
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     */
-    multi<float_type, 3> fs1_brdf_pdf_sample(
-            multi<float_type, 2> u,
-            multi<float_type, 3> wo) const
-    {
-        // Flip.
-        bool neg = false;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            neg = true;
-        }
-
-        // Sample visible microsurface normal.
-        multi<float_type, 3> wm = this->dwo_sample(u, wo);
-
-        // Reflect.
-        multi<float_type, 3> wi = normalize_fast(-wo + 2 * dot(wo, wm) * wm);
-
-        // In wrong hemisphere?
-        if (!(wi[2] > 0)) {
-            return {}; // Reject sample.
-        }
-
-        // Unflip.
-        if (neg) {
-            wi[2] = -wi[2];
-        }
-        return wi;
-    }
-
-    /**
-     * @brief Single-scattering BTDF-PDF.
-     *
-     * If @f$ \omega_{o_z} < 0 @f$, flip everything:
-     * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
-     * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
-     * - @f$ \eta \gets 1 / \eta @f$
-     *
-     * If @f$ \omega_{o_z} > 0, \omega_{i_z} < 0 @f$:
-     * - @f$ \mathbf{v}_m \gets -\eta\omega_o - \omega_i @f$
-     * - @f$ \mathbf{v}_m \gets -\mathbf{v}_m @f$ if @f$ \eta > 1 @f$
-     * - @f$ \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert @f$
-     * @f[
-     *      f_{s,\text{btdf}}(\omega_o \to \omega_i) =
-     *              D_{\omega_o}(\omega_m)
-     *              \frac{|\omega_i \cdot \omega_m|}
-     *                   {\lVert \mathbf{v}_m \rVert^2}
-     * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     */
-    float_type fs1_btdf_pdf(
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi) const
-    {
-        // Flip.
-        float_type eta = eta_;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            wi[2] = -wi[2];
-            eta = 1 / eta;
-        }
-
-        // Ignore invalid samples.
-        if (wo[2] == 0 || !(wi[2] < 0)) {
-            return 0;
-        }
-
-        // Half vector.
-        multi<float_type, 3> vm = eta * wo + wi;
-        if (vm[2] < 0) {
-            vm = -vm;
-        }
-
-        float_type dot_vm_vm = dot(vm, vm);
-        if (dot_vm_vm < float_type(1e-8)) {
-            return 0;
-        }
-
-        // Microsurface normal.
-        multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
-        float_type dot_wi_wm = dot(wi, wm);
-        if (dot_wi_wm > 0) {
-            return 0;
-        }
-
-        // Result.
-        return this->dwo(wo, wm) * (-dot_wi_wm / dot_vm_vm);
-    }
-
-    /**
-     * @brief Single-scattering BTDF-PDF sample direction.
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     */
-    multi<float_type, 3> fs1_btdf_pdf_sample(
-            multi<float_type, 2> u,
-            multi<float_type, 3> wo) const
-    {
-        // Flip.
-        float_type eta = eta_;
-        bool neg = false;
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            eta = 1 / eta;
-            neg = true;
-        }
-
-        // Sample visible microsurface normal.
-        multi<float_type, 3> wm = this->dwo_sample(u, wo);
-
-        // Refract.
-        float_type cos_thetao = dot(wo, wm);
-        float_type cos_thetat =
-                pr::sqrt(
-                pr::fmax(float_type(0),
-                         1 - eta * eta * (1 - cos_thetao * cos_thetao)));
-        if (cos_thetat == 0) {
-            return {}; // Reject sample.
-        }
-        multi<float_type, 3> wi =
-                normalize_fast(
-                -eta * wo +
-                (eta * cos_thetao -
-                       cos_thetat) * wm);
-
-        // In wrong hemisphere?
-        if (!(wi[2] < 0)) {
-            return {}; // Reject sample.
-        }
-
-        // Unflip.
-        if (neg) {
-            wi[2] = -wi[2];
-        }
-        return wi;
-    }
-#endif
 
     /**@}*/
 
@@ -2400,6 +2259,7 @@ private:
     /**
      * @brief Refractive index @f$ \eta @f$.
      *
+     * @par Expression
      * @f[
      *      \eta =
      *      \frac{\eta_{+}}
@@ -2471,6 +2331,14 @@ public:
     /**
      * @brief Single-scattering BRDF.
      *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @par Expression
+     * @parblock
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
      * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
@@ -2494,12 +2362,7 @@ public:
      *          F_r(\omega_o \cdot \omega_m)
      *          G_2(\omega_o, \omega_i)
      * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
+     * @endparblock
      */
     float_type fs1(
             multi<float_type, 3> wo,
@@ -2536,6 +2399,14 @@ public:
     /**
      * @brief Single-scattering BRDF-PDF.
      *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @par Expression
+     * @parblock
      * If @f$ \omega_{o_z} < 0 @f$, flip everything:
      * - @f$ \omega_{o_z} \gets -\omega_{o_z} @f$
      * - @f$ \omega_{i_z} \gets -\omega_{i_z} @f$
@@ -2554,12 +2425,7 @@ public:
      *              D_{\omega_o}(\omega_m)
      *              \frac{1}{4\omega_i \cdot \omega_m}
      * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
+     * @endparblock
      */
     float_type fs1_pdf(
                 multi<float_type, 3> wo,
@@ -2756,6 +2622,8 @@ private:
     /**
      * @brief Refractive index @f$ \eta @f$.
      *
+     * @par Expression
+     * @parblock
      * @f[
      *      \eta =
      *      \frac{\eta_{+}}
@@ -2772,6 +2640,7 @@ private:
      * That is, the implementation assumes the dielectric hemisphere where
      * the BRDF is non-zero is the upper hemisphere if @f$ \imag{\eta} < 0 @f$
      * and the lower hemisphere if @f$ \imag{\eta} > 0 @f$.
+     * @endparblock
      */
     std::complex<float_type> eta_ =
         float_type(1) /
@@ -2819,6 +2688,13 @@ public:
     /**
      * @brief BRDF.
      *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @par Expression
      * @f[
      *      f_s(\omega_o, \omega_i) =
      *      \frac{|\omega_{i_z}|}{\pi}
@@ -2827,12 +2703,6 @@ public:
      *                 \omega_{o_y}\omega_{i_y}, 0)}
      *           {\max(|\omega_{o_z}|, |\omega_{i_z}|)}\right]
      * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
      */
     float_type fs(
             multi<float_type, 3> wo,
@@ -2914,6 +2784,7 @@ private:
     /**
      * @brief Oren-Nayar constant @f$ A @f$.
      *
+     * @par Expression
      * @f[
      *      A = 1 - 0.5 \frac{\sigma^2}{\sigma^2 + 0.33}
      * @f]
@@ -2923,6 +2794,7 @@ private:
     /**
      * @brief Oren-Nayar constant @f$ B @f$.
      *
+     * @par Expression
      * @f[
      *      B = 0.45 \frac{\sigma^2}{\sigma^2 + 0.09}
      * @f]
@@ -2972,6 +2844,13 @@ public:
     /**
      * @brief BRDF.
      *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @par Expression
      * @f[
      *      f_s(\omega_o, \omega_i) =
      *      \frac{|\omega_{i_z}|}{\pi}
@@ -2979,12 +2858,6 @@ public:
      *      ((1 - |\omega_{i_z}|)^5 (F_{d,90} - 1) + 1)
      * @f]
      * where @f$ F_{d,90} = 2 \alpha (\omega_o \cdot \omega_m)^2 + 0.5 @f$
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
      */
     float_type fs(
             multi<float_type, 3> wo,
