@@ -197,18 +197,19 @@ template&lt;typename Tfloat &gt; </div>
 </div><div class="memdoc">
 
 <p>Smith shadowing term. </p>
-<p class="formulaDsp">
-\[ \Lambda_{11}(\omega_o) = \frac{1}{2}\operatorname{sign}(\omega_{o_z}) \sqrt{1 + 1/a^2} - \frac{1}{2} = \frac{1}{2}\frac{\lVert{\omega_o}\rVert}{\omega_{o_z}} - \frac{1}{2} \]
-</p>
-<p> where </p><p class="formulaDsp">
-\[ a = \frac{\omega_{o_z}}{ \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}} \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ \Lambda_{11}(\omega_o) = \frac{1}{2}\operatorname{sign}(\omega_{o_z}) \sqrt{1 + 1/a^2} - \frac{1}{2} = \frac{1}{2}\frac{\lVert{\omega_o}\rVert}{\omega_{o_z}} - \frac{1}{2} \]
+</p>
+ where <p class="formulaDsp">
+\[ a = \frac{\omega_{o_z}}{ \sqrt{\omega_{o_x}^2 + \omega_{o_y}^2}} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -239,15 +240,16 @@ template&lt;typename Tfloat &gt; </div>
 </div><div class="memdoc">
 
 <p>Projected area. </p>
-<p class="formulaDsp">
-\[ A_{\perp11}(\omega_o) = (1 + \Lambda_{11}(\omega_o))\omega_{o_z} = \frac{1}{2}\lVert{\omega_o}\rVert + \frac{1}{2}\omega_{o_z} \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ A_{\perp11}(\omega_o) = (1 + \Lambda_{11}(\omega_o))\omega_{o_z} = \frac{1}{2}\lVert{\omega_o}\rVert + \frac{1}{2}\omega_{o_z} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -278,15 +280,16 @@ template&lt;typename Tfloat &gt; </div>
 </div><div class="memdoc">
 
 <p>Distribution of slopes. </p>
-<p class="formulaDsp">
-\[ P_{11}([m_x\; m_y]^\top) = \frac{1}{\pi} \frac{1}{(1 + m_x^2 + m_y^2)^2} \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>Slope. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>Slope.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ P_{11}([m_x\; m_y]^\top) = \frac{1}{\pi} \frac{1}{(1 + m_x^2 + m_y^2)^2} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>

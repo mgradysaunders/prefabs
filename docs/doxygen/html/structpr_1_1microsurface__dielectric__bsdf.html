@@ -289,7 +289,14 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 </div><div class="memdoc">
 
 <p>Single-scattering BSDF. </p>
-<p>If \( \omega_{o_z} &lt; 0 \), flip everything:</p><ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="startdd">If \( \omega_{o_z} &lt; 0 \), flip everything:</p><ul>
 <li>\( \omega_{o_z} \gets -\omega_{o_z} \)</li>
 <li>\( \omega_{i_z} \gets -\omega_{i_z} \)</li>
 <li>\( \eta \gets 1 / \eta \)</li>
@@ -303,7 +310,7 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 </p>
 </li>
 </ul>
-<p>If \( \omega_{i_z} &lt; 0 \), calculate the BTDF:</p><ul>
+<p class="enddd">If \( \omega_{i_z} &lt; 0 \), calculate the BTDF:</p><ul>
 <li>\( \mathbf{v}_m \gets \eta\omega_o + \omega_i \)</li>
 <li>\( \mathbf{v}_m \gets -\mathbf{v}_m \) if \( v_{m_z} &lt; 0 \)</li>
 <li>\( \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert \)</li>
@@ -311,19 +318,13 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 <p class="formulaDsp">
 \[ f_s(\omega_o, \omega_i) = \frac{1}{\omega_{o_z}} D(\omega_m) F_t(\omega_o \cdot \omega_m) G_2(\omega_o, \omega_i) |\omega_o \cdot \omega_m| |\omega_i \cdot \omega_m| \frac{1}{\lVert \mathbf{v}_m \rVert^2} \]
 </p>
-</li>
+ </li>
 </ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd><p class="formulaDsp">
 \[ f_s(\omega_o, \omega_i) \frac{1}{|\omega_{i_z}|\eta_i^2} = f_s(\omega_i, \omega_o) \frac{1}{|\omega_{o_z}|\eta_o^2} \]
 </p>
-</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction. </td></tr>
-  </table>
-  </dd>
-</dl>
+ </dd></dl>
 
 </div>
 </div>
@@ -364,33 +365,36 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 </div><div class="memdoc">
 
 <p>Single-scattering BSDF-PDF. </p>
-<p>If \( \omega_{o_z} &lt; 0 \), flip everything:</p><ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="startdd">If \( \omega_{o_z} &lt; 0 \), flip everything:</p><ul>
 <li>\( \omega_{o_z} \gets -\omega_{o_z} \)</li>
 <li>\( \omega_{i_z} \gets -\omega_{i_z} \)</li>
 <li>\( \eta \gets 1 / \eta \)</li>
 </ul>
 <p>If \( \omega_{i_z} &gt; 0 \), calculate BRDF density:</p><ul>
 <li>\( \mathbf{v}_m \gets \omega_o + \omega_i \)</li>
-<li>\( \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert \) <p class="formulaDsp">
+<li><p class="startli">\( \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert \)</p>
+<p class="formulaDsp">
 \[ f_{s,\text{bsdf}}(\omega_o \to \omega_i) = D_{\omega_o}(\omega_m) F_r(\omega_o \cdot \omega_m) \frac{1}{4\omega_i \cdot \omega_m} \]
 </p>
 </li>
 </ul>
-<p>If \( \omega_{i_z} &lt; 0 \), calculate BTDF density:</p><ul>
+<p class="enddd">If \( \omega_{i_z} &lt; 0 \), calculate BTDF density:</p><ul>
 <li>\( \mathbf{v}_m \gets -\eta\omega_o - \omega_i \)</li>
 <li>\( \mathbf{v}_m \gets -\mathbf{v}_m \) if \( \eta &gt; 1 \)</li>
-<li>\( \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert \) <p class="formulaDsp">
+<li><p class="startli">\( \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert \)</p>
+<p class="formulaDsp">
 \[ f_{s,\text{bsdf}}(\omega_o \to \omega_i) = D_{\omega_o}(\omega_m) F_t(\omega_o \cdot \omega_m) \frac{|\omega_i \cdot \omega_m|} {\lVert \mathbf{v}_m \rVert^2} \]
 </p>
-</li>
+ </li>
 </ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction. </td></tr>
-  </table>
-  </dd>
-</dl>
+</dd></dl>
 
 </div>
 </div>
@@ -671,13 +675,14 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 </div><div class="memdoc">
 
 <p>Refractive index \( \eta \). </p>
-<p class="formulaDsp">
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
 \[ \eta = \frac{\eta_{+}} {\eta_{-}} \]
 </p>
-<p> where</p><ul>
+ where<ul>
 <li>\( \eta_{+} \) is the refractive index in the upper hemisphere</li>
 <li>\( \eta_{-} \) is the refractive index in the lower hemisphere </li>
 </ul>
+</dd></dl>
 
 </div>
 </div>

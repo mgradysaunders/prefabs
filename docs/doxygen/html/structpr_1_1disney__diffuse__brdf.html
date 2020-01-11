@@ -216,17 +216,17 @@ template&lt;typename Tfloat &gt; </div>
 </div><div class="memdoc">
 
 <p>BRDF. </p>
-<p class="formulaDsp">
-\[ f_s(\omega_o, \omega_i) = \frac{|\omega_{i_z}|}{\pi} ((1 - |\omega_{o_z}|)^5 (F_{d,90} - 1) + 1) ((1 - |\omega_{i_z}|)^5 (F_{d,90} - 1) + 1) \]
-</p>
-<p> where \( F_{d,90} = 2 \alpha (\omega_o \cdot \omega_m)^2 + 0.5 \)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ f_s(\omega_o, \omega_i) = \frac{|\omega_{i_z}|}{\pi} ((1 - |\omega_{o_z}|)^5 (F_{d,90} - 1) + 1) ((1 - |\omega_{i_z}|)^5 (F_{d,90} - 1) + 1) \]
+</p>
+ where \( F_{d,90} = 2 \alpha (\omega_o \cdot \omega_m)^2 + 0.5 \) </dd></dl>
 
 </div>
 </div>

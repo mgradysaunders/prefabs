@@ -218,16 +218,17 @@ template&lt;typename Tfloat &gt; </div>
 </div><div class="memdoc">
 
 <p>BRDF. </p>
-<p class="formulaDsp">
-\[ f_s(\omega_o, \omega_i) = \frac{|\omega_{i_z}|}{\pi} \left[A + B \frac{\max(\omega_{o_x}\omega_{i_x} + \omega_{o_y}\omega_{i_y}, 0)} {\max(|\omega_{o_z}|, |\omega_{i_z}|)}\right] \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ f_s(\omega_o, \omega_i) = \frac{|\omega_{i_z}|}{\pi} \left[A + B \frac{\max(\omega_{o_x}\omega_{i_x} + \omega_{o_y}\omega_{i_y}, 0)} {\max(|\omega_{o_z}|, |\omega_{i_z}|)}\right] \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -351,10 +352,11 @@ template&lt;typename Tfloat &gt; </div>
 </div><div class="memdoc">
 
 <p>Oren-Nayar constant \( A \). </p>
-<p class="formulaDsp">
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
 \[ A = 1 - 0.5 \frac{\sigma^2}{\sigma^2 + 0.33} \]
 </p>
- 
+ </dd></dl>
+
 </div>
 </div>
 <a id="a6272863126b7d3baaeea9cfd69628cd6"></a>
@@ -380,10 +382,11 @@ template&lt;typename Tfloat &gt; </div>
 </div><div class="memdoc">
 
 <p>Oren-Nayar constant \( B \). </p>
-<p class="formulaDsp">
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
 \[ B = 0.45 \frac{\sigma^2}{\sigma^2 + 0.09} \]
 </p>
- 
+ </dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->

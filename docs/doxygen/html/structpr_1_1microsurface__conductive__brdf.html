@@ -271,7 +271,14 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 </div><div class="memdoc">
 
 <p>Single-scattering BRDF. </p>
-<p>If \( \omega_{o_z} &lt; 0 \), flip everything:</p><ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="startdd">If \( \omega_{o_z} &lt; 0 \), flip everything:</p><ul>
 <li>\( \omega_{o_z} \gets -\omega_{o_z} \)</li>
 <li>\( \omega_{i_z} \gets -\omega_{i_z} \)</li>
 <li>\( \eta \gets 1 / \eta \)</li>
@@ -279,22 +286,16 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 <p>If \( \imag{\eta} &gt; 0 \), quit: </p><p class="formulaDsp">
 \[ f_{s}(\omega_o \to \omega_i) = 0 \]
 </p>
-<p>If \( \omega_{i_z} &gt; 0 \), calculate the BRDF:</p><ul>
+<p class="enddd">If \( \omega_{i_z} &gt; 0 \), calculate the BRDF:</p><ul>
 <li>\( \mathbf{v}_m \gets \omega_o + \omega_i \)</li>
 <li>\( \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert \)</li>
 <li><p class="startli">\( G_2(\omega_o, \omega_i) = 1 / (1 + \Lambda(\omega_o) + \Lambda(\omega_i)) \)</p>
 <p class="formulaDsp">
 \[ f_s(\omega_o, \omega_i) = \frac{1}{\omega_{o_z}} D(\omega_m) F_r(\omega_o \cdot \omega_m) G_2(\omega_o, \omega_i) \]
 </p>
-</li>
+ </li>
 </ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction. </td></tr>
-  </table>
-  </dd>
-</dl>
+</dd></dl>
 
 </div>
 </div>
@@ -335,7 +336,14 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 </div><div class="memdoc">
 
 <p>Single-scattering BRDF-PDF. </p>
-<p>If \( \omega_{o_z} &lt; 0 \), flip everything:</p><ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="startdd">If \( \omega_{o_z} &lt; 0 \), flip everything:</p><ul>
 <li>\( \omega_{o_z} \gets -\omega_{o_z} \)</li>
 <li>\( \omega_{i_z} \gets -\omega_{i_z} \)</li>
 <li>\( \eta \gets 1 / \eta \)</li>
@@ -343,20 +351,14 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 <p>If \( \imag{\eta} &gt; 0 \), quit: </p><p class="formulaDsp">
 \[ f_{s,\text{brdf}}(\omega_o \to \omega_i) = 0 \]
 </p>
-<p>If \( \omega_{i_z} &gt; 0 \), calculate BRDF density:</p><ul>
+<p class="enddd">If \( \omega_{i_z} &gt; 0 \), calculate BRDF density:</p><ul>
 <li>\( \mathbf{v}_m \gets \omega_o + \omega_i \)</li>
 <li>\( \omega_m \gets \mathbf{v}_m / \lVert \mathbf{v}_m \rVert \) <p class="formulaDsp">
 \[ f_{s,\text{brdf}}(\omega_o \to \omega_i) = D_{\omega_o}(\omega_m) \frac{1}{4\omega_i \cdot \omega_m} \]
 </p>
-</li>
+ </li>
 </ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Outgoing direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction. </td></tr>
-  </table>
-  </dd>
-</dl>
+</dd></dl>
 
 </div>
 </div>
@@ -578,7 +580,7 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">        <a class="code" href="structpr_1_1microsurface__conductive__brdf.html#a06bdf6c2e49cd753e5258ce0a4957e6a" title="Float type. ">float_type</a>(1) /</div><div class="line">        std::complex&lt;float_type&gt;(<a class="code" href="structpr_1_1microsurface__conductive__brdf.html#a06bdf6c2e49cd753e5258ce0a4957e6a" title="Float type. ">float_type</a>(1.5), <a class="code" href="structpr_1_1microsurface__conductive__brdf.html#a06bdf6c2e49cd753e5258ce0a4957e6a" title="Float type. ">float_type</a>(4.0))</div></div><!-- fragment -->
 <p>Refractive index \( \eta \). </p>
-<p class="formulaDsp">
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
 \[ \eta = \frac{\eta_{+}} {\eta_{-}} \]
 </p>
 <p> where</p><ul>
@@ -589,7 +591,8 @@ template&lt;typename Tfloat , template&lt; typename &gt; typename Tslope, templa
 <li>\( \imag{\eta_{+}} &gt; 0 \), \( \imag{\eta_{-}} = 0 \), or</li>
 <li>\( \imag{\eta_{+}} = 0 \), \( \imag{\eta_{-}} &gt; 0 \).</li>
 </ul>
-<p>That is, the implementation assumes the dielectric hemisphere where the BRDF is non-zero is the upper hemisphere if \( \imag{\eta} &lt; 0 \) and the lower hemisphere if \( \imag{\eta} &gt; 0 \). </p>
+<p class="enddd">That is, the implementation assumes the dielectric hemisphere where the BRDF is non-zero is the upper hemisphere if \( \imag{\eta} &lt; 0 \) and the lower hemisphere if \( \imag{\eta} &gt; 0 \). </p>
+</dd></dl>
 
 </div>
 </div>

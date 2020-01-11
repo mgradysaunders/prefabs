@@ -293,15 +293,16 @@ template&lt;template&lt; ... &gt; typename Tchild, typename Tfloat , template&lt
 </div><div class="memdoc">
 
 <p>Smith shadowing term. </p>
-<p class="formulaDsp">
-\[ \Lambda(\omega_o) = \Lambda_{11}( [\alpha_x\omega_{o_x}\; \alpha_y\omega_{o_y}\; \omega_{o_z}]^\top) \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ \Lambda(\omega_o) = \Lambda_{11}( [\alpha_x\omega_{o_x}\; \alpha_y\omega_{o_y}\; \omega_{o_z}]^\top) \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -332,15 +333,16 @@ template&lt;template&lt; ... &gt; typename Tchild, typename Tfloat , template&lt
 </div><div class="memdoc">
 
 <p>Projected area. </p>
-<p class="formulaDsp">
-\[ A_{\perp}(\omega_o) = A_{\perp11}( [\alpha_x\omega_{o_x}\; \alpha_y\omega_{o_y}\; \omega_{o_z}]^\top) \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ A_{\perp}(\omega_o) = A_{\perp11}( [\alpha_x\omega_{o_x}\; \alpha_y\omega_{o_y}\; \omega_{o_z}]^\top) \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -371,15 +373,16 @@ template&lt;template&lt; ... &gt; typename Tchild, typename Tfloat , template&lt
 </div><div class="memdoc">
 
 <p>Distribution of slopes. </p>
-<p class="formulaDsp">
-\[ P_{22}([m_x\; m_y]^\top) = \frac{1}{\alpha_x \alpha_y} P_{11}([m_x/\alpha_x\; m_y/\alpha_y]^\top) \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>Slope. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>Slope.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ P_{22}([m_x\; m_y]^\top) = \frac{1}{\alpha_x \alpha_y} P_{11}([m_x/\alpha_x\; m_y/\alpha_y]^\top) \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -410,15 +413,16 @@ template&lt;template&lt; ... &gt; typename Tchild, typename Tfloat , template&lt
 </div><div class="memdoc">
 
 <p>Distribution of normals. </p>
-<p class="formulaDsp">
-\[ D(\omega_m) = \frac{1}{\cos^4{\theta_m}} P_{22}(-[\omega_{m_x}\; \omega_{m_y}]^\top / \cos{\theta_m}) \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wm</td><td>Normal direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wm</td><td>Normal direction.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ D(\omega_m) = \frac{1}{\cos^4{\theta_m}} P_{22}(-[\omega_{m_x}\; \omega_{m_y}]^\top / \cos{\theta_m}) \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -459,16 +463,17 @@ template&lt;template&lt; ... &gt; typename Tchild, typename Tfloat , template&lt
 </div><div class="memdoc">
 
 <p>Distribution of visible normals. </p>
-<p class="formulaDsp">
-\[ D_{\omega_o}(\omega_m) = D(\omega_m) \frac{\langle{\omega_o, \omega_m}\rangle}{A_{\perp}(\omega_o)} \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wm</td><td>Normal direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wm</td><td>Normal direction.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ D_{\omega_o}(\omega_m) = D(\omega_m) \frac{\langle{\omega_o, \omega_m}\rangle}{A_{\perp}(\omega_o)} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -546,15 +551,16 @@ template&lt;template&lt; ... &gt; typename Tchild, typename Tfloat , template&lt
 </div><div class="memdoc">
 
 <p>Height-averaged shadowing function. </p>
-<p class="formulaDsp">
-\[ G_1(\omega_o) = \chi^+(\cos{\theta_o}) \frac{1}{1 + \Lambda(\omega_o)} \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ G_1(\omega_o) = \chi^+(\cos{\theta_o}) \frac{1}{1 + \Lambda(\omega_o)} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -595,16 +601,17 @@ template&lt;template&lt; ... &gt; typename Tchild, typename Tfloat , template&lt
 </div><div class="memdoc">
 
 <p>Height-specific shadowing function. </p>
-<p class="formulaDsp">
-\[ G_1(\omega_o, h_0) = \chi^+(\cos{\theta_o}) C_1(h_0)^{\Lambda(\omega_o)} \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">wo</td><td>Viewing direction.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">h0</td><td>Current height. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">h0</td><td>Current height.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ G_1(\omega_o, h_0) = \chi^+(\cos{\theta_o}) C_1(h_0)^{\Lambda(\omega_o)} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -746,10 +753,12 @@ template&lt;typename Tgen &gt; </div>
     <tr><td class="paramdir">[in]</td><td class="paramname">kmax</td><td>Scattering order maximum, 0 for all orders.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">nitr</td><td>Number of iterations.</td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">f</td><td><em>Optional</em>. Output BSDF.</td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">f_pdf</td><td><em>Optional</em>. Output BSDF-PDF. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">f_pdf</td><td><em>Optional</em>. Output BSDF-PDF.</td></tr>
   </table>
   </dd>
 </dl>
+<p>This computes, i.e., stochastically estimates, multiple-scattering BSDF and BSDF-PDF simultaneously using an implicit Curiously Recurring Template Pattern (CRTP) interface for the microsurface phase and associated sampling routine.</p>
+<p>Each child structure is expected to implement its microsurface phase <code>ps</code> and sampling routine <code>ps_sample</code> with the following call signatures. </p><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Tgen&gt;</div><div class="line"><a class="code" href="structpr_1_1microsurface_3_01Tchild_3_01Tfloat_00_01Tslope_00_01Theight_01_4_01_4.html#a883ac97c5591eac08f02146052b28e87" title="Float type. ">float_type</a> ps(</div><div class="line">         Tgen&amp; gen,</div><div class="line">         <span class="keyword">const</span> multi&lt;float_type, 3&gt;&amp; wo,</div><div class="line">         <span class="keyword">const</span> multi&lt;float_type, 3&gt;&amp; wi,</div><div class="line">         <span class="keywordtype">bool</span> wo_outside,</div><div class="line">         <span class="keywordtype">bool</span> wi_outside,</div><div class="line">         <a class="code" href="structpr_1_1microsurface_3_01Tchild_3_01Tfloat_00_01Tslope_00_01Theight_01_4_01_4.html#a883ac97c5591eac08f02146052b28e87" title="Float type. ">float_type</a>* ek = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Tgen&gt;</div><div class="line">multi&lt;float_type, 3&gt; ps_sample(</div><div class="line">         Tgen&amp; gen,</div><div class="line">         <span class="keyword">const</span> multi&lt;float_type, 3&gt;&amp; wo,</div><div class="line">         <span class="keywordtype">bool</span>  wo_outside,</div><div class="line">         <span class="keywordtype">bool</span>&amp; wi_outside,</div><div class="line">         <a class="code" href="structpr_1_1microsurface_3_01Tchild_3_01Tfloat_00_01Tslope_00_01Theight_01_4_01_4.html#a883ac97c5591eac08f02146052b28e87" title="Float type. ">float_type</a>* ek = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div></div><!-- fragment --><p> Above, <code>gen</code> is a random number generator, and booleans <code>wo_outside</code> and <code>wi_outside</code> indicate whether <code>wo</code> and <code>wi</code> are outside or inside the material respectively. The pointer <code>ek</code> is optional, and null by default. If <code>ek</code> is non-null, then the implementation should multiply it by the proportion of energy not absorbed (necessarily between 0 and 1). </p>
 
 </div>
 </div>
@@ -830,10 +839,11 @@ template&lt;typename Tgen &gt; </div>
     <tr><td class="paramdir">[in]</td><td class="paramname">kmin</td><td>Scattering order minimum.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">kmax</td><td>Scattering order maximum, 0 for all orders.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">nitr</td><td>Number of iterations.</td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">f_pdf</td><td><em>Optional</em>. Output BSDF-PDF. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">f_pdf</td><td><em>Optional</em>. Output BSDF-PDF.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>This is just a wrapper for <code>compute_fs_fs_pdf()</code>. </dd></dl>
 
 </div>
 </div>
@@ -907,10 +917,11 @@ template&lt;typename Tgen &gt; </div>
     <tr><td class="paramdir">[in]</td><td class="paramname">wi</td><td>Incident direction.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">kmin</td><td>Scattering order minimum.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">kmax</td><td>Scattering order maximum, 0 for all orders.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">nitr</td><td>Number of iterations. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nitr</td><td>Number of iterations.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>This is just a wrapper for <code>compute_fs_fs_pdf()</code>. </dd></dl>
 
 </div>
 </div>
