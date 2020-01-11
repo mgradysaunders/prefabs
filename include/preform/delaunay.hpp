@@ -1,18 +1,18 @@
 /* Copyright (c) 2018-20 M. Grady Saunders
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer.
- * 
+ *
  *   2. Redistributions in binary form must reproduce the above
  *      copyright notice, this list of conditions and the following
  *      disclaimer in the documentation and/or other materials
  *      provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -357,7 +357,7 @@ public:
      * @post
      * For each `edge` in `boundary_edges_`,
      * - `edge` has counter-clockwise vertex ordering,
-     * - the index of the `triangle` in `triangles_` which contains `edge` 
+     * - the index of the `triangle` in `triangles_` which contains `edge`
      * is returned by `boundary_edge_to_triangle(edge)`.
      */
     template <typename Tinput_itr>
@@ -507,17 +507,17 @@ public:
                 std::swap(itr->second.t1, itr->second.t2);
             }
 
-            // Force boundary edge to be (a, b) in triangle. 
+            // Force boundary edge to be (a, b) in triangle.
             triangle_type& triangle = triangles_[itr->second.t1];
-            if (triangle.a != edge.a || 
+            if (triangle.a != edge.a ||
                 triangle.b != edge.b) {
                 triangle.swap_cyclical();
-                if (triangle.a != edge.a || 
+                if (triangle.a != edge.a ||
                     triangle.b != edge.b) {
                     triangle.swap_cyclical();
                 }
             }
-            assert(triangle.a == edge.a && 
+            assert(triangle.a == edge.a &&
                    triangle.b == edge.b);
         }
     }
@@ -560,7 +560,7 @@ public:
      * Edge.
      *
      * @returns
-     * If `edge` is a boundary edge, returns the index of the 
+     * If `edge` is a boundary edge, returns the index of the
      * triangle which contains it. Otherwise, returns `bad_index`.
      */
     index_type boundary_edge_to_triangle(const edge_type& edge) const
@@ -569,7 +569,7 @@ public:
         if (itr == edge_triangles_.end()) {
             return bad_index;
         }
-        if (!(itr->second.t1 != bad_index && 
+        if (!(itr->second.t1 != bad_index &&
               itr->second.t2 == bad_index)) {
             return bad_index;
         }
