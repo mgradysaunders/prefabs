@@ -594,8 +594,11 @@ public:
  *
  * @tparam Tchild
  * Child type for Curiously Recurring Template Pattern (CRTP).
+ *
+ * @tparam bidir_mis
+ * Boolean to enable bidirectional Multiple Importance Sampling (MIS).
  */
-template <typename Tchild>
+template <typename Tchild, bool bidir_mis>
 struct microsurface;
 
 /**
@@ -614,6 +617,9 @@ struct microsurface;
  * @tparam Theight
  * Height distribution, either `microsurface_uniform_height` or
  * `microsurface_normal_height`.
+ *
+ * @tparam bidir_mis
+ * Boolean to enable bidirectional Multiple Importance Sampling (MIS).
  */
 template <
     template <
@@ -627,9 +633,10 @@ template <
         > typename Tchild,
     typename Tfloat,
     template <typename> typename Tslope,
-    template <typename> typename Theight
+    template <typename> typename Theight,
+    bool bidir_mis
     >
-struct microsurface<Tchild<Tfloat, Tslope, Theight>>
+struct microsurface<Tchild<Tfloat, Tslope, Theight>, bidir_mis>
 {
 public:
 
@@ -971,35 +978,6 @@ public:
 
     /**
      * @name Multiple-scattering interface
-     */
-    /**@{*/
-
-    /**
-     * @brief Compute multiple-scattering BSDF and BSDF-PDF simultaneously.
-     *
-     * @param[inout] gen
-     * Generator.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @param[in] kmin
-     * Scattering order minimum.
-     *
-     * @param[in] kmax
-     * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     *
-     * @param[out] f
-     * _Optional_. Output BSDF.
-     *
-     * @param[out] f_pdf
-     * _Optional_. Output BSDF-PDF.
      *
      * This computes, i.e., stochastically estimates, multiple-scattering 
      * BSDF and BSDF-PDF simultaneously using an implicit Curiously Recurring
@@ -1009,15 +987,16 @@ public:
      * Each child structure is expected to implement its microsurface 
      * phase `ps` and sampling routine `ps_sample` with the following 
      * call signatures.
-     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.cpp}
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.cpp}
      * template <typename Tgen>
      * float_type ps(
-     *          Tgen& gen,
+     *          Tgen& gen, 
      *          const multi<float_type, 3>& wo,
      *          const multi<float_type, 3>& wi,
      *          bool wo_outside,
      *          bool wi_outside,
-     *          float_type* ek = nullptr) const;
+     *          float_type* ek = nullptr, 
+     *                 bool is_importance = false) const;
      *
      * template <typename Tgen>
      * multi<float_type, 3> ps_sample(
@@ -1025,144 +1004,11 @@ public:
      *          const multi<float_type, 3>& wo,
      *          bool  wo_outside,
      *          bool& wi_outside,
-     *          float_type* ek = nullptr) const;
-     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Above, `gen` is a random number generator, and booleans `wo_outside`
-     * and `wi_outside` indicate whether `wo` and `wi` are outside or inside
-     * the material respectively. The pointer `ek` is optional, and null by
-     * default. If `ek` is non-null, then the implementation should multiply it
-     * by the proportion of energy not absorbed (necessarily between 0 and 1).
+     *          float_type* ek = nullptr, 
+     *                 bool is_importance = false) const;
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
-    template <typename Tgen>
-    void compute_fs_fs_pdf(
-            Tgen& gen,
-            const multi<float_type, 3>& wo,
-            const multi<float_type, 3>& wi,
-            int kmin,
-            int kmax,
-            int nitr,
-            float_type* f,
-            float_type* f_pdf) const
-    {
-        // Sanity check.
-        assert(f || f_pdf);
-
-        // Initialize BSDF.
-        if (f) {
-            *f = 0;
-        }
-
-        // Initialize BSDF-PDF.
-        if (f_pdf) {
-            *f_pdf = 0;
-        }
-
-        // Iterate.
-        for (int itr = 0; itr < nitr; itr++) {
-
-            // Iteration BSDF, BSDF-PDF.
-            float_type itr_f = 0, itr_f_pdf = 0;
-
-            // Initial energy.
-            float_type ek = 1;
-
-            // Initial height.
-            float_type hk =
-                Theight<float_type>::c1inv(float_type(0.99999)) + 1;
-
-            // Initial direction.
-            multi<float_type, 3> wk = -wo;
-
-            // Initial direction outside?
-            bool wk_outside = wo[2] > 0;
-            if (!wk_outside) {
-
-                // Flip height.
-                hk = -hk;
-            }
-
-            // Incident direction outside?
-            bool wi_outside = wi[2] > 0;
-
-            for (int k = 0;
-                     kmax == 0 || kmax > k;) {
-
-                {
-                    // Sample next height.
-                    float_type u = pr::generate_canonical<float_type>(gen);
-                    hk =
-                        wk_outside ?
-                        +h_sample(u, +wk, +hk) :
-                        -h_sample(u, -wk, -hk);
-                    if (pr::isinf(hk)) {
-                        break;
-                    }
-                }
-
-                // Increment.
-                ++k;
-
-                if ((kmax == 0 ||
-                     kmax >= k) && kmin <= k) {
-
-                    // Next event estimation.
-                    float_type tmp_ek = ek;
-                    float_type fk =
-                        (wi_outside ?
-                        g1(+wi, +hk) :
-                        g1(-wi, -hk)) *
-                        static_cast<
-                        const child&>(*this).ps( // CRTP
-                                gen,
-                                -wk, wi,
-                                wk_outside,
-                                wi_outside, &tmp_ek);
-                    if (pr::isfinite(fk)) {
-
-                        // Add term to iteration BSDF.
-                        itr_f += tmp_ek * fk;
-
-                        // Add term to iteration BSDF-PDF.
-                        itr_f_pdf += fk;
-                    }
-                }
-
-                // Sample next direction.
-                wk =
-                    static_cast<
-                    const child&>(*this).ps_sample( // CRTP
-                            gen,
-                            -wk,
-                            wk_outside,
-                            wk_outside, &ek);
-
-                // NaN check.
-                if (!pr::isfinite(hk) ||
-                    !pr::isfinite(wk).all() || wk[2] == 0) {
-
-                    // Nullify iteration BSDF.
-                    itr_f = 0;
-
-                    // Nullify iteration BSDF-PDF.
-                    itr_f_pdf = 0;
-
-                    break;
-                }
-            }
-
-            // Add term to BSDF.
-            if (f) {
-                *f =
-                *f + (itr_f - *f) / (itr + 1);
-            }
-
-            // Add term to BSDF-PDF.
-            if (f_pdf) {
-                *f_pdf =
-                *f_pdf + (itr_f_pdf - *f_pdf) / (itr + 1);
-            }
-        }
-    }
+    /**@{*/
 
     /**
      * @brief Multiple-scattering BSDF.
@@ -1182,36 +1028,25 @@ public:
      * @param[in] kmax
      * Scattering order maximum, 0 for all orders.
      *
-     * @param[in] nitr
-     * Number of iterations.
-     *
-     * @param[out] f_pdf
+     * @param[out] pdf
      * _Optional_. Output BSDF-PDF.
-     *
-     * @note
-     * This is just a wrapper for `compute_fs_fs_pdf()`.
      */
     template <typename Tgen>
     float_type fs(
             Tgen& gen,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin = 0,
-            int kmax = 0,
-            int nitr = 1,
-            float_type* f_pdf = nullptr) const
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi,
+            unsigned kmin = 0,
+            unsigned kmax = 0,
+            float_type* pdf = nullptr) const
     {
-        float_type f = 0;
-        compute_fs_fs_pdf(
-                gen,
-                wo,
-                wi,
-                kmin,
-                kmax,
-                nitr,
-                &f, f_pdf);
-
-        return f;
+        float_type fs_;
+        float_type fs_pdf_;
+        compute_(gen, wo, wi, kmin, kmax, fs_, fs_pdf_);
+        if (pdf) {
+            *pdf = fs_pdf_;
+        }
+        return fs_;
     }
 
     /**
@@ -1231,33 +1066,19 @@ public:
      *
      * @param[in] kmax
      * Scattering order maximum, 0 for all orders.
-     *
-     * @param[in] nitr
-     * Number of iterations.
-     *
-     * @note
-     * This is just a wrapper for `compute_fs_fs_pdf()`.
      */
     template <typename Tgen>
     float_type fs_pdf(
             Tgen& gen,
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi,
-            int kmin = 0,
-            int kmax = 0,
-            int nitr = 1) const
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi,
+            unsigned kmin = 0,
+            unsigned kmax = 0) const
     {
-        float_type f_pdf = 0;
-        compute_fs_fs_pdf(
-                gen,
-                wo,
-                wi,
-                kmin,
-                kmax,
-                nitr,
-                nullptr, &f_pdf);
-
-        return f_pdf;
+        float_type fs_;
+        float_type fs_pdf_;
+        compute_(gen, wo, wi, kmin, kmax, fs_, fs_pdf_);
+        return fs_pdf_;
     }
 
     /**
@@ -1275,7 +1096,8 @@ public:
     template <typename Tgen>
     multi<float_type, 3> fs_pdf_sample(
             Tgen& gen,
-            const multi<float_type, 3>& wo, int& k) const
+            const multi<float_type, 3>& wo, 
+            unsigned& k) const
     {
         // Initial height.
         float_type hk = Theight<float_type>::c1inv(float_type(0.99999)) + 1;
@@ -1297,9 +1119,9 @@ public:
                 // Sample next height.
                 float_type u = pr::generate_canonical<float_type>(gen);
                 hk =
-                    wk_outside ?
-                    +h_sample(u, +wk, +hk) :
-                    -h_sample(u, -wk, -hk);
+                    wk_outside 
+                    ? +h_sample(u, +wk, +hk) 
+                    : -h_sample(u, -wk, -hk);
                 if (pr::isinf(hk)) {
                     break;
                 }
@@ -1326,6 +1148,193 @@ public:
 
         return wk;
     }
+
+#if !DOXYGEN
+private:
+
+    // Compute estimates of BSDF and BSDF-PDF, 
+    // optionally with bidirectional multiple-importance sampling.
+    template <typename Tgen>
+    void compute_(
+            Tgen& gen,
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi,
+            unsigned kmin,
+            unsigned kmax,
+            float_type& fs_,
+            float_type& fs_pdf_) const
+    {
+        // Compute forward contribution.
+        compute_path_(
+                gen, 
+                wo, wi, 
+                kmin, 
+                kmax,
+                fs_, 
+                fs_pdf_, 
+                false); // false = Radiance
+
+        // If necessary, compute reverse contribution.
+        if constexpr (bidir_mis) {
+            float_type rev__fs_ = 0;
+            float_type rev__fs_pdf_ = 0;
+            compute_path_(
+                    gen, 
+                    wi, wo, 
+                    kmin, 
+                    kmax, 
+                    rev__fs_, 
+                    rev__fs_pdf_, 
+                    true); // true = Importance
+
+            // Exchange cosine factors.
+            rev__fs_ *= pr::fabs(wi[2]);
+            rev__fs_ /= pr::fabs(wo[2]);
+            rev__fs_pdf_ *= pr::fabs(wi[2]);
+            rev__fs_pdf_ /= pr::fabs(wo[2]);
+
+            // Add. 
+            fs_ += rev__fs_;
+            fs_pdf_ += rev__fs_pdf_;
+        }
+    }
+
+    // Compute estimates of BSDF and BSDF-PDF, 
+    // optionally with bidirectional multiple-importance sampling.
+    template <typename Tgen>
+    void compute_path_(
+            Tgen& gen,
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi,
+            unsigned kmin,
+            unsigned kmax,
+            float_type& fs_,
+            float_type& fs_pdf_,
+            bool is_importance) const
+    {
+        // Initialize BSDF.
+        fs_ = 0;
+        
+        // Initialize BSDF-PDF.
+        fs_pdf_ = 0;
+
+        // Outgoing direction outside material?
+        const bool wo_outside = wo[2] > 0;
+
+        // Incident direction outside material?
+        const bool wi_outside = wi[2] > 0;
+
+        // Initial energy.
+        float_type ek = 1;
+
+        // Initial height.
+        float_type hk = Theight<float_type>::c1inv(float_type(0.99999)) + 1;
+
+        // Initial direction.
+        multi<float_type, 3> wk = -wo;
+
+        // Initial direction outside material?
+        bool wk_outside = wo_outside;
+        if (!wk_outside) {
+
+            // Flip height.
+            hk = -hk;
+        }
+
+        // MIS weighting term.
+        float_type ps1 = 0;
+        (void) ps1; // Unused if bidir_mis == false.
+
+        for (unsigned k = 0;
+                      kmax == 0 || kmax > k;) {
+
+            {
+                // Sample next height.
+                float_type u = pr::generate_canonical<float_type>(gen);
+                hk =
+                    wk_outside 
+                    ? +h_sample(u, +wk, +hk) 
+                    : -h_sample(u, -wk, -hk);
+                if (pr::isinf(hk)) {
+                    break;
+                }
+            }
+
+            // Increment.
+            ++k;
+
+            if ((kmax == 0 ||
+                 kmax >= k) && kmin <= k) {
+
+                // Next event estimation.
+                float_type ek_next = ek;
+                float_type psk = 
+                    static_cast<
+                    const child&>(*this).ps( // CRTP
+                            gen,
+                            -wk, wi,
+                            wk_outside,
+                            wi_outside, 
+                            &ek_next, is_importance);
+                float_type fsk =
+                    (wi_outside 
+                    ? g1(+wi, +hk) 
+                    : g1(-wi, -hk)) * psk;
+
+                // Optionally apply MIS weighting.
+                if constexpr (bidir_mis) {
+                    fsk *= 
+                        k == 1 
+                        ? float_type(0.5) 
+                        : ps1 / (ps1 + psk);
+                }
+
+                if (pr::isfinite(fsk)) {
+
+                    // Add term to BSDF.
+                    fs_ += ek_next * fsk;
+
+                    // Add term to BSDF-PDF.
+                    fs_pdf_ += fsk;
+                }
+            }
+
+            // Sample next direction.
+            wk =
+                static_cast<
+                const child&>(*this).ps_sample( // CRTP
+                        gen,
+                        -wk,
+                        wk_outside,
+                        wk_outside, 
+                        &ek, is_importance);
+
+            // Optionally remember MIS weighting term.
+            if constexpr (bidir_mis) {
+                if (k == 1) {
+                    ps1 = 
+                        static_cast<
+                        const child&>(*this).ps(
+                                gen,
+                                wk, wo,
+                                wk_outside,
+                                wo_outside);
+                }    
+            }
+
+            // NaN check.
+            if (!pr::isfinite(hk) ||
+                !pr::isfinite(wk).all() || wk[2] == 0) {
+
+                // Nullify.
+                fs_ =
+                fs_pdf_ = 0;
+                break;
+            }
+        }
+    }
+
+#endif // #if !DOXYGEN
 
     /**@}*/
 
@@ -1357,9 +1366,9 @@ template <
     template <typename> typename Theight
     >
 struct microsurface_lambertian_bsdf :
-                    public microsurface<
-                           microsurface_lambertian_bsdf<
-                           Tfloat, Tslope, Theight>>
+                public microsurface<
+                       microsurface_lambertian_bsdf<Tfloat, Tslope, Theight>, 
+                       false>
 {
 public:
 
@@ -1382,7 +1391,7 @@ public:
             float_type t0,
             Targs&&... args) :
                 microsurface<
-                microsurface_lambertian_bsdf<Tfloat, Tslope, Theight>>::
+                microsurface_lambertian_bsdf<Tfloat, Tslope, Theight>, false>::
                 microsurface(std::forward<Targs>(args)...),
                 r0_(r0),
                 t0_(t0),
@@ -1438,65 +1447,12 @@ public:
         return pr::numeric_constants<float_type>::M_1_pi() * l0_ *
                pr::fmax(pr::dot(wm, wi), float_type(0)) * g2_given_g1;
     }
-
-    /**
-     * @brief Single-scattering BSDF-PDF.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
-     *
-     * @note
-     * For simplicity, this implementation samples
-     * the single-scattering BSDF as if it is Lambertian.
-     */
-    float_type fs1_pdf(
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi) const
-    {
-        // Flip.
-        if (wo[2] < 0) {
-            wo[2] = -wo[2];
-            wi[2] = -wi[2];
-        }
-        if (!(wi[2] > 0)) {
-            return 0;
-        }
-
-        // Cosine hemisphere PDF.
-        return multi<float_type, 3>::cosine_hemisphere_pdf(wi[2]);
-    }
-
-    /**
-     * @brief Single-scattering BSDF-PDF sample direction.
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @note
-     * For simplicity, this implementation samples
-     * the single-scattering BSDF as if it is Lambertian.
-     */
-    multi<float_type, 3> fs1_pdf_sample(
-            multi<float_type, 2> u,
-            multi<float_type, 3> wo) const
-    {
-        multi<float_type, 3> wi =
-        multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
-        wi[2] = pr::copysign(wi[2], wo[2]);
-        return wi;
-    }
 #endif
 
 public:
 
     /**
-     * @name Multiple-scattering interface (CRTP calls)
+     * @name Multiple-scattering interface (CRTP)
      */
     /**@{*/
 
@@ -1520,6 +1476,9 @@ public:
      *
      * @param[inout] ek
      * _Optional_. Energy.
+     *
+     * @param[in] is_importance
+     * _Optional_. Energy is importance, not radiance?
      */
     template <typename Tgen>
     float_type ps(
@@ -1528,8 +1487,10 @@ public:
             const multi<float_type, 3>& wi,
             bool wo_outside,
             bool wi_outside,
-            float_type* ek = nullptr) const
+            float_type* ek = nullptr, 
+                   bool is_importance = false) const
     {
+
         // Sample visible microsurface normal.
         multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
@@ -1540,6 +1501,7 @@ public:
         // Energy.
         if (ek) {
             *ek *= r0_ + t0_;
+            (void) is_importance;
         }
 
         // Evaluate.
@@ -1570,6 +1532,9 @@ public:
      *
      * @param[inout] ek
      * _Optional_. Energy.
+     *
+     * @param[in] is_importance
+     * _Optional_. Energy is importance, not radiance?
      */
     template <typename Tgen>
     multi<float_type, 3> ps_sample(
@@ -1577,7 +1542,8 @@ public:
             const multi<float_type, 3>& wo,
             bool  wo_outside,
             bool& wi_outside,
-            float_type* ek = nullptr) const
+            float_type* ek = nullptr, 
+                   bool is_importance = false) const
     {
         // Sample visible microsurface normal.
         multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
@@ -1601,6 +1567,7 @@ public:
         // Energy.
         if (ek) {
             *ek *= r0_ + t0_;
+            (void) is_importance;
         }
 
         // Expand in orthonormal basis.
@@ -1654,7 +1621,8 @@ template <
     >
 struct microsurface_dielectric_bsdf :
                 public microsurface<
-                       microsurface_dielectric_bsdf<Tfloat, Tslope, Theight>>
+                       microsurface_dielectric_bsdf<Tfloat, Tslope, Theight>,
+                       true>
 {
 public:
 
@@ -1678,7 +1646,7 @@ public:
             float_type eta,
             Targs&&... args) :
                 microsurface<
-                microsurface_dielectric_bsdf<Tfloat, Tslope, Theight>>::
+                microsurface_dielectric_bsdf<Tfloat, Tslope, Theight>, true>::
                 microsurface(std::forward<Targs>(args)...),
                 fr0_(fr0),
                 ft0_(ft0),
@@ -2040,7 +2008,7 @@ public:
 public:
 
     /**
-     * @name Multiple-scattering interface (CRTP calls)
+     * @name Multiple-scattering interface (CRTP)
      */
     /**@{*/
 
@@ -2064,6 +2032,9 @@ public:
      *
      * @param[inout] ek
      * _Optional_. Energy.
+     *
+     * @param[in] is_importance
+     * _Optional_. Energy is importance, not radiance?
      */
     template <typename Tgen>
     float_type ps(
@@ -2072,7 +2043,8 @@ public:
             const multi<float_type, 3>& wi,
             bool wo_outside,
             bool wi_outside,
-            float_type* ek = nullptr) const
+            float_type* ek = nullptr, 
+                   bool is_importance = false) const
     {
         (void) gen;
         float_type eta = (wo_outside ? eta_ : 1 / eta_);
@@ -2161,11 +2133,14 @@ public:
             // Energy.
             if (ek) {
                 *ek *= fr + ft;
+                if (is_importance) {
+                    *ek *= eta * eta;
+                }
             }
 
             // Transmission.
             return this->dwo(wo, wm) * ft_weight *
-                            -dot_wi_wm / dot_vm_vm;
+                                 (-dot_wi_wm / dot_vm_vm);
         }
     }
 
@@ -2186,6 +2161,9 @@ public:
      *
      * @param[inout] ek
      * _Optional_. Energy.
+     *
+     * @param[in] is_importance
+     * _Optional_. Energy is importance, not radiance?
      */
     template <typename Tgen>
     multi<float_type, 3> ps_sample(
@@ -2193,9 +2171,9 @@ public:
             const multi<float_type, 3>& wo,
             bool  wo_outside,
             bool& wi_outside,
-            float_type* ek = nullptr) const
+            float_type* ek = nullptr, 
+                   bool is_importance = false) const
     {
-
         // Refractive index.
         float_type eta = (wo_outside ? eta_ : 1 / eta_);
 
@@ -2233,6 +2211,10 @@ public:
                    -wo + 2 * cos_thetao * wm);
         }
         else {
+            if (ek)
+            if (is_importance) {
+                *ek *= eta * eta;
+            }
             // Refract.
             wi_outside = !wo_outside;
             return normalize_fast(
@@ -2293,7 +2275,8 @@ template <
     >
 struct microsurface_conductive_brdf :
                 public microsurface<
-                       microsurface_conductive_brdf<Tfloat, Tslope, Theight>>
+                       microsurface_conductive_brdf<Tfloat, Tslope, Theight>,
+                       true>
 {
 public:
 
@@ -2315,7 +2298,7 @@ public:
             std::complex<float_type> eta,
             Targs&&... args) :
                 microsurface<
-                microsurface_conductive_brdf<Tfloat, Tslope, Theight>>::
+                microsurface_conductive_brdf<Tfloat, Tslope, Theight>, true>::
                 microsurface(std::forward<Targs>(args)...),
                 eta_(eta)
     {
@@ -2504,7 +2487,7 @@ public:
 public:
 
     /**
-     * @name Multiple-scattering interface (CRTP calls)
+     * @name Multiple-scattering interface (CRTP)
      */
     /**@{*/
 
@@ -2528,6 +2511,9 @@ public:
      *
      * @param[inout] ek
      * _Optional_. Energy.
+     *
+     * @param[in] is_importance
+     * _Optional_. Energy is importance, not radiance?
      */
     template <typename Tgen>
     float_type ps(
@@ -2536,13 +2522,13 @@ public:
             const multi<float_type, 3>& wi,
             bool wo_outside,
             bool wi_outside,
-            float_type* ek = nullptr) const
+            float_type* ek = nullptr, 
+                   bool is_importance = false) const
     {
         (void) gen;
 
-        // ** Added
-        if (wo_outside != (eta_.imag() < 0) ||
-            wo_outside != wi_outside) {
+        auto eta = wo_outside ? eta_ : float_type(1) / eta_;
+        if (!(eta.imag() < 0) || wo_outside != wi_outside) {
             return 0;
         }
 
@@ -2554,14 +2540,13 @@ public:
 
         // Energy.
         if (ek) {
-            *ek *= fresnel_diel_cond(
-                        wo_outside ? eta_ : float_type(1) / eta_,
-                        dot(wo, wm));
+            *ek *= fresnel_diel_cond(eta, dot(wo, wm));
+            (void) is_importance;
         }
 
-        return (wo_outside ?
-                this->dwo(+wo, +wm) :
-                this->dwo(-wo, -wm)) / (4 * dot(wo, wm));
+        return (wo_outside 
+                ? this->dwo(+wo, +wm) 
+                : this->dwo(-wo, -wm)) / (4 * dot(wo, wm));
     }
 
     /**
@@ -2581,6 +2566,9 @@ public:
      *
      * @param[inout] ek
      * _Optional_. Energy.
+     *
+     * @param[in] is_importance
+     * _Optional_. Energy is importance, not radiance?
      */
     template <typename Tgen>
     multi<float_type, 3> ps_sample(
@@ -2588,18 +2576,20 @@ public:
             const multi<float_type, 3>& wo,
             bool  wo_outside,
             bool& wi_outside,
-            float_type* ek = nullptr) const
+            float_type* ek = nullptr, 
+                   bool is_importance = false) const
     {
-        if (wo_outside != (eta_.imag() < 0)) {
+        auto eta = wo_outside ? eta_ : float_type(1) / eta_;
+        if (!(eta.imag() < 0)) {
             return {}; // Reject sample.
         }
 
         // Sample visible microsurface normal.
         multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
-                wo_outside ?
-                +this->dwo_sample(u0, +wo) :
-                -this->dwo_sample(u0, -wo);
+                wo_outside 
+                ? +this->dwo_sample(u0, +wo) 
+                : -this->dwo_sample(u0, -wo);
 
         // Reflect.
         multi<float_type, 3> wi = normalize_fast(-wo + 2 * dot(wo, wm) * wm);
@@ -2607,9 +2597,8 @@ public:
 
         // Energy.
         if (ek) {
-            *ek *= fresnel_diel_cond(
-                        wo_outside ? eta_ : float_type(1) / eta_,
-                        dot(wo, wm));
+            *ek *= fresnel_diel_cond(eta, dot(wo, wm));
+            (void) is_importance;
         }
 
         return wi;
