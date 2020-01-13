@@ -1,8 +1,8 @@
-<map id="pr::microsurface&lt; Tchild &gt;" name="pr::microsurface&lt; Tchild &gt;">
-<area shape="rect" id="node2" href="$structpr_1_1microsurface.html" title="pr::microsurface\&lt; microsurface\l_conductive_brdf\&lt; Tfloat,\l Tslope, Theight \&gt; \&gt;" alt="" coords="389,15,592,71"/>
-<area shape="rect" id="node4" href="$structpr_1_1microsurface.html" title="pr::microsurface\&lt; microsurface\l_dielectric_bsdf\&lt; Tfloat,\l Tslope, Theight \&gt; \&gt;" alt="" coords="389,95,592,151"/>
-<area shape="rect" id="node6" href="$structpr_1_1microsurface.html" title="pr::microsurface\&lt; microsurface\l_lambertian_bsdf\&lt; Tfloat,\l Tslope, Theight \&gt; \&gt;" alt="" coords="389,175,592,231"/>
-<area shape="rect" id="node3" href="$structpr_1_1microsurface__conductive__brdf.html" title="Microsurface from conductive BRDF. " alt="" coords="643,22,849,63"/>
-<area shape="rect" id="node5" href="$structpr_1_1microsurface__dielectric__bsdf.html" title="Microsurface from dielectric BSDF. " alt="" coords="641,102,851,143"/>
-<area shape="rect" id="node7" href="$structpr_1_1microsurface__lambertian__bsdf.html" title="Microsurface from Lambertian BSDF. " alt="" coords="641,182,851,223"/>
+<map id="pr::microsurface&lt; Tchild, bidir_mis &gt;" name="pr::microsurface&lt; Tchild, bidir_mis &gt;">
+<area shape="rect" id="node2" href="$structpr_1_1microsurface.html" title="pr::microsurface\&lt; microsurface\l_dielectric_bsdf\&lt; Tfloat,\l Tslope, Theight \&gt;, true \&gt;" alt="" coords="381,15,584,71"/>
+<area shape="rect" id="node4" href="$structpr_1_1microsurface.html" title="pr::microsurface\&lt; microsurface\l_lambertian_bsdf\&lt; Tfloat,\l Tslope, Theight \&gt;, false \&gt;" alt="" coords="381,95,584,151"/>
+<area shape="rect" id="node6" href="$structpr_1_1microsurface.html" title="pr::microsurface\&lt; microsurface\l_conductive_brdf\&lt; Tfloat,\l Tslope, Theight \&gt;, true \&gt;" alt="" coords="381,175,584,231"/>
+<area shape="rect" id="node3" href="$structpr_1_1microsurface__dielectric__bsdf.html" title="Microsurface from dielectric BSDF. " alt="" coords="633,22,843,63"/>
+<area shape="rect" id="node5" href="$structpr_1_1microsurface__lambertian__bsdf.html" title="Microsurface from Lambertian BSDF. " alt="" coords="633,102,843,143"/>
+<area shape="rect" id="node7" href="$structpr_1_1microsurface__conductive__brdf.html" title="Microsurface from conductive BRDF. " alt="" coords="635,182,841,223"/>
 </map>

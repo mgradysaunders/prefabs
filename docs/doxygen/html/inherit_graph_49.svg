@@ -12,11 +12,11 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="structpr_1_1microsurface.html" target="_top" xlink:title="pr::microsurface\&lt; microsurface\l_dielectric_bsdf\&lt; Tfloat,\l Tslope, Theight \&gt; \&gt;">
+<g id="a_node1"><a xlink:href="structpr_1_1microsurface.html" target="_top" xlink:title="pr::microsurface\&lt; microsurface\l_dielectric_bsdf\&lt; Tfloat,\l Tslope, Theight \&gt;, true \&gt;">
 <polygon fill="#ffffff" stroke="#000000" points="0,-.5 0,-41.5 152,-41.5 152,-.5 0,-.5"/>
 <text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::microsurface&lt; microsurface</text>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">_dielectric_bsdf&lt; Tfloat,</text>
-<text text-anchor="middle" x="76" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> Tslope, Theight &gt; &gt;</text>
+<text text-anchor="middle" x="76" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> Tslope, Theight &gt;, true &gt;</text>
 </a>
 </g>
 </g>
