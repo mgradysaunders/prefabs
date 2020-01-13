@@ -20,28 +20,28 @@ typedef pr::vec2<Float> Vec2f;
 typedef pr::vec3<Float> Vec3f;
 
 // Lambertian with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_lambertian<
+typedef pr::microsurface_lambertian_bsdf<
         Float,
         pr::microsurface_trowbridge_reitz_slope,
         pr::microsurface_uniform_height>
             LambertianTrowbridgeReitz;
 
 // Lambertian with Beckmann slope distribution.
-typedef pr::microsurface_lambertian<
+typedef pr::microsurface_lambertian_bsdf<
         Float,
         pr::microsurface_beckmann_slope,
         pr::microsurface_uniform_height>
             LambertianBeckmann;
 
 // Dielectric with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_dielectric<
+typedef pr::microsurface_dielectric_bsdf<
         Float,
         pr::microsurface_trowbridge_reitz_slope,
         pr::microsurface_uniform_height>
             DielectricTrowbridgeReitz;
 
 // Dielectric with Beckmann slope distribution.
-typedef pr::microsurface_dielectric<
+typedef pr::microsurface_dielectric_bsdf<
         Float,
         pr::microsurface_beckmann_slope,
         pr::microsurface_uniform_height>
@@ -79,8 +79,8 @@ void testFullSphere(const char* name, const Surf& surf)
     std::cout.flush();
 
     // Stratify samples.
-    Vec2f* u0 = new Vec2f[n.prod()];
-    pr::stratify(u0, n, pcg);
+    Vec2f* u = new Vec2f[n.prod()];
+    pr::stratify(u, n, pcg);
 
     // Generate random viewing direction.
     Vec3f wo =
@@ -91,13 +91,13 @@ void testFullSphere(const char* name, const Surf& surf)
     for (int k = 0; k < n.prod(); k++) {
 
         // Directions.
-        Vec3f wi = Vec3f::cosine_hemisphere_pdf_sample(u0[k]);
-        Float wi_pdf = Vec3f::cosine_hemisphere_pdf(wi[2]) / 2;
+        Vec3f wi = Vec3f::cosine_hemisphere_pdf_sample(u[k]);
+        Float wi_pdf = Vec3f::cosine_hemisphere_pdf(wi[2]) * Float(0.5);
         wi = pcg(2) == 0 ? +wi : -wi;
 
         // Integrand.
         if (wi_pdf > 0) {
-            Float fk = surf.fs(pcg, wo, wi, 0, 0, 2);
+            Float fk = surf.fs(pcg, wo, wi);
             fk /= wi_pdf;
             fk /= n.prod();
             if (pr::isinf(fk)) {
@@ -111,7 +111,7 @@ void testFullSphere(const char* name, const Surf& surf)
     std::cout << "\n\n";
     std::cout.flush();
 
-    delete[] u0;
+    delete[] u;
 }
 
 // Test multi-scatter phase function normalization.
@@ -128,8 +128,8 @@ void testPhase(const char* name, const Surf& surf, Pred&& pred)
     std::cout.flush();
 
     // Stratify samples.
-    Vec2f* u0 = new Vec2f[n.prod()];
-    pr::stratify(u0, n, pcg);
+    Vec2f* u = new Vec2f[n.prod()];
+    pr::stratify(u, n, pcg);
 
     // Generate random viewing direction.
     Vec3f wo =
@@ -140,7 +140,7 @@ void testPhase(const char* name, const Surf& surf, Pred&& pred)
     for (int k = 0; k < n.prod(); k++) {
 
         // Incident direction.
-        Vec3f wi = Vec3f::uniform_sphere_pdf_sample(u0[k]);
+        Vec3f wi = Vec3f::uniform_sphere_pdf_sample(u[k]);
         Float wi_pdf = Vec3f::uniform_sphere_pdf();
 
         // Integrand.
@@ -159,7 +159,7 @@ void testPhase(const char* name, const Surf& surf, Pred&& pred)
     std::cout << "\n\n";
     std::cout.flush();
 
-    delete[] u0;
+    delete[] u;
 }
 
 int main(int argc, char** argv)

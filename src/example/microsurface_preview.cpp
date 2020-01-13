@@ -42,42 +42,42 @@ typedef pr::image2<Float, Float, 1> Image2x1;
 typedef pr::mitchell_filter2<Float> MitchellFilter2;
 
 // Microsurface diffuse with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_lambertian<
+typedef pr::microsurface_lambertian_bsdf<
         Float,
         pr::microsurface_trowbridge_reitz_slope,
         pr::microsurface_uniform_height>
             MicrosurfaceLambertianTrowbridgeReitz;
 
 // Microsurface diffuse with Beckmann slope distribution.
-typedef pr::microsurface_lambertian<
+typedef pr::microsurface_lambertian_bsdf<
         Float,
         pr::microsurface_beckmann_slope,
         pr::microsurface_uniform_height>
             MicrosurfaceLambertianBeckmann;
 
 // Microsurface dielectric with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_dielectric<
+typedef pr::microsurface_dielectric_bsdf<
         Float,
         pr::microsurface_trowbridge_reitz_slope,
         pr::microsurface_uniform_height>
             MicrosurfaceDielectricTrowbridgeReitz;
 
 // Microsurface dielectric with Beckmann slope distribution.
-typedef pr::microsurface_dielectric<
+typedef pr::microsurface_dielectric_bsdf<
         Float,
         pr::microsurface_beckmann_slope,
         pr::microsurface_uniform_height>
             MicrosurfaceDielectricBeckmann;
 
 // Microsurface conductive with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_conductive<
+typedef pr::microsurface_conductive_brdf<
         Float,
         pr::microsurface_trowbridge_reitz_slope,
         pr::microsurface_uniform_height>
             MicrosurfaceConductiveTrowbridgeReitz;
 
 // Microsurface conductive with Beckmann slope distribution.
-typedef pr::microsurface_conductive<
+typedef pr::microsurface_conductive_brdf<
         Float,
         pr::microsurface_beckmann_slope,
         pr::microsurface_uniform_height>
@@ -142,7 +142,10 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            res += surf.fs(pcg, wo, wi, 0, 0, 128);
+            for (int j = 0; j < 32; j++) {
+                res = 
+                res + (surf.fs(pcg, wo, wi) - res) / (j + 1);
+            }
             break;
         }
 
@@ -153,19 +156,25 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            res += surf.fs(pcg, wo, wi, 0, 0, 32);
+            for (int j = 0; j < 32; j++) {
+                res = 
+                res + (surf.fs(pcg, wo, wi) - res) / (j + 1);
+            }
             break;
         }
 
         case MICROSURFACE_DIELECTRIC_TROWBRIDGE_REITZ: {
             MicrosurfaceDielectricTrowbridgeReitz surf = {
                 Float(1.0),
-                Float(0.0),
+                Float(1.0),
                 Float(1.0) / Float(1.4),
                 Vec2f{roughness,
                       roughness}
             };
-            res = surf.fs(pcg, wo, wi, 0, 0, 32);
+            for (int j = 0; j < 32; j++) {
+                res = 
+                res + (surf.fs(pcg, wo, wi) - res) / (j + 1);
+            }
             break;
         }
 
@@ -177,7 +186,10 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            res = surf.fs(pcg, wo, wi, 0, 0, 32);
+            for (int j = 0; j < 32; j++) {
+                res = 
+                res + (surf.fs(pcg, wo, wi) - res) / (j + 1);
+            }
             break;
         }
 
@@ -187,7 +199,10 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            res = surf.fs(pcg, wo, wi, 0, 0, 32);
+            for (int j = 0; j < 32; j++) {
+                res = 
+                res + (surf.fs(pcg, wo, wi) - res) / (j + 1);
+            }
             break;
         }
 
@@ -197,7 +212,10 @@ Float brdf(
                 Vec2f{roughness,
                       roughness}
             };
-            res = surf.fs(pcg, wo, wi, 0, 0, 32);
+            for (int j = 0; j < 32; j++) {
+                res = 
+                res + (surf.fs(pcg, wo, wi) - res) / (j + 1);
+            }
             break;
         }
 
