@@ -1405,7 +1405,7 @@ public:
      * @brief Single-scattering BRDF.
      *
      * @f[
-     *      f_s(\omega_o, \omega_i) =
+     *      f_s(\omega_o \to \omega_i) =
      *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
      *      \frac{1 + \Lambda(\omega_o)}
      *           {1 + \Lambda(\omega_o) + \Lambda(\omega_i)} L_0
@@ -1684,7 +1684,7 @@ public:
      *          (1 + \Lambda(\omega_o) + \Lambda(\omega_i)) @f$
      *
      * @f[
-     *      f_s(\omega_o, \omega_i) =
+     *      f_s(\omega_o \to \omega_i) =
      *          \frac{1}{\omega_{o_z}}
      *          D(\omega_m)
      *          F_r(\omega_o \cdot \omega_m)
@@ -1700,7 +1700,7 @@ public:
      *               1 + \Lambda(\omega_i)) @f$
      *
      * @f[
-     *      f_s(\omega_o, \omega_i) =
+     *      f_s(\omega_o \to \omega_i) =
      *          \frac{1}{\omega_{o_z}}
      *          D(\omega_m)
      *          F_t(\omega_o \cdot \omega_m)
@@ -1713,8 +1713,8 @@ public:
      *
      * @note
      * @f[
-     *     f_s(\omega_o, \omega_i) \frac{1}{|\omega_{i_z}|\eta_i^2} =
-     *     f_s(\omega_i, \omega_o) \frac{1}{|\omega_{o_z}|\eta_o^2}
+     *     f_s(\omega_o \to \omega_i) \frac{1}{|\omega_{i_z}|\eta_i^2} =
+     *     f_s(\omega_i \to \omega_o) \frac{1}{|\omega_{o_z}|\eta_o^2}
      * @f]
      */
     float_type fs1(
@@ -2339,7 +2339,7 @@ public:
      *          (1 + \Lambda(\omega_o) + \Lambda(\omega_i)) @f$
      *
      * @f[
-     *      f_s(\omega_o, \omega_i) =
+     *      f_s(\omega_o \to \omega_i) =
      *          \frac{1}{\omega_{o_z}}
      *          D(\omega_m)
      *          F_r(\omega_o \cdot \omega_m)
@@ -2685,7 +2685,7 @@ public:
      *
      * @par Expression
      * @f[
-     *      f_s(\omega_o, \omega_i) =
+     *      f_s(\omega_o \to \omega_i) =
      *      \frac{|\omega_{i_z}|}{\pi}
      *      \left[A + B
      *      \frac{\max(\omega_{o_x}\omega_{i_x} +
@@ -2841,7 +2841,7 @@ public:
      *
      * @par Expression
      * @f[
-     *      f_s(\omega_o, \omega_i) =
+     *      f_s(\omega_o \to \omega_i) =
      *      \frac{|\omega_{i_z}|}{\pi}
      *      ((1 - |\omega_{o_z}|)^5 (F_{d,90} - 1) + 1)
      *      ((1 - |\omega_{i_z}|)^5 (F_{d,90} - 1) + 1)
