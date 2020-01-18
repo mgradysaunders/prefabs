@@ -58,23 +58,23 @@ namespace pr {
 /**
  * @brief Henyey-Greenstein phase.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct hg_phase
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
@@ -91,22 +91,23 @@ public:
     /**
      * @brief Phase function.
      *
-     * @f[
-     *      p_s(\omega_o, \omega_i) =
-     *      \frac{1}{4\pi}
-     *      \frac{1 - g^2}
-     *          {(1 + g^2 - 2g\omega_o\cdot\omega_i)^{3/2}}
-     * @f]
-     *
      * @param[in] wo
      * Outgoing direction.
      *
      * @param[in] wi
      * Incident direction.
+     *
+     * @par Expression
+     * @f[
+     *      p_s(\omega_o \to \omega_i) =
+     *      \frac{1}{4\pi}
+     *      \frac{1 - g^2}
+     *          {(1 + g^2 - 2g\omega_o\cdot\omega_i)^{3/2}}
+     * @f]
      */
     float_type ps(
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi) const
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi) const
     {
         return multi<float_type, 3>::hg_phase_pdf(g_, dot(-wo, wi));
     }
@@ -126,8 +127,8 @@ public:
      * is updated trivially as @f$ \beta' \gets \beta @f$.
      */
     multi<float_type, 3> ps_sample(
-            multi<float_type, 2> u,
-            multi<float_type, 3> wo) const
+            const multi<float_type, 2>& u,
+            const multi<float_type, 3>& wo) const
     {
         return normalize_fast(
                dot(
@@ -146,21 +147,21 @@ private:
 /**
  * @brief Henyey-Greenstein phase stack.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  *
  * @tparam Nlobes
  * Number of lobes.
  */
-template <typename T, std::size_t Nlobes>
+template <typename Tfloat, std::size_t Nlobes>
 struct hg_phase_stack
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     // Sanity check.
     static_assert(
@@ -170,7 +171,7 @@ public:
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
@@ -199,23 +200,24 @@ public:
     /**
      * @brief Phase function.
      *
-     * @f[
-     *      p_s(\omega_o, \omega_i) =
-     *      \sum_k
-     *      \frac{1}{4\pi}
-     *      \frac{1 - g_k^2}
-     *          {(1 + g_k^2 - 2g_k\omega_o\cdot\omega_i)^{3/2}} w_k
-     * @f]
-     *
      * @param[in] wo
      * Outgoing direction.
      *
      * @param[in] wi
      * Incident direction.
+     *
+     * @par Expression
+     * @f[
+     *      p_s(\omega_o \to \omega_i) =
+     *      \sum_k
+     *      \frac{1}{4\pi}
+     *      \frac{1 - g_k^2}
+     *          {(1 + g_k^2 - 2g_k\omega_o\cdot\omega_i)^{3/2}} w_k
+     * @f]
      */
     float_type ps(
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi) const
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi) const
     {
         float_type res = 0;
         float_type dot_wo_wi = dot(-wo, wi);
@@ -288,23 +290,23 @@ private:
 /**
  * @brief Rayleigh phase.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct rayleigh_phase
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
@@ -323,8 +325,15 @@ public:
     /**
      * @brief Phase function.
      *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @par Expression
      * @f[
-     *      p_s(\omega_o, \omega_i) =
+     *      p_s(\omega_o \to \omega_i) =
      *      \frac{3}{16\pi}
      *      \left\lbrack{
      *          \frac{1 -  \gamma}{1 + 2\gamma} (\omega_o\cdot\omega_i)^2 +
@@ -335,12 +344,6 @@ public:
      * @f[
      *      \gamma = \frac{\rho}{2 - \rho}
      * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
      */
     float_type ps(
                 const multi<float_type, 3>& wo,
@@ -402,23 +405,23 @@ private:
 /**
  * @brief Microvolume with SGGX distribution.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct microvolume_sggx
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
@@ -463,13 +466,14 @@ public:
     /**
      * @brief Projected area.
      *
+     * @param[in] wo
+     * Viewing direction.
+     *
+     * @par Expression
      * @f[
      *      A_{\perp}(\omega_o) =
      *          \sqrt{\omega_o^\top\mathbf{S}\omega_o}
      * @f]
-     *
-     * @param[in] wo
-     * Viewing direction.
      */
     float_type aperp(const multi<float_type, 3>& wo) const
     {
@@ -479,15 +483,16 @@ public:
     /**
      * @brief Distribution of normals.
      *
+     * @param[in] wm
+     * Normal direction.
+     *
+     * @par Expression
      * @f[
      *      D(\omega_m) =
      *          \frac{1}{\pi}
      *          \frac{1}{\sqrt{|\mathbf{S}|}
      *                  (\omega_m^\top\mathbf{S}^{-1}\omega_m)^2}
      * @f]
-     *
-     * @param[in] wm
-     * Normal direction.
      */
     float_type d(const multi<float_type, 3>& wm) const
     {
@@ -498,16 +503,17 @@ public:
     /**
      * @brief Distribution of visible normals.
      *
-     * @f[
-     *      D_{\omega_o}(\omega_m) = D(\omega_m)
-     *         \frac{\langle{\omega_o, \omega_m}\rangle}{A_{\perp}(\omega_o)}
-     * @f]
-     *
      * @param[in] wo
      * Viewing direction.
      *
      * @param[in] wm
      * Normal direction.
+     *
+     * @par Expression
+     * @f[
+     *      D_{\omega_o}(\omega_m) = D(\omega_m)
+     *         \frac{\langle{\omega_o, \omega_m}\rangle}{A_{\perp}(\omega_o)}
+     * @f]
      */
     float_type dwo(
                 const multi<float_type, 3>& wo,
@@ -571,7 +577,7 @@ public:
         float_type uy = pr::sqrt(u[0]) * pr::sin(phi);
         float_type uz = pr::sqrt(
                         pr::fmax(float_type(0), 1 - ux * ux - uy * uy));
-        return dot(q, normalize(ux * mx + uy * my + uz * mz));
+        return dot(q, normalize_safe(ux * mx + uy * my + uz * mz));
     }
 
 public:
@@ -603,18 +609,18 @@ public:
 /**
  * @brief Microvolume SGGX specular (reflection) phase.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
-struct microvolume_sggx_specular_phase : public microvolume_sggx<T>
+template <typename Tfloat>
+struct microvolume_sggx_specular_phase : public microvolume_sggx<Tfloat>
 {
 public:
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
@@ -626,28 +632,23 @@ public:
      */
     template <typename... Targs>
     microvolume_sggx_specular_phase(Targs&&... args) :
-            microvolume_sggx<T>::
+            microvolume_sggx<Tfloat>::
             microvolume_sggx(std::forward<Targs>(args)...)
     {
     }
 
-    // Locally visible for convenience.
-    using microvolume_sggx<T>::aperp;
-
-    // Locally visible for convenience.
-    using microvolume_sggx<T>::d;
-
-    // Locally visible for convenience.
-    using microvolume_sggx<T>::dwo;
-
-    // Locally visible for convenience.
-    using microvolume_sggx<T>::dwo_sample;
-
     /**
      * @brief Phase function.
      *
+     * @param[in] wo
+     * Outgoing direction.
+     *
+     * @param[in] wi
+     * Incident direction.
+     *
+     * @par Expression
      * @f[
-     *      p_s(\omega_o, \omega_i) =
+     *      p_s(\omega_o \to \omega_i) =
      *      \frac{1}{4}
      *      \frac{D(\omega_h)}{A_{\perp}(\omega_o)}
      * @f]
@@ -657,12 +658,6 @@ public:
      *      \frac{\omega_o + \omega_i}
      *           {\lVert\omega_o + \omega_i\rVert}
      * @f]
-     *
-     * @param[in] wo
-     * Outgoing direction.
-     *
-     * @param[in] wi
-     * Incident direction.
      */
     float_type ps(
             const multi<float_type, 3>& wo,
@@ -673,7 +668,7 @@ public:
             return 0;
         }
         else {
-            return d(wh) / (4 * aperp(wo));
+            return this->d(wh) / (4 * this->aperp(wo));
         }
     }
 
@@ -695,27 +690,27 @@ public:
             const multi<float_type, 2>& u,
             const multi<float_type, 3>& wo) const
     {
-        multi<float_type, 3> wm = dwo_sample(u, wo);
-        multi<float_type, 3> wi = -wo + 2 * dot(wo, wm) * wm;
-        return normalize_fast(wi);
+        multi<float_type, 3> wm = this->dwo_sample(u, wo);
+        multi<float_type, 3> wi = normalize_fast(-wo + 2 * dot(wo, wm) * wm);
+        return wi;
     }
 };
 
 /**
  * @brief Microvolume SGGX diffuse (reflection) phase.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
-struct microvolume_sggx_diffuse_phase : public microvolume_sggx<T>
+template <typename Tfloat>
+struct microvolume_sggx_diffuse_phase : public microvolume_sggx<Tfloat>
 {
 public:
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
@@ -727,31 +722,13 @@ public:
      */
     template <typename... Targs>
     microvolume_sggx_diffuse_phase(Targs&&... args) :
-            microvolume_sggx<T>::
+            microvolume_sggx<Tfloat>::
             microvolume_sggx(std::forward<Targs>(args)...)
     {
     }
 
-    // Locally visible for convenience.
-    using microvolume_sggx<T>::aperp;
-
-    // Locally visible for convenience.
-    using microvolume_sggx<T>::d;
-
-    // Locally visible for convenience.
-    using microvolume_sggx<T>::dwo;
-
-    // Locally visible for convenience.
-    using microvolume_sggx<T>::dwo_sample;
-
     /**
      * @brief Phase function.
-     *
-     * @f[
-     *      p_s(\omega_o, \omega_i) =
-     *      \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
-     * @f]
-     * where @f$ \omega_m \sim D_{\omega_o} @f$
      *
      * @param[in] u
      * Sample in @f$ [0, 1)^2 @f$.
@@ -761,6 +738,13 @@ public:
      *
      * @param[in] wi
      * Incident direction.
+     *
+     * @par Expression
+     * @f[
+     *      p_s(\omega_o \to \omega_i) =
+     *         \frac{\langle{\omega_m, \omega_i}\rangle}{\pi}
+     * @f]
+     * where @f$ \omega_m \sim D_{\omega_o} @f$
      */
     float_type ps(
             const multi<float_type, 2>& u,
@@ -768,7 +752,7 @@ public:
             const multi<float_type, 3>& wi) const
     {
         // Sample visible microvolume normal.
-        multi<float_type, 3> wm = dwo_sample(u, wo);
+        multi<float_type, 3> wm = this->dwo_sample(u, wo);
 
         // Evaluate.
         return pr::numeric_constants<float_type>::M_1_pi() *
@@ -803,7 +787,7 @@ public:
             float_type* p_pdf = nullptr) const
     {
         // Sample visible microvolume normal.
-        multi<float_type, 3> wm = dwo_sample(u0, wo);
+        multi<float_type, 3> wm = this->dwo_sample(u0, wo);
 
         // Sample direction.
         multi<float_type, 3> wi =
@@ -829,23 +813,23 @@ public:
 /**
  * @brief Half-space phase BRDF.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct halfspace_phase_brdf
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
@@ -853,8 +837,8 @@ public:
     halfspace_phase_brdf() = default;
 
     float_type fs1(
-            multi<float_type, 3> wo,
-            multi<float_type, 3> wi) const
+            const multi<float_type, 3>& wo,
+            const multi<float_type, 3>& wi) const
     {
         if (pr::signbit(wo[2]) !=
             pr::signbit(wi[2])) {
@@ -872,23 +856,23 @@ public:
 /**
  * @brief Half-space linear anisotropic phase BRDF.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct halfspace_linear_anisotropic_phase_brdf
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
@@ -999,23 +983,23 @@ private:
 /**
  * @brief Homogeneous medium.
  *
- * @tparam T
+ * @tparam Tfloat
  * Float type.
  */
-template <typename T>
+template <typename Tfloat>
 struct homogeneous_medium
 {
 public:
 
     // Sanity check.
     static_assert(
-        std::is_floating_point<T>::value,
-        "T must be floating point");
+        std::is_floating_point<Tfloat>::value,
+        "Tfloat must be floating point");
 
     /**
      * @brief Float type.
      */
-    typedef T float_type;
+    typedef Tfloat float_type;
 
     /**
      * @brief Default constructor.
@@ -1070,6 +1054,10 @@ public:
     /**
      * @brief Transmittance.
      *
+     * @param[in] d
+     * Distance.
+     *
+     * @par Expression
      * @f[
      *      \tau(d) =
      *      \begin{cases}
@@ -1077,9 +1065,6 @@ public:
      *      \\  0           & \text{otherwise}
      *      \end{cases}
      * @f]
-     *
-     * @param[in] d
-     * Distance.
      */
     float_type tau(float_type d) const
     {
@@ -1095,6 +1080,10 @@ public:
     /**
      * @brief Transmittance probability density function.
      *
+     * @param[in] d
+     * Distance.
+     *
+     * @par Expression
      * @f[
      *      \tau_{\text{pdf}}(d) =
      *      \begin{cases}
@@ -1133,12 +1122,12 @@ public:
 private:
 
     /**
-     * @brief Absorption coefficient @f$ \mu_a @f$.
+     * @brief Absorption coefficient @f$ \mu_a \ge 0 @f$.
      */
     float_type mua_ = 0;
 
     /**
-     * @brief Scattering coefficient @f$ \mu_s @f$.
+     * @brief Scattering coefficient @f$ \mu_s \ge 0 @f$.
      */
     float_type mus_ = 0;
 
