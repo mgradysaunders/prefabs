@@ -150,7 +150,7 @@ public:
     std::is_arithmetic<Tvalue>::value,
             byte_stream_wrapper> operator<<(Tvalue value)
     {
-        if (rev_ == false) {
+        if (rev_ == false || sizeof(Tvalue) == 1) {
             ref_.get().write(
                 static_cast<const char_type*>(
                 static_cast<const void*>(&value)), sizeof(Tvalue));
@@ -178,7 +178,7 @@ public:
     std::is_arithmetic<Tvalue>::value,
             byte_stream_wrapper> operator<<(const Tvalue (&values)[N])
     {
-        if (rev_ == false) {
+        if (rev_ == false || sizeof(Tvalue) == 1) {
             ref_.get().write(
                 static_cast<const char_type*>(
                 static_cast<const void*>(&values[0])), sizeof(Tvalue) * N);
@@ -201,6 +201,49 @@ public:
     }
 
     /**
+     * @brief Write arithmetic value array.
+     *
+     * @throw std::invalid_argument
+     * If `values` is null and `count` is non-zero.
+     */
+    template <typename Tvalue>
+    std::enable_if_t<
+    std::is_arithmetic<Tvalue>::value,
+            byte_stream_wrapper> write(
+                        const Tvalue* values, std::size_t count)
+    {
+        if (values == nullptr) {
+            if (count == 0) {
+                return *this;
+            }
+            else {
+                throw std::invalid_argument(__PRETTY_FUNCTION__);
+            }
+        }
+        if (rev_ == false || sizeof(Tvalue) == 1) {
+            ref_.get().write(
+                static_cast<const char_type*>(
+                static_cast<const void*>(&values[0])), sizeof(Tvalue) * count);
+        }
+        else {
+            // Reverse byte order.
+            char_type bytes[sizeof(Tvalue)];
+            for (const Tvalue* value = values;
+                               value < values + count; value++) {
+                std::memcpy(
+                        &bytes[0],
+                        &value[0],
+                        sizeof(Tvalue));
+                std::reverse(
+                        &bytes[0],
+                        &bytes[0] + sizeof(Tvalue));
+                ref_.get().write(&bytes[0], sizeof(Tvalue));
+            }
+        }
+        return *this;
+    }
+
+    /**
      * @brief Read arithmetic value.
      */
     template <typename Tvalue>
@@ -208,7 +251,7 @@ public:
     std::is_arithmetic<Tvalue>::value,
             byte_stream_wrapper> operator>>(Tvalue& value)
     {
-        if (rev_ == false) {
+        if (rev_ == false || sizeof(Tvalue) == 1) {
             ref_.get().read(
                 static_cast<char_type*>(
                 static_cast<void*>(&value)), sizeof(Tvalue));
@@ -236,7 +279,7 @@ public:
     std::is_arithmetic<Tvalue>::value,
             byte_stream_wrapper> operator>>(Tvalue (&values)[N])
     {
-        if (rev_ == false) {
+        if (rev_ == false || sizeof(Tvalue) == 1) {
             ref_.get().read(
                 static_cast<char_type*>(
                 static_cast<void*>(&values[0])), sizeof(Tvalue) * N);
@@ -254,6 +297,49 @@ public:
                     &values[0],
                     &bytes[0],
                     sizeof(Tvalue) * N);
+        }
+        return *this;
+    }
+
+    /**
+     * @brief Read arithmetic value array.
+     *
+     * @throw std::invalid_argument
+     * If `values` is null and `count` is non-zero.
+     */
+    template <typename Tvalue>
+    std::enable_if_t<
+    std::is_arithmetic<Tvalue>::value,
+            byte_stream_wrapper> read(
+                        Tvalue* values, std::size_t count)
+    {
+        if (values == nullptr) {
+            if (count == 0) {
+                return *this;
+            }
+            else {
+                throw std::invalid_argument(__PRETTY_FUNCTION__);
+            }
+        }
+        if (rev_ == false || sizeof(Tvalue) == 1) {
+            ref_.get().read(
+                static_cast<char_type*>(
+                static_cast<void*>(&values[0])), sizeof(Tvalue) * count);
+        }
+        else {
+            // Reverse byte order.
+            char_type bytes[sizeof(Tvalue)];
+            for (Tvalue* value = values;
+                         value < values + count; value++) {
+                ref_.get().read(&bytes[0], sizeof(Tvalue));
+                std::reverse(
+                        &bytes[0],
+                        &bytes[0] + sizeof(Tvalue));
+                std::memcpy(
+                        &value[0],
+                        &bytes[0],
+                        sizeof(Tvalue));
+            }
         }
         return *this;
     }
