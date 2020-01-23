@@ -130,7 +130,7 @@ public:
      * @par Expression
      * @f[
      *      \mathbf{x}^\dagger
-     *      \mathbf{y} = \sum_{k=0}^{n-1} x_{[k]}^\dagger y_{[k]}
+     *      \mathbf{y} = \sum_{k=0}^{n-1} \bar{x}_{[k]} y_{[k]}
      * @f]
      *
      * @throw std::invalid_argument
@@ -165,7 +165,7 @@ public:
      *
      * @par Expression
      * @f[
-     *      \sqrt{\sum_{j=0}^{n-1} x_{[j]}^\dagger x_{[j]}}
+     *      \sqrt{\sum_{j=0}^{n-1} \bar{x}_{[j]} x_{[j]}}
      * @f]
      *
      * @note
@@ -332,7 +332,7 @@ public:
      * 
      * @par Expression
      * @f[
-     *      Y_{[j,i]} = X_{[i,j]}^\dagger
+     *      Y_{[j,i]} = \bar{X}_{[i,j]}
      * @f]
      *
      * @throw std::invalid_argument
