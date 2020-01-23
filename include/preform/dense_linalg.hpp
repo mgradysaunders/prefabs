@@ -28,12 +28,12 @@
 /*+-+*/
 #if !DOXYGEN
 #if !(__cplusplus >= 201402L)
-#error "preform/dense_cla.hpp requires >=C++14"
+#error "preform/dense_linalg.hpp requires >=C++14"
 #endif // #if !(__cplusplus >= 201402L)
 #endif // #if !DOXYGEN
 #pragma once
-#ifndef PREFORM_DENSE_CLA_HPP
-#define PREFORM_DENSE_CLA_HPP
+#ifndef PREFORM_DENSE_LINALG_HPP
+#define PREFORM_DENSE_LINALG_HPP
 
 #include <algorithm>
 #include <numeric>
@@ -45,22 +45,22 @@
 namespace pr {
 
 /**
- * @defgroup dense_cla Dense CLA
+ * @defgroup dense_linalg Dense linear algebra
  *
- * `<preform/dense_cla.hpp>`
+ * `<preform/dense_linalg.hpp>`
  *
  * __C++ version__: >=C++14
  */
 /**@{*/
 
 /**
- * @brief Dense CLA.
+ * @brief Dense linear algebra.
  *
  * @tparam Tvalue
- * Value type.
+ * Value type, must be either floating point or complex.
  */
 template <typename Tvalue>
-struct dense_cla
+struct dense_linalg
 {
 public:
 
@@ -718,6 +718,7 @@ public:
      */
     /**@{*/
 
+    // TODO Doc
     /**
      * @brief Cholesky decomposition.
      *
@@ -823,4 +824,4 @@ public:
 
 } // namespace pr
 
-#endif // #ifndef PREFORM_DENSE_CLA_HPP
+#endif // #ifndef PREFORM_DENSE_LINALG_HPP
