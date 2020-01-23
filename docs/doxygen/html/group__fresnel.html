@@ -171,13 +171,6 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Fresnel equations for dielectric interface. </p>
-<ul>
-<li>\( \cos^2{\theta_t} = 1 - \eta^2 (1 - \cos^2{\theta_i}) \)</li>
-<li>\( r_s = (\eta \cos{\theta_i} - \cos{\theta_t}) / (\eta \cos{\theta_i} + \cos{\theta_t}) \)</li>
-<li>\( r_p = (\cos{\theta_i} - \eta \cos{\theta_t}) / (\cos{\theta_i} + \eta \cos{\theta_t}) \)</li>
-<li>\( t_s = 1 + r_s \)</li>
-<li>\( t_p = \eta (1 + r_p) \)</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">eta</td><td>Refractive index \( \eta = \eta_i / \eta_t \).</td></tr>
@@ -190,6 +183,14 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><ul>
+<li>\( \cos^2{\theta_t} = 1 - \eta^2 (1 - \cos^2{\theta_i}) \)</li>
+<li>\( r_s = (\eta \cos{\theta_i} - \cos{\theta_t}) / (\eta \cos{\theta_i} + \cos{\theta_t}) \)</li>
+<li>\( r_p = (\cos{\theta_i} - \eta \cos{\theta_t}) / (\cos{\theta_i} + \eta \cos{\theta_t}) \)</li>
+<li>\( t_s = 1 + r_s \)</li>
+<li>\( t_p = \eta (1 + r_p) \) </li>
+</ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In the case of total internal reflection,<ul>
 <li><code>cos_thetat = 0</code>,</li>
 <li><code>rs = rp = 1</code>, and</li>
@@ -255,10 +256,6 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Fresnel equations for dielectric interface, unpolarized form. </p>
-<ul>
-<li>\( F_r = (r_s^2 + r_p^2)/2 \)</li>
-<li>\( F_t = 1 - F_r \)</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">eta</td><td>Refractive index \( \eta = \eta_i / \eta_t \).</td></tr>
@@ -269,6 +266,11 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><ul>
+<li>\( F_r = (r_s^2 + r_p^2)/2 \)</li>
+<li>\( F_t = 1 - F_r \) </li>
+</ul>
+</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>If total internal reflection (TIR), returns <code>false</code> to indicate that there is no refracted ray. Otherwise, returns <code>true</code>. </dd></dl>
 
 </div>
@@ -328,11 +330,6 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Fresnel equations for dielectric interface, Schlick's approximation of unpolarized form. </p>
-<ul>
-<li>\( R_0 = (\eta - 1)^2 / (\eta + 1)^2 \)</li>
-<li>\( F_r = R_0 + (1 - R_0) (1 - \cos{\theta_i})^5 \)</li>
-<li>\( F_t = 1 - F_r \)</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">eta</td><td>Refractive index \( \eta = \eta_i / \eta_t \).</td></tr>
@@ -343,6 +340,12 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><ul>
+<li>\( R_0 = (\eta - 1)^2 / (\eta + 1)^2 \)</li>
+<li>\( F_r = R_0 + (1 - R_0) (1 - \cos{\theta_i})^5 \)</li>
+<li>\( F_t = 1 - F_r \) </li>
+</ul>
+</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>If total internal reflection (TIR), returns <code>false</code> to indicate that there is no refracted ray. Otherwise, returns <code>true</code>. </dd></dl>
 
 </div>
@@ -527,13 +530,6 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Fresnel equations for dielectric-to-conducting interface. </p>
-<ul>
-<li>\( \cos^2{\theta_t} = 1 - \eta^2 (1 - \cos^2{\theta_i}) \)</li>
-<li>\( r_s = (\eta \cos{\theta_i} - \cos{\theta_t}) / (\eta \cos{\theta_i} + \cos{\theta_t}) \)</li>
-<li>\( r_p = (\cos{\theta_i} - \eta \cos{\theta_t}) / (\cos{\theta_i} + \eta \cos{\theta_t}) \)</li>
-<li>\( t_s = 1 + r_s \)</li>
-<li>\( t_p = \eta (1 + r_p) \)</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">eta</td><td>Refractive index \( \eta = \eta_i / \eta_t \).</td></tr>
@@ -546,6 +542,14 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><ul>
+<li>\( \cos^2{\theta_t} = 1 - \eta^2 (1 - \cos^2{\theta_i}) \)</li>
+<li>\( r_s = (\eta \cos{\theta_i} - \cos{\theta_t}) / (\eta \cos{\theta_i} + \cos{\theta_t}) \)</li>
+<li>\( r_p = (\cos{\theta_i} - \eta \cos{\theta_t}) / (\cos{\theta_i} + \eta \cos{\theta_t}) \)</li>
+<li>\( t_s = 1 + r_s \)</li>
+<li>\( t_p = \eta (1 + r_p) \) </li>
+</ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In practice,<ul>
 <li>\( \eta_i \) should be real/dielectric, while</li>
 <li>\( \eta_t \) may be complex/conducting. </li>
