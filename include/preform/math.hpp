@@ -438,7 +438,7 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isinf(const std::complex<T>& x)
 {
-    return pr::isinf(x.real()) || pr::isinf(x.imag());
+    return std::isinf(x.real()) || std::isinf(x.imag());
 }
 
 /**
@@ -448,7 +448,7 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isnan(const std::complex<T>& x)
 {
-    return pr::isnan(x.real()) || pr::isnan(x.imag());
+    return std::isnan(x.real()) || std::isnan(x.imag());
 }
 
 /**
@@ -458,7 +458,7 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isfinite(const std::complex<T>& x)
 {
-    return pr::isfinite(x.real()) && pr::isfinite(x.imag());
+    return std::isfinite(x.real()) && std::isfinite(x.imag());
 }
 
 /**
@@ -468,7 +468,7 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isnormal(const std::complex<T>& x)
 {
-    return pr::isnormal(x.real()) && pr::isnormal(x.imag());
+    return std::isnormal(x.real()) && std::isnormal(x.imag());
 }
 
 /**@}*/
