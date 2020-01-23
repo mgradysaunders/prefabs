@@ -66,49 +66,58 @@ namespace pr {
 
 /**
  * @brief Dense vector view.
+ *
+ * @tparam Tbase_iterator
+ * Base iterator, must be random access.
  */
-template <typename T>
+template <typename Tbase_iterator>
 struct dense_vector_view
 {
     // Sanity check.
     static_assert(
         std::is_base_of<
         std::random_access_iterator_tag,
-        typename std::iterator_traits<T>::iterator_category>::value,
-        "T must be random access");
+        typename std::iterator_traits<
+                Tbase_iterator>::iterator_category>::value,
+        "Tbase_iterator must be random access");
 
 public:
 
     /**
      * @brief Base iterator.
      */
-    typedef T base_iterator;
+    typedef Tbase_iterator base_iterator;
+
+    /**
+     * @brief Base iterator traits.
+     */
+    typedef std::iterator_traits<base_iterator> base_iterator_traits;
 
     /**
      * @brief Difference type.
      */
-    typedef typename std::iterator_traits<T>::difference_type difference_type;
+    typedef typename base_iterator_traits::difference_type difference_type;
 
     /**
      * @brief Value type.
      */
     typedef std::remove_const_t<
-            typename std::iterator_traits<T>::value_type> value_type;
+            typename base_iterator_traits::value_type> value_type;
 
     /**
      * @brief Pointer.
      */
-    typedef typename std::iterator_traits<T>::pointer pointer;
+    typedef typename base_iterator_traits::pointer pointer;
 
     /**
      * @brief Reference.
      */
-    typedef typename std::iterator_traits<T>::reference reference;
+    typedef typename base_iterator_traits::reference reference;
 
     /**
      * @brief Iterator.
      */
-    typedef dense_iterator<T> iterator;
+    typedef dense_iterator<base_iterator> iterator;
 
     /**
      * @brief Reverse iterator.
@@ -118,19 +127,70 @@ public:
 public:
 
     /**
-     * @brief Offset.
+     * @brief Default constructor.
      */
-    base_iterator offset_ = base_iterator();
+    constexpr dense_vector_view() = default;
 
     /**
-     * @brief Stride.
+     * @brief Constructor.
+     *
+     * @param[in] begin_itr
+     * Begin iterator.
+     *
+     * @param[in] begin_inc
+     * Begin iterator increment.
+     *
+     * @param[in] sz
+     * Size.
      */
-    difference_type stride_ = difference_type(1);
+    constexpr dense_vector_view(
+            base_iterator begin_itr,
+            difference_type begin_inc,
+            difference_type sz) :
+                begin_itr_(begin_itr),
+                begin_inc_(begin_inc),
+                size_(sz)
+    {
+    }
+
+    /**
+     * @brief Constructor.
+     *
+     * @param[in] from
+     * Range from.
+     *
+     * @param[in] to
+     * Range to.
+     *
+     * @param[in] inc
+     * Iterator increment.
+     */
+    constexpr dense_vector_view(
+            base_iterator from,
+            base_iterator to,
+            difference_type inc = 1) :
+                begin_itr_(from),
+                begin_inc_(inc),
+                size_((to - from) / inc)
+    {
+    }
+
+public:
+
+    /**
+     * @brief Begin iterator.
+     */
+    base_iterator begin_itr_ = base_iterator();
+
+    /**
+     * @brief Begin iterator increment.
+     */
+    difference_type begin_inc_ = 0;
 
     /**
      * @brief Size.
      */
-    difference_type size_ = difference_type(0);
+    difference_type size_ = 0;
 
 public:
 
@@ -156,8 +216,8 @@ public:
     constexpr iterator begin()
     {
         return {
-            offset_,
-            stride_
+            begin_itr_,
+            begin_inc_
         };
     }
 
@@ -166,7 +226,7 @@ public:
      */
     constexpr iterator end()
     {
-        if (offset_) {
+        if (begin_itr_) {
             return begin() + size();
         }
         else {
@@ -219,14 +279,14 @@ public:
               i1 >= 0 && i1 <= size_)) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
-        if (!offset_) {
+        if (!begin_itr_) {
             return dense_vector_view();
         }
         else {
             return {
-                offset_ +
-                stride_ * (i0 - (i0 > i1)),
-                (i0 > i1) ? -stride_ : stride_,
+                begin_itr_ +
+                begin_inc_ * (i0 - (i0 > i1)),
+                (i0 > i1) ? -begin_inc_ : begin_inc_,
                 (i0 > i1) ? (i0 - i1) : (i1 - i0)
             };
         }
@@ -270,8 +330,8 @@ public:
     constexpr operator dense_vector_view<U>() const
     {
         return {
-            offset_,
-            stride_,
+            begin_itr_,
+            begin_inc_,
             size_
         };
     }
@@ -419,7 +479,6 @@ public:
     }
 
     /**@}*/
-
 
 public:
 

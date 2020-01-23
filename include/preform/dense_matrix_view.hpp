@@ -51,71 +51,80 @@ namespace pr {
 
 /**
  * @brief Dense matrix view.
+ *
+ * @tparam Tbase_iterator
+ * Base iterator, must be random access.
  */
-template <typename T>
+template <typename Tbase_iterator>
 struct dense_matrix_view
 {
     // Sanity check.
     static_assert(
         std::is_base_of<
         std::random_access_iterator_tag,
-        typename std::iterator_traits<T>::iterator_category>::value,
-        "T must be random access");
+        typename std::iterator_traits<
+                Tbase_iterator>::iterator_category>::value,
+        "Tbase_iterator must be random access");
 
 public:
 
     /**
      * @brief Base iterator.
      */
-    typedef T base_iterator;
+    typedef Tbase_iterator base_iterator;
+
+    /**
+     * @brief Base iterator traits.
+     */
+    typedef std::iterator_traits<Tbase_iterator> base_iterator_traits;
 
     /**
      * @brief Difference type.
      */
-    typedef typename std::iterator_traits<T>::difference_type difference_type;
+    typedef typename base_iterator_traits::difference_type difference_type;
 
     /**
      * @brief Value type.
      */
     typedef std::remove_const_t<
-            typename std::iterator_traits<T>::value_type> value_type;
+            typename base_iterator_traits::value_type> value_type;
 
     /**
      * @brief Pointer.
      */
-    typedef typename std::iterator_traits<T>::pointer pointer;
+    typedef typename base_iterator_traits::pointer pointer;
 
     /**
      * @brief Reference.
      */
-    typedef typename std::iterator_traits<T>::reference reference;
+    typedef typename base_iterator_traits::reference reference;
 
 public:
 
     /**
-     * @brief Offset.
+     * @brief Begin iterator.
      */
-    base_iterator offset_ = base_iterator();
+    base_iterator begin_itr_ = base_iterator();
 
     /**
-     * @brief Stride in 0th dimension (0th index multiplier).
+     * @brief Begin iterator increment in 0th dimension (0th index multiplier).
      */
-    difference_type stride0_ = difference_type(1);
+    difference_type begin_inc0_ = 0;
 
     /**
-     * @brief Stride in 1st dimension (1st index multiplier).
+     * @brief Begin iterator increment in 1st dimension (1st index multiplier).
      */
-    difference_type stride1_ = difference_type(1);
+    difference_type begin_inc1_ = 0;
 
     /**
      * @brief Size of 0th dimension.
      */
-    difference_type size0_ = difference_type(0);
+    difference_type size0_ = 0;
 
     /**
      * @brief Size of 1st dimension.
      */
-    difference_type size1_ = difference_type(0);
+    difference_type size1_ = 0;
 
 public:
 
@@ -160,7 +169,7 @@ public:
      * @note
      * Equivalent to `row(n)`.
      */
-    constexpr dense_vector_view<T> operator[](difference_type n)
+    constexpr dense_vector_view<Tbase_iterator> operator[](difference_type n)
     {
         return row(n);
     }
@@ -178,16 +187,16 @@ public:
      * @throw std::invalid_argument
      * If invalid index.
      */
-    constexpr dense_vector_view<T> row(difference_type i)
+    constexpr dense_vector_view<Tbase_iterator> row(difference_type i)
     {
         if (i < 0 || i >= size0_) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
         return {
-            offset_ +
-            stride0_ * i,
-            stride1_,
+            begin_itr_ +
+            begin_inc0_ * i,
+            begin_inc1_,
             size1_
         };
     }
@@ -198,16 +207,16 @@ public:
      * @throw std::invalid_argument
      * If invalid index.
      */
-    constexpr dense_vector_view<T> col(difference_type j)
+    constexpr dense_vector_view<Tbase_iterator> col(difference_type j)
     {
         if (j < 0 || j >= size1_) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
         return {
-            offset_ +
-            stride1_ * j,
-            stride0_,
+            begin_itr_ +
+            begin_inc1_ * j,
+            begin_inc0_,
             size0_
         };
     }
@@ -218,7 +227,7 @@ public:
      * @throw std::invalid_argument
      * If invalid index.
      */
-    constexpr dense_vector_view<T> diag(difference_type k = 0)
+    constexpr dense_vector_view<Tbase_iterator> diag(difference_type k = 0)
     {
         if (k <= -size0_ || k >= size1_) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
@@ -227,18 +236,18 @@ public:
         if (k >= 0) {
             // Above diagonal.
             return {
-                offset_ +
-                stride1_ * k,
-                stride0_ + stride1_,
+                begin_itr_ +
+                begin_inc1_ * k,
+                begin_inc0_ + begin_inc1_,
                 std::min(size0_, size1_ - k)
             };
         }
         else {
             // Below diagonal.
             return {
-                offset_ -
-                stride0_ * k,
-                stride0_ + stride1_,
+                begin_itr_ -
+                begin_inc0_ * k,
+                begin_inc0_ + begin_inc1_,
                 std::min(size0_ + k, size1_)
             };
         }
@@ -250,9 +259,9 @@ public:
     constexpr dense_matrix_view transpose()
     {
         return {
-            offset_,
-            stride1_,
-            stride0_,
+            begin_itr_,
+            begin_inc1_,
+            begin_inc0_,
             size1_,
             size0_
         };
@@ -273,16 +282,16 @@ public:
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
 
-        if (!offset_) {
+        if (!begin_itr_) {
             return dense_matrix_view();
         }
         else {
             return {
-                offset_ +
-                stride0_ * (i0 - (i0 > i1)) +
-                stride1_ * (j0 - (j0 > j1)),
-                (i0 > i1) ? -stride0_ : stride0_,
-                (j0 > j1) ? -stride1_ : stride1_,
+                begin_itr_ +
+                begin_inc0_ * (i0 - (i0 > i1)) +
+                begin_inc1_ * (j0 - (j0 > j1)),
+                (i0 > i1) ? -begin_inc0_ : begin_inc0_,
+                (j0 > j1) ? -begin_inc1_ : begin_inc1_,
                 (i0 > i1) ? (i0 - i1) : (i1 - i0),
                 (j0 > j1) ? (j0 - j1) : (j1 - j0)
             };
@@ -316,9 +325,9 @@ public:
     constexpr operator dense_matrix_view<U>() const
     {
         return {
-            offset_,
-            stride0_,
-            stride1_,
+            begin_itr_,
+            begin_inc0_,
+            begin_inc1_,
             size0_,
             size1_
         };

@@ -54,8 +54,11 @@ namespace pr {
 
 /**
  * @brief Dense iterator.
+ *
+ * @tparam Tbase_iterator
+ * Base iterator, must be random access.
  */
-template <typename T>
+template <typename Tbase_iterator>
 class dense_iterator
 {
 public:
@@ -64,28 +67,39 @@ public:
     static_assert(
         std::is_base_of<
         std::random_access_iterator_tag,
-        typename std::iterator_traits<T>::iterator_category>::value,
-        "T must be random access");
+        typename std::iterator_traits<
+                Tbase_iterator>::iterator_category>::value,
+        "Tbase_iterator must be random access");
+
+    /**
+     * @brief Base iterator.
+     */
+    typedef Tbase_iterator base_iterator;
+
+    /**
+     * @brief Base iterator traits.
+     */
+    typedef std::iterator_traits<base_iterator> base_iterator_traits;
 
     /**
      * @brief Difference type.
      */
-    typedef typename std::iterator_traits<T>::difference_type difference_type;
+    typedef typename base_iterator_traits::difference_type difference_type;
 
     /**
      * @brief Value type.
      */
-    typedef typename std::iterator_traits<T>::value_type value_type;
+    typedef typename base_iterator_traits::value_type value_type;
 
     /**
      * @brief Pointer.
      */
-    typedef typename std::iterator_traits<T>::pointer pointer;
+    typedef typename base_iterator_traits::pointer pointer;
 
     /**
      * @brief Reference.
      */
-    typedef typename std::iterator_traits<T>::reference reference;
+    typedef typename base_iterator_traits::reference reference;
 
     /**
      * @brief Iterator category.
@@ -95,14 +109,30 @@ public:
 public:
 
     /**
-     * @brief Position.
+     * @brief Default constructor.
      */
-    T pos_;
+    constexpr dense_iterator() = default;
 
     /**
-     * @brief Increment stride.
+     * @brief Constructor.
      */
-    difference_type stride_;
+    constexpr dense_iterator(base_iterator itr, difference_type inc = 1) :
+            itr_(itr),
+            inc_(inc)
+    {
+    }
+
+public:
+
+    /**
+     * @brief Iterator.
+     */
+    base_iterator itr_ = base_iterator();
+
+    /**
+     * @brief Iterator increment.
+     */
+    difference_type inc_ = 0;
 
 public:
 
@@ -111,7 +141,7 @@ public:
      */
     constexpr dense_iterator& operator++()
     {
-        pos_ += stride_; return *this;
+        itr_ += inc_; return *this;
     }
 
     /**
@@ -119,7 +149,7 @@ public:
      */
     constexpr dense_iterator& operator--()
     {
-        pos_ -= stride_; return *this;
+        itr_ -= inc_; return *this;
     }
 
     /**
@@ -143,7 +173,7 @@ public:
      */
     constexpr reference operator*()
     {
-        return *pos_;
+        return *itr_;
     }
 
     /**
@@ -151,7 +181,7 @@ public:
      */
     constexpr pointer operator->()
     {
-        return pos_;
+        return itr_;
     }
 
     /**
@@ -159,7 +189,7 @@ public:
      */
     constexpr reference operator[](difference_type n)
     {
-        return *(pos_ + stride_ * n);
+        return *(itr_ + inc_ * n);
     }
 
     /**
@@ -167,7 +197,7 @@ public:
      */
     constexpr dense_iterator& operator+=(difference_type n)
     {
-        pos_ += stride_ * n; return *this;
+        itr_ += inc_ * n; return *this;
     }
 
     /**
@@ -175,7 +205,7 @@ public:
      */
     constexpr dense_iterator operator+(difference_type n) const
     {
-        return {pos_ + stride_ * n, stride_};
+        return {itr_ + inc_ * n, inc_};
     }
 
     /**
@@ -193,7 +223,7 @@ public:
      */
     constexpr dense_iterator& operator-=(difference_type n)
     {
-        pos_ -= stride_ * n; return *this;
+        itr_ -= inc_ * n; return *this;
     }
 
     /**
@@ -201,7 +231,7 @@ public:
      */
     constexpr dense_iterator operator-(difference_type n) const
     {
-        return {pos_ - stride_ * n, stride_};
+        return {itr_ - inc_ * n, inc_};
     }
 
     /**
@@ -209,7 +239,7 @@ public:
      */
     constexpr difference_type operator-(dense_iterator other) const
     {
-        return (pos_ - other.pos_) / other.stride_;
+        return (itr_ - other.itr_) / other.inc_;
     }
 
 public:
@@ -219,7 +249,7 @@ public:
      */
     constexpr bool operator==(dense_iterator other) const
     {
-        return pos_ == other.pos_;
+        return itr_ == other.itr_;
     }
 
     /**
@@ -227,7 +257,7 @@ public:
      */
     constexpr bool operator!=(dense_iterator other) const
     {
-        return pos_ != other.pos_;
+        return itr_ != other.itr_;
     }
 
     /**
@@ -235,11 +265,11 @@ public:
      */
     constexpr bool operator<(dense_iterator other) const
     {
-        if (stride_ > 0) {
-            return pos_ < other.pos_;
+        if (inc_ > 0) {
+            return itr_ < other.itr_;
         }
         else {
-            return pos_ > other.pos_;
+            return itr_ > other.itr_;
         }
     }
 
@@ -248,11 +278,11 @@ public:
      */
     constexpr bool operator>(dense_iterator other) const
     {
-        if (stride_ > 0) {
-            return pos_ > other.pos_;
+        if (inc_ > 0) {
+            return itr_ > other.itr_;
         }
         else {
-            return pos_ < other.pos_;
+            return itr_ < other.itr_;
         }
     }
 
@@ -261,11 +291,11 @@ public:
      */
     constexpr bool operator<=(dense_iterator other) const
     {
-        if (stride_ > 0) {
-            return pos_ <= other.pos_;
+        if (inc_ > 0) {
+            return itr_ <= other.itr_;
         }
         else {
-            return pos_ >= other.pos_;
+            return itr_ >= other.itr_;
         }
     }
 
@@ -274,11 +304,11 @@ public:
      */
     constexpr bool operator>=(dense_iterator other) const
     {
-        if (stride_ > 0) {
-            return pos_ >= other.pos_;
+        if (inc_ > 0) {
+            return itr_ >= other.itr_;
         }
         else {
-            return pos_ <= other.pos_;
+            return itr_ <= other.itr_;
         }
     }
 };
