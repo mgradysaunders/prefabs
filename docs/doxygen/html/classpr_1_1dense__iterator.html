@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>preform: pr::dense_iterator&lt; T &gt; Class Template Reference</title>
+<title>preform: pr::dense_iterator&lt; Tbase_iterator &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <!--Broken...-->
@@ -76,7 +76,7 @@ $(function() {
 <a href="#friends">Friends</a> &#124;
 <a href="classpr_1_1dense__iterator-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::dense_iterator&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__dense__iterator.html">Dense iterator</a></div></div>  </div>
+<div class="title">pr::dense_iterator&lt; Tbase_iterator &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__dense__iterator.html">Dense iterator</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -85,110 +85,164 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a259d5dc746ace2da5825c95e1e00a536"><td class="memItemLeft" align="right" valign="top">typedef std::iterator_traits&lt; T &gt;::<a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a></td></tr>
-<tr class="memdesc:a259d5dc746ace2da5825c95e1e00a536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Difference type.  <a href="#a259d5dc746ace2da5825c95e1e00a536">More...</a><br /></td></tr>
-<tr class="separator:a259d5dc746ace2da5825c95e1e00a536"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8de9f3156258d29d44f4c4e5e4c3e10"><td class="memItemLeft" align="right" valign="top">typedef std::iterator_traits&lt; T &gt;::<a class="el" href="classpr_1_1dense__iterator.html#af8de9f3156258d29d44f4c4e5e4c3e10">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#af8de9f3156258d29d44f4c4e5e4c3e10">value_type</a></td></tr>
-<tr class="memdesc:af8de9f3156258d29d44f4c4e5e4c3e10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value type.  <a href="#af8de9f3156258d29d44f4c4e5e4c3e10">More...</a><br /></td></tr>
-<tr class="separator:af8de9f3156258d29d44f4c4e5e4c3e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53160838595e734581289c1be9b4247e"><td class="memItemLeft" align="right" valign="top">typedef std::iterator_traits&lt; T &gt;::<a class="el" href="classpr_1_1dense__iterator.html#a53160838595e734581289c1be9b4247e">pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a53160838595e734581289c1be9b4247e">pointer</a></td></tr>
-<tr class="memdesc:a53160838595e734581289c1be9b4247e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer.  <a href="#a53160838595e734581289c1be9b4247e">More...</a><br /></td></tr>
-<tr class="separator:a53160838595e734581289c1be9b4247e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe01c5ea652a24385ce4156f2107b278"><td class="memItemLeft" align="right" valign="top">typedef std::iterator_traits&lt; T &gt;::<a class="el" href="classpr_1_1dense__iterator.html#afe01c5ea652a24385ce4156f2107b278">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#afe01c5ea652a24385ce4156f2107b278">reference</a></td></tr>
-<tr class="memdesc:afe01c5ea652a24385ce4156f2107b278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference.  <a href="#afe01c5ea652a24385ce4156f2107b278">More...</a><br /></td></tr>
-<tr class="separator:afe01c5ea652a24385ce4156f2107b278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b44c847c0627b3121474bfb4b3e417e"><td class="memItemLeft" align="right" valign="top">typedef std::random_access_iterator_tag&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a7b44c847c0627b3121474bfb4b3e417e">iterator_category</a></td></tr>
-<tr class="memdesc:a7b44c847c0627b3121474bfb4b3e417e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator category.  <a href="#a7b44c847c0627b3121474bfb4b3e417e">More...</a><br /></td></tr>
-<tr class="separator:a7b44c847c0627b3121474bfb4b3e417e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1948b0e898706718f3fbb86ccaefc6d4"><td class="memItemLeft" align="right" valign="top">typedef Tbase_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a1948b0e898706718f3fbb86ccaefc6d4">base_iterator</a></td></tr>
+<tr class="memdesc:a1948b0e898706718f3fbb86ccaefc6d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base iterator.  <a href="#a1948b0e898706718f3fbb86ccaefc6d4">More...</a><br /></td></tr>
+<tr class="separator:a1948b0e898706718f3fbb86ccaefc6d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28be00edff9742fe4e95d34b2051640a"><td class="memItemLeft" align="right" valign="top">typedef std::iterator_traits&lt; <a class="el" href="classpr_1_1dense__iterator.html#a1948b0e898706718f3fbb86ccaefc6d4">base_iterator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a28be00edff9742fe4e95d34b2051640a">base_iterator_traits</a></td></tr>
+<tr class="memdesc:a28be00edff9742fe4e95d34b2051640a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base iterator traits.  <a href="#a28be00edff9742fe4e95d34b2051640a">More...</a><br /></td></tr>
+<tr class="separator:a28be00edff9742fe4e95d34b2051640a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4971386ad4e7edc6ab897f3331062ef2"><td class="memItemLeft" align="right" valign="top">typedef base_iterator_traits::difference_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a></td></tr>
+<tr class="memdesc:a4971386ad4e7edc6ab897f3331062ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Difference type.  <a href="#a4971386ad4e7edc6ab897f3331062ef2">More...</a><br /></td></tr>
+<tr class="separator:a4971386ad4e7edc6ab897f3331062ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45cfdecef9fb10f3d0cf6980a72303b4"><td class="memItemLeft" align="right" valign="top">typedef base_iterator_traits::value_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a45cfdecef9fb10f3d0cf6980a72303b4">value_type</a></td></tr>
+<tr class="memdesc:a45cfdecef9fb10f3d0cf6980a72303b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value type.  <a href="#a45cfdecef9fb10f3d0cf6980a72303b4">More...</a><br /></td></tr>
+<tr class="separator:a45cfdecef9fb10f3d0cf6980a72303b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebfebd852a2fd9a7660ecf31ec53b144"><td class="memItemLeft" align="right" valign="top">typedef base_iterator_traits::pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#aebfebd852a2fd9a7660ecf31ec53b144">pointer</a></td></tr>
+<tr class="memdesc:aebfebd852a2fd9a7660ecf31ec53b144"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer.  <a href="#aebfebd852a2fd9a7660ecf31ec53b144">More...</a><br /></td></tr>
+<tr class="separator:aebfebd852a2fd9a7660ecf31ec53b144"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab18e9ba61d3b1c0775c99b956ec8347b"><td class="memItemLeft" align="right" valign="top">typedef base_iterator_traits::reference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ab18e9ba61d3b1c0775c99b956ec8347b">reference</a></td></tr>
+<tr class="memdesc:ab18e9ba61d3b1c0775c99b956ec8347b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference.  <a href="#ab18e9ba61d3b1c0775c99b956ec8347b">More...</a><br /></td></tr>
+<tr class="separator:ab18e9ba61d3b1c0775c99b956ec8347b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9aa33143fd91219eaff2e8505f53f09b"><td class="memItemLeft" align="right" valign="top">typedef std::random_access_iterator_tag&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a9aa33143fd91219eaff2e8505f53f09b">iterator_category</a></td></tr>
+<tr class="memdesc:a9aa33143fd91219eaff2e8505f53f09b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator category.  <a href="#a9aa33143fd91219eaff2e8505f53f09b">More...</a><br /></td></tr>
+<tr class="separator:a9aa33143fd91219eaff2e8505f53f09b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a85f256582a634533296f190eb95bfa64"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a85f256582a634533296f190eb95bfa64">operator++</a> ()</td></tr>
-<tr class="memdesc:a85f256582a634533296f190eb95bfa64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-increment.  <a href="#a85f256582a634533296f190eb95bfa64">More...</a><br /></td></tr>
-<tr class="separator:a85f256582a634533296f190eb95bfa64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94e644ffa88de0acb00555d110b74a00"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a94e644ffa88de0acb00555d110b74a00">operator--</a> ()</td></tr>
-<tr class="memdesc:a94e644ffa88de0acb00555d110b74a00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-decrement.  <a href="#a94e644ffa88de0acb00555d110b74a00">More...</a><br /></td></tr>
-<tr class="separator:a94e644ffa88de0acb00555d110b74a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af73064e405554027589e6a0b33f04cea"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#af73064e405554027589e6a0b33f04cea">operator++</a> (int)</td></tr>
-<tr class="memdesc:af73064e405554027589e6a0b33f04cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post-increment.  <a href="#af73064e405554027589e6a0b33f04cea">More...</a><br /></td></tr>
-<tr class="separator:af73064e405554027589e6a0b33f04cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a365ba396042727205a1fb215fc887f55"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a365ba396042727205a1fb215fc887f55">operator--</a> (int)</td></tr>
-<tr class="memdesc:a365ba396042727205a1fb215fc887f55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post-decrement.  <a href="#a365ba396042727205a1fb215fc887f55">More...</a><br /></td></tr>
-<tr class="separator:a365ba396042727205a1fb215fc887f55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06253ac699efc555351d420add1a97a5"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html#afe01c5ea652a24385ce4156f2107b278">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a06253ac699efc555351d420add1a97a5">operator*</a> ()</td></tr>
-<tr class="memdesc:a06253ac699efc555351d420add1a97a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dereference.  <a href="#a06253ac699efc555351d420add1a97a5">More...</a><br /></td></tr>
-<tr class="separator:a06253ac699efc555351d420add1a97a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed09e7ceb0e6387b68e1d8ef308a43c2"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html#a53160838595e734581289c1be9b4247e">pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#aed09e7ceb0e6387b68e1d8ef308a43c2">operator-&gt;</a> ()</td></tr>
-<tr class="memdesc:aed09e7ceb0e6387b68e1d8ef308a43c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer access.  <a href="#aed09e7ceb0e6387b68e1d8ef308a43c2">More...</a><br /></td></tr>
-<tr class="separator:aed09e7ceb0e6387b68e1d8ef308a43c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70a5e9602ee5eaa87fbd4f106d70e669"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html#afe01c5ea652a24385ce4156f2107b278">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a70a5e9602ee5eaa87fbd4f106d70e669">operator[]</a> (<a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a> n)</td></tr>
-<tr class="memdesc:a70a5e9602ee5eaa87fbd4f106d70e669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary access.  <a href="#a70a5e9602ee5eaa87fbd4f106d70e669">More...</a><br /></td></tr>
-<tr class="separator:a70a5e9602ee5eaa87fbd4f106d70e669"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab93490571857db03a8fa7c50e55631d9"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ab93490571857db03a8fa7c50e55631d9">operator+=</a> (<a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a> n)</td></tr>
-<tr class="memdesc:ab93490571857db03a8fa7c50e55631d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary increment.  <a href="#ab93490571857db03a8fa7c50e55631d9">More...</a><br /></td></tr>
-<tr class="separator:ab93490571857db03a8fa7c50e55631d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a831a543be2c48a4ad12a157dd6fbdfc7"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a831a543be2c48a4ad12a157dd6fbdfc7">operator+</a> (<a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a> n) const</td></tr>
-<tr class="memdesc:a831a543be2c48a4ad12a157dd6fbdfc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary increment.  <a href="#a831a543be2c48a4ad12a157dd6fbdfc7">More...</a><br /></td></tr>
-<tr class="separator:a831a543be2c48a4ad12a157dd6fbdfc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c91431cc9b8eba321c28dc55817804c"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a0c91431cc9b8eba321c28dc55817804c">operator-=</a> (<a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a> n)</td></tr>
-<tr class="memdesc:a0c91431cc9b8eba321c28dc55817804c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary decrement.  <a href="#a0c91431cc9b8eba321c28dc55817804c">More...</a><br /></td></tr>
-<tr class="separator:a0c91431cc9b8eba321c28dc55817804c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2ae8ee96d2ffc4a4727b2ee3399bab2"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ab2ae8ee96d2ffc4a4727b2ee3399bab2">operator-</a> (<a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a> n) const</td></tr>
-<tr class="memdesc:ab2ae8ee96d2ffc4a4727b2ee3399bab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary decrement.  <a href="#ab2ae8ee96d2ffc4a4727b2ee3399bab2">More...</a><br /></td></tr>
-<tr class="separator:ab2ae8ee96d2ffc4a4727b2ee3399bab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75da3728011addf16510ab46934b987f"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a75da3728011addf16510ab46934b987f">operator-</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
-<tr class="memdesc:a75da3728011addf16510ab46934b987f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance.  <a href="#a75da3728011addf16510ab46934b987f">More...</a><br /></td></tr>
-<tr class="separator:a75da3728011addf16510ab46934b987f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cfc16de2cad3deb87e0340e5fab92f6"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a8cfc16de2cad3deb87e0340e5fab92f6">operator==</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
-<tr class="memdesc:a8cfc16de2cad3deb87e0340e5fab92f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare equal.  <a href="#a8cfc16de2cad3deb87e0340e5fab92f6">More...</a><br /></td></tr>
-<tr class="separator:a8cfc16de2cad3deb87e0340e5fab92f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91c706eaba0d946848cc71dab8510b08"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a91c706eaba0d946848cc71dab8510b08">operator!=</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
-<tr class="memdesc:a91c706eaba0d946848cc71dab8510b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare not equal.  <a href="#a91c706eaba0d946848cc71dab8510b08">More...</a><br /></td></tr>
-<tr class="separator:a91c706eaba0d946848cc71dab8510b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb89f0c95be9bc9784542f87270ee8c2"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#aeb89f0c95be9bc9784542f87270ee8c2">operator&lt;</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
-<tr class="memdesc:aeb89f0c95be9bc9784542f87270ee8c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare less.  <a href="#aeb89f0c95be9bc9784542f87270ee8c2">More...</a><br /></td></tr>
-<tr class="separator:aeb89f0c95be9bc9784542f87270ee8c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60a502cfe2d919ef7c1e00fd9de2c4a8"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a60a502cfe2d919ef7c1e00fd9de2c4a8">operator&gt;</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
-<tr class="memdesc:a60a502cfe2d919ef7c1e00fd9de2c4a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare greater.  <a href="#a60a502cfe2d919ef7c1e00fd9de2c4a8">More...</a><br /></td></tr>
-<tr class="separator:a60a502cfe2d919ef7c1e00fd9de2c4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91a7abb0aee4d5a69485501a34e14075"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a91a7abb0aee4d5a69485501a34e14075">operator&lt;=</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
-<tr class="memdesc:a91a7abb0aee4d5a69485501a34e14075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare less equal.  <a href="#a91a7abb0aee4d5a69485501a34e14075">More...</a><br /></td></tr>
-<tr class="separator:a91a7abb0aee4d5a69485501a34e14075"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae201abb1b5827e09b949109ff7502d1d"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ae201abb1b5827e09b949109ff7502d1d">operator&gt;=</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
-<tr class="memdesc:ae201abb1b5827e09b949109ff7502d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare greater equal.  <a href="#ae201abb1b5827e09b949109ff7502d1d">More...</a><br /></td></tr>
-<tr class="separator:ae201abb1b5827e09b949109ff7502d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac42f83b9f98bbaff9fb393325af0e1e8"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ac42f83b9f98bbaff9fb393325af0e1e8">dense_iterator</a> ()=default</td></tr>
+<tr class="memdesc:ac42f83b9f98bbaff9fb393325af0e1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#ac42f83b9f98bbaff9fb393325af0e1e8">More...</a><br /></td></tr>
+<tr class="separator:ac42f83b9f98bbaff9fb393325af0e1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec8e26b8454f1766307b28dff46e2eda"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#aec8e26b8454f1766307b28dff46e2eda">dense_iterator</a> (<a class="el" href="classpr_1_1dense__iterator.html#a1948b0e898706718f3fbb86ccaefc6d4">base_iterator</a> itr, <a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a> inc=1)</td></tr>
+<tr class="memdesc:aec8e26b8454f1766307b28dff46e2eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#aec8e26b8454f1766307b28dff46e2eda">More...</a><br /></td></tr>
+<tr class="separator:aec8e26b8454f1766307b28dff46e2eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a5987f87151b5d0a5bb076527b307f6"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a4a5987f87151b5d0a5bb076527b307f6">operator++</a> ()</td></tr>
+<tr class="memdesc:a4a5987f87151b5d0a5bb076527b307f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-increment.  <a href="#a4a5987f87151b5d0a5bb076527b307f6">More...</a><br /></td></tr>
+<tr class="separator:a4a5987f87151b5d0a5bb076527b307f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add137b1395fd1beba51e690edbb14c49"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#add137b1395fd1beba51e690edbb14c49">operator--</a> ()</td></tr>
+<tr class="memdesc:add137b1395fd1beba51e690edbb14c49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-decrement.  <a href="#add137b1395fd1beba51e690edbb14c49">More...</a><br /></td></tr>
+<tr class="separator:add137b1395fd1beba51e690edbb14c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54e39175d9665829490e61b4fd0dfb76"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a54e39175d9665829490e61b4fd0dfb76">operator++</a> (int)</td></tr>
+<tr class="memdesc:a54e39175d9665829490e61b4fd0dfb76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post-increment.  <a href="#a54e39175d9665829490e61b4fd0dfb76">More...</a><br /></td></tr>
+<tr class="separator:a54e39175d9665829490e61b4fd0dfb76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4edb3b52f12b0cf7f592b034febd839"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ad4edb3b52f12b0cf7f592b034febd839">operator--</a> (int)</td></tr>
+<tr class="memdesc:ad4edb3b52f12b0cf7f592b034febd839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post-decrement.  <a href="#ad4edb3b52f12b0cf7f592b034febd839">More...</a><br /></td></tr>
+<tr class="separator:ad4edb3b52f12b0cf7f592b034febd839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac97cc7dfef1dd5b88017fecb8adb41c0"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html#ab18e9ba61d3b1c0775c99b956ec8347b">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ac97cc7dfef1dd5b88017fecb8adb41c0">operator*</a> ()</td></tr>
+<tr class="memdesc:ac97cc7dfef1dd5b88017fecb8adb41c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dereference.  <a href="#ac97cc7dfef1dd5b88017fecb8adb41c0">More...</a><br /></td></tr>
+<tr class="separator:ac97cc7dfef1dd5b88017fecb8adb41c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b646dafb471596c5b7a6861bf9a3c3d"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html#aebfebd852a2fd9a7660ecf31ec53b144">pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a4b646dafb471596c5b7a6861bf9a3c3d">operator-&gt;</a> ()</td></tr>
+<tr class="memdesc:a4b646dafb471596c5b7a6861bf9a3c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer access.  <a href="#a4b646dafb471596c5b7a6861bf9a3c3d">More...</a><br /></td></tr>
+<tr class="separator:a4b646dafb471596c5b7a6861bf9a3c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4dd5b639394ab15d18b8510bda3d9cc"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html#ab18e9ba61d3b1c0775c99b956ec8347b">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ad4dd5b639394ab15d18b8510bda3d9cc">operator[]</a> (<a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a> n)</td></tr>
+<tr class="memdesc:ad4dd5b639394ab15d18b8510bda3d9cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary access.  <a href="#ad4dd5b639394ab15d18b8510bda3d9cc">More...</a><br /></td></tr>
+<tr class="separator:ad4dd5b639394ab15d18b8510bda3d9cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9c06bf99301c139e2e0d46bd72a51d5"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ac9c06bf99301c139e2e0d46bd72a51d5">operator+=</a> (<a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a> n)</td></tr>
+<tr class="memdesc:ac9c06bf99301c139e2e0d46bd72a51d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary increment.  <a href="#ac9c06bf99301c139e2e0d46bd72a51d5">More...</a><br /></td></tr>
+<tr class="separator:ac9c06bf99301c139e2e0d46bd72a51d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a340aea035b51bb0a5ac00fc1f8dd8e"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a0a340aea035b51bb0a5ac00fc1f8dd8e">operator+</a> (<a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a> n) const</td></tr>
+<tr class="memdesc:a0a340aea035b51bb0a5ac00fc1f8dd8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary increment.  <a href="#a0a340aea035b51bb0a5ac00fc1f8dd8e">More...</a><br /></td></tr>
+<tr class="separator:a0a340aea035b51bb0a5ac00fc1f8dd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a245b5ecc8a8402d694f6b654ee12b702"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a245b5ecc8a8402d694f6b654ee12b702">operator-=</a> (<a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a> n)</td></tr>
+<tr class="memdesc:a245b5ecc8a8402d694f6b654ee12b702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary decrement.  <a href="#a245b5ecc8a8402d694f6b654ee12b702">More...</a><br /></td></tr>
+<tr class="separator:a245b5ecc8a8402d694f6b654ee12b702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a771a7a7c1716f3c9d21942d04fca4fcf"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a771a7a7c1716f3c9d21942d04fca4fcf">operator-</a> (<a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a> n) const</td></tr>
+<tr class="memdesc:a771a7a7c1716f3c9d21942d04fca4fcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary decrement.  <a href="#a771a7a7c1716f3c9d21942d04fca4fcf">More...</a><br /></td></tr>
+<tr class="separator:a771a7a7c1716f3c9d21942d04fca4fcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9a3a595ccb34e2437b51709b146c687"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ad9a3a595ccb34e2437b51709b146c687">operator-</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
+<tr class="memdesc:ad9a3a595ccb34e2437b51709b146c687"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance.  <a href="#ad9a3a595ccb34e2437b51709b146c687">More...</a><br /></td></tr>
+<tr class="separator:ad9a3a595ccb34e2437b51709b146c687"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c1cb178aa62a403ea5e4eecd419c065"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a2c1cb178aa62a403ea5e4eecd419c065">operator==</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
+<tr class="memdesc:a2c1cb178aa62a403ea5e4eecd419c065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare equal.  <a href="#a2c1cb178aa62a403ea5e4eecd419c065">More...</a><br /></td></tr>
+<tr class="separator:a2c1cb178aa62a403ea5e4eecd419c065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e3e7ad9dbdbd3a22fbee173bc5c6c81"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a0e3e7ad9dbdbd3a22fbee173bc5c6c81">operator!=</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
+<tr class="memdesc:a0e3e7ad9dbdbd3a22fbee173bc5c6c81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare not equal.  <a href="#a0e3e7ad9dbdbd3a22fbee173bc5c6c81">More...</a><br /></td></tr>
+<tr class="separator:a0e3e7ad9dbdbd3a22fbee173bc5c6c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af76525100f1cb768179919c3b20378b9"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#af76525100f1cb768179919c3b20378b9">operator&lt;</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
+<tr class="memdesc:af76525100f1cb768179919c3b20378b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare less.  <a href="#af76525100f1cb768179919c3b20378b9">More...</a><br /></td></tr>
+<tr class="separator:af76525100f1cb768179919c3b20378b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85ebd558d1459cb661073772b426ad0b"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a85ebd558d1459cb661073772b426ad0b">operator&gt;</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
+<tr class="memdesc:a85ebd558d1459cb661073772b426ad0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare greater.  <a href="#a85ebd558d1459cb661073772b426ad0b">More...</a><br /></td></tr>
+<tr class="separator:a85ebd558d1459cb661073772b426ad0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab76eba023e14f3a9a90a558855166e80"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#ab76eba023e14f3a9a90a558855166e80">operator&lt;=</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
+<tr class="memdesc:ab76eba023e14f3a9a90a558855166e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare less equal.  <a href="#ab76eba023e14f3a9a90a558855166e80">More...</a><br /></td></tr>
+<tr class="separator:ab76eba023e14f3a9a90a558855166e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a541c83fa8b08bf7db52ea420701b54ff"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a541c83fa8b08bf7db52ea420701b54ff">operator&gt;=</a> (<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> other) const</td></tr>
+<tr class="memdesc:a541c83fa8b08bf7db52ea420701b54ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare greater equal.  <a href="#a541c83fa8b08bf7db52ea420701b54ff">More...</a><br /></td></tr>
+<tr class="separator:a541c83fa8b08bf7db52ea420701b54ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:addbaa067a8fd4aaecdc9a85c5c7b3c46"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#addbaa067a8fd4aaecdc9a85c5c7b3c46">pos_</a></td></tr>
-<tr class="memdesc:addbaa067a8fd4aaecdc9a85c5c7b3c46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position.  <a href="#addbaa067a8fd4aaecdc9a85c5c7b3c46">More...</a><br /></td></tr>
-<tr class="separator:addbaa067a8fd4aaecdc9a85c5c7b3c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42746bd04ab8c6de838a5fd8f6a098ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a42746bd04ab8c6de838a5fd8f6a098ce">stride_</a></td></tr>
-<tr class="memdesc:a42746bd04ab8c6de838a5fd8f6a098ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment stride.  <a href="#a42746bd04ab8c6de838a5fd8f6a098ce">More...</a><br /></td></tr>
-<tr class="separator:a42746bd04ab8c6de838a5fd8f6a098ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4163d0d7a111dd65f6edd28fb4c5d547"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dense__iterator.html#a1948b0e898706718f3fbb86ccaefc6d4">base_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a4163d0d7a111dd65f6edd28fb4c5d547">itr_</a> = <a class="el" href="classpr_1_1dense__iterator.html#a1948b0e898706718f3fbb86ccaefc6d4">base_iterator</a>()</td></tr>
+<tr class="memdesc:a4163d0d7a111dd65f6edd28fb4c5d547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator.  <a href="#a4163d0d7a111dd65f6edd28fb4c5d547">More...</a><br /></td></tr>
+<tr class="separator:a4163d0d7a111dd65f6edd28fb4c5d547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a476c407acbdd747aaf294e5c3e4ba8e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a476c407acbdd747aaf294e5c3e4ba8e8">inc_</a> = 0</td></tr>
+<tr class="memdesc:a476c407acbdd747aaf294e5c3e4ba8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator increment.  <a href="#a476c407acbdd747aaf294e5c3e4ba8e8">More...</a><br /></td></tr>
+<tr class="separator:a476c407acbdd747aaf294e5c3e4ba8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a2d084f40919c3279a2e724622a78bcf9"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a2d084f40919c3279a2e724622a78bcf9">operator+</a> (<a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a> n, <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> itr)</td></tr>
+<tr class="memitem:a2d084f40919c3279a2e724622a78bcf9"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1dense__iterator.html#a2d084f40919c3279a2e724622a78bcf9">operator+</a> (<a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a> n, <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> itr)</td></tr>
 <tr class="memdesc:a2d084f40919c3279a2e724622a78bcf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary increment.  <a href="#a2d084f40919c3279a2e724622a78bcf9">More...</a><br /></td></tr>
 <tr class="separator:a2d084f40919c3279a2e724622a78bcf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-class pr::dense_iterator&lt; T &gt;</h3>
+<div class="textblock"><h3>template&lt;typename Tbase_iterator&gt;<br />
+class pr::dense_iterator&lt; Tbase_iterator &gt;</h3>
 
 <p>Dense iterator. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Tbase_iterator</td><td>Base iterator, must be random access. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a259d5dc746ace2da5825c95e1e00a536"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a259d5dc746ace2da5825c95e1e00a536">&#9670;&nbsp;</a></span>difference_type</h2>
+<a id="a1948b0e898706718f3fbb86ccaefc6d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1948b0e898706718f3fbb86ccaefc6d4">&#9670;&nbsp;</a></span>base_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::iterator_traits&lt;T&gt;::<a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::<a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a></td>
+          <td class="memname">typedef Tbase_iterator <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::<a class="el" href="classpr_1_1dense__iterator.html#a1948b0e898706718f3fbb86ccaefc6d4">base_iterator</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base iterator. </p>
+
+</div>
+</div>
+<a id="a28be00edff9742fe4e95d34b2051640a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28be00edff9742fe4e95d34b2051640a">&#9670;&nbsp;</a></span>base_iterator_traits</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tbase_iterator &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::iterator_traits&lt;<a class="el" href="classpr_1_1dense__iterator.html#a1948b0e898706718f3fbb86ccaefc6d4">base_iterator</a>&gt; <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::<a class="el" href="classpr_1_1dense__iterator.html#a28be00edff9742fe4e95d34b2051640a">base_iterator_traits</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base iterator traits. </p>
+
+</div>
+</div>
+<a id="a4971386ad4e7edc6ab897f3331062ef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4971386ad4e7edc6ab897f3331062ef2">&#9670;&nbsp;</a></span>difference_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tbase_iterator &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef base_iterator_traits::difference_type <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::<a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -197,16 +251,16 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="af8de9f3156258d29d44f4c4e5e4c3e10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8de9f3156258d29d44f4c4e5e4c3e10">&#9670;&nbsp;</a></span>value_type</h2>
+<a id="a45cfdecef9fb10f3d0cf6980a72303b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45cfdecef9fb10f3d0cf6980a72303b4">&#9670;&nbsp;</a></span>value_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::iterator_traits&lt;T&gt;::<a class="el" href="classpr_1_1dense__iterator.html#af8de9f3156258d29d44f4c4e5e4c3e10">value_type</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::<a class="el" href="classpr_1_1dense__iterator.html#af8de9f3156258d29d44f4c4e5e4c3e10">value_type</a></td>
+          <td class="memname">typedef base_iterator_traits::value_type <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::<a class="el" href="classpr_1_1dense__iterator.html#a45cfdecef9fb10f3d0cf6980a72303b4">value_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -215,16 +269,16 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a53160838595e734581289c1be9b4247e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53160838595e734581289c1be9b4247e">&#9670;&nbsp;</a></span>pointer</h2>
+<a id="aebfebd852a2fd9a7660ecf31ec53b144"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebfebd852a2fd9a7660ecf31ec53b144">&#9670;&nbsp;</a></span>pointer</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::iterator_traits&lt;T&gt;::<a class="el" href="classpr_1_1dense__iterator.html#a53160838595e734581289c1be9b4247e">pointer</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::<a class="el" href="classpr_1_1dense__iterator.html#a53160838595e734581289c1be9b4247e">pointer</a></td>
+          <td class="memname">typedef base_iterator_traits::pointer <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::<a class="el" href="classpr_1_1dense__iterator.html#aebfebd852a2fd9a7660ecf31ec53b144">pointer</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -233,16 +287,16 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="afe01c5ea652a24385ce4156f2107b278"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe01c5ea652a24385ce4156f2107b278">&#9670;&nbsp;</a></span>reference</h2>
+<a id="ab18e9ba61d3b1c0775c99b956ec8347b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab18e9ba61d3b1c0775c99b956ec8347b">&#9670;&nbsp;</a></span>reference</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::iterator_traits&lt;T&gt;::<a class="el" href="classpr_1_1dense__iterator.html#afe01c5ea652a24385ce4156f2107b278">reference</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::<a class="el" href="classpr_1_1dense__iterator.html#afe01c5ea652a24385ce4156f2107b278">reference</a></td>
+          <td class="memname">typedef base_iterator_traits::reference <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::<a class="el" href="classpr_1_1dense__iterator.html#ab18e9ba61d3b1c0775c99b956ec8347b">reference</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -251,16 +305,16 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a7b44c847c0627b3121474bfb4b3e417e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b44c847c0627b3121474bfb4b3e417e">&#9670;&nbsp;</a></span>iterator_category</h2>
+<a id="a9aa33143fd91219eaff2e8505f53f09b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9aa33143fd91219eaff2e8505f53f09b">&#9670;&nbsp;</a></span>iterator_category</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::random_access_iterator_tag <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::<a class="el" href="classpr_1_1dense__iterator.html#a7b44c847c0627b3121474bfb4b3e417e">iterator_category</a></td>
+          <td class="memname">typedef std::random_access_iterator_tag <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::<a class="el" href="classpr_1_1dense__iterator.html#a9aa33143fd91219eaff2e8505f53f09b">iterator_category</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -269,20 +323,90 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a85f256582a634533296f190eb95bfa64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85f256582a634533296f190eb95bfa64">&#9670;&nbsp;</a></span>operator++() <span class="overload">[1/2]</span></h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac42f83b9f98bbaff9fb393325af0e1e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac42f83b9f98bbaff9fb393325af0e1e8">&#9670;&nbsp;</a></span>dense_iterator() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&amp; <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator++ </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default constructor. </p>
+
+</div>
+</div>
+<a id="aec8e26b8454f1766307b28dff46e2eda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec8e26b8454f1766307b28dff46e2eda">&#9670;&nbsp;</a></span>dense_iterator() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tbase_iterator &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::<a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a1948b0e898706718f3fbb86ccaefc6d4">base_iterator</a>&#160;</td>
+          <td class="paramname"><em>itr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a>&#160;</td>
+          <td class="paramname"><em>inc</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4a5987f87151b5d0a5bb076527b307f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a5987f87151b5d0a5bb076527b307f6">&#9670;&nbsp;</a></span>operator++() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tbase_iterator &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&amp; <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator++ </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -299,19 +423,19 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a94e644ffa88de0acb00555d110b74a00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94e644ffa88de0acb00555d110b74a00">&#9670;&nbsp;</a></span>operator--() <span class="overload">[1/2]</span></h2>
+<a id="add137b1395fd1beba51e690edbb14c49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add137b1395fd1beba51e690edbb14c49">&#9670;&nbsp;</a></span>operator--() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&amp; <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator-- </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&amp; <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator-- </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -328,19 +452,19 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="af73064e405554027589e6a0b33f04cea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af73064e405554027589e6a0b33f04cea">&#9670;&nbsp;</a></span>operator++() <span class="overload">[2/2]</span></h2>
+<a id="a54e39175d9665829490e61b4fd0dfb76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54e39175d9665829490e61b4fd0dfb76">&#9670;&nbsp;</a></span>operator++() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator++ </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator++ </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -358,19 +482,19 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a365ba396042727205a1fb215fc887f55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a365ba396042727205a1fb215fc887f55">&#9670;&nbsp;</a></span>operator--() <span class="overload">[2/2]</span></h2>
+<a id="ad4edb3b52f12b0cf7f592b034febd839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4edb3b52f12b0cf7f592b034febd839">&#9670;&nbsp;</a></span>operator--() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator-- </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator-- </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -388,19 +512,19 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a06253ac699efc555351d420add1a97a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06253ac699efc555351d420add1a97a5">&#9670;&nbsp;</a></span>operator*()</h2>
+<a id="ac97cc7dfef1dd5b88017fecb8adb41c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac97cc7dfef1dd5b88017fecb8adb41c0">&#9670;&nbsp;</a></span>operator*()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html#afe01c5ea652a24385ce4156f2107b278">reference</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator* </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html#ab18e9ba61d3b1c0775c99b956ec8347b">reference</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator* </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -417,19 +541,19 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="aed09e7ceb0e6387b68e1d8ef308a43c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed09e7ceb0e6387b68e1d8ef308a43c2">&#9670;&nbsp;</a></span>operator->()</h2>
+<a id="a4b646dafb471596c5b7a6861bf9a3c3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b646dafb471596c5b7a6861bf9a3c3d">&#9670;&nbsp;</a></span>operator->()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html#a53160838595e734581289c1be9b4247e">pointer</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator-&gt; </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html#aebfebd852a2fd9a7660ecf31ec53b144">pointer</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator-&gt; </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -446,21 +570,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a70a5e9602ee5eaa87fbd4f106d70e669"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70a5e9602ee5eaa87fbd4f106d70e669">&#9670;&nbsp;</a></span>operator[]()</h2>
+<a id="ad4dd5b639394ab15d18b8510bda3d9cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4dd5b639394ab15d18b8510bda3d9cc">&#9670;&nbsp;</a></span>operator[]()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html#afe01c5ea652a24385ce4156f2107b278">reference</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator[] </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html#ab18e9ba61d3b1c0775c99b956ec8347b">reference</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator[] </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a>&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
           <td></td>
         </tr>
@@ -476,21 +600,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ab93490571857db03a8fa7c50e55631d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab93490571857db03a8fa7c50e55631d9">&#9670;&nbsp;</a></span>operator+=()</h2>
+<a id="ac9c06bf99301c139e2e0d46bd72a51d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9c06bf99301c139e2e0d46bd72a51d5">&#9670;&nbsp;</a></span>operator+=()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&amp; <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator+= </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&amp; <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator+= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a>&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
           <td></td>
         </tr>
@@ -506,21 +630,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a831a543be2c48a4ad12a157dd6fbdfc7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a831a543be2c48a4ad12a157dd6fbdfc7">&#9670;&nbsp;</a></span>operator+()</h2>
+<a id="a0a340aea035b51bb0a5ac00fc1f8dd8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a340aea035b51bb0a5ac00fc1f8dd8e">&#9670;&nbsp;</a></span>operator+()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator+ </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator+ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a>&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -536,21 +660,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a0c91431cc9b8eba321c28dc55817804c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c91431cc9b8eba321c28dc55817804c">&#9670;&nbsp;</a></span>operator-=()</h2>
+<a id="a245b5ecc8a8402d694f6b654ee12b702"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a245b5ecc8a8402d694f6b654ee12b702">&#9670;&nbsp;</a></span>operator-=()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&amp; <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator-= </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&amp; <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator-= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a>&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
           <td></td>
         </tr>
@@ -566,21 +690,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ab2ae8ee96d2ffc4a4727b2ee3399bab2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2ae8ee96d2ffc4a4727b2ee3399bab2">&#9670;&nbsp;</a></span>operator-() <span class="overload">[1/2]</span></h2>
+<a id="a771a7a7c1716f3c9d21942d04fca4fcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a771a7a7c1716f3c9d21942d04fca4fcf">&#9670;&nbsp;</a></span>operator-() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator- </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator- </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a>&#160;</td>
           <td class="paramname"><em>n</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -596,21 +720,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a75da3728011addf16510ab46934b987f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75da3728011addf16510ab46934b987f">&#9670;&nbsp;</a></span>operator-() <span class="overload">[2/2]</span></h2>
+<a id="ad9a3a595ccb34e2437b51709b146c687"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9a3a595ccb34e2437b51709b146c687">&#9670;&nbsp;</a></span>operator-() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator- </td>
+          <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator- </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; T &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; Tbase_iterator &gt;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -626,21 +750,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a8cfc16de2cad3deb87e0340e5fab92f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cfc16de2cad3deb87e0340e5fab92f6">&#9670;&nbsp;</a></span>operator==()</h2>
+<a id="a2c1cb178aa62a403ea5e4eecd419c065"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c1cb178aa62a403ea5e4eecd419c065">&#9670;&nbsp;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator== </td>
+          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator== </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; T &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; Tbase_iterator &gt;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -656,21 +780,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a91c706eaba0d946848cc71dab8510b08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91c706eaba0d946848cc71dab8510b08">&#9670;&nbsp;</a></span>operator!=()</h2>
+<a id="a0e3e7ad9dbdbd3a22fbee173bc5c6c81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e3e7ad9dbdbd3a22fbee173bc5c6c81">&#9670;&nbsp;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::<a class="el" href="group__multi.html#ga53f17c1dbb0a4d9179119eb0739bd0db">operator!</a>= </td>
+          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::<a class="el" href="group__multi.html#ga53f17c1dbb0a4d9179119eb0739bd0db">operator!</a>= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; T &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; Tbase_iterator &gt;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -686,21 +810,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="aeb89f0c95be9bc9784542f87270ee8c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb89f0c95be9bc9784542f87270ee8c2">&#9670;&nbsp;</a></span>operator<()</h2>
+<a id="af76525100f1cb768179919c3b20378b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af76525100f1cb768179919c3b20378b9">&#9670;&nbsp;</a></span>operator<()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator&lt; </td>
+          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator&lt; </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; T &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; Tbase_iterator &gt;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -716,21 +840,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a60a502cfe2d919ef7c1e00fd9de2c4a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60a502cfe2d919ef7c1e00fd9de2c4a8">&#9670;&nbsp;</a></span>operator>()</h2>
+<a id="a85ebd558d1459cb661073772b426ad0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85ebd558d1459cb661073772b426ad0b">&#9670;&nbsp;</a></span>operator>()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator&gt; </td>
+          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator&gt; </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; T &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; Tbase_iterator &gt;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -746,21 +870,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a91a7abb0aee4d5a69485501a34e14075"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91a7abb0aee4d5a69485501a34e14075">&#9670;&nbsp;</a></span>operator<=()</h2>
+<a id="ab76eba023e14f3a9a90a558855166e80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab76eba023e14f3a9a90a558855166e80">&#9670;&nbsp;</a></span>operator<=()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator&lt;= </td>
+          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator&lt;= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; T &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; Tbase_iterator &gt;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -776,21 +900,21 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ae201abb1b5827e09b949109ff7502d1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae201abb1b5827e09b949109ff7502d1d">&#9670;&nbsp;</a></span>operator>=()</h2>
+<a id="a541c83fa8b08bf7db52ea420701b54ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a541c83fa8b08bf7db52ea420701b54ff">&#9670;&nbsp;</a></span>operator>=()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::operator&gt;= </td>
+          <td class="memname">constexpr bool <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::operator&gt;= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; T &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; Tbase_iterator &gt;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -813,7 +937,7 @@ template&lt;typename T &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -821,13 +945,13 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">constexpr <a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a> operator+ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a>&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; T &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classpr_1_1dense__iterator.html">dense_iterator</a>&lt; Tbase_iterator &gt;&#160;</td>
           <td class="paramname"><em>itr</em>&#160;</td>
         </tr>
         <tr>
@@ -848,39 +972,39 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="addbaa067a8fd4aaecdc9a85c5c7b3c46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addbaa067a8fd4aaecdc9a85c5c7b3c46">&#9670;&nbsp;</a></span>pos_</h2>
+<a id="a4163d0d7a111dd65f6edd28fb4c5d547"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4163d0d7a111dd65f6edd28fb4c5d547">&#9670;&nbsp;</a></span>itr_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">T <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::pos_</td>
+          <td class="memname"><a class="el" href="classpr_1_1dense__iterator.html#a1948b0e898706718f3fbb86ccaefc6d4">base_iterator</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::itr_ = <a class="el" href="classpr_1_1dense__iterator.html#a1948b0e898706718f3fbb86ccaefc6d4">base_iterator</a>()</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Position. </p>
+<p>Iterator. </p>
 
 </div>
 </div>
-<a id="a42746bd04ab8c6de838a5fd8f6a098ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42746bd04ab8c6de838a5fd8f6a098ce">&#9670;&nbsp;</a></span>stride_</h2>
+<a id="a476c407acbdd747aaf294e5c3e4ba8e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a476c407acbdd747aaf294e5c3e4ba8e8">&#9670;&nbsp;</a></span>inc_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Tbase_iterator &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1dense__iterator.html#a259d5dc746ace2da5825c95e1e00a536">difference_type</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; T &gt;::stride_</td>
+          <td class="memname"><a class="el" href="classpr_1_1dense__iterator.html#a4971386ad4e7edc6ab897f3331062ef2">difference_type</a> <a class="el" href="classpr_1_1dense__iterator.html">pr::dense_iterator</a>&lt; Tbase_iterator &gt;::inc_ = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Increment stride. </p>
+<p>Iterator increment. </p>
 
 </div>
 </div>
