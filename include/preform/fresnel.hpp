@@ -57,16 +57,6 @@ namespace pr {
 /**
  * @brief Fresnel equations for dielectric interface.
  *
- * - @f$ \cos^2{\theta_t} = 1 - \eta^2 (1 - \cos^2{\theta_i}) @f$
- * - @f$ r_s =
- *      (\eta \cos{\theta_i} - \cos{\theta_t}) /
- *      (\eta \cos{\theta_i} + \cos{\theta_t}) @f$
- * - @f$ r_p =
- *      (\cos{\theta_i} - \eta \cos{\theta_t}) /
- *      (\cos{\theta_i} + \eta \cos{\theta_t}) @f$
- * - @f$ t_s = 1 + r_s @f$
- * - @f$ t_p = \eta (1 + r_p) @f$
- *
  * @param[in] eta
  * Refractive index @f$ \eta = \eta_i / \eta_t @f$.
  *
@@ -87,6 +77,19 @@ namespace pr {
  *
  * @param[out] tp
  * Transmission p-polarization.
+ *
+ * @par Expression
+ * @parblock
+ * - @f$ \cos^2{\theta_t} = 1 - \eta^2 (1 - \cos^2{\theta_i}) @f$
+ * - @f$ r_s =
+ *      (\eta \cos{\theta_i} - \cos{\theta_t}) /
+ *      (\eta \cos{\theta_i} + \cos{\theta_t}) @f$
+ * - @f$ r_p =
+ *      (\cos{\theta_i} - \eta \cos{\theta_t}) /
+ *      (\cos{\theta_i} + \eta \cos{\theta_t}) @f$
+ * - @f$ t_s = 1 + r_s @f$
+ * - @f$ t_p = \eta (1 + r_p) @f$
+ * @endparblock
  *
  * @note
  * In the case of total internal reflection,
@@ -129,9 +132,6 @@ inline std::enable_if_t<
 /**
  * @brief Fresnel equations for dielectric interface, unpolarized form.
  *
- * - @f$ F_r = (r_s^2 + r_p^2)/2 @f$
- * - @f$ F_t = 1 - F_r @f$
- *
  * @param[in] eta
  * Refractive index @f$ \eta = \eta_i / \eta_t @f$.
  *
@@ -146,6 +146,12 @@ inline std::enable_if_t<
  *
  * @param[out] ft
  * Transmission.
+ *
+ * @par Expression
+ * @parblock
+ * - @f$ F_r = (r_s^2 + r_p^2)/2 @f$
+ * - @f$ F_t = 1 - F_r @f$
+ * @endparblock
  *
  * @returns
  * If total internal reflection (TIR), returns `false`
@@ -177,10 +183,6 @@ inline std::enable_if_t<
  * @brief Fresnel equations for dielectric interface, Schlick's approximation
  * of unpolarized form.
  *
- * - @f$ R_0 = (\eta - 1)^2 / (\eta + 1)^2 @f$
- * - @f$ F_r = R_0 + (1 - R_0) (1 - \cos{\theta_i})^5 @f$
- * - @f$ F_t = 1 - F_r @f$
- *
  * @param[in] eta
  * Refractive index @f$ \eta = \eta_i / \eta_t @f$.
  *
@@ -195,6 +197,13 @@ inline std::enable_if_t<
  *
  * @param[out] ft
  * Transmission.
+ *
+ * @par Expression
+ * @parblock
+ * - @f$ R_0 = (\eta - 1)^2 / (\eta + 1)^2 @f$
+ * - @f$ F_r = R_0 + (1 - R_0) (1 - \cos{\theta_i})^5 @f$
+ * - @f$ F_t = 1 - F_r @f$
+ * @endparblock
  *
  * @returns
  * If total internal reflection (TIR), returns `false`
@@ -343,16 +352,6 @@ inline std::enable_if_t<
 /**
  * @brief Fresnel equations for dielectric-to-conducting interface.
  *
- * - @f$ \cos^2{\theta_t} = 1 - \eta^2 (1 - \cos^2{\theta_i}) @f$
- * - @f$ r_s =
- *      (\eta \cos{\theta_i} - \cos{\theta_t}) /
- *      (\eta \cos{\theta_i} + \cos{\theta_t}) @f$
- * - @f$ r_p =
- *      (\cos{\theta_i} - \eta \cos{\theta_t}) /
- *      (\cos{\theta_i} + \eta \cos{\theta_t}) @f$
- * - @f$ t_s = 1 + r_s @f$
- * - @f$ t_p = \eta (1 + r_p) @f$
- *
  * @param[in] eta
  * Refractive index @f$ \eta = \eta_i / \eta_t @f$.
  *
@@ -373,6 +372,19 @@ inline std::enable_if_t<
  *
  * @param[out] tp
  * Transmission p-polarization.
+ *
+ * @par Expression
+ * @parblock
+ * - @f$ \cos^2{\theta_t} = 1 - \eta^2 (1 - \cos^2{\theta_i}) @f$
+ * - @f$ r_s =
+ *      (\eta \cos{\theta_i} - \cos{\theta_t}) /
+ *      (\eta \cos{\theta_i} + \cos{\theta_t}) @f$
+ * - @f$ r_p =
+ *      (\cos{\theta_i} - \eta \cos{\theta_t}) /
+ *      (\cos{\theta_i} + \eta \cos{\theta_t}) @f$
+ * - @f$ t_s = 1 + r_s @f$
+ * - @f$ t_p = \eta (1 + r_p) @f$
+ * @endparblock
  *
  * @note
  * In practice,
