@@ -740,7 +740,7 @@ public:
 
         // Delegate.
         float_type p11 = Tslope<Tfloat>::p11(m);
-        return pr::isfinite(p11 / alpha_.prod())  ?
+        return pr::isfinite(p11 / alpha_.prod()) ?
                             p11 / alpha_.prod() : 0;
     }
 
@@ -1490,13 +1490,12 @@ public:
             float_type* ek = nullptr, 
                    bool is_importance = false) const
     {
-
         // Sample visible microsurface normal.
         multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
-            wo_outside ?
-            +this->dwo_sample(u0, +wo) :
-            -this->dwo_sample(u0, -wo);
+            wo_outside 
+            ? +this->dwo_sample(u0, +wo) 
+            : -this->dwo_sample(u0, -wo);
 
         // Energy.
         if (ek) {
@@ -1548,9 +1547,9 @@ public:
         // Sample visible microsurface normal.
         multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
-            wo_outside ?
-            +this->dwo_sample(u0, +wo) :
-            -this->dwo_sample(u0, -wo);
+            wo_outside 
+            ? +this->dwo_sample(u0, +wo) 
+            : -this->dwo_sample(u0, -wo);
 
         // Sample direction.
         multi<float_type, 2> u1 = pr::generate_canonical<float_type, 2>(gen);
@@ -2180,9 +2179,9 @@ public:
         // Sample visible microsurface normal.
         multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
-            wo_outside ?
-            +this->dwo_sample(u0, +wo) :
-            -this->dwo_sample(u0, -wo);
+            wo_outside 
+            ? +this->dwo_sample(u0, +wo) 
+            : -this->dwo_sample(u0, -wo);
 
         // Fresnel coefficients.
         float_type cos_thetao = dot(wo, wm);
