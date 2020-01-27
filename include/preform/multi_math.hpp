@@ -74,6 +74,7 @@ namespace pr {
 /**
  * @brief Dot product.
  *
+ * @par Expression
  * @f[
  *      \sum_k x_{0[k]} x_{1[k]}
  * @f]
@@ -88,6 +89,7 @@ constexpr decltype(T() * U()) dot(
 /**
  * @brief Dot product.
  *
+ * @par Expression
  * @f[
  *      \sum_k x_{0[i,k]} x_{1[k]}
  * @f]
@@ -112,6 +114,7 @@ constexpr multi<decltype(T() * U()), M> dot(
 /**
  * @brief Dot product.
  *
+ * @par Expression
  * @f[
  *      \sum_k x_{0[k]} x_{1[k,j]}
  * @f]
@@ -136,6 +139,7 @@ constexpr multi<decltype(T() * U()), P> dot(
 /**
  * @brief Dot product.
  *
+ * @par Expression
  * @f[
  *      \sum_k x_{0[i,k]} x_{1[k,j]}
  * @f]
@@ -162,6 +166,7 @@ constexpr multi<decltype(T() * U()), M, P> dot(
 /**
  * @brief Outer product.
  *
+ * @par Expression
  * @f[
  *      x_{0[i]} x_{1[j]}
  * @f]
@@ -186,6 +191,7 @@ constexpr multi<decltype(T() * U()), M, P> outer(
 /**
  * @brief 2-dimensional cross product.
  *
+ * @par Expression
  * @f[
  *      \sum_j \varepsilon_{[i,j]} x_{[j]}
  * @f]
@@ -199,6 +205,7 @@ constexpr multi<T, 2> cross(const multi<T, 2>& arr)
 /**
  * @brief 2-dimensional cross product.
  *
+ * @par Expression
  * @f[
  *      \sum_{i,j} \varepsilon_{[i,j]} x_{0[i]} x_{1[j]}
  * @f]
@@ -213,6 +220,7 @@ constexpr decltype(T() * U()) cross(
 /**
  * @brief 3-dimensional cross product.
  *
+ * @par Expression
  * @f[
  *      \sum_k \varepsilon_{[i,j,k]} x_{[k]}
  * @f]
@@ -230,6 +238,7 @@ constexpr multi<T, 3, 3> cross(const multi<T, 3>& arr)
 /**
  * @brief 3-dimensional cross product.
  *
+ * @par Expression
  * @f[
  *      \sum_{j,k} \varepsilon_{[i,j,k]} x_{0[j]} x_{1[k]}
  * @f]
@@ -249,6 +258,7 @@ constexpr multi<decltype(T() * U()), 3> cross(
 /**
  * @brief 3-dimensional cross product.
  *
+ * @par Expression
  * @f[
  *      \sum_{i,j,k} \varepsilon_{[i,j,k]} x_{0[i]} x_{1[j]} x_{2[k]}
  * @f]
@@ -264,6 +274,7 @@ constexpr decltype(T() * U() * V()) cross(
 /**
  * @brief Kronecker product.
  *
+ * @par Expression
  * @f[
  *      x_{0[i/P,j/Q]} x_{1[i\%P,j\%Q]}
  * @f]
@@ -291,10 +302,12 @@ constexpr multi<decltype(T() * U()),
 /**
  * @brief @f$ L^2 @f$ length, fast variant.
  *
+ * @par Expression
  * @f[
  *      \lVert\mathbf{x}\rVert = \sqrt{\sum_k |x_{[k]}|^2}
  * @f]
  *
+ * @note
  * _Fast_ means the implementation
  * - calculates the sum of square moduli directly, implicitly assuming
  * the square terms neither overflow nor underflow, and the sum of square
@@ -318,10 +331,12 @@ inline decltype(pr::sqrt(pr::abs(T()))) length_fast(const multi<T, N>& arr)
 /**
  * @brief @f$ L^2 @f$ length, safe variant.
  *
+ * @par Expression
  * @f[
  *      \lVert\mathbf{x}\rVert = \sqrt{\sum_k |x_{[k]}|^2}
  * @f]
  *
+ * @note
  * _Safe_ means the implementation
  * - calculates the moduli as a preprocessing step,
  * - if impending overflow or underflow, factors the maximum modulus out
@@ -383,6 +398,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length_safe(const multi<T, N>& arr)
 /**
  * @brief @f$ L^2 @f$ length.
  *
+ * @par Expression
  * @f[
  *      \lVert\mathbf{x}\rVert = \sqrt{\sum_k |x_{[k]}|^2}
  * @f]
@@ -405,10 +421,12 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
 /**
  * @brief @f$ L^2 @f$ normalize, fast variant.
  *
+ * @par Expression
  * @f[
  *      \hat{\mathbf{x}} = \frac{\mathbf{x}}{\lVert\mathbf{x}\rVert}
  * @f]
  *
+ * @note
  * _Fast_ means the implementation
  * - calls `length_fast()` to calculate length,
  * - multiplies by reciprocal of length, implicitly assuming
@@ -426,10 +444,12 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
 /**
  * @brief @f$ L^2 @f$ normalize, safe variant.
  *
+ * @par Expression
  * @f[
  *      \hat{\mathbf{x}} = \frac{\mathbf{x}}{\lVert\mathbf{x}\rVert}
  * @f]
  *
+ * @note
  * _Safe_ means the implementation
  * - calls `length_safe()` to calculate length,
  * - if length is zero, returns all zeros,
@@ -465,6 +485,7 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
 /**
  * @brief @f$ L^2 @f$ normalize.
  *
+ * @par Expression
  * @f[
  *      \hat{\mathbf{x}} = \frac{\mathbf{x}}{\lVert\mathbf{x}\rVert}
  * @f]
@@ -488,6 +509,7 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
 /**
  * @brief Trace.
  *
+ * @par Expression
  * @f[
  *      \operatorname{Tr}(\mathbf{x}) = \sum_k x_{[k, k]}
  * @f]
@@ -509,6 +531,7 @@ constexpr T trace(const multi<T, M, N>& arr)
 /**
  * @brief Transpose.
  *
+ * @par Expression
  * @f[
  *      x_{[i,j]} \to x_{[j,i]}
  * @f]
@@ -531,6 +554,7 @@ constexpr multi<T, N, M> transpose(const multi<T, M, N>& arr)
 /**
  * @brief Adjoint.
  *
+ * @par Expression
  * @f[
  *      x_{[i,j]} \to x_{[j,i]}^*
  * @f]
@@ -553,6 +577,7 @@ constexpr multi<T, N, M> adjoint(const multi<T, M, N>& arr)
 /**
  * @brief Inverse by Cramer's rule.
  *
+ * @par Expression
  * @f[
  *      \mathbf{x}^{-1} =
  *      \frac{\operatorname{cof}^\top(\mathbf{x})}
@@ -582,6 +607,7 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), 2, 2>
 /**
  * @brief Inverse by Cramer's rule.
  *
+ * @par Expression
  * @f[
  *      \mathbf{x}^{-1} =
  *      \frac{\operatorname{cof}^\top(\mathbf{x})}
@@ -608,76 +634,6 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), 3, 3>
     return transpose(cof) * (float_type(1) / dot(cof[0], arr[0]));
 }
 
-#if 0
-/**
- * @brief Build real 3-dimensional orthonormal basis.
- *
- * - @f$ \alpha_0 \gets -1 / (\hat{z}_{[2]} + 1) @f$
- * - @f$ \alpha_1 \gets \alpha_0 \hat{z}_{[0]} \hat{z}_{[1]} @f$
- * - @f$ \alpha_2 \gets \alpha_0 \hat{z}_{[0]}^2 + 1 @f$
- * - @f$ \alpha_3 \gets \alpha_0 \hat{z}_{[1]}^2 + 1 @f$
- * - @f$ \hat{\mathbf{x}} \gets [\alpha_2\; \alpha_1\; -\hat{z}_{[0]}]^\top @f$
- * - @f$ \hat{\mathbf{y}} \gets [\alpha_1\; \alpha_3\; -\hat{z}_{[1]}]^\top @f$
- *
- * @note
- * As the notation suggests, the implementation assumes the input
- * vector `hatz` is unit-length.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value, void> build_onb(
-                    const multi<T, 3>& hatz,
-                    multi<T, 3>& hatx,
-                    multi<T, 3>& haty)
-{
-    hatx = {};
-    haty = {};
-    if (hatz[2] < T(-0.9999999)) {
-        hatx[1] = -1;
-        haty[0] = -1;
-    }
-    else {
-        T alpha0 = -1 / (hatz[2] + 1);
-        T alpha1 = alpha0 * hatz[0] * hatz[1];
-        T alpha2 = alpha0 * hatz[0] * hatz[0] + 1;
-        T alpha3 = alpha0 * hatz[1] * hatz[1] + 1;
-        hatx = {alpha2, alpha1, -hatz[0]};
-        haty = {alpha1, alpha3, -hatz[1]};
-    }
-}
-
-/**
- * @brief Build real 3-dimensional orthonormal basis.
- *
- * @f[
- *      \mathbf{B} \gets
- *      \begin{bmatrix}
- *          \hat{\mathbf{x}} &
- *          \hat{\mathbf{y}} &
- *          \hat{\mathbf{z}}
- *      \end{bmatrix}
- * @f]
- *
- * @note
- * As the notation suggests, the implementation assumes the input
- * vector `hatz` is unit-length.
- */
-template <typename T>
-inline std::enable_if_t<
-       std::is_floating_point<T>::value,
-                multi<T, 3, 3>> build_onb(const multi<T, 3>& hatz)
-{
-    multi<T, 3> hatx;
-    multi<T, 3> haty;
-    build_onb(hatz, hatx, haty);
-    return {
-        {hatx[0], haty[0], hatz[0]},
-        {hatx[1], haty[1], hatz[1]},
-        {hatx[2], haty[2], hatz[2]}
-    };
-}
-#endif
-
 /**@}*/
 
 } // namespace pr
@@ -702,6 +658,7 @@ struct multi_initializers<
     /**
      * @brief Uniform disk probability density function.
      *
+     * @par Expression
      * @f[
      *      f_{\text{disk}} = \frac{1}{\pi}
      * @f]
@@ -714,6 +671,10 @@ struct multi_initializers<
     /**
      * @brief Uniform disk probability density function sampling routine.
      *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @par Expression
      * @f[
      *      \mathbf{P}_{\text{disk}}(\mathbf{u}) =
      *      \begin{bmatrix}
@@ -736,9 +697,6 @@ struct multi_initializers<
      *          \frac{\pi}{2} -
      *          \frac{\pi}{4}\frac{u_{[0]}'}{u_{[1]}}\right)
      * @f]
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
      */
     static multi<T, 2> uniform_disk_pdf_sample(multi<T, 2> u)
     {
@@ -779,6 +737,7 @@ struct multi_initializers<
     /**
      * @brief Uniform hemisphere probability density function.
      *
+     * @par Expression
      * @f[
      *      f_{\text{hemisphere}} = \frac{1}{2\pi}
      * @f]
@@ -791,6 +750,10 @@ struct multi_initializers<
     /**
      * @brief Uniform hemisphere probability density function sampling routine.
      *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @par Expression
      * @f[
      *      \omega_{\text{hemisphere}}(\mathbf{u}) =
      *      \begin{bmatrix}
@@ -803,10 +766,6 @@ struct multi_initializers<
      * - @f$ \cos(\theta) \gets u_{[0]} @f$
      * - @f$ \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} @f$
      * - @f$ \phi \gets 2 \pi u_{[1]} @f$
-     *
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
      */
     static multi<T, 3> uniform_hemisphere_pdf_sample(multi<T, 2> u)
     {
@@ -825,6 +784,7 @@ struct multi_initializers<
     /**
      * @brief Uniform sphere probability density function.
      *
+     * @par Expression
      * @f[
      *      f_{\text{sphere}} = \frac{1}{4\pi}
      * @f]
@@ -837,6 +797,10 @@ struct multi_initializers<
     /**
      * @brief Uniform sphere probability density function sampling routine.
      *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @par Expression
      * @f[
      *      \omega_{\text{sphere}}(\mathbf{u}) =
      *      \begin{bmatrix}
@@ -849,9 +813,6 @@ struct multi_initializers<
      * - @f$ \cos(\theta) \gets 2 u_{[0]} - 1 @f$
      * - @f$ \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} @f$
      * - @f$ \phi \gets 2 \pi u_{[1]} @f$
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
      */
     static multi<T, 3> uniform_sphere_pdf_sample(multi<T, 2> u)
     {
@@ -870,12 +831,13 @@ struct multi_initializers<
     /**
      * @brief Cosine hemisphere probability density function.
      *
+     * @param[in] w2
+     * Direction component.
+     *
+     * @par Expression
      * @f[
      *      f_{\text{cos}}(\omega_{[2]}) = \frac{\omega_{[2]}}{\pi}
      * @f]
-     *
-     * @param[in] w2
-     * Direction component.
      */
     static T cosine_hemisphere_pdf(T w2)
     {
@@ -885,6 +847,10 @@ struct multi_initializers<
     /**
      * @brief Cosine hemisphere probability density function sampling routine.
      *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @par Expression
      * @f[
      *      \omega_{\text{cos}}(\mathbf{u}) =
      *      \begin{bmatrix}
@@ -895,9 +861,6 @@ struct multi_initializers<
      * @f]
      * where
      * - @f$ \mathbf{P} = \mathbf{P}_{\text{disk}}(\mathbf{u}) @f$
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
      */
     static multi<T, 3> cosine_hemisphere_pdf_sample(multi<T, 2> u)
     {
@@ -912,14 +875,15 @@ struct multi_initializers<
     /**
      * @brief Uniform cone probability density function.
      *
+     * @param[in] cos_thetamax
+     * Cosine of maximum cone angle.
+     *
+     * @par Expression
      * @f[
      *      f_{\text{cone}} =
      *      \frac{1}{2\pi}
      *      \frac{1}{1 - \cos(\theta_{\text{max}})}
      * @f]
-     *
-     * @param[in] cos_thetamax
-     * Cosine of maximum cone angle.
      */
     static T uniform_cone_pdf(T cos_thetamax)
     {
@@ -929,6 +893,13 @@ struct multi_initializers<
     /**
      * @brief Uniform cone probability density function sampling routine.
      *
+     * @param[in] cos_thetamax
+     * Cosine of maximum cone angle.
+     *
+     * @param[in] u
+     * Sample in @f$ [0, 1)^2 @f$.
+     *
+     * @par Expression
      * @f[
      *      \omega_{\text{cone}}(\mathbf{u}) =
      *      \begin{bmatrix}
@@ -941,12 +912,6 @@ struct multi_initializers<
      * - @f$ \cos(\theta) \gets 1 - u_{[0]} + u_{[0]} \cos(\theta_{\max}) @f$
      * - @f$ \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} @f$
      * - @f$ \phi \gets 2 \pi u_{[1]} @f$
-     *
-     * @param[in] cos_thetamax
-     * Cosine of maximum cone angle.
-     *
-     * @param[in] u
-     * Sample in @f$ [0, 1)^2 @f$.
      */
     static multi<T, 3> uniform_cone_pdf_sample(T cos_thetamax, multi<T, 2> u)
     {
@@ -965,17 +930,18 @@ struct multi_initializers<
     /**
      * @brief Henyey-Greenstein phase probability density function.
      *
-     * @f[
-     *      f_{\text{HG}}(\omega_{[2]}) =
-     *      \frac{1}{4\pi}
-     *      \frac{1 - g^2}{(1 + g^2 - 2g\omega_{[2]})^{3/2}}
-     * @f]
-     *
      * @param[in] g
      * Parameter in @f$ (-1, 1) @f$.
      *
      * @param[in] w2
      * Direction component.
+     *
+     * @par Expression
+     * @f[
+     *      f_{\text{HG}}(\omega_{[2]}) =
+     *      \frac{1}{4\pi}
+     *      \frac{1 - g^2}{(1 + g^2 - 2g\omega_{[2]})^{3/2}}
+     * @f]
      */
     static T hg_phase_pdf(T g, T w2)
     {
@@ -1037,6 +1003,7 @@ struct multi_initializers<
     /**
      * @brief Build real 3-dimensional orthonormal basis.
      *
+     * @par Expression
      * - @f$ \alpha_0 \gets -1 / (\hat{z}_{[2]} + 1) @f$
      * - @f$ \alpha_1 \gets \alpha_0 \hat{z}_{[0]} \hat{z}_{[1]} @f$
      * - @f$ \alpha_2 \gets \alpha_0 \hat{z}_{[0]}^2 + 1 @f$
@@ -1076,6 +1043,13 @@ struct multi_initializers<
     /**
      * @brief Rotate counter-clockwise around arbitrary axis.
      *
+     * @param[in] theta
+     * Angle in radians.
+     *
+     * @param[in] hatv
+     * Normalized rotation axis.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          v_x^2   (1 - \cos{\theta}) + \cos{\theta}
@@ -1089,12 +1063,6 @@ struct multi_initializers<
      *      &   v_z^2   (1 - \cos{\theta}) + \cos{\theta}
      *      \end{bmatrix}
      * @f]
-     *
-     * @param[in] theta
-     * Angle in radians.
-     *
-     * @param[in] hatv
-     * Normalized rotation axis.
      */
     static multi<T, 3, 3> rotate(T theta, multi<T, 3> hatv)
     {
@@ -1122,6 +1090,10 @@ struct multi_initializers<
     /**
      * @brief Rotate counter-clockwise around X-axis.
      *
+     * @param[in] theta
+     * Angle in radians.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          1 & 0 & 0
@@ -1129,9 +1101,6 @@ struct multi_initializers<
      *      \\  0 & +\sin{\theta} & +\cos{\theta}
      *      \end{bmatrix}
      * @f]
-     *
-     * @param[in] theta
-     * Angle in radians.
      */
     __attribute__((always_inline))
     static multi<T, 3, 3> rotatex(T theta)
@@ -1148,6 +1117,10 @@ struct multi_initializers<
     /**
      * @brief Rotate counter-clockwise around Y-axis.
      *
+     * @param[in] theta
+     * Angle in radians.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          +\cos{\theta} & 0 & +\sin{\theta}
@@ -1155,9 +1128,6 @@ struct multi_initializers<
      *      \\  -\sin{\theta} & 0 & +\cos{\theta}
      *      \end{bmatrix}
      * @f]
-     *
-     * @param[in] theta
-     * Angle in radians.
      */
     __attribute__((always_inline))
     static multi<T, 3, 3> rotatey(T theta)
@@ -1174,6 +1144,10 @@ struct multi_initializers<
     /**
      * @brief Rotate counter-clockwise around Z-axis.
      *
+     * @param[in] theta
+     * Angle in radians.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          +\cos{\theta} & -\sin{\theta} & 0
@@ -1181,9 +1155,6 @@ struct multi_initializers<
      *      \\  0 & 0 & 1
      *      \end{bmatrix}
      * @f]
-     *
-     * @param[in] theta
-     * Angle in radians.
      */
     __attribute__((always_inline))
     static multi<T, 3, 3> rotatez(T theta)
@@ -1200,12 +1171,13 @@ struct multi_initializers<
     /**
      * @brief Uniform scale.
      *
+     * @param[in] alpha
+     * Scale factor.
+     *
+     * @par Expression
      * @f[
      *      \alpha\mathbf{I}
      * @f]
-     *
-     * @param[in] alpha
-     * Scale factor.
      */
     __attribute__((always_inline))
     static multi<T, 3, 3> scale(T alpha)
@@ -1220,18 +1192,19 @@ struct multi_initializers<
     /**
      * @brief Non-uniform scale along arbitrary axis.
      *
+     * @param[in] alpha
+     * Scale factor.
+     *
+     * @param[in] hatv
+     * Normalized scaling axis.
+     *
+     * @par Expression
      * @f[
      *      (\alpha - 1)
      *      \hat{\mathbf{v}}
      *      \hat{\mathbf{v}}^\top
      *      + \mathbf{I}
      * @f]
-     *
-     * @param[in] alpha
-     * Scale factor.
-     *
-     * @param[in] hatv
-     * Normalized scaling axis.
      */
     __attribute__((always_inline))
     static multi<T, 3, 3> scale(T alpha, multi<T, 3> hatv)
@@ -1246,6 +1219,10 @@ struct multi_initializers<
     /**
      * @brief Non-uniform axis-aligned scale.
      *
+     * @param[in] alpha
+     * Scale factors.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          \alpha_x & 0 & 0
@@ -1253,9 +1230,6 @@ struct multi_initializers<
      *      \\  0 & 0 & \alpha_z
      *      \end{bmatrix}
      * @f]
-     *
-     * @param[in] alpha
-     * Scale factors.
      */
     __attribute__((always_inline))
     static multi<T, 3, 3> scale(multi<T, 3> alpha)
@@ -1280,6 +1254,10 @@ struct multi_initializers<
     /**
      * @brief Translate.
      *
+     * @param[in] v
+     * Displacement vector.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          1 & 0 & 0 & v_x
@@ -1288,9 +1266,6 @@ struct multi_initializers<
      *      \\  0 & 0 & 0 & 1
      *      \end{bmatrix}
      * @f]
-     *
-     * @param[in] v
-     * Displacement vector.
      */
     __attribute__((always_inline))
     static multi<T, 4, 4> translate(multi<T, 3> v)
@@ -1306,6 +1281,13 @@ struct multi_initializers<
     /**
      * @brief Rotate counter-clockwise around arbitrary axis.
      *
+     * @param[in] theta
+     * Angle in radians.
+     *
+     * @param[in] hatv
+     * Normalized rotation axis.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          v_x^2   (1 - \cos{\theta}) + \cos{\theta}
@@ -1323,12 +1305,6 @@ struct multi_initializers<
      *      \\  0 & 0 & 0 & 1
      *      \end{bmatrix}
      * @f]
-     *
-     * @param[in] theta
-     * Angle in radians.
-     *
-     * @param[in] hatv
-     * Normalized rotation axis.
      */
     __attribute__((always_inline))
     static multi<T, 4, 4> rotate(T theta, multi<T, 3> hatv)
@@ -1342,6 +1318,10 @@ struct multi_initializers<
     /**
      * @brief Rotate counter-clockwise around X-axis.
      *
+     * @param[in] theta
+     * Angle in radians.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          1 & 0 & 0 & 0
@@ -1350,9 +1330,6 @@ struct multi_initializers<
      *      \\  0 & 0 & 0 & 1
      *      \end{bmatrix}
      * @f]
-     *
-     * @param[in] theta
-     * Angle in radians.
      */
     __attribute__((always_inline))
     static multi<T, 4, 4> rotatex(T theta)
@@ -1366,6 +1343,10 @@ struct multi_initializers<
     /**
      * @brief Rotate counter-clockwise around Y-axis.
      *
+     * @param[in] theta
+     * Angle in radians.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          +\cos{\theta} & 0 & +\sin{\theta} & 0
@@ -1374,9 +1355,6 @@ struct multi_initializers<
      *      \\  0 & 0 & 0 & 1
      *      \end{bmatrix}
      * @f]
-     *
-     * @param[in] theta
-     * Angle in radians.
      */
     __attribute__((always_inline))
     static multi<T, 4, 4> rotatey(T theta)
@@ -1390,6 +1368,10 @@ struct multi_initializers<
     /**
      * @brief Rotate counter-clockwise around Z-axis.
      *
+     * @param[in] theta
+     * Angle in radians.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          +\cos{\theta} & -\sin{\theta} & 0 & 0
@@ -1398,9 +1380,6 @@ struct multi_initializers<
      *      \\  0 & 0 & 0 & 1
      *      \end{bmatrix}
      * @f]
-     *
-     * @param[in] theta
-     * Angle in radians.
      */
     __attribute__((always_inline))
     static multi<T, 4, 4> rotatez(T theta)
@@ -1414,6 +1393,16 @@ struct multi_initializers<
     /**
      * @brief Look-at transform.
      *
+     * @param[in] pfrom
+     * Look-from point.
+     *
+     * @param[in] pto
+     * Look-to point.
+     *
+     * @param[in] vup
+     * Up vector.
+     *
+     * @par Expression
      * @f[
      *      \begin{bmatrix}
      *          \hat{\mathbf{x}}^\top
@@ -1431,15 +1420,6 @@ struct multi_initializers<
      * - @f$ \hat{\mathbf{z}}\gets\operatorname{normalize}(\mathbf{z}) @f$
      * - @f$ \hat{\mathbf{x}}\gets\operatorname{normalize}(\mathbf{x}) @f$
      * - @f$ \hat{\mathbf{y}}\gets\hat{\mathbf{z}}\times\hat{\mathbf{x}} @f$
-     *
-     * @param[in] pfrom
-     * Look-from point.
-     *
-     * @param[in] pto
-     * Look-to point.
-     *
-     * @param[in] vup
-     * Up vector.
      *
      * @note
      * This implementation is consistent with OpenGL conventions.
@@ -1465,15 +1445,6 @@ struct multi_initializers<
     /**
      * @brief Orthographic projection.
      *
-     * @f[
-     *      \begin{bmatrix}
-     *          2 / (x1 - x0) & 0 & 0 & -(x1 + x0) / (x1 - x0)
-     *      \\  0 & 2 / (y1 - y0) & 0 & -(y1 + y0) / (y1 - y0)
-     *      \\  0 & 0 &-2 / (z1 - z0) & -(z1 + z0) / (z1 - z0)
-     *      \\  0 & 0 & 0 & 1
-     *      \end{bmatrix}
-     * @f]
-     *
      * @param[in] x0
      * Frustum X-coordinate 0.
      *
@@ -1492,6 +1463,16 @@ struct multi_initializers<
      * @param[in] z1
      * Frustum Z-coordinate 1.
      *
+     * @par Expression
+     * @f[
+     *      \begin{bmatrix}
+     *          2 / (x1 - x0) & 0 & 0 & -(x1 + x0) / (x1 - x0)
+     *      \\  0 & 2 / (y1 - y0) & 0 & -(y1 + y0) / (y1 - y0)
+     *      \\  0 & 0 &-2 / (z1 - z0) & -(z1 + z0) / (z1 - z0)
+     *      \\  0 & 0 & 0 & 1
+     *      \end{bmatrix}
+     * @f]
+     *
      * @note
      * This implementation is consistent with OpenGL conventions.
      */
@@ -1507,15 +1488,6 @@ struct multi_initializers<
 
     /**
      * @brief Perspective projection.
-     *
-     * @f[
-     *      \begin{bmatrix}
-     *          2 z_0 / (x_1 - x_0) & 0 & (x_1 + x_0) / (x_1 - x_0) & 0
-     *      \\  0 & 2 z_0 / (y_1 - y_0) & (y_1 + y_0) / (y_1 - y_0) & 0
-     *      \\  0 & 0 & -(z_1 + z_0) / (z_1 - z_0) & -2 z_1 z_0 / (z_1 - z_0)
-     *      \\  0 & 0 & -1 & 0
-     *      \end{bmatrix}
-     * @f]
      *
      * @param[in] x0
      * Frustum X-coordinate 0 at Z-coordinate 0.
@@ -1535,6 +1507,16 @@ struct multi_initializers<
      * @param[in] z1
      * Frustum Z-coordinate 1.
      *
+     * @par Expression
+     * @f[
+     *      \begin{bmatrix}
+     *          2 z_0 / (x_1 - x_0) & 0 & (x_1 + x_0) / (x_1 - x_0) & 0
+     *      \\  0 & 2 z_0 / (y_1 - y_0) & (y_1 + y_0) / (y_1 - y_0) & 0
+     *      \\  0 & 0 & -(z_1 + z_0) / (z_1 - z_0) & -2 z_1 z_0 / (z_1 - z_0)
+     *      \\  0 & 0 & -1 & 0
+     *      \end{bmatrix}
+     * @f]
+     *
      * @note
      * This implementation is consistent with OpenGL conventions.
      */
@@ -1552,15 +1534,6 @@ struct multi_initializers<
     /**
      * @brief Perspective projection.
      *
-     * @f[
-     *      \begin{bmatrix}
-     *          \cot(f / 2) / r & 0 & 0 & 0
-     *      \\  0 & \cot(f / 2) & 0 & 0
-     *      \\  0 & 0 & -(z_1 + z_0) / (z_1 - z_0) & -2 z_1 z_0 / (z_1 - z_0)
-     *      \\  0 & 0 & -1 & 0
-     *      \end{bmatrix}
-     * @f]
-     *
      * @param[in] f
      * Frustum Y-FOV in radians.
      *
@@ -1572,6 +1545,16 @@ struct multi_initializers<
      *
      * @param[in] z1
      * Frustum Z-coordinate 1.
+     *
+     * @par Expression
+     * @f[
+     *      \begin{bmatrix}
+     *          \cot(f / 2) / r & 0 & 0 & 0
+     *      \\  0 & \cot(f / 2) & 0 & 0
+     *      \\  0 & 0 & -(z_1 + z_0) / (z_1 - z_0) & -2 z_1 z_0 / (z_1 - z_0)
+     *      \\  0 & 0 & -1 & 0
+     *      \end{bmatrix}
+     * @f]
      */
     static multi<T, 4, 4> persp(T f, T r, T z0, T z1)
     {
