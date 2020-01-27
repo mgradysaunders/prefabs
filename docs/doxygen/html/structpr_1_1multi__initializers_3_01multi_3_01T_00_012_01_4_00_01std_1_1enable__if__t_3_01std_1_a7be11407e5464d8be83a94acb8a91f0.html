@@ -121,10 +121,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Uniform disk probability density function. </p>
-<p class="formulaDsp">
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
 \[ f_{\text{disk}} = \frac{1}{\pi} \]
 </p>
- 
+ </dd></dl>
+
 </div>
 </div>
 <a id="a633954df73294815702c07454dac848f"></a>
@@ -154,10 +155,16 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Uniform disk probability density function sampling routine. </p>
-<p class="formulaDsp">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
 \[ \mathbf{P}_{\text{disk}}(\mathbf{u}) = \begin{bmatrix} r \cos{\theta} \\ r \sin{\theta} \end{bmatrix} \]
 </p>
-<p> where</p><ul>
+ where<ul>
 <li>\( u_{[0]}&#39; \gets 2 u_{[0]} - 1 \)</li>
 <li>If \( |u_{[0]}&#39;| &gt; |u_{[1]}| \): <p class="formulaDsp">
 \[ (r, \theta) = \left(u_{[0]}&#39;, \frac{\pi}{4}\frac{u_{[1]}}{u_{[0]}&#39;}\right) \]
@@ -166,14 +173,9 @@ template&lt;typename T &gt; </div>
 <li>If \( |u_{[0]}&#39;| \le |u_{[1]}| \): <p class="formulaDsp">
 \[ (r, \theta) = \left(u_{[1]}, \frac{\pi}{2} - \frac{\pi}{4}\frac{u_{[0]}&#39;}{u_{[1]}}\right) \]
 </p>
-</li>
+ </li>
 </ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \). </td></tr>
-  </table>
-  </dd>
-</dl>
+</dd></dl>
 
 </div>
 </div>

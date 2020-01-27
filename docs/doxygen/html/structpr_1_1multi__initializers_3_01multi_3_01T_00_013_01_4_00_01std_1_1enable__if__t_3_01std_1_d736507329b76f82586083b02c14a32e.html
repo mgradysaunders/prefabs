@@ -145,10 +145,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Uniform hemisphere probability density function. </p>
-<p class="formulaDsp">
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
 \[ f_{\text{hemisphere}} = \frac{1}{2\pi} \]
 </p>
- 
+ </dd></dl>
+
 </div>
 </div>
 <a id="ad08e21b741c4515ccadef6d370569041"></a>
@@ -178,20 +179,21 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Uniform hemisphere probability density function sampling routine. </p>
-<p class="formulaDsp">
-\[ \omega_{\text{hemisphere}}(\mathbf{u}) = \begin{bmatrix} \sin(\theta) \cos(\phi) \\ \sin(\theta) \sin(\phi) \\ \cos(\theta) \end{bmatrix} \]
-</p>
-<p> where</p><ul>
-<li>\( \cos(\theta) \gets u_{[0]} \)</li>
-<li>\( \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} \)</li>
-<li>\( \phi \gets 2 \pi u_{[1]} \)</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ \omega_{\text{hemisphere}}(\mathbf{u}) = \begin{bmatrix} \sin(\theta) \cos(\phi) \\ \sin(\theta) \sin(\phi) \\ \cos(\theta) \end{bmatrix} \]
+</p>
+ where<ul>
+<li>\( \cos(\theta) \gets u_{[0]} \)</li>
+<li>\( \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} \)</li>
+<li>\( \phi \gets 2 \pi u_{[1]} \) </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -221,10 +223,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Uniform sphere probability density function. </p>
-<p class="formulaDsp">
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
 \[ f_{\text{sphere}} = \frac{1}{4\pi} \]
 </p>
- 
+ </dd></dl>
+
 </div>
 </div>
 <a id="a8a2ad7a99c23baef3958d2f781ed4848"></a>
@@ -254,20 +257,21 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Uniform sphere probability density function sampling routine. </p>
-<p class="formulaDsp">
-\[ \omega_{\text{sphere}}(\mathbf{u}) = \begin{bmatrix} \sin(\theta) \cos(\phi) \\ \sin(\theta) \sin(\phi) \\ \cos(\theta) \end{bmatrix} \]
-</p>
-<p> where</p><ul>
-<li>\( \cos(\theta) \gets 2 u_{[0]} - 1 \)</li>
-<li>\( \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} \)</li>
-<li>\( \phi \gets 2 \pi u_{[1]} \)</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ \omega_{\text{sphere}}(\mathbf{u}) = \begin{bmatrix} \sin(\theta) \cos(\phi) \\ \sin(\theta) \sin(\phi) \\ \cos(\theta) \end{bmatrix} \]
+</p>
+ where<ul>
+<li>\( \cos(\theta) \gets 2 u_{[0]} - 1 \)</li>
+<li>\( \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} \)</li>
+<li>\( \phi \gets 2 \pi u_{[1]} \) </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -298,15 +302,16 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Cosine hemisphere probability density function. </p>
-<p class="formulaDsp">
-\[ f_{\text{cos}}(\omega_{[2]}) = \frac{\omega_{[2]}}{\pi} \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">w2</td><td>Direction component. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">w2</td><td>Direction component.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ f_{\text{cos}}(\omega_{[2]}) = \frac{\omega_{[2]}}{\pi} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -337,18 +342,19 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Cosine hemisphere probability density function sampling routine. </p>
-<p class="formulaDsp">
-\[ \omega_{\text{cos}}(\mathbf{u}) = \begin{bmatrix} P_{[0]} \\ P_{[1]} \\ \sqrt{1 - P_{[0]}^2 - P_{[1]}^2} \end{bmatrix} \]
-</p>
-<p> where</p><ul>
-<li>\( \mathbf{P} = \mathbf{P}_{\text{disk}}(\mathbf{u}) \)</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ \omega_{\text{cos}}(\mathbf{u}) = \begin{bmatrix} P_{[0]} \\ P_{[1]} \\ \sqrt{1 - P_{[0]}^2 - P_{[1]}^2} \end{bmatrix} \]
+</p>
+ where<ul>
+<li>\( \mathbf{P} = \mathbf{P}_{\text{disk}}(\mathbf{u}) \) </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -379,15 +385,16 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Uniform cone probability density function. </p>
-<p class="formulaDsp">
-\[ f_{\text{cone}} = \frac{1}{2\pi} \frac{1}{1 - \cos(\theta_{\text{max}})} \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cos_thetamax</td><td>Cosine of maximum cone angle. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cos_thetamax</td><td>Cosine of maximum cone angle.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ f_{\text{cone}} = \frac{1}{2\pi} \frac{1}{1 - \cos(\theta_{\text{max}})} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
@@ -428,21 +435,22 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Uniform cone probability density function sampling routine. </p>
-<p class="formulaDsp">
-\[ \omega_{\text{cone}}(\mathbf{u}) = \begin{bmatrix} \sin(\theta) \cos(\phi) \\ \sin(\theta) \sin(\phi) \\ \cos(\theta) \end{bmatrix} \]
-</p>
-<p> where</p><ul>
-<li>\( \cos(\theta) \gets 1 - u_{[0]} + u_{[0]} \cos(\theta_{\max}) \)</li>
-<li>\( \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} \)</li>
-<li>\( \phi \gets 2 \pi u_{[1]} \)</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">cos_thetamax</td><td>Cosine of maximum cone angle.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>Sample in \( [0, 1)^2 \).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ \omega_{\text{cone}}(\mathbf{u}) = \begin{bmatrix} \sin(\theta) \cos(\phi) \\ \sin(\theta) \sin(\phi) \\ \cos(\theta) \end{bmatrix} \]
+</p>
+ where<ul>
+<li>\( \cos(\theta) \gets 1 - u_{[0]} + u_{[0]} \cos(\theta_{\max}) \)</li>
+<li>\( \sin(\theta) \gets \sqrt{1 - \cos^2(\theta)} \)</li>
+<li>\( \phi \gets 2 \pi u_{[1]} \) </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -483,16 +491,17 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Henyey-Greenstein phase probability density function. </p>
-<p class="formulaDsp">
-\[ f_{\text{HG}}(\omega_{[2]}) = \frac{1}{4\pi} \frac{1 - g^2}{(1 + g^2 - 2g\omega_{[2]})^{3/2}} \]
-</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">g</td><td>Parameter in \( (-1, 1) \).</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">w2</td><td>Direction component. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">w2</td><td>Direction component.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ f_{\text{HG}}(\omega_{[2]}) = \frac{1}{4\pi} \frac{1 - g^2}{(1 + g^2 - 2g\omega_{[2]})^{3/2}} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
