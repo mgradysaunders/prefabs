@@ -771,7 +771,7 @@ public:
      * @param[in] wo
      * Outgoing direction.
      *
-     * @param[out] p_pdf
+     * @param[out] pdf
      * _Optional_. Output PDF (associated with specific way the
      * incident direction is sampled).
      *
@@ -784,7 +784,7 @@ public:
             const multi<float_type, 2>& u0,
             const multi<float_type, 2>& u1,
             const multi<float_type, 3>& wo,
-            float_type* p_pdf = nullptr) const
+            float_type* pdf = nullptr) const
     {
         // Sample visible microvolume normal.
         multi<float_type, 3> wm = this->dwo_sample(u0, wo);
@@ -796,8 +796,8 @@ public:
         // TODO To calculate the correct result in the test program, the
         // additional factor of 1/2 below is necessary? Not sure why, or
         // if this calculation is otherwise flawed?
-        if (p_pdf) {
-            *p_pdf =
+        if (pdf) {
+            *pdf =
                 pr::numeric_constants<float_type>::M_1_pi() *
                 float_type(0.5) * wi[2];
         }
@@ -809,49 +809,6 @@ public:
 };
 
 #if 0
-
-/**
- * @brief Half-space phase BRDF.
- *
- * @tparam Tfloat
- * Float type.
- */
-template <typename Tfloat>
-struct halfspace_phase_brdf
-{
-public:
-
-    // Sanity check.
-    static_assert(
-        std::is_floating_point<Tfloat>::value,
-        "Tfloat must be floating point");
-
-    /**
-     * @brief Float type.
-     */
-    typedef Tfloat float_type;
-
-    /**
-     * @brief Default constructor.
-     */
-    halfspace_phase_brdf() = default;
-
-    float_type fs1(
-            const multi<float_type, 3>& wo,
-            const multi<float_type, 3>& wi) const
-    {
-        if (pr::signbit(wo[2]) !=
-            pr::signbit(wi[2])) {
-            return 0;
-        }
-        else {
-            return func_.ps(wo, wi) / (1 + pr::abs(wo[2]) / pr::abs(wi[2]));
-        }
-    }
-
-    // TODO Find out how to implement this generally?
-
-};
 
 /**
  * @brief Half-space linear anisotropic phase BRDF.
@@ -1112,11 +1069,8 @@ public:
      */
     float_type tau_pdf_sample(float_type u) const
     {
-        float_type log_term =
-            u < float_type(0.5) ? pr::log1p(-u) :
-            pr::log(1 - u);
-
-        return -log_term / mu_;
+        return -(u < float_type(0.5) ? 
+                 pr::log1p(-u) : pr::log(1 - u)) / mu_;
     }
 
 private:
