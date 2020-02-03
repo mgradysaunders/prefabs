@@ -992,6 +992,37 @@ struct multi_initializers<
 };
 
 /**
+ * @brief Initializers for 2x2-dimensional floating point arrays.
+ */
+template <typename T>
+struct multi_initializers<
+            multi<T, 2, 2>,
+            std::enable_if_t<
+            std::is_floating_point<T>::value, void>>
+{
+    /**
+     * @brief Rotate counter-clockwise.
+     *
+     * @par Expression
+     * @f[
+     *      \begin{bmatrix}
+     *          +\cos{\theta} & -\sin{\theta}
+     *      \\  +\sin{\theta} & +\cos{\theta}
+     *      \end{bmatrix}
+     * @f]
+     */
+    static multi<T, 2, 2> rotate(T theta)
+    {
+        T cos_theta = pr::cos(theta);
+        T sin_theta = pr::sin(theta);
+        return {
+            {+cos_theta, -sin_theta},
+            {+sin_theta, +cos_theta}
+        };
+    }
+};
+
+/**
  * @brief Initializers for 3x3-dimensional floating point arrays.
  */
 template <typename T>
