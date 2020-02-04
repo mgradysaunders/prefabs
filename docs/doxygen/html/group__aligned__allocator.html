@@ -81,48 +81,38 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gacf976049ad808aa28c959470c02eaef9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:gacf976049ad808aa28c959470c02eaef9"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aligned__allocator.html#gacf976049ad808aa28c959470c02eaef9">pr::align_pointer</a> (T *ptr, std::size_t alignment)</td></tr>
-<tr class="memdesc:gacf976049ad808aa28c959470c02eaef9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Align pointer.  <a href="group__aligned__allocator.html#gacf976049ad808aa28c959470c02eaef9">More...</a><br /></td></tr>
-<tr class="separator:gacf976049ad808aa28c959470c02eaef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8e33feb5a7242b891f9e71823252c467"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__aligned__allocator.html#ga8e33feb5a7242b891f9e71823252c467">pr::aligned_new</a> (std::size_t size, std::size_t alignment)</td></tr>
-<tr class="memdesc:ga8e33feb5a7242b891f9e71823252c467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aligned new.  <a href="group__aligned__allocator.html#ga8e33feb5a7242b891f9e71823252c467">More...</a><br /></td></tr>
-<tr class="separator:ga8e33feb5a7242b891f9e71823252c467"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga79b1d90b70d000e2396c28796bffa8f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__aligned__allocator.html#ga79b1d90b70d000e2396c28796bffa8f4">pr::aligned_delete</a> (void *ptr)</td></tr>
-<tr class="memdesc:ga79b1d90b70d000e2396c28796bffa8f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aligned delete.  <a href="group__aligned__allocator.html#ga79b1d90b70d000e2396c28796bffa8f4">More...</a><br /></td></tr>
-<tr class="separator:ga79b1d90b70d000e2396c28796bffa8f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga15389553a6cd2036b9d0c90f2d4ffa5d"><td class="memItemLeft" align="right" valign="top">std::uintptr_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__aligned__allocator.html#ga15389553a6cd2036b9d0c90f2d4ffa5d">pr::pointer_to_address</a> (void *ptr)</td></tr>
+<tr class="memdesc:ga15389553a6cd2036b9d0c90f2d4ffa5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert pointer to pointer address.  <a href="group__aligned__allocator.html#ga15389553a6cd2036b9d0c90f2d4ffa5d">More...</a><br /></td></tr>
+<tr class="separator:ga15389553a6cd2036b9d0c90f2d4ffa5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac230696c52c5f4eeb5c061aaee747c6b"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__aligned__allocator.html#gac230696c52c5f4eeb5c061aaee747c6b">pr::address_to_pointer</a> (std::uintptr_t ptr_addr)</td></tr>
+<tr class="memdesc:gac230696c52c5f4eeb5c061aaee747c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert pointer address to pointer.  <a href="group__aligned__allocator.html#gac230696c52c5f4eeb5c061aaee747c6b">More...</a><br /></td></tr>
+<tr class="separator:gac230696c52c5f4eeb5c061aaee747c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8c22560340d831aa4b38224d132b4e8"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__aligned__allocator.html#gae8c22560340d831aa4b38224d132b4e8">pr::aligned_new</a> (std::size_t alignment, std::size_t size)</td></tr>
+<tr class="memdesc:gae8c22560340d831aa4b38224d132b4e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aligned new.  <a href="group__aligned__allocator.html#gae8c22560340d831aa4b38224d132b4e8">More...</a><br /></td></tr>
+<tr class="separator:gae8c22560340d831aa4b38224d132b4e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4588fda17c264301dd6d066d2c7bd914"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__aligned__allocator.html#ga4588fda17c264301dd6d066d2c7bd914">pr::aligned_delete</a> (void *ptr_aligned)</td></tr>
+<tr class="memdesc:ga4588fda17c264301dd6d066d2c7bd914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aligned delete.  <a href="group__aligned__allocator.html#ga4588fda17c264301dd6d066d2c7bd914">More...</a><br /></td></tr>
+<tr class="separator:ga4588fda17c264301dd6d066d2c7bd914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/aligned_allocator.hpp&gt;</code></p>
 <p><b>C++ version</b>: &gt;=C++11 </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gacf976049ad808aa28c959470c02eaef9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacf976049ad808aa28c959470c02eaef9">&#9670;&nbsp;</a></span>align_pointer()</h2>
+<a id="ga15389553a6cd2036b9d0c90f2d4ffa5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga15389553a6cd2036b9d0c90f2d4ffa5d">&#9670;&nbsp;</a></span>pointer_to_address()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T* pr::align_pointer </td>
+          <td class="memname">std::uintptr_t pr::pointer_to_address </td>
           <td>(</td>
-          <td class="paramtype">T *&#160;</td>
-          <td class="paramname"><em>ptr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>alignment</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -132,25 +122,52 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Align pointer. </p>
+<p>Convert pointer to pointer address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">ptr</td><td>Pointer.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">alignment</td><td>Alignment boundary.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Unless <code>alignment</code> is a power of 2. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ptr</td><td>Pointer. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ga8e33feb5a7242b891f9e71823252c467"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8e33feb5a7242b891f9e71823252c467">&#9670;&nbsp;</a></span>aligned_new()</h2>
+<a id="gac230696c52c5f4eeb5c061aaee747c6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac230696c52c5f4eeb5c061aaee747c6b">&#9670;&nbsp;</a></span>address_to_pointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* pr::address_to_pointer </td>
+          <td>(</td>
+          <td class="paramtype">std::uintptr_t&#160;</td>
+          <td class="paramname"><em>ptr_addr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert pointer address to pointer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ptr_addr</td><td>Pointer address. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gae8c22560340d831aa4b38224d132b4e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae8c22560340d831aa4b38224d132b4e8">&#9670;&nbsp;</a></span>aligned_new()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,13 +179,13 @@ template&lt;typename T &gt; </div>
           <td class="memname">void* pr::aligned_new </td>
           <td>(</td>
           <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
+          <td class="paramname"><em>alignment</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>alignment</em>&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -186,8 +203,8 @@ template&lt;typename T &gt; </div>
 <p>Aligned new. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Size of allocation in bytes.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">alignment</td><td>Alignment boundary.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Size of allocation in bytes.</td></tr>
   </table>
   </dd>
 </dl>
@@ -200,8 +217,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga79b1d90b70d000e2396c28796bffa8f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga79b1d90b70d000e2396c28796bffa8f4">&#9670;&nbsp;</a></span>aligned_delete()</h2>
+<a id="ga4588fda17c264301dd6d066d2c7bd914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4588fda17c264301dd6d066d2c7bd914">&#9670;&nbsp;</a></span>aligned_delete()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -213,7 +230,7 @@ template&lt;typename T &gt; </div>
           <td class="memname">void pr::aligned_delete </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td class="paramname"><em>ptr_aligned</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -227,7 +244,7 @@ template&lt;typename T &gt; </div>
 <p>Aligned delete. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">ptr</td><td>Pointer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ptr_aligned</td><td>Pointer. </td></tr>
   </table>
   </dd>
 </dl>
