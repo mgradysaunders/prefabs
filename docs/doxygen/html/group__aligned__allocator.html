@@ -210,10 +210,11 @@ Functions</h2></td></tr>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Unless <code>alignment</code> is a power of 2. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>If <code>alignment</code> is not a power of 2.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>If compiling with C++17 or newer, this delegates to <code>std::aligned_alloc()</code>. Otherwise, this over-allocates and aligns manually. </dd></dl>
 
 </div>
 </div>
