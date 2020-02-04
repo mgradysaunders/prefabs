@@ -41,8 +41,14 @@
 // for std::uintptr_t
 #include <cstdint>
 
+// for std::aligned_alloc if C++17
+#include <cstdlib>
+
 // for std::memcpy
 #include <cstring>
+
+// for std::invalid_argument
+#include <stdexcept>
 
 namespace pr {
 
@@ -56,81 +62,135 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Align pointer.
+ * @brief Convert pointer to pointer address.
  *
  * @param[in] ptr
  * Pointer.
- *
- * @param[in] alignment
- * Alignment boundary.
- *
- * @throw std::invalid_argument
- * Unless `alignment` is a power of 2.
  */
-template <typename T>
-inline T* align_pointer(T* ptr, std::size_t alignment)
+__attribute__((always_inline))
+inline std::uintptr_t pointer_to_address(void* ptr)
 {
-    if (!(alignment > 0 &&
-         (alignment & (alignment - 1)) == 0)) {
-        throw std::invalid_argument(__PRETTY_FUNCTION__);
-    }
     std::uintptr_t ptr_addr = 0;
     std::memcpy(
             &ptr_addr,
             &ptr,
-            sizeof(ptr));
-    // Align.
-    std::size_t alignment_mask = alignment - 1;
-    ptr_addr += alignment_mask;
-    ptr_addr &= ~alignment_mask;
+            sizeof(void*));
+    return ptr_addr;
+}
+
+/**
+ * @brief Convert pointer address to pointer.
+ *
+ * @param[in] ptr_addr
+ * Pointer address.
+ */
+__attribute__((always_inline))
+inline void* address_to_pointer(std::uintptr_t ptr_addr)
+{
+    void* ptr = nullptr;
     std::memcpy(
             &ptr,
             &ptr_addr,
-            sizeof(ptr));
+            sizeof(void*));
     return ptr;
 }
 
 /**
  * @brief Aligned new.
  *
- * @param[in] size
- * Size of allocation in bytes.
- *
  * @param[in] alignment
  * Alignment boundary.
+ *
+ * @param[in] size
+ * Size of allocation in bytes.
  *
  * @throw std::invalid_argument
  * Unless `alignment` is a power of 2.
  */
-inline void* aligned_new(std::size_t size, std::size_t alignment)
+inline void* aligned_new(std::size_t alignment, std::size_t size)
 {
+    // Is alignment not a power of 2?
+    if (!(alignment > 0 && 
+         (alignment & (alignment - 1)) == 0)) {
+        throw std::invalid_argument(__PRETTY_FUNCTION__);
+    }
+
     if (size == 0) {
         return nullptr;
     }
     else {
-        std::size_t size_actual = size + alignment + sizeof(void*);
-        char* mem = static_cast<char*>(::operator new(size_actual));
-        char* mem_shifted = mem + sizeof(void*);
-        char* mem_aligned = align_pointer(mem_shifted, alignment);
-        std::memcpy(mem_aligned - sizeof(void*), &mem, sizeof(void*));
-        return static_cast<void*>(mem_aligned);
+#if (__cplusplus >= 201703L)
+
+        // Round size up to multiple of alignment,
+        // which is required by std::aligned_alloc().
+        if (size & (alignment - 1)) {
+            size += alignment - (size & (alignment - 1));
+        }
+
+        // Delegate.
+        return std::aligned_alloc(alignment, size);
+
+#else
+
+        // Make sure we have enough space to align the pointer,
+        // then save the original pointer in the sizeof(void*) bytes
+        // before the aligned pointer.
+        size += alignment + sizeof(void*);
+
+        // Original pointer.
+        void* ptr = ::operator new(size);
+ 
+        // Original pointer address.
+        std::uintptr_t ptr_addr = pointer_to_address(ptr);
+
+        // Aligned pointer address, after shifting by sizeof(void*).
+        std::uintptr_t ptr_aligned_addr = 
+                (ptr_addr + sizeof(void*) + 
+                (alignment - 1)) & ~(alignment - 1);
+
+        // Aligned pointer.
+        void* ptr_aligned = address_to_pointer(ptr_aligned_addr);
+
+        // Save original pointer.
+        std::memcpy(
+                static_cast<char*>(ptr_aligned) - 
+                sizeof(void*), 
+                &ptr, sizeof(void*));
+
+        return ptr_aligned;
+
+#endif // #if (__cplusplus >= 201703L)
     }
 }
 
 /**
  * @brief Aligned delete.
  *
- * @param[in] ptr
+ * @param[in] ptr_aligned
  * Pointer.
  */
-inline void aligned_delete(void* ptr)
+inline void aligned_delete(void* ptr_aligned)
 {
-    if (ptr != nullptr) {
-        char* mem_aligned = static_cast<char*>(ptr);
-        char* mem = nullptr;
-        std::memcpy(&mem, mem_aligned - sizeof(void*), sizeof(void*));
-        ::operator delete(mem);
+#if (__cplusplus >= 201703L) 
+
+    // Delegate.
+    std::free(ptr_aligned);
+
+#else
+
+    if (ptr_aligned != nullptr) {
+
+        // Load original pointer.
+        void* ptr = nullptr;
+        std::memcpy(&ptr, 
+                static_cast<char*>(ptr_aligned) - sizeof(void*), 
+                sizeof(void*));
+
+        // Delete.
+        ::operator delete(ptr);
     }
+
+#endif // #if (__cplusplus >= 201703L)
 }
 
 /**
@@ -228,7 +288,7 @@ public:
     [[nodiscard]]
     T* allocate(std::size_t n)
     {
-        return static_cast<T*>(pr::aligned_new(sizeof(T) * n, alignment_));
+        return static_cast<T*>(pr::aligned_new(alignment_, sizeof(T) * n));
     }
 
     /**
