@@ -105,7 +105,12 @@ inline void* address_to_pointer(std::uintptr_t ptr_addr)
  * Size of allocation in bytes.
  *
  * @throw std::invalid_argument
- * Unless `alignment` is a power of 2.
+ * If `alignment` is not a power of 2.
+ *
+ * @note
+ * If compiling with C++17 or newer, this delegates to 
+ * `std::aligned_alloc()`. Otherwise, this over-allocates and
+ * aligns manually.
  */
 inline void* aligned_new(std::size_t alignment, std::size_t size)
 {
