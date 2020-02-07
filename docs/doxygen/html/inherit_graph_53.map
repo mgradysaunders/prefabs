@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structpr_1_1microsurface.html" title="Microsurface prototype. " alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node1" href="$structpr_1_1microsurface.html" title="pr::microsurface\&lt; microsurface\l_lambertian_bsdf\&lt; Tfloat,\l Tslope, Theight \&gt;, false \&gt;" alt="" coords="5,5,208,61"/>
+<area shape="rect" id="node2" href="$structpr_1_1microsurface__lambertian__bsdf.html" title="Microsurface from Lambertian BSDF. " alt="" coords="256,13,465,54"/>
 </map>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>preform: pr::memory_pool&lt; Tbyte_alloc &gt; Class Template Reference</title>
+<title>preform: pr::memory_pool&lt; Talloc &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <!--Broken...-->
@@ -70,102 +70,204 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpr_1_1memory__pool-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">pr::memory_pool&lt; Tbyte_alloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__memory__pool.html">Memory pool</a></div></div>  </div>
+<div class="title">pr::memory_pool&lt; Talloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__memory__pool.html">Memory pool</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>Memory pool.  
  <a href="classpr_1_1memory__pool.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpr_1_1memory__pool_1_1pool__type.html">pool_type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pool type.  <a href="structpr_1_1memory__pool_1_1pool__type.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a89ea55b2fd2517a8f873832be03db4b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a89ea55b2fd2517a8f873832be03db4b7">memory_pool</a> (std::size_t elem_stride, std::size_t elem_count, const Tbyte_alloc &amp;byte_alloc=Tbyte_alloc())</td></tr>
-<tr class="memdesc:a89ea55b2fd2517a8f873832be03db4b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a89ea55b2fd2517a8f873832be03db4b7">More...</a><br /></td></tr>
-<tr class="separator:a89ea55b2fd2517a8f873832be03db4b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a662b150c44bb5fbf6fecd9a966bd34a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a662b150c44bb5fbf6fecd9a966bd34a9">memory_pool</a> (const <a class="el" href="classpr_1_1memory__pool.html">memory_pool</a> &amp;)=delete</td></tr>
-<tr class="memdesc:a662b150c44bb5fbf6fecd9a966bd34a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-copyable.  <a href="#a662b150c44bb5fbf6fecd9a966bd34a9">More...</a><br /></td></tr>
-<tr class="separator:a662b150c44bb5fbf6fecd9a966bd34a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a180c92ca6280e36de5f683cda0ebb3a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a180c92ca6280e36de5f683cda0ebb3a2">~memory_pool</a> ()</td></tr>
-<tr class="memdesc:a180c92ca6280e36de5f683cda0ebb3a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a180c92ca6280e36de5f683cda0ebb3a2">More...</a><br /></td></tr>
-<tr class="separator:a180c92ca6280e36de5f683cda0ebb3a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a183b8fa2d11c91b9e14170980796060a"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a183b8fa2d11c91b9e14170980796060a">allocate</a> ()</td></tr>
-<tr class="memdesc:a183b8fa2d11c91b9e14170980796060a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate element.  <a href="#a183b8fa2d11c91b9e14170980796060a">More...</a><br /></td></tr>
-<tr class="separator:a183b8fa2d11c91b9e14170980796060a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19c55918686b1f17455bb982c489cbd2"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a19c55918686b1f17455bb982c489cbd2">allocate</a> (std::size_t n)</td></tr>
-<tr class="memdesc:a19c55918686b1f17455bb982c489cbd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate elements.  <a href="#a19c55918686b1f17455bb982c489cbd2">More...</a><br /></td></tr>
-<tr class="separator:a19c55918686b1f17455bb982c489cbd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a274c282bef54183b9cb9d3334c768f7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a274c282bef54183b9cb9d3334c768f7c">deallocate</a> (void *ptr)</td></tr>
-<tr class="memdesc:a274c282bef54183b9cb9d3334c768f7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocate element.  <a href="#a274c282bef54183b9cb9d3334c768f7c">More...</a><br /></td></tr>
-<tr class="separator:a274c282bef54183b9cb9d3334c768f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf76a05a4f50d31dbc3ce58f91c23da1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#acf76a05a4f50d31dbc3ce58f91c23da1">deallocate</a> (void *ptr, std::size_t n)</td></tr>
-<tr class="memdesc:acf76a05a4f50d31dbc3ce58f91c23da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocate elements.  <a href="#acf76a05a4f50d31dbc3ce58f91c23da1">More...</a><br /></td></tr>
-<tr class="separator:acf76a05a4f50d31dbc3ce58f91c23da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f1df14386fdbde5c6dde0eeadc3ef0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a1f1df14386fdbde5c6dde0eeadc3ef0b">clear</a> ()</td></tr>
-<tr class="memdesc:a1f1df14386fdbde5c6dde0eeadc3ef0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear, deallocate all elements.  <a href="#a1f1df14386fdbde5c6dde0eeadc3ef0b">More...</a><br /></td></tr>
-<tr class="separator:a1f1df14386fdbde5c6dde0eeadc3ef0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a891a0ce16cb17fc75d594e1443c8b710"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a891a0ce16cb17fc75d594e1443c8b710">memory_pool</a> (std::size_t elem_size, std::size_t elems_per_pool, const Talloc &amp;alloc=Talloc())</td></tr>
+<tr class="memdesc:a891a0ce16cb17fc75d594e1443c8b710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a891a0ce16cb17fc75d594e1443c8b710">More...</a><br /></td></tr>
+<tr class="separator:a891a0ce16cb17fc75d594e1443c8b710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3987839a9723c6cf08bd1a7b68f64e5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a3987839a9723c6cf08bd1a7b68f64e5d">memory_pool</a> (const <a class="el" href="classpr_1_1memory__pool.html">memory_pool</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a3987839a9723c6cf08bd1a7b68f64e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-copyable.  <a href="#a3987839a9723c6cf08bd1a7b68f64e5d">More...</a><br /></td></tr>
+<tr class="separator:a3987839a9723c6cf08bd1a7b68f64e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accdd3d6ccc2469e1e9e2362a146b04fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#accdd3d6ccc2469e1e9e2362a146b04fd">~memory_pool</a> ()</td></tr>
+<tr class="memdesc:accdd3d6ccc2469e1e9e2362a146b04fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#accdd3d6ccc2469e1e9e2362a146b04fd">More...</a><br /></td></tr>
+<tr class="separator:accdd3d6ccc2469e1e9e2362a146b04fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a307394b86567db8fb63e1d23bcc8f939"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a307394b86567db8fb63e1d23bcc8f939">allocate</a> ()</td></tr>
+<tr class="memdesc:a307394b86567db8fb63e1d23bcc8f939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate element.  <a href="#a307394b86567db8fb63e1d23bcc8f939">More...</a><br /></td></tr>
+<tr class="separator:a307394b86567db8fb63e1d23bcc8f939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afef9fa73f26bf6574434e71b45a8e8ff"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#afef9fa73f26bf6574434e71b45a8e8ff">allocate</a> (std::size_t count)</td></tr>
+<tr class="memdesc:afef9fa73f26bf6574434e71b45a8e8ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate elements.  <a href="#afef9fa73f26bf6574434e71b45a8e8ff">More...</a><br /></td></tr>
+<tr class="separator:afef9fa73f26bf6574434e71b45a8e8ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab314e775653d0f4877765a85b90d3688"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#ab314e775653d0f4877765a85b90d3688">deallocate</a> (void *ptr)</td></tr>
+<tr class="memdesc:ab314e775653d0f4877765a85b90d3688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocate element.  <a href="#ab314e775653d0f4877765a85b90d3688">More...</a><br /></td></tr>
+<tr class="separator:ab314e775653d0f4877765a85b90d3688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c30e161e134e2ecf24d4469c1ae323c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a3c30e161e134e2ecf24d4469c1ae323c">deallocate</a> (void *ptr, std::size_t count)</td></tr>
+<tr class="memdesc:a3c30e161e134e2ecf24d4469c1ae323c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocate elements.  <a href="#a3c30e161e134e2ecf24d4469c1ae323c">More...</a><br /></td></tr>
+<tr class="separator:a3c30e161e134e2ecf24d4469c1ae323c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b5d3e84746e98de7a0403bb12284d1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a0b5d3e84746e98de7a0403bb12284d1e">clear</a> ()</td></tr>
+<tr class="memdesc:a0b5d3e84746e98de7a0403bb12284d1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear.  <a href="#a0b5d3e84746e98de7a0403bb12284d1e">More...</a><br /></td></tr>
+<tr class="separator:a0b5d3e84746e98de7a0403bb12284d1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75b365fb160e0092778e8effe611a151"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a75b365fb160e0092778e8effe611a151">reset</a> ()</td></tr>
+<tr class="memdesc:a75b365fb160e0092778e8effe611a151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset.  <a href="#a75b365fb160e0092778e8effe611a151">More...</a><br /></td></tr>
+<tr class="separator:a75b365fb160e0092778e8effe611a151"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:a31f11e57cf32a867c5c45378d7fae422"><td class="memItemLeft" align="right" valign="top">typedef char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a31f11e57cf32a867c5c45378d7fae422">byte_type</a></td></tr>
+<tr class="memdesc:a31f11e57cf32a867c5c45378d7fae422"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte type.  <a href="#a31f11e57cf32a867c5c45378d7fae422">More...</a><br /></td></tr>
+<tr class="separator:a31f11e57cf32a867c5c45378d7fae422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d52599fe9d9ffc95d786283ccbe57c3"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; Talloc &gt;::template rebind_alloc&lt; <a class="el" href="classpr_1_1memory__pool.html#a31f11e57cf32a867c5c45378d7fae422">byte_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a5d52599fe9d9ffc95d786283ccbe57c3">byte_allocator</a></td></tr>
+<tr class="memdesc:a5d52599fe9d9ffc95d786283ccbe57c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte allocator type.  <a href="#a5d52599fe9d9ffc95d786283ccbe57c3">More...</a><br /></td></tr>
+<tr class="separator:a5d52599fe9d9ffc95d786283ccbe57c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3ccf96349dfa5ccc0d15e5508e001fc"><td class="memItemLeft" align="right" valign="top">typedef std::allocator_traits&lt; Talloc &gt;::template rebind_alloc&lt; <a class="el" href="structpr_1_1memory__pool_1_1pool__type.html">pool_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#ac3ccf96349dfa5ccc0d15e5508e001fc">pool_allocator</a></td></tr>
+<tr class="memdesc:ac3ccf96349dfa5ccc0d15e5508e001fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pool allocator type.  <a href="#ac3ccf96349dfa5ccc0d15e5508e001fc">More...</a><br /></td></tr>
+<tr class="separator:ac3ccf96349dfa5ccc0d15e5508e001fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:aab3b5b7125be986a23b9325a2c5f9e08"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#aab3b5b7125be986a23b9325a2c5f9e08">elem_stride_</a> = 0</td></tr>
-<tr class="memdesc:aab3b5b7125be986a23b9325a2c5f9e08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element stride in bytes.  <a href="#aab3b5b7125be986a23b9325a2c5f9e08">More...</a><br /></td></tr>
-<tr class="separator:aab3b5b7125be986a23b9325a2c5f9e08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6919e4e0cc55d7821a86061b9028c60"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#ab6919e4e0cc55d7821a86061b9028c60">elem_count_</a> = 0</td></tr>
-<tr class="memdesc:ab6919e4e0cc55d7821a86061b9028c60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element count.  <a href="#ab6919e4e0cc55d7821a86061b9028c60">More...</a><br /></td></tr>
-<tr class="separator:ab6919e4e0cc55d7821a86061b9028c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ef51adad09550f0e6c06efb7eaf0a31"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a2ef51adad09550f0e6c06efb7eaf0a31">begin_</a> = nullptr</td></tr>
-<tr class="memdesc:a2ef51adad09550f0e6c06efb7eaf0a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to elements.  <a href="#a2ef51adad09550f0e6c06efb7eaf0a31">More...</a><br /></td></tr>
-<tr class="separator:a2ef51adad09550f0e6c06efb7eaf0a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97ab92535da87d59b7c861f969941859"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a97ab92535da87d59b7c861f969941859">first_free_</a> = nullptr</td></tr>
-<tr class="memdesc:a97ab92535da87d59b7c861f969941859"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to first free element.  <a href="#a97ab92535da87d59b7c861f969941859">More...</a><br /></td></tr>
-<tr class="separator:a97ab92535da87d59b7c861f969941859"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17b0d5cb6110504138978029eae50d5f"><td class="memItemLeft" align="right" valign="top">Tbyte_alloc&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a17b0d5cb6110504138978029eae50d5f">byte_alloc_</a></td></tr>
-<tr class="memdesc:a17b0d5cb6110504138978029eae50d5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte allocator.  <a href="#a17b0d5cb6110504138978029eae50d5f">More...</a><br /></td></tr>
-<tr class="separator:a17b0d5cb6110504138978029eae50d5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a836c0ce99d5520752e74a63eabc442d5"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a836c0ce99d5520752e74a63eabc442d5">elem_size_</a> = 0</td></tr>
+<tr class="memdesc:a836c0ce99d5520752e74a63eabc442d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element size in bytes.  <a href="#a836c0ce99d5520752e74a63eabc442d5">More...</a><br /></td></tr>
+<tr class="separator:a836c0ce99d5520752e74a63eabc442d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa85e8056a103f7269fcc7eb8930fbe69"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#aa85e8056a103f7269fcc7eb8930fbe69">elems_per_pool_</a> = 0</td></tr>
+<tr class="memdesc:aa85e8056a103f7269fcc7eb8930fbe69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elements per pool.  <a href="#aa85e8056a103f7269fcc7eb8930fbe69">More...</a><br /></td></tr>
+<tr class="separator:aa85e8056a103f7269fcc7eb8930fbe69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a328c2d15f0811c061d8945359a59504f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpr_1_1memory__pool_1_1pool__type.html">pool_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a328c2d15f0811c061d8945359a59504f">head_</a> = nullptr</td></tr>
+<tr class="memdesc:a328c2d15f0811c061d8945359a59504f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pool list.  <a href="#a328c2d15f0811c061d8945359a59504f">More...</a><br /></td></tr>
+<tr class="separator:a328c2d15f0811c061d8945359a59504f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c3756d913e7e56c111accbd7e016c90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1memory__pool.html#a5d52599fe9d9ffc95d786283ccbe57c3">byte_allocator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a8c3756d913e7e56c111accbd7e016c90">byte_alloc_</a></td></tr>
+<tr class="memdesc:a8c3756d913e7e56c111accbd7e016c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte allocator.  <a href="#a8c3756d913e7e56c111accbd7e016c90">More...</a><br /></td></tr>
+<tr class="separator:a8c3756d913e7e56c111accbd7e016c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7da19b2d8bf1b00bcf138271f428a88a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1memory__pool.html#ac3ccf96349dfa5ccc0d15e5508e001fc">pool_allocator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1memory__pool.html#a7da19b2d8bf1b00bcf138271f428a88a">pool_alloc_</a></td></tr>
+<tr class="memdesc:a7da19b2d8bf1b00bcf138271f428a88a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pool allocator.  <a href="#a7da19b2d8bf1b00bcf138271f428a88a">More...</a><br /></td></tr>
+<tr class="separator:a7da19b2d8bf1b00bcf138271f428a88a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename Tbyte_alloc = std::allocator&lt;char&gt;&gt;<br />
-class pr::memory_pool&lt; Tbyte_alloc &gt;</h3>
+<div class="textblock"><h3>template&lt;typename Talloc = std::allocator&lt;char&gt;&gt;<br />
+class pr::memory_pool&lt; Talloc &gt;</h3>
 
 <p>Memory pool. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Tbyte_alloc</td><td>Underlying byte allocator type. </td></tr>
+    <tr><td class="paramname">Talloc</td><td>Internal allocator type. </td></tr>
   </table>
   </dd>
 </dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a89ea55b2fd2517a8f873832be03db4b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89ea55b2fd2517a8f873832be03db4b7">&#9670;&nbsp;</a></span>memory_pool() <span class="overload">[1/2]</span></h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a31f11e57cf32a867c5c45378d7fae422"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31f11e57cf32a867c5c45378d7fae422">&#9670;&nbsp;</a></span>byte_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::<a class="el" href="classpr_1_1memory__pool.html">memory_pool</a> </td>
+          <td class="memname">typedef char <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::<a class="el" href="classpr_1_1memory__pool.html#a31f11e57cf32a867c5c45378d7fae422">byte_type</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Byte type. </p>
+
+</div>
+</div>
+<a id="a5d52599fe9d9ffc95d786283ccbe57c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d52599fe9d9ffc95d786283ccbe57c3">&#9670;&nbsp;</a></span>byte_allocator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::allocator_traits&lt;Talloc&gt;:: template rebind_alloc&lt;<a class="el" href="classpr_1_1memory__pool.html#a31f11e57cf32a867c5c45378d7fae422">byte_type</a>&gt; <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::<a class="el" href="classpr_1_1memory__pool.html#a5d52599fe9d9ffc95d786283ccbe57c3">byte_allocator</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Byte allocator type. </p>
+
+</div>
+</div>
+<a id="ac3ccf96349dfa5ccc0d15e5508e001fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3ccf96349dfa5ccc0d15e5508e001fc">&#9670;&nbsp;</a></span>pool_allocator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::allocator_traits&lt;Talloc&gt;:: template rebind_alloc&lt;<a class="el" href="structpr_1_1memory__pool_1_1pool__type.html">pool_type</a>&gt; <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::<a class="el" href="classpr_1_1memory__pool.html#ac3ccf96349dfa5ccc0d15e5508e001fc">pool_allocator</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pool allocator type. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a891a0ce16cb17fc75d594e1443c8b710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a891a0ce16cb17fc75d594e1443c8b710">&#9670;&nbsp;</a></span>memory_pool() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::<a class="el" href="classpr_1_1memory__pool.html">memory_pool</a> </td>
           <td>(</td>
           <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>elem_stride</em>, </td>
+          <td class="paramname"><em>elem_size</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>elem_count</em>, </td>
+          <td class="paramname"><em>elems_per_pool</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tbyte_alloc &amp;&#160;</td>
-          <td class="paramname"><em>byte_alloc</em> = <code>Tbyte_alloc()</code>&#160;</td>
+          <td class="paramtype">const Talloc &amp;&#160;</td>
+          <td class="paramname"><em>alloc</em> = <code>Talloc()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -184,21 +286,21 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a662b150c44bb5fbf6fecd9a966bd34a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a662b150c44bb5fbf6fecd9a966bd34a9">&#9670;&nbsp;</a></span>memory_pool() <span class="overload">[2/2]</span></h2>
+<a id="a3987839a9723c6cf08bd1a7b68f64e5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3987839a9723c6cf08bd1a7b68f64e5d">&#9670;&nbsp;</a></span>memory_pool() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::<a class="el" href="classpr_1_1memory__pool.html">memory_pool</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::<a class="el" href="classpr_1_1memory__pool.html">memory_pool</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classpr_1_1memory__pool.html">memory_pool</a>&lt; Tbyte_alloc &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classpr_1_1memory__pool.html">memory_pool</a>&lt; Talloc &gt; &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -214,19 +316,19 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a180c92ca6280e36de5f683cda0ebb3a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a180c92ca6280e36de5f683cda0ebb3a2">&#9670;&nbsp;</a></span>~memory_pool()</h2>
+<a id="accdd3d6ccc2469e1e9e2362a146b04fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accdd3d6ccc2469e1e9e2362a146b04fd">&#9670;&nbsp;</a></span>~memory_pool()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::~<a class="el" href="classpr_1_1memory__pool.html">memory_pool</a> </td>
+          <td class="memname"><a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::~<a class="el" href="classpr_1_1memory__pool.html">memory_pool</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -244,19 +346,19 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a183b8fa2d11c91b9e14170980796060a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a183b8fa2d11c91b9e14170980796060a">&#9670;&nbsp;</a></span>allocate() <span class="overload">[1/2]</span></h2>
+<a id="a307394b86567db8fb63e1d23bcc8f939"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a307394b86567db8fb63e1d23bcc8f939">&#9670;&nbsp;</a></span>allocate() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void* <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::allocate </td>
+          <td class="memname">void* <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::allocate </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -270,31 +372,25 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 </div><div class="memdoc">
 
 <p>Allocate element. </p>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>If no free elements. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
-<a id="a19c55918686b1f17455bb982c489cbd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19c55918686b1f17455bb982c489cbd2">&#9670;&nbsp;</a></span>allocate() <span class="overload">[2/2]</span></h2>
+<a id="afef9fa73f26bf6574434e71b45a8e8ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afef9fa73f26bf6574434e71b45a8e8ff">&#9670;&nbsp;</a></span>allocate() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void* <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::allocate </td>
+          <td class="memname">void* <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::allocate </td>
           <td>(</td>
           <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>n</em></td><td>)</td>
+          <td class="paramname"><em>count</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -308,35 +404,26 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 <p>Allocate elements. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>Number of elements.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>Element count. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>If no contiguous block of <code>n</code> free elements.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>If <code>n == 0</code>, returns null.</dd>
-<dd>
-If the pool is fragmented, this function may throw even if <code>n</code> or more free elements exist. </dd></dl>
 
 </div>
 </div>
-<a id="a274c282bef54183b9cb9d3334c768f7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a274c282bef54183b9cb9d3334c768f7c">&#9670;&nbsp;</a></span>deallocate() <span class="overload">[1/2]</span></h2>
+<a id="ab314e775653d0f4877765a85b90d3688"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab314e775653d0f4877765a85b90d3688">&#9670;&nbsp;</a></span>deallocate() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::deallocate </td>
+          <td class="memname">void <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::deallocate </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>ptr</em></td><td>)</td>
@@ -357,23 +444,29 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If <code>ptr == nullptr</code>, implementation is a no-op. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>ptr == nullptr</code>, implementation is a no-op.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>If <code>ptr</code> is neither <code>nullptr</code> nor a pointer returned by <code>allocate()</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="acf76a05a4f50d31dbc3ce58f91c23da1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf76a05a4f50d31dbc3ce58f91c23da1">&#9670;&nbsp;</a></span>deallocate() <span class="overload">[2/2]</span></h2>
+<a id="a3c30e161e134e2ecf24d4469c1ae323c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c30e161e134e2ecf24d4469c1ae323c">&#9670;&nbsp;</a></span>deallocate() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::deallocate </td>
+          <td class="memname">void <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::deallocate </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>ptr</em>, </td>
@@ -382,7 +475,7 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>n</em>&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -401,27 +494,27 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">ptr</td><td>Pointer.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>Number of elements.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>Element count.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If <code>ptr == nullptr</code> or <code>n == 0</code>, implementation is a no-op. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If <code>ptr == nullptr</code> or <code>count == 0</code>, implementation is a no-op. </dd></dl>
 
 </div>
 </div>
-<a id="a1f1df14386fdbde5c6dde0eeadc3ef0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f1df14386fdbde5c6dde0eeadc3ef0b">&#9670;&nbsp;</a></span>clear()</h2>
+<a id="a0b5d3e84746e98de7a0403bb12284d1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b5d3e84746e98de7a0403bb12284d1e">&#9670;&nbsp;</a></span>clear()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::clear </td>
+          <td class="memname">void <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::clear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -434,24 +527,53 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Clear, deallocate all elements. </p>
+<p>Clear. </p>
+
+</div>
+</div>
+<a id="a75b365fb160e0092778e8effe611a151"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75b365fb160e0092778e8effe611a151">&#9670;&nbsp;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::reset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reset. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aab3b5b7125be986a23b9325a2c5f9e08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab3b5b7125be986a23b9325a2c5f9e08">&#9670;&nbsp;</a></span>elem_stride_</h2>
+<a id="a836c0ce99d5520752e74a63eabc442d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a836c0ce99d5520752e74a63eabc442d5">&#9670;&nbsp;</a></span>elem_size_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::elem_stride_ = 0</td>
+          <td class="memname">std::size_t <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::elem_size_ = 0</td>
         </tr>
       </table>
   </td>
@@ -461,23 +583,23 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Element stride in bytes. </p>
+<p>Element size in bytes. </p>
 
 </div>
 </div>
-<a id="ab6919e4e0cc55d7821a86061b9028c60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6919e4e0cc55d7821a86061b9028c60">&#9670;&nbsp;</a></span>elem_count_</h2>
+<a id="aa85e8056a103f7269fcc7eb8930fbe69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa85e8056a103f7269fcc7eb8930fbe69">&#9670;&nbsp;</a></span>elems_per_pool_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::elem_count_ = 0</td>
+          <td class="memname">std::size_t <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::elems_per_pool_ = 0</td>
         </tr>
       </table>
   </td>
@@ -487,23 +609,23 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Element count. </p>
+<p>Elements per pool. </p>
 
 </div>
 </div>
-<a id="a2ef51adad09550f0e6c06efb7eaf0a31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ef51adad09550f0e6c06efb7eaf0a31">&#9670;&nbsp;</a></span>begin_</h2>
+<a id="a328c2d15f0811c061d8945359a59504f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a328c2d15f0811c061d8945359a59504f">&#9670;&nbsp;</a></span>head_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::begin_ = nullptr</td>
+          <td class="memname"><a class="el" href="structpr_1_1memory__pool_1_1pool__type.html">pool_type</a>* <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::head_ = nullptr</td>
         </tr>
       </table>
   </td>
@@ -513,49 +635,23 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Pointer to elements. </p>
+<p>Pool list. </p>
 
 </div>
 </div>
-<a id="a97ab92535da87d59b7c861f969941859"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97ab92535da87d59b7c861f969941859">&#9670;&nbsp;</a></span>first_free_</h2>
+<a id="a8c3756d913e7e56c111accbd7e016c90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c3756d913e7e56c111accbd7e016c90">&#9670;&nbsp;</a></span>byte_alloc_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::first_free_ = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Pointer to first free element. </p>
-
-</div>
-</div>
-<a id="a17b0d5cb6110504138978029eae50d5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17b0d5cb6110504138978029eae50d5f">&#9670;&nbsp;</a></span>byte_alloc_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Tbyte_alloc <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Tbyte_alloc &gt;::byte_alloc_</td>
+          <td class="memname"><a class="el" href="classpr_1_1memory__pool.html#a5d52599fe9d9ffc95d786283ccbe57c3">byte_allocator</a> <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::byte_alloc_</td>
         </tr>
       </table>
   </td>
@@ -566,6 +662,32 @@ template&lt;typename Tbyte_alloc  = std::allocator&lt;char&gt;&gt; </div>
 </div><div class="memdoc">
 
 <p>Byte allocator. </p>
+
+</div>
+</div>
+<a id="a7da19b2d8bf1b00bcf138271f428a88a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7da19b2d8bf1b00bcf138271f428a88a">&#9670;&nbsp;</a></span>pool_alloc_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpr_1_1memory__pool.html#ac3ccf96349dfa5ccc0d15e5508e001fc">pool_allocator</a> <a class="el" href="classpr_1_1memory__pool.html">pr::memory_pool</a>&lt; Talloc &gt;::pool_alloc_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pool allocator. </p>
 
 </div>
 </div>
