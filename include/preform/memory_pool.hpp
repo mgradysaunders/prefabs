@@ -58,39 +58,73 @@ namespace pr {
 /**
  * @brief Memory pool.
  *
- * @tparam Tbyte_alloc
- * Underlying byte allocator type.
+ * @tparam Talloc
+ * Internal allocator type.
  */
-template <typename Tbyte_alloc = std::allocator<char>>
+template <typename Talloc = std::allocator<char>>
 class memory_pool
 {
+private:
+
+    /**
+     * @brief Byte type.
+     */
+    typedef char byte_type;
+
+    /**
+     * @brief Pool type.
+     */
+    struct pool_type {
+
+        /**
+         * @brief Pointer to next pool.
+         */
+        pool_type* next;
+
+        /**
+         * @brief Pointer to elements.
+         */
+        byte_type* begin;
+
+        /**
+         * @brief Pointer to first free element.
+         */
+        byte_type* first_free;
+
+    };
+
+    /**
+     * @brief Byte allocator type.
+     */
+    typedef typename std::allocator_traits<Talloc>::
+            template rebind_alloc<byte_type> byte_allocator;
+
+    /**
+     * @brief Pool allocator type.
+     */
+    typedef typename std::allocator_traits<Talloc>::
+            template rebind_alloc<pool_type> pool_allocator;
+
 public:
 
     /**
      * @brief Constructor.
      */
     memory_pool(
-            std::size_t elem_stride,
-            std::size_t elem_count,
-            const Tbyte_alloc& byte_alloc = Tbyte_alloc()) :
-                elem_stride_(elem_stride),
-                elem_count_(elem_count),
-                byte_alloc_(byte_alloc)
+            std::size_t elem_size,
+            std::size_t elems_per_pool,
+            const Talloc& alloc = Talloc()) :
+                elem_size_(elem_size),
+                elems_per_pool_(elems_per_pool),
+                byte_alloc_(alloc),
+                pool_alloc_(alloc)
     {
-        if (elem_stride_ < sizeof(void*)) {
-            elem_stride_ = sizeof(void*);
+        if (elem_size_ < sizeof(void*)) {
+            elem_size_ = sizeof(void*);
         }
-        if (elem_count_ < 1) {
-            elem_count_ = 1;
+        if (elems_per_pool_ < 1) {
+            elems_per_pool_ = 1;
         }
-
-        // Allocate pool.
-        begin_ =
-            byte_alloc_.allocate(
-            elem_stride_ * elem_count_);
-
-        // Initialize free element list.
-        clear();
     }
 
     /**
@@ -103,69 +137,62 @@ public:
      */
     ~memory_pool()
     {
-        // Deallocate.
-        byte_alloc_.deallocate(begin_, elem_stride_ * elem_count_);
-
-        // Nullify.
-        begin_ = nullptr;
-
-        // Nullify.
-        first_free_ = nullptr;
+        reset();
     }
 
 public:
 
     /**
      * @brief Allocate element.
-     *
-     * @throw std::runtime_error
-     * If no free elements.
      */
     void* allocate()
     {
-        if (first_free_ == nullptr) {
-            throw std::runtime_error(__PRETTY_FUNCTION__);
+        pool_type* pool = head_;
+        while (pool && 
+               pool->first_free == nullptr) {
+            pool = pool->next;
         }
-        else {
-            // Result.
-            void* ptr = first_free_;
 
-            // Increment.
-            std::memcpy(
-                    &first_free_,
-                    first_free_,
-                    sizeof(void*));
-
-            return ptr;
+        // Pool with free element not found?
+        if (pool == nullptr) {
+            pool = alloc_pool_();
         }
+
+        // First free element.
+        byte_type* elem = pool->first_free;
+
+        // Increment.
+        std::memcpy(
+                &pool->first_free, 
+                 pool->first_free, sizeof(void*));
+
+        return static_cast<void*>(elem);
     }
 
     /**
      * @brief Allocate elements.
      *
-     * @param[in] n
-     * Number of elements.
-     *
-     * @throw std::runtime_error
-     * If no contiguous block of `n` free elements.
-     *
-     * @note
-     * If `n == 0`, returns null.
-     *
-     * @note
-     * If the pool is fragmented, this function may throw even
-     * if `n` or more free elements exist.
+     * @param[in] count
+     * Element count.
      */
-    void* allocate(std::size_t n)
+    void* allocate(std::size_t count)
     {
+        // Validate.
+        if (count > elems_per_pool_) {
+            throw std::logic_error(__PRETTY_FUNCTION__);
+        }
+
         // Consider special cases.
-        if (n == 0) {
+        if (count == 0) {
             return nullptr;
         }
-        if (n == 1) {
+        if (count == 1) {
             return allocate();
         }
 
+        // TODO
+
+#if 0
         if (first_free_ == nullptr) {
             throw std::runtime_error(__PRETTY_FUNCTION__);
         }
@@ -222,6 +249,7 @@ public:
                 }
             }
         }
+#endif
 
         // Unreachable.
         return nullptr;
@@ -235,42 +263,73 @@ public:
      *
      * @note
      * If `ptr == nullptr`, implementation is a no-op.
+     * 
+     * @throw std::logic_error
+     * If `ptr` is neither `nullptr` nor a pointer returned
+     * by `allocate()`.
      */
     void deallocate(void* ptr)
     {
-        if (ptr != nullptr) {
+        if (ptr == nullptr) {
+            return;
+        }
 
-            // Validate.
-            std::ptrdiff_t off = static_cast<char*>(ptr) - begin_;
-            if (!(off >= 0 &&
-                  off < std::ptrdiff_t(elem_stride_ * elem_count_) &&
-                  off % std::ptrdiff_t(elem_stride_) == 0)) {
-                throw std::invalid_argument(__PRETTY_FUNCTION__);
-            }
+        byte_type* elem = static_cast<byte_type*>(ptr);
+        pool_type* pool = head_;
+        while (pool) {
+            // Element in range of pool?
+            std::ptrdiff_t pool_size = elem_size_ * elems_per_pool_;
+            std::ptrdiff_t elem_diff = elem - pool->begin;
+            if (elem_diff >= 0 && elem_diff < pool_size) {
 
-            if (first_free_ == nullptr ||
-                first_free_ > static_cast<char*>(ptr)) {
+                // Element in range of pool, but pointer is not 
+                // aligned to element boundary?
+                if (elem_diff % std::ptrdiff_t(elem_size_) != 0) {
 
-                // Prepend.
-                std::memcpy(ptr, &first_free_, sizeof(void*));
-                first_free_ = static_cast<char*>(ptr);
+                    // User passed a garbage pointer.
+                    throw std::logic_error(__PRETTY_FUNCTION__);
+                }
+
+                break;
             }
             else {
-
-                // Insert so that free element list is sorted by address.
-                char* pos = first_free_;
-                char* pos_next = nullptr;
-                while (1) {
-                    std::memcpy(&pos_next, pos, sizeof(void*));
-                    if (pos_next == nullptr ||
-                        pos_next > static_cast<char*>(ptr)) {
-                        break;
-                    }
-                    pos = pos_next;
-                }
-                std::memcpy(pos, &ptr, sizeof(void*));
-                std::memcpy(ptr, &pos_next, sizeof(void*));
+                // Search next pool.
+                pool = pool->next; 
             }
+        }
+
+        // Element not in range of any pool?
+        if (!pool) {
+
+            // User passed a garbage pointer.
+            throw std::logic_error(__PRETTY_FUNCTION__);
+        }
+
+        // Insert so that free element list is sorted by address.
+        if (pool->first_free == nullptr ||
+            pool->first_free > elem) {
+
+            // Prepend.
+            std::memcpy(elem, &pool->first_free, sizeof(void*));
+            pool->first_free = elem;
+        }
+        else {
+
+            // Find insertion.
+            byte_type* free_elem = pool->first_free;
+            byte_type* free_elem_next = nullptr;
+            while (1) {
+                std::memcpy(&free_elem_next, free_elem, sizeof(void*));
+                if (free_elem_next == nullptr ||
+                    free_elem_next > elem) {
+                    break;
+                }
+                free_elem = free_elem_next;
+            }
+
+            // Insert.
+            std::memcpy(free_elem, &elem, sizeof(void*));
+            std::memcpy(elem, &free_elem_next, sizeof(void*));
         }
     }
 
@@ -280,69 +339,136 @@ public:
      * @param[in] ptr
      * Pointer.
      *
-     * @param[in] n
-     * Number of elements.
+     * @param[in] count
+     * Element count.
      *
      * @note
-     * If `ptr == nullptr` or `n == 0`, implementation is a no-op.
+     * If `ptr == nullptr` or `count == 0`, implementation is a no-op.
      */
-    void deallocate(void* ptr, std::size_t n)
+    void deallocate(void* ptr, std::size_t count)
     {
-        if (ptr != nullptr) {
-            char* pos = static_cast<char*>(ptr);
-            while (n > 0) {
-                deallocate(pos);
-                pos += elem_stride_;
-                n--;
-            }
+        if (ptr == nullptr) {
+            return;
+        }
+        
+        byte_type* elem = static_cast<byte_type*>(ptr);
+        for (std::size_t index = 0;
+                         index < count; index++) {
+
+            // Delegate.
+            deallocate(elem + index * elem_size_);
         }
     }
 
     /**
-     * @brief Clear, deallocate all elements.
+     * @brief Clear.
      */
     void clear()
     {
-        // Reset free element list.
-        first_free_ = begin_;
-        for (std::size_t elem_index = 0;
-                         elem_index + 1 < elem_count_;
-                         elem_index++) {
-            char* elem0 = begin_ + (elem_index + 0) * elem_stride_;
-            char* elem1 = begin_ + (elem_index + 1) * elem_stride_;
-            std::memcpy(elem0, &elem1, sizeof(void*));
+        // Loop through all pools.
+        for (pool_type* pool = head_; pool; pool = pool->next) {
+
+            // Clear.
+            clear_pool_(pool);
         }
-        char* elem0 = begin_ + (elem_count_ - 1) * elem_stride_;
-        char* elem1 = nullptr;
-        std::memcpy(elem0, &elem1, sizeof(void*));
+    }
+
+    /**
+     * @brief Reset.
+     */
+    void reset()
+    {
+        for (pool_type* pool = head_; pool;) {
+
+            // Deallocate.
+            pool_type* next = pool->next;
+            byte_alloc_.deallocate(pool->begin, elem_size_ * elems_per_pool_);
+            pool_alloc_.deallocate(pool, 1);
+            pool = next; // Increment.
+        }
+
+        // Nullify.
+        head_ = nullptr;
     }
 
 private:
 
     /**
-     * @brief Element stride in bytes.
+     * @brief Element size in bytes.
      */
-    std::size_t elem_stride_ = 0;
+    std::size_t elem_size_ = 0;
 
     /**
-     * @brief Element count.
+     * @brief Elements per pool.
      */
-    std::size_t elem_count_ = 0;
+    std::size_t elems_per_pool_ = 0;
 
     /**
-     * @brief Pointer to elements.
+     * @brief Pool list.
      */
-    char* begin_ = nullptr;
-
-    /**
-     * @brief Pointer to first free element.
-     */
-    char* first_free_ = nullptr;
+    pool_type* head_ = nullptr;
 
     /**
      * @brief Byte allocator.
      */
-    Tbyte_alloc byte_alloc_;
+    byte_allocator byte_alloc_;
+
+    /**
+     * @brief Pool allocator.
+     */
+    pool_allocator pool_alloc_;
+
+#if !DOXYGEN 
+private:
+
+    // Allocate pool and append to list.
+    pool_type* alloc_pool_()
+    {
+        // Allocate pool structure.
+        pool_type* pool = 
+        pool_alloc_.allocate(1);
+
+        // Allocate pool memory.
+        pool->begin = 
+        byte_alloc_.allocate(elem_size_ * elems_per_pool_);
+
+        // Clear.
+        clear_pool_(pool);
+
+        // First pool?
+        if (head_ == nullptr) {
+            head_ = pool; // Set head.
+        }
+        else {
+
+            // Append.
+            pool_type* tail = head_;
+            while (tail->next) { tail = tail->next; }
+            tail->next = pool;
+        }
+
+        return pool;
+    }
+
+    // Clear pool.
+    void clear_pool_(pool_type* pool)
+    {
+        // Link all elements sequentially.
+        pool->first_free = pool->begin;
+        for (std::size_t index = 0;
+                         index + 1 < elems_per_pool_; index++) {
+
+            byte_type* elem0 = pool->begin + (index + 0) * elem_size_;
+            byte_type* elem1 = pool->begin + (index + 1) * elem_size_;
+            std::memcpy(elem0, &elem1, sizeof(void*));
+        }
+
+        byte_type* elem0 = pool->begin + (elems_per_pool_ - 1) * elem_size_;
+        byte_type* elem1 = nullptr;
+        std::memcpy(elem0, &elem1, sizeof(void*));
+    }
+
+#endif // #if !DOXYGEN
 };
 
 /**@}*/
