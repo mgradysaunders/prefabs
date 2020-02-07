@@ -427,6 +427,7 @@ private:
         // Allocate pool structure.
         pool_type* pool = 
         pool_alloc_.allocate(1);
+        pool->next = nullptr;
 
         // Allocate pool memory.
         pool->begin = 
