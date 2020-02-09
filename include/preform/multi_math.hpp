@@ -1001,6 +1001,18 @@ struct multi_initializers<
             std::is_floating_point<T>::value, void>>
 {
     /**
+     * @brief Identity.
+     */
+    __attribute__((always_inline))
+    static multi<T, 2, 2> identity()
+    {
+        return {
+            {T(1), T(0)},
+            {T(0), T(1)}
+        };
+    }
+
+    /**
      * @brief Rotate counter-clockwise.
      *
      * @par Expression
@@ -1031,6 +1043,19 @@ struct multi_initializers<
             std::enable_if_t<
             std::is_floating_point<T>::value, void>>
 {
+    /**
+     * @brief Identity.
+     */
+    __attribute__((always_inline))
+    static multi<T, 3, 3> identity()
+    {
+        return {
+            {T(1), T(0), T(0)},
+            {T(0), T(1), T(0)},
+            {T(0), T(0), T(1)}
+        };
+    }
+
     /**
      * @brief Build real 3-dimensional orthonormal basis.
      *
@@ -1282,6 +1307,20 @@ struct multi_initializers<
             std::enable_if_t<
             std::is_floating_point<T>::value, void>>
 {
+    /**
+     * @brief Identity.
+     */
+    __attribute__((always_inline))
+    static multi<T, 4, 4> identity()
+    {
+        return {
+            {T(1), T(0), T(0), T(0)},
+            {T(0), T(1), T(0), T(0)},
+            {T(0), T(0), T(1), T(0)},
+            {T(0), T(0), T(0), T(1)}
+        };
+    }
+
     /**
      * @brief Translate.
      *
