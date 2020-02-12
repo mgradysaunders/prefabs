@@ -157,7 +157,6 @@ public:
             }
         }
 
-
         /**
          * @brief Swap cyclically.
          */
@@ -628,6 +627,31 @@ public:
         }
         else {
             return itr->second.t1;
+        }
+    }
+
+
+    /**
+     * @brief Edge to triangle indices.
+     *
+     * @param[in] edge
+     * Edge.
+     */
+    std::pair<index_type, index_type> 
+                    edge_to_triangles(const edge_type& edge) const
+    {
+        auto itr = edge_triangles_.find(edge);
+        if (itr == edge_triangles_.end()) {
+            return {
+                bad_index, 
+                bad_index
+            };
+        }
+        else {
+            return {
+                itr->second.t1,
+                itr->second.t2
+            };
         }
     }
 
