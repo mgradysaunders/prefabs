@@ -74,7 +74,6 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classpr_1_1delaunay__triangulation-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -129,10 +128,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac69eb9926349c5397141c910203fdb90"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1delaunay__triangulation.html#ac69eb9926349c5397141c910203fdb90">delaunay_triangulation</a> (const <a class="el" href="classpr_1_1delaunay__triangulation.html">delaunay_triangulation</a> &amp;)=delete</td></tr>
 <tr class="memdesc:ac69eb9926349c5397141c910203fdb90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-copyable.  <a href="#ac69eb9926349c5397141c910203fdb90">More...</a><br /></td></tr>
 <tr class="separator:ac69eb9926349c5397141c910203fdb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad83216d321a59371b67eb3f530b59cf7"><td class="memTemplParams" colspan="2">template&lt;typename Tinput_itr , typename Tfunc &gt; </td></tr>
+<tr class="memitem:ad83216d321a59371b67eb3f530b59cf7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1delaunay__triangulation.html#ad83216d321a59371b67eb3f530b59cf7">init</a> (Tinput_itr from, Tinput_itr to, Tfunc &amp;&amp;func)</td></tr>
+<tr class="memdesc:ad83216d321a59371b67eb3f530b59cf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize.  <a href="#ad83216d321a59371b67eb3f530b59cf7">More...</a><br /></td></tr>
+<tr class="separator:ad83216d321a59371b67eb3f530b59cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaec50c7621fd2e72eb9649b87ee26ccc"><td class="memTemplParams" colspan="2">template&lt;typename Tinput_itr &gt; </td></tr>
 <tr class="memitem:aaec50c7621fd2e72eb9649b87ee26ccc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1delaunay__triangulation.html#aaec50c7621fd2e72eb9649b87ee26ccc">init</a> (Tinput_itr from, Tinput_itr to)</td></tr>
-<tr class="memdesc:aaec50c7621fd2e72eb9649b87ee26ccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize.  <a href="#aaec50c7621fd2e72eb9649b87ee26ccc">More...</a><br /></td></tr>
+<tr class="memdesc:aaec50c7621fd2e72eb9649b87ee26ccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize with implicit conversion.  <a href="#aaec50c7621fd2e72eb9649b87ee26ccc">More...</a><br /></td></tr>
 <tr class="separator:aaec50c7621fd2e72eb9649b87ee26ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a531326bb1dfce8326f8f10582ecc9e8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1delaunay__triangulation.html#a531326bb1dfce8326f8f10582ecc9e8c">clear</a> ()</td></tr>
+<tr class="memdesc:a531326bb1dfce8326f8f10582ecc9e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear.  <a href="#a531326bb1dfce8326f8f10582ecc9e8c">More...</a><br /></td></tr>
+<tr class="separator:a531326bb1dfce8326f8f10582ecc9e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Accessors</div></td></tr>
 <tr class="memitem:ab1fa1a76a93db8eb4751c943a76c7e21"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1delaunay__triangulation.html#ab1fa1a76a93db8eb4751c943a76c7e21">points</a> () const</td></tr>
 <tr class="memdesc:ab1fa1a76a93db8eb4751c943a76c7e21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator range of points.  <a href="#ab1fa1a76a93db8eb4751c943a76c7e21">More...</a><br /></td></tr>
@@ -155,6 +161,7 @@ Static Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Implementation</div></td></tr>
 <tr class="memitem:aee4e8c8bd9437abf95b387db670c38cc"><td class="memTemplParams" colspan="2">template&lt;typename Twhich_float &gt; </td></tr>
 <tr class="memitem:aee4e8c8bd9437abf95b387db670c38cc"><td class="memTemplItemLeft" align="right" valign="top">Twhich_float&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1delaunay__triangulation.html#aee4e8c8bd9437abf95b387db670c38cc">signed_area</a> (<a class="el" href="classpr_1_1delaunay__triangulation.html#a4e61845a7bbff9824758b9d28593ac14">index_type</a> a, <a class="el" href="classpr_1_1delaunay__triangulation.html#a4e61845a7bbff9824758b9d28593ac14">index_type</a> b, <a class="el" href="classpr_1_1delaunay__triangulation.html#a4e61845a7bbff9824758b9d28593ac14">index_type</a> c) const</td></tr>
 <tr class="memdesc:aee4e8c8bd9437abf95b387db670c38cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signed area of parallelogram.  <a href="#aee4e8c8bd9437abf95b387db670c38cc">More...</a><br /></td></tr>
@@ -400,8 +407,77 @@ template&lt;typename Tfloat , typename Talloc  = std::allocator&lt;char&gt;&gt; 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad83216d321a59371b67eb3f530b59cf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad83216d321a59371b67eb3f530b59cf7">&#9670;&nbsp;</a></span>init() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;typename Tinput_itr , typename Tfunc &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1delaunay__triangulation.html">pr::delaunay_triangulation</a>&lt; Tfloat, Talloc &gt;::init </td>
+          <td>(</td>
+          <td class="paramtype">Tinput_itr&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Tinput_itr&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Tfunc &amp;&amp;&#160;</td>
+          <td class="paramname"><em>func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialize. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Input from.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">to</td><td>Input to.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">func</td><td>Function constructing an instance of <code>point_type</code> for each input element.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line">aabb_type(<span class="keyword">const</span> Tinput&amp;)</div></div><!-- fragment --> where <code>Tinput</code> is the value type corresponding to <code>Tinput_itr</code>.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>For each <code>triangle</code> in <code>triangles_</code>,<ul>
+<li><code>triangle</code> has non-zero (strictly positive) area,</li>
+<li><code>triangle</code> has counter-clockwise vertex ordering,</li>
+<li>if <code>triangle</code> contains a boundary edge, then it is given by the first two vertex indices \( (A, B) \).</li>
+</ul>
+</dd>
+<dd>
+For each <code>edge</code> in <code>boundary_edges_</code>,<ul>
+<li><code>edge</code> has counter-clockwise vertex ordering,</li>
+<li>the index of the <code>triangle</code> in <code>triangles_</code> which contains <code>edge</code> is returned by <code>boundary_edge_to_triangle(edge)</code>. </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
 <a id="aaec50c7621fd2e72eb9649b87ee26ccc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaec50c7621fd2e72eb9649b87ee26ccc">&#9670;&nbsp;</a></span>init()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaec50c7621fd2e72eb9649b87ee26ccc">&#9670;&nbsp;</a></span>init() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -438,32 +514,43 @@ template&lt;typename Tinput_itr &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Initialize. </p>
+<p>Initialize with implicit conversion. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Iterator range from.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">to</td><td>Iterator range to.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Input from.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">to</td><td>Input to. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Tinput_itr</td><td>Input iterator whose value type is suitable to initialize <code>point_type</code>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section post"><dt>Postcondition</dt><dd>For each <code>triangle</code> in <code>triangles_</code>,<ul>
-<li><code>triangle</code> has non-zero (strictly positive) area,</li>
-<li><code>triangle</code> has counter-clockwise vertex ordering,</li>
-<li>if <code>triangle</code> contains a boundary edge, then it is given by the first two vertex indices \( (A, B) \).</li>
-</ul>
-</dd>
-<dd>
-For each <code>edge</code> in <code>boundary_edges_</code>,<ul>
-<li><code>edge</code> has counter-clockwise vertex ordering,</li>
-<li>the index of the <code>triangle</code> in <code>triangles_</code> which contains <code>edge</code> is returned by <code>boundary_edge_to_triangle(edge)</code>. </li>
-</ul>
-</dd></dl>
+
+</div>
+</div>
+<a id="a531326bb1dfce8326f8f10582ecc9e8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a531326bb1dfce8326f8f10582ecc9e8c">&#9670;&nbsp;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1delaunay__triangulation.html">pr::delaunay_triangulation</a>&lt; Tfloat, Talloc &gt;::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clear. </p>
 
 </div>
 </div>

@@ -130,13 +130,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6fe434b06169406c2b9a766a3ad6f7f1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a6fe434b06169406c2b9a766a3ad6f7f1">init</a> (Tinput_itr from, Tinput_itr to, Tfunc &amp;&amp;func)</td></tr>
 <tr class="memdesc:a6fe434b06169406c2b9a766a3ad6f7f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize.  <a href="#a6fe434b06169406c2b9a766a3ad6f7f1">More...</a><br /></td></tr>
 <tr class="separator:a6fe434b06169406c2b9a766a3ad6f7f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54f4648438980c94d50e49bd3e2d22bc"><td class="memTemplParams" colspan="2">template&lt;typename Tinput_itr &gt; </td></tr>
+<tr class="memitem:a54f4648438980c94d50e49bd3e2d22bc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a54f4648438980c94d50e49bd3e2d22bc">init</a> (Tinput_itr from, Tinput_itr to)</td></tr>
+<tr class="memdesc:a54f4648438980c94d50e49bd3e2d22bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize with implicit conversion.  <a href="#a54f4648438980c94d50e49bd3e2d22bc">More...</a><br /></td></tr>
+<tr class="separator:a54f4648438980c94d50e49bd3e2d22bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85988fd1194d0546517fa711b1343192"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a85988fd1194d0546517fa711b1343192">clear</a> ()</td></tr>
+<tr class="memdesc:a85988fd1194d0546517fa711b1343192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear.  <a href="#a85988fd1194d0546517fa711b1343192">More...</a><br /></td></tr>
+<tr class="separator:a85988fd1194d0546517fa711b1343192"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a95fc3f3d2d74804f30777a529a0814"><td class="memTemplParams" colspan="2">template&lt;typename Tforward_itr &gt; </td></tr>
 <tr class="memitem:a0a95fc3f3d2d74804f30777a529a0814"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a0a95fc3f3d2d74804f30777a529a0814">sort</a> (Tforward_itr from, Tforward_itr to)</td></tr>
 <tr class="memdesc:a0a95fc3f3d2d74804f30777a529a0814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort values to match proxies.  <a href="#a0a95fc3f3d2d74804f30777a529a0814">More...</a><br /></td></tr>
 <tr class="separator:a0a95fc3f3d2d74804f30777a529a0814"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85988fd1194d0546517fa711b1343192"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a85988fd1194d0546517fa711b1343192">clear</a> ()</td></tr>
-<tr class="memdesc:a85988fd1194d0546517fa711b1343192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear.  <a href="#a85988fd1194d0546517fa711b1343192">More...</a><br /></td></tr>
-<tr class="separator:a85988fd1194d0546517fa711b1343192"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Accessors</div></td></tr>
 <tr class="memitem:a910f398ac6b8fe6779749f89dcf23dd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpr_1_1aabbtree.html#a237a9ff2a7c887c67ed57fbcb97d4464">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpr_1_1aabbtree.html#a910f398ac6b8fe6779749f89dcf23dd1">leaf_cutoff</a> () const</td></tr>
 <tr class="memdesc:a910f398ac6b8fe6779749f89dcf23dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Leaf cutoff.  <a href="#a910f398ac6b8fe6779749f89dcf23dd1">More...</a><br /></td></tr>
@@ -444,7 +448,7 @@ template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Tal
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6fe434b06169406c2b9a766a3ad6f7f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fe434b06169406c2b9a766a3ad6f7f1">&#9670;&nbsp;</a></span>init()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fe434b06169406c2b9a766a3ad6f7f1">&#9670;&nbsp;</a></span>init() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -488,10 +492,6 @@ template&lt;typename Tinput_itr , typename Tfunc &gt; </div>
 </div><div class="memdoc">
 
 <p>Initialize. </p>
-<p>Initializes axis-aligned bounding box tree by</p><ol type="1">
-<li>converting input range to axis-aligned bounding box proxy representation with predicate function,</li>
-<li>generating tree recursively from the top down, splitting according to <code>Tsplit_mode</code>.</li>
-</ol>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">from</td><td>Input from.</td></tr>
@@ -501,6 +501,77 @@ template&lt;typename Tinput_itr , typename Tfunc &gt; </div>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Function must have signature equivalent to <div class="fragment"><div class="line"><a class="code" href="classpr_1_1aabbtree.html#a08314dcead4e0d9ee386d7abe0df3c86" title="Axis-aligned bounding box type. ">aabb_type</a>(<span class="keyword">const</span> Tinput&amp;)</div></div><!-- fragment --> where <code>Tinput</code> is the value type corresponding to <code>Tinput_itr</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a54f4648438980c94d50e49bd3e2d22bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54f4648438980c94d50e49bd3e2d22bc">&#9670;&nbsp;</a></span>init() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;typename Tinput_itr &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Talloc &gt;::init </td>
+          <td>(</td>
+          <td class="paramtype">Tinput_itr&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Tinput_itr&#160;</td>
+          <td class="paramname"><em>to</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialize with implicit conversion. </p>
+
+</div>
+</div>
+<a id="a85988fd1194d0546517fa711b1343192"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85988fd1194d0546517fa711b1343192">&#9670;&nbsp;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Talloc &gt;::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clear. </p>
 
 </div>
 </div>
@@ -550,35 +621,6 @@ template&lt;typename Tforward_itr &gt; </div>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a85988fd1194d0546517fa711b1343192"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85988fd1194d0546517fa711b1343192">&#9670;&nbsp;</a></span>clear()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tfloat , std::size_t N, typename Tsplit_mode , typename Talloc  = std::allocator&lt;char&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classpr_1_1aabbtree.html">pr::aabbtree</a>&lt; Tfloat, N, Tsplit_mode, Talloc &gt;::clear </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Clear. </p>
 
 </div>
 </div>
