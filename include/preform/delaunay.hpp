@@ -338,14 +338,22 @@ public:
      * @brief Initialize.
      *
      * @param[in] from
-     * Iterator range from.
+     * Input from.
      *
      * @param[in] to
-     * Iterator range to.
+     * Input to.
      *
-     * @tparam Tinput_itr
-     * Input iterator whose value type is suitable to
-     * initialize `point_type`.
+     * @param[in] func
+     * Function constructing an instance of `point_type` for each
+     * input element.
+     *
+     * @note
+     * Function must have signature equivalent to
+     * ~~~~~~~~~~~~~~~~~~~~~~~~{cpp}
+     * aabb_type(const Tinput&)
+     * ~~~~~~~~~~~~~~~~~~~~~~~~
+     * where `Tinput` is the value type corresponding to
+     * `Tinput_itr`.
      *
      * @post
      * For each `triangle` in `triangles_`,
@@ -360,16 +368,26 @@ public:
      * - the index of the `triangle` in `triangles_` which contains `edge`
      * is returned by `boundary_edge_to_triangle(edge)`.
      */
-    template <typename Tinput_itr>
+    template <typename Tinput_itr, typename Tfunc>
     void init(
             Tinput_itr from,
-            Tinput_itr to)
+            Tinput_itr to,
+            Tfunc&& func)
     {
-        // Initialize points.
-        points_.insert(
-        points_.begin(), from, to);
-        if (points_.empty()) {
+        clear();
+
+        // Count.
+        typename
+        std::iterator_traits<Tinput_itr>::difference_type
+            count = std::distance(from, to);
+        if (count < decltype(count)(1)) {
             return;
+        }
+
+        // Initialize points.
+        points_.reserve(count);
+        while (from != to) {
+            points_.emplace_back(std::forward<Tfunc>(func)(*from++));
         }
 
         // Compute point centroid.
@@ -522,6 +540,41 @@ public:
         }
     }
 
+    /**
+     * @brief Initialize with implicit conversion. 
+     *
+     * @param[in] from
+     * Input from.
+     *
+     * @param[in] to
+     * Input to.
+     */
+    template <typename Tinput_itr>
+    void init(
+            Tinput_itr from,
+            Tinput_itr to)
+    {
+        init(from, to, [](const auto& val) { return val; });
+    }
+
+    /**
+     * @brief Clear.
+     */
+    void clear()
+    {
+        // Clear points.
+        points_.clear();
+
+        // Clear triangles.
+        triangles_.clear();
+
+        // Clear edge triangles.
+        edge_triangles_.clear();
+
+        // Clear boundary edges.
+        boundary_edges_.clear();
+    }
+
 public:
 
     /**
@@ -581,6 +634,11 @@ public:
     /**@}*/
 
 private:
+
+    /**
+     * @name Implementation
+     */
+    /**@{*/
 
     /**
      * @brief Signed area of parallelogram.
@@ -862,6 +920,8 @@ private:
         edges_to_flip_next.insert(edge_type{q1, edge.a});
         edges_to_flip_next.insert(edge_type{q2, edge.b});
     }
+
+    /**@}*/
 
 private:
 

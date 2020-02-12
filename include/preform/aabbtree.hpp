@@ -276,12 +276,6 @@ public:
     /**
      * @brief Initialize.
      *
-     * Initializes axis-aligned bounding box tree by
-     * 1. converting input range to axis-aligned bounding box
-     * proxy representation with predicate function,
-     * 2. generating tree recursively from the top down, splitting
-     * according to `Tsplit_mode`.
-     *
      * @param[in] from
      * Input from.
      *
@@ -344,6 +338,32 @@ public:
     }
 
     /**
+     * @brief Initialize with implicit conversion.
+     */
+    template <typename Tinput_itr>
+    void init(
+            Tinput_itr from,
+            Tinput_itr to)
+    {
+        init(from, to, [](const auto& val) { return val; });
+    }
+
+    /**
+     * @brief Clear.
+     */
+    void clear()
+    {
+        // Destroy root.
+        deallocate_recursive(root_);
+        root_ = nullptr;
+        node_count_ = 0;
+
+        // Destroy proxies.
+        proxies_.clear();
+        proxies_.shrink_to_fit();
+    }
+
+    /**
      * @brief Sort values to match proxies.
      *
      * @param[in] from
@@ -367,21 +387,6 @@ public:
         for (size_type pos = 0; pos < proxies_.size(); pos++) {
             *from++ = values[proxies_[pos].value_index];
         }
-    }
-
-    /**
-     * @brief Clear.
-     */
-    void clear()
-    {
-        // Destroy root.
-        deallocate_recursive(root_);
-        root_ = nullptr;
-        node_count_ = 0;
-
-        // Destroy proxies.
-        proxies_.clear();
-        proxies_.shrink_to_fit();
     }
 
 public:
