@@ -925,7 +925,7 @@ inline std::enable_if_t<
 {
     if constexpr (std::is_floating_point<T>::value) {
         multi<T, N> a =
-        multi<T, N>::value(v[N - 1]);
+        multi<T, N>(v[N - 1]);
         a[N - 1] = 1;
         return v * a;
     }
@@ -961,7 +961,7 @@ inline std::enable_if_t<
     if constexpr (std::is_floating_point<T>::value) {
         if (v[N - 1] > 0) {
             multi<T, N> a =
-            multi<T, N>::value(v[N - 1]);
+            multi<T, N>(v[N - 1]);
             a[N - 1] = 1;
             return v / a;
         }
