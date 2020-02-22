@@ -188,6 +188,14 @@ Color conversion</h2></td></tr>
 <tr class="memitem:ga43f5a95fab536c8dcc5d0b8a47ab5e8d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga43f5a95fab536c8dcc5d0b8a47ab5e8d">pr::rgb_to_xyz</a> (const multi&lt; T, 2 &gt; &amp;cr, const multi&lt; T, 2 &gt; &amp;cg, const multi&lt; T, 2 &gt; &amp;cb, const multi&lt; T, 3 &gt; &amp;w)</td></tr>
 <tr class="memdesc:ga43f5a95fab536c8dcc5d0b8a47ab5e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">RGB to XYZ conversion matrix.  <a href="group__color.html#ga43f5a95fab536c8dcc5d0b8a47ab5e8d">More...</a><br /></td></tr>
 <tr class="separator:ga43f5a95fab536c8dcc5d0b8a47ab5e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga04526e80413b47eaf8770c5d6c4e4886"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga04526e80413b47eaf8770c5d6c4e4886"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#ga04526e80413b47eaf8770c5d6c4e4886">pr::xyz_to_xyy</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
+<tr class="memdesc:ga04526e80413b47eaf8770c5d6c4e4886"><td class="mdescLeft">&#160;</td><td class="mdescRight">XYZ triple to xyY triple.  <a href="group__color.html#ga04526e80413b47eaf8770c5d6c4e4886">More...</a><br /></td></tr>
+<tr class="separator:ga04526e80413b47eaf8770c5d6c4e4886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab6792ec30e25742f74463693dc70013e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab6792ec30e25742f74463693dc70013e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#gab6792ec30e25742f74463693dc70013e">pr::xyy_to_xyz</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
+<tr class="memdesc:gab6792ec30e25742f74463693dc70013e"><td class="mdescLeft">&#160;</td><td class="mdescRight">xyY triple to XYZ triple.  <a href="group__color.html#gab6792ec30e25742f74463693dc70013e">More...</a><br /></td></tr>
+<tr class="separator:gab6792ec30e25742f74463693dc70013e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaae5f0a22850b8bbc119ef775322a780c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gaae5f0a22850b8bbc119ef775322a780c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, 3 &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__color.html#gaae5f0a22850b8bbc119ef775322a780c">pr::xyz_to_lab</a> (const multi&lt; T, 3 &gt; &amp;v)</td></tr>
 <tr class="memdesc:gaae5f0a22850b8bbc119ef775322a780c"><td class="mdescLeft">&#160;</td><td class="mdescRight">XYZ triple to Lab triple.  <a href="group__color.html#gaae5f0a22850b8bbc119ef775322a780c">More...</a><br /></td></tr>
@@ -1127,6 +1135,74 @@ template&lt;typename T &gt; </div>
 
 <p>RGB to XYZ conversion matrix. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="http://brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html">Bruce Lindbloom's page</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga04526e80413b47eaf8770c5d6c4e4886"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga04526e80413b47eaf8770c5d6c4e4886">&#9670;&nbsp;</a></span>xyz_to_xyy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, multi&lt;T, 3&gt; &gt; pr::xyz_to_xyy </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>XYZ triple to xyY triple. </p>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ \begin{bmatrix} x \\ y \\ Y \end{bmatrix} \gets \begin{bmatrix} X / (X + Y + Z) \\ Y / (X + Y + Z) \\ Y \end{bmatrix} \]
+</p>
+ </dd></dl>
+
+</div>
+</div>
+<a id="gab6792ec30e25742f74463693dc70013e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab6792ec30e25742f74463693dc70013e">&#9670;&nbsp;</a></span>xyy_to_xyz()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, multi&lt;T, 3&gt; &gt; pr::xyy_to_xyz </td>
+          <td>(</td>
+          <td class="paramtype">const multi&lt; T, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>xyY triple to XYZ triple. </p>
+<dl class="section user"><dt>Expression</dt><dd><p class="formulaDsp">
+\[ \begin{bmatrix} X \\ Y \\ Z \end{bmatrix} \gets Y \begin{bmatrix} x / y \\ 1 \\ (1 - x - y) / y \end{bmatrix} \]
+</p>
+ </dd></dl>
 
 </div>
 </div>
