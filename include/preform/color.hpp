@@ -69,6 +69,7 @@ namespace pr {
 /**
  * @brief Encode linear RGB as sRGB.
  *
+ * @par Expression
  * @f[
  *      \operatorname{srgbenc}(v) =
  *      \begin{cases}
@@ -105,6 +106,7 @@ inline std::enable_if_t<
 /**
  * @brief Encode linear RGB as sRGB.
  *
+ * @par Expression
  * @f[
  *      \begin{bmatrix} r' \\ g' \\ b' \end{bmatrix} \gets
  *      \begin{bmatrix}
@@ -135,6 +137,7 @@ inline std::enable_if_t<
 /**
  * @brief Encode linear RGB as sRGB.
  *
+ * @par Expression
  * @f[
  *      \begin{bmatrix} r' \\ g' \\ b' \\ \alpha' \end{bmatrix} \gets
  *      \begin{bmatrix}
@@ -167,6 +170,7 @@ inline std::enable_if_t<
 /**
  * @brief Decode linear RGB from sRGB.
  *
+ * @par Expression
  * @f[
  *      \operatorname{srgbdec}(v) =
  *      \begin{cases}
@@ -202,6 +206,7 @@ inline std::enable_if_t<
 /**
  * @brief Decode linear RGB from sRGB.
  *
+ * @par Expression
  * @f[
  *      \begin{bmatrix} r' \\ g' \\ b' \end{bmatrix} \gets
  *      \begin{bmatrix}
@@ -232,6 +237,7 @@ inline std::enable_if_t<
 /**
  * @brief Decode linear RGB from sRGB.
  *
+ * @par Expression
  * @f[
  *      \begin{bmatrix} r' \\ g' \\ b' \\ \alpha' \end{bmatrix} \gets
  *      \begin{bmatrix}
@@ -264,6 +270,7 @@ inline std::enable_if_t<
 /**
  * @brief Encode linear RGB as sRGB with Hable tonemapping.
  *
+ * @par Expression
  * @f[
  *      \operatorname{srgbenc}_{\text{Hable}}(v) =
  *      \operatorname{srgbenc}\left(
@@ -289,6 +296,7 @@ inline std::enable_if_t<
 /**
  * @brief Encode linear RGB as sRGB with Hable tonemapping.
  *
+ * @par Expression
  * @f[
  *      \begin{bmatrix} r' \\ g' \\ b' \end{bmatrix} \gets
  *      \begin{bmatrix}
@@ -317,6 +325,7 @@ inline std::enable_if_t<
 /**
  * @brief Encode linear RGB as sRGB with Hable tonemapping.
  *
+ * @par Expression
  * @f[
  *      \begin{bmatrix} r' \\ g' \\ b' \\ \alpha' \end{bmatrix} \gets
  *      \begin{bmatrix}
@@ -347,6 +356,7 @@ inline std::enable_if_t<
 /**
  * @brief Encode linear RGB as sRGB with Hejl/Burgess-Dawson tonemapping.
  *
+ * @par Expression
  * @f[
  *      \operatorname{srgbenc}_{\text{Hejl/Burgess}}(v) =
  *      \frac{6.2 \max(v - 0.004, 0)^2 + 0.5 \max(v - 0.004, 0)}
@@ -369,6 +379,7 @@ inline std::enable_if_t<
 /**
  * @brief Encode linear RGB as sRGB with Hejl/Burgess-Dawson tonemapping.
  *
+ * @par Expression
  * @f[
  *      \begin{bmatrix} r' \\ g' \\ b' \end{bmatrix} \gets
  *      \begin{bmatrix}
@@ -397,6 +408,7 @@ inline std::enable_if_t<
 /**
  * @brief Encode linear RGB as sRGB with Hejl/Burgess-Dawson tonemapping.
  *
+ * @par Expression
  * @f[
  *      \begin{bmatrix} r' \\ g' \\ b' \\ \alpha' \end{bmatrix} \gets
  *      \begin{bmatrix}
@@ -528,6 +540,7 @@ inline std::enable_if_t<
 /**
  * @brief XYZ triple to RGB triple.
  *
+ * @note
  * This uses standard CIE parameters:
  * - @f$ C_r = (0.7350, 0.2650) @f$,
  * - @f$ C_g = (0.2740, 0.7170) @f$,
@@ -537,35 +550,24 @@ inline std::enable_if_t<
  * @see
  * [Bruce Lindbloom's page][1].
  * [1]: http://brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
- *
- * @note
- * If `T` is an unsigned integral type,
- * - uses `fstretch()` to convert to `double` before recursing, then
- * - uses `fstretch()` to convert to `T`.
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_unsigned<T>::value ||
        std::is_floating_point<T>::value,
-       multi<T, 3>> xyztorgb(const multi<T, 3>& v)
+       multi<T, 3>> xyz_to_rgb(const multi<T, 3>& v)
 {
-    if constexpr (std::is_floating_point<T>::value) {
-        const multi<T, 3, 3> m = {
-            {T(+2.3706743), T(-0.9000405), T(-0.4706338)},
-            {T(-0.5138850), T(+1.4253036), T(+0.0885814)},
-            {T(+0.0052982), T(-0.0146949), T(+1.0093968)}
-        };
-        return dot(m, v);
-    }
-    else {
-        return fstretch<T>(xyztorgb(
-               fstretch<double>(v)));
-    }
+    multi<T, 3, 3> m = {
+        {T(+2.3706743), T(-0.9000405), T(-0.4706338)},
+        {T(-0.5138850), T(+1.4253036), T(+0.0885814)},
+        {T(+0.0052982), T(-0.0146949), T(+1.0093968)}
+    };
+    return dot(m, v);
 }
 
 /**
  * @brief RGB triple to XYZ triple.
  *
+ * @note
  * This uses standard CIE parameters:
  * - @f$ C_r = (0.7350, 0.2650) @f$,
  * - @f$ C_g = (0.2740, 0.7170) @f$,
@@ -575,30 +577,18 @@ inline std::enable_if_t<
  * @see
  * [Bruce Lindbloom's page][1].
  * [1]: http://brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
- *
- * @note
- * If `T` is an unsigned integral type,
- * - uses `fstretch()` to convert to `double` before recursing, then
- * - uses `fstretch()` to convert to `T`.
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_unsigned<T>::value ||
        std::is_floating_point<T>::value,
-       multi<T, 3>> rgbtoxyz(const multi<T, 3>& v)
+       multi<T, 3>> rgb_to_xyz(const multi<T, 3>& v)
 {
-    if constexpr (std::is_floating_point<T>::value) {
-        const multi<T, 3, 3> m = {
-            {T(0.4887180), T(0.3106803), T(0.2006017)},
-            {T(0.1762044), T(0.8129847), T(0.0108109)},
-            {T(0.0000000), T(0.0102048), T(0.9897952)}
-        };
-        return dot(m, v);
-    }
-    else {
-        return fstretch<T>(rgbtoxyz(
-               fstretch<double>(v)));
-    }
+    multi<T, 3, 3> m = {
+        {T(0.4887180), T(0.3106803), T(0.2006017)},
+        {T(0.1762044), T(0.8129847), T(0.0108109)},
+        {T(0.0000000), T(0.0102048), T(0.9897952)}
+    };
+    return dot(m, v);
 }
 
 /**
@@ -611,7 +601,7 @@ inline std::enable_if_t<
 template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value,
-       multi<T, 3, 3>> rgbtoxyz(
+       multi<T, 3, 3>> rgb_to_xyz(
                     const multi<T, 2>& cr,
                     const multi<T, 2>& cg,
                     const multi<T, 2>& cb,
@@ -651,6 +641,7 @@ inline std::enable_if_t<
 /**
  * @brief XYZ triple to Lab triple.
  *
+ * @par Expression
  * @f[
  *      \begin{bmatrix} L \\ a \\ b \end{bmatrix} \gets
  *      \begin{bmatrix}
@@ -671,42 +662,31 @@ inline std::enable_if_t<
  * @see
  * [Bruce Lindbloom's page][1].
  * [1]: http://brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html
- *
- * @note
- * If `T` is an unsigned integral type,
- * - uses `fstretch()` to convert to `double` before recursing, then
- * - uses `fstretch()` to convert to `T`.
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_unsigned<T>::value ||
        std::is_floating_point<T>::value,
-       multi<T, 3>> xyztolab(const multi<T, 3>& v)
+       multi<T, 3>> xyz_to_lab(const multi<T, 3>& v)
 {
-    if constexpr (std::is_floating_point<T>::value) {
-        auto f = [](T t) {
-            if (t > T(216) / T(24389)) {
-                return pr::cbrt(t);
-            }
-            else {
-                return (t * (T(24389) / T(27)) + T(16)) / T(116);
-            }
-        };
-        return {
-            T(116) * f(v[1]) - T(16),
-            T(500) * (f(v[0]) - f(v[1])),
-            T(200) * (f(v[1]) - f(v[2]))
-        };
-    }
-    else {
-        return fstretch<T>(xyztolab(
-               fstretch<double>(v)));
-    }
+    auto f = [](T t) {
+        if (t > T(216) / T(24389)) {
+            return pr::cbrt(t);
+        }
+        else {
+            return (t * (T(24389) / T(27)) + T(16)) / T(116);
+        }
+    };
+    return {
+        T(116) * f(v[1]) - T(16),
+        T(500) * (f(v[0]) - f(v[1])),
+        T(200) * (f(v[1]) - f(v[2]))
+    };
 }
 
 /**
  * @brief Lab triple to XYZ triple.
  *
+ * @par Expression
  * @f[
  *      \begin{bmatrix} X \\ Y \\ Z \end{bmatrix} \gets
  *      \begin{bmatrix}
@@ -735,40 +715,96 @@ inline std::enable_if_t<
  * @see
  * [Bruce Lindbloom's page][1].
  * [1]: http://brucelindbloom.com/index.html?Eqn_Lab_to_XYZ.html
- *
- * @note
- * If `T` is an unsigned integral type,
- * - uses `fstretch()` to convert to `double` before recursing, then
- * - uses `fstretch()` to convert to `T`.
  */
 template <typename T>
 inline std::enable_if_t<
-       std::is_unsigned<T>::value ||
        std::is_floating_point<T>::value,
-       multi<T, 3>> labtoxyz(const multi<T, 3>& v)
+       multi<T, 3>> lab_to_xyz(const multi<T, 3>& v)
 {
-    if constexpr (std::is_floating_point<T>::value) {
-        auto finv = [](T t) {
-            if (nthpow(t, 3) > T(216) / T(24389)) {
-                return nthpow(t, 3);
-            }
-            else {
-                return (t * T(116) - T(16)) * (T(27) / T(24389));
-            }
-        };
-        T fy = (v[0] + T(16)) / T(116);
-        T fx = fy + v[1] / T(500);
-        T fz = fy - v[2] / T(200);
-        return {
-            finv(fx),
-            finv(fy),
-            finv(fz)
-        };
-    }
-    else {
-        return fstretch<T>(labtoxyz(
-               fstretch<double>(v)));
-    }
+    auto finv = [](T t) {
+        if (nthpow(t, 3) > T(216) / T(24389)) {
+            return nthpow(t, 3);
+        }
+        else {
+            return (t * T(116) - T(16)) * (T(27) / T(24389));
+        }
+    };
+    T fy = (v[0] + T(16)) / T(116);
+    T fx = fy + v[1] / T(500);
+    T fz = fy - v[2] / T(200);
+    return {
+        finv(fx),
+        finv(fy),
+        finv(fz)
+    };
+}
+
+/**
+ * @brief XYZ triple to Luv triple.
+ *
+ * @param[in] w
+ * XYZ triple of reference white.
+ *
+ * @param[in] v
+ * XYZ triple.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value,
+       multi<T, 3>> xyz_to_luv(
+                    const multi<T, 3>& w,
+                    const multi<T, 3>& v)
+{
+    T t0 = nthpow(T(6) / T(29), 3);
+    T t = v[1] / w[1];
+    T l = t <= t0 
+        ? t / t0 
+        : 116 * pr::cbrt(t) - 16;
+
+    multi<T, 2> wp = {4 * w[0], 9 * w[1]};
+    multi<T, 2> vp = {4 * v[0], 9 * v[1]};
+    wp /= w[0] + 15 * w[1] + 3 * w[2];
+    vp /= v[0] + 15 * v[1] + 3 * v[2];
+    return {
+        l,
+        13 * l * (vp[0] - wp[0]),
+        13 * l * (vp[1] - wp[1])
+    };
+}
+
+/**
+ * @brief Luv triple to XYZ triple.
+ *
+ * @param[in] w
+ * XYZ triple of reference white.
+ *
+ * @param[in] v
+ * Luv triple.
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value,
+       multi<T, 3>> luv_to_xyz(
+                    const multi<T, 3>& w,
+                    const multi<T, 3>& v)
+{
+    T y = v[0] <= 8 
+        ? v[0] * nthpow(T(6) / T(29), 3)
+        : nthpow((v[0] + 16) / 116, 3);
+    y *= w[1];
+
+    multi<T, 2> wp = {
+        4 * w[0] / (w[0] + 15 * w[1] + 3 * w[2]),
+        9 * w[1] / (w[0] + 15 * w[1] + 3 * w[2])
+    };
+    multi<T, 2> vp = {
+        v[1] / (13 * v[0]) + wp[0],
+        v[2] / (13 * v[0]) + wp[1]
+    };
+    return {
+        y / (4 * vp[1]) * (9 * vp[0]), y,
+        y / (4 * vp[1]) * (12 - 3 * vp[0] - 20 * vp[1])
+    };
 }
 
 /**@}*/
