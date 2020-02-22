@@ -310,12 +310,13 @@ inline std::enable_if_t<
 /**
  * @brief Fast floor by int casting.
  */
-template <typename T>
+template <typename T, typename U = int>
 __attribute__((always_inline))
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, int> fastfloor(T x)
+       std::is_floating_point<T>::value &&
+       std::is_integral<U>::value, U> fastfloor(T x)
 {
-    int i = int(x);
+    U i(x);
     i = i - (T(i) > x);
     return i;
 }
@@ -323,12 +324,13 @@ inline std::enable_if_t<
 /**
  * @brief Fast ceil by int casting.
  */
-template <typename T>
+template <typename T, typename U = int>
 __attribute__((always_inline))
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, int> fastceil(T x)
+       std::is_floating_point<T>::value &&
+       std::is_integral<U>::value, U> fastceil(T x)
 {
-    int i = int(x);
+    U i(x);
     i = i + (T(i) < x);
     return i;
 }
@@ -336,23 +338,25 @@ inline std::enable_if_t<
 /**
  * @brief Fast round by int casting.
  */
-template <typename T>
+template <typename T, typename U = int>
 __attribute__((always_inline))
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, int> fastround(T x)
+       std::is_floating_point<T>::value &&
+       std::is_integral<U>::value, U> fastround(T x)
 {
-    return fastfloor(x + T(0.5));
+    return fastfloor<T, U>(x + T(0.5));
 }
 
 /**
  * @brief Fast trunc by int casting.
  */
-template <typename T>
+template <typename T, typename U = int>
 __attribute__((always_inline))
 inline std::enable_if_t<
-       std::is_floating_point<T>::value, int> fasttrunc(T x)
+       std::is_floating_point<T>::value &&
+       std::is_integral<U>::value, U> fasttrunc(T x)
 {
-    return int(x);
+    return U(x);
 }
 
 /**
@@ -507,34 +511,32 @@ inline std::enable_if_t<
                        std::is_unsigned<U>::value) {
         // Float -> Unorm.
         return
-            static_cast<U>(pr::round(
-            static_cast<double>(pr::numeric_limits<U>::max()) *
-            static_cast<double>(pr::fclamp(x, T(0), T(1)))));
+            pr::fastround<T, U>(
+                pr::numeric_limits<U>::max() *
+                pr::min(pr::max(x, T(0)), T(1)));
     }
     else if constexpr (std::is_floating_point<T>::value &&
                        std::is_integral<U>::value) {
         // Float -> Snorm.
         return
-            static_cast<U>(pr::round(
-            static_cast<double>(pr::numeric_limits<U>::max()) *
-            static_cast<double>(pr::fclamp(x, T(-1), T(1) -
-                                pr::numeric_limits<T>::machine_epsilon()))));
+            pr::fastround<T, U>(
+                pr::numeric_limits<U>::max() *
+                pr::min(pr::max(x, T(-1)), T(1) -
+                        pr::numeric_limits<T>::machine_epsilon()));
     }
     else if constexpr (std::is_unsigned<T>::value &&
                        std::is_floating_point<U>::value) {
         // Unorm -> Float.
         return
-            static_cast<U>(
-            static_cast<double>(x) /
-            static_cast<double>(pr::numeric_limits<T>::max()));
+            static_cast<U>(x) /
+            static_cast<U>(pr::numeric_limits<T>::max());
     }
     else if constexpr (std::is_integral<T>::value &&
                        std::is_floating_point<U>::value) {
         // Snorm -> Float.
         return
-            static_cast<U>(
-            static_cast<double>(x) /
-            static_cast<double>(pr::numeric_limits<T>::max()));
+            static_cast<U>(x) /
+            static_cast<U>(pr::numeric_limits<T>::max());
     }
     else if constexpr (std::is_integral<T>::value &&
                        std::is_integral<U>::value) {
