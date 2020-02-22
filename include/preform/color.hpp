@@ -634,11 +634,10 @@ inline std::enable_if_t<
     };
 
     // Temp matrix cofactors.
-    multi<T, 3, 3> acof = {
-        cross(a[1], a[2]),
-        cross(a[2], a[0]),
-        cross(a[0], a[1])
-    };
+    multi<T, 3, 3> acof;
+    acof[0] = cross(a[1], a[2]);
+    acof[1] = cross(a[2], a[0]);
+    acof[2] = cross(a[0], a[1]);
 
     // Temp matrix inverse times reference white.
     multi<T, 3> s = dot(w, acof) / acof[1].sum();
