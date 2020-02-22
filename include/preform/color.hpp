@@ -594,6 +594,18 @@ inline std::enable_if_t<
 /**
  * @brief RGB to XYZ conversion matrix.
  *
+ * @param[in] Cr
+ * xy pair of reference red.
+ *
+ * @param[in] Cg
+ * xy pair of reference green.
+ *
+ * @param[in] Cb
+ * xy pair of reference blue.
+ *
+ * @param[in] w
+ * XYZ triple of reference white.
+ *
  * @see
  * [Bruce Lindbloom's page][1].
  * [1]: http://brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
