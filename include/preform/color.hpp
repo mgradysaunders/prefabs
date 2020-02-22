@@ -639,6 +639,57 @@ inline std::enable_if_t<
 }
 
 /**
+ * @brief XYZ triple to xyY triple.
+ *
+ * @par Expression
+ * @f[
+ *      \begin{bmatrix} x \\ y \\ Y \end{bmatrix} \gets
+ *      \begin{bmatrix}
+ *          X / (X + Y + Z)
+ *      \\  Y / (X + Y + Z)
+ *      \\  Y
+ *      \end{bmatrix}
+ * @f]
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, 
+       multi<T, 3>> xyz_to_xyy(const multi<T, 3>& v)
+{
+    return {
+        v[0] / v.sum(),
+        v[1] / v.sum(),
+        v[1]
+    };
+}
+
+/**
+ * @brief xyY triple to XYZ triple.
+ *
+ * @par Expression
+ * @f[
+ *      \begin{bmatrix} X \\ Y \\ Z \end{bmatrix} \gets
+ *      Y
+ *      \begin{bmatrix}
+ *          x / y
+ *      \\  1
+ *      \\  (1 - x - y) / y
+ *      \end{bmatrix}
+ * @f]
+ */
+template <typename T>
+inline std::enable_if_t<
+       std::is_floating_point<T>::value, 
+       multi<T, 3>> xyy_to_xyz(const multi<T, 3>& v)
+{
+    return {
+        v[2] / v[1] * v[0],
+        v[2],
+        v[2] / v[1] * (1 - v[0] - v[1])
+    };
+}
+
+/**
  * @brief XYZ triple to Lab triple.
  *
  * @par Expression
