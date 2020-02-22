@@ -854,6 +854,9 @@ inline std::enable_if_t<
     T y = v[0] <= 8 
         ? v[0] * nthpow(T(6) / T(29), 3)
         : nthpow((v[0] + 16) / 116, 3);
+    if (!(y > 0)) {
+        return {};
+    }
     y *= w[1];
 
     multi<T, 2> wp = {
@@ -861,9 +864,12 @@ inline std::enable_if_t<
         9 * w[1] / (w[0] + 15 * w[1] + 3 * w[2])
     };
     multi<T, 2> vp = {
-        v[1] / (13 * v[0]) + wp[0],
-        v[2] / (13 * v[0]) + wp[1]
+        wp[0] + v[1] / (13 * v[0]),
+        wp[1] + v[2] / (13 * v[0])
     };
+    if (!pr::isfinite(vp).all()) {
+        return {};
+    }
     return {
         y / (4 * vp[1]) * (9 * vp[0]), y,
         y / (4 * vp[1]) * (12 - 3 * vp[0] - 20 * vp[1])
