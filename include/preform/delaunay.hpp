@@ -630,7 +630,6 @@ public:
         }
     }
 
-
     /**
      * @brief Edge to triangle indices.
      *
