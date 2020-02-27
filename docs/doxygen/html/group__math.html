@@ -199,26 +199,30 @@ Misc special functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Misc interpolation functions</h2></td></tr>
-<tr class="memitem:ga4404b2cf6c18763fdbac717a748ce391"><td class="memTemplParams" colspan="2">template&lt;typename Tvalue , typename Tcontrol &gt; </td></tr>
-<tr class="memitem:ga4404b2cf6c18763fdbac717a748ce391"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga4404b2cf6c18763fdbac717a748ce391">pr::lerp</a> (Tvalue t, const Tcontrol &amp;p0, const Tcontrol &amp;p1)</td></tr>
-<tr class="memdesc:ga4404b2cf6c18763fdbac717a748ce391"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation.  <a href="group__math.html#ga4404b2cf6c18763fdbac717a748ce391">More...</a><br /></td></tr>
-<tr class="separator:ga4404b2cf6c18763fdbac717a748ce391"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa41f44582db3919ad48d5774f6d0cbf2"><td class="memTemplParams" colspan="2">template&lt;typename Tvalue , typename Tcontrol &gt; </td></tr>
-<tr class="memitem:gaa41f44582db3919ad48d5774f6d0cbf2"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaa41f44582db3919ad48d5774f6d0cbf2">pr::hermite</a> (Tvalue t, const Tcontrol &amp;p0, const Tcontrol &amp;m0, const Tcontrol &amp;m1, const Tcontrol &amp;p1)</td></tr>
-<tr class="memdesc:gaa41f44582db3919ad48d5774f6d0cbf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hermite interpolation.  <a href="group__math.html#gaa41f44582db3919ad48d5774f6d0cbf2">More...</a><br /></td></tr>
-<tr class="separator:gaa41f44582db3919ad48d5774f6d0cbf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaed6c92a695b5276f7b6382e6be66ca5c"><td class="memTemplParams" colspan="2">template&lt;typename Tvalue , typename Tcontrol &gt; </td></tr>
-<tr class="memitem:gaed6c92a695b5276f7b6382e6be66ca5c"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaed6c92a695b5276f7b6382e6be66ca5c">pr::hermite_deriv</a> (Tvalue t, const Tcontrol &amp;p0, const Tcontrol &amp;m0, const Tcontrol &amp;m1, const Tcontrol &amp;p1)</td></tr>
-<tr class="memdesc:gaed6c92a695b5276f7b6382e6be66ca5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hermite interpolation deriviatve.  <a href="group__math.html#gaed6c92a695b5276f7b6382e6be66ca5c">More...</a><br /></td></tr>
-<tr class="separator:gaed6c92a695b5276f7b6382e6be66ca5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae75d4e39e83713a9ae4bccc464c99da7"><td class="memTemplParams" colspan="2">template&lt;typename Tvalue , typename Tcontrol &gt; </td></tr>
-<tr class="memitem:gae75d4e39e83713a9ae4bccc464c99da7"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gae75d4e39e83713a9ae4bccc464c99da7">pr::catmull</a> (Tvalue t, const Tcontrol &amp;pprev, const Tcontrol &amp;p0, const Tcontrol &amp;p1, const Tcontrol &amp;pnext)</td></tr>
-<tr class="memdesc:gae75d4e39e83713a9ae4bccc464c99da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catmull-Rom interpolation.  <a href="group__math.html#gae75d4e39e83713a9ae4bccc464c99da7">More...</a><br /></td></tr>
-<tr class="separator:gae75d4e39e83713a9ae4bccc464c99da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga04ae7c67529c0ec2c2be296530ab4363"><td class="memTemplParams" colspan="2">template&lt;typename Tvalue , typename Tcontrol &gt; </td></tr>
-<tr class="memitem:ga04ae7c67529c0ec2c2be296530ab4363"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga04ae7c67529c0ec2c2be296530ab4363">pr::catmull_deriv</a> (Tvalue t, const Tcontrol &amp;pprev, const Tcontrol &amp;p0, const Tcontrol &amp;p1, const Tcontrol &amp;pnext)</td></tr>
-<tr class="memdesc:ga04ae7c67529c0ec2c2be296530ab4363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catmull-Rom interpolation derivative.  <a href="group__math.html#ga04ae7c67529c0ec2c2be296530ab4363">More...</a><br /></td></tr>
-<tr class="separator:ga04ae7c67529c0ec2c2be296530ab4363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0f6a69b52129d587781b6f30c0df9a8"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:gaa0f6a69b52129d587781b6f30c0df9a8"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gaa0f6a69b52129d587781b6f30c0df9a8">pr::lerp</a> (T t, const U &amp;p0, const U &amp;p1)</td></tr>
+<tr class="memdesc:gaa0f6a69b52129d587781b6f30c0df9a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation.  <a href="group__math.html#gaa0f6a69b52129d587781b6f30c0df9a8">More...</a><br /></td></tr>
+<tr class="separator:gaa0f6a69b52129d587781b6f30c0df9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae99a6d1b78b994e140d33b597852a92a"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:gae99a6d1b78b994e140d33b597852a92a"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gae99a6d1b78b994e140d33b597852a92a">pr::hermite</a> (T t, const U &amp;p0, const U &amp;m0, const U &amp;m1, const U &amp;p1)</td></tr>
+<tr class="memdesc:gae99a6d1b78b994e140d33b597852a92a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hermite interpolation.  <a href="group__math.html#gae99a6d1b78b994e140d33b597852a92a">More...</a><br /></td></tr>
+<tr class="separator:gae99a6d1b78b994e140d33b597852a92a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6f37e84596eea4726fd26a1096e34e50"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga6f37e84596eea4726fd26a1096e34e50"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga6f37e84596eea4726fd26a1096e34e50">pr::hermite_deriv</a> (T t, const U &amp;p0, const U &amp;m0, const U &amp;m1, const U &amp;p1)</td></tr>
+<tr class="memdesc:ga6f37e84596eea4726fd26a1096e34e50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hermite interpolation deriviatve.  <a href="group__math.html#ga6f37e84596eea4726fd26a1096e34e50">More...</a><br /></td></tr>
+<tr class="separator:ga6f37e84596eea4726fd26a1096e34e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabd6b27618d9a321e193a60053e6161ec"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:gabd6b27618d9a321e193a60053e6161ec"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#gabd6b27618d9a321e193a60053e6161ec">pr::catmull</a> (T t, const U &amp;pprev, const U &amp;p0, const U &amp;p1, const U &amp;pnext)</td></tr>
+<tr class="memdesc:gabd6b27618d9a321e193a60053e6161ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catmull-Rom interpolation.  <a href="group__math.html#gabd6b27618d9a321e193a60053e6161ec">More...</a><br /></td></tr>
+<tr class="separator:gabd6b27618d9a321e193a60053e6161ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga31681341beee6249610147b1197444c1"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:ga31681341beee6249610147b1197444c1"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga31681341beee6249610147b1197444c1">pr::catmull_deriv</a> (T t, const U &amp;pprev, const U &amp;p0, const U &amp;p1, const U &amp;pnext)</td></tr>
+<tr class="memdesc:ga31681341beee6249610147b1197444c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catmull-Rom interpolation derivative.  <a href="group__math.html#ga31681341beee6249610147b1197444c1">More...</a><br /></td></tr>
+<tr class="separator:ga31681341beee6249610147b1197444c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b41d1ccbec62e47613c26c1d7fe9735"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga2b41d1ccbec62e47613c26c1d7fe9735"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__math.html#ga2b41d1ccbec62e47613c26c1d7fe9735">pr::smoothstep</a> (T x, T x0, T x1)</td></tr>
+<tr class="memdesc:ga2b41d1ccbec62e47613c26c1d7fe9735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smoothstep.  <a href="group__math.html#ga2b41d1ccbec62e47613c26c1d7fe9735">More...</a><br /></td></tr>
+<tr class="separator:ga2b41d1ccbec62e47613c26c1d7fe9735"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Math wrappers</h2></td></tr>
@@ -1245,30 +1249,30 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ga4404b2cf6c18763fdbac717a748ce391"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4404b2cf6c18763fdbac717a748ce391">&#9670;&nbsp;</a></span>lerp()</h2>
+<a id="gaa0f6a69b52129d587781b6f30c0df9a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa0f6a69b52129d587781b6f30c0df9a8">&#9670;&nbsp;</a></span>lerp()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tvalue , typename Tcontrol &gt; </div>
+template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">constexpr auto pr::lerp </td>
           <td>(</td>
-          <td class="paramtype">Tvalue&#160;</td>
+          <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>p0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>p1</em>&#160;</td>
         </tr>
         <tr>
@@ -1291,42 +1295,42 @@ template&lt;typename Tvalue , typename Tcontrol &gt; </div>
 
 </div>
 </div>
-<a id="gaa41f44582db3919ad48d5774f6d0cbf2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa41f44582db3919ad48d5774f6d0cbf2">&#9670;&nbsp;</a></span>hermite()</h2>
+<a id="gae99a6d1b78b994e140d33b597852a92a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae99a6d1b78b994e140d33b597852a92a">&#9670;&nbsp;</a></span>hermite()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tvalue , typename Tcontrol &gt; </div>
+template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">constexpr auto pr::hermite </td>
           <td>(</td>
-          <td class="paramtype">Tvalue&#160;</td>
+          <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>p0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>m0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>m1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>p1</em>&#160;</td>
         </tr>
         <tr>
@@ -1352,42 +1356,42 @@ template&lt;typename Tvalue , typename Tcontrol &gt; </div>
 
 </div>
 </div>
-<a id="gaed6c92a695b5276f7b6382e6be66ca5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaed6c92a695b5276f7b6382e6be66ca5c">&#9670;&nbsp;</a></span>hermite_deriv()</h2>
+<a id="ga6f37e84596eea4726fd26a1096e34e50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6f37e84596eea4726fd26a1096e34e50">&#9670;&nbsp;</a></span>hermite_deriv()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tvalue , typename Tcontrol &gt; </div>
+template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">constexpr auto pr::hermite_deriv </td>
           <td>(</td>
-          <td class="paramtype">Tvalue&#160;</td>
+          <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>p0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>m0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>m1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>p1</em>&#160;</td>
         </tr>
         <tr>
@@ -1412,42 +1416,42 @@ template&lt;typename Tvalue , typename Tcontrol &gt; </div>
 
 </div>
 </div>
-<a id="gae75d4e39e83713a9ae4bccc464c99da7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae75d4e39e83713a9ae4bccc464c99da7">&#9670;&nbsp;</a></span>catmull()</h2>
+<a id="gabd6b27618d9a321e193a60053e6161ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabd6b27618d9a321e193a60053e6161ec">&#9670;&nbsp;</a></span>catmull()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tvalue , typename Tcontrol &gt; </div>
+template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">constexpr auto pr::catmull </td>
           <td>(</td>
-          <td class="paramtype">Tvalue&#160;</td>
+          <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>pprev</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>p0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>p1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>pnext</em>&#160;</td>
         </tr>
         <tr>
@@ -1473,42 +1477,42 @@ template&lt;typename Tvalue , typename Tcontrol &gt; </div>
 
 </div>
 </div>
-<a id="ga04ae7c67529c0ec2c2be296530ab4363"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga04ae7c67529c0ec2c2be296530ab4363">&#9670;&nbsp;</a></span>catmull_deriv()</h2>
+<a id="ga31681341beee6249610147b1197444c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga31681341beee6249610147b1197444c1">&#9670;&nbsp;</a></span>catmull_deriv()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Tvalue , typename Tcontrol &gt; </div>
+template&lt;typename T , typename U &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">constexpr auto pr::catmull_deriv </td>
           <td>(</td>
-          <td class="paramtype">Tvalue&#160;</td>
+          <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>pprev</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>p0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>p1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Tcontrol &amp;&#160;</td>
+          <td class="paramtype">const U &amp;&#160;</td>
           <td class="paramname"><em>pnext</em>&#160;</td>
         </tr>
         <tr>
@@ -1531,6 +1535,57 @@ template&lt;typename Tvalue , typename Tcontrol &gt; </div>
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd>Wikipedia's article for <a href="https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull–Rom_spline">Cubic Hermite spline</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga2b41d1ccbec62e47613c26c1d7fe9735"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2b41d1ccbec62e47613c26c1d7fe9735">&#9670;&nbsp;</a></span>smoothstep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, T&gt; pr::smoothstep </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Smoothstep. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>Value.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x0</td><td>Value of \( x \) where \( t = 0 \).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x1</td><td>Value of \( x \) where \( t = 1 \).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Expression</dt><dd><ul>
+<li>\( t \gets (x - x_0) / (x_1 - x_0) \)</li>
+<li>\( t \gets t^2 (3 - 2 t) \) </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
