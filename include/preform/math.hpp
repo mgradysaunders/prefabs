@@ -1057,14 +1057,11 @@ inline std::enable_if_t<
  * Control point at @f$ t = 1 @f$.
  */
 template <
-    typename Tvalue,
-    typename Tcontrol
+    typename T,
+    typename U
     >
 __attribute__((always_inline))
-constexpr auto lerp(
-            Tvalue t,
-            const Tcontrol& p0,
-            const Tcontrol& p1)
+constexpr auto lerp(T t, const U& p0, const U& p1)
 {
     return (1 - t) * p0 + t * p1;
 }
@@ -1091,19 +1088,15 @@ constexpr auto lerp(
  * [1]: https://en.wikipedia.org/wiki/Cubic_Hermite_spline
  */
 template <
-    typename Tvalue,
-    typename Tcontrol
+    typename T,
+    typename U
     >
 constexpr auto hermite(
-            Tvalue t,
-            const Tcontrol& p0,
-            const Tcontrol& m0,
-            const Tcontrol& m1,
-            const Tcontrol& p1)
+        T t, const U& p0, const U& m0, const U& m1, const U& p1)
 {
-    Tvalue s = t - 1;
-    Tvalue h00 = s * s * (1 + 2 * t), h10 = s * s * t;
-    Tvalue h01 = t * t * (3 - 2 * t), h11 = t * t * s;
+    T s = t - 1;
+    T h00 = s * s * (1 + 2 * t), h10 = s * s * t;
+    T h01 = t * t * (3 - 2 * t), h11 = t * t * s;
     return (h00 * p0 + h10 * m0) +
            (h01 * p1 + h11 * m1);
 }
@@ -1127,19 +1120,15 @@ constexpr auto hermite(
  * Control point at @f$ t = 1 @f$.
  */
 template <
-    typename Tvalue,
-    typename Tcontrol
+    typename T,
+    typename U
     >
 constexpr auto hermite_deriv(
-            Tvalue t,
-            const Tcontrol& p0,
-            const Tcontrol& m0,
-            const Tcontrol& m1,
-            const Tcontrol& p1)
+        T t, const U& p0, const U& m0, const U& m1, const U& p1)
 {
-    Tvalue g00 = 6 * t * (t - 1);
-    Tvalue g10 = 3 * t * t - 4 * t + 1;
-    Tvalue g11 = 3 * t * t - 2 * t;
+    T g00 = 6 * t * (t - 1);
+    T g10 = 3 * t * t - 4 * t + 1;
+    T g11 = 3 * t * t - 2 * t;
     return g00 * (p0 - p1) + g10 * m0 + g11 * m1;
 }
 
@@ -1165,16 +1154,16 @@ constexpr auto hermite_deriv(
  * [1]: https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull–Rom_spline
  */
 template <
-    typename Tvalue,
-    typename Tcontrol
+    typename T,
+    typename U
     >
 __attribute__((always_inline))
 constexpr auto catmull(
-            Tvalue t,
-            const Tcontrol& pprev,
-            const Tcontrol& p0,
-            const Tcontrol& p1,
-            const Tcontrol& pnext)
+        T t, 
+        const U& pprev,
+        const U& p0,
+        const U& p1,
+        const U& pnext)
 {
     return hermite(t, p0, p1 - pprev, pnext - p0, p1);
 }
@@ -1201,18 +1190,45 @@ constexpr auto catmull(
  * [1]: https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull–Rom_spline
  */
 template <
-    typename Tvalue,
-    typename Tcontrol
+    typename T,
+    typename U
     >
 __attribute__((always_inline))
 constexpr auto catmull_deriv(
-            Tvalue t,
-            const Tcontrol& pprev,
-            const Tcontrol& p0,
-            const Tcontrol& p1,
-            const Tcontrol& pnext)
+        T t, 
+        const U& pprev, 
+        const U& p0, 
+        const U& p1, 
+        const U& pnext)
 {
     return hermite_deriv(t, p0, p1 - pprev, pnext - p0, p1);
+}
+
+/**
+ * @brief Smoothstep.
+ *
+ * @param[in] x
+ * Value.
+ * 
+ * @param[in] x0
+ * Value of @f$ x @f$ where @f$ t = 0 @f$.
+ *
+ * @param[in] x1
+ * Value of @f$ x @f$ where @f$ t = 1 @f$.
+ *
+ * @par Expression
+ * - @f$ t \gets (x - x_0) / (x_1 - x_0) @f$
+ * - @f$ t \gets t^2 (3 - 2 t) @f$
+ */
+template <typename T>
+__attribute__((always_inline))
+constexpr std::enable_if_t<
+          std::is_floating_point<T>::value, T> smoothstep(T x, T x0, T x1)
+{
+    T t = (x - x0) / (x1 - x0);
+    t = std::fmax(t, T(0));
+    t = std::fmin(t, T(1));
+    return t * t * (3 - 2 * t);
 }
 
 /**@}*/
