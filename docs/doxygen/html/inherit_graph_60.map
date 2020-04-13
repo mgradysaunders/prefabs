@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structpr_1_1microvolume__sggx.html" title="Microvolume with SGGX distribution. " alt="" coords="5,39,156,80"/>
-<area shape="rect" id="node2" href="$structpr_1_1microvolume__sggx__diffuse__phase.html" title="Microvolume SGGX diffuse (reflection) phase. " alt="" coords="209,5,376,47"/>
-<area shape="rect" id="node3" href="$structpr_1_1microvolume__sggx__specular__phase.html" title="Microvolume SGGX specular (reflection) phase. " alt="" coords="204,71,381,112"/>
+<area shape="rect" id="node1" href="$structpre_1_1microvolume__sggx.html" title="Microvolume with SGGX distribution. " alt="" coords="5,39,163,80"/>
+<area shape="rect" id="node2" href="$structpre_1_1microvolume__sggx__diffuse__phase.html" title="Microvolume SGGX diffuse (reflection) phase. " alt="" coords="216,5,383,47"/>
+<area shape="rect" id="node3" href="$structpre_1_1microvolume__sggx__specular__phase.html" title="Microvolume SGGX specular (reflection) phase. " alt="" coords="211,71,388,112"/>
 </map>

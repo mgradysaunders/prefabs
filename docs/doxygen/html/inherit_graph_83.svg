@@ -18,9 +18,9 @@
 <!-- Node0 -->
 <g id="node2" class="node">
 <title>Node0</title>
-<g id="a_node2"><a xlink:href="classpr_1_1periodic__noise__adapter1.html" target="_top" xlink:title="Periodic noise adapter (1&#45;dimensional). ">
+<g id="a_node2"><a xlink:href="classpre_1_1periodic__noise__adapter1.html" target="_top" xlink:title="Periodic noise adapter (1&#45;dimensional). ">
 <polygon fill="#ffffff" stroke="#000000" points="87,-.5 87,-30.5 199,-30.5 199,-.5 87,-.5"/>
-<text text-anchor="start" x="95" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pr::periodic_noise</text>
+<text text-anchor="start" x="95" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pre::periodic_noise</text>
 <text text-anchor="middle" x="143" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">_adapter1&lt; Tnoise2 &gt;</text>
 </a>
 </g>

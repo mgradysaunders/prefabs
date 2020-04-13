@@ -74,32 +74,32 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga7f05e645d5ecc335e66cfda8577a98bf"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t M, std::size_t... N, typename G &gt; </td></tr>
-<tr class="memitem:ga7f05e645d5ecc335e66cfda8577a98bf"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, M, N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__random.html#ga7f05e645d5ecc335e66cfda8577a98bf">pr::generate_canonical</a> (G &amp;&amp;gen)</td></tr>
-<tr class="memdesc:ga7f05e645d5ecc335e66cfda8577a98bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate multi-array of canonical random samples.  <a href="group__multi__random.html#ga7f05e645d5ecc335e66cfda8577a98bf">More...</a><br /></td></tr>
-<tr class="separator:ga7f05e645d5ecc335e66cfda8577a98bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga87b035568e83898e689fb1ceccf63406"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N, typename P , typename G &gt; </td></tr>
-<tr class="memitem:ga87b035568e83898e689fb1ceccf63406"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value &amp;&amp;std::is_integral&lt; P &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__random.html#ga87b035568e83898e689fb1ceccf63406">pr::stratify</a> (multi&lt; T, N &gt; *arr, multi&lt; P, N &gt; dim, G &amp;&amp;gen)</td></tr>
-<tr class="memdesc:ga87b035568e83898e689fb1ceccf63406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate and stratify canonical random samples in \( N \) dimensions.  <a href="group__multi__random.html#ga87b035568e83898e689fb1ceccf63406">More...</a><br /></td></tr>
-<tr class="separator:ga87b035568e83898e689fb1ceccf63406"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaee66c3d4926a94c98faeda003af20745"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t M, std::size_t... N, typename G &gt; </td></tr>
+<tr class="memitem:gaee66c3d4926a94c98faeda003af20745"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value, multi&lt; T, M, N... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__random.html#gaee66c3d4926a94c98faeda003af20745">pre::generate_canonical</a> (G &amp;&amp;gen)</td></tr>
+<tr class="memdesc:gaee66c3d4926a94c98faeda003af20745"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate multi-array of canonical random samples.  <a href="group__multi__random.html#gaee66c3d4926a94c98faeda003af20745">More...</a><br /></td></tr>
+<tr class="separator:gaee66c3d4926a94c98faeda003af20745"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7fea5f2045690a970ef081ab39204bf6"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t N, typename P , typename G &gt; </td></tr>
+<tr class="memitem:ga7fea5f2045690a970ef081ab39204bf6"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_floating_point&lt; T &gt;::value &amp;&amp;std::is_integral&lt; P &gt;::value, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__random.html#ga7fea5f2045690a970ef081ab39204bf6">pre::stratify</a> (multi&lt; T, N &gt; *arr, multi&lt; P, N &gt; dim, G &amp;&amp;gen)</td></tr>
+<tr class="memdesc:ga7fea5f2045690a970ef081ab39204bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate and stratify canonical random samples in \( N \) dimensions.  <a href="group__multi__random.html#ga7fea5f2045690a970ef081ab39204bf6">More...</a><br /></td></tr>
+<tr class="separator:ga7fea5f2045690a970ef081ab39204bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Multiple-importance</h2></td></tr>
-<tr class="memitem:ga37183aba8c01527bdbe5f253dbcb4764"><td class="memTemplParams" colspan="2">template&lt;typename Tk , typename... Tl&gt; </td></tr>
-<tr class="memitem:ga37183aba8c01527bdbe5f253dbcb4764"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt;(std::is_floating_point&lt; Tk &gt;::value &amp;&amp;... &amp;&amp;std::is_floating_point&lt; Tl &gt;::value), std::common_type_t&lt; Tk, Tl... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__random.html#ga37183aba8c01527bdbe5f253dbcb4764">pr::balance_heuristic</a> (Tk fk, Tl... fl)</td></tr>
-<tr class="memdesc:ga37183aba8c01527bdbe5f253dbcb4764"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-importance balance heuristic.  <a href="group__multi__random.html#ga37183aba8c01527bdbe5f253dbcb4764">More...</a><br /></td></tr>
-<tr class="separator:ga37183aba8c01527bdbe5f253dbcb4764"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0a7de85b0a4e073454198fb3863be10d"><td class="memTemplParams" colspan="2">template&lt;typename Tk , typename... Tl&gt; </td></tr>
-<tr class="memitem:ga0a7de85b0a4e073454198fb3863be10d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt;(std::is_floating_point&lt; Tk &gt;::value &amp;&amp;... &amp;&amp;std::is_floating_point&lt; Tl &gt;::value), std::common_type_t&lt; Tk, Tl... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__random.html#ga0a7de85b0a4e073454198fb3863be10d">pr::power_heuristic</a> (Tk fk, Tl... fl)</td></tr>
-<tr class="memdesc:ga0a7de85b0a4e073454198fb3863be10d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-importance power heuristic.  <a href="group__multi__random.html#ga0a7de85b0a4e073454198fb3863be10d">More...</a><br /></td></tr>
-<tr class="separator:ga0a7de85b0a4e073454198fb3863be10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga788acafe0d52a5dbcebe20b33e6028a9"><td class="memTemplParams" colspan="2">template&lt;typename Tk , typename... Tl&gt; </td></tr>
+<tr class="memitem:ga788acafe0d52a5dbcebe20b33e6028a9"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt;(std::is_floating_point&lt; Tk &gt;::value &amp;&amp;... &amp;&amp;std::is_floating_point&lt; Tl &gt;::value), std::common_type_t&lt; Tk, Tl... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__random.html#ga788acafe0d52a5dbcebe20b33e6028a9">pre::balance_heuristic</a> (Tk fk, Tl... fl)</td></tr>
+<tr class="memdesc:ga788acafe0d52a5dbcebe20b33e6028a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-importance balance heuristic.  <a href="group__multi__random.html#ga788acafe0d52a5dbcebe20b33e6028a9">More...</a><br /></td></tr>
+<tr class="separator:ga788acafe0d52a5dbcebe20b33e6028a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19cae6bcc393df8e63a34b04c91e741f"><td class="memTemplParams" colspan="2">template&lt;typename Tk , typename... Tl&gt; </td></tr>
+<tr class="memitem:ga19cae6bcc393df8e63a34b04c91e741f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt;(std::is_floating_point&lt; Tk &gt;::value &amp;&amp;... &amp;&amp;std::is_floating_point&lt; Tl &gt;::value), std::common_type_t&lt; Tk, Tl... &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__multi__random.html#ga19cae6bcc393df8e63a34b04c91e741f">pre::power_heuristic</a> (Tk fk, Tl... fl)</td></tr>
+<tr class="memdesc:ga19cae6bcc393df8e63a34b04c91e741f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple-importance power heuristic.  <a href="group__multi__random.html#ga19cae6bcc393df8e63a34b04c91e741f">More...</a><br /></td></tr>
+<tr class="separator:ga19cae6bcc393df8e63a34b04c91e741f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><code>&lt;preform/multi_random.hpp&gt;</code></p>
 <p><b>C++ version</b>: &gt;=C++17 </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga7f05e645d5ecc335e66cfda8577a98bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7f05e645d5ecc335e66cfda8577a98bf">&#9670;&nbsp;</a></span>generate_canonical()</h2>
+<a id="gaee66c3d4926a94c98faeda003af20745"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaee66c3d4926a94c98faeda003af20745">&#9670;&nbsp;</a></span>generate_canonical()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -110,7 +110,7 @@ template&lt;typename T , std::size_t M, std::size_t... N, typename G &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, multi&lt;T, M, N...&gt; &gt; pr::generate_canonical </td>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value, multi&lt;T, M, N...&gt; &gt; pre::generate_canonical </td>
           <td>(</td>
           <td class="paramtype">G &amp;&amp;&#160;</td>
           <td class="paramname"><em>gen</em></td><td>)</td>
@@ -128,8 +128,8 @@ template&lt;typename T , std::size_t M, std::size_t... N, typename G &gt; </div>
 
 </div>
 </div>
-<a id="ga87b035568e83898e689fb1ceccf63406"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga87b035568e83898e689fb1ceccf63406">&#9670;&nbsp;</a></span>stratify()</h2>
+<a id="ga7fea5f2045690a970ef081ab39204bf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7fea5f2045690a970ef081ab39204bf6">&#9670;&nbsp;</a></span>stratify()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -140,7 +140,7 @@ template&lt;typename T , std::size_t N, typename P , typename G &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value &amp;&amp; std::is_integral&lt;P&gt;::value, void&gt; pr::stratify </td>
+          <td class="memname">std::enable_if_t&lt; std::is_floating_point&lt;T&gt;::value &amp;&amp; std::is_integral&lt;P&gt;::value, void&gt; pre::stratify </td>
           <td>(</td>
           <td class="paramtype">multi&lt; T, N &gt; *&#160;</td>
           <td class="paramname"><em>arr</em>, </td>
@@ -188,8 +188,8 @@ template&lt;typename T , std::size_t N, typename P , typename G &gt; </div>
 
 </div>
 </div>
-<a id="ga37183aba8c01527bdbe5f253dbcb4764"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga37183aba8c01527bdbe5f253dbcb4764">&#9670;&nbsp;</a></span>balance_heuristic()</h2>
+<a id="ga788acafe0d52a5dbcebe20b33e6028a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga788acafe0d52a5dbcebe20b33e6028a9">&#9670;&nbsp;</a></span>balance_heuristic()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,7 +200,7 @@ template&lt;typename Tk , typename... Tl&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::enable_if_t&lt; (std::is_floating_point&lt;Tk&gt;::value &amp;&amp; ... &amp;&amp; std::is_floating_point&lt;Tl&gt;::value), std::common_type_t&lt;Tk, Tl...&gt; &gt; pr::balance_heuristic </td>
+          <td class="memname">std::enable_if_t&lt; (std::is_floating_point&lt;Tk&gt;::value &amp;&amp; ... &amp;&amp; std::is_floating_point&lt;Tl&gt;::value), std::common_type_t&lt;Tk, Tl...&gt; &gt; pre::balance_heuristic </td>
           <td>(</td>
           <td class="paramtype">Tk&#160;</td>
           <td class="paramname"><em>fk</em>, </td>
@@ -232,8 +232,8 @@ template&lt;typename Tk , typename... Tl&gt; </div>
 
 </div>
 </div>
-<a id="ga0a7de85b0a4e073454198fb3863be10d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0a7de85b0a4e073454198fb3863be10d">&#9670;&nbsp;</a></span>power_heuristic()</h2>
+<a id="ga19cae6bcc393df8e63a34b04c91e741f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga19cae6bcc393df8e63a34b04c91e741f">&#9670;&nbsp;</a></span>power_heuristic()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,7 +244,7 @@ template&lt;typename Tk , typename... Tl&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::enable_if_t&lt; (std::is_floating_point&lt;Tk&gt;::value &amp;&amp; ... &amp;&amp; std::is_floating_point&lt;Tl&gt;::value), std::common_type_t&lt;Tk, Tl...&gt; &gt; pr::power_heuristic </td>
+          <td class="memname">std::enable_if_t&lt; (std::is_floating_point&lt;Tk&gt;::value &amp;&amp; ... &amp;&amp; std::is_floating_point&lt;Tl&gt;::value), std::common_type_t&lt;Tk, Tl...&gt; &gt; pre::power_heuristic </td>
           <td>(</td>
           <td class="paramtype">Tk&#160;</td>
           <td class="paramname"><em>fk</em>, </td>

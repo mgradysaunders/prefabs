@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structpr_1_1microsurface.html" title="pr::microsurface\&lt; microsurface\l_dielectric_bsdf\&lt; Tfloat,\l Tslope, Theight \&gt;, true \&gt;" alt="" coords="5,5,208,61"/>
-<area shape="rect" id="node2" href="$structpr_1_1microsurface__dielectric__bsdf.html" title="Microsurface from dielectric BSDF. " alt="" coords="256,13,465,54"/>
+<area shape="rect" id="node1" href="$structpre_1_1microsurface.html" title="pre::microsurface\&lt;\l microsurface_dielectric\l_bsdf\&lt; Tfloat, Tslope,\l Theight \&gt;, true \&gt;" alt="" coords="5,5,165,76"/>
+<area shape="rect" id="node2" href="$structpre_1_1microsurface__dielectric__bsdf.html" title="Microsurface from dielectric BSDF. " alt="" coords="213,20,423,61"/>
 </map>
