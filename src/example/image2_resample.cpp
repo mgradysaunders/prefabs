@@ -11,22 +11,22 @@
 typedef float Float;
 
 // 1-dimensional vector type.
-typedef pr::vec1<Float> Vec1f;
+typedef pre::vec1<Float> Vec1f;
 
 // 2-dimensional vector type.
-typedef pr::vec2<Float> Vec2f;
+typedef pre::vec2<Float> Vec2f;
 
 // 2-dimensional vector type.
-typedef pr::vec2<int> Vec2i;
+typedef pre::vec2<int> Vec2i;
 
 // Image.
-typedef pr::image2<Float, Float, 1> Image2x1;
+typedef pre::image2<Float, Float, 1> Image2x1;
 
 // Image Mitchell filter.
-typedef pr::mitchell_filter2<Float> MitchellFilter2;
+typedef pre::mitchell_filter2<Float> MitchellFilter2;
 
 // Worley noise.
-typedef pr::worley_noise2<Float> WorleyNoise2;
+typedef pre::worley_noise2<Float> WorleyNoise2;
 
 int main(int argc, char** argv)
 {
@@ -40,7 +40,7 @@ int main(int argc, char** argv)
     std::string target_ofs_name = "image2_resample_target.pgm";
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -209,12 +209,12 @@ int main(int argc, char** argv)
     }
 
     // Contrast stretch.
-    Float tmpmin = +pr::numeric_limits<Float>::infinity();
-    Float tmpmax = -pr::numeric_limits<Float>::infinity();
+    Float tmpmin = +pre::numeric_limits<Float>::infinity();
+    Float tmpmax = -pre::numeric_limits<Float>::infinity();
     for (int i = 0; i < source_image_dim[0]; i++)
     for (int j = 0; j < source_image_dim[1]; j++) {
-        tmpmin = pr::fmin(tmpmin, source_image(i, j)[0]);
-        tmpmax = pr::fmax(tmpmax, source_image(i, j)[0]);
+        tmpmin = pre::fmin(tmpmin, source_image(i, j)[0]);
+        tmpmax = pre::fmax(tmpmax, source_image(i, j)[0]);
     }
     for (int i = 0; i < source_image_dim[0]; i++)
     for (int j = 0; j < source_image_dim[1]; j++) {
@@ -236,8 +236,8 @@ int main(int argc, char** argv)
         source_ofs << "255\n";
         for (int j = 0; j < source_image_dim[1]; j++)
         for (int i = 0; i < source_image_dim[0]; i++) {
-            source_ofs << int(pr::pack_uint8(
-                              pr::srgbenc(source_image(i, j)[0]))) << ' ';
+            source_ofs << int(pre::pack_uint8(
+                              pre::srgbenc(source_image(i, j)[0]))) << ' ';
         }
         source_ofs.close();
 
@@ -249,8 +249,8 @@ int main(int argc, char** argv)
         target_ofs << "255\n";
         for (int j = 0; j < target_image_dim[1]; j++)
         for (int i = 0; i < target_image_dim[0]; i++) {
-            target_ofs << int(pr::pack_uint8(
-                              pr::srgbenc(target_image(i, j)[0]))) << ' ';
+            target_ofs << int(pre::pack_uint8(
+                              pre::srgbenc(target_image(i, j)[0]))) << ' ';
         }
         target_ofs.close();
     }

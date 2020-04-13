@@ -35,10 +35,10 @@
 #ifndef PREFORM_DENSE_MATRIX_VIEW_HPP
 #define PREFORM_DENSE_MATRIX_VIEW_HPP
 
-// for pr::dense_vector_view, pr::dense_iterator, ...
+// for pre::dense_vector_view, pre::dense_iterator, ...
 #include <preform/dense_vector_view.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup dense_matrix_view Dense matrix view
@@ -408,7 +408,7 @@ public:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #if !DOXYGEN
 #include "dense_matrix_view.inl"

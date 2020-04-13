@@ -38,10 +38,10 @@
 // for std::vector
 #include <vector>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::first1, pr::roundpow2, ...
+// for pre::first1, pre::roundpow2, ...
 #include <preform/misc_int.hpp>
 
 #if !DOXYGEN
@@ -50,7 +50,7 @@
 #endif // #ifndef L1_LINE
 #endif // #if !DOXYGEN
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup block_array3 Block array (3-dimensional)
@@ -736,6 +736,6 @@ protected:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_BLOCK_ARRAY3_HPP

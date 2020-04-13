@@ -38,13 +38,13 @@
 // for std::forward
 #include <utility>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup periodic_noise1 Periodic noise adapter (1-dimensional)
@@ -115,10 +115,10 @@ public:
                 float_type* ds_dt = nullptr) const
     {
         // Circle.
-        float_type pi = pr::numeric_constants<float_type>::M_pi();
+        float_type pi = pre::numeric_constants<float_type>::M_pi();
         float_type omega = 2 * pi / t0_;
-        float_type cos_omegat = pr::cos(omega * t);
-        float_type sin_omegat = pr::sin(omega * t);
+        float_type cos_omegat = pre::cos(omega * t);
+        float_type sin_omegat = pre::sin(omega * t);
         multi<float_type, 2> u = {
             c0_[0] + r0_ * cos_omegat,
             c0_[1] + r0_ * sin_omegat
@@ -250,6 +250,6 @@ using periodic_worley_noise1 =
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_PERIODIC_NOISE_ADAPTER1_HPP

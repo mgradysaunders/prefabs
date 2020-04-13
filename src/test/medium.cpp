@@ -12,56 +12,56 @@
 typedef double Float;
 
 // 2-dimensional vector.
-typedef pr::vec2<int> Vec2i;
+typedef pre::vec2<int> Vec2i;
 
 // 2-dimensional vector.
-typedef pr::vec2<Float> Vec2f;
+typedef pre::vec2<Float> Vec2f;
 
 // 3-dimensional vector.
-typedef pr::vec3<Float> Vec3f;
+typedef pre::vec3<Float> Vec3f;
 
 // 3-dimensional matrix.
-typedef pr::mat3<Float> Mat3f;
+typedef pre::mat3<Float> Mat3f;
 
 // Quaternion.
-typedef pr::quat<Float> Quatf;
+typedef pre::quat<Float> Quatf;
 
 // Henyey-Greenstein phase.
-typedef pr::hg_phase<Float>
+typedef pre::hg_phase<Float>
         HgPhase;
 
 // Henyey-Greenstein phase stack.
-typedef pr::hg_phase_stack<Float, 4>
+typedef pre::hg_phase_stack<Float, 4>
         HgPhaseStack;
 
 // Rayleigh phase.
-typedef pr::rayleigh_phase<Float>
+typedef pre::rayleigh_phase<Float>
         RayleighPhase;
 
 // Microvolume SGGX specular phase.
-typedef pr::microvolume_sggx_specular_phase<Float>
+typedef pre::microvolume_sggx_specular_phase<Float>
         MicrovolumeSggxSpecularPhase;
 
 // Microvolume SGGX diffuse phase.
-typedef pr::microvolume_sggx_diffuse_phase<Float>
+typedef pre::microvolume_sggx_diffuse_phase<Float>
         MicrovolumeSggxDiffusePhase;
 
 // Neumaier sum.
-typedef pr::neumaier_sum<Float> NeumaierSum;
+typedef pre::neumaier_sum<Float> NeumaierSum;
 
 // Permuted congruential generator.
-pr::pcg32 pcg;
+pre::pcg32 pcg;
 
 // Generate canonical random number.
 Float generateCanonical()
 {
-    return pr::generate_canonical<Float>(pcg);
+    return pre::generate_canonical<Float>(pcg);
 }
 
 // Generate canonical random 2-dimensional vector.
 Vec2f generateCanonical2()
 {
-    return pr::generate_canonical<Float, 2>(pcg);
+    return pre::generate_canonical<Float, 2>(pcg);
 }
 
 // Test phase function normalization.
@@ -79,7 +79,7 @@ void testPhase(const char* name, const Func& func, Pred&& pred)
 
     // Stratify samples.
     Vec2f* u0 = new Vec2f[n.prod()];
-    pr::stratify(u0, n, pcg);
+    pre::stratify(u0, n, pcg);
 
     // Generate random viewing direction.
     Vec3f wo =
@@ -98,7 +98,7 @@ void testPhase(const char* name, const Func& func, Pred&& pred)
             Float fk = std::forward<Pred>(pred)(func, wo, wi);
             fk /= wi_pdf;
             fk /= n.prod();
-            if (pr::isinf(fk)) {
+            if (pre::isinf(fk)) {
                 continue;
             }
             f += fk;
@@ -127,7 +127,7 @@ void testPhaseSampling(const char* name, const Func& func, Pred&& pred)
 
     // Stratify samples.
     Vec2f* u0 = new Vec2f[n.prod()];
-    pr::stratify(u0, n, pcg);
+    pre::stratify(u0, n, pcg);
 
     // Generate random viewing direction.
     Vec3f wo =
@@ -144,10 +144,10 @@ void testPhaseSampling(const char* name, const Func& func, Pred&& pred)
 
         // Integrand.
         if (wi_pdf > 0) {
-            Float fk = pr::fabs(wi[2]);
+            Float fk = pre::fabs(wi[2]);
             fk /= wi_pdf;
             fk /= n.prod();
-            if (pr::isinf(fk)) {
+            if (pre::isinf(fk)) {
                 continue;
             }
             f += fk;
@@ -167,7 +167,7 @@ int main(int argc, char** argv)
     int seed = 0;
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -211,11 +211,11 @@ int main(int argc, char** argv)
     }
     std::cout << "seed = " << seed << "\n";
     std::cout << "\n";
-    pcg = pr::pcg32(seed);
+    pcg = pre::pcg32(seed);
 
     // Generate Henyey-Greenstein parameters.
-    pr::multi<Float, 4> g = pr::generate_canonical<Float, 4>(pcg);
-    pr::multi<Float, 4> w = pr::generate_canonical<Float, 4>(pcg);
+    pre::multi<Float, 4> g = pre::generate_canonical<Float, 4>(pcg);
+    pre::multi<Float, 4> w = pre::generate_canonical<Float, 4>(pcg);
     g = Float(1.999) * g - Float(0.999);
     w = w / w.sum();
     std::cout << "Henyey-Greenstein parameters:\n";
@@ -234,11 +234,11 @@ int main(int argc, char** argv)
     // Generate SGGX parameters.
     Quatf q =
     Quatf::rotate(
-            0 * 
-            pr::numeric_constants<Float>::M_pi() *
+            0 *
+            pre::numeric_constants<Float>::M_pi() *
             generateCanonical(),
             Vec3f::uniform_sphere_pdf_sample(generateCanonical2()));
-    Vec3f s = 2 * pr::generate_canonical<Float, 3>(pcg) - Float(0.0001);
+    Vec3f s = 2 * pre::generate_canonical<Float, 3>(pcg) - Float(0.0001);
     s = {0.05 * 0.05, 0.05 * 0.05, 1};
     std::cout << "SGGX parameters:\n";
     std::cout << "q = " << q << "\n";

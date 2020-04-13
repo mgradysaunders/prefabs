@@ -35,16 +35,16 @@
 #ifndef PREFORM_QUAT_HPP
 #define PREFORM_QUAT_HPP
 
-// for pr::dualnum
+// for pre::dualnum
 #include <preform/dualnum.hpp>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup quat Quaternion
@@ -173,7 +173,7 @@ public:
             v_[0] = x[1][2] - x[2][1];
             v_[1] = x[2][0] - x[0][2];
             v_[2] = x[0][1] - x[1][0];
-            value_type fac = value_type(0.5) / pr::sqrt(s_);
+            value_type fac = value_type(0.5) / pre::sqrt(s_);
             s_ *= +fac;
             v_ *= -fac;
         }
@@ -187,7 +187,7 @@ public:
             v_[i] = x[i][i] - x[j][j] - x[k][k] + 1;
             v_[j] = x[i][j] + x[j][i];
             v_[k] = x[k][i] + x[i][k];
-            value_type fac = value_type(0.5) / pr::sqrt(v_[i]);
+            value_type fac = value_type(0.5) / pre::sqrt(v_[i]);
             s_ *= +fac;
             v_ *= -fac;
         }
@@ -404,8 +404,8 @@ public:
                 const multi<value_type, 3>& hatv)
     {
         return {
-            pr::cos(theta * value_type(0.5)),
-            pr::sin(theta * value_type(0.5)) * hatv
+            pre::cos(theta * value_type(0.5)),
+            pre::sin(theta * value_type(0.5)) * hatv
         };
     }
 
@@ -470,12 +470,12 @@ public:
                 quat* dq_dmu = nullptr)
     {
         value_type cos_theta = dot(q0, q1);
-        cos_theta = pr::fmax(cos_theta, value_type(-1));
-        cos_theta = pr::fmin(cos_theta, value_type(+1));
+        cos_theta = pre::fmax(cos_theta, value_type(-1));
+        cos_theta = pre::fmin(cos_theta, value_type(+1));
         if (cos_theta > value_type(0.9999)) {
             quat q = (1 - mu) * q0 + mu * q1;
             value_type invlen2 = 1 / dot(q, q);
-            value_type invlen1 = pr::sqrt(invlen2);
+            value_type invlen1 = pre::sqrt(invlen2);
             quat hatq = q * invlen1;
             if (dq_dmu) {
                 *dq_dmu =
@@ -486,11 +486,11 @@ public:
             return hatq;
         }
         else {
-            value_type theta = pr::acos(cos_theta);
-            value_type sin_mutheta = pr::sin(mu * theta);
-            value_type cos_mutheta = pr::cos(mu * theta);
+            value_type theta = pre::acos(cos_theta);
+            value_type sin_mutheta = pre::sin(mu * theta);
+            value_type cos_mutheta = pre::cos(mu * theta);
             quat qperp = q1 - q0 * cos_theta;
-            qperp *= 1 / pr::sqrt(qperp.norm());
+            qperp *= 1 / pre::sqrt(qperp.norm());
             quat q =
                 cos_mutheta * q0 +
                 sin_mutheta * qperp;
@@ -520,8 +520,8 @@ public:
     value_type rotation_angle() const
     {
         value_type cos_theta_2 = s_;
-        value_type sin_theta_2 = pr::length(v_);
-        return 2 * pr::atan2(sin_theta_2, cos_theta_2);
+        value_type sin_theta_2 = pre::length(v_);
+        return 2 * pre::atan2(sin_theta_2, cos_theta_2);
     }
 
     /**
@@ -533,7 +533,7 @@ public:
      */
     multi<value_type, 3> rotation_axis() const
     {
-        multi<value_type, 3> hatv = pr::normalize(v_);
+        multi<value_type, 3> hatv = pre::normalize(v_);
         if (hatv[0] == value_type(0) &&
             hatv[1] == value_type(0)) {
             hatv[2] = 1;
@@ -807,10 +807,10 @@ public:
     constexpr quat dual_conj() const
     {
         return {
-            pr::dual_conj(s_),
-            pr::dual_conj(v_[0]),
-            pr::dual_conj(v_[1]),
-            pr::dual_conj(v_[2])
+            pre::dual_conj(s_),
+            pre::dual_conj(v_[0]),
+            pre::dual_conj(v_[1]),
+            pre::dual_conj(v_[2])
         };
     }
 
@@ -1717,7 +1717,7 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isinf(const quat<T>& q)
 {
-    return pr::isinf(q.real()) || pr::isinf(q.imag()).any();
+    return pre::isinf(q.real()) || pre::isinf(q.imag()).any();
 }
 
 /**
@@ -1727,7 +1727,7 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isnan(const quat<T>& q)
 {
-    return pr::isnan(q.real()) || pr::isnan(q.imag()).any();
+    return pre::isnan(q.real()) || pre::isnan(q.imag()).any();
 }
 
 /**
@@ -1737,7 +1737,7 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isfinite(const quat<T>& q)
 {
-    return pr::isfinite(q.real()) && pr::isfinite(q.imag()).all();
+    return pre::isfinite(q.real()) && pre::isfinite(q.imag()).all();
 }
 
 /**
@@ -1747,13 +1747,13 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isnormal(const quat<T>& q)
 {
-    return pr::isnormal(q.real()) && pr::isnormal(q.imag()).all();
+    return pre::isnormal(q.real()) && pre::isnormal(q.imag()).all();
 }
 
 /**@}*/
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_QUAT_HPP

@@ -35,13 +35,13 @@
 #ifndef PREFORM_MULTI_RANDOM_HPP
 #define PREFORM_MULTI_RANDOM_HPP
 
-// for pr::generate_canonical, ...
+// for pre::generate_canonical, ...
 #include <preform/random.hpp>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup multi_random Multi-dimensional array (random)
@@ -65,7 +65,7 @@ inline std::enable_if_t<
 {
     multi<T, M, N...> u;
     for (auto& uk : u) {
-        uk = pr::generate_canonical<T, N...>(std::forward<G>(gen));
+        uk = pre::generate_canonical<T, N...>(std::forward<G>(gen));
     }
     return u;
 }
@@ -108,7 +108,7 @@ inline std::enable_if_t<
     multi<T, N>* itrarr = arr;
     do {
         for (T& val : *itrarr) {
-            val = pr::generate_canonical<T>(std::forward<G>(gen));
+            val = pre::generate_canonical<T>(std::forward<G>(gen));
         }
         *itrarr += pos;
         *itrarr /= dim;
@@ -185,6 +185,6 @@ inline std::enable_if_t<
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_MULTI_RANDOM_HPP

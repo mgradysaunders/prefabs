@@ -72,16 +72,16 @@
 
 #endif // #if PREFORM_AABBTREE_USE_THREADS
 
-// for pr::iterator_range
+// for pre::iterator_range
 #include <preform/iterator_range.hpp>
 
-// for pr::static_stack
+// for pre::static_stack
 #include <preform/static_stack.hpp>
 
-// for pr::aabb, pr::multi
+// for pre::aabb, pre::multi
 #include <preform/aabb.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup aabbtree Axis-aligned bounding box tree
@@ -103,9 +103,9 @@ namespace pr {
  *
  * @tparam Tsplit_mode
  * Split mode type, either
- * - `pr::aabbtree_split_equal_counts`,
- * - `pr::aabbtree_split_equal_dimensions`, or
- * - `pr::aabbtree_split_surface_area`.
+ * - `pre::aabbtree_split_equal_counts`,
+ * - `pre::aabbtree_split_equal_dimensions`, or
+ * - `pre::aabbtree_split_surface_area`.
  *
  * @tparam Talloc
  * Allocator type.
@@ -1188,7 +1188,7 @@ template <
     typename Tfloat,
     typename Talloc = std::allocator<char>
     >
-using linear_aabbtree2 = pr::linear_aabbtree<Tfloat, 2, Talloc>;
+using linear_aabbtree2 = pre::linear_aabbtree<Tfloat, 2, Talloc>;
 
 /**
  * @brief Template alias for convenience.
@@ -1197,10 +1197,10 @@ template <
     typename Tfloat,
     typename Talloc = std::allocator<char>
     >
-using linear_aabbtree3 = pr::linear_aabbtree<Tfloat, 3, Talloc>;
+using linear_aabbtree3 = pre::linear_aabbtree<Tfloat, 3, Talloc>;
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_AABBTREE_HPP

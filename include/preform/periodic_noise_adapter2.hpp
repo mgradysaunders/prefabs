@@ -38,13 +38,13 @@
 // for std::forward
 #include <utility>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup periodic_noise2 Periodic noise adapter (2-dimensional)
@@ -115,10 +115,10 @@ public:
                 multi<float_type, 2>* ds_dt = nullptr) const
     {
         // Torus.
-        float_type pi = pr::numeric_constants<float_type>::M_pi();
+        float_type pi = pre::numeric_constants<float_type>::M_pi();
         multi<float_type, 2> omega = 2 * pi / t0_;
-        multi<float_type, 2> cos_omegat = pr::cos(omega * t);
-        multi<float_type, 2> sin_omegat = pr::sin(omega * t);
+        multi<float_type, 2> cos_omegat = pre::cos(omega * t);
+        multi<float_type, 2> sin_omegat = pre::sin(omega * t);
         multi<float_type, 3> u = {
             c0_[0] + (r0_[0] + r0_[1] * cos_omegat[1]) * cos_omegat[0],
             c0_[1] + (r0_[0] + r0_[1] * cos_omegat[1]) * sin_omegat[0],
@@ -140,7 +140,7 @@ public:
             };
 
             // Chain rule.
-            *ds_dt = pr::dot(ds_du, du_dt);
+            *ds_dt = pre::dot(ds_du, du_dt);
         }
         return s;
     }
@@ -258,6 +258,6 @@ using periodic_worley_noise2 =
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_PERIODIC_NOISE_ADAPTER2_HPP

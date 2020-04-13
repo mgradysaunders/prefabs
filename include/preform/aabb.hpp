@@ -41,13 +41,13 @@
 // for std::basic_ostream
 #include <ostream>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup aabb Axis-aligned bounding box
@@ -224,7 +224,7 @@ public:
      */
     float_type radius() const
     {
-        return float_type(0.5) * pr::length(arr_[1] - arr_[0]);
+        return float_type(0.5) * pre::length(arr_[1] - arr_[0]);
     }
 
     /**
@@ -358,8 +358,8 @@ private:
      * @brief Arrays.
      */
     multi<T, N> arr_[2] = {
-        multi<T, N>(+pr::numeric_limits<T>::max()),
-        multi<T, N>(-pr::numeric_limits<T>::max())
+        multi<T, N>(+pre::numeric_limits<T>::max()),
+        multi<T, N>(-pre::numeric_limits<T>::max())
     };
 
 public:
@@ -436,14 +436,14 @@ inline aabb<T, N> operator|(const aabb<T, N>& box0, const aabb<T, N>& box1)
 {
     if constexpr (std::is_floating_point<T>::value) {
         return {
-            pr::fmin(box0[0], box1[0]),
-            pr::fmax(box0[1], box1[1])
+            pre::fmin(box0[0], box1[0]),
+            pre::fmax(box0[1], box1[1])
         };
     }
     else {
         return {
-            pr::min(box0[0], box1[0]),
-            pr::max(box0[1], box1[1])
+            pre::min(box0[0], box1[0]),
+            pre::max(box0[1], box1[1])
         };
     }
 }
@@ -457,14 +457,14 @@ inline aabb<T, N> operator&(const aabb<T, N>& box0, const aabb<T, N>& box1)
 {
     if constexpr (std::is_floating_point<T>::value) {
         return {
-            pr::fmax(box0[0], box1[0]),
-            pr::fmin(box0[1], box1[1])
+            pre::fmax(box0[0], box1[0]),
+            pre::fmin(box0[1], box1[1])
         };
     }
     else {
         return {
-            pr::max(box0[0], box1[0]),
-            pr::min(box0[1], box1[1])
+            pre::max(box0[0], box1[0]),
+            pre::min(box0[1], box1[1])
         };
     }
 }
@@ -584,6 +584,6 @@ using aabb4 = aabb<T, 4>;
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_AABB_HPP

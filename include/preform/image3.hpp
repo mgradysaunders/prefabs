@@ -35,19 +35,19 @@
 #ifndef PREFORM_IMAGE3_HPP
 #define PREFORM_IMAGE3_HPP
 
-// for pr::block_array3
+// for pre::block_array3
 #include <preform/block_array3.hpp>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_misc_float.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup image3 Image (3-dimensional)
@@ -192,8 +192,8 @@ public:
                 multi<float_type, 3> loc1 = ind + 1;
 
                 // Clamp.
-                loc0 = pr::fmax(loc0, locmin);
-                loc1 = pr::fmin(loc1, locmax);
+                loc0 = pre::fmax(loc0, locmin);
+                loc1 = pre::fmin(loc1, locmax);
 
                 // Compute contribution.
                 numer += (loc1 - loc0).prod() * fetch(ind);
@@ -658,6 +658,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_IMAGE3_HPP

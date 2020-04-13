@@ -3,7 +3,7 @@ OP2 = ['+', '-', '*', '/', '%', '&', '|', '^', '>>', '<<']
 OPC = ['==', '!=', '<', '>', '<=', '>=', '&&', '||']
 
 puts <<STR
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup multi
@@ -364,6 +364,6 @@ end
 puts <<STR
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 STR

@@ -35,10 +35,10 @@
 #ifndef PREFORM_MEMORY_ARENA_ALLOCATOR_HPP
 #define PREFORM_MEMORY_ARENA_ALLOCATOR_HPP
 
-// for pr::memory_arena
+// for pre::memory_arena
 #include <preform/memory_arena.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup memory_arena_allocator Memory arena allocator
@@ -224,6 +224,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_MEMORY_ARENA_ALLOCATOR_HPP

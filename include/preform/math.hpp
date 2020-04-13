@@ -44,7 +44,7 @@
 // for std::numeric_limits
 #include <limits>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup math Math
@@ -491,8 +491,8 @@ inline bool isnormal(const std::complex<T>& x)
  *
  * @note
  * Uses `std::copysign()`. Hence,
- * - `pr::sign(-0.0) = -1.0` and
- * - `pr::sign(+0.0) = +1.0`.
+ * - `pre::sign(-0.0) = -1.0` and
+ * - `pre::sign(+0.0) = +1.0`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -516,8 +516,8 @@ inline auto sign(T x) -> decltype(std::copysign(T(1), x))
  *
  * @note
  * Uses `std::signbit()`. Hence,
- * - `pr::step(-0.0) = 0.0` and
- * - `pr::step(+0.0) = 1.0`.
+ * - `pre::step(-0.0) = 0.0` and
+ * - `pre::step(+0.0) = 1.0`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -545,17 +545,17 @@ inline auto step(T x) -> decltype(std::signbit(x) ? T(0) : T(1))
  * @f]
  *
  * @note
- * If `pr::imag(x) == 0`, computes `pr::sign(pr::real(x))` and
- * preserves sign of `pr::imag(x)`.
+ * If `pre::imag(x) == 0`, computes `pre::sign(pre::real(x))` and
+ * preserves sign of `pre::imag(x)`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline std::complex<T> sign(const std::complex<T>& x)
 {
-    if (pr::imag(x) == T(0)) {
+    if (pre::imag(x) == T(0)) {
         return {
-            pr::sign(pr::real(x)),
-            pr::imag(x)
+            pre::sign(pre::real(x)),
+            pre::imag(x)
         };
     }
     else {
@@ -573,21 +573,21 @@ inline std::complex<T> sign(const std::complex<T>& x)
  * @f]
  *
  * @note
- * If `pr::imag(x) == 0`, computes `pr::step(pr::real(x))` and
- * preserves sign of `pr::imag(x)`.
+ * If `pre::imag(x) == 0`, computes `pre::step(pre::real(x))` and
+ * preserves sign of `pre::imag(x)`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline std::complex<T> step(const std::complex<T>& x)
 {
-    if (pr::imag(x) == T(0)) {
+    if (pre::imag(x) == T(0)) {
         return {
-            pr::step(pr::real(x)),
-            pr::imag(x)
+            pre::step(pre::real(x)),
+            pre::imag(x)
         };
     }
     else {
-        return pr::sign(x) * T(0.5) + T(0.5);
+        return pre::sign(x) * T(0.5) + T(0.5);
     }
 }
 
@@ -595,13 +595,13 @@ inline std::complex<T> step(const std::complex<T>& x)
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #if !DOXYGEN
 #include "math.inl"
 #endif // #if !DOXYGEN
 
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup math
@@ -674,7 +674,7 @@ inline std::enable_if_t<
         return 0;
     }
     else {
-        return pr::lgamma(p) + pr::lgamma(q) - pr::lgamma(p + q);
+        return pre::lgamma(p) + pre::lgamma(q) - pre::lgamma(p + q);
     }
 }
 
@@ -691,7 +691,7 @@ __attribute__((always_inline))
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> beta(T p, T q)
 {
-    return pr::exp(pr::lbeta(p, q));
+    return pre::exp(pre::lbeta(p, q));
 }
 
 /**
@@ -725,15 +725,15 @@ inline std::enable_if_t<
     // Invalid?
     else if (!(x > T(0) && x < T(1) &&
                p > T(0) && q > T(0))) {
-        return pr::numeric_limits<T>::quiet_NaN();
+        return pre::numeric_limits<T>::quiet_NaN();
     }
     // Simplify.
     else if (q == T(1)) {
-        return pr::pow(x, p);
+        return pre::pow(x, p);
     }
     // Simplify.
     else if (p == T(1)) {
-        return 1 - pr::pow(1 - x, q);
+        return 1 - pre::pow(1 - x, q);
     }
     else {
         // Lentz's continued fraction convergence condition.
@@ -762,19 +762,19 @@ inline std::enable_if_t<
             }
 
             d = 1 + a * d;
-            if (pr::fabs(d) < // TODO Is this ever negative?
-                    pr::numeric_limits<T>::min_invertible()) {
-                d = pr::numeric_limits<T>::min_invertible();
+            if (pre::fabs(d) < // TODO Is this ever negative?
+                    pre::numeric_limits<T>::min_invertible()) {
+                d = pre::numeric_limits<T>::min_invertible();
             }
             d = 1 / d;
-            if (pr::fabs(c) < // TODO Is this ever negative?
-                    pr::fabs(a) * pr::numeric_limits<T>::min_invertible()) {
-                c = pr::fabs(a) * pr::numeric_limits<T>::min_invertible();
+            if (pre::fabs(c) < // TODO Is this ever negative?
+                    pre::fabs(a) * pre::numeric_limits<T>::min_invertible()) {
+                c = pre::fabs(a) * pre::numeric_limits<T>::min_invertible();
             }
 
             c = 1 + a / c;
             f = f * c * d;
-            if (pr::fabs(1 - c * d) < T(1e-8)) {
+            if (pre::fabs(1 - c * d) < T(1e-8)) {
                 break;
             }
         }
@@ -786,8 +786,8 @@ inline std::enable_if_t<
 
         // Success.
         T y =
-            pr::exp(p * pr::log(x) +
-                    q * pr::log1p(-x) - pr::lbeta(p, q)) / p * (f - 1);
+            pre::exp(p * pre::log(x) +
+                    q * pre::log1p(-x) - pre::lbeta(p, q)) / p * (f - 1);
         return flip ? 1 - y : y;
     }
 }
@@ -839,12 +839,12 @@ inline std::enable_if_t<
     T y = 0; // Temporary denominator.
     T g = 0; // Temporary divisor.
     for (T j = 1; j <= k; ++j, --n) {
-        if (r >= pr::numeric_limits<T>::max() / n) {
+        if (r >= pre::numeric_limits<T>::max() / n) {
 
             // Reduce.
             g = find_gcd(n, j), x = n / g, y = j / g;
             g = find_gcd(r, y), r = r / g, y = y / g;
-            if (r >= pr::numeric_limits<T>::max() / x) {
+            if (r >= pre::numeric_limits<T>::max() / x) {
                 // Overflow.
                 throw std::runtime_error(__PRETTY_FUNCTION__);
             }
@@ -928,23 +928,23 @@ template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> binom(T n, T k)
 {
-    if (n == pr::trunc(n)) {
-        if (k == pr::trunc(k)) {
+    if (n == pre::trunc(n)) {
+        if (k == pre::trunc(k)) {
             try {
                 // Delegate.
                 return binom(
-                        pr::llrint(n),
-                        pr::llrint(k));
+                        pre::llrint(n),
+                        pre::llrint(k));
             }
             catch (const std::runtime_error&) {
                 // Overflow.
-                return pr::numeric_limits<T>::infinity();
+                return pre::numeric_limits<T>::infinity();
             }
         }
 
         // Negative integer n and non-integer k?
-        if (pr::signbit(n)) {
-            return pr::numeric_limits<T>::infinity();
+        if (pre::signbit(n)) {
+            return pre::numeric_limits<T>::infinity();
         }
     }
 
@@ -952,15 +952,15 @@ inline std::enable_if_t<
     T a = n + 1;
     T b = k + 1;
     T c = n - k + 1;
-    T r = pr::exp(
-            pr::lgamma(a) -
-            pr::lgamma(b) -
-            pr::lgamma(c));
+    T r = pre::exp(
+            pre::lgamma(a) -
+            pre::lgamma(b) -
+            pre::lgamma(c));
     // Evaluate sign.
     int m =
-        int(pr::signbit(a) && (pr::llrint(pr::floor(a)) & 1)) ^
-        int(pr::signbit(b) && (pr::llrint(pr::floor(b)) & 1)) ^
-        int(pr::signbit(c) && (pr::llrint(pr::floor(c)) & 1));
+        int(pre::signbit(a) && (pre::llrint(pre::floor(a)) & 1)) ^
+        int(pre::signbit(b) && (pre::llrint(pre::floor(b)) & 1)) ^
+        int(pre::signbit(c) && (pre::llrint(pre::floor(c)) & 1));
     if (m & 1) {
         return -r;
     }
@@ -1010,29 +1010,29 @@ template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> erfinv(T y)
 {
-    T w = -pr::log((1 - y) * (1 + y));
+    T w = -pre::log((1 - y) * (1 + y));
     T p;
     if (w < T(5)) {
         w = w - T(2.5);
-        p = pr::fma(w, T(+2.81022636e-08), T(+3.43273939e-7));
-        p = pr::fma(w, p, T(-3.52338770e-6));
-        p = pr::fma(w, p, T(-4.39150654e-6));
-        p = pr::fma(w, p, T(+2.18580870e-4));
-        p = pr::fma(w, p, T(-1.25372503e-3));
-        p = pr::fma(w, p, T(-4.17768164e-3));
-        p = pr::fma(w, p, T(+2.46640727e-1));
-        p = pr::fma(w, p, T(+1.50140941));
+        p = pre::fma(w, T(+2.81022636e-08), T(+3.43273939e-7));
+        p = pre::fma(w, p, T(-3.52338770e-6));
+        p = pre::fma(w, p, T(-4.39150654e-6));
+        p = pre::fma(w, p, T(+2.18580870e-4));
+        p = pre::fma(w, p, T(-1.25372503e-3));
+        p = pre::fma(w, p, T(-4.17768164e-3));
+        p = pre::fma(w, p, T(+2.46640727e-1));
+        p = pre::fma(w, p, T(+1.50140941));
     }
     else {
-        w = pr::sqrt(w) - 3;
-        p = pr::fma(w, T(-2.00214257e-4), T(+1.00950558e-4));
-        p = pr::fma(w, p, T(+1.34934322e-3));
-        p = pr::fma(w, p, T(-3.67342844e-3));
-        p = pr::fma(w, p, T(+5.73950773e-3));
-        p = pr::fma(w, p, T(-7.62246130e-3));
-        p = pr::fma(w, p, T(+9.43887047e-3));
-        p = pr::fma(w, p, T(+1.00167406));
-        p = pr::fma(w, p, T(+2.83297682));
+        w = pre::sqrt(w) - 3;
+        p = pre::fma(w, T(-2.00214257e-4), T(+1.00950558e-4));
+        p = pre::fma(w, p, T(+1.34934322e-3));
+        p = pre::fma(w, p, T(-3.67342844e-3));
+        p = pre::fma(w, p, T(+5.73950773e-3));
+        p = pre::fma(w, p, T(-7.62246130e-3));
+        p = pre::fma(w, p, T(+9.43887047e-3));
+        p = pre::fma(w, p, T(+1.00167406));
+        p = pre::fma(w, p, T(+2.83297682));
     }
     return p * y;
 }
@@ -1235,6 +1235,6 @@ constexpr std::enable_if_t<
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_MATH_HPP

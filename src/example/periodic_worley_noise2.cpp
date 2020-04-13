@@ -12,26 +12,26 @@
 typedef float Float;
 
 // 1-dimensional vector type.
-typedef pr::vec1<Float> Vec1f;
+typedef pre::vec1<Float> Vec1f;
 
 // 2-dimensional vector type.
-typedef pr::vec2<int> Vec2i;
+typedef pre::vec2<int> Vec2i;
 
 // 2-dimensional vector type.
-typedef pr::vec2<Float> Vec2f;
+typedef pre::vec2<Float> Vec2f;
 
 // 3-dimensional vector type.
-typedef pr::vec3<Float> Vec3f;
+typedef pre::vec3<Float> Vec3f;
 
 // Image.
-typedef pr::image2<Float, Float, 1> Image2x1;
+typedef pre::image2<Float, Float, 1> Image2x1;
 
 // Image Mitchell filter.
-typedef pr::mitchell_filter2<Float> MitchellFilter2;
+typedef pre::mitchell_filter2<Float> MitchellFilter2;
 
 // Periodic Worley noise.
-typedef pr::periodic_noise_adapter2<
-        pr::worley_noise3<Float>> PeriodicWorleyNoise2;
+typedef pre::periodic_noise_adapter2<
+        pre::worley_noise3<Float>> PeriodicWorleyNoise2;
 
 int main(int argc, char** argv)
 {
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
     std::string ofs_name = "periodic_worley_noise2.pgm";
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -186,12 +186,12 @@ int main(int argc, char** argv)
     }
 
     // Contrast stretch.
-    Float tmpmin = +pr::numeric_limits<Float>::infinity();
-    Float tmpmax = -pr::numeric_limits<Float>::infinity();
+    Float tmpmin = +pre::numeric_limits<Float>::infinity();
+    Float tmpmax = -pre::numeric_limits<Float>::infinity();
     for (int i = 0; i < image_dim[0]; i++)
     for (int j = 0; j < image_dim[1]; j++) {
-        tmpmin = pr::fmin(tmpmin, image(i, j)[0]);
-        tmpmax = pr::fmax(tmpmax, image(i, j)[0]);
+        tmpmin = pre::fmin(tmpmin, image(i, j)[0]);
+        tmpmax = pre::fmax(tmpmax, image(i, j)[0]);
     }
     for (int i = 0; i < image_dim[0]; i++)
     for (int j = 0; j < image_dim[1]; j++) {
@@ -207,8 +207,8 @@ int main(int argc, char** argv)
         ofs << "255\n";
         for (int j = 0; j < image_dim[1]; j++)
         for (int i = 0; i < image_dim[0]; i++) {
-            ofs << int(pr::pack_uint8(
-                       pr::srgbenc(image(i, j)[0]))) << ' ';
+            ofs << int(pre::pack_uint8(
+                       pre::srgbenc(image(i, j)[0]))) << ' ';
         }
     }
     catch (const std::exception& exception) {

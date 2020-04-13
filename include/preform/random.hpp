@@ -50,16 +50,16 @@
 // for std::vector
 #include <vector>
 
-// for pr::numeric_limits, pr::log2, ...
+// for pre::numeric_limits, pre::log2, ...
 #include <preform/math.hpp>
 
-// for pr::first1, pr::lcg_seek
+// for pre::first1, pre::lcg_seek
 #include <preform/misc_int.hpp>
 
-// for pr::neumaier_sum
+// for pre::neumaier_sum
 #include <preform/neumaier_sum.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup random Random
@@ -81,8 +81,8 @@ inline std::enable_if_t<
     long double r =
                 static_cast<long double>(gen.max()) -
                 static_cast<long double>(gen.min()) + 1.0L;
-    unsigned long long log2r = pr::log2(r);
-    unsigned long long b = pr::numeric_limits<T>::digits;
+    unsigned long long log2r = pre::log2(r);
+    unsigned long long b = pre::numeric_limits<T>::digits;
     unsigned long long m = std::max(1ULL,
             (log2r + b - 1ULL) / log2r);
 
@@ -94,7 +94,7 @@ inline std::enable_if_t<
 	}
     s /= t;
     if (s >= T(1)) {
-        s = pr::nextafter(T(1), T(0));
+        s = pre::nextafter(T(1), T(0));
     }
     return s;
 }
@@ -220,7 +220,7 @@ public:
      */
     float_type entropy() const
     {
-        return pr::log(float_type(b_ - a_));
+        return pre::log(float_type(b_ - a_));
     }
 
     /**
@@ -261,8 +261,8 @@ public:
     {
         // TODO Fix behavior at x = a?
         return
-            pr::fmax(float_type(0),
-            pr::fmin(float_type(1), (pr::ceil(x) - a_) / (b_ - a_)));
+            pre::fmax(float_type(0),
+            pre::fmin(float_type(1), (pre::ceil(x) - a_) / (b_ - a_)));
     }
 
     /**
@@ -280,10 +280,10 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            return pr::floor((1 - u) * a_ + u * b_);
+            return pre::floor((1 - u) * a_ + u * b_);
         }
     }
 
@@ -294,7 +294,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -426,7 +426,7 @@ public:
      */
     float_type entropy() const
     {
-        return pr::log(b_ - a_);
+        return pre::log(b_ - a_);
     }
 
     /**
@@ -466,8 +466,8 @@ public:
     float_type cdf(float_type x) const
     {
         return
-            pr::fmax(float_type(0),
-            pr::fmin(float_type(1), (x - a_) / (b_ - a_)));
+            pre::fmax(float_type(0),
+            pre::fmin(float_type(1), (x - a_) / (b_ - a_)));
 
     }
 
@@ -486,7 +486,7 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
             return (1 - u) * a_ + u * b_;
@@ -500,7 +500,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -590,7 +590,7 @@ public:
      */
     float_type upper_bound() const
     {
-        return pr::numeric_limits<float_type>::infinity();
+        return pre::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -626,7 +626,7 @@ public:
      */
     float_type skewness() const
     {
-        return 1 / pr::sqrt(lambda_);
+        return 1 / pre::sqrt(lambda_);
     }
 
     /**
@@ -642,18 +642,18 @@ public:
     {
         if (lambda_ < float_type(20)) {
             // Direct evaluation.
-            float_type alpha0 = pr::exp(-lambda_);
+            float_type alpha0 = pre::exp(-lambda_);
             float_type alpha1 = 0;
             float_type s = 0;
             for (int k = 1; k < 100; k++) {
                 alpha0 *= lambda_ / k;
-                alpha1 += pr::log(float_type(k));
+                alpha1 += pre::log(float_type(k));
                 s += alpha0 * alpha1;
                 if ((alpha0 * alpha1) < s * float_type(1e-16)) {
                     break;
                 }
             }
-            s += lambda_ * (1 - pr::log(lambda_));
+            s += lambda_ * (1 - pre::log(lambda_));
             return s;
         }
         else {
@@ -662,9 +662,9 @@ public:
             float_type lambdainv2 = lambdainv * lambdainv;
             float_type lambdainv3 = lambdainv * lambdainv2;
             return
-                pr::log(2 *
-                pr::numeric_constants<float_type>::M_pi() *
-                pr::numeric_constants<float_type>::M_e() * lambda_) / 2 -
+                pre::log(2 *
+                pre::numeric_constants<float_type>::M_pi() *
+                pre::numeric_constants<float_type>::M_e() * lambda_) / 2 -
                             (1 / float_type(12)) * lambdainv -
                             (1 / float_type(24)) * lambdainv2 -
                             (19 / float_type(360)) * lambdainv3;
@@ -689,9 +689,9 @@ public:
             return 0;
         }
         else {
-            return pr::exp(
-                   pr::log(lambda_) * k - lambda_ -
-                   pr::lgamma(T(k + 1)));
+            return pre::exp(
+                   pre::log(lambda_) * k - lambda_ -
+                   pre::lgamma(T(k + 1)));
         }
     }
 
@@ -714,7 +714,7 @@ public:
             return 0;
         }
         else {
-            float_type p = pr::exp(-lambda_);
+            float_type p = pre::exp(-lambda_);
             float_type s = p;
             for (int j = 1; j <= int(x); j++) {
                 p *= lambda_ / j;
@@ -736,11 +736,11 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
             int x = 0;
-            float_type p = pr::exp(-lambda_);
+            float_type p = pre::exp(-lambda_);
             float_type s = p;
             while (u > s) {
                 x++;
@@ -749,7 +749,7 @@ public:
 
                 // Underflow?
                 if (!(p > s *
-                      pr::numeric_limits<float_type>::machine_epsilon())) {
+                      pre::numeric_limits<float_type>::machine_epsilon())) {
                     break;
                 }
             }
@@ -764,7 +764,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -840,7 +840,7 @@ public:
      */
     float_type upper_bound() const
     {
-        return pr::numeric_limits<float_type>::infinity();
+        return pre::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -888,7 +888,7 @@ public:
      */
     float_type entropy() const
     {
-        return 1 - pr::log(lambda_);
+        return 1 - pre::log(lambda_);
     }
 
     /**
@@ -908,7 +908,7 @@ public:
             return 0;
         }
         else {
-            return lambda_ * pr::exp(-lambda_ * x);
+            return lambda_ * pre::exp(-lambda_ * x);
         }
     }
 
@@ -929,7 +929,7 @@ public:
             return 0;
         }
         else {
-            return -pr::expm1(-lambda_ * x);
+            return -pre::expm1(-lambda_ * x);
         }
     }
 
@@ -948,13 +948,13 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
             // More accurate for small arguments?
             float_type log_term =
-                u < float_type(0.5) ? pr::log1p(-u) :
-                pr::log(1 - u);
+                u < float_type(0.5) ? pre::log1p(-u) :
+                pre::log(1 - u);
             return -log_term / lambda_;
         }
     }
@@ -966,7 +966,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -1083,7 +1083,7 @@ public:
      */
     float_type skewness() const
     {
-        return (1 - 2 * p_) / pr::sqrt(p_ * q_);
+        return (1 - 2 * p_) / pre::sqrt(p_ * q_);
     }
 
     /**
@@ -1095,10 +1095,10 @@ public:
      */
     float_type entropy() const
     {
-        float_type pval = p_ * pr::log(p_);
-        float_type qval = q_ * pr::log(q_);
-        if (!pr::isfinite(pval) ||
-            !pr::isfinite(qval)) {
+        float_type pval = p_ * pre::log(p_);
+        float_type qval = q_ * pre::log(q_);
+        if (!pre::isfinite(pval) ||
+            !pre::isfinite(qval)) {
             return 1;
         }
         else {
@@ -1166,7 +1166,7 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
             if (u < q_) {
@@ -1185,7 +1185,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -1310,7 +1310,7 @@ public:
      */
     float_type skewness() const
     {
-        return (1 - 2 * p_) / pr::sqrt(n_ * p_ * q_);
+        return (1 - 2 * p_) / pre::sqrt(n_ * p_ * q_);
     }
 
     /**
@@ -1322,9 +1322,9 @@ public:
      */
     float_type entropy() const
     {
-        return float_type(0.5) * pr::log(2 *
-            pr::numeric_constants<float_type>::M_pi() *
-            pr::numeric_constants<float_type>::M_e() *
+        return float_type(0.5) * pre::log(2 *
+            pre::numeric_constants<float_type>::M_pi() *
+            pre::numeric_constants<float_type>::M_e() *
             n_ * p_ * q_);
     }
 
@@ -1353,12 +1353,12 @@ public:
                 return k == n_;
             }
             return
-                pr::exp(
-                pr::lgamma(float_type(n_ + 1)) -
-                pr::lgamma(float_type(n_ - k + 1)) -
-                pr::lgamma(float_type(k + 1)) +
-                pr::log(p_) * k +
-                pr::log(q_) * (n_ - k));
+                pre::exp(
+                pre::lgamma(float_type(n_ + 1)) -
+                pre::lgamma(float_type(n_ - k + 1)) -
+                pre::lgamma(float_type(k + 1)) +
+                pre::log(p_) * k +
+                pre::log(q_) * (n_ - k));
         }
     }
 
@@ -1404,7 +1404,7 @@ public:
             if (u == 1) {
                 return n_;
             }
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
 
@@ -1433,7 +1433,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -1509,7 +1509,7 @@ public:
      */
     float_type lower_bound() const
     {
-        return -pr::numeric_limits<float_type>::infinity();
+        return -pre::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1521,7 +1521,7 @@ public:
      */
     float_type upper_bound() const
     {
-        return pr::numeric_limits<float_type>::infinity();
+        return pre::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1570,9 +1570,9 @@ public:
     float_type entropy() const
     {
         return
-            pr::log(2 *
-            pr::numeric_constants<float_type>::M_pi() *
-            pr::numeric_constants<float_type>::M_e() *
+            pre::log(2 *
+            pre::numeric_constants<float_type>::M_pi() *
+            pre::numeric_constants<float_type>::M_e() *
             sigma_ * sigma_) / 2;
     }
 
@@ -1592,9 +1592,9 @@ public:
     float_type pdf(float_type x) const
     {
         float_type xi = (x - mu_) / sigma_;
-        return pr::numeric_constants<float_type>::M_2_sqrtpi() *
-               pr::numeric_constants<float_type>::M_sqrt1_2() / 2 *
-                            pr::exp(-xi * xi / 2) / sigma_;
+        return pre::numeric_constants<float_type>::M_2_sqrtpi() *
+               pre::numeric_constants<float_type>::M_sqrt1_2() / 2 *
+                            pre::exp(-xi * xi / 2) / sigma_;
     }
 
     /**
@@ -1612,8 +1612,8 @@ public:
     float_type cdf(float_type x) const
     {
         float_type xi = (x - mu_) / sigma_;
-        return pr::erfc(
-              -pr::numeric_constants<float_type>::M_sqrt1_2() * xi) / 2;
+        return pre::erfc(
+              -pre::numeric_constants<float_type>::M_sqrt1_2() * xi) / 2;
     }
 
     /**
@@ -1632,12 +1632,12 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
             return mu_ + sigma_ *
-                   pr::numeric_constants<float_type>::M_sqrt2() *
-                   pr::erfinv(2 * u - 1);
+                   pre::numeric_constants<float_type>::M_sqrt2() *
+                   pre::erfinv(2 * u - 1);
         }
     }
 
@@ -1648,7 +1648,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 protected:
@@ -1714,7 +1714,7 @@ public:
      */
     float_type upper_bound() const
     {
-        return pr::numeric_limits<float_type>::infinity();
+        return pre::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1726,7 +1726,7 @@ public:
      */
     float_type mean() const
     {
-        return pr::exp(mu_ + float_type(0.5) * sigma_ * sigma_);
+        return pre::exp(mu_ + float_type(0.5) * sigma_ * sigma_);
     }
 
     /**
@@ -1740,8 +1740,8 @@ public:
      */
     float_type variance() const
     {
-        return pr::expm1(sigma_ * sigma_) *
-                      pr::exp(2 * mu_ + sigma_ * sigma_);
+        return pre::expm1(sigma_ * sigma_) *
+                      pre::exp(2 * mu_ + sigma_ * sigma_);
     }
 
     /**
@@ -1755,9 +1755,9 @@ public:
      */
     float_type skewness() const
     {
-        return pr::sqrt(
-               pr::expm1(sigma_ * sigma_)) *
-                        (pr::exp(sigma_ * sigma_) + 2);
+        return pre::sqrt(
+               pre::expm1(sigma_ * sigma_)) *
+                        (pre::exp(sigma_ * sigma_) + 2);
     }
 
     /**
@@ -1771,10 +1771,10 @@ public:
      */
     float_type entropy() const
     {
-        return pr::log2(
-               pr::numeric_constants<float_type>::M_2_sqrtpi() *
-               pr::numeric_constants<float_type>::M_sqrt1_2() / 2 *
-                    sigma_ * pr::exp(mu_ + float_type(0.5)));
+        return pre::log2(
+               pre::numeric_constants<float_type>::M_2_sqrtpi() *
+               pre::numeric_constants<float_type>::M_sqrt1_2() / 2 *
+                    sigma_ * pre::exp(mu_ + float_type(0.5)));
     }
 
     /**
@@ -1786,7 +1786,7 @@ public:
             return 0;
         }
         else {
-            return normal_distribution<T>::pdf(pr::log(x)) / x;
+            return normal_distribution<T>::pdf(pre::log(x)) / x;
         }
     }
 
@@ -1799,7 +1799,7 @@ public:
             return 0;
         }
         else {
-            return normal_distribution<T>::cdf(pr::log(x));
+            return normal_distribution<T>::cdf(pre::log(x));
         }
     }
 
@@ -1810,10 +1810,10 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            return pr::exp(normal_distribution<T>::cdfinv(u));
+            return pre::exp(normal_distribution<T>::cdfinv(u));
         }
     }
 
@@ -1824,7 +1824,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -1889,7 +1889,7 @@ public:
      */
     float_type lower_bound() const
     {
-        return -pr::numeric_limits<float_type>::infinity();
+        return -pre::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1901,7 +1901,7 @@ public:
      */
     float_type upper_bound() const
     {
-        return pr::numeric_limits<float_type>::infinity();
+        return pre::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -1926,8 +1926,8 @@ public:
     float_type variance() const
     {
         return
-            pr::numeric_constants<float_type>::M_pi() *
-            pr::numeric_constants<float_type>::M_pi() *
+            pre::numeric_constants<float_type>::M_pi() *
+            pre::numeric_constants<float_type>::M_pi() *
             s_ * s_ / 3;
     }
 
@@ -1952,7 +1952,7 @@ public:
      */
     float_type entropy() const
     {
-        return pr::log(s_) + 2;
+        return pre::log(s_) + 2;
     }
 
     /**
@@ -1967,7 +1967,7 @@ public:
      */
     float_type pdf(float_type x) const
     {
-        float_type exp_term = pr::exp(-(x - mu_) / s_);
+        float_type exp_term = pre::exp(-(x - mu_) / s_);
         return exp_term / (s_ *
                         (1 + exp_term) *
                         (1 + exp_term));
@@ -1984,7 +1984,7 @@ public:
      */
     float_type cdf(float_type x) const
     {
-        return 1 / (1 + pr::exp(-(x - mu_) / s_));
+        return 1 / (1 + pre::exp(-(x - mu_) / s_));
     }
 
     /**
@@ -2002,10 +2002,10 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            return mu_ - s_ * pr::log(1 / u - 1);
+            return mu_ - s_ * pre::log(1 / u - 1);
         }
     }
 
@@ -2016,7 +2016,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -2085,7 +2085,7 @@ public:
      */
     float_type lower_bound() const
     {
-        return -pr::numeric_limits<float_type>::infinity();
+        return -pre::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -2097,7 +2097,7 @@ public:
      */
     float_type upper_bound() const
     {
-        return pr::numeric_limits<float_type>::infinity();
+        return pre::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -2122,8 +2122,8 @@ public:
     float_type variance() const
     {
         return
-            pr::numeric_constants<float_type>::M_pi() *
-            pr::numeric_constants<float_type>::M_pi() *
+            pre::numeric_constants<float_type>::M_pi() *
+            pre::numeric_constants<float_type>::M_pi() *
             s_ * s_ / 12;
     }
 
@@ -2148,9 +2148,9 @@ public:
      */
     float_type entropy() const
     {
-        return pr::log(float_type(0.5) *
-                    pr::numeric_constants<float_type>::M_e() *
-                    pr::numeric_constants<float_type>::M_e() * s_);
+        return pre::log(float_type(0.5) *
+                    pre::numeric_constants<float_type>::M_e() *
+                    pre::numeric_constants<float_type>::M_e() * s_);
     }
 
     /**
@@ -2165,7 +2165,7 @@ public:
     float_type pdf(float_type x) const
     {
         return float_type(0.5) /
-                    (s_ * pr::nthpow(pr::cosh((x - mu_) / s_), 2));
+                    (s_ * pre::nthpow(pre::cosh((x - mu_) / s_), 2));
     }
 
     /**
@@ -2180,7 +2180,7 @@ public:
      */
     float_type cdf(float_type x) const
     {
-        return float_type(0.5) * pr::tanh((x - mu_) / s_) + float_type(0.5);
+        return float_type(0.5) * pre::tanh((x - mu_) / s_) + float_type(0.5);
     }
 
     /**
@@ -2198,10 +2198,10 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            return pr::atanh(2 * u - 1) * s_ + mu_;
+            return pre::atanh(2 * u - 1) * s_ + mu_;
         }
     }
 
@@ -2212,7 +2212,7 @@ public:
     float_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -2296,7 +2296,7 @@ public:
      */
     float_type upper_bound() const
     {
-        return pr::numeric_limits<float_type>::infinity();
+        return pre::numeric_limits<float_type>::infinity();
     }
 
     /**
@@ -2310,7 +2310,7 @@ public:
      */
     float_type mean() const
     {
-        return lambda_ * pr::tgamma(1 + 1 / k_);
+        return lambda_ * pre::tgamma(1 + 1 / k_);
     }
 
     /**
@@ -2326,8 +2326,8 @@ public:
      */
     float_type variance() const
     {
-        float_type a0 = pr::tgamma(1 + 2 / k_);
-        float_type a1 = pr::tgamma(1 + 1 / k_);
+        float_type a0 = pre::tgamma(1 + 2 / k_);
+        float_type a1 = pre::tgamma(1 + 1 / k_);
         return lambda_ * lambda_ * (a0 - a1 * a1);
     }
 
@@ -2346,9 +2346,9 @@ public:
     {
         float_type mu = mean();
         float_type sigma2 = variance();
-        float_type sigma3 = sigma2 * pr::sqrt(sigma2);
-        return (pr::nthpow(lambda_, 3) *
-                pr::tgamma(1 + 3 / k_) - pr::nthpow(mu, 3) -
+        float_type sigma3 = sigma2 * pre::sqrt(sigma2);
+        return (pre::nthpow(lambda_, 3) *
+                pre::tgamma(1 + 3 / k_) - pre::nthpow(mu, 3) -
                 3 * mu * sigma2) / sigma3;
     }
 
@@ -2364,8 +2364,8 @@ public:
     float_type entropy() const
     {
         return 1 +
-               pr::numeric_constants<float_type>::M_gamma() * (k_ - 1) / k_ +
-               pr::log(lambda_ / k_);
+               pre::numeric_constants<float_type>::M_gamma() * (k_ - 1) / k_ +
+               pre::log(lambda_ / k_);
     }
 
     /**
@@ -2392,8 +2392,8 @@ public:
         }
         else {
             return k_ / lambda_ *
-                   pr::pow(x / lambda_, k_ - 1) *
-                   pr::exp(-pr::pow(x / lambda_, k_));
+                   pre::pow(x / lambda_, k_ - 1) *
+                   pre::exp(-pre::pow(x / lambda_, k_));
         }
     }
 
@@ -2418,7 +2418,7 @@ public:
             return 0;
         }
         else {
-            return 1 - pr::exp(-pr::pow(x / lambda_, k_));
+            return 1 - pre::exp(-pre::pow(x / lambda_, k_));
         }
     }
 
@@ -2438,10 +2438,10 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
-            return lambda_ * pr::pow(-pr::log(1 - u), 1 / k_);
+            return lambda_ * pre::pow(-pre::log(1 - u), 1 / k_);
         }
     }
 
@@ -2452,7 +2452,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -2513,13 +2513,13 @@ public:
                 x0_(x0),
                 x1_(x1)
     {
-        x0_ = pr::fmax(x0_, Tbase::lower_bound());
-        x1_ = pr::fmin(x1_, Tbase::upper_bound());
+        x0_ = pre::fmax(x0_, Tbase::lower_bound());
+        x1_ = pre::fmin(x1_, Tbase::upper_bound());
         cdf_x0_ = Tbase::cdf(x0_);
         cdf_x1_ = Tbase::cdf(x1_);
         fac_ = float_type(1) / (cdf_x1_ - cdf_x0_);
         if (!(x0_ < x1_) ||
-            !pr::isfinite(fac_)) {
+            !pre::isfinite(fac_)) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
     }
@@ -2636,7 +2636,7 @@ public:
     {
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
             return Tbase::cdfinv((1 - u) * cdf_x0_ + u * cdf_x1_);
@@ -2650,7 +2650,7 @@ public:
     float_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -2658,12 +2658,12 @@ private:
     /**
      * @brief Lower bound @f$ x_0 @f$.
      */
-    float_type x0_ = -pr::numeric_limits<float_type>::infinity();
+    float_type x0_ = -pre::numeric_limits<float_type>::infinity();
 
     /**
      * @brief Upper bound @f$ x_1 @f$.
      */
-    float_type x1_ = +pr::numeric_limits<float_type>::infinity();
+    float_type x1_ = +pre::numeric_limits<float_type>::infinity();
 
     /**
      * @brief Pre-computed term @f$ F_0 = F(x_0) @f$.
@@ -2823,7 +2823,7 @@ public:
         if (fac == 0) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
-        else if (fac < pr::numeric_limits<float_type>::min_invertible()) {
+        else if (fac < pre::numeric_limits<float_type>::min_invertible()) {
             for (point_type& point : points_) {
                 point.pdf /= fac;
                 point.cdf /= fac;
@@ -2962,7 +2962,7 @@ public:
 
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
 
@@ -2997,7 +2997,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -3124,7 +3124,7 @@ public:
         if (fac == 0) {
             throw std::invalid_argument(__PRETTY_FUNCTION__);
         }
-        else if (fac < pr::numeric_limits<float_type>::min_invertible()) {
+        else if (fac < pre::numeric_limits<float_type>::min_invertible()) {
             for (point_type& point : points_) {
                 point.pdf /= fac;
                 point.cdf /= fac;
@@ -3278,7 +3278,7 @@ public:
 
         if (!(u >= float_type(0) &&
               u <  float_type(1))) {
-            return pr::numeric_limits<float_type>::quiet_NaN();
+            return pre::numeric_limits<float_type>::quiet_NaN();
         }
         else {
 
@@ -3309,8 +3309,8 @@ public:
             a0 -= u;
             a0 /= a2;
             a1 /= a2;
-            float_type q = pr::sqrt(a1 * a1 - 4 * a0);
-            float_type t = -float_type(0.5) * (a1 + pr::copysign(q, a1));
+            float_type q = pre::sqrt(a1 * a1 - 4 * a0);
+            float_type t = -float_type(0.5) * (a1 + pre::copysign(q, a1));
             if (!(t >= float_type(0) &&
                   t <= float_type(1))) {
                 t = a0 / t;
@@ -3328,7 +3328,7 @@ public:
     value_type operator()(G&& gen) const
     {
         return cdfinv(
-            pr::generate_canonical<float_type>(std::forward<G>(gen)));
+            pre::generate_canonical<float_type>(std::forward<G>(gen)));
     }
 
 private:
@@ -3514,7 +3514,7 @@ public:
      */
     static constexpr result_type max() noexcept
     {
-        return pr::numeric_limits<result_type>::max();
+        return pre::numeric_limits<result_type>::max();
     }
 
     /**
@@ -3564,7 +3564,7 @@ public:
     void discard(state_type n)
     {
         // Advance.
-        state_ = pr::lcg_seek<state_type>(state_, multiplier, inc_, n);
+        state_ = pre::lcg_seek<state_type>(state_, multiplier, inc_, n);
     }
 
     /**
@@ -3611,7 +3611,7 @@ public:
         constexpr std::size_t spare_bits = state_bits - result_bits;
 
         // Target operation bits.
-        constexpr std::size_t target_op_bits = pr::first1(result_bits);
+        constexpr std::size_t target_op_bits = pre::first1(result_bits);
 
         // Actual operation bits.
         constexpr std::size_t op_bits =
@@ -3647,7 +3647,7 @@ public:
         state >> shift;
 
         // Random rotate.
-        return pr::rotr(result_type(state >> bottom_spare), pivot);
+        return pre::rotr(result_type(state >> bottom_spare), pivot);
     }
 };
 
@@ -3696,6 +3696,6 @@ typedef pcg_xsh_rr_engine<
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_RANDOM_HPP

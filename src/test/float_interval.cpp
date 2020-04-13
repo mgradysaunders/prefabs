@@ -13,10 +13,10 @@ typedef long double Highp;
 typedef float Float;
 
 // Float interval type.
-typedef pr::float_interval<Float> FloatInterval;
+typedef pre::float_interval<Float> FloatInterval;
 
 // Permuted-congruential generator.
-pr::pcg32 pcg;
+pre::pcg32 pcg;
 
 void testSequential()
 {
@@ -29,7 +29,7 @@ void testSequential()
     FloatInterval fi = {};
     Highp fh = 0;
     for (int k = 0; k < 16384; k++) {
-        Float f = pr::generate_canonical<Float>(pcg) * 64 - 32;
+        Float f = pre::generate_canonical<Float>(pcg) * 64 - 32;
         switch (pcg(5)) {
             // Add.
             case 0:
@@ -55,8 +55,8 @@ void testSequential()
                 break;
             // Square-root.
             case 4:
-                fi = pr::sqrt(pr::fabs(fi));
-                fh = pr::sqrt(pr::fabs(fh));
+                fi = pre::sqrt(pre::fabs(fi));
+                fh = pre::sqrt(pre::fabs(fh));
                 break;
             default:
                 break;
@@ -84,8 +84,8 @@ void testPairwise()
     std::cout << "correctness of the FloatInterval bounds.\n";
     std::cout.flush();
 
-    pr::normal_distribution<Float> distr_val(0, 100);
-    pr::exponential_distribution<Float> distr_err(1);
+    pre::normal_distribution<Float> distr_val(0, 100);
+    pre::exponential_distribution<Float> distr_err(1);
     for (int k = 0; k < 16384; k++) {
         // Generate random values.
         Float f0 = distr_val(pcg);
@@ -93,25 +93,25 @@ void testPairwise()
 
         // Generate random lower and upper bounds.
         FloatInterval fi0 = {
-            f0, 
+            f0,
             f0 - distr_err(pcg),
             f0 + distr_err(pcg)
         };
         FloatInterval fi1 = {
-            f1, 
+            f1,
             f1 - distr_err(pcg),
             f1 + distr_err(pcg)
         };
 
         // Generate random high-precision values in intervals.
-        Highp fh0 = 
-            pr::lerp(
-            pr::generate_canonical<Highp>(pcg),
+        Highp fh0 =
+            pre::lerp(
+            pre::generate_canonical<Highp>(pcg),
             Highp(fi0.lower_bound()),
             Highp(fi0.upper_bound()));
-        Highp fh1 = 
-            pr::lerp(
-            pr::generate_canonical<Highp>(pcg),
+        Highp fh1 =
+            pre::lerp(
+            pre::generate_canonical<Highp>(pcg),
             Highp(fi1.lower_bound()),
             Highp(fi1.upper_bound()));
 
@@ -139,7 +139,7 @@ void testPairwise()
                 break;
         }
 
-        if (!pr::isnan(fi.value()) &&
+        if (!pre::isnan(fi.value()) &&
             !fi.contains<true, true>(fh)) {
             std::cerr << "Failure!\n";
             std::cerr << "fi0.value() = " << fi0.value() << "\n";
@@ -165,7 +165,7 @@ int main(int argc, char** argv)
     int seed = 0;
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -209,7 +209,7 @@ int main(int argc, char** argv)
     }
     std::cout << "seed = " << seed << std::endl;
     std::cout << std::endl;
-    pcg = pr::pcg32(seed);
+    pcg = pre::pcg32(seed);
 
     // Test sequential operations.
     testSequential();

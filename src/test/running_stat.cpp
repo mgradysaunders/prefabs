@@ -8,19 +8,19 @@
 typedef double Float;
 
 // Running statistic.
-typedef pr::running_stat<Float> RunningStat;
+typedef pre::running_stat<Float> RunningStat;
 
 // Normal distribution.
-typedef pr::normal_distribution<Float> NormalDistribution;
+typedef pre::normal_distribution<Float> NormalDistribution;
 
 // Log-normal distribution.
-typedef pr::lognormal_distribution<Float> LognormalDistribution;
+typedef pre::lognormal_distribution<Float> LognormalDistribution;
 
 // Logistic distribution.
-typedef pr::logistic_distribution<Float> LogisticDistribution;
+typedef pre::logistic_distribution<Float> LogisticDistribution;
 
 // Permuted congruential generator.
-pr::pcg32 pcg;
+pre::pcg32 pcg;
 
 // Test distribution.
 template <typename Distribution>
@@ -36,7 +36,7 @@ void testDistribution(
     RunningStat stat;
     Float term;
     for (int k = 0; k < 8388608; k++) {
-        if (pr::isfinite((term = distr(pcg)))) {
+        if (pre::isfinite((term = distr(pcg)))) {
             stat += term;
         }
     }
@@ -68,7 +68,7 @@ int main(int argc, char** argv)
     int seed = 0;
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -112,24 +112,24 @@ int main(int argc, char** argv)
     }
     std::cout << "seed = " << seed << std::endl;
     std::cout << std::endl;
-    pcg = pr::pcg32(seed);
+    pcg = pre::pcg32(seed);
 
     // Normal distribution.
     testDistribution(
         "NormalDistribution",
         NormalDistribution(
-            pr::generate_canonical<Float>(pcg) * 50 - 25,
-            pr::generate_canonical<Float>(pcg) * 10 + 1),
+            pre::generate_canonical<Float>(pcg) * 50 - 25,
+            pre::generate_canonical<Float>(pcg) * 10 + 1),
         Float(0));
 
     {
         // Log-normal distribution.
-        Float mu = pr::generate_canonical<Float>(pcg);
-        Float sigma = pr::generate_canonical<Float>(pcg);
+        Float mu = pre::generate_canonical<Float>(pcg);
+        Float sigma = pre::generate_canonical<Float>(pcg);
         Float kurtosis =
-            pr::exp(4 * sigma * sigma) +
-            2 * pr::exp(3 * sigma * sigma) +
-            3 * pr::exp(2 * sigma * sigma) - 6;
+            pre::exp(4 * sigma * sigma) +
+            2 * pre::exp(3 * sigma * sigma) +
+            3 * pre::exp(2 * sigma * sigma) - 6;
         testDistribution(
             "LognormalDistribution",
             LognormalDistribution(mu, sigma),
@@ -140,8 +140,8 @@ int main(int argc, char** argv)
     testDistribution(
         "LogisticDistribution",
         LogisticDistribution(
-            pr::generate_canonical<Float>(pcg) * 50 - 25,
-            pr::generate_canonical<Float>(pcg) * 10 + 1),
+            pre::generate_canonical<Float>(pcg) * 50 - 25,
+            pre::generate_canonical<Float>(pcg) * 10 + 1),
         Float(6) / Float(5));
 
     return 0;

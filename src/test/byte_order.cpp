@@ -6,12 +6,12 @@
 
 int main(int argc, char** argv)
 {
-    pr::byte_order write_order = pr::byte_order::little;
-    pr::byte_order read_order = pr::byte_order::little;
+    pre::byte_order write_order = pre::byte_order::little;
+    pre::byte_order read_order = pre::byte_order::little;
     std::string filename = "byte_order.bin";
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify write byte order.
     opt_parser.on_option(
@@ -19,10 +19,10 @@ int main(int argc, char** argv)
     [&](char** argv) {
         try {
             if (!std::strcmp(argv[0], "little")) {
-                write_order = pr::byte_order::little;
+                write_order = pre::byte_order::little;
             }
             else if (!std::strcmp(argv[0], "big")) {
-                write_order = pr::byte_order::big;
+                write_order = pre::byte_order::big;
             }
             else {
                 throw std::exception();
@@ -44,10 +44,10 @@ int main(int argc, char** argv)
     [&](char** argv) {
         try {
             if (!std::strcmp(argv[0], "little")) {
-                read_order = pr::byte_order::little;
+                read_order = pre::byte_order::little;
             }
             else if (!std::strcmp(argv[0], "big")) {
-                read_order = pr::byte_order::big;
+                read_order = pre::byte_order::big;
             }
             else {
                 throw std::exception();
@@ -91,7 +91,7 @@ int main(int argc, char** argv)
     }
 
     // Print host byte order.
-    std::cout << "Host byte order " << pr::to_string(pr::host_byte_order());
+    std::cout << "Host byte order " << pre::to_string(pre::host_byte_order());
     std::cout << "\n\n";
     std::cout.flush();
 
@@ -107,7 +107,7 @@ int main(int argc, char** argv)
         std::string str = "Hello world!";
 
         std::cout << "Writing " << filename;
-        std::cout << " with byte order " << pr::to_string(write_order);
+        std::cout << " with byte order " << pre::to_string(write_order);
         std::cout << '\n';
         std::cout.flush();
 
@@ -125,12 +125,12 @@ int main(int argc, char** argv)
         std::ofstream ofs(filename,
             std::ios_base::out |
             std::ios_base::binary);
-        pr::byte_stream(ofs, write_order) << u32;
-        pr::byte_stream(ofs, write_order) << u64;
-        pr::byte_stream(ofs, write_order) << sf;
-        pr::byte_stream(ofs, write_order) << df;
-        pr::byte_stream(ofs, write_order) << ldf;
-        pr::byte_stream(ofs, write_order) << str;
+        pre::byte_stream(ofs, write_order) << u32;
+        pre::byte_stream(ofs, write_order) << u64;
+        pre::byte_stream(ofs, write_order) << sf;
+        pre::byte_stream(ofs, write_order) << df;
+        pre::byte_stream(ofs, write_order) << ldf;
+        pre::byte_stream(ofs, write_order) << str;
         ofs.close();
     }
 
@@ -144,7 +144,7 @@ int main(int argc, char** argv)
         std::string str;
 
         std::cout << "Reading " << filename;
-        std::cout << " with byte order " << pr::to_string(read_order);
+        std::cout << " with byte order " << pre::to_string(read_order);
         std::cout << '\n';
         std::cout.flush();
 
@@ -153,12 +153,12 @@ int main(int argc, char** argv)
                 filename,
                 std::ios_base::in |
                 std::ios_base::binary);
-        pr::byte_stream(ifs, read_order) >> u32;
-        pr::byte_stream(ifs, read_order) >> u64;
-        pr::byte_stream(ifs, read_order) >> sf;
-        pr::byte_stream(ifs, read_order) >> df;
-        pr::byte_stream(ifs, read_order) >> ldf;
-        pr::byte_stream(ifs, read_order) >> str;
+        pre::byte_stream(ifs, read_order) >> u32;
+        pre::byte_stream(ifs, read_order) >> u64;
+        pre::byte_stream(ifs, read_order) >> sf;
+        pre::byte_stream(ifs, read_order) >> df;
+        pre::byte_stream(ifs, read_order) >> ldf;
+        pre::byte_stream(ifs, read_order) >> str;
         ifs.close();
 
         // Read output.

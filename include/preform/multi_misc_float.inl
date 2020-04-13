@@ -1,4 +1,4 @@
-/* Copyright (c) 2018-19 M. Grady Saunders
+/* Copyright (c) 2018-20 M. Grady Saunders
  * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,7 +28,7 @@
 /*+-+*/
 // A ruby script generates this file, DO NOT EDIT
 
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup multi_misc_float
@@ -41,7 +41,7 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Wrap `pr::finc()`.
+ * @brief Wrap `pre::finc()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -49,18 +49,18 @@ inline auto finc(
             const multi<T, N...>& x)
 {
     multi<
-        std::decay_t<decltype(pr::finc(
+        std::decay_t<decltype(pre::finc(
         std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
-        *itrres = pr::finc(*itrx);
+        *itrres = pre::finc(*itrx);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::fdec()`.
+ * @brief Wrap `pre::fdec()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -68,18 +68,18 @@ inline auto fdec(
             const multi<T, N...>& x)
 {
     multi<
-        std::decay_t<decltype(pr::fdec(
+        std::decay_t<decltype(pre::fdec(
         std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
-        *itrres = pr::fdec(*itrx);
+        *itrres = pre::fdec(*itrx);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::fclamp()`.
+ * @brief Wrap `pre::fclamp()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -89,7 +89,7 @@ inline auto fclamp(
             const multi<T, N...>& b)
 {
     multi<
-        std::decay_t<decltype(pr::fclamp(
+        std::decay_t<decltype(pre::fclamp(
         std::declval<T>(),
         std::declval<T>(),
         std::declval<T>()))>, N...> res;
@@ -98,13 +98,13 @@ inline auto fclamp(
     auto itrb = b.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itra, ++itrb, ++itrres) {
-        *itrres = pr::fclamp(*itrx, *itra, *itrb);
+        *itrres = pre::fclamp(*itrx, *itra, *itrb);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::frepeat()`.
+ * @brief Wrap `pre::frepeat()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -114,7 +114,7 @@ inline auto frepeat(
             const multi<T, N...>& b)
 {
     multi<
-        std::decay_t<decltype(pr::frepeat(
+        std::decay_t<decltype(pre::frepeat(
         std::declval<T>(),
         std::declval<T>(),
         std::declval<T>()))>, N...> res;
@@ -123,13 +123,13 @@ inline auto frepeat(
     auto itrb = b.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itra, ++itrb, ++itrres) {
-        *itrres = pr::frepeat(*itrx, *itra, *itrb);
+        *itrres = pre::frepeat(*itrx, *itra, *itrb);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::fmirror()`.
+ * @brief Wrap `pre::fmirror()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -139,7 +139,7 @@ inline auto fmirror(
             const multi<T, N...>& b)
 {
     multi<
-        std::decay_t<decltype(pr::fmirror(
+        std::decay_t<decltype(pre::fmirror(
         std::declval<T>(),
         std::declval<T>(),
         std::declval<T>()))>, N...> res;
@@ -148,13 +148,13 @@ inline auto fmirror(
     auto itrb = b.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itra, ++itrb, ++itrres) {
-        *itrres = pr::fmirror(*itrx, *itra, *itrb);
+        *itrres = pre::fmirror(*itrx, *itra, *itrb);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::fastfloor()`.
+ * @brief Wrap `pre::fastfloor()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -162,18 +162,18 @@ inline auto fastfloor(
             const multi<T, N...>& x)
 {
     multi<
-        std::decay_t<decltype(pr::fastfloor(
+        std::decay_t<decltype(pre::fastfloor(
         std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
-        *itrres = pr::fastfloor(*itrx);
+        *itrres = pre::fastfloor(*itrx);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::fastceil()`.
+ * @brief Wrap `pre::fastceil()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -181,18 +181,18 @@ inline auto fastceil(
             const multi<T, N...>& x)
 {
     multi<
-        std::decay_t<decltype(pr::fastceil(
+        std::decay_t<decltype(pre::fastceil(
         std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
-        *itrres = pr::fastceil(*itrx);
+        *itrres = pre::fastceil(*itrx);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::fastround()`.
+ * @brief Wrap `pre::fastround()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -200,18 +200,18 @@ inline auto fastround(
             const multi<T, N...>& x)
 {
     multi<
-        std::decay_t<decltype(pr::fastround(
+        std::decay_t<decltype(pre::fastround(
         std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
-        *itrres = pr::fastround(*itrx);
+        *itrres = pre::fastround(*itrx);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::fasttrunc()`.
+ * @brief Wrap `pre::fasttrunc()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -219,18 +219,18 @@ inline auto fasttrunc(
             const multi<T, N...>& x)
 {
     multi<
-        std::decay_t<decltype(pr::fasttrunc(
+        std::decay_t<decltype(pre::fasttrunc(
         std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
-        *itrres = pr::fasttrunc(*itrx);
+        *itrres = pre::fasttrunc(*itrx);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::sinpi()`.
+ * @brief Wrap `pre::sinpi()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -238,18 +238,18 @@ inline auto sinpi(
             const multi<T, N...>& x)
 {
     multi<
-        std::decay_t<decltype(pr::sinpi(
+        std::decay_t<decltype(pre::sinpi(
         std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
-        *itrres = pr::sinpi(*itrx);
+        *itrres = pre::sinpi(*itrx);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::cospi()`.
+ * @brief Wrap `pre::cospi()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -257,30 +257,30 @@ inline auto cospi(
             const multi<T, N...>& x)
 {
     multi<
-        std::decay_t<decltype(pr::cospi(
+        std::decay_t<decltype(pre::cospi(
         std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
-        *itrres = pr::cospi(*itrx);
+        *itrres = pre::cospi(*itrx);
     }
     return res;
 }
 
 /**
- * @brief Wrap `pr::fstretch()`.
+ * @brief Wrap `pre::fstretch()`.
  */
 template <typename U, typename T, std::size_t... N>
 __attribute__((always_inline))
 inline auto fstretch(const multi<T, N...>& x)
 {
     multi<
-        std::decay_t<decltype(pr::fstretch<U>(
+        std::decay_t<decltype(pre::fstretch<U>(
         std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
-        *itrres = pr::fstretch<U>(*itrx);
+        *itrres = pre::fstretch<U>(*itrx);
     }
     return res;
 }
@@ -289,5 +289,5 @@ inline auto fstretch(const multi<T, N...>& x)
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 

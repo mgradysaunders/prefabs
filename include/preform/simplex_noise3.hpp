@@ -35,19 +35,19 @@
 #ifndef PREFORM_SIMPLEX_NOISE3_HPP
 #define PREFORM_SIMPLEX_NOISE3_HPP
 
-// for pr::wrap, pr::cantor
+// for pre::wrap, pre::cantor
 #include <preform/misc_int.hpp>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::pcg32
+// for pre::pcg32
 #include <preform/random.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup simplex_noise3 Simplex noise (3-dimensional)
@@ -120,7 +120,7 @@ public:
         multi<float_type, 3> u = t + f * t.sum();
 
         // Floor.
-        multi<float_type, 3> u0 = pr::floor(u);
+        multi<float_type, 3> u0 = pre::floor(u);
 
         // Shift to [0, 1)^3.
         u -= u0;
@@ -196,7 +196,7 @@ public:
             float_type r = float_type(0.7);
 
             // Factor.
-            float_type q = r * r - pr::dot(tk, tk);
+            float_type q = r * r - pre::dot(tk, tk);
 
             if (q > float_type(0)) {
 
@@ -204,7 +204,7 @@ public:
                 multi<float_type, 3> xk = grad(w0 + wk);
 
                 // Projection onto gradient.
-                float_type pk = pr::dot(tk, xk);
+                float_type pk = pre::dot(tk, xk);
 
                 float_type q2 = q * q;
 
@@ -246,6 +246,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_SIMPLEX_NOISE3_HPP

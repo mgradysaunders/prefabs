@@ -10,17 +10,17 @@ typedef float Float;
 typedef std::uint32_t FloatBits;
 
 // Float atomic.
-typedef pr::float_atomic<Float, FloatBits> FloatAtomic;
+typedef pre::float_atomic<Float, FloatBits> FloatAtomic;
 
 // Thread pool.
-typedef pr::thread_pool ThreadPool;
+typedef pre::thread_pool ThreadPool;
 
 int main(int argc, char** argv)
 {
     int nthreads = 8;
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Display help.
     opt_parser.on_option(

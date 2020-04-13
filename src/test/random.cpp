@@ -9,46 +9,46 @@
 typedef double Float;
 
 // Uniform int distribution.
-typedef pr::uniform_int_distribution<Float> UniformIntDistribution;
+typedef pre::uniform_int_distribution<Float> UniformIntDistribution;
 
 // Uniform real distribution.
-typedef pr::uniform_real_distribution<Float> UniformRealDistribution;
+typedef pre::uniform_real_distribution<Float> UniformRealDistribution;
 
 // Poisson distribution.
-typedef pr::poisson_distribution<Float> PoissonDistribution;
+typedef pre::poisson_distribution<Float> PoissonDistribution;
 
 // Exponential distribution.
-typedef pr::exponential_distribution<Float> ExponentialDistribution;
+typedef pre::exponential_distribution<Float> ExponentialDistribution;
 
 // Bernoulli distribution.
-typedef pr::bernoulli_distribution<Float> BernoulliDistribution;
+typedef pre::bernoulli_distribution<Float> BernoulliDistribution;
 
 // Binomial distribution.
-typedef pr::binomial_distribution<Float> BinomialDistribution;
+typedef pre::binomial_distribution<Float> BinomialDistribution;
 
 // Normal distribution.
-typedef pr::normal_distribution<Float> NormalDistribution;
+typedef pre::normal_distribution<Float> NormalDistribution;
 
 // Lognormal distribution.
-typedef pr::lognormal_distribution<Float> LognormalDistribution;
+typedef pre::lognormal_distribution<Float> LognormalDistribution;
 
 // Logistic distribution.
-typedef pr::logistic_distribution<Float> LogisticDistribution;
+typedef pre::logistic_distribution<Float> LogisticDistribution;
 
 // Tanh distribution.
-typedef pr::tanh_distribution<Float> TanhDistribution;
+typedef pre::tanh_distribution<Float> TanhDistribution;
 
 // Weibull distribution.
-typedef pr::weibull_distribution<Float> WeibullDistribution;
+typedef pre::weibull_distribution<Float> WeibullDistribution;
 
 // Timer.
-typedef pr::steady_timer Timer;
+typedef pre::steady_timer Timer;
 
 // Neumaier sum.
-typedef pr::neumaier_sum<Float> NeumaierSum;
+typedef pre::neumaier_sum<Float> NeumaierSum;
 
 // Permuted congruential generator.
-pr::pcg32 pcg;
+pre::pcg32 pcg;
 
 // Test distribution statistics.
 template <typename Distribution>
@@ -69,7 +69,7 @@ void testIntDistribution(
     int* x = new int[n];
     Float* u = new Float[n];
     for (int k = 0; k < n; k++) {
-        u[k] = (pr::generate_canonical<Float>(pcg) + k) / n;
+        u[k] = (pre::generate_canonical<Float>(pcg) + k) / n;
     }
     std::shuffle(u, u + n, pcg);
 
@@ -92,7 +92,7 @@ void testIntDistribution(
     auto sampleMoment = [&x](Float c, int p) -> Float {
         NeumaierSum s = 0;
         for (int k = 0; k < n; k++) {
-            s += pr::nthpow(x[k] - c, p);
+            s += pre::nthpow(x[k] - c, p);
         }
         return Float(s) /
                Float((p & 1) ? n : n - 1);
@@ -102,7 +102,7 @@ void testIntDistribution(
     Float m1 = sampleMoment(0, 1);
     Float mu2 = sampleMoment(m1, 2);
     Float mu3 = sampleMoment(m1, 3);
-    Float gamma1 = mu3 / (mu2 * pr::sqrt(mu2));
+    Float gamma1 = mu3 / (mu2 * pre::sqrt(mu2));
     Float h = 0;
 
     {
@@ -110,9 +110,9 @@ void testIntDistribution(
         NeumaierSum s = 0;
         for (int k = 0; k < n; k++) {
             Float fk = distribution.pmf(x[k]);
-            Float hk = pr::log(fk); // No fk due to sampling strategy.
-            if (pr::isinf(hk) ||
-                pr::isnan(hk)) {
+            Float hk = pre::log(fk); // No fk due to sampling strategy.
+            if (pre::isinf(hk) ||
+                pre::isnan(hk)) {
                 continue;
             }
             s -= hk;
@@ -157,7 +157,7 @@ void testRealDistribution(
     Float* x = new Float[n];
     Float* u = new Float[n];
     for (int k = 0; k < n; k++) {
-        u[k] = (pr::generate_canonical<Float>(pcg) + k) / n;
+        u[k] = (pre::generate_canonical<Float>(pcg) + k) / n;
     }
     std::shuffle(u, u + n, pcg);
 
@@ -180,7 +180,7 @@ void testRealDistribution(
     auto sampleMoment = [&x](Float c, int p) -> Float {
         NeumaierSum s = 0;
         for (int k = 0; k < n; k++) {
-            s += pr::nthpow(x[k] - c, p);
+            s += pre::nthpow(x[k] - c, p);
         }
         return Float(s) /
                Float((p & 1) ? n : n - 1);
@@ -190,7 +190,7 @@ void testRealDistribution(
     Float m1 = sampleMoment(0, 1);
     Float mu2 = sampleMoment(m1, 2);
     Float mu3 = sampleMoment(m1, 3);
-    Float gamma1 = mu3 / (mu2 * pr::sqrt(mu2));
+    Float gamma1 = mu3 / (mu2 * pre::sqrt(mu2));
     Float h = 0;
 
     {
@@ -198,9 +198,9 @@ void testRealDistribution(
         NeumaierSum s = 0;
         for (int k = 0; k < n; k++) {
             Float fk = distribution.pdf(x[k]);
-            Float hk = pr::log(fk); // No fk due to sampling strategy.
-            if (pr::isinf(hk) ||
-                pr::isnan(hk)) {
+            Float hk = pre::log(fk); // No fk due to sampling strategy.
+            if (pre::isinf(hk) ||
+                pre::isnan(hk)) {
                 continue;
             }
             s -= hk;
@@ -231,7 +231,7 @@ int main(int argc, char** argv)
     int seed = 0;
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -275,7 +275,7 @@ int main(int argc, char** argv)
     }
     std::cout << "seed = " << seed << "\n\n";
     std::cout.flush();
-    pcg = pr::pcg32(seed);
+    pcg = pre::pcg32(seed);
 
     // Test uniform int distribution.
     testIntDistribution(

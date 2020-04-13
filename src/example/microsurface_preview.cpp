@@ -18,77 +18,77 @@ typedef float Float;
 typedef std::complex<Float> FloatComplex;
 
 // Float interval type.
-typedef pr::float_interval<Float> FloatInterval;
+typedef pre::float_interval<Float> FloatInterval;
 
 // 1-dimensional vector type.
-typedef pr::vec1<Float> Vec1f;
+typedef pre::vec1<Float> Vec1f;
 
 // 2-dimensional vector type.
-typedef pr::vec2<int> Vec2i;
+typedef pre::vec2<int> Vec2i;
 
 // 2-dimensional vector type.
-typedef pr::vec2<Float> Vec2f;
+typedef pre::vec2<Float> Vec2f;
 
 // 3-dimensional vector type.
-typedef pr::vec3<Float> Vec3f;
+typedef pre::vec3<Float> Vec3f;
 
 // 3-by-3 matrix type.
-typedef pr::mat3<Float> Mat3f;
+typedef pre::mat3<Float> Mat3f;
 
 // Image.
-typedef pr::image2<Float, Float, 1> Image2x1;
+typedef pre::image2<Float, Float, 1> Image2x1;
 
 // Image Mitchell filter.
-typedef pr::mitchell_filter2<Float> MitchellFilter2;
+typedef pre::mitchell_filter2<Float> MitchellFilter2;
 
 // Microsurface diffuse with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_lambertian_bsdf<
+typedef pre::microsurface_lambertian_bsdf<
         Float,
-        pr::microsurface_trowbridge_reitz_slope,
-        pr::microsurface_uniform_height>
+        pre::microsurface_trowbridge_reitz_slope,
+        pre::microsurface_uniform_height>
             MicrosurfaceLambertianTrowbridgeReitz;
 
 // Microsurface diffuse with Beckmann slope distribution.
-typedef pr::microsurface_lambertian_bsdf<
+typedef pre::microsurface_lambertian_bsdf<
         Float,
-        pr::microsurface_beckmann_slope,
-        pr::microsurface_uniform_height>
+        pre::microsurface_beckmann_slope,
+        pre::microsurface_uniform_height>
             MicrosurfaceLambertianBeckmann;
 
 // Microsurface dielectric with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_dielectric_bsdf<
+typedef pre::microsurface_dielectric_bsdf<
         Float,
-        pr::microsurface_trowbridge_reitz_slope,
-        pr::microsurface_uniform_height>
+        pre::microsurface_trowbridge_reitz_slope,
+        pre::microsurface_uniform_height>
             MicrosurfaceDielectricTrowbridgeReitz;
 
 // Microsurface dielectric with Beckmann slope distribution.
-typedef pr::microsurface_dielectric_bsdf<
+typedef pre::microsurface_dielectric_bsdf<
         Float,
-        pr::microsurface_beckmann_slope,
-        pr::microsurface_uniform_height>
+        pre::microsurface_beckmann_slope,
+        pre::microsurface_uniform_height>
             MicrosurfaceDielectricBeckmann;
 
 // Microsurface conductive with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_conductive_brdf<
+typedef pre::microsurface_conductive_brdf<
         Float,
-        pr::microsurface_trowbridge_reitz_slope,
-        pr::microsurface_uniform_height>
+        pre::microsurface_trowbridge_reitz_slope,
+        pre::microsurface_uniform_height>
             MicrosurfaceConductiveTrowbridgeReitz;
 
 // Microsurface conductive with Beckmann slope distribution.
-typedef pr::microsurface_conductive_brdf<
+typedef pre::microsurface_conductive_brdf<
         Float,
-        pr::microsurface_beckmann_slope,
-        pr::microsurface_uniform_height>
+        pre::microsurface_beckmann_slope,
+        pre::microsurface_uniform_height>
             MicrosurfaceConductiveBeckmann;
 
 // Oren-Nayar diffuse.
-typedef pr::oren_nayar_diffuse_brdf<Float>
+typedef pre::oren_nayar_diffuse_brdf<Float>
             OrenNayarDiffuse;
 
 // Disney diffuse.
-typedef pr::disney_diffuse_brdf<Float>
+typedef pre::disney_diffuse_brdf<Float>
             DisneyDiffuse;
 
 enum {
@@ -103,20 +103,20 @@ enum {
 };
 
 // Permuted congruential generator.
-pr::pcg32 pcg;
+pre::pcg32 pcg;
 
 // Generate canonical random number.
 Float generateCanonical()
 {
-    return pr::generate_canonical<Float>(pcg);
+    return pre::generate_canonical<Float>(pcg);
 }
 
 // Generate canonical random 2-dimensional vector.
 Vec2f generateCanonical2()
 {
     return {
-        pr::generate_canonical<Float>(pcg),
-        pr::generate_canonical<Float>(pcg)
+        pre::generate_canonical<Float>(pcg),
+        pre::generate_canonical<Float>(pcg)
     };
 }
 
@@ -127,8 +127,8 @@ Float brdf(
         Vec3f wi)
 {
 #if 1
-    if (pr::signbit(wo[2]) !=
-        pr::signbit(wi[2])) {
+    if (pre::signbit(wo[2]) !=
+        pre::signbit(wi[2])) {
         return 0;
     }
 #endif
@@ -250,7 +250,7 @@ struct Ray
 
     Float tmin = 0;
 
-    Float tmax = pr::numeric_limits<Float>::infinity();
+    Float tmax = pre::numeric_limits<Float>::infinity();
 };
 
 struct Hit
@@ -267,9 +267,9 @@ bool intersectSphere(Ray ray, Hit& hit)
     FloatInterval t0;
     FloatInterval t1;
     FloatInterval::solve_poly2(
-            pr::dot(ray.o, ray.o) - 1,
-            pr::dot(ray.d, ray.o) * 2,
-            pr::dot(ray.d, ray.d),
+            pre::dot(ray.o, ray.o) - 1,
+            pre::dot(ray.d, ray.o) * 2,
+            pre::dot(ray.d, ray.d),
             t0, t1);
     if (!(t0.upper_bound() < ray.tmax &&
           t1.lower_bound() > ray.tmin)) {
@@ -289,7 +289,7 @@ bool intersectSphere(Ray ray, Hit& hit)
 
     // Initialize hit.
     hit.p =
-    hit.n = pr::normalize_fast(ray.o + ray.d * t.value());
+    hit.n = pre::normalize_fast(ray.o + ray.d * t.value());
     return true;
 }
 
@@ -304,7 +304,7 @@ int main(int argc, char** argv)
     std::string ofs_name = "sphere.pgm";
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -488,8 +488,8 @@ int main(int argc, char** argv)
 
     Vec3f l0 = {5, -1, -4};
     Vec3f l1 = {-1, -2, 2};
-    l0 = pr::normalize(l0);
-    l1 = pr::normalize(l1);
+    l0 = pre::normalize(l0);
+    l1 = pre::normalize(l1);
 
     for (int i = 0; i < image_dim[0]; i++)
     for (int j = 0; j < image_dim[1]; j++) {
@@ -508,15 +508,15 @@ int main(int argc, char** argv)
             };
             Ray ray;
             ray.o = p0;
-            ray.d = pr::normalize(p1 - p0);
+            ray.d = pre::normalize(p1 - p0);
             ray.tmin = 0;
-            ray.tmax = pr::numeric_limits<Float>::infinity();
+            ray.tmax = pre::numeric_limits<Float>::infinity();
             Hit hit;
             if (intersectSphere(ray, hit)) {
                 Mat3f tbn = Mat3f::build_onb(hit.n);
-                Vec3f wo = pr::dot(pr::transpose(tbn), -ray.d);
-                Vec3f wi0 = pr::dot(pr::transpose(tbn), l0);
-                Vec3f wi1 = pr::dot(pr::transpose(tbn), l1);
+                Vec3f wo = pre::dot(pre::transpose(tbn), -ray.d);
+                Vec3f wi0 = pre::dot(pre::transpose(tbn), l0);
+                Vec3f wi1 = pre::dot(pre::transpose(tbn), l1);
                 Vec1f f = {
                     brdf(mode, roughness, wo, wi0) +
                     brdf(mode, roughness, wo, wi1)
@@ -538,8 +538,8 @@ int main(int argc, char** argv)
         ofs << "255\n";
         for (int j = 0; j < image_dim[1]; j++)
         for (int i = 0; i < image_dim[0]; i++) {
-            ofs << int(pr::pack_uint8(
-                       pr::srgbenc_hejl_burgess(image(i, j)[0]))) << ' ';
+            ofs << int(pre::pack_uint8(
+                       pre::srgbenc_hejl_burgess(image(i, j)[0]))) << ' ';
         }
     }
     catch (const std::exception& exception) {

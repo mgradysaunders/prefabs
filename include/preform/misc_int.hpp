@@ -38,7 +38,7 @@
 // for std::enable_if_t, std::is_integral
 #include <type_traits>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup misc_int Miscellaneous int
@@ -765,6 +765,6 @@ constexpr std::enable_if_t<
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_MISC_INT_HPP

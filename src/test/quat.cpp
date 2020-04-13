@@ -11,19 +11,19 @@
 typedef float Float;
 
 // 3-dimensional vector type.
-typedef pr::vec3<Float> Vec3f;
+typedef pre::vec3<Float> Vec3f;
 
 // 4x4-dimensional matrix type.
-typedef pr::mat4<Float> Mat4f;
+typedef pre::mat4<Float> Mat4f;
 
 // Quaternion type.
-typedef pr::quat<Float> Quat;
+typedef pre::quat<Float> Quat;
 
 // Dual-quaternion type.
-typedef pr::dualquat<Float> Dualquat;
+typedef pre::dualquat<Float> Dualquat;
 
 // Permuted congruential generator.
-pr::pcg32 pcg;
+pre::pcg32 pcg;
 
 void testTransform()
 {
@@ -38,22 +38,22 @@ void testTransform()
     std::cout.flush();
 
     // Random angle.
-    Float theta = 
-        pr::generate_canonical<Float>(pcg) *
-        pr::numeric_constants<Float>::M_pi() * 2;
+    Float theta =
+        pre::generate_canonical<Float>(pcg) *
+        pre::numeric_constants<Float>::M_pi() * 2;
 
     // Random axis.
-    Vec3f hatv = 
+    Vec3f hatv =
     Vec3f::uniform_sphere_pdf_sample({
-        pr::generate_canonical<Float>(pcg),
-        pr::generate_canonical<Float>(pcg)
+        pre::generate_canonical<Float>(pcg),
+        pre::generate_canonical<Float>(pcg)
     });
 
     // Random translation.
     Vec3f w = {
-        pr::generate_canonical<Float>(pcg) * 16 - 8,
-        pr::generate_canonical<Float>(pcg) * 16 - 8,
-        pr::generate_canonical<Float>(pcg) * 16 - 8
+        pre::generate_canonical<Float>(pcg) * 16 - 8,
+        pre::generate_canonical<Float>(pcg) * 16 - 8,
+        pre::generate_canonical<Float>(pcg) * 16 - 8
     };
 
     // Print transform.
@@ -63,7 +63,7 @@ void testTransform()
     std::cout.flush();
 
     // Dualquat construction.
-    Dualquat x0 = 
+    Dualquat x0 =
         Dualquat::translate(w) *
         Dualquat::rotate(theta, hatv);
     std::cout << "dual quaternion = " << x0 << "\n";
@@ -74,8 +74,8 @@ void testTransform()
     std::cout.flush();
 
     // Mat4 construction.
-    Mat4f x1 = 
-        pr::dot(
+    Mat4f x1 =
+        pre::dot(
         Mat4f::translate(w),
         Mat4f::rotate(theta, hatv));
     std::cout << "matrix = " << x1 << "\n";
@@ -95,42 +95,42 @@ void testTransformSlerp()
     std::cout.flush();
 
     // Random angle.
-    Float theta0 = 
-        pr::generate_canonical<Float>(pcg) *
-        pr::numeric_constants<Float>::M_pi() * 2;
-    Float theta1 = 
-        pr::generate_canonical<Float>(pcg) *
-        pr::numeric_constants<Float>::M_pi() * 2;
+    Float theta0 =
+        pre::generate_canonical<Float>(pcg) *
+        pre::numeric_constants<Float>::M_pi() * 2;
+    Float theta1 =
+        pre::generate_canonical<Float>(pcg) *
+        pre::numeric_constants<Float>::M_pi() * 2;
 
     // Random axis.
-    Vec3f hatv0 = 
+    Vec3f hatv0 =
     Vec3f::uniform_sphere_pdf_sample({
-        pr::generate_canonical<Float>(pcg),
-        pr::generate_canonical<Float>(pcg)
+        pre::generate_canonical<Float>(pcg),
+        pre::generate_canonical<Float>(pcg)
     });
-    Vec3f hatv1 = 
+    Vec3f hatv1 =
     Vec3f::uniform_sphere_pdf_sample({
-        pr::generate_canonical<Float>(pcg),
-        pr::generate_canonical<Float>(pcg)
+        pre::generate_canonical<Float>(pcg),
+        pre::generate_canonical<Float>(pcg)
     });
 
     // Random translation.
     Vec3f w0 = {
-        pr::generate_canonical<Float>(pcg) * 16 - 8,
-        pr::generate_canonical<Float>(pcg) * 16 - 8,
-        pr::generate_canonical<Float>(pcg) * 16 - 8
+        pre::generate_canonical<Float>(pcg) * 16 - 8,
+        pre::generate_canonical<Float>(pcg) * 16 - 8,
+        pre::generate_canonical<Float>(pcg) * 16 - 8
     };
     Vec3f w1 = {
-        pr::generate_canonical<Float>(pcg) * 16 - 8,
-        pr::generate_canonical<Float>(pcg) * 16 - 8,
-        pr::generate_canonical<Float>(pcg) * 16 - 8
+        pre::generate_canonical<Float>(pcg) * 16 - 8,
+        pre::generate_canonical<Float>(pcg) * 16 - 8,
+        pre::generate_canonical<Float>(pcg) * 16 - 8
     };
 
     // Dual quaternion endpoints.
-    Dualquat x0 = 
+    Dualquat x0 =
         Dualquat::translate(w0) *
         Dualquat::rotate(theta0, hatv0);
-    Dualquat x1 = 
+    Dualquat x1 =
         Dualquat::translate(w1) *
         Dualquat::rotate(theta1, hatv1);
     std::cout << "dual quaternion 0 = " << x0 << "\n";
@@ -141,13 +141,13 @@ void testTransformSlerp()
 
     // Dual quaternion derivative comparison.
     Float h = 0.001;
-    Float mu = pr::generate_canonical<Float>(pcg);
+    Float mu = pre::generate_canonical<Float>(pcg);
     Dualquat dy_dmu;
     Dualquat y0 = Dualquat::slerp(mu, x0, x1, &dy_dmu);
     Dualquat y1 = Dualquat::slerp(mu + h, x0, x1);
     Dualquat dy_dmu_est = (y1 - y0) / h;
     std::cout << "slerp(" << mu << ") deriv = " << dy_dmu << "\n";
-    std::cout << "slerp(" << mu << ") deriv estimate = " 
+    std::cout << "slerp(" << mu << ") deriv estimate = "
         << dy_dmu_est << "\n\n";
     std::cout.flush();
 }
@@ -157,7 +157,7 @@ int main(int argc, char** argv)
     int seed = 0;
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -201,7 +201,7 @@ int main(int argc, char** argv)
     }
     std::cout << "seed = " << seed << "\n\n";
     std::cout.flush();
-    pcg = pr::pcg32(seed);
+    pcg = pre::pcg32(seed);
 
     // Test transform.
     testTransform();

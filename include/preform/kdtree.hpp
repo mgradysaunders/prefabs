@@ -44,19 +44,19 @@
 // for std::vector
 #include <vector>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::aabb
+// for pre::aabb
 #include <preform/aabb.hpp>
 
-// for pr::iterator_range
+// for pre::iterator_range
 #include <preform/iterator_range.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup kdtree Kd tree
@@ -428,7 +428,7 @@ public:
         nearest_recursive_info1 info;
         info.point = point;
         info.near.first = nullptr;
-        info.near.second = pr::numeric_limits<float_type>::infinity();
+        info.near.second = pre::numeric_limits<float_type>::infinity();
         if (root_) {
             nearest_recursive(info, root_);
         }
@@ -488,7 +488,7 @@ private:
         // If point is on right, process right child first.
         const node_type* child0 = node->left;
         const node_type* child1 = node->right;
-        if (pr::signbit(min_dist)) {
+        if (pre::signbit(min_dist)) {
             min_dist = -min_dist;
             std::swap(child0, child1);
         }
@@ -636,7 +636,7 @@ private:
         // If point is on right, process right child first.
         const node_type* child0 = node->left;
         const node_type* child1 = node->right;
-        if (pr::signbit(min_dist)) {
+        if (pre::signbit(min_dist)) {
             min_dist = -min_dist;
             std::swap(child0, child1);
         }
@@ -802,6 +802,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_KDTREE_HPP

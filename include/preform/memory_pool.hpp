@@ -44,7 +44,7 @@
 // for std::allocator
 #include <memory>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup memory_pool Memory pool
@@ -474,6 +474,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_MEMORY_POOL_HPP

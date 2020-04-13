@@ -50,7 +50,7 @@
 // for std::move
 #include <utility>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup static_queue Static queue
@@ -584,6 +584,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_STATIC_QUEUE_HPP

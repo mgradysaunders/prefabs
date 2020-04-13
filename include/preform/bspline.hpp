@@ -38,19 +38,19 @@
 // for std::vector
 #include <vector>
 
-// for pr::fmin, pr::fmax, ...
+// for pre::fmin, pre::fmax, ...
 #include <preform/math.hpp>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::dense_matrix_view
+// for pre::dense_matrix_view
 #include <preform/dense_matrix_view.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup bspline B-spline
@@ -287,8 +287,8 @@ private:
         difference_type n = num_control_points();
 
         // Clamp.
-        t = pr::fmax(domain_min(),
-            pr::fmin(domain_max(), t));
+        t = pre::fmax(domain_min(),
+            pre::fmin(domain_max(), t));
 
         // Compute i such that u[i] <= t < u[i + 1]
         difference_type i = d;
@@ -2048,6 +2048,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_BSPLINE_HPP

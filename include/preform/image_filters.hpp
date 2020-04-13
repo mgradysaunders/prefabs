@@ -35,16 +35,16 @@
 #ifndef PREFORM_IMAGE_FILTERS_HPP
 #define PREFORM_IMAGE_FILTERS_HPP
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_misc_float.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup image_filters Image filters
@@ -77,7 +77,7 @@ struct box_filter
     T operator()(multi<T, N> x) const
     {
         // Absolute value.
-        x = pr::fabs(x);
+        x = pre::fabs(x);
 
         // Calculate.
         multi<T, N> y = {};
@@ -136,7 +136,7 @@ struct triangle_filter
     T operator()(multi<T, N> x) const
     {
         // Absolute value.
-        x = pr::fabs(x);
+        x = pre::fabs(x);
 
         if (!(x < r).all()) {
             // Early out.
@@ -196,7 +196,7 @@ struct mitchell_filter
     T operator()(multi<T, N> x) const
     {
         // Absolute value.
-        x = pr::fabs(x);
+        x = pre::fabs(x);
 
         if (!(x < r).all()) {
             // Early out.
@@ -243,9 +243,9 @@ struct mitchell_filter
 
         // Calculate.
         multi<T, N> y = a[3];
-        y = pr::fma(y, t, a[2]);
-        y = pr::fma(y, t, a[1]);
-        y = pr::fma(y, t, a[0]);
+        y = pre::fma(y, t, a[2]);
+        y = pre::fma(y, t, a[1]);
+        y = pre::fma(y, t, a[0]);
 
         // Normalize.
         y *= T(2) / r;
@@ -267,6 +267,6 @@ using mitchell_filter3 = mitchell_filter<T, 3>;
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_IMAGE_FILTERS_HPP

@@ -61,7 +61,7 @@
 #include <cxxabi.h>
 #endif // #if __GNUC__
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup misc_string Miscellaneous string
@@ -214,6 +214,6 @@ using ci_wstring = std::basic_string<wchar_t, ci_char_traits<wchar_t>>;
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_MISC_STRING_HPP

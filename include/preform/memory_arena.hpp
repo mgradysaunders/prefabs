@@ -41,7 +41,7 @@
 // for std::vector
 #include <vector>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup memory_arena Memory arena
@@ -244,7 +244,7 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #if !DOXYGEN
 
@@ -252,7 +252,7 @@ private:
 template <typename Tbyte_alloc>
 inline void* operator new(
                 std::size_t size,
-                pr::memory_arena<Tbyte_alloc>& arena)
+                pre::memory_arena<Tbyte_alloc>& arena)
 {
     return arena.allocate(size);
 }
@@ -261,7 +261,7 @@ inline void* operator new(
 template <typename Tbyte_alloc>
 inline void* operator new[](
                 std::size_t size,
-                pr::memory_arena<Tbyte_alloc>& arena)
+                pre::memory_arena<Tbyte_alloc>& arena)
 {
     return arena.allocate(size);
 }

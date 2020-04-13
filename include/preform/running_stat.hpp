@@ -37,7 +37,7 @@
 
 #include <preform/math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup running_stat Running statistic
@@ -147,7 +147,7 @@ public:
      */
     T standard_deviation() const
     {
-        return pr::sqrt(variance());
+        return pre::sqrt(variance());
     }
 
     /**
@@ -160,7 +160,7 @@ public:
      */
     T skewness() const
     {
-        return m_[2] * pr::sqrt(T(n_) / pr::nthpow(m_[1], 3));
+        return m_[2] * pre::sqrt(T(n_) / pre::nthpow(m_[1], 3));
     }
 
     /**
@@ -173,7 +173,7 @@ public:
      */
     T kurtosis() const
     {
-        return m_[3] * T(n_) / pr::nthpow(m_[1], 2) - 3;
+        return m_[3] * T(n_) / pre::nthpow(m_[1], 2) - 3;
     }
 
     /**@}*/
@@ -347,6 +347,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_RUNNING_STAT_HPP

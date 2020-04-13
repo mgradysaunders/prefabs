@@ -12,35 +12,35 @@
 typedef float Float;
 
 // 3-dimensional vector type.
-typedef pr::vec3<Float> Vec3f;
+typedef pre::vec3<Float> Vec3f;
 
 // 3-dimensional axis-aligned bounding box type.
-typedef pr::aabb3<Float> AABB3f;
+typedef pre::aabb3<Float> AABB3f;
 
 // Axis-aligned bounding box tree.
-typedef pr::aabbtree3<Float,
-        pr::aabbtree_split_surface_area<16>,
-        pr::memory_arena_allocator<char>> AABBTree3;
+typedef pre::aabbtree3<Float,
+        pre::aabbtree_split_surface_area<16>,
+        pre::memory_arena_allocator<char>> AABBTree3;
 
 // Linear axis-aligned bounding box tree.
-typedef pr::linear_aabbtree3<float> LinearAABBTree3;
+typedef pre::linear_aabbtree3<float> LinearAABBTree3;
 
 // Timer.
-typedef pr::steady_timer Timer;
+typedef pre::steady_timer Timer;
 
 // Permuted congruential generator.
-pr::pcg32 pcg;
+pre::pcg32 pcg;
 
 // Generate canonical random number.
 Float generateCanonical()
 {
-    return pr::generate_canonical<Float>(pcg);
+    return pre::generate_canonical<Float>(pcg);
 }
 
 // Generate canonical random 3-dimensional vector.
 Vec3f generateCanonical3()
 {
-    return pr::generate_canonical<Float, 3>(pcg);
+    return pre::generate_canonical<Float, 3>(pcg);
 }
 
 int depth_histogram[64] = {};
@@ -69,7 +69,7 @@ int main(int argc, char** argv)
     int nboxes = 1048576;
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -133,7 +133,7 @@ int main(int argc, char** argv)
     }
     std::cout << "seed = " << seed << "\n\n";
     std::cout.flush();
-    pcg = pr::pcg32(seed);
+    pcg = pre::pcg32(seed);
 
     // Generate boxes.
     std::cout << "Generating " << nboxes << " random boxes... ";

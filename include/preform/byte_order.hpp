@@ -53,7 +53,7 @@
 // for std::is_arithmetic, ...
 #include <type_traits>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup byte_order Byte order
@@ -451,6 +451,6 @@ inline byte_stream_wrapper<Tstream> byte_stream(Tstream& ref, byte_order ord)
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_BYTE_ORDER_HPP

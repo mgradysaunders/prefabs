@@ -1,7 +1,7 @@
 OP2 = ['+', '-', '*', '/', '%', '&', '|', '^', '>>', '<<']
 
 puts <<STR
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup dense_matrix_view
@@ -90,6 +90,6 @@ STR
 puts <<STR
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 STR

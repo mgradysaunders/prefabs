@@ -49,13 +49,13 @@
 #include <cfenv>
 #endif // #if PREFORM_USE_FENV
 
-// for pr::numeric_limits
+// for pre::numeric_limits
 #include <preform/math.hpp>
 
-// for pr::finc, pr::fdec
+// for pre::finc, pre::fdec
 #include <preform/misc_float.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup float_interval Float interval
@@ -65,7 +65,7 @@ namespace pr {
  * __C++ version__: >=C++17
  *
  * @note
- * To use `std::fesetround` instead of `pr::fdec` and `pr::finc` where
+ * To use `std::fesetround` instead of `pre::fdec` and `pre::finc` where
  * sensible, `#define PREFORM_USE_FENV 1` before including. This ought to
  * yield tighter bounds, though the code may not run any faster.
  *
@@ -135,9 +135,9 @@ public:
             x1_(x1)
     {
 #if !NDEBUG
-        if (pr::isfinite(x_) &&
-            pr::isfinite(x0_) &&
-            pr::isfinite(x1_)) {
+        if (pre::isfinite(x_) &&
+            pre::isfinite(x0_) &&
+            pre::isfinite(x1_)) {
             assert(x0_ <= x &&
                    x1_ >= x);
         }
@@ -163,8 +163,8 @@ public:
         x1_ = x + xerr;
         std::fesetround(mode);
 #else
-        x0_ = pr::fdec(x - xerr);
-        x1_ = pr::finc(x + xerr);
+        x0_ = pre::fdec(x - xerr);
+        x1_ = pre::finc(x + xerr);
 #endif // #if PREFORM_USE_FENV
     }
 
@@ -205,9 +205,9 @@ public:
     __attribute__((always_inline))
     T abs_lower_bound() const
     {
-        return pr::signbit(x0_) == 0 ? +x0_ :
-               pr::signbit(x1_) == 1 ? -x1_ : 0;
-    //  return pr::fabs(pr::signbit(x_) ? x1_ : x0_);
+        return pre::signbit(x0_) == 0 ? +x0_ :
+               pre::signbit(x1_) == 1 ? -x1_ : 0;
+    //  return pre::fabs(pre::signbit(x_) ? x1_ : x0_);
     }
 
     /**
@@ -216,9 +216,9 @@ public:
     __attribute__((always_inline))
     T abs_upper_bound() const
     {
-        return pr::signbit(x0_) == 0 ? +x1_ :
-               pr::signbit(x1_) == 1 ? -x0_ : pr::fmax(-x0_, x1_);
-    //  return pr::fabs(pr::signbit(x_) ? x0_ : x1_);
+        return pre::signbit(x0_) == 0 ? +x1_ :
+               pre::signbit(x1_) == 1 ? -x0_ : pre::fmax(-x0_, x1_);
+    //  return pre::fabs(pre::signbit(x_) ? x0_ : x1_);
     }
 
     /**
@@ -233,9 +233,9 @@ public:
         T dx0 = x_ - x0_;
         T dx1 = x1_ - x_;
         std::fesetround(mode);
-        return pr::max(dx0, dx1);
+        return pre::max(dx0, dx1);
 #else
-        return pr::finc(pr::fmax(x_ - x0_, x1_ - x_));
+        return pre::finc(pre::fmax(x_ - x0_, x1_ - x_));
 #endif // #if PREFORM_USE_FENV
     }
 
@@ -540,7 +540,7 @@ inline float_interval<T> operator-(const float_interval<T>& b)
  *
  * @note
  * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround`
- * instead of `pr::fdec` and `pr::finc`.
+ * instead of `pre::fdec` and `pre::finc`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -562,8 +562,8 @@ inline float_interval<T> operator+(
 #else
     return {
         b0.value() + b1.value(),
-        pr::fdec(b0.lower_bound() + b1.lower_bound()),
-        pr::finc(b0.upper_bound() + b1.upper_bound())
+        pre::fdec(b0.lower_bound() + b1.lower_bound()),
+        pre::finc(b0.upper_bound() + b1.upper_bound())
     };
 #endif // #if PREFORM_USE_FENV
 }
@@ -580,7 +580,7 @@ inline float_interval<T> operator+(
  *
  * @note
  * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround`
- * instead of `pr::fdec` and `pr::finc`.
+ * instead of `pre::fdec` and `pre::finc`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -602,8 +602,8 @@ inline float_interval<T> operator-(
 #else
     return {
         b0.value() - b1.value(),
-        pr::fdec(b0.lower_bound() - b1.upper_bound()),
-        pr::finc(b0.upper_bound() - b1.lower_bound())
+        pre::fdec(b0.lower_bound() - b1.upper_bound()),
+        pre::finc(b0.upper_bound() - b1.lower_bound())
     };
 #endif // #if PREFORM_USE_FENV
 }
@@ -635,8 +635,8 @@ inline float_interval<T> operator*(
     };
     return {
         b0.value() * b1.value(),
-        pr::fdec(pr::fmin(pr::fmin(tmp[0], tmp[1]), pr::fmin(tmp[2], tmp[3]))),
-        pr::finc(pr::fmax(pr::fmax(tmp[0], tmp[1]), pr::fmax(tmp[2], tmp[3])))
+        pre::fdec(pre::fmin(pre::fmin(tmp[0], tmp[1]), pre::fmin(tmp[2], tmp[3]))),
+        pre::finc(pre::fmax(pre::fmax(tmp[0], tmp[1]), pre::fmax(tmp[2], tmp[3])))
     };
 }
 
@@ -664,8 +664,8 @@ inline float_interval<T> operator/(
         b1.upper_bound() >= T(0)) {
         return {
             b0.value() / b1.value(),
-            -pr::numeric_limits<T>::infinity(),
-            +pr::numeric_limits<T>::infinity()
+            -pre::numeric_limits<T>::infinity(),
+            +pre::numeric_limits<T>::infinity()
         };
     }
 
@@ -677,8 +677,8 @@ inline float_interval<T> operator/(
     };
     return {
         b0.value() / b1.value(),
-        pr::fdec(pr::fmin(pr::fmin(tmp[0], tmp[1]), pr::fmin(tmp[2], tmp[3]))),
-        pr::finc(pr::fmax(pr::fmax(tmp[0], tmp[1]), pr::fmax(tmp[2], tmp[3])))
+        pre::fdec(pre::fmin(pre::fmin(tmp[0], tmp[1]), pre::fmin(tmp[2], tmp[3]))),
+        pre::finc(pre::fmax(pre::fmax(tmp[0], tmp[1]), pre::fmax(tmp[2], tmp[3])))
     };
 }
 
@@ -831,52 +831,52 @@ inline float_interval<T>& operator/=(float_interval<T>& b, const U& any)
 /**@{*/
 
 /**
- * @brief Bound `pr::fabs()`.
+ * @brief Bound `pre::fabs()`.
  */
 template <typename T>
 inline float_interval<T> fabs(const float_interval<T>& b)
 {
-    if (pr::signbit(b.lower_bound()) == 0) { // Entire interval positive?
+    if (pre::signbit(b.lower_bound()) == 0) { // Entire interval positive?
         return +b;
     }
-    if (pr::signbit(b.upper_bound()) == 1) { // Entire interval negative?
+    if (pre::signbit(b.upper_bound()) == 1) { // Entire interval negative?
         return -b;
     }
     return {
-        pr::fabs(b.value()),
+        pre::fabs(b.value()),
         T(0),
-        pr::fmax(
+        pre::fmax(
                 -b.lower_bound(),
                 +b.upper_bound())
     };
 }
 
 /**
- * @brief Bound `pr::sqrt()`.
+ * @brief Bound `pre::sqrt()`.
  *
  * @note
  * If `PREFORM_USE_FENV` is truthy, the implementation uses `std::fesetround`
- * instead of `pr::fdec` and `pr::finc`.
+ * instead of `pre::fdec` and `pre::finc`.
  */
 template <typename T>
 inline float_interval<T> sqrt(const float_interval<T>& b)
 {
 #if PREFORM_USE_FENV
-    T x = pr::sqrt(b.value());
+    T x = pre::sqrt(b.value());
     T x0;
     T x1;
     int mode = std::fegetround();
     std::fesetround(FE_DOWNWARD);
-    x0 = pr::sqrt(b.lower_bound());
+    x0 = pre::sqrt(b.lower_bound());
     std::fesetround(FE_UPWARD);
-    x1 = pr::sqrt(b.upper_bound());
+    x1 = pre::sqrt(b.upper_bound());
     std::fesetround(mode);
     return {x, x0, x1};
 #else
     return {
-        pr::sqrt(b.value()),
-        pr::fdec(pr::sqrt(b.lower_bound())),
-        pr::finc(pr::sqrt(b.upper_bound()))
+        pre::sqrt(b.value()),
+        pre::fdec(pre::sqrt(b.lower_bound())),
+        pre::finc(pre::sqrt(b.upper_bound()))
     };
 #endif // #if PREFORM_USE_FENV
 }
@@ -896,13 +896,13 @@ inline void float_interval<T>::solve_poly2(
     if (a2.contains<true, true>(T(0)) ||
         a2.abs_upper_bound() <
         a1.abs_lower_bound() *
-            pr::numeric_limits<T>::min_invertible() ||
+            pre::numeric_limits<T>::min_invertible() ||
         a2.abs_upper_bound() <
         a0.abs_lower_bound() *
-            pr::numeric_limits<T>::min_invertible()) {
+            pre::numeric_limits<T>::min_invertible()) {
         // Solve linear.
         t0 = -a0 / a1;
-        t1 = float_interval(pr::numeric_limits<T>::quiet_NaN());
+        t1 = float_interval(pre::numeric_limits<T>::quiet_NaN());
         return;
     }
 
@@ -915,8 +915,8 @@ inline void float_interval<T>::solve_poly2(
 
     // Is discriminant negative?
     if (d.upper_bound() < T(0)) {
-        t0 = float_interval(pr::numeric_limits<T>::quiet_NaN());
-        t1 = float_interval(pr::numeric_limits<T>::quiet_NaN());
+        t0 = float_interval(pre::numeric_limits<T>::quiet_NaN());
+        t1 = float_interval(pre::numeric_limits<T>::quiet_NaN());
         return;
     }
 
@@ -925,7 +925,7 @@ inline void float_interval<T>::solve_poly2(
         t0 = T(-0.5) * c1;
     }
     else {
-        float_interval sqrt_d = pr::sqrt(d);
+        float_interval sqrt_d = pre::sqrt(d);
         if (c1.lower_bound() < T(0)) {
             t0 = T(-0.5) * (c1 - sqrt_d);
         }
@@ -948,6 +948,6 @@ inline void float_interval<T>::solve_poly2(
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_FLOAT_INTERVAL_HPP

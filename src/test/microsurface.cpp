@@ -11,58 +11,58 @@
 typedef double Float;
 
 // 2-dimensional vector type.
-typedef pr::vec2<int> Vec2i;
+typedef pre::vec2<int> Vec2i;
 
 // 2-dimensional vector type.
-typedef pr::vec2<Float> Vec2f;
+typedef pre::vec2<Float> Vec2f;
 
 // 3-dimensional vector type.
-typedef pr::vec3<Float> Vec3f;
+typedef pre::vec3<Float> Vec3f;
 
 // Lambertian with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_lambertian_bsdf<
+typedef pre::microsurface_lambertian_bsdf<
         Float,
-        pr::microsurface_trowbridge_reitz_slope,
-        pr::microsurface_uniform_height>
+        pre::microsurface_trowbridge_reitz_slope,
+        pre::microsurface_uniform_height>
             LambertianTrowbridgeReitz;
 
 // Lambertian with Beckmann slope distribution.
-typedef pr::microsurface_lambertian_bsdf<
+typedef pre::microsurface_lambertian_bsdf<
         Float,
-        pr::microsurface_beckmann_slope,
-        pr::microsurface_uniform_height>
+        pre::microsurface_beckmann_slope,
+        pre::microsurface_uniform_height>
             LambertianBeckmann;
 
 // Dielectric with Trowbridge-Reitz slope distribution.
-typedef pr::microsurface_dielectric_bsdf<
+typedef pre::microsurface_dielectric_bsdf<
         Float,
-        pr::microsurface_trowbridge_reitz_slope,
-        pr::microsurface_uniform_height>
+        pre::microsurface_trowbridge_reitz_slope,
+        pre::microsurface_uniform_height>
             DielectricTrowbridgeReitz;
 
 // Dielectric with Beckmann slope distribution.
-typedef pr::microsurface_dielectric_bsdf<
+typedef pre::microsurface_dielectric_bsdf<
         Float,
-        pr::microsurface_beckmann_slope,
-        pr::microsurface_uniform_height>
+        pre::microsurface_beckmann_slope,
+        pre::microsurface_uniform_height>
             DielectricBeckmann;
 
 // Neumaier sum.
-typedef pr::neumaier_sum<Float> NeumaierSum;
+typedef pre::neumaier_sum<Float> NeumaierSum;
 
 // Permuted congruential generator.
-pr::pcg32 pcg;
+pre::pcg32 pcg;
 
 // Generate canonical random number.
 Float generateCanonical()
 {
-    return pr::generate_canonical<Float>(pcg);
+    return pre::generate_canonical<Float>(pcg);
 }
 
 // Generate canonical random 2-dimensional vector.
 Vec2f generateCanonical2()
 {
-    return pr::generate_canonical<Float, 2>(pcg);
+    return pre::generate_canonical<Float, 2>(pcg);
 }
 
 // Test full-sphere scattering.
@@ -80,7 +80,7 @@ void testFullSphere(const char* name, const Surf& surf)
 
     // Stratify samples.
     Vec2f* u = new Vec2f[n.prod()];
-    pr::stratify(u, n, pcg);
+    pre::stratify(u, n, pcg);
 
     // Generate random viewing direction.
     Vec3f wo =
@@ -100,7 +100,7 @@ void testFullSphere(const char* name, const Surf& surf)
             Float fk = surf.fs(pcg, wo, wi);
             fk /= wi_pdf;
             fk /= n.prod();
-            if (pr::isinf(fk)) {
+            if (pre::isinf(fk)) {
                 continue;
             }
             f += fk;
@@ -129,7 +129,7 @@ void testPhase(const char* name, const Surf& surf, Pred&& pred)
 
     // Stratify samples.
     Vec2f* u = new Vec2f[n.prod()];
-    pr::stratify(u, n, pcg);
+    pre::stratify(u, n, pcg);
 
     // Generate random viewing direction.
     Vec3f wo =
@@ -148,7 +148,7 @@ void testPhase(const char* name, const Surf& surf, Pred&& pred)
             Float fk = std::forward<Pred>(pred)(surf, wo, wi);
             fk /= wi_pdf;
             fk /= n.prod();
-            if (pr::isinf(fk)) {
+            if (pre::isinf(fk)) {
                 continue;
             }
             f += fk;
@@ -167,7 +167,7 @@ int main(int argc, char** argv)
     int seed = 0;
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -210,7 +210,7 @@ int main(int argc, char** argv)
         seed = std::random_device()();
     }
     std::cout << "seed = " << seed << "\n";
-    pcg = pr::pcg32(seed);
+    pcg = pre::pcg32(seed);
 
     // Generate refractive indices.
     Float eta0 = 1;

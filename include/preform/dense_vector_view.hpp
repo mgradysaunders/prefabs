@@ -50,10 +50,10 @@
 // for std::invalid_argument
 #include <stdexcept>
 
-// for pr::dense_iterator
+// for pre::dense_iterator
 #include <preform/dense_iterator.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup dense_vector_view Dense vector view
@@ -608,7 +608,7 @@ public:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #if !DOXYGEN
 #include "dense_vector_view.inl"

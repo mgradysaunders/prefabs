@@ -37,7 +37,7 @@
 
 #include <preform/math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup neumaier_sum Neumaier sum
@@ -91,7 +91,7 @@ public:
     neumaier_sum& operator+=(T x)
     {
         volatile T s = s_ + x;
-        volatile T t = t_ + ((pr::fmax(s_, x) - s) + pr::fmin(s_, x));
+        volatile T t = t_ + ((pre::fmax(s_, x) - s) + pre::fmin(s_, x));
         s_ = s;
         t_ = t;
         return *this;
@@ -142,6 +142,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_NEUMAIER_SUM_HPP

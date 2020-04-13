@@ -47,7 +47,7 @@
 #include <preform/multi.hpp>
 #include <preform/multi_math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup delaunay Delaunay triangulation (2-dimensional)
@@ -392,7 +392,7 @@ public:
         // Compute point centroid.
         point_type point_centroid = {};
         for (const point_type& point : points_) {
-            if (pr::isfinite(point).all()) {
+            if (pre::isfinite(point).all()) {
                 point_centroid += point;
             }
         }
@@ -484,8 +484,8 @@ public:
 
         {
             // Temporary allocators.
-            pr::memory_arena_allocator<char> alloc1;
-            pr::memory_arena_allocator<char> alloc2;
+            pre::memory_arena_allocator<char> alloc1;
+            pre::memory_arena_allocator<char> alloc2;
 
             // Add remaining points.
             for (size_type k = 3;
@@ -498,7 +498,7 @@ public:
         for (triangle_type& triangle : triangles_) {
 
             // Triangle area negative?
-            if (pr::signbit(
+            if (pre::signbit(
                 signed_area<float_type>(
                             triangle.a,
                             triangle.b,
@@ -720,10 +720,10 @@ private:
      */
     void add_point(
                 index_type p,
-                pr::memory_arena_allocator<char> alloc1,
-                pr::memory_arena_allocator<char> alloc2)
+                pre::memory_arena_allocator<char> alloc1,
+                pre::memory_arena_allocator<char> alloc2)
     {
-        if (!pr::isfinite(points_[p]).all()) {
+        if (!pre::isfinite(points_[p]).all()) {
             return; // Ignore.
         }
 
@@ -731,7 +731,7 @@ private:
 
         // Boundary edges to remove.
         std::vector<edge_type,
-        pr::memory_arena_allocator<edge_type>>
+        pre::memory_arena_allocator<edge_type>>
                 boundary_edges_to_remove(alloc1); // Use allocator 1.
         boundary_edges_to_remove.reserve(
         boundary_edges_.size() / 2);
@@ -739,7 +739,7 @@ private:
         // Boundary edges to add.
         std::set<edge_type,
         std::less<edge_type>,
-        pr::memory_arena_allocator<edge_type>>
+        pre::memory_arena_allocator<edge_type>>
                 boundary_edges_to_add(alloc1); // Use allocator 1.
 
         // Iterate over boundary edges.
@@ -798,7 +798,7 @@ private:
         // Set of edges to flip.
         std::set<edge_type,
         std::less<edge_type>,
-        pr::memory_arena_allocator<edge_type>>
+        pre::memory_arena_allocator<edge_type>>
                 edges_to_flip(alloc1); // Use allocator 1.
         // Initialize with all edges.
         for (const auto& kv : edge_triangles_) {
@@ -811,7 +811,7 @@ private:
             // Set of edges to flip next.
             std::set<edge_type,
             std::less<edge_type>,
-            pr::memory_arena_allocator<edge_type>>
+            pre::memory_arena_allocator<edge_type>>
                     edges_to_flip_next(alloc2); // Use allocator 2.
 
             for (const edge_type& edge : edges_to_flip) {
@@ -832,7 +832,7 @@ private:
 
             // Copy edges to flip next.
             // Note, copy assignment cannot be used here because
-            // pr::memory_arena_allocator propagates on copy and move.
+            // pre::memory_arena_allocator propagates on copy and move.
             // Here, we only want to copy the contents, not the allocator
             // itself.
             edges_to_flip.insert(
@@ -907,13 +907,13 @@ private:
         multi<float_type, 2> vq1b = pb - pq1;
         multi<float_type, 2> vq2a = pa - pq2;
         multi<float_type, 2> vq2b = pb - pq2;
-        float_type phi1 = pr::atan2(cross(vq1a, vq1b), dot(vq1a, vq1b));
-        float_type phi2 = pr::atan2(cross(vq2b, vq2a), dot(vq2a, vq2b));
-        phi1 = pr::abs(phi1);
-        phi2 = pr::abs(phi2);
+        float_type phi1 = pre::atan2(cross(vq1a, vq1b), dot(vq1a, vq1b));
+        float_type phi2 = pre::atan2(cross(vq2b, vq2a), dot(vq2a, vq2b));
+        phi1 = pre::abs(phi1);
+        phi2 = pre::abs(phi2);
 
         // Is Delaunay condition already satisfied?
-        if (!(phi1 + phi2 > pr::numeric_constants<float_type>::M_pi() *
+        if (!(phi1 + phi2 > pre::numeric_constants<float_type>::M_pi() *
                 (1 + float_type(1e-7)))) {
             // Return.
             return;
@@ -1034,6 +1034,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_DELAUNAY_HPP

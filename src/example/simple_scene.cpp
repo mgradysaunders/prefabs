@@ -54,42 +54,42 @@
 typedef float Float;
 
 // Float interval.
-typedef pr::float_interval<Float> FloatInterval;
+typedef pre::float_interval<Float> FloatInterval;
 
 // Neumaier sum.
-typedef pr::neumaier_sum<Float> NeumaierSum;
+typedef pre::neumaier_sum<Float> NeumaierSum;
 
 // 2-dimensional vector of floats.
-typedef pr::vec2<Float> Vec2f;
+typedef pre::vec2<Float> Vec2f;
 
 // 3-dimensional vector of floats.
-typedef pr::vec3<Float> Vec3f;
+typedef pre::vec3<Float> Vec3f;
 
 // 3-dimensional vector of floats (32-bit).
-typedef pr::vec3<float> Vec3f32;
+typedef pre::vec3<float> Vec3f32;
 
 // 3-dimensional vector of float intervals.
-typedef pr::vec3<FloatInterval> Vec3fInterval;
+typedef pre::vec3<FloatInterval> Vec3fInterval;
 
 // 2-dimensional vector of ints.
-typedef pr::vec2<int> Vec2i;
+typedef pre::vec2<int> Vec2i;
 
 // 3-dimensional vector of ints.
-typedef pr::vec3<int> Vec3i;
+typedef pre::vec3<int> Vec3i;
 
 // 3-dimensional bounding box.
-typedef pr::aabb3<Float> Aabb3f;
+typedef pre::aabb3<Float> Aabb3f;
 
 // 3-dimensional bounding box (32-bit).
-typedef pr::aabb3<float> Aabb3f32;
+typedef pre::aabb3<float> Aabb3f32;
 
 // 3-dimensional bounding box tree (32-bit).
-typedef pr::aabbtree3<float,
-        pr::aabbtree_split_surface_area<16>,
-        pr::memory_arena_allocator<char>> AabbTree3;
+typedef pre::aabbtree3<float,
+        pre::aabbtree_split_surface_area<16>,
+        pre::memory_arena_allocator<char>> AabbTree3;
 
 // 3-dimensional linear-storage bounding box tree (32-bit).
-typedef pr::linear_aabbtree3<float> LinearAabbTree3;
+typedef pre::linear_aabbtree3<float> LinearAabbTree3;
 
 // Ray.
 struct Ray
@@ -105,7 +105,7 @@ struct Ray
 
     // Parameter maximum.
     mutable
-    Float tmax = pr::numeric_limits<Float>::infinity();
+    Float tmax = pre::numeric_limits<Float>::infinity();
 };
 
 // Hit.
@@ -148,7 +148,7 @@ public:
         // Normal, unnormalized.
         Vec3f normal() const
         {
-            return pr::cross(
+            return pre::cross(
                         vertices[1].pos - vertices[0].pos,
                         vertices[2].pos - vertices[0].pos);
         }
@@ -156,7 +156,7 @@ public:
         // Surface area.
         Float surfaceArea() const
         {
-            return pr::length(normal()) * Float(0.5);
+            return pre::length(normal()) * Float(0.5);
         }
     };
 
@@ -213,7 +213,7 @@ int main(int argc, char** argv)
     meshes[1].initFromObj("data/simple_scene/armadillo.obj");
     meshes[2].initFromObj("data/simple_scene/floor.obj");
 
-    pr::image2<Float, Float, 3> image;
+    pre::image2<Float, Float, 3> image;
     image.resize(image_dim);
     for (int i = 0; i < image_dim[0]; i++)
     for (int j = 0; j < image_dim[1]; j++) {
@@ -230,9 +230,9 @@ int main(int argc, char** argv)
         };
         Ray ray;
         ray.pos = p0;
-        ray.dir = pr::normalize(p1 - p0);
+        ray.dir = pre::normalize(p1 - p0);
         ray.tmin = 0;
-        ray.tmax = pr::numeric_limits<Float>::infinity();
+        ray.tmax = pre::numeric_limits<Float>::infinity();
         Hit hit;
         bool res = false;
         for (const TriangleMesh& mesh : meshes) {
@@ -243,8 +243,8 @@ int main(int argc, char** argv)
         if (res) {
             image(i, j) =
                 Vec3f{1,1,1} *
-                pr::abs(pr::dot(hit.normal_shading,
-                        pr::normalize(Vec3f{1, 1, 1})));
+                pre::abs(pre::dot(hit.normal_shading,
+                        pre::normalize(Vec3f{1, 1, 1})));
         }
     }
 
@@ -255,7 +255,7 @@ int main(int argc, char** argv)
     std::cout << "255\n";
     for (int j = 0; j < image_dim[1]; j++)
     for (int i = 0; i < image_dim[0]; i++) {
-        Vec3i val = pr::pack_uint8(image(i, j));
+        Vec3i val = pre::pack_uint8(image(i, j));
         std::cout << val[0] << ' ';
         std::cout << val[1] << ' ';
         std::cout << val[2] << '\n';
@@ -273,7 +273,7 @@ public:
     // Constructor.
     RayBoxIntersector(const Ray* ray) :
             ray_(*ray),
-            dir_neg_(pr::signbit(ray->dir)),
+            dir_neg_(pre::signbit(ray->dir)),
             dir_rcp_(1 / ray->dir)
     {
     }
@@ -285,19 +285,19 @@ public:
         Float tmax, tkmax;
         tmin = (box[    dir_neg_[0]][0] - ray_.pos[0]) * dir_rcp_[0];
         tmax = (box[1 - dir_neg_[0]][0] - ray_.pos[0]) * dir_rcp_[0];
-        tmin *= 1 - 2 * pr::numeric_limits<Float>::echelon(3);
-        tmax *= 1 + 2 * pr::numeric_limits<Float>::echelon(3);
+        tmin *= 1 - 2 * pre::numeric_limits<Float>::echelon(3);
+        tmax *= 1 + 2 * pre::numeric_limits<Float>::echelon(3);
         for (int k = 1; k < 3; k++) {
             tkmin = (box[    dir_neg_[k]][k] - ray_.pos[k]) * dir_rcp_[k];
             tkmax = (box[1 - dir_neg_[k]][k] - ray_.pos[k]) * dir_rcp_[k];
-            tkmin *= 1 - 2 * pr::numeric_limits<Float>::echelon(3);
-            tkmax *= 1 + 2 * pr::numeric_limits<Float>::echelon(3);
+            tkmin *= 1 - 2 * pre::numeric_limits<Float>::echelon(3);
+            tkmax *= 1 + 2 * pre::numeric_limits<Float>::echelon(3);
             if (!(tmin < tkmax &&
                   tmax > tkmin)) {
                 return false;
             }
-            tmin = pr::fmax(tmin, tkmin);
-            tmax = pr::fmin(tmax, tkmax);
+            tmin = pre::fmax(tmin, tkmin);
+            tmax = pre::fmin(tmax, tkmax);
         }
         return tmin < ray_.tmax &&
                tmax > ray_.tmin;
@@ -327,7 +327,7 @@ public:
             dir_interval_(ray->dir)
     {
         // Permutation.
-        kr_[2] = pr::fabs(ray_.dir).argmax();
+        kr_[2] = pre::fabs(ray_.dir).argmax();
         kr_[0] = (kr_[2] + 1) % 3;
         kr_[1] = (kr_[2] + 2) % 3;
 
@@ -442,7 +442,7 @@ bool RayTriangleIntersector::intersect(
 
     // Normalize barycentric coordinates.
     if (q_interval.abs_lower_bound() <
-        pr::numeric_limits<Float>::min_invertible()) {
+        pre::numeric_limits<Float>::min_invertible()) {
 
         // Divide.
         b0_interval /= q_interval;
@@ -530,13 +530,13 @@ void TriangleMesh::initFromObj(const char* filename)
     for (Vec3i f : objf) {
         Vec3f32 e1 = objv[f[1]] - objv[f[0]];
         Vec3f32 e2 = objv[f[2]] - objv[f[0]];
-        Vec3f32 vn = pr::cross(e1, e2);
+        Vec3f32 vn = pre::cross(e1, e2);
         objvn[f[0]] += vn;
         objvn[f[1]] += vn;
         objvn[f[2]] += vn;
     }
     for (Vec3f32& vn : objvn) {
-        vn = pr::normalize_safe(vn);
+        vn = pre::normalize_safe(vn);
     }
 
     // Assemble triangles.
@@ -570,7 +570,7 @@ void TriangleMesh::init(const std::vector<Triangle>& triangles)
     for (auto triangle_itr  = triangles.begin();
               triangle_itr != triangles.end(); triangle_itr++) {
         Vec3f normal = triangle_itr->normal();
-        if (pr::dot(normal, normal) > 0) {
+        if (pre::dot(normal, normal) > 0) {
             triangles_.push_back(*triangle_itr);
         }
     }
@@ -609,7 +609,7 @@ void TriangleMesh::init(const std::vector<Triangle>& triangles)
 
     // Normalize.
     surface_area_ = Float(surface_area_sum);
-    if (surface_area_ < pr::numeric_limits<Float>::min_invertible()) {
+    if (surface_area_ < pre::numeric_limits<Float>::min_invertible()) {
 
         // Divide.
         for (Float& pmf : triangles_pmf_) { pmf /= surface_area_; }
@@ -640,9 +640,9 @@ Hit TriangleMesh::surfaceAreaSample(Vec2f samp) const
             u0 /= triangles_pmf_[k];
 
             // Just to be safe.
-            u0 = pr::max(u0, Float(0));
-            u0 = pr::min(u0, Float(1) -
-                 pr::numeric_limits<Float>::machine_epsilon());
+            u0 = pre::max(u0, Float(0));
+            u0 = pre::min(u0, Float(1) -
+                 pre::numeric_limits<Float>::machine_epsilon());
 
             // Triangle.
             const Triangle& triangle = triangles_[k];
@@ -651,7 +651,7 @@ Hit TriangleMesh::surfaceAreaSample(Vec2f samp) const
             const Vertex& vertex2 = triangle.vertices[2];
 
             // Barycentric coordinates.
-            Float sqrt_u0 = pr::sqrt(u0);
+            Float sqrt_u0 = pre::sqrt(u0);
             Float b0 = 1 - sqrt_u0;
             Float b1 = sqrt_u0 * samp[1];
             Float b2 = sqrt_u0 * (1 - samp[1]);
@@ -662,19 +662,19 @@ Hit TriangleMesh::surfaceAreaSample(Vec2f samp) const
                 b1 * vertex1.pos +
                 b2 * vertex2.pos;
             hit.pos_abs_error =
-                (pr::abs(b0 * vertex0.pos) +
-                 pr::abs(b1 * vertex1.pos) +
-                 pr::abs(b2 * vertex2.pos)) *
-                 pr::numeric_limits<Float>::echelon(6);
+                (pre::abs(b0 * vertex0.pos) +
+                 pre::abs(b1 * vertex1.pos) +
+                 pre::abs(b2 * vertex2.pos)) *
+                 pre::numeric_limits<Float>::echelon(6);
 
             // Set normal.
-            hit.normal = pr::normalize(triangle.normal());
+            hit.normal = pre::normalize(triangle.normal());
             hit.normal_shading =
-                pr::normalize(
+                pre::normalize(
                     b0 * vertex0.normal_shading +
                     b1 * vertex1.normal_shading +
                     b2 * vertex2.normal_shading);
-            if (pr::dot(hit.normal, hit.normal_shading) < 0) {
+            if (pre::dot(hit.normal, hit.normal_shading) < 0) {
                 hit.normal = -hit.normal;
             }
         }
@@ -696,7 +696,7 @@ bool TriangleMesh::intersect(const Ray& ray, Hit* hit) const
     Vec3f res_bhit;
 
     // Nodes stack.
-    pr::static_stack<
+    pre::static_stack<
     const LinearAabbTree3::node_type*, 64> nodes;
     nodes.push(triangles_tree_.begin());
 
@@ -719,7 +719,7 @@ bool TriangleMesh::intersect(const Ray& ray, Hit* hit) const
                 // Push children.
                 nodes.push(node->left_child());
                 nodes.push(node->right_child());
-                if (pr::signbit(ray.dir[node->split_dim])) {
+                if (pre::signbit(ray.dir[node->split_dim])) {
                     // Traverse in opposite order.
                     std::swap(
                             nodes[-1],
@@ -771,19 +771,19 @@ bool TriangleMesh::intersect(const Ray& ray, Hit* hit) const
             b1 * vertex1.pos +
             b2 * vertex2.pos;
         hit->pos_abs_error =
-            (pr::abs(b0 * vertex0.pos) +
-             pr::abs(b1 * vertex1.pos) +
-             pr::abs(b2 * vertex2.pos)) *
-             pr::numeric_limits<Float>::echelon(6);
+            (pre::abs(b0 * vertex0.pos) +
+             pre::abs(b1 * vertex1.pos) +
+             pre::abs(b2 * vertex2.pos)) *
+             pre::numeric_limits<Float>::echelon(6);
 
         // Set normal.
-        hit->normal = pr::normalize(res_triangle->normal());
+        hit->normal = pre::normalize(res_triangle->normal());
         hit->normal_shading =
-            pr::normalize(
+            pre::normalize(
                 b0 * vertex0.normal_shading +
                 b1 * vertex1.normal_shading +
                 b2 * vertex2.normal_shading);
-        if (pr::dot(hit->normal, hit->normal_shading) < 0) {
+        if (pre::dot(hit->normal, hit->normal_shading) < 0) {
             hit->normal = -hit->normal;
         }
     }

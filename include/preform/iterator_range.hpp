@@ -38,7 +38,7 @@
 // for std::iterator_traits
 #include <iterator>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup iterator_range Iterator range
@@ -216,6 +216,6 @@ constexpr iterator_range<typename T::const_iterator>
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_ITERATOR_RANGE_HPP

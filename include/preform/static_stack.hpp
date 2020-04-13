@@ -50,7 +50,7 @@
 // for std::move
 #include <utility>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup static_stack Static stack
@@ -545,6 +545,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_STATIC_STACK_HPP

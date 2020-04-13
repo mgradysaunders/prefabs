@@ -50,7 +50,7 @@
 // for std::invalid_argument
 #include <stdexcept>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup aligned_allocator Aligned allocator
@@ -293,7 +293,7 @@ public:
     [[nodiscard]]
     T* allocate(std::size_t n)
     {
-        return static_cast<T*>(pr::aligned_new(alignment_, sizeof(T) * n));
+        return static_cast<T*>(pre::aligned_new(alignment_, sizeof(T) * n));
     }
 
     /**
@@ -308,7 +308,7 @@ public:
     void deallocate(T* ptr, std::size_t n)
     {
         (void) n;
-        pr::aligned_delete(ptr);
+        pre::aligned_delete(ptr);
     }
 
     /**
@@ -343,6 +343,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_ALIGNED_ALLOCATOR_HPP

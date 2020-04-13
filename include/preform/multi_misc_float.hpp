@@ -39,7 +39,7 @@
 
 #include <preform/multi.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup multi_misc_float Multi-dimensional array (miscellaneous float)
@@ -52,7 +52,7 @@ namespace pr {
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #if !DOXYGEN
 #include "multi_misc_float.inl"

@@ -13,7 +13,7 @@ unpack = [
 ]
 
 puts <<STR
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup color
@@ -98,6 +98,6 @@ puts <<STR
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 STR

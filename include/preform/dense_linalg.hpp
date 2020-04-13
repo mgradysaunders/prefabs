@@ -42,7 +42,7 @@
 #include <preform/dense_vector_view.hpp>
 #include <preform/dense_matrix_view.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup dense_linalg Dense linear algebra
@@ -77,7 +77,7 @@ public:
     /**
      * @brief Float type.
      */
-    typedef decltype(pr::real(Tvalue())) float_type;
+    typedef decltype(pre::real(Tvalue())) float_type;
 
     /**
      * @brief Dot product.
@@ -151,7 +151,7 @@ public:
         auto itrx = x.begin();
         auto itry = y.begin();
         for (; itry < y.end(); ++itrx, ++itry) {
-            res = pr::conj(*itrx) * (*itry) + res;
+            res = pre::conj(*itrx) * (*itry) + res;
         }
 
         return res;
@@ -177,7 +177,7 @@ public:
     {
         if (x.size() == 1) {
             // Delegate.
-            return pr::abs(x[0]);
+            return pre::abs(x[0]);
         }
 
         // Temporary buffer.
@@ -201,14 +201,14 @@ public:
         };
 
         // Temporary extrema.
-        float_type tmpmin = pr::numeric_limits<float_type>::infinity();
+        float_type tmpmin = pre::numeric_limits<float_type>::infinity();
         float_type tmpmax = 0;
         {
             // Initialize.
             auto itrtmp = tmp.begin();
             auto itrx = x.begin();
             for (; itrx < x.end(); ++itrtmp, ++itrx) {
-                *itrtmp = pr::abs(*itrx);
+                *itrtmp = pre::abs(*itrx);
                 if (*itrtmp != 0) {
                     if (tmpmin > *itrtmp) {
                         tmpmin = *itrtmp;
@@ -222,11 +222,11 @@ public:
 
         // Impending overflow or underflow?
         if (tmpmax *
-            tmpmax >= pr::numeric_limits<float_type>::max() / x.size() ||
-            tmpmin <= pr::numeric_limits<float_type>::min_squarable()) {
+            tmpmax >= pre::numeric_limits<float_type>::max() / x.size() ||
+            tmpmin <= pre::numeric_limits<float_type>::min_squarable()) {
 
             // Factor out maximum.
-            if (tmpmax >= pr::numeric_limits<float_type>::min_invertible()) {
+            if (tmpmax >= pre::numeric_limits<float_type>::min_invertible()) {
                 tmp *= 1 / tmpmax;
             }
             else {
@@ -237,9 +237,9 @@ public:
             float_type tmpsum = 0;
             for (auto itrtmp = tmp.begin();
                       itrtmp < tmp.end(); ++itrtmp) {
-                tmpsum = pr::fma(*itrtmp, *itrtmp, tmpsum);
+                tmpsum = pre::fma(*itrtmp, *itrtmp, tmpsum);
             }
-            return pr::sqrt(tmpsum) * tmpmax;
+            return pre::sqrt(tmpsum) * tmpmax;
         }
         else {
 
@@ -247,9 +247,9 @@ public:
             float_type tmpsum = 0;
             for (auto itrtmp = tmp.begin();
                       itrtmp < tmp.end(); ++itrtmp) {
-                tmpsum = pr::fma(*itrtmp, *itrtmp, tmpsum);
+                tmpsum = pre::fma(*itrtmp, *itrtmp, tmpsum);
             }
-            return pr::sqrt(tmpsum);
+            return pre::sqrt(tmpsum);
         }
     }
 
@@ -262,7 +262,7 @@ public:
     static void normalize(dense_vector_view<value_type*> x)
     {
         float_type len = length(x);
-        if (len >= pr::numeric_limits<float_type>::min_invertible()) {
+        if (len >= pre::numeric_limits<float_type>::min_invertible()) {
             x *= float_type(1) / len;
         }
         else if (len != 0) {
@@ -304,7 +304,7 @@ public:
             auto itrx = x.begin();
             auto itry = y.begin();
             for (; itry < y.end(); ++itrx, ++itry) {
-                fac = pr::conj(*itrx) * (*itry) + fac;
+                fac = pre::conj(*itrx) * (*itry) + fac;
             }
         }
 
@@ -357,10 +357,10 @@ public:
 
             // Swap.
             for (int i = 0; i < y.size0(); i++) {
-                y[i][i] = pr::conj(y[i][i]);
+                y[i][i] = pre::conj(y[i][i]);
                 for (int j = i + 1; j < y.size0(); j++) {
-                    value_type tmp0 = pr::conj(y[i][j]);
-                    value_type tmp1 = pr::conj(y[j][i]);
+                    value_type tmp0 = pre::conj(y[i][j]);
+                    value_type tmp1 = pre::conj(y[j][i]);
                     y[i][j] = tmp1;
                     y[j][i] = tmp0;
                 }
@@ -377,7 +377,7 @@ public:
             // Copy.
             for (int i = 0; i < x.size0(); i++)
             for (int j = 0; j < x.size1(); j++) {
-                y[j][i] = pr::conj(x[i][j]);
+                y[j][i] = pre::conj(x[i][j]);
             }
         }
     }
@@ -467,7 +467,7 @@ public:
             w.begin());
 
         // Compute reflector.
-        value_type alpha = pr::sign(w[0]) * length(w);
+        value_type alpha = pre::sign(w[0]) * length(w);
         w[0] += alpha;
 
         // Normalize.
@@ -528,11 +528,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = pr::conj(x[i][j]);
+            x[i][j] = pre::conj(x[i][j]);
         }
         for (int i = 0; i < y.size0(); i++)
         for (int j = 0; j < y.size1(); j++) {
-            y[i][j] = pr::conj(y[i][j]);
+            y[i][j] = pre::conj(y[i][j]);
         }
 
         // Delegate.
@@ -541,11 +541,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = pr::conj(x[i][j]);
+            x[i][j] = pre::conj(x[i][j]);
         }
         for (int i = 0; i < y.size0(); i++)
         for (int j = 0; j < y.size1(); j++) {
-            y[i][j] = pr::conj(y[i][j]);
+            y[i][j] = pre::conj(y[i][j]);
         }
     }
 
@@ -646,11 +646,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = pr::conj(x[i][j]);
+            x[i][j] = pre::conj(x[i][j]);
         }
         for (int i = 0; i < q.size0(); i++)
         for (int j = 0; j < q.size1(); j++) {
-            q[i][j] = pr::conj(q[i][j]);
+            q[i][j] = pre::conj(q[i][j]);
         }
 
         // Delegate.
@@ -660,11 +660,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = pr::conj(x[i][j]);
+            x[i][j] = pre::conj(x[i][j]);
         }
         for (int i = 0; i < q.size0(); i++)
         for (int j = 0; j < q.size1(); j++) {
-            q[i][j] = pr::conj(q[i][j]);
+            q[i][j] = pre::conj(q[i][j]);
         }
     }
 
@@ -687,11 +687,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = pr::conj(x[i][j]);
+            x[i][j] = pre::conj(x[i][j]);
         }
         for (int i = 0; i < q.size0(); i++)
         for (int j = 0; j < q.size1(); j++) {
-            q[i][j] = pr::conj(q[i][j]);
+            q[i][j] = pre::conj(q[i][j]);
         }
 
         // Delegate.
@@ -701,11 +701,11 @@ public:
         // Conjugate.
         for (int i = 0; i < x.size0(); i++)
         for (int j = 0; j < x.size1(); j++) {
-            x[i][j] = pr::conj(x[i][j]);
+            x[i][j] = pre::conj(x[i][j]);
         }
         for (int i = 0; i < q.size0(); i++)
         for (int j = 0; j < q.size1(); j++) {
-            q[i][j] = pr::conj(q[i][j]);
+            q[i][j] = pre::conj(q[i][j]);
         }
     }
 
@@ -760,7 +760,7 @@ public:
                 float_type fac = 0;
                 float_type tmp = 0;
                 for (int i = k; i < x.size0(); i++) {
-                    tmp = pr::abs(x[i][i]);
+                    tmp = pre::abs(x[i][i]);
                     if (fac < tmp) {
                         fac = tmp;
                         l = i;
@@ -778,9 +778,9 @@ public:
                 }
 
                 // Positive semi-definite?
-                if (!(pr::abs(x[k][k]) >
-                      pr::abs(x[0][0]) *
-                      pr::numeric_limits<float_type>::epsilon())) {
+                if (!(pre::abs(x[k][k]) >
+                      pre::abs(x[0][0]) *
+                      pre::numeric_limits<float_type>::epsilon())) {
                     for (int i = k; i < x.size0(); i++)
                     for (int j = k; j < i + 1; j++) {
                         x[i][j] = value_type();
@@ -789,24 +789,24 @@ public:
                 }
             }
 
-            if (x[k][k] != pr::real(x[k][k])) {
+            if (x[k][k] != pre::real(x[k][k])) {
                 throw std::runtime_error(__PRETTY_FUNCTION__);
             }
 
             // Update diagonal entry.
-            x[k][k] = pr::sqrt(pr::real(x[k][k]));
+            x[k][k] = pre::sqrt(pre::real(x[k][k]));
 
             // Update off-diagonal entries.
-            float_type invxkk = 1 / pr::real(x[k][k]);
+            float_type invxkk = 1 / pre::real(x[k][k]);
             for (int i = k + 1; i < x.size0(); i++) {
                 x[i][k] *= invxkk;
-                if (!pr::isfinite(x[i][k])) {
+                if (!pre::isfinite(x[i][k])) {
                     throw std::runtime_error(__PRETTY_FUNCTION__);
                 }
             }
             for (int i = k + 1; i < x.size0(); i++)
             for (int j = k + 1; j < i + 1; j++) {
-                x[i][j] -= x[i][k] * pr::conj(x[j][k]);
+                x[i][j] -= x[i][k] * pre::conj(x[j][k]);
             }
         }
 
@@ -822,6 +822,6 @@ public:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_DENSE_LINALG_HPP

@@ -86,7 +86,7 @@ funcs = [
 ]
 
 puts <<STR
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup multi_math
@@ -129,10 +129,10 @@ for func in funcs
     incrs << "++itrres"
     incrs = incrs.join ", "
     decls = decls.join "\n#{tab1}"
-    restype = "multi<\n#{tab2}std::decay_t<decltype(pr::#{funcname}(\n#{tab2}#{args2}))>, N...>"
+    restype = "multi<\n#{tab2}std::decay_t<decltype(pre::#{funcname}(\n#{tab2}#{args2}))>, N...>"
     puts <<STR
 /**
- * @brief Wrap `pr::#{funcname}()`.
+ * @brief Wrap `pre::#{funcname}()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -143,7 +143,7 @@ inline auto #{funcname}(
     #{decls}
     auto itrres = res.begin();
     for (; itrres < res.end(); #{incrs}) {
-        *itrres = pr::#{funcname}(#{args3});
+        *itrres = pre::#{funcname}(#{args3});
     }
     return res;
 }
@@ -159,6 +159,6 @@ STR
 puts <<STR
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 STR

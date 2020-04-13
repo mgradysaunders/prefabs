@@ -1,4 +1,4 @@
-/* Copyright (c) 2018-19 M. Grady Saunders
+/* Copyright (c) 2018-20 M. Grady Saunders
  * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,7 +28,7 @@
 /*+-+*/
 // A ruby script generates this file, DO NOT EDIT
 
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup color
@@ -228,5 +228,5 @@ inline std::enable_if_t<
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 

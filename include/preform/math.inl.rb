@@ -65,7 +65,7 @@ funcs = [
 ]
 
 puts <<STR
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup math
@@ -140,13 +140,13 @@ STR
 for func in funcs_trig_rcp
     puts <<STR
 /**
- * @brief Reciprocal of `pr::#{func[1]}()`.
+ * @brief Reciprocal of `pre::#{func[1]}()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto #{func[0]}(T x) -> decltype(pr::#{func[1]}(x))
+inline auto #{func[0]}(T x) -> decltype(pre::#{func[1]}(x))
 {
-    return static_cast<decltype(pr::#{func[1]}(x))>(1) / pr::#{func[1]}(x);
+    return static_cast<decltype(pre::#{func[1]}(x))>(1) / pre::#{func[1]}(x);
 }
 
 STR
@@ -155,13 +155,13 @@ end
 for func in funcs_trig_rcp_inv
     puts <<STR
 /**
- * @brief Inverse of `pr::#{func[0][1..-1]}()`.
+ * @brief Inverse of `pre::#{func[0][1..-1]}()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto #{func[0]}(T x) -> decltype(pr::#{func[1]}(x))
+inline auto #{func[0]}(T x) -> decltype(pre::#{func[1]}(x))
 {
-    return pr::#{func[1]}(static_cast<decltype(pr::#{func[1]}(x))>(1) / x);
+    return pre::#{func[1]}(static_cast<decltype(pre::#{func[1]}(x))>(1) / x);
 }
 
 STR
@@ -175,6 +175,6 @@ STR
 puts <<STR
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 STR

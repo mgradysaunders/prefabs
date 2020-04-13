@@ -44,7 +44,7 @@
 // for std::is_floating_point, std::is_integral
 #include <type_traits>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup float_atomic Float atomic
@@ -498,6 +498,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_FLOAT_ATOMIC_HPP

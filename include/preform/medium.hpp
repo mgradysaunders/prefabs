@@ -35,16 +35,16 @@
 #ifndef PREFORM_MEDIUM_HPP
 #define PREFORM_MEDIUM_HPP
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::multi wrappers, pr::uniform_real_distribution, ...
+// for pre::multi wrappers, pre::uniform_real_distribution, ...
 #include <preform/multi_random.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup medium Medium
@@ -255,9 +255,9 @@ public:
                 u[0] /= w_[k];
 
                 // Just to be safe.
-                u[0] = pr::fmax(u[0], float_type(0));
-                u[0] = pr::fmin(u[0], float_type(1) -
-                       pr::numeric_limits<float_type>::machine_epsilon());
+                u[0] = pre::fmax(u[0], float_type(0));
+                u[0] = pre::fmin(u[0], float_type(1) -
+                       pre::numeric_limits<float_type>::machine_epsilon());
                 break;
             }
 
@@ -318,8 +318,8 @@ public:
      */
     rayleigh_phase(float_type rho) : rho_(rho)
     {
-        rho_ = pr::fmin(rho_, float_type(+0.9999));
-        rho_ = pr::fmax(rho_, float_type(-0.9999));
+        rho_ = pre::fmin(rho_, float_type(+0.9999));
+        rho_ = pre::fmax(rho_, float_type(-0.9999));
     }
 
     /**
@@ -351,7 +351,7 @@ public:
     {
         float_type gam = rho_ / (2 - rho_);
         float_type cos_theta = dot(wo, wi);
-        return pr::numeric_constants<float_type>::M_1_pi() *
+        return pre::numeric_constants<float_type>::M_1_pi() *
                float_type(0.1875) * ((1 - gam) * cos_theta * cos_theta +
                                       1 + 3 * gam) / (1 + 2 * gam);
     }
@@ -377,18 +377,18 @@ public:
         // Sample zenith cosine and uniform azimuth angle.
         float_type xi0 = (1 + rho_) / (1 - rho_);
         float_type xi1 = (1 + 3 * xi0) * (2 * u[0] - 1) / 2;
-        float_type sqrt_term = pr::sqrt(xi1 * xi1 + xi0 * xi0 * xi0);
-        float_type cbrt_term = pr::cbrt(xi1 + sqrt_term);
+        float_type sqrt_term = pre::sqrt(xi1 * xi1 + xi0 * xi0 * xi0);
+        float_type cbrt_term = pre::cbrt(xi1 + sqrt_term);
         float_type cos_thetai = cbrt_term - xi0 / cbrt_term;
-        cos_thetai = pr::fmax(cos_thetai, float_type(-1));
-        cos_thetai = pr::fmin(cos_thetai, float_type(+1));
-        float_type sin_thetai = pr::sqrt(1 - cos_thetai * cos_thetai);
-        float_type phi = 2 * pr::numeric_constants<float_type>::M_pi() * u[1];
+        cos_thetai = pre::fmax(cos_thetai, float_type(-1));
+        cos_thetai = pre::fmin(cos_thetai, float_type(+1));
+        float_type sin_thetai = pre::sqrt(1 - cos_thetai * cos_thetai);
+        float_type phi = 2 * pre::numeric_constants<float_type>::M_pi() * u[1];
 
         // Compute direction.
         multi<float_type, 3> wi = {
-            sin_thetai * pr::cos(phi),
-            sin_thetai * pr::sin(phi),
+            sin_thetai * pre::cos(phi),
+            sin_thetai * pre::sin(phi),
             cos_thetai
         };
         return dot(multi<float_type, 3, 3>::build_onb(-wo), wi);
@@ -460,7 +460,7 @@ public:
         sinv_ = dot(q, dot(sinv_, transpose(q)));
 
         // Determinant root.
-        sdet1_2_ = pr::sqrt(s.prod());
+        sdet1_2_ = pre::sqrt(s.prod());
     }
 
     /**
@@ -477,7 +477,7 @@ public:
      */
     float_type aperp(const multi<float_type, 3>& wo) const
     {
-        return pr::sqrt(dot(wo, dot(s_, wo)));
+        return pre::sqrt(dot(wo, dot(s_, wo)));
     }
 
     /**
@@ -496,8 +496,8 @@ public:
      */
     float_type d(const multi<float_type, 3>& wm) const
     {
-        return pr::numeric_constants<float_type>::M_1_pi() / (sdet1_2_ *
-               pr::nthpow(dot(wm, dot(sinv_, wm)), 2));
+        return pre::numeric_constants<float_type>::M_1_pi() / (sdet1_2_ *
+               pre::nthpow(dot(wm, dot(sinv_, wm)), 2));
     }
 
     /**
@@ -522,14 +522,14 @@ public:
         // Area factors.
         float_type fac_numer = dot(wo, wm);
         float_type fac_denom = aperp(wo);
-        if (pr::signbit(fac_numer) ||
-            pr::signbit(fac_denom)) {
+        if (pre::signbit(fac_numer) ||
+            pre::signbit(fac_denom)) {
             return 0;
         }
 
         // Distribution of visible normals.
         float_type d_wm = d(wm);
-        return pr::isfinite(d_wm * fac_numer / fac_denom) ?
+        return pre::isfinite(d_wm * fac_numer / fac_denom) ?
                             d_wm * fac_numer / fac_denom : 0;
     }
 
@@ -554,8 +554,8 @@ public:
         multi<float_type, 3, 3> s = dot(transpose(q), dot(s_, q));
 
         // Compute component vectors.
-        float_type tmp0 = pr::sqrt(s[2][2]);
-        float_type tmp1 = pr::sqrt(s[1][1] * s[2][2] - s[1][2] * s[2][1]);
+        float_type tmp0 = pre::sqrt(s[2][2]);
+        float_type tmp1 = pre::sqrt(s[1][1] * s[2][2] - s[1][2] * s[2][1]);
         multi<float_type, 3> mx = {sdet1_2_ / tmp1, 0, 0};
         multi<float_type, 3> my = {
             -(s[2][0] * s[2][1] -
@@ -572,11 +572,11 @@ public:
         mz *= 1 / tmp0;
 
         // Construct visible normal.
-        float_type phi = 2 * pr::numeric_constants<float_type>::M_pi() * u[1];
-        float_type ux = pr::sqrt(u[0]) * pr::cos(phi);
-        float_type uy = pr::sqrt(u[0]) * pr::sin(phi);
-        float_type uz = pr::sqrt(
-                        pr::fmax(float_type(0), 1 - ux * ux - uy * uy));
+        float_type phi = 2 * pre::numeric_constants<float_type>::M_pi() * u[1];
+        float_type ux = pre::sqrt(u[0]) * pre::cos(phi);
+        float_type uy = pre::sqrt(u[0]) * pre::sin(phi);
+        float_type uz = pre::sqrt(
+                        pre::fmax(float_type(0), 1 - ux * ux - uy * uy));
         return dot(q, normalize_safe(ux * mx + uy * my + uz * mz));
     }
 
@@ -755,8 +755,8 @@ public:
         multi<float_type, 3> wm = this->dwo_sample(u, wo);
 
         // Evaluate.
-        return pr::numeric_constants<float_type>::M_1_pi() *
-               pr::fmax(dot(wi, wm), float_type(0));
+        return pre::numeric_constants<float_type>::M_1_pi() *
+               pre::fmax(dot(wi, wm), float_type(0));
     }
 
     /**
@@ -798,7 +798,7 @@ public:
         // if this calculation is otherwise flawed?
         if (pdf) {
             *pdf =
-                pr::numeric_constants<float_type>::M_1_pi() *
+                pre::numeric_constants<float_type>::M_1_pi() *
                 float_type(0.5) * wi[2];
         }
 
@@ -847,10 +847,10 @@ public:
     {
         // Restrict.
         b_ =
-            pr::fmax(float_type(-1),
-            pr::fmin(float_type(+1), b_));
+            pre::fmax(float_type(-1),
+            pre::fmin(float_type(+1), b_));
         mua_ =
-            pr::fmax(float_type(0), mua_);
+            pre::fmax(float_type(0), mua_);
     }
 
     /**
@@ -882,18 +882,18 @@ public:
         // Compute single scattering term.
         float_type f1 =
             float_type(0.25) *
-            pr::numeric_constants<float_type>::M_1_pi() *
+            pre::numeric_constants<float_type>::M_1_pi() *
             (1 - b_ * dot(wo, wi)) /
             (1 + cos_thetao / cos_thetai);
 
         // Compute multiple scattering Lambertian term.
         float_type r =
             float_type(0.5) *
-            (1 - cos_thetao * pr::log(1 + 1 / cos_thetao)) *
+            (1 - cos_thetao * pre::log(1 + 1 / cos_thetao)) *
             (1 + b_ * cos_thetao * cos_thetao) - float_type(0.25) *
                  b_ * cos_thetao;
         float_type fn = (1 - r) *
-            pr::numeric_constants<float_type>::M_1_pi() * cos_thetai;
+            pre::numeric_constants<float_type>::M_1_pi() * cos_thetai;
 
         // Absorption non-zero?
         if (mua_ > 0) {
@@ -904,15 +904,15 @@ public:
             // Multiple-scattering absorption.
             float_type ratio =
                 float_type(0.5) *
-                (pr::sqrt(r * r - 6 * r + 5) + r - 1);
+                (pre::sqrt(r * r - 6 * r + 5) + r - 1);
             fn /= 1 + mua_;
             fn *=
                 (1 - ratio) /
                 (1 - ratio + mua_);
         }
 
-        if (!pr::isfinite(f1) ||
-            !pr::isfinite(fn)) {
+        if (!pre::isfinite(f1) ||
+            !pre::isfinite(fn)) {
             return 0;
         }
         else {
@@ -1029,8 +1029,8 @@ public:
             return 0;
         }
         else {
-            d = pr::fmin(d, pr::numeric_limits<float_type>::max());
-            return pr::exp(-mu_ * d);
+            d = pre::fmin(d, pre::numeric_limits<float_type>::max());
+            return pre::exp(-mu_ * d);
         }
     }
 
@@ -1055,8 +1055,8 @@ public:
             return 0;
         }
         else {
-            d = pr::fmin(d, pr::numeric_limits<float_type>::max());
-            return mu_ * pr::exp(-mu_ * d);
+            d = pre::fmin(d, pre::numeric_limits<float_type>::max());
+            return mu_ * pre::exp(-mu_ * d);
         }
     }
 
@@ -1070,7 +1070,7 @@ public:
     float_type tau_pdf_sample(float_type u) const
     {
         return -(u < float_type(0.5) ? 
-                 pr::log1p(-u) : pr::log(1 - u)) / mu_;
+                 pre::log1p(-u) : pre::log(1 - u)) / mu_;
     }
 
 private:
@@ -1093,6 +1093,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_MEDIUM_HPP

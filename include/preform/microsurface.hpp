@@ -38,19 +38,19 @@
 // for assert
 #include <cassert>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::multi wrappers, pr::uniform_real_distribution, ...
+// for pre::multi wrappers, pre::uniform_real_distribution, ...
 #include <preform/multi_random.hpp>
 
-// for pr::fresnel_diel, ...
+// for pre::fresnel_diel, ...
 #include <preform/fresnel.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup microsurface Microsurface
@@ -141,7 +141,7 @@ public:
      */
     static float_type lambda11(multi<float_type, 3> wo)
     {
-        return float_type(0.5) * pr::length(wo) / wo[2] - float_type(0.5);
+        return float_type(0.5) * pre::length(wo) / wo[2] - float_type(0.5);
     }
 
     /**
@@ -160,7 +160,7 @@ public:
      */
     static float_type aperp11(multi<float_type, 3> wo)
     {
-        return float_type(0.5) * pr::length(wo) + float_type(0.5) * wo[2];
+        return float_type(0.5) * pre::length(wo) + float_type(0.5) * wo[2];
     }
 
     /**
@@ -178,8 +178,8 @@ public:
      */
     static float_type p11(multi<float_type, 2> m)
     {
-        return pr::numeric_constants<float_type>::M_1_pi() /
-               pr::nthpow(1 + pr::dot(m, m), 2);
+        return pre::numeric_constants<float_type>::M_1_pi() /
+               pre::nthpow(1 + pre::dot(m, m), 2);
     }
 
     /**
@@ -201,18 +201,18 @@ public:
 
         // Handle cos(thetao) ~= +1.
         if (cos_thetao > float_type(0.99999)) {
-            float_type r = pr::sqrt(u[0] / (1 - u[0]));
+            float_type r = pre::sqrt(u[0] / (1 - u[0]));
             float_type phi =
-                2 * pr::numeric_constants<float_type>::M_pi() * u[1];
+                2 * pre::numeric_constants<float_type>::M_pi() * u[1];
             return {
-                r * pr::cos(phi),
-                r * pr::sin(phi)
+                r * pre::cos(phi),
+                r * pre::sin(phi)
             };
         }
 
         // Trig terms.
         float_type sec_thetao = 1 / cos_thetao;
-        float_type sin_thetao = pr::sqrt(1 - cos_thetao * cos_thetao);
+        float_type sin_thetao = pre::sqrt(1 - cos_thetao * cos_thetao);
         float_type tan_thetao = sin_thetao / cos_thetao;
         float_type cot_thetao = cos_thetao / sin_thetao;
 
@@ -223,8 +223,8 @@ public:
         float_type mu = u[0] * (1 + sec_thetao) - 1;
         float_type nu = 1 / (1 - mu * mu);
         float_type q =
-                pr::sqrt(
-                pr::fmax(float_type(0),
+                pre::sqrt(
+                pre::fmax(float_type(0),
                     mu * mu * nu -
                     nu * (1 - nu) * tan_thetao * tan_thetao));
         float_type t0 = -nu * tan_thetao - q;
@@ -240,7 +240,7 @@ public:
             u[1] = 1 - 2 * u[1];
             m[1] = -1;
         }
-        m[1] *= pr::sqrt(1 + m[0] * m[0]) *
+        m[1] *= pre::sqrt(1 + m[0] * m[0]) *
             (u[1] *
             (u[1] *
             (u[1] * float_type(0.273850) -
@@ -303,9 +303,9 @@ public:
      */
     static float_type lambda11(multi<float_type, 3> wo)
     {
-        float_type a = wo[2] / pr::hypot(wo[0], wo[1]);
-        return (pr::numeric_constants<float_type>::M_2_sqrtpi() / 2 *
-                pr::exp(-a * a) / a - pr::erfc(a)) / 2;
+        float_type a = wo[2] / pre::hypot(wo[0], wo[1]);
+        return (pre::numeric_constants<float_type>::M_2_sqrtpi() / 2 *
+                pre::exp(-a * a) / a - pre::erfc(a)) / 2;
     }
 
     /**
@@ -331,10 +331,10 @@ public:
      */
     static float_type aperp11(multi<float_type, 3> wo)
     {
-        float_type r = pr::hypot(wo[0], wo[1]);
+        float_type r = pre::hypot(wo[0], wo[1]);
         float_type a = wo[2] / r;
-        return (pr::numeric_constants<float_type>::M_2_sqrtpi() / 2 *
-                pr::exp(-a * a) * r + wo[2] * pr::erfc(-a)) / 2;
+        return (pre::numeric_constants<float_type>::M_2_sqrtpi() / 2 *
+                pre::exp(-a * a) * r + wo[2] * pre::erfc(-a)) / 2;
     }
 
     /**
@@ -351,8 +351,8 @@ public:
      */
     static float_type p11(multi<float_type, 2> m)
     {
-        return pr::numeric_constants<float_type>::M_1_pi() *
-               pr::exp(-pr::dot(m, m));
+        return pre::numeric_constants<float_type>::M_1_pi() *
+               pre::exp(-pre::dot(m, m));
     }
 
     /**
@@ -374,37 +374,37 @@ public:
 
         // Handle cos(thetao) ~= +1.
         if (cos_thetao > float_type(0.99999)) {
-            float_type r = pr::sqrt(pr::log(-u[0]));
+            float_type r = pre::sqrt(pre::log(-u[0]));
             float_type phi =
-                2 * pr::numeric_constants<float_type>::M_pi() * u[1];
+                2 * pre::numeric_constants<float_type>::M_pi() * u[1];
             return {
-                r * pr::cos(phi),
-                r * pr::sin(phi)
+                r * pre::cos(phi),
+                r * pre::sin(phi)
             };
         }
 
         // Trig terms.
         float_type cos2_thetao = cos_thetao * cos_thetao;
         float_type sin2_thetao = 1 - cos2_thetao;
-        float_type sin_thetao = pr::sqrt(sin2_thetao);
+        float_type sin_thetao = pre::sqrt(sin2_thetao);
         float_type cot_thetao = cos_thetao / sin_thetao;
 
         auto c11 = [=](float_type a) {
             return
-                (pr::numeric_constants<float_type>::M_2_sqrtpi() / 2 *
-                 sin_thetao * pr::exp(-a * a) + cos_thetao * pr::erfc(-a)) / 2;
+                (pre::numeric_constants<float_type>::M_2_sqrtpi() / 2 *
+                 sin_thetao * pre::exp(-a * a) + cos_thetao * pre::erfc(-a)) / 2;
         };
 
         // Projected area.
         float_type aperp = c11(cot_thetao);
         float_type cnorm = 1 / aperp;
-        if (aperp < float_type(0.00001) || !pr::isfinite(aperp)) {
+        if (aperp < float_type(0.00001) || !pre::isfinite(aperp)) {
             return {0, 0};
         }
 
         // Search.
         float_type erf_amin = float_type(-0.99999);
-        float_type erf_amax = pr::fmax(erf_amin, pr::erf(cot_thetao));
+        float_type erf_amax = pre::fmax(erf_amin, pre::erf(cot_thetao));
         float_type erf_a =
             float_type(0.5) * erf_amin +
             float_type(0.5) * erf_amax;
@@ -420,14 +420,14 @@ public:
             }
 
             // Evaluate.
-            float_type a = pr::erfinv(erf_a);
+            float_type a = pre::erfinv(erf_a);
             float_type c = (a >= cot_thetao ? 1 : cnorm * c11(a)) - u[0];
-            if (pr::fabs(c) <= float_type(0.00001)) {
+            if (pre::fabs(c) <= float_type(0.00001)) {
                 // Convergence.
                 break;
             }
 
-            if (pr::signbit(c)) {
+            if (pre::signbit(c)) {
                 if (erf_amin != erf_a) {
                     erf_amin = erf_a;
                 }
@@ -454,11 +454,11 @@ public:
         }
 
         // Done.
-        erf_a = pr::fmin(erf_a, erf_amax);
-        erf_a = pr::fmax(erf_a, erf_amin);
+        erf_a = pre::fmin(erf_a, erf_amax);
+        erf_a = pre::fmax(erf_a, erf_amin);
         return {
-            pr::erfinv(erf_a),
-            pr::erfinv(2 * u[1] - 1)
+            pre::erfinv(erf_a),
+            pre::erfinv(2 * u[1] - 1)
         };
     }
 };
@@ -498,7 +498,7 @@ public:
     __attribute__((always_inline))
     static float_type p1(float_type h)
     {
-        return pr::uniform_real_distribution<float_type>(-1, +1).pdf(h);
+        return pre::uniform_real_distribution<float_type>(-1, +1).pdf(h);
     }
 
     /**
@@ -510,7 +510,7 @@ public:
     __attribute__((always_inline))
     static float_type c1(float_type h)
     {
-        return pr::uniform_real_distribution<float_type>(-1, +1).cdf(h);
+        return pre::uniform_real_distribution<float_type>(-1, +1).cdf(h);
     }
 
     /**
@@ -522,7 +522,7 @@ public:
     __attribute__((always_inline))
     static float_type c1inv(float_type u)
     {
-        return pr::uniform_real_distribution<float_type>(-1, +1).cdfinv(u);
+        return pre::uniform_real_distribution<float_type>(-1, +1).cdfinv(u);
     }
 };
 
@@ -561,7 +561,7 @@ public:
     __attribute__((always_inline))
     static float_type p1(float_type h)
     {
-        return pr::normal_distribution<float_type>(0, 1).pdf(h);
+        return pre::normal_distribution<float_type>(0, 1).pdf(h);
     }
 
     /**
@@ -573,7 +573,7 @@ public:
     __attribute__((always_inline))
     static float_type c1(float_type h)
     {
-        return pr::normal_distribution<float_type>(0, 1).cdf(h);
+        return pre::normal_distribution<float_type>(0, 1).cdf(h);
     }
 
     /**
@@ -585,7 +585,7 @@ public:
     __attribute__((always_inline))
     static float_type c1inv(float_type u)
     {
-        return pr::normal_distribution<float_type>(0, 1).cdfinv(u);
+        return pre::normal_distribution<float_type>(0, 1).cdfinv(u);
     }
 };
 
@@ -664,8 +664,8 @@ public:
     microsurface(multi<float_type, 2> alpha) : alpha_(alpha)
     {
         // Clamp.
-        alpha_[0] = pr::fmax(alpha_[0], float_type(0.00001));
-        alpha_[1] = pr::fmax(alpha_[1], float_type(0.00001));
+        alpha_[0] = pre::fmax(alpha_[0], float_type(0.00001));
+        alpha_[1] = pre::fmax(alpha_[1], float_type(0.00001));
     }
 
     /**
@@ -734,13 +734,13 @@ public:
     {
         // Warp.
         m /= alpha_;
-        if (!pr::isfinite(m).all()) {
+        if (!pre::isfinite(m).all()) {
             return 0;
         }
 
         // Delegate.
         float_type p11 = Tslope<Tfloat>::p11(m);
-        return pr::isfinite(p11 / alpha_.prod()) ?
+        return pre::isfinite(p11 / alpha_.prod()) ?
                             p11 / alpha_.prod() : 0;
     }
 
@@ -761,14 +761,14 @@ public:
     float_type d(multi<float_type, 3> wm) const
     {
         // Invalid normal?
-        if (pr::signbit(wm[2])) {
+        if (pre::signbit(wm[2])) {
             return 0;
         }
 
         // Trig terms.
         float_type cos_thetam = wm[2];
-        cos_thetam = pr::fmax(cos_thetam, float_type(-1));
-        cos_thetam = pr::fmin(cos_thetam, float_type(+1));
+        cos_thetam = pre::fmax(cos_thetam, float_type(-1));
+        cos_thetam = pre::fmin(cos_thetam, float_type(+1));
         float_type cos2_thetam = cos_thetam * cos_thetam;
         float_type cos4_thetam = cos2_thetam * cos2_thetam;
         if (cos4_thetam == 0) {
@@ -783,7 +783,7 @@ public:
 
         // Slope distribution.
         float_type p22_m = p22(m);
-        return pr::isfinite(p22_m / cos4_thetam) ?
+        return pre::isfinite(p22_m / cos4_thetam) ?
                             p22_m / cos4_thetam : 0;
     }
 
@@ -807,21 +807,21 @@ public:
                 multi<float_type, 3> wm) const
     {
         // Invalid normal?
-        if (pr::signbit(wm[2])) {
+        if (pre::signbit(wm[2])) {
             return 0;
         }
 
         // Area factors.
         float_type fac_numer = dot(wo, wm);
         float_type fac_denom = aperp(wo);
-        if (pr::signbit(fac_numer) ||
-            pr::signbit(fac_denom)) {
+        if (pre::signbit(fac_numer) ||
+            pre::signbit(fac_denom)) {
             return 0;
         }
 
         // Distribution of visible normals.
         float_type d_wm = d(wm);
-        return pr::isfinite(d_wm * fac_numer / fac_denom) ?
+        return pre::isfinite(d_wm * fac_numer / fac_denom) ?
                             d_wm * fac_numer / fac_denom : 0;
     }
 
@@ -850,9 +850,9 @@ public:
         multi<float_type, 2> m11 = Tslope<Tfloat>::p11_sample(u, wo11[2]);
 
         // Rotate.
-        float_type phi = pr::atan2(wo11[1], wo11[0]);
-        float_type sin_phi = pr::sin(phi);
-        float_type cos_phi = pr::cos(phi);
+        float_type phi = pre::atan2(wo11[1], wo11[0]);
+        float_type sin_phi = pre::sin(phi);
+        float_type cos_phi = pre::cos(phi);
         multi<float_type, 2> m = {
             cos_phi * m11[0] - sin_phi * m11[1],
             sin_phi * m11[0] + cos_phi * m11[1]
@@ -862,8 +862,8 @@ public:
         m *= alpha_;
 
         // Invalid slope?
-        if (!pr::isfinite(m[0]) ||
-            !pr::isfinite(m[1])) {
+        if (!pre::isfinite(m[0]) ||
+            !pre::isfinite(m[1])) {
             if (wo[2] != 0) {
                 return {0, 0, 1};
             }
@@ -892,7 +892,7 @@ public:
      */
     float_type g1(multi<float_type, 3> wo) const
     {
-        if (pr::signbit(wo[2])) {
+        if (pre::signbit(wo[2])) {
             return 0;
         }
         else {
@@ -917,11 +917,11 @@ public:
      */
     float_type g1(multi<float_type, 3> wo, float_type h0) const
     {
-        if (pr::signbit(wo[2])) {
+        if (pre::signbit(wo[2])) {
             return 0;
         }
         else {
-            return pr::pow(Theight<Tfloat>::c1(h0), lambda(wo));
+            return pre::pow(Theight<Tfloat>::c1(h0), lambda(wo));
         }
     }
 
@@ -941,13 +941,13 @@ public:
                 float_type u, multi<float_type, 3> wo,
                 float_type h0) const
     {
-        if (pr::isnan(h0)) {
+        if (pre::isnan(h0)) {
             return h0;
         }
 
         // Handle cos(thetao) ~= +1.
         if (wo[2] > float_type(+0.99999)) {
-            return pr::numeric_limits<float_type>::infinity(); // Exit
+            return pre::numeric_limits<float_type>::infinity(); // Exit
         }
 
         // Handle cos(thetao) ~= -1.
@@ -957,20 +957,20 @@ public:
         }
 
         // Handle cos(thetao) ~= 0.
-        if (pr::fabs(wo[2]) < float_type(0.00001)) {
+        if (pre::fabs(wo[2]) < float_type(0.00001)) {
             return h0;
         }
 
         // Shadowing is probability of intersection.
         float_type g = g1(wo, h0);
         if (u > 1 - g) {
-            return pr::numeric_limits<float_type>::infinity(); // Exit
+            return pre::numeric_limits<float_type>::infinity(); // Exit
         }
 
         // Intersect.
         return Theight<Tfloat>::c1inv(
                Theight<Tfloat>::c1(h0) /
-                    pr::pow(1 - u,
+                    pre::pow(1 - u,
                             1 / lambda(wo)));
     }
 
@@ -1117,12 +1117,12 @@ public:
 
             {
                 // Sample next height.
-                float_type u = pr::generate_canonical<float_type>(gen);
+                float_type u = pre::generate_canonical<float_type>(gen);
                 hk =
                     wk_outside 
                     ? +h_sample(u, +wk, +hk) 
                     : -h_sample(u, -wk, -hk);
-                if (pr::isinf(hk)) {
+                if (pre::isinf(hk)) {
                     break;
                 }
             }
@@ -1140,8 +1140,8 @@ public:
                         wk_outside);
 
             // NaN check.
-            if (!pr::isfinite(hk) ||
-                !pr::isfinite(wk).all() || wk[2] == 0) {
+            if (!pre::isfinite(hk) ||
+                !pre::isfinite(wk).all() || wk[2] == 0) {
                 return {0, 0, 1};
             }
         }
@@ -1188,10 +1188,10 @@ private:
                     true); // true = Importance
 
             // Exchange cosine factors.
-            rev__fs_ *= pr::fabs(wi[2]);
-            rev__fs_ /= pr::fabs(wo[2]);
-            rev__fs_pdf_ *= pr::fabs(wi[2]);
-            rev__fs_pdf_ /= pr::fabs(wo[2]);
+            rev__fs_ *= pre::fabs(wi[2]);
+            rev__fs_ /= pre::fabs(wo[2]);
+            rev__fs_pdf_ *= pre::fabs(wi[2]);
+            rev__fs_pdf_ /= pre::fabs(wo[2]);
 
             // Add. 
             fs_ += rev__fs_;
@@ -1250,12 +1250,12 @@ private:
 
             {
                 // Sample next height.
-                float_type u = pr::generate_canonical<float_type>(gen);
+                float_type u = pre::generate_canonical<float_type>(gen);
                 hk =
                     wk_outside 
                     ? +h_sample(u, +wk, +hk) 
                     : -h_sample(u, -wk, -hk);
-                if (pr::isinf(hk)) {
+                if (pre::isinf(hk)) {
                     break;
                 }
             }
@@ -1289,7 +1289,7 @@ private:
                         : ps1 / (ps1 + psk);
                 }
 
-                if (pr::isfinite(fsk)) {
+                if (pre::isfinite(fsk)) {
 
                     // Add term to BSDF.
                     fs_ += ek_next * fsk;
@@ -1323,8 +1323,8 @@ private:
             }
 
             // NaN check.
-            if (!pr::isfinite(hk) ||
-                !pr::isfinite(wk).all() || wk[2] == 0) {
+            if (!pre::isfinite(hk) ||
+                !pre::isfinite(wk).all() || wk[2] == 0) {
 
                 // Nullify.
                 fs_ =
@@ -1444,8 +1444,8 @@ public:
         float_type g2_given_g1 =
                 (1 + lambda_wo) /
                 (1 + lambda_wo + lambda_wi);
-        return pr::numeric_constants<float_type>::M_1_pi() * l0_ *
-               pr::fmax(pr::dot(wm, wi), float_type(0)) * g2_given_g1;
+        return pre::numeric_constants<float_type>::M_1_pi() * l0_ *
+               pre::fmax(pre::dot(wm, wi), float_type(0)) * g2_given_g1;
     }
 #endif
 
@@ -1491,7 +1491,7 @@ public:
                    bool is_importance = false) const
     {
         // Sample visible microsurface normal.
-        multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
+        multi<float_type, 2> u0 = pre::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
             wo_outside 
             ? +this->dwo_sample(u0, +wo) 
@@ -1505,12 +1505,12 @@ public:
 
         // Evaluate.
         if (wo_outside == wi_outside) {
-            return pr::numeric_constants<float_type>::M_1_pi() *
-                   pr::max(dot(+wm, wi), float_type(0)) * r0_prob_;
+            return pre::numeric_constants<float_type>::M_1_pi() *
+                   pre::max(dot(+wm, wi), float_type(0)) * r0_prob_;
         }
         else {
-            return pr::numeric_constants<float_type>::M_1_pi() *
-                   pr::max(dot(-wm, wi), float_type(0)) * t0_prob_;
+            return pre::numeric_constants<float_type>::M_1_pi() *
+                   pre::max(dot(-wm, wi), float_type(0)) * t0_prob_;
         }
     }
 
@@ -1545,17 +1545,17 @@ public:
                    bool is_importance = false) const
     {
         // Sample visible microsurface normal.
-        multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
+        multi<float_type, 2> u0 = pre::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
             wo_outside 
             ? +this->dwo_sample(u0, +wo) 
             : -this->dwo_sample(u0, -wo);
 
         // Sample direction.
-        multi<float_type, 2> u1 = pr::generate_canonical<float_type, 2>(gen);
+        multi<float_type, 2> u1 = pre::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u1);
-        if (pr::generate_canonical<float_type>(gen) < r0_prob_) {
+        if (pre::generate_canonical<float_type>(gen) < r0_prob_) {
             wi_outside = wo_outside;
         }
         else {
@@ -1767,7 +1767,7 @@ public:
             }
 
             // Microsurface normal.
-            multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
+            multi<float_type, 3> wm = vm / pre::sqrt(dot_vm_vm);
             float_type dot_wo_wm = dot(wo, wm);
             float_type dot_wi_wm = dot(wi, wm);
             if (!(dot_wo_wm > 0 &&
@@ -1778,7 +1778,7 @@ public:
             // Masking-shadowing.
             float_type lambda_wo = this->lambda(+wo);
             float_type lambda_wi = this->lambda(-wi);
-            float_type g2 = pr::beta(1 + lambda_wo, 1 + lambda_wi);
+            float_type g2 = pre::beta(1 + lambda_wo, 1 + lambda_wi);
 
             // Transmission.
             float_type cos_thetao = dot_wo_wm;
@@ -1892,7 +1892,7 @@ public:
             }
 
             // Microsurface normal.
-            multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
+            multi<float_type, 3> wm = vm / pre::sqrt(dot_vm_vm);
             float_type dot_wo_wm = dot(wo, wm);
             float_type dot_wi_wm = dot(wi, wm);
             if (!(dot_wo_wm > 0 &&
@@ -2100,7 +2100,7 @@ public:
             }
 
             // Microsurface normal.
-            multi<float_type, 3> wm = vm / pr::sqrt(dot_vm_vm);
+            multi<float_type, 3> wm = vm / pre::sqrt(dot_vm_vm);
             float_type dot_wo_wm = dot(wo, wm);
             float_type dot_wi_wm = dot(wi, wm);
             if (!(dot_wo_wm > 0 &&
@@ -2177,7 +2177,7 @@ public:
         float_type eta = (wo_outside ? eta_ : 1 / eta_);
 
         // Sample visible microsurface normal.
-        multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
+        multi<float_type, 2> u0 = pre::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
             wo_outside 
             ? +this->dwo_sample(u0, +wo) 
@@ -2203,7 +2203,7 @@ public:
             *ek *= fr + ft;
         }
 
-        if (pr::generate_canonical<float_type>(gen) < fr_weight) {
+        if (pre::generate_canonical<float_type>(gen) < fr_weight) {
             // Reflect.
             wi_outside = wo_outside;
             return normalize_fast(
@@ -2584,7 +2584,7 @@ public:
         }
 
         // Sample visible microsurface normal.
-        multi<float_type, 2> u0 = pr::generate_canonical<float_type, 2>(gen);
+        multi<float_type, 2> u0 = pre::generate_canonical<float_type, 2>(gen);
         multi<float_type, 3> wm =
                 wo_outside 
                 ? +this->dwo_sample(u0, +wo) 
@@ -2706,12 +2706,12 @@ public:
         }
 
         return
-            pr::numeric_constants<float_type>::M_1_pi() *
+            pre::numeric_constants<float_type>::M_1_pi() *
                 (a_ + b_ *
-                pr::fmax(
+                pre::fmax(
                     wo[0] * wi[0] +
                     wo[1] * wi[1], float_type(0)) /
-                pr::fmax(wo[2], wi[2])) * wi[2];
+                pre::fmax(wo[2], wi[2])) * wi[2];
     }
 
     /**
@@ -2763,7 +2763,7 @@ public:
     {
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
-        wi[2] = pr::copysign(wi[2], wo[2]);
+        wi[2] = pre::copysign(wi[2], wo[2]);
         return wi;
     }
 
@@ -2866,9 +2866,9 @@ public:
             float_type(0.5);
 
         return
-            pr::numeric_constants<float_type>::M_1_pi() *
-            (fd90m1 * pr::nthpow(1 - wo[2], 5) + 1) *
-            (fd90m1 * pr::nthpow(1 - wi[2], 5) + 1) * wi[2];
+            pre::numeric_constants<float_type>::M_1_pi() *
+            (fd90m1 * pre::nthpow(1 - wo[2], 5) + 1) *
+            (fd90m1 * pre::nthpow(1 - wi[2], 5) + 1) * wi[2];
     }
 
     /**
@@ -2920,7 +2920,7 @@ public:
     {
         multi<float_type, 3> wi =
         multi<float_type, 3>::cosine_hemisphere_pdf_sample(u);
-        wi[2] = pr::copysign(wi[2], wo[2]);
+        wi[2] = pre::copysign(wi[2], wo[2]);
         return wi;
     }
 
@@ -2934,6 +2934,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_MICROSURFACE_HPP

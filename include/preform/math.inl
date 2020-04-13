@@ -1,4 +1,4 @@
-/* Copyright (c) 2018-19 M. Grady Saunders
+/* Copyright (c) 2018-20 M. Grady Saunders
  * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,7 +28,7 @@
 /*+-+*/
 // A ruby script generates this file, DO NOT EDIT
 
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup math
@@ -678,128 +678,128 @@ inline auto atanh(T x) -> decltype(std::atanh(x))
 /**@{*/
 
 /**
- * @brief Reciprocal of `pr::sin()`.
+ * @brief Reciprocal of `pre::sin()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto csc(T x) -> decltype(pr::sin(x))
+inline auto csc(T x) -> decltype(pre::sin(x))
 {
-    return static_cast<decltype(pr::sin(x))>(1) / pr::sin(x);
+    return static_cast<decltype(pre::sin(x))>(1) / pre::sin(x);
 }
 
 /**
- * @brief Reciprocal of `pr::cos()`.
+ * @brief Reciprocal of `pre::cos()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto sec(T x) -> decltype(pr::cos(x))
+inline auto sec(T x) -> decltype(pre::cos(x))
 {
-    return static_cast<decltype(pr::cos(x))>(1) / pr::cos(x);
+    return static_cast<decltype(pre::cos(x))>(1) / pre::cos(x);
 }
 
 /**
- * @brief Reciprocal of `pr::tan()`.
+ * @brief Reciprocal of `pre::tan()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto cot(T x) -> decltype(pr::tan(x))
+inline auto cot(T x) -> decltype(pre::tan(x))
 {
-    return static_cast<decltype(pr::tan(x))>(1) / pr::tan(x);
+    return static_cast<decltype(pre::tan(x))>(1) / pre::tan(x);
 }
 
 /**
- * @brief Reciprocal of `pr::sinh()`.
+ * @brief Reciprocal of `pre::sinh()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto csch(T x) -> decltype(pr::sinh(x))
+inline auto csch(T x) -> decltype(pre::sinh(x))
 {
-    return static_cast<decltype(pr::sinh(x))>(1) / pr::sinh(x);
+    return static_cast<decltype(pre::sinh(x))>(1) / pre::sinh(x);
 }
 
 /**
- * @brief Reciprocal of `pr::cosh()`.
+ * @brief Reciprocal of `pre::cosh()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto sech(T x) -> decltype(pr::cosh(x))
+inline auto sech(T x) -> decltype(pre::cosh(x))
 {
-    return static_cast<decltype(pr::cosh(x))>(1) / pr::cosh(x);
+    return static_cast<decltype(pre::cosh(x))>(1) / pre::cosh(x);
 }
 
 /**
- * @brief Reciprocal of `pr::tanh()`.
+ * @brief Reciprocal of `pre::tanh()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto coth(T x) -> decltype(pr::tanh(x))
+inline auto coth(T x) -> decltype(pre::tanh(x))
 {
-    return static_cast<decltype(pr::tanh(x))>(1) / pr::tanh(x);
+    return static_cast<decltype(pre::tanh(x))>(1) / pre::tanh(x);
 }
 
 /**
- * @brief Inverse of `pr::csc()`.
+ * @brief Inverse of `pre::csc()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto acsc(T x) -> decltype(pr::asin(x))
+inline auto acsc(T x) -> decltype(pre::asin(x))
 {
-    return pr::asin(static_cast<decltype(pr::asin(x))>(1) / x);
+    return pre::asin(static_cast<decltype(pre::asin(x))>(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::sec()`.
+ * @brief Inverse of `pre::sec()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto asec(T x) -> decltype(pr::acos(x))
+inline auto asec(T x) -> decltype(pre::acos(x))
 {
-    return pr::acos(static_cast<decltype(pr::acos(x))>(1) / x);
+    return pre::acos(static_cast<decltype(pre::acos(x))>(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::cot()`.
+ * @brief Inverse of `pre::cot()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto acot(T x) -> decltype(pr::atan(x))
+inline auto acot(T x) -> decltype(pre::atan(x))
 {
-    return pr::atan(static_cast<decltype(pr::atan(x))>(1) / x);
+    return pre::atan(static_cast<decltype(pre::atan(x))>(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::csch()`.
+ * @brief Inverse of `pre::csch()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto acsch(T x) -> decltype(pr::asinh(x))
+inline auto acsch(T x) -> decltype(pre::asinh(x))
 {
-    return pr::asinh(static_cast<decltype(pr::asinh(x))>(1) / x);
+    return pre::asinh(static_cast<decltype(pre::asinh(x))>(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::sech()`.
+ * @brief Inverse of `pre::sech()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto asech(T x) -> decltype(pr::acosh(x))
+inline auto asech(T x) -> decltype(pre::acosh(x))
 {
-    return pr::acosh(static_cast<decltype(pr::acosh(x))>(1) / x);
+    return pre::acosh(static_cast<decltype(pre::acosh(x))>(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::coth()`.
+ * @brief Inverse of `pre::coth()`.
  */
 template <typename T>
 __attribute__((always_inline))
-inline auto acoth(T x) -> decltype(pr::atanh(x))
+inline auto acoth(T x) -> decltype(pre::atanh(x))
 {
-    return pr::atanh(static_cast<decltype(pr::atanh(x))>(1) / x);
+    return pre::atanh(static_cast<decltype(pre::atanh(x))>(1) / x);
 }
 
 /**@}*/
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 

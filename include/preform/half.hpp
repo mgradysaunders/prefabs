@@ -44,7 +44,7 @@
 // for std::numeric_limits
 #include <limits>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup half Half-precision float
@@ -345,6 +345,6 @@ inline half::operator float() const noexcept
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_HALF_HPP

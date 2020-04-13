@@ -41,7 +41,7 @@
 // for std::is_base_of
 #include <type_traits>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup dense_iterator Dense iterator
@@ -315,6 +315,6 @@ public:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_DENSE_ITERATOR_HPP

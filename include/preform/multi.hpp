@@ -59,7 +59,7 @@
 // for std::alignment_of, std::true_type, ...
 #include <type_traits>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup multi Multi-dimensional array
@@ -1185,7 +1185,7 @@ constexpr std::size_t multitoindex(const multi<bool, N>& arr)
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #if !DOXYGEN
 #include "multi.inl"

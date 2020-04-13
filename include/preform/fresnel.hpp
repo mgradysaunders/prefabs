@@ -35,10 +35,10 @@
 #ifndef PREFORM_FRESNEL_HPP
 #define PREFORM_FRESNEL_HPP
 
-// for pr::signbit, pr::copysign, pr::sqrt, ...
+// for pre::signbit, pre::copysign, pre::sqrt, ...
 #include <preform/math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup fresnel Fresnel equations
@@ -118,7 +118,7 @@ inline std::enable_if_t<
         return false;
     }
     else {
-        cos_thetat = pr::copysign(pr::sqrt(cos2_thetat), cos_thetai);
+        cos_thetat = pre::copysign(pre::sqrt(cos2_thetat), cos_thetai);
         rs = (eta * cos_thetai - cos_thetat) / (eta * cos_thetai + cos_thetat);
         rp = (cos_thetai - eta * cos_thetat) / (cos_thetai + eta * cos_thetat);
         ts = 1 + rs;
@@ -225,7 +225,7 @@ inline std::enable_if_t<
         return false;
     }
     else {
-        cos_thetat = pr::copysign(pr::sqrt(cos2_thetat), cos_thetai);
+        cos_thetat = pre::copysign(pre::sqrt(cos2_thetat), cos_thetai);
         cos_thetat = -cos_thetat;
         T sqrt_r0 = (eta - 1) / (eta + 1);
         T r0 = sqrt_r0 * sqrt_r0;
@@ -300,10 +300,10 @@ inline std::enable_if_t<
     }
 
     // Angle cosines.
-    T cos_theta1 = pr::sqrt(cos2_theta1);
-    T cos_theta2 = pr::sqrt(cos2_theta2);
-    cos_theta1 = pr::copysign(cos_theta1, cos_thetai);
-    cos_theta2 = pr::copysign(cos_theta2, cos_thetai);
+    T cos_theta1 = pre::sqrt(cos2_theta1);
+    T cos_theta2 = pre::sqrt(cos2_theta2);
+    cos_theta1 = pre::copysign(cos_theta1, cos_thetai);
+    cos_theta2 = pre::copysign(cos_theta2, cos_thetai);
     cos_thetat = -cos_theta2;
 
     // Fresnel coefficients for interface 1.
@@ -328,9 +328,9 @@ inline std::enable_if_t<
     T phi = T(2) * etaf * ellf / (lambda * cos_theta1);
     phi += (etai > etaf) ? T(1) : T(0);
     phi += (etaf < etat) ? T(1) : T(0);
-    phi *= pr::numeric_constants<T>::M_pi();
+    phi *= pre::numeric_constants<T>::M_pi();
     T alpha = muf * ellf / cos_theta1;
-    std::complex<T> exp_phi = pr::exp(std::complex<T>{-alpha, phi});
+    std::complex<T> exp_phi = pre::exp(std::complex<T>{-alpha, phi});
     std::complex<T> exp_phi2 = exp_phi * exp_phi;
     std::complex<T> rs2_exp_phi2 = rs2 * exp_phi2;
     std::complex<T> rp2_exp_phi2 = rp2 * exp_phi2;
@@ -401,8 +401,8 @@ inline std::enable_if_t<
                std::complex<T>& ts, std::complex<T>& tp)
 {
     cos_thetat =
-        pr::sign(cos_thetai) *
-        pr::sqrt(T(1) - eta * eta *
+        pre::sign(cos_thetai) *
+        pre::sqrt(T(1) - eta * eta *
                 (T(1) - cos_thetai * cos_thetai));
     rs = (eta * cos_thetai - cos_thetat) / (eta * cos_thetai + cos_thetat);
     rp = (cos_thetai - eta * cos_thetat) / (cos_thetai + eta * cos_thetat);
@@ -442,13 +442,13 @@ inline std::enable_if_t<
             cos_thetat,
             rs, rp,
             ts, tp);
-    return T(0.5) * (pr::norm(rs) + pr::norm(rp));
+    return T(0.5) * (pre::norm(rs) + pre::norm(rp));
 }
 
 /**@}*/
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_FRESNEL_HPP

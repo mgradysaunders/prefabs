@@ -1,4 +1,4 @@
-/* Copyright (c) 2018-19 M. Grady Saunders
+/* Copyright (c) 2018-20 M. Grady Saunders
  * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,7 +28,7 @@
 /*+-+*/
 // A ruby script generates this file, DO NOT EDIT
 
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup dualnum
@@ -46,301 +46,301 @@ namespace pr {
 /**@{*/
 
 /**
- * @brief Dual number implementation of `pr::exp()`.
+ * @brief Dual number implementation of `pre::exp()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> exp(const dualnum<T>& x)
 {
     return {
-        pr::exp(x.real()),
-        pr::exp(x.real()) * x.dual()
+        pre::exp(x.real()),
+        pre::exp(x.real()) * x.dual()
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::log()`.
+ * @brief Dual number implementation of `pre::log()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> log(const dualnum<T>& x)
 {
     return {
-        pr::log(x.real()),
+        pre::log(x.real()),
         x.dual() / x.real()
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::exp2()`.
+ * @brief Dual number implementation of `pre::exp2()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> exp2(const dualnum<T>& x)
 {
     return {
-        pr::exp2(x.real()),
-        pr::numeric_constants<T>::M_ln2() * pr::exp2(x.real()) * x.dual()
+        pre::exp2(x.real()),
+        pre::numeric_constants<T>::M_ln2() * pre::exp2(x.real()) * x.dual()
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::log2()`.
+ * @brief Dual number implementation of `pre::log2()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> log2(const dualnum<T>& x)
 {
     return {
-        pr::log2(x.real()),
-        x.dual() / (pr::numeric_constants<T>::M_ln2() * x.real())
+        pre::log2(x.real()),
+        x.dual() / (pre::numeric_constants<T>::M_ln2() * x.real())
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::log10()`.
+ * @brief Dual number implementation of `pre::log10()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> log10(const dualnum<T>& x)
 {
     return {
-        pr::log10(x.real()),
-        x.dual() / (pr::numeric_constants<T>::M_ln10() * x.real())
+        pre::log10(x.real()),
+        x.dual() / (pre::numeric_constants<T>::M_ln10() * x.real())
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::expm1()`.
+ * @brief Dual number implementation of `pre::expm1()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> expm1(const dualnum<T>& x)
 {
     return {
-        pr::expm1(x.real()),
-        pr::exp(x.real()) * x.dual()
+        pre::expm1(x.real()),
+        pre::exp(x.real()) * x.dual()
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::log1p()`.
+ * @brief Dual number implementation of `pre::log1p()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> log1p(const dualnum<T>& x)
 {
     return {
-        pr::log1p(x.real()),
+        pre::log1p(x.real()),
         x.dual() / (T(1) + x.real())
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::sqrt()`.
+ * @brief Dual number implementation of `pre::sqrt()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> sqrt(const dualnum<T>& x)
 {
     return {
-        pr::sqrt(x.real()),
-        x.dual() / (T(2) * pr::sqrt(x.real()))
+        pre::sqrt(x.real()),
+        x.dual() / (T(2) * pre::sqrt(x.real()))
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::cbrt()`.
+ * @brief Dual number implementation of `pre::cbrt()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> cbrt(const dualnum<T>& x)
 {
     return {
-        pr::cbrt(x.real()),
-        x.dual() / (T(3) * pr::nthpow(pr::cbrt(x.real()), 2))
+        pre::cbrt(x.real()),
+        x.dual() / (T(3) * pre::nthpow(pre::cbrt(x.real()), 2))
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::erf()`.
+ * @brief Dual number implementation of `pre::erf()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> erf(const dualnum<T>& x)
 {
     return {
-        pr::erf(x.real()),
-        pr::numeric_constants<T>::M_2_sqrtpi() * pr::exp(-pr::nthpow(x.real(), 2)) * x.dual()
+        pre::erf(x.real()),
+        pre::numeric_constants<T>::M_2_sqrtpi() * pre::exp(-pre::nthpow(x.real(), 2)) * x.dual()
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::erfc()`.
+ * @brief Dual number implementation of `pre::erfc()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> erfc(const dualnum<T>& x)
 {
     return {
-        pr::erfc(x.real()),
-        -pr::numeric_constants<T>::M_2_sqrtpi() * pr::exp(-pr::nthpow(x.real(), 2)) * x.dual()
+        pre::erfc(x.real()),
+        -pre::numeric_constants<T>::M_2_sqrtpi() * pre::exp(-pre::nthpow(x.real(), 2)) * x.dual()
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::sin()`.
+ * @brief Dual number implementation of `pre::sin()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> sin(const dualnum<T>& x)
 {
     return {
-        pr::sin(x.real()),
-        pr::cos(x.real()) * x.dual()
+        pre::sin(x.real()),
+        pre::cos(x.real()) * x.dual()
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::cos()`.
+ * @brief Dual number implementation of `pre::cos()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> cos(const dualnum<T>& x)
 {
     return {
-        pr::cos(x.real()),
-        -pr::sin(x.real()) * x.dual()
+        pre::cos(x.real()),
+        -pre::sin(x.real()) * x.dual()
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::tan()`.
+ * @brief Dual number implementation of `pre::tan()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> tan(const dualnum<T>& x)
 {
     return {
-        pr::tan(x.real()),
-        x.dual() / pr::nthpow(pr::cos(x.real()), 2)
+        pre::tan(x.real()),
+        x.dual() / pre::nthpow(pre::cos(x.real()), 2)
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::asin()`.
+ * @brief Dual number implementation of `pre::asin()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> asin(const dualnum<T>& x)
 {
     return {
-        pr::asin(x.real()),
-        x.dual() / pr::sqrt(T(1) - pr::nthpow(x.real(), 2))
+        pre::asin(x.real()),
+        x.dual() / pre::sqrt(T(1) - pre::nthpow(x.real(), 2))
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::acos()`.
+ * @brief Dual number implementation of `pre::acos()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> acos(const dualnum<T>& x)
 {
     return {
-        pr::acos(x.real()),
-        x.dual() / -pr::sqrt(T(1) - pr::nthpow(x.real(), 2))
+        pre::acos(x.real()),
+        x.dual() / -pre::sqrt(T(1) - pre::nthpow(x.real(), 2))
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::atan()`.
+ * @brief Dual number implementation of `pre::atan()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> atan(const dualnum<T>& x)
 {
     return {
-        pr::atan(x.real()),
-        x.dual() / (T(1) + pr::nthpow(x.real(), 2))
+        pre::atan(x.real()),
+        x.dual() / (T(1) + pre::nthpow(x.real(), 2))
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::sinh()`.
+ * @brief Dual number implementation of `pre::sinh()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> sinh(const dualnum<T>& x)
 {
     return {
-        pr::sinh(x.real()),
-        pr::cosh(x.real()) * x.dual()
+        pre::sinh(x.real()),
+        pre::cosh(x.real()) * x.dual()
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::cosh()`.
+ * @brief Dual number implementation of `pre::cosh()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> cosh(const dualnum<T>& x)
 {
     return {
-        pr::cosh(x.real()),
-        pr::sinh(x.real()) * x.dual()
+        pre::cosh(x.real()),
+        pre::sinh(x.real()) * x.dual()
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::tanh()`.
+ * @brief Dual number implementation of `pre::tanh()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> tanh(const dualnum<T>& x)
 {
     return {
-        pr::tanh(x.real()),
-        x.dual() / pr::nthpow(pr::cosh(x.real()), 2)
+        pre::tanh(x.real()),
+        x.dual() / pre::nthpow(pre::cosh(x.real()), 2)
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::asinh()`.
+ * @brief Dual number implementation of `pre::asinh()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> asinh(const dualnum<T>& x)
 {
     return {
-        pr::asinh(x.real()),
-        x.dual() / pr::sqrt(pr::nthpow(x.real(), 2) + T(1))
+        pre::asinh(x.real()),
+        x.dual() / pre::sqrt(pre::nthpow(x.real(), 2) + T(1))
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::acosh()`.
+ * @brief Dual number implementation of `pre::acosh()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> acosh(const dualnum<T>& x)
 {
     return {
-        pr::acosh(x.real()),
-        x.dual() / pr::sqrt(pr::nthpow(x.real(), 2) - T(1))
+        pre::acosh(x.real()),
+        x.dual() / pre::sqrt(pre::nthpow(x.real(), 2) - T(1))
     };
 }
 
 /**
- * @brief Dual number implementation of `pr::atanh()`.
+ * @brief Dual number implementation of `pre::atanh()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> atanh(const dualnum<T>& x)
 {
     return {
-        pr::atanh(x.real()),
-        x.dual() / (T(1) - pr::nthpow(x.real(), 2))
+        pre::atanh(x.real()),
+        x.dual() / (T(1) - pre::nthpow(x.real(), 2))
     };
 }
 
@@ -352,128 +352,128 @@ inline dualnum<T> atanh(const dualnum<T>& x)
 /**@{*/
 
 /**
- * @brief Reciprocal of `pr::sin()`.
+ * @brief Reciprocal of `pre::sin()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> csc(const dualnum<T>& x)
 {
-    return T(1) / pr::sin(x);
+    return T(1) / pre::sin(x);
 }
 
 /**
- * @brief Reciprocal of `pr::cos()`.
+ * @brief Reciprocal of `pre::cos()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> sec(const dualnum<T>& x)
 {
-    return T(1) / pr::cos(x);
+    return T(1) / pre::cos(x);
 }
 
 /**
- * @brief Reciprocal of `pr::tan()`.
+ * @brief Reciprocal of `pre::tan()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> cot(const dualnum<T>& x)
 {
-    return T(1) / pr::tan(x);
+    return T(1) / pre::tan(x);
 }
 
 /**
- * @brief Reciprocal of `pr::sinh()`.
+ * @brief Reciprocal of `pre::sinh()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> csch(const dualnum<T>& x)
 {
-    return T(1) / pr::sinh(x);
+    return T(1) / pre::sinh(x);
 }
 
 /**
- * @brief Reciprocal of `pr::cosh()`.
+ * @brief Reciprocal of `pre::cosh()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> sech(const dualnum<T>& x)
 {
-    return T(1) / pr::cosh(x);
+    return T(1) / pre::cosh(x);
 }
 
 /**
- * @brief Reciprocal of `pr::tanh()`.
+ * @brief Reciprocal of `pre::tanh()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> coth(const dualnum<T>& x)
 {
-    return T(1) / pr::tanh(x);
+    return T(1) / pre::tanh(x);
 }
 
 /**
- * @brief Inverse of `pr::csc()`.
+ * @brief Inverse of `pre::csc()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> acsc(const dualnum<T>& x)
 {
-    return pr::asin(T(1) / x);
+    return pre::asin(T(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::sec()`.
+ * @brief Inverse of `pre::sec()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> asec(const dualnum<T>& x)
 {
-    return pr::acos(T(1) / x);
+    return pre::acos(T(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::cot()`.
+ * @brief Inverse of `pre::cot()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> acot(const dualnum<T>& x)
 {
-    return pr::atan(T(1) / x);
+    return pre::atan(T(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::csch()`.
+ * @brief Inverse of `pre::csch()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> acsch(const dualnum<T>& x)
 {
-    return pr::asinh(T(1) / x);
+    return pre::asinh(T(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::sech()`.
+ * @brief Inverse of `pre::sech()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> asech(const dualnum<T>& x)
 {
-    return pr::acosh(T(1) / x);
+    return pre::acosh(T(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::coth()`.
+ * @brief Inverse of `pre::coth()`.
  */
 template <typename T>
 __attribute__((always_inline))
 inline dualnum<T> acoth(const dualnum<T>& x)
 {
-    return pr::atanh(T(1) / x);
+    return pre::atanh(T(1) / x);
 }
 
 /**@}*/
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 

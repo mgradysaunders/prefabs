@@ -35,13 +35,13 @@
 #ifndef PREFORM_MULTI_MATH_HPP
 #define PREFORM_MULTI_MATH_HPP
 
-// for pr::fabs, pr::fmin, ...
+// for pre::fabs, pre::fmin, ...
 #include <preform/math.hpp>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup multi_math Multi-dimensional array (math)
@@ -54,13 +54,13 @@ namespace pr {
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #if !DOXYGEN
 #include "multi_math.inl"
 #endif // #if !DOXYGEN
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup multi_math_geometry Multi-dimensional array (math, geometry)
@@ -315,16 +315,16 @@ constexpr multi<decltype(T() * U()),
  */
 template <typename T, std::size_t N>
 __attribute__((always_inline))
-inline decltype(pr::sqrt(pr::abs(T()))) length_fast(const multi<T, N>& arr)
+inline decltype(pre::sqrt(pre::abs(T()))) length_fast(const multi<T, N>& arr)
 {
     if constexpr (N == 1) {
         // Delegate.
-        return pr::abs(arr[0]);
+        return pre::abs(arr[0]);
     }
     else {
 
         // Length.
-        return pr::sqrt(pr::norm(arr).sum());
+        return pre::sqrt(pre::norm(arr).sum());
     }
 }
 
@@ -343,54 +343,54 @@ inline decltype(pr::sqrt(pr::abs(T()))) length_fast(const multi<T, N>& arr)
  * from under the radical.
  */
 template <typename T, std::size_t N>
-inline decltype(pr::sqrt(pr::abs(T()))) length_safe(const multi<T, N>& arr)
+inline decltype(pre::sqrt(pre::abs(T()))) length_safe(const multi<T, N>& arr)
 {
     if constexpr (N == 1) {
         // Delegate.
-        return pr::abs(arr[0]);
+        return pre::abs(arr[0]);
     }
     else if constexpr (N == 2) {
         // Delegate.
-        return pr::hypot(
-                    pr::abs(arr[0]),
-                    pr::abs(arr[1]));
+        return pre::hypot(
+                    pre::abs(arr[0]),
+                    pre::abs(arr[1]));
     }
     else {
 
         // Deduce floating point type.
-        typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
+        typedef decltype(pre::sqrt(pre::abs(T()))) float_type;
 
         // Reduce to floating point absolutes values.
         multi<float_type, N> tmp =
-        multi<float_type, N>(pr::abs(arr));
+        multi<float_type, N>(pre::abs(arr));
 
         // Determine extremal values.
-        float_type tmpmin = pr::numeric_limits<float_type>::max();
+        float_type tmpmin = pre::numeric_limits<float_type>::max();
         float_type tmpmax = 0;
         for (float_type tmpval : tmp) {
             if (tmpval != 0) {
-                tmpmin = pr::fmin(tmpmin, tmpval);
-                tmpmax = pr::fmax(tmpmax, tmpval);
+                tmpmin = pre::fmin(tmpmin, tmpval);
+                tmpmax = pre::fmax(tmpmax, tmpval);
             }
         }
 
         // Impending overflow or underflow?
         if (tmpmax *
-            tmpmax >= pr::numeric_limits<float_type>::max() / N ||
-            tmpmin <= pr::numeric_limits<float_type>::min_squarable()) {
+            tmpmax >= pre::numeric_limits<float_type>::max() / N ||
+            tmpmin <= pre::numeric_limits<float_type>::min_squarable()) {
             // Factor out maximum.
-            if (tmpmax >= pr::numeric_limits<float_type>::min_invertible()) {
+            if (tmpmax >= pre::numeric_limits<float_type>::min_invertible()) {
                 tmp *= 1 / tmpmax;
             }
             else {
                 tmp /= tmpmax; // Inverse overflows.
             }
             // Length.
-            return pr::sqrt(dot(tmp, tmp)) * tmpmax;
+            return pre::sqrt(dot(tmp, tmp)) * tmpmax;
         }
         else {
             // Length.
-            return pr::sqrt(dot(tmp, tmp));
+            return pre::sqrt(dot(tmp, tmp));
         }
     }
 }
@@ -409,7 +409,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length_safe(const multi<T, N>& arr)
  * `length_fast()`.
  */
 template <typename T, std::size_t N>
-inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
+inline decltype(pre::sqrt(pre::abs(T()))) length(const multi<T, N>& arr)
 {
 #if PR_DEFAULT_LENGTH_FAST
     return length_fast(arr);
@@ -434,7 +434,7 @@ inline decltype(pr::sqrt(pr::abs(T()))) length(const multi<T, N>& arr)
  */
 template <typename T, std::size_t N>
 __attribute__((always_inline))
-inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
+inline multi<decltype(T()/pre::sqrt(pre::abs(T()))), N>
                                     normalize_fast(const multi<T, N>& arr)
 {
     // Normalize.
@@ -457,11 +457,11 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
  * divides by length instead of multiplying by reciprocal.
  */
 template <typename T, std::size_t N>
-inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
+inline multi<decltype(T()/pre::sqrt(pre::abs(T()))), N>
                                     normalize_safe(const multi<T, N>& arr)
 {
     // Deduce floating point type.
-    typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
+    typedef decltype(pre::sqrt(pre::abs(T()))) float_type;
 
     // Length.
     float_type len = length_safe(arr);
@@ -472,7 +472,7 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
     // Normalize.
     multi<decltype(T()/float_type()), N> res =
     multi<decltype(T()/float_type()), N>(arr);
-    if (len >= pr::numeric_limits<float_type>::min_invertible()) {
+    if (len >= pre::numeric_limits<float_type>::min_invertible()) {
         res *= 1 / len;
     }
     else {
@@ -496,7 +496,7 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
  * `normalize_fast()`.
  */
 template <typename T, std::size_t N>
-inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), N>
+inline multi<decltype(T()/pre::sqrt(pre::abs(T()))), N>
                                     normalize(const multi<T, N>& arr)
 {
 #if PR_DEFAULT_NORMALIZE_FAST
@@ -569,7 +569,7 @@ constexpr multi<T, N, M> adjoint(const multi<T, M, N>& arr)
     multi<T, N, M> res;
     for (std::size_t i = 0; i < N; i++)
     for (std::size_t j = 0; j < M; j++) {
-        res[i][j] = pr::conj(arr[j][i]);
+        res[i][j] = pre::conj(arr[j][i]);
     }
     return res;
 }
@@ -588,11 +588,11 @@ constexpr multi<T, N, M> adjoint(const multi<T, M, N>& arr)
  * This method is unstable if the matrix is ill-conditioned.
  */
 template <typename T>
-inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), 2, 2>
+inline multi<decltype(T()/pre::sqrt(pre::abs(T()))), 2, 2>
                 inverse(const multi<T, 2, 2>& arr)
 {
     // Deduce floating point type.
-    typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
+    typedef decltype(pre::sqrt(pre::abs(T()))) float_type;
 
     // Cofactor matrix.
     multi<decltype(T()/float_type()), 2, 2> cof = {
@@ -618,11 +618,11 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), 2, 2>
  * This method is unstable if the matrix is ill-conditioned.
  */
 template <typename T>
-inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), 3, 3>
+inline multi<decltype(T()/pre::sqrt(pre::abs(T()))), 3, 3>
                 inverse(const multi<T, 3, 3>& arr)
 {
     // Deduce floating point type.
-    typedef decltype(pr::sqrt(pr::abs(T()))) float_type;
+    typedef decltype(pre::sqrt(pre::abs(T()))) float_type;
 
     // Cofactor matrix.
     multi<decltype(T()/float_type()), 3, 3> cof;
@@ -636,10 +636,10 @@ inline multi<decltype(T()/pr::sqrt(pr::abs(T()))), 3, 3>
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 // Math initializers, possible move to separate file?
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup multi_math_geometry
@@ -665,7 +665,7 @@ struct multi_initializers<
      */
     static T uniform_disk_pdf()
     {
-        return pr::numeric_constants<T>::M_1_pi();
+        return pre::numeric_constants<T>::M_1_pi();
     }
 
     /**
@@ -708,18 +708,18 @@ struct multi_initializers<
         else {
             T r;
             T theta;
-            if (pr::fabs(u[0]) > pr::fabs(u[1])) {
+            if (pre::fabs(u[0]) > pre::fabs(u[1])) {
                 r = u[0];
-                theta = pr::numeric_constants<T>::M_pi_4() * (u[1] / u[0]);
+                theta = pre::numeric_constants<T>::M_pi_4() * (u[1] / u[0]);
             }
             else {
                 r = u[1];
-                theta = pr::numeric_constants<T>::M_pi_4() * (u[0] / u[1]);
-                theta = pr::numeric_constants<T>::M_pi_2() - theta;
+                theta = pre::numeric_constants<T>::M_pi_4() * (u[0] / u[1]);
+                theta = pre::numeric_constants<T>::M_pi_2() - theta;
             }
             return {
-                r * pr::cos(theta),
-                r * pr::sin(theta)
+                r * pre::cos(theta),
+                r * pre::sin(theta)
             };
         }
     }
@@ -744,7 +744,7 @@ struct multi_initializers<
      */
     static T uniform_hemisphere_pdf()
     {
-        return pr::numeric_constants<T>::M_1_pi() / T(2);
+        return pre::numeric_constants<T>::M_1_pi() / T(2);
     }
 
     /**
@@ -770,13 +770,13 @@ struct multi_initializers<
     static multi<T, 3> uniform_hemisphere_pdf_sample(multi<T, 2> u)
     {
         T cos_theta = u[0];
-        cos_theta = pr::fmax(cos_theta, T(0));
-        cos_theta = pr::fmin(cos_theta, T(1));
-        T sin_theta = pr::sqrt(1 - cos_theta * cos_theta);
-        T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
+        cos_theta = pre::fmax(cos_theta, T(0));
+        cos_theta = pre::fmin(cos_theta, T(1));
+        T sin_theta = pre::sqrt(1 - cos_theta * cos_theta);
+        T phi = 2 * pre::numeric_constants<T>::M_pi() * u[1];
         return {
-            sin_theta * pr::cos(phi),
-            sin_theta * pr::sin(phi),
+            sin_theta * pre::cos(phi),
+            sin_theta * pre::sin(phi),
             cos_theta
         };
     }
@@ -791,7 +791,7 @@ struct multi_initializers<
      */
     static T uniform_sphere_pdf()
     {
-        return pr::numeric_constants<T>::M_1_pi() / T(4);
+        return pre::numeric_constants<T>::M_1_pi() / T(4);
     }
 
     /**
@@ -817,13 +817,13 @@ struct multi_initializers<
     static multi<T, 3> uniform_sphere_pdf_sample(multi<T, 2> u)
     {
         T cos_theta = 2 * u[0] - 1;
-        cos_theta = pr::fmax(cos_theta, T(-1));
-        cos_theta = pr::fmin(cos_theta, T(+1));
-        T sin_theta = pr::sqrt(1 - cos_theta * cos_theta);
-        T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
+        cos_theta = pre::fmax(cos_theta, T(-1));
+        cos_theta = pre::fmin(cos_theta, T(+1));
+        T sin_theta = pre::sqrt(1 - cos_theta * cos_theta);
+        T phi = 2 * pre::numeric_constants<T>::M_pi() * u[1];
         return {
-            sin_theta * pr::cos(phi),
-            sin_theta * pr::sin(phi),
+            sin_theta * pre::cos(phi),
+            sin_theta * pre::sin(phi),
             cos_theta
         };
     }
@@ -841,7 +841,7 @@ struct multi_initializers<
      */
     static T cosine_hemisphere_pdf(T w2)
     {
-        return pr::numeric_constants<T>::M_1_pi() * w2;
+        return pre::numeric_constants<T>::M_1_pi() * w2;
     }
 
     /**
@@ -868,7 +868,7 @@ struct multi_initializers<
         return {
             p[0],
             p[1],
-            pr::sqrt(T(1) - pr::fmin(dot(p, p), T(1)))
+            pre::sqrt(T(1) - pre::fmin(dot(p, p), T(1)))
         };
     }
 
@@ -887,7 +887,7 @@ struct multi_initializers<
      */
     static T uniform_cone_pdf(T cos_thetamax)
     {
-        return pr::numeric_constants<T>::M_1_pi() / 2 / (1 - cos_thetamax);
+        return pre::numeric_constants<T>::M_1_pi() / 2 / (1 - cos_thetamax);
     }
 
     /**
@@ -916,13 +916,13 @@ struct multi_initializers<
     static multi<T, 3> uniform_cone_pdf_sample(T cos_thetamax, multi<T, 2> u)
     {
         T cos_theta = (1 - u[0]) + u[0] * cos_thetamax;
-        cos_theta = pr::fmax(cos_theta, T(-1));
-        cos_theta = pr::fmin(cos_theta, T(+1));
-        T sin_theta = pr::sqrt(1 - cos_theta * cos_theta);
-        T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
+        cos_theta = pre::fmax(cos_theta, T(-1));
+        cos_theta = pre::fmin(cos_theta, T(+1));
+        T sin_theta = pre::sqrt(1 - cos_theta * cos_theta);
+        T phi = 2 * pre::numeric_constants<T>::M_pi() * u[1];
         return {
-            sin_theta * pr::cos(phi),
-            sin_theta * pr::sin(phi),
+            sin_theta * pre::cos(phi),
+            sin_theta * pre::sin(phi),
             cos_theta
         };
     }
@@ -945,16 +945,16 @@ struct multi_initializers<
      */
     static T hg_phase_pdf(T g, T w2)
     {
-        if (pr::fabs(g) < T(0.00001)) {
+        if (pre::fabs(g) < T(0.00001)) {
             return uniform_sphere_pdf();
         }
         else {
-            g = pr::fmin(g, T(+0.99999));
-            g = pr::fmax(g, T(-0.99999));
+            g = pre::fmin(g, T(+0.99999));
+            g = pre::fmax(g, T(-0.99999));
             T a = 1 - g * g;
             T b = 1 + g * g - 2 * g * w2;
-            T b3_2 = pr::sqrt(b * b * b);
-            return T(0.25) * pr::numeric_constants<T>::M_1_pi() * (a / b3_2);
+            T b3_2 = pre::sqrt(b * b * b);
+            return T(0.25) * pre::numeric_constants<T>::M_1_pi() * (a / b3_2);
         }
     }
 
@@ -970,21 +970,21 @@ struct multi_initializers<
      */
     static multi<T, 3> hg_phase_pdf_sample(T g, multi<T, 2> u)
     {
-        if (pr::fabs(g) < T(0.00001)) {
+        if (pre::fabs(g) < T(0.00001)) {
             return uniform_sphere_pdf_sample(u);
         }
         else {
-            g = pr::fmin(g, T(+0.99999));
-            g = pr::fmax(g, T(-0.99999));
+            g = pre::fmin(g, T(+0.99999));
+            g = pre::fmax(g, T(-0.99999));
             T tmp = (1 - g * g) / (1 - g + 2 * g * u[0]);
             T cos_theta = (1 + g * g - tmp * tmp) / (2 * g);
-            cos_theta = pr::fmax(cos_theta, T(-1));
-            cos_theta = pr::fmin(cos_theta, T(+1));
-            T sin_theta = pr::sqrt(T(1) - cos_theta * cos_theta);
-            T phi = 2 * pr::numeric_constants<T>::M_pi() * u[1];
+            cos_theta = pre::fmax(cos_theta, T(-1));
+            cos_theta = pre::fmin(cos_theta, T(+1));
+            T sin_theta = pre::sqrt(T(1) - cos_theta * cos_theta);
+            T phi = 2 * pre::numeric_constants<T>::M_pi() * u[1];
             return {
-                sin_theta * pr::cos(phi),
-                sin_theta * pr::sin(phi),
+                sin_theta * pre::cos(phi),
+                sin_theta * pre::sin(phi),
                 cos_theta
             };
         }
@@ -1025,8 +1025,8 @@ struct multi_initializers<
      */
     static multi<T, 2, 2> rotate(T theta)
     {
-        T cos_theta = pr::cos(theta);
-        T sin_theta = pr::sin(theta);
+        T cos_theta = pre::cos(theta);
+        T sin_theta = pre::sin(theta);
         return {
             {+cos_theta, -sin_theta},
             {+sin_theta, +cos_theta}
@@ -1122,8 +1122,8 @@ struct multi_initializers<
      */
     static multi<T, 3, 3> rotate(T theta, multi<T, 3> hatv)
     {
-        T cos_theta = pr::cos(theta);
-        T sin_theta = pr::sin(theta);
+        T cos_theta = pre::cos(theta);
+        T sin_theta = pre::sin(theta);
         T vx = hatv[0];
         T vy = hatv[1];
         T vz = hatv[2];
@@ -1161,8 +1161,8 @@ struct multi_initializers<
     __attribute__((always_inline))
     static multi<T, 3, 3> rotatex(T theta)
     {
-        T cos_theta = pr::cos(theta);
-        T sin_theta = pr::sin(theta);
+        T cos_theta = pre::cos(theta);
+        T sin_theta = pre::sin(theta);
         return {
             {T(1), T(0), T(0)},
             {T(0), +cos_theta, -sin_theta},
@@ -1188,8 +1188,8 @@ struct multi_initializers<
     __attribute__((always_inline))
     static multi<T, 3, 3> rotatey(T theta)
     {
-        T cos_theta = pr::cos(theta);
-        T sin_theta = pr::sin(theta);
+        T cos_theta = pre::cos(theta);
+        T sin_theta = pre::sin(theta);
         return {
             {+cos_theta, T(0), +sin_theta},
             {T(0), T(1), T(0)},
@@ -1215,8 +1215,8 @@ struct multi_initializers<
     __attribute__((always_inline))
     static multi<T, 3, 3> rotatez(T theta)
     {
-        T cos_theta = pr::cos(theta);
-        T sin_theta = pr::sin(theta);
+        T cos_theta = pre::cos(theta);
+        T sin_theta = pre::sin(theta);
         return {
             {+cos_theta, -sin_theta, T(0)},
             {+sin_theta, +cos_theta, T(0)},
@@ -1629,7 +1629,7 @@ struct multi_initializers<
     static multi<T, 4, 4> persp(T f, T r, T z0, T z1)
     {
         multi<T, 4, 4> res;
-        T cot_f_2 = pr::cot(f * T(0.5));
+        T cot_f_2 = pre::cot(f * T(0.5));
         res[0][0] = cot_f_2 / r;
         res[1][1] = cot_f_2;
         res[2][2] = -(z1 + z0) / (z1 - z0);
@@ -1641,6 +1641,6 @@ struct multi_initializers<
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_MULTI_MATH_HPP

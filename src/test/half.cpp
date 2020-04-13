@@ -6,7 +6,7 @@
 #include <preform/half.hpp>
 
 // Permuted congruential generator.
-pr::pcg32 pcg;
+pre::pcg32 pcg;
 
 // Test half accuracy.
 void testHalfAccuracy()
@@ -18,12 +18,12 @@ void testHalfAccuracy()
     std::cout.flush();
 
     for (int k = 0; k < 8192; k++) {
-        float x0 = pr::copysign(65504.0f *
-                   pr::generate_canonical<float>(pcg),
+        float x0 = pre::copysign(65504.0f *
+                   pre::generate_canonical<float>(pcg),
                             pcg(2) == 0 ? +1.0f : -1.0f);
 
-        float xh = pr::half(x0);
-        if (!(pr::fabs(xh - x0) / pr::fabs(x0) <= 0x1p-11f)) {
+        float xh = pre::half(x0);
+        if (!(pre::fabs(xh - x0) / pre::fabs(x0) <= 0x1p-11f)) {
             std::cerr << "Failure!\n";
             std::cerr << "x0 = " << x0 << "\n";
             std::cerr << "xh = " << xh << "\n\n";
@@ -38,7 +38,7 @@ void testHalfAccuracy()
 // Test half special cases.
 void testHalfSpecialCase(float f)
 {
-    pr::half h = f;
+    pre::half h = f;
     std::cout << "Testing half " << f << ":\n";
     std::cout << "half(" << f << ").isinf(): " << h.isinf() << "\n";
     std::cout << "half(" << f << ").isnan(): " << h.isnan() << "\n";
@@ -52,7 +52,7 @@ int main(int argc, char** argv)
     int seed = 0;
 
     // Option parser.
-    pr::option_parser opt_parser("[OPTIONS]");
+    pre::option_parser opt_parser("[OPTIONS]");
 
     // Specify seed.
     opt_parser.on_option(
@@ -96,7 +96,7 @@ int main(int argc, char** argv)
     }
     std::cout << "seed = " << seed << "\n\n";
     std::cout.flush();
-    pcg = pr::pcg32(seed);
+    pcg = pre::pcg32(seed);
 
     // Test half accuracy.
     testHalfAccuracy();
@@ -106,10 +106,10 @@ int main(int argc, char** argv)
     std::cout << std::boolalpha;
     testHalfSpecialCase(+0.0f);
     testHalfSpecialCase(-0.0f);
-    testHalfSpecialCase(+pr::numeric_limits<float>::infinity());
-    testHalfSpecialCase(-pr::numeric_limits<float>::infinity());
-    testHalfSpecialCase(+pr::numeric_limits<float>::quiet_NaN());
-    testHalfSpecialCase(-pr::numeric_limits<float>::quiet_NaN());
+    testHalfSpecialCase(+pre::numeric_limits<float>::infinity());
+    testHalfSpecialCase(-pre::numeric_limits<float>::infinity());
+    testHalfSpecialCase(+pre::numeric_limits<float>::quiet_NaN());
+    testHalfSpecialCase(-pre::numeric_limits<float>::quiet_NaN());
 
     return EXIT_SUCCESS;
 }

@@ -35,22 +35,22 @@
 #ifndef PREFORM_COLOR_HPP
 #define PREFORM_COLOR_HPP
 
-// for pr::pow, pr::nthpow, ...
+// for pre::pow, pre::nthpow, ...
 #include <preform/math.hpp>
 
-// for pr::fstretch
+// for pre::fstretch
 #include <preform/misc_float.hpp>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_misc_float.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup color Color
@@ -93,7 +93,7 @@ inline std::enable_if_t<
             return T(12.92) * v;
         }
         else {
-            return T(1.055) * pr::pow(v, T(1) / T(2.4)) -
+            return T(1.055) * pre::pow(v, T(1) / T(2.4)) -
                    T(0.055);
         }
     }
@@ -194,7 +194,7 @@ inline std::enable_if_t<
             return v / T(12.92);
         }
         else {
-            return pr::pow((v + T(0.055)) / T(1.055), T(2.4));
+            return pre::pow((v + T(0.055)) / T(1.055), T(2.4));
         }
     }
     else {
@@ -371,7 +371,7 @@ template <typename T>
 inline std::enable_if_t<
        std::is_floating_point<T>::value, T> srgbenc_hejl_burgess(T v)
 {
-    v = pr::fmax(v - T(0.004), T(0));
+    v = pre::fmax(v - T(0.004), T(0));
     return (v * (v * T(6.2) + T(0.5))) /
            (v * (v * T(6.2) + T(1.7)) + T(0.06));
 }
@@ -451,12 +451,12 @@ inline std::enable_if_t<std::is_floating_point<T>::value, T> wymanx(T lambda)
     T t1 = lambda - T(0.4420);
     T t2 = lambda - T(0.5998);
     T t3 = lambda - T(0.5011);
-    t1 *= pr::signbit(t1) ? T(62.4) : T(37.4);
-    t2 *= pr::signbit(t2) ? T(26.4) : T(32.3);
-    t3 *= pr::signbit(t3) ? T(49.0) : T(38.2);
-    return T(0.362) * pr::exp(T(-0.5) * t1 * t1) +
-           T(1.056) * pr::exp(T(-0.5) * t2 * t2) -
-           T(0.065) * pr::exp(T(-0.5) * t3 * t3);
+    t1 *= pre::signbit(t1) ? T(62.4) : T(37.4);
+    t2 *= pre::signbit(t2) ? T(26.4) : T(32.3);
+    t3 *= pre::signbit(t3) ? T(49.0) : T(38.2);
+    return T(0.362) * pre::exp(T(-0.5) * t1 * t1) +
+           T(1.056) * pre::exp(T(-0.5) * t2 * t2) -
+           T(0.065) * pre::exp(T(-0.5) * t3 * t3);
 }
 
 /**
@@ -473,10 +473,10 @@ inline std::enable_if_t<std::is_floating_point<T>::value, T> wymany(T lambda)
 {
     T t1 = lambda - T(0.5688);
     T t2 = lambda - T(0.5309);
-    t1 *= pr::signbit(t1) ? T(21.3) : T(24.7);
-    t2 *= pr::signbit(t2) ? T(61.3) : T(32.2);
-    return T(0.821) * pr::exp(T(-0.5) * t1 * t1) +
-           T(0.286) * pr::exp(T(-0.5) * t2 * t2);
+    t1 *= pre::signbit(t1) ? T(21.3) : T(24.7);
+    t2 *= pre::signbit(t2) ? T(61.3) : T(32.2);
+    return T(0.821) * pre::exp(T(-0.5) * t1 * t1) +
+           T(0.286) * pre::exp(T(-0.5) * t2 * t2);
 }
 
 /**
@@ -493,10 +493,10 @@ inline std::enable_if_t<std::is_floating_point<T>::value, T> wymanz(T lambda)
 {
     T t1 = lambda - T(0.4370);
     T t2 = lambda - T(0.4590);
-    t1 *= pr::signbit(t1) ? T(84.5) : T(27.8);
-    t2 *= pr::signbit(t2) ? T(38.5) : T(72.5);
-    return T(1.217) * pr::exp(T(-0.5) * t1 * t1) +
-           T(0.681) * pr::exp(T(-0.5) * t2 * t2);
+    t1 *= pre::signbit(t1) ? T(84.5) : T(27.8);
+    t2 *= pre::signbit(t2) ? T(38.5) : T(72.5);
+    return T(1.217) * pre::exp(T(-0.5) * t1 * t1) +
+           T(0.681) * pre::exp(T(-0.5) * t2 * t2);
 }
 
 /**
@@ -533,8 +533,8 @@ inline std::enable_if_t<
 
     constexpr T c0 = T(1.19104290768681554502861912e+02L);
     constexpr T c1 = T(1.43877729954300303744214349e+04L);
-    return c0 / (pr::nthpow(lambda, 5) *
-                 pr::expm1(c1 / (t * lambda)));
+    return c0 / (pre::nthpow(lambda, 5) *
+                 pre::expm1(c1 / (t * lambda)));
 }
 
 /**
@@ -732,7 +732,7 @@ inline std::enable_if_t<
 {
     auto f = [](T t) {
         if (t > T(216) / T(24389)) {
-            return pr::cbrt(t);
+            return pre::cbrt(t);
         }
         else {
             return (t * (T(24389) / T(27)) + T(16)) / T(116);
@@ -821,7 +821,7 @@ inline std::enable_if_t<
     T t = v[1] / w[1];
     T l = t <= t0 
         ? t / t0 
-        : 116 * pr::cbrt(t) - 16;
+        : 116 * pre::cbrt(t) - 16;
 
     multi<T, 2> wp = {4 * w[0], 9 * w[1]};
     multi<T, 2> vp = {4 * v[0], 9 * v[1]};
@@ -866,7 +866,7 @@ inline std::enable_if_t<
         wp[0] + v[1] / (13 * v[0]),
         wp[1] + v[2] / (13 * v[0])
     };
-    if (!pr::isfinite(vp).all()) {
+    if (!pre::isfinite(vp).all()) {
         return {};
     }
     return {
@@ -1239,7 +1239,7 @@ inline std::enable_if_t<
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #if !DOXYGEN
 #include "color.inl"

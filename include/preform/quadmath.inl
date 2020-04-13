@@ -1,4 +1,4 @@
-/* Copyright (c) 2018-19 M. Grady Saunders
+/* Copyright (c) 2018-20 M. Grady Saunders
  * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,7 +28,7 @@
 /*+-+*/
 // A ruby script generates this file, DO NOT EDIT
 
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup quadmath
@@ -865,7 +865,7 @@ inline std::enable_if_t<std::is_same<U, __complex128>::value, U> atanh(U x)
 /**@{*/
 
 /**
- * @brief Reciprocal of `pr::sin()`.
+ * @brief Reciprocal of `pre::sin()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -873,11 +873,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> csc(T x)
 {
-    return T(1) / pr::sin(x);
+    return T(1) / pre::sin(x);
 }
 
 /**
- * @brief Reciprocal of `pr::cos()`.
+ * @brief Reciprocal of `pre::cos()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -885,11 +885,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> sec(T x)
 {
-    return T(1) / pr::cos(x);
+    return T(1) / pre::cos(x);
 }
 
 /**
- * @brief Reciprocal of `pr::tan()`.
+ * @brief Reciprocal of `pre::tan()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -897,11 +897,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> cot(T x)
 {
-    return T(1) / pr::tan(x);
+    return T(1) / pre::tan(x);
 }
 
 /**
- * @brief Reciprocal of `pr::sinh()`.
+ * @brief Reciprocal of `pre::sinh()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -909,11 +909,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> csch(T x)
 {
-    return T(1) / pr::sinh(x);
+    return T(1) / pre::sinh(x);
 }
 
 /**
- * @brief Reciprocal of `pr::cosh()`.
+ * @brief Reciprocal of `pre::cosh()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -921,11 +921,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> sech(T x)
 {
-    return T(1) / pr::cosh(x);
+    return T(1) / pre::cosh(x);
 }
 
 /**
- * @brief Reciprocal of `pr::tanh()`.
+ * @brief Reciprocal of `pre::tanh()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -933,11 +933,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> coth(T x)
 {
-    return T(1) / pr::tanh(x);
+    return T(1) / pre::tanh(x);
 }
 
 /**
- * @brief Inverse of `pr::csc()`.
+ * @brief Inverse of `pre::csc()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -945,11 +945,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> acsc(T x)
 {
-    return pr::asin(T(1) / x);
+    return pre::asin(T(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::sec()`.
+ * @brief Inverse of `pre::sec()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -957,11 +957,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> asec(T x)
 {
-    return pr::acos(T(1) / x);
+    return pre::acos(T(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::cot()`.
+ * @brief Inverse of `pre::cot()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -969,11 +969,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> acot(T x)
 {
-    return pr::atan(T(1) / x);
+    return pre::atan(T(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::csch()`.
+ * @brief Inverse of `pre::csch()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -981,11 +981,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> acsch(T x)
 {
-    return pr::asinh(T(1) / x);
+    return pre::asinh(T(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::sech()`.
+ * @brief Inverse of `pre::sech()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -993,11 +993,11 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> asech(T x)
 {
-    return pr::acosh(T(1) / x);
+    return pre::acosh(T(1) / x);
 }
 
 /**
- * @brief Inverse of `pr::coth()`.
+ * @brief Inverse of `pre::coth()`.
  */
 template <typename T>
 __attribute__((always_inline))
@@ -1005,12 +1005,12 @@ inline std::enable_if_t<
                 std::is_same<T, __float128>::value ||
                 std::is_same<T, __complex128>::value, T> acoth(T x)
 {
-    return pr::atanh(T(1) / x);
+    return pre::atanh(T(1) / x);
 }
 
 /**@}*/
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 

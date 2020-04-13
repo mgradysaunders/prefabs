@@ -35,19 +35,19 @@
 #ifndef PREFORM_SIMPLEX_NOISE4_HPP
 #define PREFORM_SIMPLEX_NOISE4_HPP
 
-// for pr::wrap, pr::cantor
+// for pre::wrap, pre::cantor
 #include <preform/misc_int.hpp>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::pcg32
+// for pre::pcg32
 #include <preform/random.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup simplex_noise4 Simplex noise (4-dimensional)
@@ -107,13 +107,13 @@ public:
     {
         // f = (sqrt(n + 1) - 1) / n
         static const float_type f =
-            float_type(0.25) * pr::sqrt(float_type(5)) -
+            float_type(0.25) * pre::sqrt(float_type(5)) -
             float_type(0.25);
 
         // g = (1 - 1 / sqrt(n + 1)) / n
         static const float_type g =
             float_type(0.25) -
-            float_type(0.25) / pr::sqrt(float_type(5));
+            float_type(0.25) / pre::sqrt(float_type(5));
 
         // Zero initialize.
         if (ds_dt) {
@@ -124,7 +124,7 @@ public:
         multi<float_type, 4> u = t + f * t.sum();
 
         // Floor.
-        multi<float_type, 4> u0 = pr::floor(u);
+        multi<float_type, 4> u0 = pre::floor(u);
 
         // Shift to [0, 1)^4.
         u -= u0;
@@ -202,7 +202,7 @@ public:
             float_type r = float_type(0.7);
 
             // Factor.
-            float_type q = r * r - pr::dot(tk, tk);
+            float_type q = r * r - pre::dot(tk, tk);
 
             if (q > float_type(0)) {
 
@@ -210,7 +210,7 @@ public:
                 multi<float_type, 4> xk = grad(w0 + wk);
 
                 // Projection onto gradient.
-                float_type pk = pr::dot(tk, xk);
+                float_type pk = pre::dot(tk, xk);
 
                 float_type q2 = q * q;
 
@@ -252,6 +252,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_SIMPLEX_NOISE4_HPP

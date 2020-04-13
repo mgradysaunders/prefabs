@@ -35,19 +35,19 @@
 #ifndef PREFORM_IMAGE2_HPP
 #define PREFORM_IMAGE2_HPP
 
-// for pr::block_array2
+// for pre::block_array2
 #include <preform/block_array2.hpp>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_misc_float.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup image2 Image (2-dimensional)
@@ -190,8 +190,8 @@ public:
                 multi<float_type, 2> loc1 = ind + 1;
 
                 // Clamp.
-                loc0 = pr::fmax(loc0, locmin);
-                loc1 = pr::fmin(loc1, locmax);
+                loc0 = pre::fmax(loc0, locmin);
+                loc1 = pre::fmin(loc1, locmax);
 
                 // Compute contribution.
                 numer += (loc1 - loc0).prod() * fetch(ind);
@@ -604,6 +604,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_IMAGE2_HPP

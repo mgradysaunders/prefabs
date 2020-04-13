@@ -62,7 +62,7 @@
 // for std::function
 #include <functional>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup thread_pool Thread pool
@@ -351,6 +351,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_THREAD_POOL_HPP

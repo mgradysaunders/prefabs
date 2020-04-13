@@ -16,7 +16,7 @@ funcs = [
 ]
 
 puts <<STR
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup multi_misc_float
@@ -59,10 +59,10 @@ for func in funcs
     incrs << "++itrres"
     incrs = incrs.join ", "
     decls = decls.join "\n#{tab1}"
-    restype = "multi<\n#{tab2}std::decay_t<decltype(pr::#{funcname}(\n#{tab2}#{args2}))>, N...>"
+    restype = "multi<\n#{tab2}std::decay_t<decltype(pre::#{funcname}(\n#{tab2}#{args2}))>, N...>"
     puts <<STR
 /**
- * @brief Wrap `pr::#{funcname}()`.
+ * @brief Wrap `pre::#{funcname}()`.
  */
 template <typename T, std::size_t... N>
 __attribute__((always_inline))
@@ -73,7 +73,7 @@ inline auto #{funcname}(
     #{decls}
     auto itrres = res.begin();
     for (; itrres < res.end(); #{incrs}) {
-        *itrres = pr::#{funcname}(#{args3});
+        *itrres = pre::#{funcname}(#{args3});
     }
     return res;
 }
@@ -83,19 +83,19 @@ end
 
 puts <<STR
 /**
- * @brief Wrap `pr::fstretch()`.
+ * @brief Wrap `pre::fstretch()`.
  */
 template <typename U, typename T, std::size_t... N>
 __attribute__((always_inline))
 inline auto fstretch(const multi<T, N...>& x)
 {
     multi<
-        std::decay_t<decltype(pr::fstretch<U>(
+        std::decay_t<decltype(pre::fstretch<U>(
         std::declval<T>()))>, N...> res;
     auto itrx = x.begin();
     auto itrres = res.begin();
     for (; itrres < res.end(); ++itrx, ++itrres) {
-        *itrres = pr::fstretch<U>(*itrx);
+        *itrres = pre::fstretch<U>(*itrx);
     }
     return res;
 }
@@ -110,6 +110,6 @@ STR
 puts <<STR
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 STR

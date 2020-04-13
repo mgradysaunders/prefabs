@@ -50,10 +50,10 @@
 // for std::enable_if, std::is_floating_point
 #include <type_traits>
 
-// for pr::numeric_limits, pr::fmax, pr::fmin, ...
+// for pre::numeric_limits, pre::fmax, pre::fmin, ...
 #include <preform/math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup misc_float Miscellaneous float
@@ -130,7 +130,7 @@ inline std::enable_if_t<
         return x;
     }
     else {
-        return pr::nextafter(x, +pr::numeric_limits<T>::infinity());
+        return pre::nextafter(x, +pre::numeric_limits<T>::infinity());
     }
 }
 
@@ -200,7 +200,7 @@ inline std::enable_if_t<
         return x;
     }
     else {
-        return pr::nextafter(x, -pr::numeric_limits<T>::infinity());
+        return pre::nextafter(x, -pre::numeric_limits<T>::infinity());
     }
 }
 
@@ -224,8 +224,8 @@ inline std::enable_if_t<
     if (a > b) {
         std::swap(a, b);
     }
-    return pr::fmax(a,
-           pr::fmin(x, b));
+    return pre::fmax(a,
+           pre::fmin(x, b));
 }
 
 /**
@@ -258,7 +258,7 @@ inline std::enable_if_t<
     }
     T x0 = x - a;
     T b0 = b - a;
-    T r0 = pr::remainder(x0, b0);
+    T r0 = pre::remainder(x0, b0);
     if (r0 < T(0)) {
         r0 += b0;
     }
@@ -296,7 +296,7 @@ inline std::enable_if_t<
     T x0 = x - a;
     T b0 = b - a;
     int q0;
-    T r0 = pr::remquo(x0, b0, &q0);
+    T r0 = pre::remquo(x0, b0, &q0);
     if (r0 < T(0)) {
         r0 += b0;
         q0++;
@@ -373,8 +373,8 @@ inline std::enable_if_t<
        std::is_floating_point<T>::value, T> sinpi(T x)
 {
     int quo;
-    T rem = pr::remquo(x, T(1), &quo);
-    T res = pr::sin(pr::numeric_constants<T>::M_pi() * rem);
+    T rem = pre::remquo(x, T(1), &quo);
+    T res = pre::sin(pre::numeric_constants<T>::M_pi() * rem);
     if ((unsigned(quo) % 2)) {
         res = -res;
     }
@@ -395,8 +395,8 @@ inline std::enable_if_t<
        std::is_floating_point<T>::value, T> cospi(T x)
 {
     int quo;
-    T rem = pr::remquo(x, T(1), &quo);
-    T res = pr::cos(pr::numeric_constants<T>::M_pi() * rem);
+    T rem = pre::remquo(x, T(1), &quo);
+    T res = pre::cos(pre::numeric_constants<T>::M_pi() * rem);
     if ((unsigned(quo) % 2)) {
         res = -res;
     }
@@ -413,8 +413,8 @@ inline std::enable_if_t<
     if (!(x1 < x2)) {
         std::swap(x1, x2);
     }
-    int n1 = pr::fastfloor(2 * x1);
-    int n2 = pr::fastfloor(2 * x2);
+    int n1 = pre::fastfloor(2 * x1);
+    int n2 = pre::fastfloor(2 * x2);
     if (n2 - n1 > 3) {
         return -1;
     }
@@ -435,11 +435,11 @@ inline std::enable_if_t<
             case 0:
                 return -1;
             case 1:
-                return pr::sinpi(x1);
+                return pre::sinpi(x1);
             case 2:
-                return pr::sinpi(x2);
+                return pre::sinpi(x2);
             case 3:
-                return pr::min(pr::sinpi(x1), pr::sinpi(x2));
+                return pre::min(pre::sinpi(x1), pre::sinpi(x2));
             default:
                 break;
         }
@@ -458,8 +458,8 @@ inline std::enable_if_t<
     if (!(x1 < x2)) {
         std::swap(x1, x2);
     }
-    int n1 = pr::fastfloor(2 * x1);
-    int n2 = pr::fastfloor(2 * x2);
+    int n1 = pre::fastfloor(2 * x1);
+    int n2 = pre::fastfloor(2 * x2);
     if (n2 - n1 > 3) {
         return +1;
     }
@@ -480,11 +480,11 @@ inline std::enable_if_t<
             case 0:
                 return +1;
             case 1:
-                return pr::sinpi(x1);
+                return pre::sinpi(x1);
             case 2:
-                return pr::sinpi(x2);
+                return pre::sinpi(x2);
             case 3:
-                return pr::max(pr::sinpi(x1), pr::sinpi(x2));
+                return pre::max(pre::sinpi(x1), pre::sinpi(x2));
             default:
                 break;
         }
@@ -511,32 +511,32 @@ inline std::enable_if_t<
                        std::is_unsigned<U>::value) {
         // Float -> Unorm.
         return
-            pr::fastround<T, U>(
-                pr::numeric_limits<U>::max() *
-                pr::min(pr::max(x, T(0)), T(1)));
+            pre::fastround<T, U>(
+                pre::numeric_limits<U>::max() *
+                pre::min(pre::max(x, T(0)), T(1)));
     }
     else if constexpr (std::is_floating_point<T>::value &&
                        std::is_integral<U>::value) {
         // Float -> Snorm.
         return
-            pr::fastround<T, U>(
-                pr::numeric_limits<U>::max() *
-                pr::min(pr::max(x, T(-1)), T(1) -
-                        pr::numeric_limits<T>::machine_epsilon()));
+            pre::fastround<T, U>(
+                pre::numeric_limits<U>::max() *
+                pre::min(pre::max(x, T(-1)), T(1) -
+                        pre::numeric_limits<T>::machine_epsilon()));
     }
     else if constexpr (std::is_unsigned<T>::value &&
                        std::is_floating_point<U>::value) {
         // Unorm -> Float.
         return
             static_cast<U>(x) /
-            static_cast<U>(pr::numeric_limits<T>::max());
+            static_cast<U>(pre::numeric_limits<T>::max());
     }
     else if constexpr (std::is_integral<T>::value &&
                        std::is_floating_point<U>::value) {
         // Snorm -> Float.
         return
             static_cast<U>(x) /
-            static_cast<U>(pr::numeric_limits<T>::max());
+            static_cast<U>(pre::numeric_limits<T>::max());
     }
     else if constexpr (std::is_integral<T>::value &&
                        std::is_integral<U>::value) {
@@ -553,6 +553,6 @@ inline std::enable_if_t<
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_MISC_FLOAT_HPP

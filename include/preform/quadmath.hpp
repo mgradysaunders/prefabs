@@ -46,7 +46,7 @@
 
 #include <preform/math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup quadmath Quadmath
@@ -129,7 +129,7 @@ struct numeric_limits<__float128>
     static constexpr int max_digits10 = 36;
 
     /**
-     * @brief Analogous to `pr::numeric_limits::min_squarable()`.
+     * @brief Analogous to `pre::numeric_limits::min_squarable()`.
      */
     static constexpr __float128 min_squarable() noexcept
     {
@@ -138,7 +138,7 @@ struct numeric_limits<__float128>
     }
 
     /**
-     * @brief Analogous to `pr::numeric_limits::min_invertible()`.
+     * @brief Analogous to `pre::numeric_limits::min_invertible()`.
      */
     static constexpr __float128 min_invertible() noexcept
     {
@@ -376,13 +376,13 @@ struct numeric_constants<__complex128> : numeric_constants<__float128>
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #if !DOXYGEN
 #include "quadmath.inl"
 #endif // #if !DOXYGEN
 
-namespace pr {
+namespace pre {
 
 /**
  * @addtogroup quadmath
@@ -407,8 +407,8 @@ namespace pr {
  *
  * @note
  * Uses `::copysignq()`. Hence,
- * - `pr::sign(-0.0) = -1.0` and
- * - `pr::sign(+0.0) = +1.0`.
+ * - `pre::sign(-0.0) = -1.0` and
+ * - `pre::sign(+0.0) = +1.0`.
  */
 __attribute__((always_inline))
 inline __float128 sign(__float128 x)
@@ -431,8 +431,8 @@ inline __float128 sign(__float128 x)
  *
  * @note
  * Uses `::signbitq()`. Hence,
- * - `pr::step(-0.0) = 0.0` and
- * - `pr::step(+0.0) = 1.0`.
+ * - `pre::step(-0.0) = 0.0` and
+ * - `pre::step(+0.0) = 1.0`.
  */
 __attribute__((always_inline))
 inline __float128 step(__float128 x)
@@ -464,20 +464,20 @@ inline __float128 step(__float128 x)
  * @f]
  *
  * @note
- * If `pr::imag(x) == 0`, computes `pr::sign(pr::real(x))` and
- * preserves sign of `pr::imag(x)`.
+ * If `pre::imag(x) == 0`, computes `pre::sign(pre::real(x))` and
+ * preserves sign of `pre::imag(x)`.
  */
 __attribute__((always_inline))
 inline __complex128 sign(const __complex128& x)
 {
-    if (pr::imag(x) == 0.0q) {
+    if (pre::imag(x) == 0.0q) {
         return {
-            pr::sign(pr::real(x)),
-            pr::imag(x)
+            pre::sign(pre::real(x)),
+            pre::imag(x)
         };
     }
     else {
-        return x / pr::abs(x);
+        return x / pre::abs(x);
     }
 }
 
@@ -491,20 +491,20 @@ inline __complex128 sign(const __complex128& x)
  * @f]
  *
  * @note
- * If `pr::imag(x) == 0`, computes `pr::step(pr::real(x))` and
- * preserves sign of `pr::imag(x)`.
+ * If `pre::imag(x) == 0`, computes `pre::step(pre::real(x))` and
+ * preserves sign of `pre::imag(x)`.
  */
 __attribute__((always_inline))
 inline __complex128 step(const __complex128& x)
 {
-    if (pr::imag(x) == 0.0q) {
+    if (pre::imag(x) == 0.0q) {
         return {
-            pr::step(pr::real(x)),
-            pr::imag(x)
+            pre::step(pre::real(x)),
+            pre::imag(x)
         };
     }
     else {
-        return pr::sign(x) * 0.5q + 0.5q;
+        return pre::sign(x) * 0.5q + 0.5q;
     }
 }
 
@@ -512,6 +512,6 @@ inline __complex128 step(const __complex128& x)
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_QUADMATH_HPP

@@ -51,7 +51,7 @@ extern "C" {
 // for std::basic_ostream
 #include <ostream>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup bash_format Bash formatting
@@ -466,6 +466,6 @@ public:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_BASH_FORMAT_HPP

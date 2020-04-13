@@ -35,19 +35,19 @@
 #ifndef PREFORM_WORLEY_NOISE3_HPP
 #define PREFORM_WORLEY_NOISE3_HPP
 
-// for pr::wrap, pr::cantor
+// for pre::wrap, pre::cantor
 #include <preform/misc_int.hpp>
 
-// for pr::multi
+// for pre::multi
 #include <preform/multi.hpp>
 
-// for pr::multi wrappers
+// for pre::multi wrappers
 #include <preform/multi_math.hpp>
 
-// for pr::pcg32, pr::generate_canonical
+// for pre::pcg32, pre::generate_canonical
 #include <preform/random.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup worley_noise3 Worley noise (3-dimensional)
@@ -113,10 +113,10 @@ public:
         }
 
         // Floor.
-        multi<float_type, 3> t0 = pr::floor(t);
+        multi<float_type, 3> t0 = pre::floor(t);
 
         // Third square distance to nearest vertex.
-        float_type s = pr::numeric_limits<float_type>::infinity();
+        float_type s = pre::numeric_limits<float_type>::infinity();
 
         multi<int, 3> w0 = t0;
         multi<int, 3> wk;
@@ -134,16 +134,16 @@ public:
 
             // Vertex.
             multi<float_type, 3> vk = {
-                float_type(wk[0]) + pr::generate_canonical<float_type>(gen),
-                float_type(wk[1]) + pr::generate_canonical<float_type>(gen),
-                float_type(wk[2]) + pr::generate_canonical<float_type>(gen)
+                float_type(wk[0]) + pre::generate_canonical<float_type>(gen),
+                float_type(wk[1]) + pre::generate_canonical<float_type>(gen),
+                float_type(wk[2]) + pre::generate_canonical<float_type>(gen)
             };
 
             // Offset.
             multi<float_type, 3> tk = t - vk;
 
             // Third square distance.
-            float_type sk = pr::dot(tk, tk) / float_type(3);
+            float_type sk = pre::dot(tk, tk) / float_type(3);
             if (s > sk) {
                 s = sk;
                 if (ds_dt) {
@@ -153,7 +153,7 @@ public:
         }
 
         // Square root.
-        s = pr::sqrt(s);
+        s = pre::sqrt(s);
 
         // Chain rule.
         if (ds_dt) {
@@ -183,6 +183,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_WORLEY_NOISE3_HPP

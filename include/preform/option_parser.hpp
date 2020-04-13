@@ -65,7 +65,7 @@
 // for std::invalid_argument, std::runtime_error, ...
 #include <stdexcept>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup option_parser Option parser
@@ -556,6 +556,6 @@ private:
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_OPTION_PARSER_HPP

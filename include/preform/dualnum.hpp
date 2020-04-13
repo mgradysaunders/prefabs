@@ -43,7 +43,7 @@
 
 #include <preform/math.hpp>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup dualnum Dual number
@@ -694,9 +694,9 @@ constexpr dualnum<T> dual_conj(const dualnum<T>& x)
  */
 template <typename T>
 __attribute__((always_inline))
-constexpr decltype(pr::abs(T() * T())) norm(const dualnum<T>& x)
+constexpr decltype(pre::abs(T() * T())) norm(const dualnum<T>& x)
 {
-    return pr::abs(x.real() * x.real());
+    return pre::abs(x.real() * x.real());
 }
 
 /**
@@ -712,9 +712,9 @@ constexpr decltype(pr::abs(T() * T())) norm(const dualnum<T>& x)
  */
 template <typename T>
 __attribute__((always_inline))
-inline decltype(pr::abs(T())) abs(const dualnum<T>& x)
+inline decltype(pre::abs(T())) abs(const dualnum<T>& x)
 {
-    return pr::abs(x.real());
+    return pre::abs(x.real());
 }
 
 /**@}*/
@@ -731,7 +731,7 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isinf(const dualnum<T>& x)
 {
-    return pr::isinf(x.real()) || pr::isinf(x.dual());
+    return pre::isinf(x.real()) || pre::isinf(x.dual());
 }
 
 /**
@@ -741,7 +741,7 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isnan(const dualnum<T>& x)
 {
-    return pr::isnan(x.real()) || pr::isnan(x.dual());
+    return pre::isnan(x.real()) || pre::isnan(x.dual());
 }
 
 /**
@@ -751,7 +751,7 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isfinite(const dualnum<T>& x)
 {
-    return pr::isfinite(x.real()) && pr::isfinite(x.dual());
+    return pre::isfinite(x.real()) && pre::isfinite(x.dual());
 }
 
 /**
@@ -761,14 +761,14 @@ template <typename T>
 __attribute__((always_inline))
 inline bool isnormal(const dualnum<T>& x)
 {
-    return pr::isnormal(x.real()) && pr::isnormal(x.dual());
+    return pre::isnormal(x.real()) && pre::isnormal(x.dual());
 }
 
 /**@}*/
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #if !DOXYGEN
 #include "dualnum.inl"

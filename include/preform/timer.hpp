@@ -41,7 +41,7 @@
 // for std::chrono
 #include <chrono>
 
-namespace pr {
+namespace pre {
 
 /**
  * @defgroup timer Timer
@@ -105,6 +105,6 @@ using high_resolution_timer = timer<std::chrono::high_resolution_clock>;
 
 /**@}*/
 
-} // namespace pr
+} // namespace pre
 
 #endif // #ifndef PREFORM_TIMER_HPP
