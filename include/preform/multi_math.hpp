@@ -405,17 +405,17 @@ inline decltype(pre::sqrt(pre::abs(T()))) length_safe(const multi<T, N>& arr)
  *
  * @note
  * By default, calls `length_safe()`.
- * Define `PR_DEFAULT_LENGTH_FAST` before including to call
+ * Define `PREFORM_DEFAULT_LENGTH_FAST` before including to call
  * `length_fast()`.
  */
 template <typename T, std::size_t N>
 inline decltype(pre::sqrt(pre::abs(T()))) length(const multi<T, N>& arr)
 {
-#if PR_DEFAULT_LENGTH_FAST
+#if PREFORM_DEFAULT_LENGTH_FAST
     return length_fast(arr);
 #else
     return length_safe(arr);
-#endif // #if PR_DEFAULT_LENGTH_FAST
+#endif // #if PREFORM_DEFAULT_LENGTH_FAST
 }
 
 /**
@@ -492,18 +492,18 @@ inline multi<decltype(T()/pre::sqrt(pre::abs(T()))), N>
  *
  * @note
  * By default, calls `normalize_safe()`.
- * Define `PR_DEFAULT_NORMALIZE_FAST` before including to call
+ * Define `PREFORM_DEFAULT_NORMALIZE_FAST` before including to call
  * `normalize_fast()`.
  */
 template <typename T, std::size_t N>
 inline multi<decltype(T()/pre::sqrt(pre::abs(T()))), N>
                                     normalize(const multi<T, N>& arr)
 {
-#if PR_DEFAULT_NORMALIZE_FAST
+#if PREFORM_DEFAULT_NORMALIZE_FAST
     return normalize_fast(arr);
 #else
     return normalize_safe(arr);
-#endif // #if PR_DEFAULT_NORMALIZE_FAST
+#endif // #if PREFORM_DEFAULT_NORMALIZE_FAST
 }
 
 /**
