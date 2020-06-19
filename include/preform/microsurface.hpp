@@ -374,7 +374,7 @@ public:
 
         // Handle cos(thetao) ~= +1.
         if (cos_thetao > float_type(0.99999)) {
-            float_type r = pre::sqrt(pre::log(-u[0]));
+            float_type r = pre::sqrt(-pre::log1p(-u[0]));
             float_type phi =
                 2 * pre::numeric_constants<float_type>::M_pi() * u[1];
             return {
