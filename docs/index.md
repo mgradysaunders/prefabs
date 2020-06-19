@@ -1,7 +1,6 @@
 ---
 layout: page
 title: preform
-subtitle: C++ header-only utilities
 ---
 
 # What is preform?
